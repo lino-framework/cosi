@@ -47,7 +47,7 @@ class DemoTests(BaseTestCase):
         self.run_django_manage_test()
 
 
-from cosi_tests import QuickTest
+# from cosi_tests import QuickTest
 
 
 

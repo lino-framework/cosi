@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2013 Luc Saffre
+# Copyright 2013-2014 Luc Saffre
 # This file is part of the Lino-Cosi project.
 # Lino-Cosi is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,4 +12,4 @@
 # You should have received a copy of the GNU General Public License
 # along with Lino-Cosi; if not, see <http://www.gnu.org/licenses/>.
 
-from cosi_tests import *
+from .cosi_tests import *
