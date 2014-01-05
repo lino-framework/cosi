@@ -1,0 +1,109 @@
+# French translations for lino-faggio.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the lino-faggio
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lino-faggio 0.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-10-08 03:09+0300\n"
+"PO-Revision-Date: 2013-05-31 15:30+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0\n"
+
+#: lino_faggio/models.py:68
+msgid "Are you sure?"
+msgstr ""
+
+#: lino_faggio/models.py:72 lino_faggio/models.py:97
+msgid "Confirm"
+msgstr ""
+
+#: lino_faggio/models.py:75
+#, python-format
+msgid "Confirm enrolment of <b>%(pupil)s</b> to <b>%(course)s</b>."
+msgstr ""
+
+#: lino_faggio/models.py:80
+msgid "Certify"
+msgstr ""
+
+#: lino_faggio/models.py:85
+#, python-format
+msgid "Print certificate for <b>%(pupil)s</b>."
+msgstr ""
+
+#: lino_faggio/cal/models.py:36
+msgid "Guest role for pupils"
+msgstr ""
+
+#: lino_faggio/cal/models.py:49
+msgid "Tariff"
+msgstr ""
+
+#: lino_faggio/cal/models.py:131 lino_faggio/contacts/models.py:62
+#: lino_faggio/contacts/models.py:139 lino_faggio/courses/models.py:82
+msgid "General"
+msgstr ""
+
+#: lino_faggio/cal/models.py:137 lino_faggio/contacts/models.py:68
+#: lino_faggio/contacts/models.py:107 lino_faggio/contacts/models.py:146
+msgid "More"
+msgstr ""
+
+#: lino_faggio/courses/models.py:32
+msgid "Instructor"
+msgstr ""
+
+#: lino_faggio/courses/models.py:33
+msgid "Instructors"
+msgstr ""
+
+#: lino_faggio/courses/models.py:37
+msgid "Participant"
+msgstr ""
+
+#: lino_faggio/courses/models.py:38
+msgid "Participants"
+msgstr ""
+
+#: lino_faggio/settings/__init__.py:137
+msgid "Anonymous"
+msgstr ""
+
+#: lino_faggio/settings/__init__.py:139
+msgid "User"
+msgstr ""
+
+#: lino_faggio/settings/__init__.py:140
+msgid "Administrator"
+msgstr ""
+
+#~ msgid ""
+#~ "You will now probably want to use"
+#~ " the <b>Log in</b> button in the "
+#~ "upper right corner and log in."
+#~ msgstr ""
+
+#~ msgid "Welcome"
+#~ msgstr ""
+
+#~ msgid "Hi, %(first_name)s!"
+#~ msgstr ""
+
+#~ msgid "You have"
+#~ msgstr ""
+
+#~ msgid "Quick links:"
+#~ msgstr ""
+
+#~ msgid "Upcoming reminders"
+#~ msgstr ""
+

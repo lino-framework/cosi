@@ -1,0 +1,30 @@
+.. _cosi:
+
+===========
+Lino-Cosi
+===========
+
+Welcome to the *Lino-Cosi* project homepage.
+
+.. py2rst::
+
+  import lino_cosi
+  print lino_cosi.SETUP_INFO['long_description']
+
+This document is meant for system administrators and developers.
+there is also a :ref:`user manual <cosi.userdocs>`,
+which might be better suited for end-users.
+
+
+Content
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   install
+   tested/index
+   API <api/lino_cosi>
+   todo
+   changes
+   
