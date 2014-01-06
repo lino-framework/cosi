@@ -29,31 +29,11 @@ from django.utils.translation import ugettext_lazy as _
 #~ from lino import mixins
 from lino import dd
 
-#~ contacts = dd.resolve_app('contacts')
-#~ sales = dd.resolve_app('sales')
-
-#~ class Partner(contacts.Partner,sales.Customer):
-    #~ class Meta(contacts.Partner.Meta):
-        #~ app_label = 'contacts'
-
-#~ class Person(contacts.Person,sales.Customer):
-    #~ class Meta(contacts.Person.Meta):
-        #~ app_label = 'contacts'
-
-#~ class Company(contacts.Company,sales.Customer):
-    #~ class Meta(contacts.Company.Meta):
-        #~ app_label = 'contacts'
-
 
 def site_setup(site):
     c = site.modules.contacts
     for T in (c.Partners, c.Companies, c.Persons):
         T.add_detail_tab("ledger", "ledger.MovementsByPartner")
-
-    # site.modules.contacts.Persons.set_detail_layout(
-    #     name_box="""last_name first_name:15
-    #     gender title:10 birth_date""",
-    #     info_box="id:5 language:10 \nage")
 
     site.modules.system.SiteConfigs.set_detail_layout(
         """
@@ -87,5 +67,3 @@ def set_merge_actions(sender, **kw):
         #~ m.merge_row = dd.MergeAction(m)
         #~ m.hide_elements('region')
 
-    #~ modules.contacts.PartnerDetail.address_box.remove_element('region')
-    #~ modules.contacts.Partner.hide_elements('region')

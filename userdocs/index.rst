@@ -1,7 +1,7 @@
 .. _cosi.userdocs:
 
 Lino-Cosi User Manual
-=======================
+=====================
 
 
 
@@ -15,4 +15,5 @@ Lino-Cosi User Manual
    contacts
    products
    sales
+   ledger
    system

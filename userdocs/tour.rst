@@ -1,11 +1,8 @@
-.. _faggio.tour:
+.. _cosi.tour:
 
 ==============================
-An introduction to Lino-Faggio
+An introduction to Lino-Così
 ==============================
 
 - Partners
 
-- Create some :ddref:`courses.Course`
-
-- :ddref:`sales.InvoicesToCreate`

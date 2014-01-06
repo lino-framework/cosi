@@ -26,22 +26,6 @@ settings.SITE.title = "Lino-Cosi Reference Manual"
 # General configuration
 # ---------------------
 
-# Add any Sphinx extension module names here, as strings. They can be extensions
-# coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-#~ extensions = [
-  #~ 'sphinx.ext.autodoc',
-  #~ 'sphinx.ext.autosummary',
-  # 'sphinx.ext.inheritance_diagram',
-  # 'sphinx.ext.todo',
-  #~ 'sphinx.ext.extlinks',
-  #~ 'sphinx.ext.graphviz',
-  #~ 'sphinx.ext.intersphinx',
-  #~ 'sphinx.ext.doctest',
-#~ ]
-
-#~ extensions.append('sphinxcontrib.autorun')
-
-
 primary_domain = 'py'
 
 
@@ -60,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = settings.SITE.title
-copyright = u'2012-2013, Luc Saffre'
+copyright = u'2012-2014, Luc Saffre'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

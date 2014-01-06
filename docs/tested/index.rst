@@ -12,6 +12,7 @@ using `manage.py run`.
 
 .. toctree::
    :maxdepth: 1
+   :glob:
   
    *
 

@@ -35,7 +35,7 @@ class DocsTests(BaseTestCase):
         self.run_packages_test(SETUP_INFO['packages'])
 
     def test_demo(self):
-        self.run_simple_doctests('docs/tested/demo.rst')
+        self.run_simple_doctests('docs/tested/*.rst')
 
 
 class DemoTests(BaseTestCase):

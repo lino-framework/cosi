@@ -13,15 +13,10 @@ Reference
 .. actor:: sales.ShippingMode
 .. actor:: sales.PaymentTerm
 .. actor:: sales.InvoicingMode
-.. actor:: sales.InvoicesToCreate
-
-.. actor:: accounts.Account
-.. actor:: accounts.Group
-.. actor:: accounts.Chart
-.. actor:: ledger.Journal
-.. actor:: ledger.Voucher
 
 .. actor:: vat.VatRegimes
 .. actor:: vat.TradeTypes
+
+.. actor:: declarations.Declaration
 
 
