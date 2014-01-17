@@ -11,7 +11,7 @@
 import sys, os
 
 from atelier.sphinxconf import configure
-configure(globals(),'lino_cosi.settings.test')
+configure(globals(), 'lino_cosi.settings.test')
 
 
 from django.conf import settings

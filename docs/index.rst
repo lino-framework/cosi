@@ -9,7 +9,7 @@ Welcome to the *Lino-Cosi* project homepage.
 .. py2rst::
 
   import lino_cosi
-  print lino_cosi.SETUP_INFO['long_description']
+  print(lino_cosi.SETUP_INFO['long_description'])
 
 This document is meant for system administrators and developers.
 there is also a :ref:`user manual <cosi.userdocs>`,

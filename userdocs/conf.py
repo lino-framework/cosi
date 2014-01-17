@@ -3,7 +3,7 @@
 import sys, os
 
 from atelier.sphinxconf import configure
-configure(globals(),'lino_cosi.settings.demo')
+configure(globals(), 'lino_cosi.settings.demo')
 
 
 extensions += ['lino.utils.actordoc']
