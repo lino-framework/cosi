@@ -105,3 +105,11 @@ class Site(Site):
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
         yield 'lino_cosi'
+
+    # def setup_plugins(self):
+    #     """
+    #     Change the default value of :setting:`contacts.hide_region` to True.
+    #     """
+    #     self.plugins.contacts.configure(hide_region=True)
+    #     super(Site, self).setup_plugins()
+

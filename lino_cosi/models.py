@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2011-2013 Luc Saffre
+# Copyright 2011-2014 Luc Saffre
 # This file is part of the Lino project.
 # Lino is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,19 +51,14 @@ def site_setup(site):
         """)
 
 
-@dd.when_prepared('contacts.Person', 'contacts.Company')
-def hide_region(model):
-    model.hide_elements('region')
+# @dd.when_prepared('contacts.Person', 'contacts.Company')
+# def hide_region(model):
+#     model.hide_elements('region')
 
 
 @dd.receiver(dd.pre_analyze)
 def set_merge_actions(sender, **kw):
-    #~ logger.info("%s.set_merge_actions()",__name__)
-    partners = sender.modules[settings.SITE.partners_app_label]
-    #~ print 20130202, app.keys()
+    partners = dd.modules.contacts
     for m in (partners.Person, partners.Organisation):
-        #~ print repr(m)
         m.define_action(merge_row=dd.MergeAction(m))
-        #~ m.merge_row = dd.MergeAction(m)
-        #~ m.hide_elements('region')
 
