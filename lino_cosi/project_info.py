@@ -19,7 +19,7 @@ SETUP_INFO = dict(
     test_suite='tests',
     description="A Lino application for for simply doing your accounting",
     long_description="""\
-Lino-Cosi is a `Lino <http://www.lino-framework.org>`_
+Lino Cosi is a `Lino <http://www.lino-framework.org>`_
 application to make accounting simple.
 
 """,
