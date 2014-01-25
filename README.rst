@@ -7,7 +7,7 @@ A Lino application for for simply doing your accounting
 Description
 -----------
 
-Lino-Cosi is a `Lino <http://www.lino-framework.org>`_
+Lino Cosi is a `Lino <http://www.lino-framework.org>`_
 application to make accounting simple.
 
 
