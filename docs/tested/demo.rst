@@ -33,42 +33,39 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-15 applications: about, contenttypes, system, users, countries, contacts, products, accounts, ledger, vat, declarations, sales, finan, lino_cosi, djangosite.
-39 models:
+15 apps: about, contenttypes, system, users, countries, contacts, products, accounts, ledger, vat, declarations, sales, finan, lino_cosi, djangosite.
+37 models:
 ========================== ========= =======
  Name                       #fields   #rows
 -------------------------- --------- -------
  accounts.Account           13        12
  accounts.Chart             4         1
- accounts.Group             7         6
- contacts.Company           27        12
+ accounts.Group             7         7
+ contacts.Company           26        12
  contacts.CompanyType       7         16
  contacts.Partner           23        81
  contacts.Person            28        69
  contacts.Role              4         0
  contacts.RoleType          4         5
- contenttypes.ContentType   4         40
+ contenttypes.ContentType   4         38
  countries.Country          6         8
  countries.Place            8         75
  declarations.Declaration   18        0
  finan.BankStatement        12        27
- finan.BankStatementItem    11        178
+ finan.BankStatementItem    11        124
  finan.JournalEntry         10        0
  finan.JournalEntryItem     11        0
  finan.PaymentOrder         12        27
- finan.PaymentOrderItem     10        162
- ledger.AccountInvoice      18        140
+ finan.PaymentOrderItem     10        135
+ ledger.AccountInvoice      19        140
  ledger.InvoiceItem         9         224
  ledger.Journal             17        7
- ledger.Movement            9         890
+ ledger.Movement            9         1015
  ledger.Voucher             8         260
  products.Product           12        12
  products.ProductCat        5         2
- sales.Invoice              26        66
+ sales.Invoice              25        66
  sales.InvoiceItem          13        130
- sales.InvoicingMode        8         1
- sales.PaymentTerm          7         0
- sales.SalesRule            4         0
  sales.ShippingMode         5         0
  system.HelpText            4         2
  system.SiteConfig          10        1
@@ -77,6 +74,7 @@ Test whether :meth:`get_db_overview_rst
  users.Membership           3         0
  users.Team                 4         0
  users.User                 13        3
+ vat.PaymentTerm            7         0
 ========================== ========= =======
 <BLANKLINE>
 

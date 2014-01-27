@@ -31,10 +31,6 @@ from lino import dd
 
 
 def site_setup(site):
-    c = site.modules.contacts
-    for T in (c.Partners, c.Companies, c.Persons):
-        T.add_detail_tab("ledger", "ledger.MovementsByPartner")
-
     site.modules.system.SiteConfigs.set_detail_layout(
         """
         site_company next_partner_id:10

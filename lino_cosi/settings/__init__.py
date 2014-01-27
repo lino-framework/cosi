@@ -18,6 +18,8 @@ Default settings module for a :ref:`cosi` project.
 
 from __future__ import unicode_literals
 
+from decimal import Decimal
+
 from lino.projects.std.settings import *
 
 from django.utils.translation import ugettext_lazy as _
@@ -74,8 +76,6 @@ class Site(Site):
         add('100', _("User"),            'U U U', 'user')
         add('900', _("Administrator"),   'A A A', 'admin')
 
-    #~ partners_app_label = 'partners'
-    #~ partners_app_label = 'contacts'
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()
         yield 'django.contrib.contenttypes'
@@ -84,14 +84,18 @@ class Site(Site):
         #~ yield 'django.contrib.auth'
         yield 'lino.modlib.countries'
         #~ yield 'lino.modlib.properties'
-        yield 'lino.modlib.' + self.partners_app_label
+        yield 'lino.modlib.contacts'
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'
         yield 'lino.modlib.accounts'
+
+        # ledger must come before sales because its demo fixture
+        # creates journals
+
         yield 'lino.modlib.ledger'
+        yield 'lino.modlib.sales'
         yield 'lino.modlib.vat'
         yield 'lino.modlib.declarations'
-        yield 'lino.modlib.sales'
         yield 'lino.modlib.finan'
         #~ 'lino.modlib.journals',
         #~ 'lino.modlib.projects',
@@ -106,10 +110,22 @@ class Site(Site):
         # yield 'lino.modlib.pages'
         yield 'lino_cosi'
 
-    # def setup_plugins(self):
-    #     """
-    #     Change the default value of :setting:`contacts.hide_region` to True.
-    #     """
-    #     self.plugins.contacts.configure(hide_region=True)
-    #     super(Site, self).setup_plugins()
+    def setup_plugins(self):
+        """
+        Change the default value of certain plugin settings.
+
+        """
+        # self.plugins.contacts.configure(hide_region=True)
+        self.plugins.ledger.configure(use_pcmn=True)
+        # self.plugins.vat.configure(
+        #     VAT_CLASS_TO_RATE=dict(
+        #         exempt=Decimal(),
+        #         reduced=Decimal('0.06'),
+        #         normal=Decimal('0.21')
+        #     ))
+        self.plugins.vat.VAT_CLASS_TO_RATE.update(
+            reduced=Decimal('0.06'),
+            normal=Decimal('0.21'))
+
+        super(Site, self).setup_plugins()
 

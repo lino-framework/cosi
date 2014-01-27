@@ -24,18 +24,18 @@ Basic truths of accounting
 
 >>> ses.show(ledger.Journals,column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-==================== =============================== ============ ====================================== ========
- ref                  Designation                     Trade Type   Account                                dc
--------------------- ------------------------------- ------------ -------------------------------------- --------
- S                    Sales invoices                  Sales                                               Credit
- P                    Purchase invoices               Purchases                                           Debit
- B                    Bestbank                                     (bestbank) Bestbank                    Debit
- PO                   Payment Orders                  Purchases    (bestbankpo) Payment Orders Bestbank   Debit
- C                    Cash                                         (cash) Cash                            Debit
- M                    Miscellaneous Journal Entries                                                       Debit
- V                    VAT declarations                             (vatdcl) VAT                           Debit
- **Total (7 rows)**                                                                                       **6**
-==================== =============================== ============ ====================================== ========
+==================== =============================== ============ ================================ ========
+ ref                  Designation                     Trade Type   Account                          dc
+-------------------- ------------------------------- ------------ -------------------------------- --------
+ S                    Sales invoices                  Sales                                         Credit
+ P                    Purchase invoices               Purchases                                     Debit
+ B                    Bestbank                                     (5500) Bestbank                  Debit
+ PO                   Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
+ C                    Cash                                         (5700) Cash                      Debit
+ M                    Miscellaneous Journal Entries                                                 Debit
+ V                    VAT declarations                             (4513) VAT to declare            Debit
+ **Total (7 rows)**                                                                                 **6**
+==================== =============================== ============ ================================ ========
 <BLANKLINE>
 
 
@@ -47,21 +47,21 @@ Basic truths of accounting
 ------------------------------- --------------
  **Arens Andreas**               35,00
  **Arens Annette**               65,00
- **Bäckerei Ausdemwald**         85,17
+ **Bäckerei Ausdemwald**         85,19
  **Rumma & Ko OÜ**               158,59
- **Altenberg Hans**              429,95
+ **Altenberg Hans**              429,97
  **Ausdemwald Alfons**           79,99
- **Radermacher Daniela**         359,96
+ **Radermacher Daniela**         359,97
  **Radermacher Edgard**          289,92
  **Radermacher Fritz**           70,00
- **Donderweer BV**               429,95
+ **Donderweer BV**               429,97
  **Van Achter NV**               79,99
- **Hans Flott & Co**             33,98
+ **Hans Flott & Co**             33,99
  **Bernd Brechts Bücherladen**   100,00
  **Reinhards Baumschule**        199,99
- **Moulin Rouge**                229,96
- **Auto École Verte**            113,97
- **Total (16 rows)**             **2 761,42**
+ **Moulin Rouge**                229,98
+ **Auto École Verte**            113,98
+ **Total (16 rows)**             **2 761,53**
 =============================== ==============
 <BLANKLINE>
 
@@ -71,10 +71,10 @@ Basic truths of accounting
 ======================== ==============
  Partner                  Balance
 ------------------------ --------------
- **Bäckerei Mießen**      500,33
+ **Bäckerei Mießen**      500,32
  **Bäckerei Schmitz**     1 189,50
  **Garage Mergelsberg**   3 242,18
- **Total (3 rows)**       **4 932,01**
+ **Total (3 rows)**       **4 932,00**
 ======================== ==============
 <BLANKLINE>
 
