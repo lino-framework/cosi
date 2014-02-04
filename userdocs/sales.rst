@@ -11,9 +11,7 @@ Reference
 
 .. actor:: sales.Invoice
 .. actor:: sales.ShippingMode
-.. actor:: sales.PaymentTerm
-.. actor:: sales.InvoicingMode
-
+.. actor:: vat.PaymentTerm
 .. actor:: vat.VatRegimes
 .. actor:: vat.TradeTypes
 
