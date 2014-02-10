@@ -1,10 +1,10 @@
 .. _cosi:
 
 ===========
-Lino-Cosi
+Lino Così
 ===========
 
-Welcome to the *Lino-Cosi* project homepage.
+Welcome to the *Lino Così* project homepage.
 
 .. py2rst::
 
