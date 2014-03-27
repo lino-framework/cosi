@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013 Luc Saffre
+# Copyright 2013-2014 Luc Saffre
 # This file is part of the Lino Cosi project.
 # Lino Cosi is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ This is a real-world example of how the application developer
 can provide automatic data migrations for :ref:`dpy`.
 
 This module is used because a :ref:`cosi`
-Site has :setting:`migration_module` set to ``"lino_cosi.migrate"``.
+Site has :setting:`migration_class` set to ``"lino_cosi.migrate.Migrator"``.
 
 """
 
@@ -32,11 +32,16 @@ from lino.utils import mti
 from lino.utils import dblogger
 from lino import dd
 
+from north.dpy import Migrator
 
-def migrate_from_0_0_1(globals_dict):
-    """
-    - Renamed `countries.City` to `countries.Place`
-    """
-    countries_Place = resolve_model("countries.Place")
-    globals_dict.update(countries_City=countries_Place)
-    return '0.0.2'
+
+class Migrator(Migrator):
+
+
+    def migrate_from_0_0_1(globals_dict):
+        """
+        - Renamed `countries.City` to `countries.Place`
+        """
+        countries_Place = resolve_model("countries.Place")
+        globals_dict.update(countries_City=countries_Place)
+        return '0.0.2'
