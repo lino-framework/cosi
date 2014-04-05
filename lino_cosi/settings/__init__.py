@@ -88,6 +88,7 @@ class Site(Site):
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'
         yield 'lino.modlib.accounts'
+        yield 'lino.modlib.sepa'
 
         # ledger must come before sales because its demo fixture
         # creates journals
