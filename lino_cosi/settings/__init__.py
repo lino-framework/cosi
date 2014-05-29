@@ -90,6 +90,9 @@ class Site(Site):
         yield 'lino.modlib.accounts'
         yield 'lino.modlib.sepa'
 
+        yield 'lino.modlib.appypod'
+        yield 'lino.modlib.export_excel'
+
         # ledger must come before sales because its demo fixture
         # creates journals
 
