@@ -15,7 +15,7 @@
 SETUP_INFO = dict(
     name='lino-cosi',
     version='0.0.1',
-    install_requires=['lino'],
+    install_requires=['lino', 'django-iban', 'xlwt'],
     test_suite='tests',
     description="A Lino application for for simply doing your accounting",
     long_description="""\
