@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2013, Luc Saffre
+# This file is distributed under the same license as the Lino-Cosi
+# Benutzerhandbuch package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Lino-Cosi Benutzerhandbuch 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-02 13:11+0300\n"
+"PO-Revision-Date: 2014-06-02 13:11+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: nl <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+# 6cd461ecf12148e185be270aa78135a9
+#: ../products.rst:5
+msgid "Products"
+msgstr ""
+
+# 49d1646324d643eeb6f18cfe5b0e881e
+#: ../products.rst:0
+msgid "Product (model)"
+msgstr ""
+
+# 7ef5295bbbc7419e80773d56e77a0dfb
+#: ../products.rst:0
+msgid "Product Category (model)"
+msgstr ""
+
+# 01fb9af62d6d48ad9d73f4d12d88f01c
+#: None:2
+msgid "Product (model in products)"
+msgstr ""
+
+# 33bf0618de92486c842510cc8901cbec
+#: None:2
+msgid "Product Category (model in products)"
+msgstr ""
+

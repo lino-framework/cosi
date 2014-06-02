@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2013, Luc Saffre
+# This file is distributed under the same license as the Lino-Cosi Benutzerhandbuch package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Lino-Cosi Benutzerhandbuch 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-02 13:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../system.rst:5
+# 313e4437fbe64533bf9ff0fbb24b47d7
+msgid "System"
+msgstr ""
+
+#: ../system.rst:0
+# 9923f1f73c5746ffa6fe6b08bcb429b2
+msgid "content type (model)"
+msgstr ""
+
+#: ../system.rst:0
+# e87e453ba2d047279e5cb8c51a2bb8d7
+msgid "Site configuration (model)"
+msgstr ""
+
+#: None:2
+# 547fc47f03d847e597093fe4db50cbd9
+msgid "content type (model in contenttypes)"
+msgstr ""
+
+#: None:2
+# ee16c64b2ee245b69022508b627b9830
+msgid "Site configuration (model in system)"
+msgstr ""
+

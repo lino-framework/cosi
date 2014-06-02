@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2013, Luc Saffre
+# This file is distributed under the same license as the Lino-Cosi Benutzerhandbuch package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Lino-Cosi Benutzerhandbuch 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-02 13:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../contacts.rst:5
+# 33c1748cc2ed4b4f8826e3a29380cf3d
+msgid "Contacts"
+msgstr ""
+
+#: ../contacts.rst:0
+# b135b936a4964a3890fe076132af1ed3
+msgid "Partner (model)"
+msgstr ""
+
+#: ../contacts.rst:0
+# b077289c21b64b08b187b9f88bf55725
+msgid "Person (model)"
+msgstr ""
+
+#: ../contacts.rst:0
+# 224e2482d6c1440aa7dae8840c044469
+msgid "Organization (model)"
+msgstr ""
+
+#: ../contacts.rst:0
+# 2f266cbdb6894da39671e1ae171cc8d9
+msgid "Contact Person (model)"
+msgstr ""
+
+#: ../contacts.rst:0
+# 27c75d60795a4a5891eefdd780513767
+msgid "Function (model)"
+msgstr ""
+
+#: ../contacts.rst:0
+# 6eae1a8e0cce42918d237489825f8fdc
+msgid "Organization Type (model)"
+msgstr ""
+
+#: ../contacts.rst:11
+# 80393b08ddc049e0bdc473a845970bdc
+msgid "Kontakte verwalten"
+msgstr ""
+
+#: ../contacts.rst:13
+# 4fb570588dcd41199cd99fbcf47c860a
+msgid "Im Menü :menuselection:`Kontakte` haben wir drei Befehle: :menuselection:`Kontakte --> Personen`, :menuselection:`Kontakte --> Organisationen` und :menuselection:`Kontakte --> Partner`."
+msgstr ""
+
+#: ../contacts.rst:20
+# 856a19e0e8d6494ebee2a7ea79d86f31
+msgid "In Lino Così müssen Empfänger von Verkaufsrechnungen und Absender von Einkaufsrechnungen *zumindest* als \"Partner\" erfasst werden. Ein Partner ist normalerweise entweder eine Organisation (Firma, Institution,...) oder eine Person. Theoretisch kann er auch beides zugleich sein: Zum Beispiel kann ein befreundeter selbstständiger Schreiner zugleich Person und Organisation (Einzelunternehmen) sein."
+msgstr ""
+
+#: ../contacts.rst:28
+# 710dbe2b36444000937841217b1bb737
+msgid "Ein Partner kann (noch theoretischer) auch weder Person noch Organisation sein: zum Beispiel eine Verteilerliste."
+msgstr ""
+
+#: ../contacts.rst:32
+# cc3c230f9113483890b51dcc66cb28aa
+msgid "Produkte verwalten"
+msgstr ""
+
+#: ../contacts.rst:34
+# f08b3a35610d4c299789f23191bcd3b3
+msgid "Produkte sind alle Dinge, die Sie verkaufen wollen. Also das können auch Dienstleistungen sein. Ein Produkt hat eine Bezeichnung und einen Stückpreis."
+msgstr ""
+
+#: ../contacts.rst:38
+# 105ea14e3e8e4013877338efd9116f02
+msgid "Wenn Sie viele Produkte haben, können Sie diese optional in Kategorien ordnen."
+msgstr ""
+
+#: None:2
+# 0ad77a7b29d3457fb07935077cfd342f
+msgid "Partner (model in contacts)"
+msgstr ""
+
+#: None:2
+# 00ca370fd4f14655b58daa9fcec811da
+msgid "Person (model in contacts)"
+msgstr ""
+
+#: None:2
+# fa4abc33bad844e89950f13ec8faec22
+msgid "Organization (model in contacts)"
+msgstr ""
+
+#: None:2
+# 7e46516834434a7398a5527a1348e02d
+msgid "Contact Person (model in contacts)"
+msgstr ""
+
+#: None:2
+# 4a60c3f59b2644cdbeaeb27f3a5d189b
+msgid "Function (model in contacts)"
+msgstr ""
+
+#: None:2
+# 08f8928681604c8da854a7966af69422
+msgid "Organization Type (model in contacts)"
+msgstr ""
+
