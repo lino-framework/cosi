@@ -22,7 +22,7 @@ Content
 .. toctree::
    :maxdepth: 1
 
-   install
+   install/index
    tested/index
    API <api/lino_cosi>
    todo
