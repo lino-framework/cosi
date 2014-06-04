@@ -29,10 +29,10 @@ check whether we get the expected response.
 >>> obj = sales.Invoice.objects.get(pk=1)
 >>> obj.clear_cache()
 >>> print(ses.run(obj.do_print)) #doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
-{'refresh': True, 
+{'success': True, 
 'open_url': u'/media/userdocs/appyodt/sales.Invoice-1.odt', 
-'message': u'S#1 printable has been built.', 
-'success': True}
+'message': u'sales.Invoice-1.odt has been built.', 
+'refresh': True}
 
 Note that this test should fail if you run the test suite without a 
 LibreOffice server running.

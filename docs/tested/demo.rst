@@ -22,7 +22,7 @@ using the Django API:
 >>> contacts.Person.objects.count()
 69
 >>> contacts.Company.objects.count()
-12
+20
 
 
 The test database
