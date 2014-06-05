@@ -45,7 +45,7 @@ class Site(Site):
     demo_fixtures = 'std few_languages furniture \
     demo demo2 demo_bookings'.split()
 
-    languages = 'en de fr'
+    languages = 'en de fr et'
     #~ languages = 'de fr et en'.split()
 
     #~ project_model = 'tickets.Project'
