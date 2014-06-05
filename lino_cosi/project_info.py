@@ -43,6 +43,7 @@ Topic :: Office/Business :: Scheduling
 SETUP_INFO.update(packages=[
     'lino_cosi',
     'lino_cosi.settings',
+    'lino_cosi.settings.est',
     'lino_cosi.fixtures',
     'lino_cosi.tests',
 ])
