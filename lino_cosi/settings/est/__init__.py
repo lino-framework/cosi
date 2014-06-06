@@ -31,8 +31,8 @@ from lino_cosi.settings import *
 class Site(Site):
     title = "Lino Cosi Eesti"
     languages = 'en et'
-    demo_fixtures = 'std few_languages furniture \
-    demo est demo2'.split()
+    demo_fixtures = 'std est furniture \
+    demo demo2'.split()
 
     def setup_plugins(self):
         self.plugins.contacts.configure(hide_region=False)
