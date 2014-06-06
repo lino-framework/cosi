@@ -27,14 +27,12 @@ from decimal import Decimal
 
 from lino_cosi.settings import *
 
-from django.utils.translation import ugettext_lazy as _
-
 
 class Site(Site):
     title = "Lino Cosi Eesti"
     languages = 'en et'
     demo_fixtures = 'std few_languages furniture \
-    demo ee demo2'.split()
+    demo est demo2'.split()
 
     def setup_plugins(self):
         self.plugins.contacts.configure(hide_region=False)
