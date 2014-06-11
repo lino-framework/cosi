@@ -25,17 +25,17 @@ class BaseTestCase(TestCase):
 
 
 class DocsTests(BaseTestCase):
-    def test_cosi(self):
-        return self.run_docs_doctests('tested/cosi.rst')
+    # def test_cosi(self):
+    #     return self.run_docs_doctests('tested/cosi.rst')
 
-    def test_general(self):
-        return self.run_docs_doctests('tested/general.rst')
+    # def test_general(self):
+    #     return self.run_docs_doctests('tested/general.rst')
 
     def test_packages(self):
         self.run_packages_test(SETUP_INFO['packages'])
 
     def test_demo(self):
-        self.run_simple_doctests('docs/tested/*.rst')
+        self.run_simple_doctests('docs/tested/est.rst')
 
 
 class DemoTests(BaseTestCase):
