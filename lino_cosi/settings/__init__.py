@@ -33,9 +33,8 @@ class Site(Site):
     
     """
 
-    #~ title = __name__
+    title = "Lino Così"
     verbose_name = "Lino Così"
-    #~ verbose_name = "Lino Cosi"
     description = _("a Lino application to make Belgian accounting simple.")
     version = "0.1"
     url = "http://www.lino-framework.org/cosi"
