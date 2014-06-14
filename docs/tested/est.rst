@@ -60,24 +60,22 @@ Lino and :mod:`commondata.ee` again agree with this:
 >>> juuru = countries.Place.objects.get(name="Juuru", 
 ...    type=countries.PlaceTypes.municipality)
 >>> ses.show("countries.PlacesByPlace", juuru)
-
-
-    ============= ================== =============== ==========
-     Designation   Designation (et)   Place Type      zip code
-    ------------- ------------------ --------------- ----------
-     Atla                             Küla            79403
-     Helda                            Küla            79417
-     Härgla                           Küla            79404
-     Hõreda                           Küla            79010
-     Jaluse                           Küla            79410
-     Juuru                            Small borough
-     Järlepa                          Küla
-     Kalda                            Küla            79418
-     Lõiuse                           Küla            79405
-     Mahtra                           Küla            79407
-     Orguse                           Küla
-     Pirgu                            Küla
-     Sadala                           Küla            79419
-     Vankse                           Küla            79406
-    ============= ================== =============== ==========
-    <BLANKLINE>
+============= ================== =============== ==========
+ Designation   Designation (et)   Place Type      zip code
+------------- ------------------ --------------- ----------
+ Atla                             Küla            79403
+ Helda                            Küla            79417
+ Härgla                           Küla            79404
+ Hõreda                           Küla            79010
+ Jaluse                           Küla            79410
+ Juuru                            Small borough
+ Järlepa                          Küla
+ Kalda                            Küla            79418
+ Lõiuse                           Küla            79405
+ Mahtra                           Küla            79407
+ Orguse                           Küla
+ Pirgu                            Küla
+ Sadala                           Küla            79419
+ Vankse                           Küla            79406
+============= ================== =============== ==========
+<BLANKLINE>
