@@ -1,0 +1,7 @@
+# must move to another directory, otherwise Django takes demo.py as a
+# fixture.
+cd ..
+
+django-admin.py initdb_demo --noinput --traceback --settings=lino_cosi.settings.start.memory
+
+cd start
