@@ -8,39 +8,19 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+extensions = []
 
 from atelier.sphinxconf import configure
 configure(globals(), 'lino_cosi.settings.test')
 
-
 from django.conf import settings
-settings.SITE.title = "Lino-Cosi Reference Manual"
+settings.SITE.title = "Lino Cosi Reference Manual"
 
+extensions += ['lino.sphinxcontrib.logo']
 
-# If your extensions are in another directory, add it here. If the directory
-# is relative to the documentation root, use os.path.abspath to make it
-# absolute, like shown here.
-#sys.path.append(os.path.abspath('.'))
 
 # General configuration
 # ---------------------
-
-primary_domain = 'py'
-
-
-
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['.templates']
-
-# The suffix of source filenames.
-source_suffix = '.rst'
-
-# The encoding of source files.
-#source_encoding = 'utf-8'
-
-# The master toctree document.
-master_doc = 'index'
 
 # General information about the project.
 project = settings.SITE.title
@@ -110,21 +90,6 @@ html_style = 'default.css'
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
 
-# The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
-#~ html_logo = 'logo.jpg'
-html_logo = 'lino-logo-2.png'
-
-# The name of an image file (within the static path) to use as favicon of the
-# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
-# html_favicon = 'favicon.ico'
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['.static']
-
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
 html_last_updated_fmt = '%b %d, %Y'
@@ -137,7 +102,7 @@ html_last_updated_fmt = '%b %d, %Y'
 # Custom sidebar templates, maps document names to template names.
 # http://sphinx.pocoo.org/latest/config.html#confval-html_sidebars
 html_sidebars = {
-   '**': ['globaltoc.html', 'searchbox.html', 'links.html'],
+    '**': ['globaltoc.html', 'searchbox.html', 'links.html'],
 }
 
 
