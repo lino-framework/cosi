@@ -46,8 +46,8 @@ SETUP_INFO.update(packages=[
     'lino_cosi.settings.be',
     'lino_cosi.settings.est',
     'lino_cosi.settings.start',
+    'lino_cosi.settings.tests',
     'lino_cosi.fixtures',
-    'lino_cosi.tests',
 ])
 
 SETUP_INFO.update(message_extractors={

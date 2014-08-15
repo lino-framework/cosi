@@ -38,16 +38,14 @@ class DocsTests(BaseTestCase):
         self.run_simple_doctests('docs/tested/est.rst')
 
 
-class DemoTests(BaseTestCase):
+class DjangoTests(BaseTestCase):
     """
     $ python setup.py test -s tests.DemoTests.test_admin
     """
-    #~ demo_settings_module = "lino_cosi.settings.demo"
+
     def test_admin(self):
-        self.run_django_manage_test()
-
-
-# from cosi_tests import QuickTest
-
-
+        self.run_django_manage_test('lino_cosi/settings')
+        self.run_django_manage_test('lino_cosi/settings/be')
+        self.run_django_manage_test('lino_cosi/settings/est')
+        self.run_django_manage_test('lino_cosi/settings/start')
 

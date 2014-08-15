@@ -13,7 +13,7 @@
 # along with Lino-Cosi; if not, see <http://www.gnu.org/licenses/>.
 
 """
-This module contains "quick" tests that are run on a demo database 
+This module contains "quick" tests that are run on a demo database
 without any fixture. You can run only these tests by issuing::
 
   python manage.py test lino_cosi.QuickTest
@@ -26,30 +26,9 @@ from __future__ import print_function
 import logging
 logger = logging.getLogger(__name__)
 
-import decimal
-
-#~ from django.utils import unittest
-#~ from django.test.client import Client
-#~ from django.conf import settings
 from lino.runtime import *
 
-from django.utils import translation
-from django.utils.encoding import force_unicode
-from django.core.exceptions import ValidationError
-
-from lino import dd
-from lino.utils import i2d
 from djangosite.utils.djangotest import RemoteAuthTestCase
-
-class DemoTest(RemoteAuthTestCase):
-    maxDiff = None
-    #~ fixtures = 'std demo'.split()
-    fixtures = settings.SITE.demo_fixtures
-
-    def test001(self):
-        """
-        test whether the demo fixtures load correctly.
-        """
 
 
 class QuickTest(RemoteAuthTestCase):
@@ -85,7 +64,7 @@ class QuickTest(RemoteAuthTestCase):
 ========== ==============
  Person     Contact Role
 ---------- --------------
- John DOE
+ John Doe
 ========== ==============
 """)
 
@@ -95,7 +74,7 @@ class QuickTest(RemoteAuthTestCase):
 =========== ==============
  Person      Contact Role
 ----------- --------------
- Johny DOE
+ Johny Doe
 =========== ==============
 """)
         url = "/api/contacts/Persons/115?fv=115&fv=fff&an=merge_row"
