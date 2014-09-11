@@ -9,12 +9,15 @@ Installing Lino Così
 - Go to your :xfile:`repositories` directory and download also a copy
   of the *Lino Cosi* repository::
 
-    cd ~/repositories
-    git clone https://github.com/lsaffre/lino-cosi cosi
+    $ cd ~/repositories
+    $ git clone https://github.com/lsaffre/lino-cosi cosi
     
 - Use pip to install this as editable package::
 
-    pip install -e cosi
+    $ pip install -e cosi
+
+- You might need to manually install 
+  `commondata <https://github.com/lsaffre/commondata>`_.
 
 - Create a local Lino project as explained in :ref:`lino.tutorial.hello`.
 
