@@ -26,7 +26,7 @@ application to make accounting simple.
     author='Luc Saffre',
     author_email='luc.saffre@gmail.com',
     url="http://cosi.lino-framework.org",
-    license='GPL',
+    license='LGPL',
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 2
@@ -35,7 +35,7 @@ Environment :: Web Environment
 Framework :: Django
 Intended Audience :: Developers
 Intended Audience :: System Administrators
-License :: OSI Approved :: GNU General Public License (GPL)
+License :: OSI Approved :: GNU Lesser General Public License (LGPL)
 Operating System :: OS Independent
 Topic :: Office/Business :: Scheduling
 """.splitlines())
