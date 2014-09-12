@@ -81,11 +81,9 @@ class QuickTest(RemoteAuthTestCase):
         #~ self.fail("TODO: execute a merge action using the web interface")
         res = self.client.get(url, REMOTE_USER='root')
 
-        """
-        20130418 server traceback caused when a pdf view of a table was 
-        requested through the web interface.
-        TypeError: get_handle() takes exactly 1 argument (2 given)
-        """
+        # 20130418 server traceback caused when a pdf view of a table
+        # was requested through the web interface.  TypeError:
+        # get_handle() takes exactly 1 argument (2 given)
         url = settings.SITE.build_admin_url(
             'api/countries/Countries?cw=189&cw=189&cw=189&cw=45&cw=45&cw=36&ch=&ch=&ch=&ch=&ch=&ch=&ci=name&ci=name_de&ci=name_fr&ci=isocode&ci=short_code&ci=iso3&name=0&an=as_pdf')
         msg = 'Using remote authentication, but no user credentials found.'

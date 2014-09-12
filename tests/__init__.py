@@ -6,21 +6,16 @@ Examples how to run these tests::
   $ python setup.py test -s tests.DocsTests.test_debts
   $ python setup.py test -s tests.DocsTests.test_docs
 """
-from unipath import Path
-
-ROOTDIR = Path(__file__).parent.parent
-
-# load  SETUP_INFO:
-execfile(ROOTDIR.child('lino_cosi','project_info.py'),globals())
-
-from djangosite.utils.pythontest import TestCase
-
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = "lino_cosi.settings.test"
 
+from unipath import Path
+from djangosite.utils.pythontest import TestCase
+import lino_cosi
+
 
 class BaseTestCase(TestCase):
-    project_root = ROOTDIR
+    project_root = Path(__file__).parent.parent
     demo_settings_module = 'lino_cosi.settings.test'
 
 
@@ -32,7 +27,7 @@ class DocsTests(BaseTestCase):
     #     return self.run_docs_doctests('tested/general.rst')
 
     def test_packages(self):
-        self.run_packages_test(SETUP_INFO['packages'])
+        self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
     def test_demo(self):
         self.run_simple_doctests('docs/tested/est.rst')

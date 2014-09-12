@@ -1,4 +1,4 @@
 from setuptools import setup
-execfile('lino_cosi/project_info.py')
+execfile('lino_cosi/setup_info.py')
 if __name__ == '__main__':
     setup(**SETUP_INFO)
