@@ -16,8 +16,12 @@ Installing Lino Così
 
     $ pip install -e cosi
 
-- You might need to manually install 
-  `commondata <https://github.com/lsaffre/commondata>`_.
+- Run a recommended check to see whether everything worked well::
+
+    $ pip install commondata commondata.ee commondata.be
+    $ cd ~/repositories/cosi
+    $ fab initdb
+    $ fab test
 
 - Create a local Lino project as explained in :ref:`lino.tutorial.hello`.
 
@@ -26,7 +30,7 @@ Installing Lino Così
 
   .. literalinclude:: settings.py
 
-  The first line is Python way to specify encoding (:pep:`263`).
-  That's needed because of the non-ascii **ì** of "Lino Così" in
-  line 3.
+  The first line is the Python way to specify your source file's
+  encoding (:pep:`263`).  We need to specify this because of the
+  non-ascii **ì** of "Lino Così" in line 3.
 

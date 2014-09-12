@@ -16,11 +16,12 @@ SETUP_INFO = dict(
     name='lino-cosi',
     version='0.0.1',
     install_requires=['lino', 'django-iban', 'xlwt'],
+    tests_require=['commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',
-    description="A Lino application for for simply doing your accounting",
+    description="A Lino application to make accounting simple",
     long_description="""\
-Lino Cosi is a `Lino <http://www.lino-framework.org>`_
-application to make accounting simple.
+A `Lino <http://www.lino-framework.org>`_ application to
+make accounting simple.
 
 """,
     author='Luc Saffre',
