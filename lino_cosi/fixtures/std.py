@@ -23,7 +23,7 @@ from north.dbutils import babelkw
 from lino import dd
 
 
-def objects():
+def unused_objects():
 
     mailType = Instantiator('notes.NoteType').build
 
