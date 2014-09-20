@@ -15,7 +15,7 @@ from :mod:`commondata.ee`.
 >>> from lino.runtime import *
 >>> from django.test.client import Client
 >>> ses = rt.login("rando")
->>> rt.translation.activate('et')
+>>> dd.translation.activate('et')
 
 
 The estonian `Wikipedia
