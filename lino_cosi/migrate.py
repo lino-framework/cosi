@@ -20,7 +20,7 @@ from django.conf import settings
 from lino.core.dbutils import resolve_model
 from lino.utils import mti
 from lino.utils import dblogger
-from lino import dd
+from lino import dd, rt
 
 from north.dpy import Migrator
 

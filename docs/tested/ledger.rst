@@ -8,9 +8,8 @@ Ledger
 >>> from __future__ import print_function 
 >>> from __future__ import unicode_literals
 >>> from lino.runtime import *
->>> from lino import dd
 >>> from django.test.client import Client
->>> ses = dd.login("robin")
+>>> ses = rt.login("robin")
 >>> dd.translation.activate('en')
 
 

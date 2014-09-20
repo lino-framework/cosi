@@ -12,8 +12,7 @@ General stuff:
 >>> from lino.runtime import *
 >>> from django.test import Client
 >>> client = Client()
->>> from lino import dd
->>> ses = dd.login('rolf')
+>>> ses = rt.login('rolf')
 
 We can now refer to every installed app via it's `app_label`.
 For example here is how we can verify things in the demo database 

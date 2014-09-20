@@ -56,7 +56,7 @@ class Site(Site):
         Defines application-specific default user profiles.
         Local site administrators can override this in their :xfile:.
         """
-        from lino import dd
+        from lino import dd, rt
         from django.utils.translation import ugettext_lazy as _
         dd.UserProfiles.reset('* office accounts')
         add = dd.UserProfiles.add_item

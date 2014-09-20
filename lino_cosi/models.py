@@ -6,7 +6,7 @@
 The :xfile:`models.py` module for :ref:`cosi`.
 """
 
-from lino import dd
+from lino import dd, rt
 
 
 def site_setup(site):
@@ -28,7 +28,7 @@ def site_setup(site):
 
 @dd.receiver(dd.pre_analyze)
 def set_merge_actions(sender, **kw):
-    partners = dd.modules.contacts
+    partners = rt.modules.contacts
     for m in (partners.Person, partners.Organisation):
         m.define_action(merge_row=dd.MergeAction(m))
 

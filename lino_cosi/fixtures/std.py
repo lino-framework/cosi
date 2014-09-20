@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
 from north.dbutils import babelkw
-from lino import dd
+from lino import dd, rt
 
 
 def unused_objects():
