@@ -116,7 +116,7 @@ Tartu mnt 71-5
 10115 Tallinn
 Estonia
 
-For countryside addresses, 
+And yet another rule for countryside addresses:
 
 >>> city = countries.Place.objects.get(name="Vana-Vigala")
 >>> print(city.type)
