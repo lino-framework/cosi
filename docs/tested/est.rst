@@ -30,22 +30,21 @@ Lino and :mod:`commondata.ee` agree with this:
 >>> raplamaa = countries.Place.objects.get(
 ...    name="Rapla", type=countries.PlaceTypes.county)
 >>> ses.show("countries.PlacesByPlace", raplamaa)
-============= ================== ============== ==========
- Designation   Designation (et)   Place Type     zip code
-------------- ------------------ -------------- ----------
- Juuru                            Municipality
- Järvakandi                       Municipality
- Kaiu                             Municipality
- Kehtna                           Municipality
- Kohila                           Municipality
- Käru                             Municipality
- Märjamaa                         Municipality
- Raikküla                         Municipality
- Rapla                            Town
- Vigala                           Municipality
-============= ================== ============== ==========
+============ ============== ============ ==========
+ Nimetus      Nimetus (et)   Place Type   zip code
+------------ -------------- ------------ ----------
+ Juuru                       Vald
+ Järvakandi                  Vald
+ Kaiu                        Vald
+ Kehtna                      Vald
+ Kohila                      Vald
+ Käru                        Vald
+ Märjamaa                    Vald
+ Raikküla                    Vald
+ Rapla                       Linn
+ Vigala                      Vald
+============ ============== ============ ==========
 <BLANKLINE>
-
 
 Another test is the 
 `municipality of Juuru
@@ -59,22 +58,22 @@ Lino and :mod:`commondata.ee` again agree with this:
 >>> juuru = countries.Place.objects.get(name="Juuru", 
 ...    type=countries.PlaceTypes.municipality)
 >>> ses.show("countries.PlacesByPlace", juuru)
-============= ================== =============== ==========
- Designation   Designation (et)   Place Type      zip code
-------------- ------------------ --------------- ----------
- Atla                             Küla            79403
- Helda                            Küla            79417
- Härgla                           Küla            79404
- Hõreda                           Küla            79010
- Jaluse                           Küla            79410
- Juuru                            Small borough
- Järlepa                          Küla
- Kalda                            Küla            79418
- Lõiuse                           Küla            79405
- Mahtra                           Küla            79407
- Orguse                           Küla
- Pirgu                            Küla
- Sadala                           Küla            79419
- Vankse                           Küla            79406
-============= ================== =============== ==========
+========= ============== ============ ==========
+ Nimetus   Nimetus (et)   Place Type   zip code
+--------- -------------- ------------ ----------
+ Atla                     Küla         79403
+ Helda                    Küla         79417
+ Härgla                   Küla         79404
+ Hõreda                   Küla         79010
+ Jaluse                   Küla         79410
+ Juuru                    Alevik
+ Järlepa                  Küla
+ Kalda                    Küla         79418
+ Lõiuse                   Küla         79405
+ Mahtra                   Küla         79407
+ Orguse                   Küla
+ Pirgu                    Küla
+ Sadala                   Küla         79419
+ Vankse                   Küla         79406
+========= ============== ============ ==========
 <BLANKLINE>
