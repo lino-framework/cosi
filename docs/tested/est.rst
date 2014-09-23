@@ -8,6 +8,12 @@ from :mod:`commondata.ee`.
 
 .. include:: /include/tested.rst
 
+.. to test only this document:
+  $ python setup.py test -s tests.DocsTests.test_est
+
+
+>>> from __future__ import print_function
+>>> from __future__ import unicode_literals
 >>> import os
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.est.demo'
 >>> from __future__ import print_function 
@@ -30,9 +36,9 @@ Lino and :mod:`commondata.ee` agree with this:
 >>> raplamaa = countries.Place.objects.get(
 ...    name="Rapla", type=countries.PlaceTypes.county)
 >>> ses.show("countries.PlacesByPlace", raplamaa)
-============ ============== ============ ==========
- Nimetus      Nimetus (et)   Place Type   zip code
------------- -------------- ------------ ----------
+============ ============== =========== ==========
+ Nimetus      Nimetus (et)   Asumiliik   zip code
+------------ -------------- ----------- ----------
  Juuru                       Vald
  Järvakandi                  Vald
  Kaiu                        Vald
@@ -43,7 +49,7 @@ Lino and :mod:`commondata.ee` agree with this:
  Raikküla                    Vald
  Rapla                       Linn
  Vigala                      Vald
-============ ============== ============ ==========
+============ ============== =========== ==========
 <BLANKLINE>
 
 Another test is the 
@@ -58,22 +64,70 @@ Lino and :mod:`commondata.ee` again agree with this:
 >>> juuru = countries.Place.objects.get(name="Juuru", 
 ...    type=countries.PlaceTypes.municipality)
 >>> ses.show("countries.PlacesByPlace", juuru)
-========= ============== ============ ==========
- Nimetus   Nimetus (et)   Place Type   zip code
---------- -------------- ------------ ----------
- Atla                     Küla         79403
- Helda                    Küla         79417
- Härgla                   Küla         79404
- Hõreda                   Küla         79010
- Jaluse                   Küla         79410
+========= ============== =========== ==========
+ Nimetus   Nimetus (et)   Asumiliik   zip code
+--------- -------------- ----------- ----------
+ Atla                     Küla        79403
+ Helda                    Küla        79417
+ Härgla                   Küla        79404
+ Hõreda                   Küla        79010
+ Jaluse                   Küla        79410
  Juuru                    Alevik
  Järlepa                  Küla
- Kalda                    Küla         79418
- Lõiuse                   Küla         79405
- Mahtra                   Küla         79407
+ Kalda                    Küla        79418
+ Lõiuse                   Küla        79405
+ Mahtra                   Küla        79407
  Orguse                   Küla
  Pirgu                    Küla
- Sadala                   Küla         79419
- Vankse                   Küla         79406
-========= ============== ============ ==========
+ Sadala                   Küla        79419
+ Vankse                   Küla        79406
+========= ============== =========== ==========
 <BLANKLINE>
+
+
+Formatting postal addresses
+---------------------------
+
+>>> eesti = countries.Country.objects.get(isocode="EE")
+>>> sindi = countries.Place.objects.get(name="Sindi")
+>>> p = contacts.Person(first_name="Malle", last_name="Mets", 
+...     street=u"Männi tn", street_no="5", street_box="-6", 
+...     zip_code="86705", country=eesti, city=sindi)
+>>> print(p.address)
+Malle Mets
+Männi tn 5-6
+86705 Sindi
+Estonia
+
+Townships in Estonia get special handling: their name is replaced by
+the town's name when a zip code is known:
+
+>>> city = countries.Place.objects.get(name="Kesklinn")
+>>> print(city)
+Kesklinn
+>>> print(city.type)
+township
+>>> p = contacts.Person(first_name="Kati", last_name="Kask", 
+...     street="Tartu mnt", street_no="71", street_box="-5", 
+...     zip_code="10115", country=eesti, city=city)
+>>> print(p.address)
+Kati Kask
+Tartu mnt 71-5
+10115 Tallinn
+Estonia
+
+For countryside addresses, 
+
+>>> city = countries.Place.objects.get(name="Vana-Vigala")
+>>> print(city.type)
+village
+>>> p = contacts.Person(first_name="Kati", last_name="Kask", 
+...     street="Hirvepargi", street_no="123", 
+...     zip_code="78003", country=eesti, city=city)
+>>> print(p.address)
+Kati Kask
+Hirvepargi 123
+Vana-Vigala küla
+Vigala vald
+78003 Rapla maakond
+Estonia

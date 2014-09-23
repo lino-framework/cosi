@@ -29,7 +29,7 @@ class DocsTests(BaseTestCase):
     def test_packages(self):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
-    def test_demo(self):
+    def test_est(self):
         self.run_simple_doctests('docs/tested/est.rst')
 
 
