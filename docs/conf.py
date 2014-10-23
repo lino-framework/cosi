@@ -11,7 +11,7 @@
 extensions = []
 
 from atelier.sphinxconf import configure
-configure(globals(), 'lino_cosi.settings.doctests')
+configure(globals(), 'lino_cosi.projects.std.settings.doctests')
 
 from django.conf import settings
 settings.SITE.title = "Lino Cosi Reference Manual"

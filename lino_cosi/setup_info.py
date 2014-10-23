@@ -33,11 +33,15 @@ Topic :: Office/Business :: Scheduling
 
 SETUP_INFO.update(packages=[
     'lino_cosi',
-    'lino_cosi.settings',
-    'lino_cosi.settings.be',
-    'lino_cosi.settings.est',
-    'lino_cosi.settings.start',
-    'lino_cosi.settings.tests',
+    'lino_cosi.projects',
+    'lino_cosi.projects.apc',
+    'lino_cosi.projects.apc.settings',
+    'lino_cosi.projects.ylle',
+    'lino_cosi.projects.ylle.settings',
+    'lino_cosi.projects.start',
+    'lino_cosi.projects.std',
+    'lino_cosi.projects.std.settings',
+    'lino_cosi.projects.std.tests',
     'lino_cosi.fixtures',
 ])
 

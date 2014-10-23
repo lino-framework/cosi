@@ -3,11 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Default settings for an Estonian :ref:`cosi` site.
-
-- `Estonian VAT rates
-  <http://www.emta.ee/index.php?id=28460>`_
-
+Default settings for a :ref:`cosi` site à la :ref:`apc`.
 
 """
 
@@ -15,7 +11,7 @@ from __future__ import unicode_literals
 
 from decimal import Decimal
 
-from lino_cosi.settings import *
+from lino_cosi.projects.std.settings import *
 
 
 class Site(Site):

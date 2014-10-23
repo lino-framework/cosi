@@ -7,7 +7,7 @@ Examples how to run these tests::
   $ python setup.py test -s tests.DocsTests.test_docs
 """
 import os
-os.environ['DJANGO_SETTINGS_MODULE'] = "lino_cosi.settings.test"
+os.environ['DJANGO_SETTINGS_MODULE'] = "lino_cosi.projects.std.settings.test"
 
 from unipath import Path
 from djangosite.utils.pythontest import TestCase
@@ -16,7 +16,7 @@ import lino_cosi
 
 class BaseTestCase(TestCase):
     project_root = Path(__file__).parent.parent
-    demo_settings_module = 'lino_cosi.settings.test'
+    demo_settings_module = 'lino_cosi.projects.std.settings.test'
 
 
 class DocsTests(BaseTestCase):
@@ -39,8 +39,8 @@ class DjangoTests(BaseTestCase):
     """
 
     def test_admin(self):
-        self.run_django_manage_test('lino_cosi/settings')
-        self.run_django_manage_test('lino_cosi/settings/be')
-        self.run_django_manage_test('lino_cosi/settings/est')
-        self.run_django_manage_test('lino_cosi/settings/start')
+        self.run_django_manage_test('lino_cosi/projects/std')
+        self.run_django_manage_test('lino_cosi/projects/apc')
+        self.run_django_manage_test('lino_cosi/projects/ylle')
+        # self.run_django_manage_test('lino_cosi/projects/std/settings/start')
 

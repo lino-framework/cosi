@@ -15,7 +15,7 @@ from :mod:`commondata.ee`.
 >>> from __future__ import print_function
 >>> from __future__ import unicode_literals
 >>> import os
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.est.demo'
+>>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.ylle.settings.demo'
 >>> from __future__ import print_function 
 >>> from __future__ import unicode_literals
 >>> from lino.runtime import *

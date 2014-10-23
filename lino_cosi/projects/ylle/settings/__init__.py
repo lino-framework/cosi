@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Default settings for an Estonian :ref:`cosi` site.
+Default settings for an Estonian :ref:`cosi` site à la Ülle.
 
 - `Estonian VAT rates
   <http://www.emta.ee/index.php?id=28460>`_
@@ -16,7 +16,8 @@ from decimal import Decimal
 # from django.utils.translation import ugettext_lazy as _
 # from django.utils.translation import string_concat
 
-from lino_cosi.settings import *
+from lino_cosi.projects.std.settings import *
+
 
 class Site(Site):
     # title = string_concat(Site.title, " ", _("Estonia"))

@@ -2,6 +2,7 @@
 if __name__ == "__main__":
     import sys
     import os
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.demo'
+    os.environ['DJANGO_SETTINGS_MODULE'] = \
+        'lino_cosi.projects.std.settings.demo'
     from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)

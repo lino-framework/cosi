@@ -1,4 +1,4 @@
-from lino_cosi.settings import *
+from lino_cosi.projects.std.settings import *
 configure_plugin('contacts', hide_region=True)
 SITE = Site(globals(), title="Lino Cosi demo", is_demo_site=True)
 
