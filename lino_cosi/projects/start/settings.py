@@ -4,7 +4,7 @@
 
 from __future__ import unicode_literals
 
-from lino_cosi.settings import *
+from lino_cosi.projects.std.settings import *
 
 from django.utils.translation import ugettext_lazy as _
 

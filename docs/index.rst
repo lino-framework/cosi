@@ -12,7 +12,7 @@ Welcome to the *Lino Così* project homepage.
   print(lino_cosi.SETUP_INFO['long_description'])
 
 This document is meant for system administrators and developers.
-there is also a :ref:`user manual <cosi.userdocs>`,
+there is also a `user manual <cosi.userdocs>`_,
 which might be better suited for end-users.
 
 

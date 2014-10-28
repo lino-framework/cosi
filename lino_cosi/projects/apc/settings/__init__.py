@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Default settings for a :ref:`cosi` site à la :ref:`apc`.
+Default settings for a :ref:`cosi` site à la `apc`.
 
 """
 
