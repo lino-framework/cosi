@@ -38,11 +38,11 @@ SETUP_INFO.update(packages=[
     'lino_cosi.projects.apc.settings',
     'lino_cosi.projects.ylle',
     'lino_cosi.projects.ylle.settings',
-    'lino_cosi.projects.start',
+    'lino_cosi.projects.pierre',
+    'lino_cosi.projects.pierre.settings',
     'lino_cosi.projects.std',
     'lino_cosi.projects.std.settings',
     'lino_cosi.projects.std.tests',
-    'lino_cosi.fixtures',
 ])
 
 SETUP_INFO.update(message_extractors={
