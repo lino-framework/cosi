@@ -99,7 +99,7 @@ class Site(Site):
         #~ yield 'lino.modlib.uploads'
         #~ 'lino.modlib.thirds',
         #~ yield 'lino.modlib.cal'
-        #~ yield 'lino.modlib.outbox'
+        # yield 'lino.modlib.outbox'
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
         yield 'lino_cosi'
