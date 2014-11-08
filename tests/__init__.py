@@ -32,6 +32,9 @@ class DocsTests(BaseTestCase):
     def test_est(self):
         self.run_simple_doctests('docs/tested/est.rst')
 
+    def test_demo(self):
+        self.run_simple_doctests('docs/tested/demo.rst')
+
 
 class DjangoTests(BaseTestCase):
     """

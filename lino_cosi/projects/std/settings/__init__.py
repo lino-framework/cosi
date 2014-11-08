@@ -80,6 +80,8 @@ class Site(Site):
         yield 'lino.modlib.sepa'
 
         yield 'lino.modlib.excerpts'
+        # yield 'lino.modlib.outbox'
+        # yield 'lino.modlib.uploads'
         yield 'lino.modlib.appypod'
         yield 'lino.modlib.export_excel'
 
@@ -96,10 +98,8 @@ class Site(Site):
         #~ yield 'lino.modlib.blogs'
         #~ yield 'lino.modlib.tickets'
         #~ 'lino.modlib.links',
-        #~ yield 'lino.modlib.uploads'
         #~ 'lino.modlib.thirds',
         #~ yield 'lino.modlib.cal'
-        # yield 'lino.modlib.outbox'
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
         yield 'lino_cosi'

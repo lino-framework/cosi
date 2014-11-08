@@ -4,11 +4,17 @@
 Tested code snippets on the demo database
 =========================================
 
+.. This document is part of the Lino Così test suite. To run only this
+   test:
+
+  $ python setup.py test -s tests.DocsTests.test_demo
+
+
 General stuff:
 
 >>> import os
 >>> import json
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.test'
+>>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
 >>> from lino.runtime import *
 >>> from django.test import Client
 >>> client = Client()
@@ -32,24 +38,26 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-15 apps: about, contenttypes, system, users, countries, contacts, products, accounts, ledger, vat, declarations, sales, finan, lino_cosi, djangosite.
-37 models:
+23 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, excerpts, outbox, uploads, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi, djangosite.
+43 models:
 ========================== ========= =======
  Name                       #fields   #rows
 -------------------------- --------- -------
- accounts.Account           13        12
+ accounts.Account           14        12
  accounts.Chart             4         1
  accounts.Group             7         7
- contacts.Company           26        12
+ contacts.Company           26        20
  contacts.CompanyType       7         16
- contacts.Partner           23        81
- contacts.Person            28        69
+ contacts.Partner           22        89
+ contacts.Person            29        69
  contacts.Role              4         0
  contacts.RoleType          4         5
- contenttypes.ContentType   4         38
+ contenttypes.ContentType   4         44
  countries.Country          6         8
- countries.Place            8         75
+ countries.Place            8         78
  declarations.Declaration   18        0
+ excerpts.Excerpt           11        0
+ excerpts.ExcerptType       17        1
  finan.BankStatement        12        27
  finan.BankStatementItem    11        124
  finan.JournalEntry         10        0
@@ -61,25 +69,25 @@ Test whether :meth:`get_db_overview_rst
  ledger.Journal             17        7
  ledger.Movement            9         1015
  ledger.Voucher             8         260
+ outbox.Attachment          4         0
+ outbox.Mail                8         0
+ outbox.Recipient           6         0
  products.Product           12        12
  products.ProductCat        5         2
  sales.Invoice              25        66
  sales.InvoiceItem          13        130
  sales.ShippingMode         5         0
+ sepa.Account               6         13
  system.HelpText            4         2
- system.SiteConfig          10        1
- system.TextFieldTemplate   6         2
+ system.SiteConfig          12        1
+ system.TextFieldTemplate   5         2
+ uploads.Upload             9         0
+ uploads.UploadType         7         0
  users.Authority            3         0
- users.Membership           3         0
- users.Team                 4         0
  users.User                 13        3
  vat.PaymentTerm            7         0
 ========================== ========= =======
 <BLANKLINE>
-
-
-
-
 
 
 Person #115 is not a Partner
@@ -88,7 +96,7 @@ Person #115 is not a Partner
 Person #115 (u'Altenberg Hans') is not a Partner (master_key 
 is <django.db.models.fields.related.ForeignKey: partner>)
 
->>> url = '/b/contacts/Person/115'
+>>> url = '/bs3/contacts/Person/115'
 >>> res = client.get(url,REMOTE_USER='robin')
 >>> print(res.status_code)
 200
@@ -100,14 +108,14 @@ Slave tables with more than 15 rows
 When you look at the detail window of Belgium in `Lino Così
 <http://demo4.lino-framework.org/api/countries/Countries/BE?an=detail>`_
 then you see a list of all places in Belgium.
-This demo database contains exactly 40 entries:
+This demo database contains exactly 48 entries:
 
 >>> be = countries.Country.objects.get(isocode="BE")
 >>> be.place_set.count()
-47
+48
 
 >>> countries.PlacesByCountry.request(be).get_total_count()
-47
+48
 
 >>> url = '/api/countries/PlacesByCountry?fmt=json&start=0&mt=10&mk=BE'
 >>> res = client.get(url,REMOTE_USER='robin')
@@ -151,11 +159,12 @@ To remove the limit altogether, you can say:
 
 >>> countries.PlacesByCountry.preview_limit = None
 
-Same request returns now all 45 data rows (44 + the phantom row):
+and the same request now returns all 49 data rows (48 + the phantom
+row):
 
 >>> res = client.get(url,REMOTE_USER='robin')
 >>> result = json.loads(res.content)
 >>> print(len(result['rows']))
-48
+49
 
 
