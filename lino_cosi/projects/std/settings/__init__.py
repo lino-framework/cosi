@@ -2,8 +2,9 @@
 # Copyright 2011-2014 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""
-Default settings module for a :ref:`cosi` project.
+"""Default settings module for a :ref:`cosi` project. This is being
+inherited by the other applications below :mod:`lino_cosi.projects`.
+
 """
 
 from __future__ import unicode_literals
@@ -80,6 +81,7 @@ class Site(Site):
         yield 'lino.modlib.sepa'
 
         yield 'lino.modlib.excerpts'
+
         # yield 'lino.modlib.outbox'
         # yield 'lino.modlib.uploads'
         yield 'lino.modlib.appypod'

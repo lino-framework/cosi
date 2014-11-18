@@ -1,7 +1,11 @@
 .. _cosi.install:
 
+====================
 Installing Lino Così
 ====================
+
+Install the project code
+------------------------
 
 - Install Lino (the framework) as documented in
   :ref:`lino.dev.install`
@@ -16,12 +20,22 @@ Installing Lino Così
 
     $ pip install -e cosi
 
-- Run a recommended check to see whether everything worked well::
+- Check whether everything worked well::
 
     $ pip install commondata commondata.ee commondata.be
     $ cd ~/repositories/cosi
     $ fab initdb
     $ fab test
+
+  (The first line installs the commondata_ packages which contain
+  place names of Belgium and Estonia and are needed by the test
+  suite.)
+
+  .. _commondata: https://github.com/lsaffre/commondata
+
+
+Create a local project
+----------------------
 
 - Create a local Lino project as explained in :ref:`lino.tutorial.hello`.
 
@@ -34,3 +48,22 @@ Installing Lino Così
   encoding (:pep:`263`).  We need to specify this because of the
   non-ascii **ì** of "Lino Così" in line 3.
 
+
+Run directly from repository
+----------------------------
+
+- You can avoid creating a local project and use directly one of the
+  demo databases that come with Lino Così.  Basically you just do::
+
+    $ cd ~/repositories/cosi
+    $ cd lino_cosi/projects/apc
+    $ python manage.py runserver
+    
+  Instead of ``std`` in the second line, you can choose "apc",
+  "pierre" or "ylle". 
+  :mod:`lino_cosi.projects`
+    
+- And to be honest, the above trick will probably work only if you
+  have set up your :ref:`lino.djangosite_local`.
+
+  
