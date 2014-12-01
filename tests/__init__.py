@@ -23,17 +23,23 @@ class DocsTests(BaseTestCase):
     # def test_cosi(self):
     #     return self.run_docs_doctests('tested/cosi.rst')
 
-    # def test_general(self):
-    #     return self.run_docs_doctests('tested/general.rst')
-
     def test_packages(self):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
     def test_est(self):
         self.run_simple_doctests('docs/tested/est.rst')
 
+    def test_bel_de(self):
+        self.run_simple_doctests('docs/tested/bel_de.rst')
+
     def test_demo(self):
         self.run_simple_doctests('docs/tested/demo.rst')
+
+    def test_ledger(self):
+        self.run_simple_doctests('docs/tested/ledger.rst')
+
+    def test_general(self):
+        return self.run_simple_doctests('docs/tested/general.rst')
 
 
 class DjangoTests(BaseTestCase):

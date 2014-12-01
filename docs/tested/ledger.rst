@@ -5,12 +5,20 @@ Ledger
 
 .. include:: /include/tested.rst
 
+.. to test only this document:
+  $ python setup.py test -s tests.DocsTests.test_ledger
+
+
 >>> from __future__ import print_function 
 >>> from __future__ import unicode_literals
+>>> import os
+>>> import json
+>>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.demo'
 >>> from lino.runtime import *
 >>> from django.test.client import Client
+>>> from django.utils import translation
 >>> ses = rt.login("robin")
->>> dd.translation.activate('en')
+>>> translation.activate('en')
 
 
 Basic truths of accounting

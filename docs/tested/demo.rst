@@ -18,7 +18,7 @@ General stuff:
 >>> from lino.runtime import *
 >>> from django.test import Client
 >>> client = Client()
->>> ses = rt.login('rolf')
+>>> ses = rt.login('robin')
 
 We can now refer to every installed app via it's `app_label`.
 For example here is how we can verify things in the demo database 
@@ -34,7 +34,7 @@ The test database
 -----------------
 
 Test whether :meth:`get_db_overview_rst 
-<lino_site.Site.get_db_overview_rst>` returns the expected result:
+<ad.Site.get_db_overview_rst>` returns the expected result:
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
@@ -43,21 +43,21 @@ Test whether :meth:`get_db_overview_rst
 ========================== ========= =======
  Name                       #fields   #rows
 -------------------------- --------- -------
- accounts.Account           14        12
- accounts.Chart             4         1
- accounts.Group             7         7
+ accounts.Account           12        12
+ accounts.Chart             2         1
+ accounts.Group             5         7
  contacts.Company           26        20
- contacts.CompanyType       7         16
+ contacts.CompanyType       3         16
  contacts.Partner           22        89
  contacts.Person            29        69
  contacts.Role              4         0
- contacts.RoleType          4         5
+ contacts.RoleType          2         5
  contenttypes.ContentType   4         44
- countries.Country          6         8
- countries.Place            8         78
+ countries.Country          4         8
+ countries.Place            6         78
  declarations.Declaration   18        0
  excerpts.Excerpt           11        0
- excerpts.ExcerptType       17        1
+ excerpts.ExcerptType       15        1
  finan.BankStatement        12        27
  finan.BankStatementItem    11        124
  finan.JournalEntry         10        0
@@ -66,26 +66,26 @@ Test whether :meth:`get_db_overview_rst
  finan.PaymentOrderItem     10        135
  ledger.AccountInvoice      19        140
  ledger.InvoiceItem         9         224
- ledger.Journal             17        7
+ ledger.Journal             13        7
  ledger.Movement            9         1015
  ledger.Voucher             8         260
  outbox.Attachment          4         0
  outbox.Mail                8         0
  outbox.Recipient           6         0
- products.Product           12        12
- products.ProductCat        5         2
+ products.Product           8         12
+ products.ProductCat        3         2
  sales.Invoice              25        66
  sales.InvoiceItem          13        130
- sales.ShippingMode         5         0
+ sales.ShippingMode         3         0
  sepa.Account               6         13
  system.HelpText            4         2
  system.SiteConfig          12        1
  system.TextFieldTemplate   5         2
  uploads.Upload             9         0
- uploads.UploadType         7         0
+ uploads.UploadType         5         0
  users.Authority            3         0
- users.User                 13        3
- vat.PaymentTerm            7         0
+ users.User                 13        1
+ vat.PaymentTerm            5         0
 ========================== ========= =======
 <BLANKLINE>
 
@@ -97,7 +97,7 @@ Person #115 (u'Altenberg Hans') is not a Partner (master_key
 is <django.db.models.fields.related.ForeignKey: partner>)
 
 >>> url = '/bs3/contacts/Person/115'
->>> res = client.get(url,REMOTE_USER='robin')
+>>> res = client.get(url, REMOTE_USER='robin')
 >>> print(res.status_code)
 200
 
@@ -135,7 +135,7 @@ for a given table by overriding the
 parameter of your table definition.
 Or you can change it globally for all your tables 
 by setting the 
-:attr:`preview_limit <lino.site.Site.preview_limit>`
+:attr:`preview_limit <ad.Site.preview_limit>`
 Site attribute to either `None` or some bigger value.
 
 This parameter existed before but wasn't tested.
@@ -150,7 +150,7 @@ Here we override it on the living object:
 
 Same request returns now 26 data rows:
 
->>> res = client.get(url,REMOTE_USER='robin')
+>>> res = client.get(url, REMOTE_USER='robin')
 >>> result = json.loads(res.content)
 >>> print(len(result['rows']))
 26

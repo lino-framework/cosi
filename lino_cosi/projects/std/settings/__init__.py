@@ -35,8 +35,8 @@ class Site(Site):
     demo_fixtures = 'std few_languages furniture \
     demo demo2 demo_bookings'.split()
 
-    languages = 'en de fr'
-    #~ languages = 'de fr et en'.split()
+    # languages = 'en de fr'
+    languages = 'en'
 
     #~ project_model = 'tickets.Project'
     user_model = 'users.User'
@@ -111,7 +111,7 @@ class Site(Site):
         Change the default value of certain plugin settings.
 
         """
-        # self.plugins.contacts.configure(hide_region=True)
+        self.plugins.contacts.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
         # self.plugins.vat.configure(
         #     VAT_CLASS_TO_RATE=dict(

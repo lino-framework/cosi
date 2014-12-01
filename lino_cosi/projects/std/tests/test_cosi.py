@@ -6,7 +6,8 @@
 This module contains "quick" tests that are run on a demo database
 without any fixture. You can run only these tests by issuing::
 
-  python manage.py test lino_cosi.QuickTest
+  $ cd lino_projects/std
+  $ python manage.py test
 
 """
 
@@ -75,7 +76,7 @@ class QuickTest(RemoteAuthTestCase):
         # was requested through the web interface.  TypeError:
         # get_handle() takes exactly 1 argument (2 given)
         url = settings.SITE.build_admin_url(
-            'api/countries/Countries?cw=189&cw=189&cw=189&cw=45&cw=45&cw=36&ch=&ch=&ch=&ch=&ch=&ch=&ci=name&ci=name_de&ci=name_fr&ci=isocode&ci=short_code&ci=iso3&name=0&an=as_pdf')
+            'api/countries/Countries?cw=189&cw=45&cw=45&cw=36&ch=&ch=&ch=&ch=&ch=&ch=&ci=name&ci=isocode&ci=short_code&ci=iso3&name=0&an=as_pdf')
         msg = 'Using remote authentication, but no user credentials found.'
         try:
             response = self.client.get(url)

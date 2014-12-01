@@ -5,10 +5,17 @@ General
 
 .. include:: /include/tested.rst
 
+.. to test only this document:
+  $ python setup.py test -s tests.DocsTests.test_general
+
 The following statements import a set of often-used global names::
 
+>>> from __future__ import print_function
+>>> from __future__ import unicode_literals
+>>> import os
+>>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.doctests'
 >>> import json
->>> from lino import dd
+>>> from lino import dd, rt
 >>> from lino.runtime import *
 
 User profiles
@@ -16,32 +23,32 @@ User profiles
 
 Rolf is the local system administrator, he has a complete menu:
 
->>> ses = settings.SITE.login('rolf') 
+>>> ses = rt.login('rolf') 
 >>> with dd.translation.override('de'):
 ...     ses.show_menu()
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
+- Büro : Meine Auszüge, Mein E-Mail-Ausgang, Meine Uploads
 - Verkauf : Verkaufsrechnungen (S)
 - Einkauf : Einkaufsrechnungen (P), Zahlungsaufträge (PO)
-- Financial : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
+- Finanzjournale : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
 - Berichte :
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
-  - Büro : Meine Einfügetexte
+  - Büro : Meine Einfügetexte, Auszugsarten, Upload-Arten
   - System : Site-Parameter, Benutzer, Inhaltstypen, Hilfetexte
-  - Kontakte : Organisationsarten, Funktionen
   - Orte : Länder, Orte
+  - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale
   - Verkauf : Lieferarten
   - MWSt. : Zahlungsbedingungen
 - Explorer :
-  - Büro : Einfügetexte
+  - Büro : Einfügetexte, Auszüge, E-Mail-Ausgänge, Anhänge, Uploads, Upload-Bereiche
   - System : Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Buchhaltung : Rechnungen, Belege, VoucherTypes, Bewegungen, Geschäftsjahre
   - MWSt. : VatRegimes, TradeTypes, VatClasses, MWSt.-Erklärungen
-  - Financial : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
+  - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
 - Site : Info
-
