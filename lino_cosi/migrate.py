@@ -22,7 +22,7 @@ from lino.utils import mti
 from lino.utils import dblogger
 from lino import dd, rt
 
-from north.dpy import Migrator
+from lino.utils.dpy import Migrator
 
 
 class Migrator(Migrator):
