@@ -26,7 +26,7 @@ Rolf is the local system administrator, he has a complete menu:
 >>> ses = rt.login('rolf') 
 >>> with dd.translation.override('de'):
 ...     ses.show_menu()
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
 - Büro : Meine Auszüge, Mein E-Mail-Ausgang, Meine Uploads
@@ -34,18 +34,19 @@ Rolf is the local system administrator, he has a complete menu:
 - Einkauf : Einkaufsrechnungen (P), Zahlungsaufträge (PO)
 - Finanzjournale : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
 - Berichte :
+  - System : Stale Controllables
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
+  - System : Hilfetexte, Site-Parameter, Benutzer
   - Büro : Meine Einfügetexte, Auszugsarten, Upload-Arten
-  - System : Site-Parameter, Benutzer, Inhaltstypen, Hilfetexte
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale
   - Verkauf : Lieferarten
   - MWSt. : Zahlungsbedingungen
 - Explorer :
+  - System : Datenbankmodelle, Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
   - Büro : Einfügetexte, Auszüge, E-Mail-Ausgänge, Anhänge, Uploads, Upload-Bereiche
-  - System : Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Buchhaltung : Rechnungen, Belege, VoucherTypes, Bewegungen, Geschäftsjahre
