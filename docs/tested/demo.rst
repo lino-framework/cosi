@@ -38,7 +38,7 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-23 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, excerpts, outbox, uploads, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi, djangosite.
+22 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, excerpts, outbox, uploads, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
 43 models:
 ========================== ========= =======
  Name                       #fields   #rows
@@ -53,6 +53,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Role              4         0
  contacts.RoleType          2         5
  contenttypes.ContentType   4         44
+ contenttypes.HelpText      4         2
  countries.Country          4         8
  countries.Place            6         78
  declarations.Declaration   18        0
@@ -78,7 +79,6 @@ Test whether :meth:`get_db_overview_rst
  sales.InvoiceItem          13        130
  sales.ShippingMode         3         0
  sepa.Account               6         13
- system.HelpText            4         2
  system.SiteConfig          12        1
  system.TextFieldTemplate   5         2
  uploads.Upload             9         0
