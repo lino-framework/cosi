@@ -24,12 +24,12 @@ Ledger
 Basic truths of accounting
 --------------------------
 
-- A purchases invoice creditates the partner.
-- A sales invoice debitates the partner.
-- The payment of a purchases invoice debitates  the partner.
-- The payment of a sales invoice creditates the partner.
+- A purchases invoice credits the partner.
+- A sales invoice debits the partner.
+- The payment of a purchases invoice debits  the partner.
+- The payment of a sales invoice credits the partner.
 
->>> ses.show(ledger.Journals,column_names="ref name trade_type account dc")
+>>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 ==================== =============================== ============ ================================ ========
  ref                  Designation                     Trade Type   Account                          dc
@@ -47,14 +47,14 @@ Basic truths of accounting
 
 
 
->>> ses.show(ledger.Debtors,column_names="partner balance")
+>>> ses.show(ledger.Debtors, column_names="partner balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 =============================== ==============
  Partner                         Balance
 ------------------------------- --------------
  **Arens Andreas**               35,00
  **Arens Annette**               65,00
- **Bäckerei Ausdemwald**         85,19
+ **Bäckerei Ausdemwald**         85,18
  **Rumma & Ko OÜ**               158,59
  **Altenberg Hans**              429,97
  **Ausdemwald Alfons**           79,99
@@ -68,12 +68,12 @@ Basic truths of accounting
  **Reinhards Baumschule**        199,99
  **Moulin Rouge**                229,98
  **Auto École Verte**            113,98
- **Total (16 rows)**             **2 761,53**
+ **Total (16 rows)**             **2 761,52**
 =============================== ==============
 <BLANKLINE>
 
 
->>> ses.show(ledger.Creditors,column_names="partner balance")
+>>> ses.show(ledger.Creditors, column_names="partner balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 ======================== ==============
  Partner                  Balance

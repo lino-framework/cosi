@@ -23,15 +23,13 @@ class Site(Site):
     # title = string_concat(Site.title, " ", _("Estonia"))
     title = Site.title + " Eesti"
     languages = 'en et'
-    demo_fixtures = 'std all_countries eesti furniture \
+    demo_fixtures = 'std all_countries euvatrates eesti furniture \
     demo demo2'.split()
 
     def setup_plugins(self):
         self.plugins.contacts.configure(hide_region=False)
         self.plugins.ledger.configure(use_pcmn=True)
-        self.plugins.vat.VAT_CLASS_TO_RATE.update(
-            reduced=Decimal('0.09'),
-            normal=Decimal('0.20'))
+        self.plugins.vat.configure(country_code='BE')
 
         super(Site, self).setup_plugins()
 

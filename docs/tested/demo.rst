@@ -39,54 +39,55 @@ Test whether :meth:`get_db_overview_rst
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 22 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, excerpts, outbox, uploads, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
-43 models:
-========================== ========= =======
- Name                       #fields   #rows
--------------------------- --------- -------
- accounts.Account           12        12
- accounts.Chart             2         1
- accounts.Group             5         7
- contacts.Company           26        20
- contacts.CompanyType       3         16
- contacts.Partner           22        89
- contacts.Person            29        69
- contacts.Role              4         0
- contacts.RoleType          2         5
- contenttypes.ContentType   4         44
- contenttypes.HelpText      4         2
- countries.Country          4         8
- countries.Place            6         78
- declarations.Declaration   18        0
- excerpts.Excerpt           11        0
- excerpts.ExcerptType       15        1
- finan.BankStatement        12        27
- finan.BankStatementItem    11        124
- finan.JournalEntry         10        0
- finan.JournalEntryItem     11        0
- finan.PaymentOrder         12        27
- finan.PaymentOrderItem     10        135
- ledger.AccountInvoice      19        140
- ledger.InvoiceItem         9         224
- ledger.Journal             13        7
- ledger.Movement            9         1015
- ledger.Voucher             8         260
- outbox.Attachment          4         0
- outbox.Mail                8         0
- outbox.Recipient           6         0
- products.Product           8         12
- products.ProductCat        3         2
- sales.Invoice              25        66
- sales.InvoiceItem          13        130
- sales.ShippingMode         3         0
- sepa.Account               6         13
- system.SiteConfig          12        1
- system.TextFieldTemplate   5         2
- uploads.Upload             9         0
- uploads.UploadType         5         0
- users.Authority            3         0
- users.User                 13        1
- vat.PaymentTerm            5         0
-========================== ========= =======
+44 models:
+========================== ============================== ========= =======
+ Name                       Default table                  #fields   #rows
+-------------------------- ------------------------------ --------- -------
+ accounts.Account           accounts.Accounts              12        12
+ accounts.Chart             accounts.Charts                2         1
+ accounts.Group             accounts.Groups                5         7
+ contacts.Company           contacts.Companies             26        20
+ contacts.CompanyType       contacts.CompanyTypes          3         16
+ contacts.Partner           contacts.Partners              22        89
+ contacts.Person            contacts.Persons               29        69
+ contacts.Role              contacts.Roles                 4         0
+ contacts.RoleType          contacts.RoleTypes             2         5
+ contenttypes.ContentType   contenttypes.ContentTypes      4         45
+ contenttypes.HelpText      contenttypes.HelpTexts         4         2
+ countries.Country          countries.Countries            4         8
+ countries.Place            countries.Places               6         78
+ declarations.Declaration   declarations.Declarations      18        0
+ excerpts.Excerpt           excerpts.ExcerptsByX           11        0
+ excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
+ finan.BankStatement        finan.BankStatements           12        27
+ finan.BankStatementItem    finan.BankStatementItemTable   11        70
+ finan.JournalEntry         finan.JournalEntries           10        0
+ finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
+ finan.PaymentOrder         finan.PaymentOrders            12        27
+ finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        135
+ ledger.AccountInvoice      ledger.Invoices                19        140
+ ledger.InvoiceItem         ledger.InvoiceItemTable        9         224
+ ledger.Journal             ledger.Journals                13        7
+ ledger.Movement            ledger.Movements               9         755
+ ledger.Voucher             ledger.Vouchers                8         260
+ outbox.Attachment          outbox.Attachments             4         0
+ outbox.Mail                outbox.Mails                   8         0
+ outbox.Recipient           outbox.Recipients              6         0
+ products.Product           products.Products              8         12
+ products.ProductCat        products.ProductCats           3         2
+ sales.Invoice              sales.Invoices                 25        66
+ sales.InvoiceItem          sales.InvoiceItemTable         13        130
+ sales.ShippingMode         sales.ShippingModes            3         0
+ sepa.Account               sepa.Accounts                  6         13
+ system.SiteConfig          system.SiteConfigs             12        1
+ system.TextFieldTemplate   system.TextFieldTemplates      5         2
+ uploads.Upload             uploads.Uploads                9         0
+ uploads.UploadType         uploads.UploadTypes            5         0
+ users.Authority            users.Authorities              3         0
+ users.User                 users.Users                    13        1
+ vat.PaymentTerm            vat.PaymentTerms               5         0
+ vat.VatRate                vat.VatRates                   9         0
+========================== ============================== ========= =======
 <BLANKLINE>
 
 

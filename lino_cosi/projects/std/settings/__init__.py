@@ -113,15 +113,6 @@ class Site(Site):
         """
         self.plugins.contacts.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
-        # self.plugins.vat.configure(
-        #     VAT_CLASS_TO_RATE=dict(
-        #         exempt=Decimal(),
-        #         reduced=Decimal('0.06'),
-        #         normal=Decimal('0.21')
-        #     ))
-        self.plugins.vat.VAT_CLASS_TO_RATE.update(
-            reduced=Decimal('0.06'),
-            normal=Decimal('0.21'))
-
+        self.plugins.vat.configure(country_code='BE')
         super(Site, self).setup_plugins()
 

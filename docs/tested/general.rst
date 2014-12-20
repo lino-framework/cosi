@@ -43,7 +43,7 @@ Rolf is the local system administrator, he has a complete menu:
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale
   - Verkauf : Lieferarten
-  - MWSt. : Zahlungsbedingungen
+  - MWSt. : Zahlungsbedingungen, MWSt-Sätze
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
   - Büro : Einfügetexte, Auszüge, E-Mail-Ausgänge, Anhänge, Uploads, Upload-Bereiche
