@@ -10,4 +10,4 @@ env.languages = "en de fr et nl es".split()
 
 # env.tolerate_sphinx_warnings = True
 
-env.use_mercurial = False
+env.revision_control_system = 'git'
