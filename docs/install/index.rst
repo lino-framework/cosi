@@ -22,16 +22,9 @@ Install the project code
 
 - Check whether everything worked well::
 
-    $ pip install commondata commondata.ee commondata.be
     $ cd ~/repositories/cosi
     $ fab initdb
     $ fab test
-
-  (The first line installs the commondata_ packages which contain
-  place names of Belgium and Estonia and are needed by the test
-  suite.)
-
-  .. _commondata: https://github.com/lsaffre/commondata
 
 
 Create a local project
