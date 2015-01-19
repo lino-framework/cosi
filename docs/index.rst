@@ -24,7 +24,7 @@ Content
 
    install/index
    tested/index
-   API <api/lino_cosi>
+   API <api/index>
    todo
    changes
    

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2011-2014 Luc Saffre
+# Copyright 2011-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """Default settings module for a :ref:`cosi` project. This is being
@@ -9,26 +9,22 @@ inherited by the other applications below :mod:`lino_cosi.projects`.
 
 from __future__ import unicode_literals
 
-from decimal import Decimal
-
 from lino.projects.std.settings import *
 
 from django.utils.translation import ugettext_lazy as _
 
 
 class Site(Site):
-
     """
-    Base class for a :ref:`cosi` application,
-    designed to be instantiated into the :setting:`SITE` setting.
-    
+    Base class for a :ref:`cosi` application.
+
     """
 
     title = "Lino Così"
     verbose_name = "Lino Così"
     description = _("a Lino application to make Belgian accounting simple.")
     version = "0.1"
-    url = "http://www.lino-framework.org/cosi"
+    url = "http://cosi.lino-framework.org"
     #~ author = 'Luc Saffre'
     #~ author_email = 'luc.saffre@gmail.com'
 
@@ -37,20 +33,6 @@ class Site(Site):
 
     # languages = 'en de fr'
     languages = 'en'
-
-    #~ project_model = 'tickets.Project'
-    user_model = 'users.User'
-
-    #~ remote_user_header = "REMOTE_USER"
-
-    #~ def get_application_info(self):
-        #~ return (__name__,__version__,__url__)
-
-    #~ def get_main_action(self,user):
-        #~ return self.modules.system.Home.default_action
-
-    #~ def setup_quicklinks(self,ui,user,tb):
-        #~ tb.add_action(self.modules.contacts.Persons.detail_action)
 
     def setup_choicelists(self):
         """
@@ -71,9 +53,7 @@ class Site(Site):
         yield 'lino.modlib.contenttypes'
         yield 'lino.modlib.system'
         yield 'lino.modlib.users'
-        #~ yield 'django.contrib.auth'
         yield 'lino.modlib.countries'
-        #~ yield 'lino.modlib.properties'
         yield 'lino.modlib.contacts'
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'

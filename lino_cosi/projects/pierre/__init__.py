@@ -1,8 +1,17 @@
 """
+:ref:`cosi` for French-speaking Belgium
+=======================================
 
-A :ref:`cosi` demo for French-speaking Belgians.
+The only differences are some plugin configuration.
 
 Named after :ref:`ph` who was the first to ask for it.
+
+
+.. autosummary::
+   :toctree:
+
+    settings
+
 
 
 """

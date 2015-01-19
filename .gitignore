@@ -11,7 +11,8 @@ syntax: glob
 tmp
 default.db
 media
-docs/api
+docs/api/lino_cosi.*
+
 
 *.egg-info
 .build
