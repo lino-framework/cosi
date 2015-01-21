@@ -24,7 +24,7 @@ class Site(Site):
     demo demo2'.split()
 
     def setup_plugins(self):
-        "See :meth:`lino.core.site_def.Site.setup_plugins`."
+        "See :meth:`lino.core.site.Site.setup_plugins`."
         super(Site, self).setup_plugins()
         self.plugins.contacts.configure(hide_region=False)
         self.plugins.ledger.configure(use_pcmn=True)
