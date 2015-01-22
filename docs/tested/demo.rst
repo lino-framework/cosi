@@ -52,7 +52,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   contenttypes.ContentTypes      4         45
+ contenttypes.ContentType   contenttypes.ContentTypes      4         44
  contenttypes.HelpText      contenttypes.HelpTexts         4         2
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
@@ -82,7 +82,7 @@ Test whether :meth:`get_db_overview_rst
  system.SiteConfig          system.SiteConfigs             12        1
  system.TextFieldTemplate   system.TextFieldTemplates      5         2
  uploads.Upload             uploads.Uploads                9         0
- uploads.UploadType         uploads.UploadTypes            5         0
+ uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
  vat.PaymentTerm            vat.PaymentTerms               5         0
