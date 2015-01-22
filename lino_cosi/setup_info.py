@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014 Luc Saffre
+# Copyright 2014-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 SETUP_INFO = dict(
     name='lino-cosi',
     version='0.0.1',
     install_requires=['lino', 'django-iban', 'xlwt'],
-    tests_require=['commondata', 'commondata.ee', 'commondata.be'],
+    tests_require=['beautifulsoup4', 'commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',
     description="A Lino application to make accounting simple",
     long_description="""\
