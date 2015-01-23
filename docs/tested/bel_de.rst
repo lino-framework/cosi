@@ -1,30 +1,15 @@
 .. _cosi.tested.bel_de:
 
-Lino Così in Eupen
-==================
-
-The APC version of :ref:`cosi` is for East Belgium.
+Refusing permission to an anonymous request
+===========================================
 
 .. include:: /include/tested.rst
 
 .. to test only this document:
+
   $ python setup.py test -s tests.DocsTests.test_bel_de
 
-
->>> from __future__ import print_function
->>> from __future__ import unicode_literals
->>> import os
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.sestests'
->>> import json
->>> from bs4 import BeautifulSoup
->>> from __future__ import print_function 
->>> from __future__ import unicode_literals
->>> from lino.runtime import *
->>> from django.test.client import Client
->>> from django.utils import translation
-
-
-The following reproduces a unicode error which occurred when Lino
+This document reproduces a unicode error which occurred when Lino
 tried to say "As Anonymous you have no permission to run this action."
 in German (where the internationlized text (u'Als Anonym haben Sie
 nicht die Berechtigung, diese Aktion auszuf\xfchren.') contains
@@ -35,16 +20,50 @@ The error was::
   UnicodeEncodeError at /api/sales/InvoicesByJournal
   'ascii' codec can't encode character u'\xfc' in position 64: ordinal not in range(128)
 
->>> url = '/api/sales/InvoicesByJournal'
->>> url += "?start=0&limit=25&fmt=json&rp=ext-comp-1135&pv=1&pv=&pv=&mt=24&mk=1"
-
 We cannot use the `doctests` settings because the situation happens
 only with session-based authentication.
 
+
+.. 
+
+    >>> from __future__ import print_function
+    >>> from __future__ import unicode_literals
+    >>> import os
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.sestests'
+    >>> import json
+    >>> from bs4 import BeautifulSoup
+    >>> from __future__ import print_function 
+    >>> from __future__ import unicode_literals
+    >>> from lino.runtime import *
+    >>> from django.test.client import Client
+    >>> from django.utils import translation
+
+
+This document uses :mod:`lino_cosi.projects.apc`:
+
+>>> print(settings.SETTINGS_MODULE)
+lino_cosi.projects.apc.settings.sestests
+
+>>> print(settings.SITE.default_user)
+None
+>>> print(settings.SITE.user_model)
+<class 'lino.modlib.users.models.User'>
+>>> print(settings.SITE.remote_user_header)
+None
+>>> print(settings.SITE.get_auth_method())
+session
+>>> print('\n'.join(settings.MIDDLEWARE_CLASSES))
+django.middleware.common.CommonMiddleware
+django.middleware.locale.LocaleMiddleware
+django.contrib.sessions.middleware.SessionMiddleware
+lino.core.auth.SessionUserMiddleware
+lino.utils.ajax.AjaxExceptionResponse
+>>> 'django.contrib.sessions' in settings.INSTALLED_APPS
+True
+
+Some client logs in and gets some data:
+
 >>> client = Client()
-
-Some client logged in and gets some data:
-
 >>> res = client.post('/auth', data=dict(username="rolf", password="1234"))
 >>> res.status_code
 200
@@ -54,6 +73,12 @@ Now logged in as u'rolf'
 >>> r['success']
 True
 
+The user uses the main menu to open sales.InvoicesByJournal, which
+will do the following AJAX call to get its data:
+
+>>> url = '/api/sales/InvoicesByJournal'
+>>> url += "?start=0&limit=25&fmt=json&rp=ext-comp-1135"
+>>> url += "&pv=1&pv=&pv=&mt=24&mk=1"
 >>> res = client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 >>> res.status_code
 200
@@ -63,12 +88,15 @@ True
 >>> len(r['rows'])
 21
 
-Now imagine that the server meanwhile did a dump and a reload. So the
-sessions have been removed:
+Now imagine that the user gets a break and leaves her browser open,
+the server meanwhile did a dump and a reload. So the sessions have
+been removed:
 
 >>> sessions.Session.objects.all().delete()
 
-The same URL will now cause a `PermissionDenied` exception:
+The user comes back and resizes her browser window, or some other
+action which will trigger a refresh.  The same URL will now cause a
+`PermissionDenied` exception:
 
 >>> res = client.get(url)
 >>> res.status_code
