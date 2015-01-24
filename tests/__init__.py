@@ -16,7 +16,7 @@ import lino_cosi
 
 class BaseTestCase(TestCase):
     project_root = Path(__file__).parent.parent
-    demo_settings_module = 'lino_cosi.projects.std.settings.test'
+    django_settings_module = 'lino_cosi.projects.std.settings.test'
 
 
 class DocsTests(BaseTestCase):
