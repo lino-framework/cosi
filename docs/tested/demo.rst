@@ -52,7 +52,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   contenttypes.ContentTypes      4         44
+ contenttypes.ContentType   contenttypes.ContentTypes      4         45
  contenttypes.HelpText      contenttypes.HelpTexts         4         2
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
