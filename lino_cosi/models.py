@@ -6,7 +6,7 @@
 The :xfile:`models.py` module for :ref:`cosi`.
 """
 
-from lino import dd, rt
+from lino.api import dd, rt
 
 
 def site_setup(site):
