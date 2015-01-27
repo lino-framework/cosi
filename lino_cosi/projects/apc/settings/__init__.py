@@ -22,5 +22,5 @@ class Site(Site):
         super(Site, self).setup_plugins()
         self.plugins.contacts.configure(hide_region=False)
         self.plugins.ledger.configure(use_pcmn=True)
-        self.plugins.vat.configure(country_code='BE')
+        self.plugins.countries.configure(country_code='BE')
 

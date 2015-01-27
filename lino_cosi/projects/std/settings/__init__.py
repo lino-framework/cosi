@@ -91,8 +91,8 @@ class Site(Site):
         Change the default value of certain plugin settings.
 
         """
+        super(Site, self).setup_plugins()
         self.plugins.contacts.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
-        self.plugins.vat.configure(country_code='BE')
-        super(Site, self).setup_plugins()
+        self.plugins.countries.configure(country_code='BE')
 
