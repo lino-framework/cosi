@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2014 Luc Saffre
+# Copyright 2013-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 import datetime
 from decimal import Decimal
 from django.conf import settings
-from lino.core.dbutils import resolve_model
+from lino.core.utils import resolve_model
 from lino.utils import mti
 from lino.utils import dblogger
 from lino.api import dd, rt
