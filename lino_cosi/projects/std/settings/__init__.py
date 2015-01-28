@@ -22,13 +22,13 @@ class Site(Site):
 
     title = "Lino Così"
     verbose_name = "Lino Così"
-    description = _("a Lino application to make Belgian accounting simple.")
+    description = _("a Lino application to make accounting simple.")
     version = "0.1"
     url = "http://cosi.lino-framework.org"
     #~ author = 'Luc Saffre'
     #~ author_email = 'luc.saffre@gmail.com'
 
-    demo_fixtures = 'std few_languages furniture \
+    demo_fixtures = 'std few_countries euvatrates few_languages furniture \
     demo demo2 demo_bookings'.split()
 
     # languages = 'en de fr'

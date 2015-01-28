@@ -59,17 +59,17 @@ Test whether :meth:`get_db_overview_rst
  declarations.Declaration   declarations.Declarations      18        0
  excerpts.Excerpt           excerpts.ExcerptsByX           11        0
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
- finan.BankStatement        finan.BankStatements           12        27
- finan.BankStatementItem    finan.BankStatementItemTable   11        70
+ finan.BankStatement        finan.BankStatements           12        0
+ finan.BankStatementItem    finan.BankStatementItemTable   11        0
  finan.JournalEntry         finan.JournalEntries           10        0
  finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
- finan.PaymentOrder         finan.PaymentOrders            12        27
- finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        135
+ finan.PaymentOrder         finan.PaymentOrders            12        0
+ finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        0
  ledger.AccountInvoice      ledger.Invoices                19        140
  ledger.InvoiceItem         ledger.InvoiceItemTable        9         224
  ledger.Journal             ledger.Journals                13        7
- ledger.Movement            ledger.Movements               9         755
- ledger.Voucher             ledger.Vouchers                8         260
+ ledger.Movement            ledger.Movements               9         702
+ ledger.Voucher             ledger.Vouchers                8         206
  outbox.Attachment          outbox.Attachments             4         0
  outbox.Mail                outbox.Mails                   8         0
  outbox.Recipient           outbox.Recipients              6         0
@@ -86,7 +86,7 @@ Test whether :meth:`get_db_overview_rst
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
  vat.PaymentTerm            vat.PaymentTerms               5         0
- vat.VatRate                vat.VatRates                   9         0
+ vat.VatRule                vat.VatRules                   9         11
 ========================== ============================== ========= =======
 <BLANKLINE>
 
