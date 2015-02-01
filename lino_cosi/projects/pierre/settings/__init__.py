@@ -13,7 +13,6 @@ from lino_cosi.projects.std.settings import *
 
 
 class Site(Site):
-    title = Site.title + " (Pierre)"
     languages = 'fr en'
     demo_fixtures = 'std few_countries euvatrates furniture \
     demo demo2'.split()

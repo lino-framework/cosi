@@ -18,7 +18,6 @@ from lino_cosi.projects.std.settings import *
 
 class Site(Site):
     "The base for all Estonian Lino Così Sites."
-    title = Site.title + " Eesti"
     languages = 'en et'
     demo_fixtures = 'std all_countries euvatrates eesti furniture \
     demo demo2'.split()

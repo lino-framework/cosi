@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Default settings for a :ref:`cosi` site à la `apc`.
+Default settings for a :ref:`cosi` "à la APC".
 
 """
 
@@ -13,7 +13,6 @@ from lino_cosi.projects.std.settings import *
 
 
 class Site(Site):
-    title = Site.title + " BE"
     languages = 'de fr nl'
     demo_fixtures = 'std all_countries be euvatrates furniture \
     demo demo2'.split()

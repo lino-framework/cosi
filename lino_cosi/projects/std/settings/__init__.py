@@ -13,20 +13,17 @@ from lino.projects.std.settings import *
 
 from django.utils.translation import ugettext_lazy as _
 
+import lino_cosi
+
 
 class Site(Site):
-    """
-    Base class for a :ref:`cosi` application.
+    """Base class for a :ref:`cosi` application.
 
     """
 
-    title = "Lino Così"
     verbose_name = "Lino Così"
-    description = _("a Lino application to make accounting simple.")
-    version = "0.1"
-    url = "http://cosi.lino-framework.org"
-    #~ author = 'Luc Saffre'
-    #~ author_email = 'luc.saffre@gmail.com'
+    version = lino_cosi.SETUP_INFO['version']
+    url = lino_cosi.SETUP_INFO['url']
 
     demo_fixtures = 'std few_countries euvatrates few_languages furniture \
     demo demo2 demo_bookings'.split()
@@ -40,7 +37,6 @@ class Site(Site):
         Local site administrators can override this in their :xfile:.
         """
         from lino.modlib.users.choicelists import UserProfiles
-        from django.utils.translation import ugettext_lazy as _
         UserProfiles.reset('* office accounts')
         add = UserProfiles.add_item
         add('000', _("Anonymous"),       '_ _ _',

@@ -2,7 +2,7 @@ from .demo import *
 
 
 class Site(Site):
-    title = Site.title + " (:memory:)"
+    verbose_name = Site.verbose_name + " (:memory:)"
 
 SITE = Site(globals())
 DATABASES['default']['NAME'] = ':memory:'
