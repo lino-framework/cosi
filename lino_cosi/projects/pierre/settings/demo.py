@@ -1,4 +1,4 @@
-from ..settings import *
+from lino_cosi.projects.pierre.settings import *
 
 
 class Site(Site):

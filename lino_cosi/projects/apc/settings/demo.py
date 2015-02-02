@@ -1,4 +1,4 @@
-from ..settings import *
+from lino_cosi.projects.apc.settings import *
 
 
 class Site(Site):
