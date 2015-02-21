@@ -65,7 +65,7 @@ Test whether :meth:`get_db_overview_rst
  finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
  finan.PaymentOrder         finan.PaymentOrders            12        0
  finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        0
- ledger.AccountInvoice      ledger.Invoices                19        140
+ ledger.AccountInvoice      ledger.AccountInvoices         19        140
  ledger.InvoiceItem         ledger.InvoiceItemTable        9         224
  ledger.Journal             ledger.Journals                13        7
  ledger.Movement            ledger.Movements               9         702
