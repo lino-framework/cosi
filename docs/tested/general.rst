@@ -51,5 +51,5 @@ Rolf is the local system administrator, he has a complete menu:
   - SEPA : Konten
   - Buchhaltung : Rechnungen, Belege, VoucherTypes, Bewegungen, Geschäftsjahre
   - MWSt. : VatRegimes, TradeTypes, VatClasses, MWSt.-Erklärungen
-  - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
+  - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
 - Site : Info

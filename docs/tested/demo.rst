@@ -39,7 +39,7 @@ Test whether :meth:`get_db_overview_rst
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 22 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, excerpts, outbox, uploads, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
-44 models:
+46 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
 -------------------------- ------------------------------ --------- -------
@@ -52,7 +52,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   contenttypes.ContentTypes      4         45
+ contenttypes.ContentType   contenttypes.ContentTypes      4         47
  contenttypes.HelpText      contenttypes.HelpTexts         4         2
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
@@ -61,6 +61,8 @@ Test whether :meth:`get_db_overview_rst
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
  finan.BankStatement        finan.BankStatements           12        0
  finan.BankStatementItem    finan.BankStatementItemTable   11        0
+ finan.Grouper              finan.Groupers                 12        0
+ finan.GrouperItem          finan.GrouperItemTable         10        0
  finan.JournalEntry         finan.JournalEntries           10        0
  finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
  finan.PaymentOrder         finan.PaymentOrders            12        0
