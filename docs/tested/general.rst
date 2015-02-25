@@ -34,7 +34,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Einkauf : Einkaufsrechnungen (P), Zahlungsaufträge (PO)
 - Finanzjournale : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
 - Berichte :
-  - System : Stale Controllables
+  - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
   - System : Hilfetexte, Site-Parameter, Benutzer

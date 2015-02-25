@@ -24,6 +24,7 @@ Content
 
    install/index
    tested/index
+   tour/index
    API <api/index>
    todo
    changes

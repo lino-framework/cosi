@@ -61,7 +61,7 @@ Test whether :meth:`get_db_overview_rst
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
  finan.BankStatement        finan.BankStatements           12        0
  finan.BankStatementItem    finan.BankStatementItemTable   11        0
- finan.Grouper              finan.Groupers                 12        0
+ finan.Grouper              finan.Groupers                 11        0
  finan.GrouperItem          finan.GrouperItemTable         10        0
  finan.JournalEntry         finan.JournalEntries           10        0
  finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
