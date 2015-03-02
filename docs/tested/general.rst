@@ -29,7 +29,7 @@ Rolf is the local system administrator, he has a complete menu:
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
-- Büro : Meine Auszüge, Mein E-Mail-Ausgang, Meine Uploads
+- Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Verkauf : Verkaufsrechnungen (S)
 - Einkauf : Einkaufsrechnungen (P), Zahlungsaufträge (PO)
 - Finanzjournale : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
@@ -38,7 +38,7 @@ Rolf is the local system administrator, he has a complete menu:
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
   - System : Hilfetexte, Site-Parameter, Benutzer
-  - Büro : Meine Einfügetexte, Auszugsarten, Upload-Arten
+  - Büro : Meine Einfügetexte, Upload-Arten, Auszugsarten
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale
@@ -46,7 +46,7 @@ Rolf is the local system administrator, he has a complete menu:
   - MWSt. : Zahlungsbedingungen, MWSt-Regeln
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
-  - Büro : Einfügetexte, Auszüge, E-Mail-Ausgänge, Anhänge, Uploads, Upload-Bereiche
+  - Büro : Einfügetexte, Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Buchhaltung : Rechnungen, Belege, VoucherTypes, Bewegungen, Geschäftsjahre
