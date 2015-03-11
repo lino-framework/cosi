@@ -15,7 +15,7 @@ General stuff:
 >>> import os
 >>> import json
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
->>> from lino.runtime import *
+>>> from lino.api.shell import *
 >>> from django.test import Client
 >>> client = Client()
 >>> ses = rt.login('robin')

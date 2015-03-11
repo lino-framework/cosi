@@ -18,7 +18,7 @@ from :mod:`commondata.ee`.
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.ylle.settings.demo'
 >>> from __future__ import print_function 
 >>> from __future__ import unicode_literals
->>> from lino.runtime import *
+>>> from lino.api.shell import *
 >>> from django.test.client import Client
 >>> ses = rt.login("rando")
 >>> dd.translation.activate('et')

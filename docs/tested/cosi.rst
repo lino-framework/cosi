@@ -9,7 +9,7 @@ Cosi
 >>> from __future__ import unicode_literals
 >>> import os
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.demo'
->>> from lino.runtime import *
+>>> from lino.api.shell import *
 >>> from lino import dd
 >>> from django.test.client import Client
 

@@ -16,7 +16,7 @@ The following statements import a set of often-used global names::
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.doctests'
 >>> import json
 >>> from lino import dd, rt
->>> from lino.runtime import *
+>>> from lino.api.shell import *
 
 User profiles
 -------------

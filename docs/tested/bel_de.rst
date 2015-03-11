@@ -34,7 +34,7 @@ only with session-based authentication.
     >>> from bs4 import BeautifulSoup
     >>> from __future__ import print_function 
     >>> from __future__ import unicode_literals
-    >>> from lino.runtime import *
+    >>> from lino.api.shell import *
     >>> from django.test.client import Client
     >>> from django.utils import translation
 

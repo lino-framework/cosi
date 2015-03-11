@@ -15,7 +15,7 @@ Ledger
 >>> import os
 >>> import json
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.demo'
->>> from lino.runtime import *
+>>> from lino.api.shell import *
 >>> from django.test.client import Client
 >>> from django.utils import translation
 >>> ses = rt.login("robin")

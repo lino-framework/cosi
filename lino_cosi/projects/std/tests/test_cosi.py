@@ -17,7 +17,7 @@ from __future__ import print_function
 import logging
 logger = logging.getLogger(__name__)
 
-from lino.runtime import *
+from lino.api.shell import *
 
 from lino.utils.djangotest import RemoteAuthTestCase
 
