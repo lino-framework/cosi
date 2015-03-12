@@ -1,3 +1,3 @@
 from .demo import *
-SITE = Site(globals(), title="Lino Cosi (:memory:)")
+SITE = Site(globals())
 DATABASES['default']['NAME'] = ':memory:'

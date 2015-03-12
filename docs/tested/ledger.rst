@@ -77,12 +77,12 @@ Partner 112 has 2 open sales invoices:
 >>> obj = contacts.Partner.objects.get(pk=112)
 >>> ses.show(ledger.DebtsByPartner, obj)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== =========== ========== ==========
- Due date             Balance     Debts      Payments
--------------------- ----------- ---------- ----------
- 2/24/15              35,00       **S#13**
+==================== =========== ======== ==========
+ Due date             Balance     Debts    Payments
+-------------------- ----------- -------- ----------
+ 3/6/15               35,00       *S#13*
  **Total (1 rows)**   **35,00**
-==================== =========== ========== ==========
+==================== =========== ======== ==========
 <BLANKLINE>
 
 
@@ -94,37 +94,37 @@ The table of debtors
 
 >>> ses.show(ledger.Debtors, column_names="partner balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-=============================== ==============
- Partner                         Balance
-------------------------------- --------------
- **Arens Andreas**               35,00
- **Arens Annette**               65,00
- **Bäckerei Ausdemwald**         87,28
- **Rumma & Ko OÜ**               159,59
- **Altenberg Hans**              429,97
- **Ausdemwald Alfons**           79,99
- **Jacobs Jacqueline**           999,95
- **Johnen Johann**               359,97
- **Donderweer BV**               429,97
- **Van Achter NV**               79,99
- **Hans Flott & Co**             33,99
- **Bernd Brechts Bücherladen**   100,00
- **Reinhards Baumschule**        199,99
- **Moulin Rouge**                229,96
- **Auto École Verte**            113,97
- **Total (15 rows)**             **3 404,62**
-=============================== ==============
+============================= ==============
+ Partner                       Balance
+----------------------------- --------------
+ *Arens Andreas*               35,00
+ *Arens Annette*               65,00
+ *Bäckerei Ausdemwald*         87,28
+ *Rumma & Ko OÜ*               159,59
+ *Altenberg Hans*              429,97
+ *Ausdemwald Alfons*           79,99
+ *Jacobs Jacqueline*           999,95
+ *Johnen Johann*               359,97
+ *Donderweer BV*               429,97
+ *Van Achter NV*               79,99
+ *Hans Flott & Co*             33,99
+ *Bernd Brechts Bücherladen*   100,00
+ *Reinhards Baumschule*        199,99
+ *Moulin Rouge*                229,96
+ *Auto École Verte*            113,97
+ **Total (15 rows)**           **3 404,62**
+============================= ==============
 <BLANKLINE>
 
 
 >>> ses.show(ledger.Creditors, column_names="partner balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-======================== ==============
- Partner                  Balance
------------------------- --------------
- **Bäckerei Mießen**      495,62
- **Bäckerei Schmitz**     1 176,90
- **Garage Mergelsberg**   3 209,08
- **Total (3 rows)**       **4 881,60**
-======================== ==============
+====================== ==============
+ Partner                Balance
+---------------------- --------------
+ *Bäckerei Mießen*      495,62
+ *Bäckerei Schmitz*     1 176,90
+ *Garage Mergelsberg*   3 209,08
+ **Total (3 rows)**     **4 881,60**
+====================== ==============
 <BLANKLINE>

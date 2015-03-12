@@ -10,7 +10,7 @@ Cosi
 >>> import os
 >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.settings.demo'
 >>> from lino.api.shell import *
->>> from lino import dd
+>>> from lino.api import dd
 >>> from django.test.client import Client
 
 >>> print(settings.SETTINGS_MODULE)
