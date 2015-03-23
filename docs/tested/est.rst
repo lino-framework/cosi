@@ -91,7 +91,7 @@ Formatting postal addresses
 >>> eesti = countries.Country.objects.get(isocode="EE")
 >>> sindi = countries.Place.objects.get(name="Sindi")
 >>> p = contacts.Person(first_name="Malle", last_name="Mets", 
-...     street=u"Männi tn", street_no="5", street_box="-6", 
+...     street=u"M\xe4nni tn", street_no="5", street_box="-6", 
 ...     zip_code="86705", country=eesti, city=sindi)
 >>> print(p.address)
 Malle Mets
