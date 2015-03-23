@@ -24,7 +24,7 @@ from :mod:`commondata.ee`.
 >>> dd.translation.activate('et')
 
 
-The estonian `Wikipedia
+The Estonian `Wikipedia
 <https://et.wikipedia.org/wiki/Rapla_maakond>`_ says:
 
     Rapla maakonnas on 10 omavalitsusüksust (valda):
