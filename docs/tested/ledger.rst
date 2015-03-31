@@ -1,5 +1,6 @@
 .. _cosi.tested.ledger:
 
+=======
 Ledger
 =======
 
@@ -23,7 +24,7 @@ Ledger
 
 
 Basic truths of accounting
---------------------------
+==========================
 
 - A purchases invoice credits the partner.
 - A sales invoice debits the partner.

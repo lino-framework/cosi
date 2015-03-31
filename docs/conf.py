@@ -17,6 +17,10 @@ from django.conf import settings
 settings.SITE.title = "Lino Cosi Reference Manual"
 
 extensions += ['lino.sphinxcontrib.logo']
+extensions += ['sphinx.ext.autosummary']
+autosummary_generate = True
+autodoc_default_flags = ['members']
+
 
 
 # General configuration
@@ -24,7 +28,7 @@ extensions += ['lino.sphinxcontrib.logo']
 
 # General information about the project.
 project = settings.SITE.title
-copyright = u'2012-2014, Luc Saffre'
+copyright = '2012-2015, Luc Saffre'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -77,11 +81,6 @@ pygments_style = 'sphinx'
 
 # Options for HTML output
 # -----------------------
-
-# The style sheet to use for HTML and HTML Help pages. A file of that name
-# must exist either in Sphinx' static/ path, or in one of the custom paths
-# given in html_static_path.
-html_style = 'default.css'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -137,22 +136,23 @@ html_use_opensearch = ''
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'cosi'
 
+if False:
 
-#language="de"
+    #language="de"
 
-#~ show_source = True
+    #~ show_source = True
 
-#~ srcref_base_uri="http://code.google.com/lino"
-#~ srcref_base_uri="http://code.google.com/p/lino/source/browse/#hg" 
+    #~ srcref_base_uri="http://code.google.com/lino"
+    #~ srcref_base_uri="http://code.google.com/p/lino/source/browse/#hg" 
 
 
-#~ nitpicky = True # use -n in Makefile instead
+    #~ nitpicky = True # use -n in Makefile instead
 
-# http://sphinx.pocoo.org/theming.html
-html_theme = "classic"
-html_theme_options = dict(collapsiblesidebar=True,externalrefs=True)
+    # http://sphinx.pocoo.org/theming.html
+    html_theme = "classic"
+    html_theme_options = dict(collapsiblesidebar=True,externalrefs=True)
 
-#~ todo_include_todos = True
+    #~ todo_include_todos = True
 
 
 
