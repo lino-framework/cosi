@@ -6,7 +6,7 @@ General
 .. include:: /include/tested.rst
 
 .. to test only this document:
-  $ python setup.py test -s tests.DocsTests.test_general
+   $ python setup.py test -s tests.DocsTests.test_general
 
 The following statements import a set of often-used global names::
 
@@ -30,9 +30,9 @@ Rolf is the local system administrator, he has a complete menu:
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
-- Verkauf : Verkaufsrechnungen (S)
-- Einkauf : Einkaufsrechnungen (P), Zahlungsaufträge (PO)
-- Finanzjournale : Bestbank (B), Kasse (C), Diverse Buchungen (M), MWSt-Erklärungen (V)
+- Verkauf : Verkaufsrechnungen (SLS)
+- Einkauf : Einkaufsrechnungen (PRC)
+- Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MWSt.-Erklärungen (VAT)
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger

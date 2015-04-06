@@ -6,8 +6,8 @@ Examples how to run these tests::
   $ python setup.py test -s tests.DocsTests.test_debts
   $ python setup.py test -s tests.DocsTests.test_docs
 """
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = "lino_cosi.projects.std.settings.test"
+# import os
+# os.environ['DJANGO_SETTINGS_MODULE'] = "lino_cosi.projects.std.settings.test"
 
 from unipath import Path
 from lino.utils.pythontest import TestCase

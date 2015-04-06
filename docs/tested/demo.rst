@@ -69,7 +69,7 @@ Test whether :meth:`get_db_overview_rst
  finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        75
  ledger.AccountInvoice      ledger.AccountInvoices         19        80
  ledger.InvoiceItem         ledger.InvoiceItemTable        9         128
- ledger.Journal             ledger.Journals                13        7
+ ledger.Journal             ledger.Journals                14        7
  ledger.MatchRule           ledger.MatchRules              3         10
  ledger.Movement            ledger.Movements               9         555
  ledger.Voucher             ledger.Vouchers                8         156

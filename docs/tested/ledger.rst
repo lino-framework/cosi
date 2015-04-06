@@ -32,21 +32,20 @@ Basic truths of accounting
 - The payment of a sales invoice credits the partner.
 
 >>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
 ==================== =============================== ============ ================================ ========
  ref                  Designation                     Trade Type   Account                          dc
 -------------------- ------------------------------- ------------ -------------------------------- --------
- S                    Sales invoices                  Sales                                         Credit
- P                    Purchase invoices               Purchases                                     Debit
- B                    Bestbank                                     (5500) Bestbank                  Debit
- PO                   Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
- C                    Cash                                         (5700) Cash                      Debit
- M                    Miscellaneous Journal Entries                                                 Debit
- V                    VAT declarations                             (4513) VAT to declare            Debit
+ SLS                  Sales invoices                  Sales                                         Credit
+ PRC                  Purchase invoices               Purchases                                     Debit
+ BNK                  Bestbank                        Purchases    (5500) Bestbank                  Debit
+ PMO                  Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
+ CSH                  Cash                                         (5700) Cash                      Debit
+ MSG                  Miscellaneous Journal Entries                (5700) Cash                      Debit
+ VAT                  VAT declarations                             (4513) VAT to declare            Debit
  **Total (7 rows)**                                                                                 **6**
 ==================== =============================== ============ ================================ ========
 <BLANKLINE>
-
 
 Match rules
 ===========
@@ -56,20 +55,20 @@ be cleared using a given journal.
 
 >>> ses.show(ledger.MatchRules)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==== ================== ===================================
+==== ================== =====================================
  ID   Account            Journal
----- ------------------ -----------------------------------
- 1    (4000) Customers   Sales invoices (S)
- 2    (4400) Suppliers   Purchase invoices (P)
- 3    (4000) Customers   Bestbank (B)
- 4    (4400) Suppliers   Bestbank (B)
- 5    (4000) Customers   Payment Orders (PO)
- 6    (4400) Suppliers   Payment Orders (PO)
- 7    (4000) Customers   Cash (C)
- 8    (4400) Suppliers   Cash (C)
- 9    (4000) Customers   Miscellaneous Journal Entries (M)
- 10   (4400) Suppliers   Miscellaneous Journal Entries (M)
-==== ================== ===================================
+---- ------------------ -------------------------------------
+ 1    (4000) Customers   Sales invoices (SLS)
+ 2    (4400) Suppliers   Purchase invoices (PRC)
+ 3    (4000) Customers   Bestbank (BNK)
+ 4    (4400) Suppliers   Bestbank (BNK)
+ 5    (4000) Customers   Payment Orders (PMO)
+ 6    (4400) Suppliers   Payment Orders (PMO)
+ 7    (4000) Customers   Cash (CSH)
+ 8    (4400) Suppliers   Cash (CSH)
+ 9    (4000) Customers   Miscellaneous Journal Entries (MSG)
+ 10   (4400) Suppliers   Miscellaneous Journal Entries (MSG)
+==== ================== =====================================
 <BLANKLINE>
 
 
@@ -78,12 +77,12 @@ Partner 112 has 2 open sales invoices:
 >>> obj = contacts.Partner.objects.get(pk=112)
 >>> ses.show(ledger.DebtsByPartner, obj)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== =========== ======== ==========
- Due date             Balance     Debts    Payments
--------------------- ----------- -------- ----------
- 3/6/15               35,00       *S#13*
+==================== =========== ========== ==========
+ Due date             Balance     Debts      Payments
+-------------------- ----------- ---------- ----------
+ 3/6/15               35,00       *SLS#13*
  **Total (1 rows)**   **35,00**
-==================== =========== ======== ==========
+==================== =========== ========== ==========
 <BLANKLINE>
 
 
