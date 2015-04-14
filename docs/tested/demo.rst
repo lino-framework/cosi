@@ -39,7 +39,7 @@ Test whether :meth:`get_db_overview_rst
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 22 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
-47 models:
+46 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
 -------------------------- ------------------------------ --------- -------
@@ -52,7 +52,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   contenttypes.ContentTypes      4         48
+ contenttypes.ContentType   contenttypes.ContentTypes      4         47
  contenttypes.HelpText      contenttypes.HelpTexts         4         2
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
@@ -83,7 +83,6 @@ Test whether :meth:`get_db_overview_rst
  sales.ShippingMode         sales.ShippingModes            3         0
  sepa.Account               sepa.Accounts                  6         13
  system.SiteConfig          system.SiteConfigs             12        1
- system.TextFieldTemplate   system.TextFieldTemplates      5         2
  uploads.Upload             uploads.Uploads                9         0
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
