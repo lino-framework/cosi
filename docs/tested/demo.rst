@@ -38,7 +38,7 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-22 apps: about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
+23 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
 46 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows

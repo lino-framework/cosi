@@ -75,7 +75,7 @@ class QuickTest(RemoteAuthTestCase):
         # 20130418 server traceback caused when a pdf view of a table
         # was requested through the web interface.  TypeError:
         # get_handle() takes exactly 1 argument (2 given)
-        url = settings.SITE.build_admin_url(
+        url = settings.SITE.buildurl(
             'api/countries/Countries?cw=189&cw=45&cw=45&cw=36&ch=&ch=&ch=&ch=&ch=&ch=&ci=name&ci=isocode&ci=short_code&ci=iso3&name=0&an=as_pdf')
         msg = 'Using remote authentication, but no user credentials found.'
         try:
