@@ -38,13 +38,12 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-23 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, sales, vat, declarations, finan, lino_cosi.
-46 models:
+23 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, vat, sales, declarations, finan, lino_cosi.
+45 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
 -------------------------- ------------------------------ --------- -------
  accounts.Account           accounts.Accounts              12        12
- accounts.Chart             accounts.Charts                2         1
  accounts.Group             accounts.Groups                5         7
  contacts.Company           contacts.Companies             26        20
  contacts.CompanyType       contacts.CompanyTypes          3         16
@@ -52,7 +51,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   contenttypes.ContentTypes      4         47
+ contenttypes.ContentType   contenttypes.ContentTypes      4         46
  contenttypes.HelpText      contenttypes.HelpTexts         4         2
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
@@ -60,25 +59,24 @@ Test whether :meth:`get_db_overview_rst
  excerpts.Excerpt           excerpts.ExcerptsByX           11        0
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
  finan.BankStatement        finan.BankStatements           12        15
- finan.BankStatementItem    finan.BankStatementItemTable   11        24
+ finan.BankStatementItem    finan.BankStatementItemTable   10        24
  finan.Grouper              finan.Groupers                 11        0
- finan.GrouperItem          finan.GrouperItemTable         10        0
+ finan.GrouperItem          finan.GrouperItemTable         9         0
  finan.JournalEntry         finan.FinancialVouchers        10        0
- finan.JournalEntryItem     finan.JournalEntryItemTable    11        0
+ finan.JournalEntryItem     finan.JournalEntryItemTable    10        0
  finan.PaymentOrder         finan.PaymentOrders            12        15
- finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        75
- ledger.AccountInvoice      ledger.AccountInvoices         19        80
- ledger.InvoiceItem         ledger.InvoiceItemTable        9         128
+ finan.PaymentOrderItem     finan.PaymentOrderItemTable    9         75
  ledger.Journal             ledger.Journals                14        7
  ledger.MatchRule           ledger.MatchRules              3         10
- ledger.Movement            ledger.Movements               9         555
- ledger.Voucher             ledger.Vouchers                8         156
+ ledger.Movement            ledger.Movements               10        555
+ ledger.PaymentTerm         ledger.PaymentTerms            5         0
+ ledger.Voucher             ledger.Vouchers                9         156
  outbox.Attachment          outbox.Attachments             4         0
  outbox.Mail                outbox.Mails                   8         0
  outbox.Recipient           outbox.Recipients              6         0
  products.Product           products.Products              8         12
  products.ProductCat        products.ProductCats           3         2
- sales.Invoice              sales.Invoices                 25        46
+ sales.Invoice              sales.Invoices                 26        46
  sales.InvoiceItem          sales.InvoiceItemTable         13        90
  sales.ShippingMode         sales.ShippingModes            3         0
  sepa.Account               sepa.Accounts                  6         13
@@ -87,7 +85,8 @@ Test whether :meth:`get_db_overview_rst
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
- vat.PaymentTerm            vat.PaymentTerms               5         0
+ vat.AccountInvoice         vat.AccountInvoices            20        80
+ vat.InvoiceItem            vat.InvoiceItemTable           9         128
  vat.VatRule                vat.VatRules                   9         11
 ========================== ============================== ========= =======
 <BLANKLINE>

@@ -20,7 +20,7 @@ class Site(Site):
     "The base for all Estonian Lino Così Sites."
     languages = 'en et'
     demo_fixtures = 'std all_countries euvatrates eesti furniture \
-    demo demo2'.split()
+    minimal_ledger demo demo2'.split()
 
     def setup_plugins(self):
         "See :meth:`lino.core.site.Site.setup_plugins`."

@@ -32,9 +32,9 @@ Basic truths of accounting
 - The payment of a sales invoice credits the partner.
 
 >>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 ==================== =============================== ============ ================================ ========
- ref                  Designation                     Trade Type   Account                          dc
+ Reference            Designation                     Trade Type   Account                          dc
 -------------------- ------------------------------- ------------ -------------------------------- --------
  SLS                  Sales invoices                  Sales                                         Credit
  PRC                  Purchase invoices               Purchases                                     Debit

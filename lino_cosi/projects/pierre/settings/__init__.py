@@ -15,7 +15,7 @@ from lino_cosi.projects.std.settings import *
 class Site(Site):
     languages = 'fr en'
     demo_fixtures = 'std few_countries euvatrates furniture \
-    demo demo2'.split()
+    minimal_ledger demo demo2'.split()
 
     def setup_plugins(self):
         self.plugins.contacts.configure(hide_region=False)

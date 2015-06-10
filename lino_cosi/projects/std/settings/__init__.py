@@ -26,7 +26,7 @@ class Site(Site):
     url = lino_cosi.SETUP_INFO['url']
 
     demo_fixtures = 'std few_countries euvatrates few_languages furniture \
-    demo demo2 demo_bookings'.split()
+    minimal_ledger demo demo2 demo_bookings'.split()
 
     # languages = 'en de fr'
     languages = 'en'
@@ -66,9 +66,9 @@ class Site(Site):
         # ledger must come before sales because its demo fixture
         # creates journals
 
-        yield 'lino.modlib.ledger'
-        yield 'lino.modlib.sales'
+        # yield 'lino.modlib.ledger'
         yield 'lino.modlib.vat'
+        yield 'lino.modlib.sales'
         yield 'lino.modlib.declarations'
         yield 'lino.modlib.finan'
         #~ 'lino.modlib.journals',
