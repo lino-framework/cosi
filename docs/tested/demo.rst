@@ -76,17 +76,17 @@ Test whether :meth:`get_db_overview_rst
  outbox.Recipient           outbox.Recipients              6         0
  products.Product           products.Products              8         12
  products.ProductCat        products.ProductCats           3         2
- sales.Invoice              sales.Invoices                 26        46
  sales.InvoiceItem          sales.InvoiceItemTable         13        90
  sales.ShippingMode         sales.ShippingModes            3         0
+ sales.VatProductInvoice    sales.Invoices                 26        46
  sepa.Account               sepa.Accounts                  6         13
  system.SiteConfig          system.SiteConfigs             12        1
  uploads.Upload             uploads.Uploads                9         0
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
- vat.AccountInvoice         vat.AccountInvoices            20        80
  vat.InvoiceItem            vat.InvoiceItemTable           9         128
+ vat.VatAccountInvoice      vat.Invoices                   20        80
  vat.VatRule                vat.VatRules                   9         11
 ========================== ============================== ========= =======
 <BLANKLINE>
