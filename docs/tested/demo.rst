@@ -74,7 +74,7 @@ Test whether :meth:`get_db_overview_rst
  outbox.Attachment          outbox.Attachments             4         0
  outbox.Mail                outbox.Mails                   8         0
  outbox.Recipient           outbox.Recipients              6         0
- products.Product           products.Products              8         12
+ products.Product           products.Products              9         12
  products.ProductCat        products.ProductCats           3         2
  sales.InvoiceItem          sales.InvoiceItemTable         13        90
  sales.ShippingMode         sales.ShippingModes            3         0
