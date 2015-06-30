@@ -31,18 +31,7 @@ class Site(Site):
     # languages = 'en de fr'
     languages = 'en'
 
-    def setup_user_profiles(self):
-        """
-        Defines application-specific default user profiles.
-        Local site administrators can override this in their :xfile:.
-        """
-        from lino.modlib.users.choicelists import UserProfiles
-        UserProfiles.reset('* office accounts')
-        add = UserProfiles.add_item
-        add('000', _("Anonymous"),       '_ _ _',
-            'anonymous', readonly=True, authenticated=False)
-        add('100', _("User"),            'U U U', 'user')
-        add('900', _("Administrator"),   'A A A', 'admin')
+    enable_role_based_permissions = True
 
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()
@@ -80,7 +69,7 @@ class Site(Site):
         #~ yield 'lino.modlib.cal'
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
-        yield 'lino_cosi'
+        yield 'lino_cosi.lib.cosi'
 
     def setup_plugins(self):
         """
@@ -91,4 +80,20 @@ class Site(Site):
         self.plugins.contacts.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
+
+    def setup_user_profiles(self):
+        """This defines default user profiles.
+
+        """
+        from lino.modlib.users.choicelists import UserProfiles
+        from lino_cosi.lib.cosi.roles import *
+
+        UserProfiles.clear()
+
+        add = UserProfiles.add_item
+        
+        add('000', _("Anonymous"), Anonymous, name='anonymous',
+            readonly=True, authenticated=False)
+        add('100', _("User"),           SiteUser)
+        add('900', _("Administrator"),  SiteAdmin, name='admin')
 

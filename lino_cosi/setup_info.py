@@ -33,6 +33,8 @@ Topic :: Office/Business :: Scheduling
 
 SETUP_INFO.update(packages=[
     'lino_cosi',
+    'lino_cosi.lib',
+    'lino_cosi.lib.cosi',
     'lino_cosi.projects',
     'lino_cosi.projects.apc',
     'lino_cosi.projects.apc.settings',

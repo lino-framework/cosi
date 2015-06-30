@@ -5,7 +5,8 @@
 .. autosummary::
    :toctree:
 
-    models
+    lib.cosi.models
+    lib.cosi.roles
     projects
     migrate
 

@@ -45,7 +45,7 @@ Rolf is the local system administrator, he has a complete menu:
   - MWSt. : MWSt-Regeln
   - Verkauf : Lieferarten
 - Explorer :
-  - System : Datenbankmodelle, Vollmachten, Benutzergruppen, Benutzer-Levels, Benutzerprofile
+  - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
