@@ -49,7 +49,7 @@ class Site(Site):
 
         # yield 'lino.modlib.outbox'
         # yield 'lino.modlib.uploads'
-        yield 'lino.modlib.appypod'
+        # yield 'lino.modlib.appypod'
         yield 'lino.modlib.export_excel'
 
         # ledger must come before sales because its demo fixture

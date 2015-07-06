@@ -125,9 +125,8 @@ setting the extra HTTP header `HTTP_X_REQUESTED_WITH` to
 403
 >>> print(res.content)
 ... #doctest: +ELLIPSIS -NORMALIZE_WHITESPACE -REPORT_UDIFF
-PermissionDenied
-As Anonym you have no permission to run this action.
-<BLANKLINE>
+PermissionDenied: As Anonym you have no permission to run this action.
+in request GET /api/sales/InvoicesByJournal?start=0&limit=25&fmt=json&rp=ext-comp-1135&pv=1&pv=&pv=&mt=24&mk=1
 TRACEBACK:
 ...
 <BLANKLINE>

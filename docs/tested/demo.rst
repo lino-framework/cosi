@@ -38,7 +38,7 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-23 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, appypod, export_excel, ledger, vat, sales, declarations, finan, cosi.
+24 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, appypod, printing, uploads, outbox, excerpts, export_excel, ledger, vat, sales, declarations, finan, cosi.
 45 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
@@ -56,7 +56,7 @@ Test whether :meth:`get_db_overview_rst
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
  declarations.Declaration   declarations.Declarations      18        0
- excerpts.Excerpt           excerpts.ExcerptsByX           11        0
+ excerpts.Excerpt           excerpts.Excerpts              11        0
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
  finan.BankStatement        finan.BankStatements           12        15
  finan.BankStatementItem    finan.BankStatementItemTable   10        24
