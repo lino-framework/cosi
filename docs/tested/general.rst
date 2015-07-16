@@ -3,20 +3,17 @@
 General
 =======
 
-.. include:: /include/tested.rst
+..  to test only this document:
 
-.. to test only this document:
-   $ python setup.py test -s tests.DocsTests.test_general
+    $ python setup.py test -s tests.DocsTests.test_general
 
-The following statements import a set of often-used global names::
-
->>> from __future__ import print_function
->>> from __future__ import unicode_literals
->>> import os
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.doctests'
->>> import json
->>> from lino.api import dd, rt
->>> from lino.api.shell import *
+    >>> from __future__ import print_function
+    >>> from __future__ import unicode_literals
+    >>> import os
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.doctests'
+    >>> import json
+    >>> from lino.api import dd, rt
+    >>> from lino.api.shell import *
 
 User profiles
 -------------
@@ -37,7 +34,7 @@ Rolf is the local system administrator, he has a complete menu:
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
-  - System : Hilfetexte, Site-Parameter, Benutzer
+  - System : Site-Parameter, Benutzer, Hilfetexte
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale, Zahlungsbedingungen
@@ -45,7 +42,7 @@ Rolf is the local system administrator, he has a complete menu:
   - MWSt. : MWSt-Regeln
   - Verkauf : Lieferarten
 - Explorer :
-  - System : Datenbankmodelle, Vollmachten, Benutzerprofile
+  - System : Vollmachten, Benutzerprofile, Datenbankmodelle
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge

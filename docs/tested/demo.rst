@@ -7,18 +7,17 @@ Tested code snippets on the demo database
 .. This document is part of the Lino Così test suite. To run only this
    test:
 
-  $ python setup.py test -s tests.DocsTests.test_demo
+    $ python setup.py test -s tests.DocsTests.test_demo
+    
+    doctest init:
 
-
-General stuff:
-
->>> import os
->>> import json
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
->>> from lino.api.shell import *
->>> from django.test import Client
->>> client = Client()
->>> ses = rt.login('robin')
+    >>> import os
+    >>> import json
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
+    >>> from lino.api.shell import *
+    >>> from django.test import Client
+    >>> client = Client()
+    >>> ses = rt.login('robin')
 
 We can now refer to every installed app via it's `app_label`.
 For example here is how we can verify things in the demo database 
@@ -38,7 +37,7 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-24 apps: staticfiles, about, bootstrap3, lino, contenttypes, system, users, countries, contacts, products, accounts, sepa, appypod, printing, uploads, outbox, excerpts, export_excel, ledger, vat, sales, declarations, finan, cosi.
+24 apps: staticfiles, about, bootstrap3, lino, appypod, printing, system, contenttypes, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, export_excel, ledger, vat, sales, declarations, finan, cosi.
 45 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
