@@ -34,7 +34,7 @@ Rolf is the local system administrator, he has a complete menu:
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
 - Konfigurierung :
-  - System : Site-Parameter, Benutzer, Hilfetexte
+  - System : Site-Parameter, Hilfetexte, Benutzer
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale, Zahlungsbedingungen
@@ -42,7 +42,7 @@ Rolf is the local system administrator, he has a complete menu:
   - MWSt. : MWSt-Regeln
   - Verkauf : Lieferarten
 - Explorer :
-  - System : Vollmachten, Benutzerprofile, Datenbankmodelle
+  - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
