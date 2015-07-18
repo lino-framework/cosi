@@ -9,7 +9,7 @@
 
 from lino.api import _
 from lino.modlib.users.choicelists import UserProfiles
-from lino.core.roles import Anonymous, SiteAdmin
+from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino.modlib.accounts.roles import AccountingReader
 
@@ -25,7 +25,7 @@ UserProfiles.clear()
 
 add = UserProfiles.add_item
 
-add('000', _("Anonymous"), Anonymous, name='anonymous',
+add('000', _("Anonymous"), UserRole, name='anonymous',
     readonly=True, authenticated=False)
 add('100', _("User"),           SiteUser)
 add('900', _("Administrator"),  SiteAdmin, name='admin')
