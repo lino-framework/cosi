@@ -57,6 +57,7 @@ class QuickTest(RemoteAuthTestCase):
 ---------- --------------
  John Doe
 ========== ==============
+
 """)
 
         s = contacts.RolesByCompany.request(o2).to_rst()
@@ -67,6 +68,7 @@ class QuickTest(RemoteAuthTestCase):
 ----------- --------------
  Johny Doe
 =========== ==============
+
 """)
         url = "/api/contacts/Persons/115?fv=115&fv=fff&an=merge_row"
         #~ self.fail("TODO: execute a merge action using the web interface")

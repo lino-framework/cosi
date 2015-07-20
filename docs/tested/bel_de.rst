@@ -3,28 +3,11 @@
 Refusing permission to an anonymous request
 ===========================================
 
-.. include:: /include/tested.rst
-
 .. to test only this document:
 
-  $ python setup.py test -s tests.DocsTests.test_bel_de
+    $ python setup.py test -s tests.DocsTests.test_bel_de
 
-This document reproduces a unicode error which occurred when Lino
-tried to say "As Anonymous you have no permission to run this action."
-in German (where the internationlized text (u'Als Anonym haben Sie
-nicht die Berechtigung, diese Aktion auszuf\xfchren.') contains
-non-ascii characters.
-
-The error was::
-
-  UnicodeEncodeError at /api/sales/InvoicesByJournal
-  'ascii' codec can't encode character u'\xfc' in position 64: ordinal not in range(128)
-
-We cannot use the `doctests` settings because the situation happens
-only with session-based authentication.
-
-
-.. 
+    doctest init:
 
     >>> from __future__ import print_function
     >>> from __future__ import unicode_literals
@@ -37,6 +20,20 @@ only with session-based authentication.
     >>> from lino.api.shell import *
     >>> from django.test.client import Client
     >>> from django.utils import translation
+
+
+This document reproduces a unicode error which occurred when Lino
+tried to say "As Anonymous you have no permission to run this action."
+in German (where the internationalized text contains non-ascii
+characters.
+
+The error was::
+
+  UnicodeEncodeError at /api/sales/InvoicesByJournal
+  'ascii' codec can't encode character u'\xfc' in position 64: ordinal not in range(128)
+
+We cannot use the `doctests` settings because the situation happens
+only with session-based authentication.
 
 
 This document uses :mod:`lino_cosi.projects.apc`:
@@ -126,10 +123,4 @@ setting the extra HTTP header `HTTP_X_REQUESTED_WITH` to
 >>> print(res.content)
 ... #doctest: +ELLIPSIS -NORMALIZE_WHITESPACE -REPORT_UDIFF
 PermissionDenied: As Anonym you have no permission to run this action.
-in request GET /api/sales/InvoicesByJournal?start=0&limit=25&fmt=json&rp=ext-comp-1135&pv=1&pv=&pv=&mt=24&mk=1
-TRACEBACK:
-...
-<BLANKLINE>
-
-
 
