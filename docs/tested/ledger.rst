@@ -34,7 +34,7 @@ Basic truths of accounting
 >>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 ==================== =============================== ============ ================================ ========
- Reference            Designation                     Trade Type   Account                          dc
+ Reference            Designation                     Trade type   Account                          dc
 -------------------- ------------------------------- ------------ -------------------------------- --------
  SLS                  Sales invoices                  Sales                                         Credit
  PRC                  Purchase invoices               Purchases                                     Debit

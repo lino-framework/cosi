@@ -29,7 +29,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Verkauf : Verkaufsrechnungen (SLS)
 - Einkauf : Einkaufsrechnungen (PRC)
-- Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MWSt.-Erklärungen (VAT)
+- Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MwSt.-Erklärungen (VAT)
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
@@ -39,14 +39,14 @@ Rolf is the local system administrator, he has a complete menu:
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale, Zahlungsbedingungen
   - Büro : Upload-Arten, Auszugsarten
-  - MWSt. : MWSt-Regeln
+  - MwSt. : MwSt-Regeln
   - Verkauf : Lieferarten
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - SEPA : Konten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
-  - Buchhaltung : Belege, VoucherTypes, Bewegungen, Geschäftsjahre, TradeTypes
-  - MWSt. : VatRegimes, VatClasses, MWSt.-Erklärungen
+  - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
+  - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
 - Site : Info

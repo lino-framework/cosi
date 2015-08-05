@@ -58,16 +58,16 @@ Test whether :meth:`get_db_overview_rst
  excerpts.Excerpt           excerpts.Excerpts              11        0
  excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
  finan.BankStatement        finan.BankStatements           12        15
- finan.BankStatementItem    finan.BankStatementItemTable   10        24
+ finan.BankStatementItem    finan.BankStatementItemTable   10        99
  finan.Grouper              finan.Groupers                 11        0
  finan.GrouperItem          finan.GrouperItemTable         9         0
  finan.JournalEntry         finan.FinancialVouchers        10        0
  finan.JournalEntryItem     finan.JournalEntryItemTable    10        0
  finan.PaymentOrder         finan.PaymentOrders            12        15
- finan.PaymentOrderItem     finan.PaymentOrderItemTable    9         75
+ finan.PaymentOrderItem     finan.PaymentOrderItemTable    11        0
  ledger.Journal             ledger.Journals                14        7
  ledger.MatchRule           ledger.MatchRules              3         10
- ledger.Movement            ledger.Movements               10        555
+ ledger.Movement            ledger.Movements               9         555
  ledger.PaymentTerm         ledger.PaymentTerms            5         0
  ledger.Voucher             ledger.Vouchers                9         156
  outbox.Attachment          outbox.Attachments             4         0
@@ -77,15 +77,15 @@ Test whether :meth:`get_db_overview_rst
  products.ProductCat        products.ProductCats           3         2
  sales.InvoiceItem          sales.InvoiceItemTable         13        90
  sales.ShippingMode         sales.ShippingModes            3         0
- sales.VatProductInvoice    sales.Invoices                 26        46
- sepa.Account               sepa.Accounts                  6         13
+ sales.VatProductInvoice    sales.Invoices                 28        46
+ sepa.Account               sepa.Accounts                  6         15
  system.SiteConfig          system.SiteConfigs             12        1
  uploads.Upload             uploads.Uploads                9         0
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
  vat.InvoiceItem            vat.InvoiceItemTable           9         128
- vat.VatAccountInvoice      vat.Invoices                   20        80
+ vat.VatAccountInvoice      vat.Invoices                   22        80
  vat.VatRule                vat.VatRules                   9         11
 ========================== ============================== ========= =======
 <BLANKLINE>
