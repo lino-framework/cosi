@@ -27,9 +27,10 @@ Rolf is the local system administrator, he has a complete menu:
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
-- Verkauf : Verkaufsrechnungen (SLS)
-- Einkauf : Einkaufsrechnungen (PRC)
-- Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MwSt.-Erklärungen (VAT)
+- Buchhaltung :
+  - Verkauf : Verkaufsrechnungen (SLS)
+  - Einkauf : Einkaufsrechnungen (PRC)
+  - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MwSt.-Erklärungen (VAT)
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger

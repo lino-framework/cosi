@@ -26,7 +26,7 @@ using the Django API:
 >>> contacts.Person.objects.count()
 69
 >>> contacts.Company.objects.count()
-20
+22
 
 
 The test database
@@ -44,9 +44,9 @@ Test whether :meth:`get_db_overview_rst
 -------------------------- ------------------------------ --------- -------
  accounts.Account           accounts.Accounts              12        12
  accounts.Group             accounts.Groups                5         7
- contacts.Company           contacts.Companies             26        20
+ contacts.Company           contacts.Companies             26        22
  contacts.CompanyType       contacts.CompanyTypes          3         16
- contacts.Partner           contacts.Partners              22        89
+ contacts.Partner           contacts.Partners              22        91
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
@@ -64,7 +64,7 @@ Test whether :meth:`get_db_overview_rst
  finan.JournalEntry         finan.FinancialVouchers        10        0
  finan.JournalEntryItem     finan.JournalEntryItemTable    10        0
  finan.PaymentOrder         finan.PaymentOrders            12        15
- finan.PaymentOrderItem     finan.PaymentOrderItemTable    11        0
+ finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        0
  ledger.Journal             ledger.Journals                14        7
  ledger.MatchRule           ledger.MatchRules              3         10
  ledger.Movement            ledger.Movements               9         555
@@ -77,15 +77,15 @@ Test whether :meth:`get_db_overview_rst
  products.ProductCat        products.ProductCats           3         2
  sales.InvoiceItem          sales.InvoiceItemTable         13        90
  sales.ShippingMode         sales.ShippingModes            3         0
- sales.VatProductInvoice    sales.Invoices                 28        46
- sepa.Account               sepa.Accounts                  6         15
+ sales.VatProductInvoice    sales.Invoices                 27        46
+ sepa.Account               sepa.Accounts                  6         17
  system.SiteConfig          system.SiteConfigs             12        1
  uploads.Upload             uploads.Uploads                9         0
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
  users.User                 users.Users                    13        1
  vat.InvoiceItem            vat.InvoiceItemTable           9         128
- vat.VatAccountInvoice      vat.Invoices                   22        80
+ vat.VatAccountInvoice      vat.Invoices                   21        80
  vat.VatRule                vat.VatRules                   9         11
 ========================== ============================== ========= =======
 <BLANKLINE>
