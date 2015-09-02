@@ -11,14 +11,14 @@ from lino.api import _
 from lino.modlib.users.choicelists import UserProfiles
 from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
-from lino.modlib.ledger.roles import AccountingReader
+from lino.modlib.ledger.roles import LedgerUser, LedgerStaff
 
 
-class SiteUser(OfficeUser, AccountingReader):
+class SiteUser(OfficeUser, LedgerUser):
     pass
 
 
-class SiteAdmin(SiteAdmin, OfficeStaff, AccountingReader):
+class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff):
     pass
 
 UserProfiles.clear()
