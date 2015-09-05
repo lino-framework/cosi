@@ -14,9 +14,7 @@ Tested code snippets on the demo database
     >>> import os
     >>> import json
     >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
-    >>> from lino.api.shell import *
-    >>> from django.test import Client
-    >>> client = Client()
+    >>> from lino.api.doctests import *
     >>> ses = rt.login('robin')
 
 We can now refer to every installed app via it's `app_label`.
@@ -98,7 +96,7 @@ Person #115 (u'Altenberg Hans') is not a Partner (master_key
 is <django.db.models.fields.related.ForeignKey: partner>)
 
 >>> url = '/bs3/contacts/Person/115'
->>> res = client.get(url, REMOTE_USER='robin')
+>>> res = test_client.get(url, REMOTE_USER='robin')
 >>> print(res.status_code)
 200
 
@@ -119,7 +117,7 @@ This demo database contains exactly 48 entries:
 48
 
 >>> url = '/api/countries/PlacesByCountry?fmt=json&start=0&mt=10&mk=BE'
->>> res = client.get(url,REMOTE_USER='robin')
+>>> res = test_client.get(url,REMOTE_USER='robin')
 >>> print(res.status_code)
 200
 >>> result = json.loads(res.content)
@@ -151,7 +149,7 @@ Here we override it on the living object:
 
 Same request returns now 26 data rows:
 
->>> res = client.get(url, REMOTE_USER='robin')
+>>> res = test_client.get(url, REMOTE_USER='robin')
 >>> result = json.loads(res.content)
 >>> print(len(result['rows']))
 26
@@ -163,7 +161,7 @@ To remove the limit altogether, you can say:
 and the same request now returns all 49 data rows (48 + the phantom
 row):
 
->>> res = client.get(url,REMOTE_USER='robin')
+>>> res = test_client.get(url,REMOTE_USER='robin')
 >>> result = json.loads(res.content)
 >>> print(len(result['rows']))
 49

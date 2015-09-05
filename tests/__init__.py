@@ -29,6 +29,9 @@ class DocsTests(BaseTestCase):
     def test_est(self):
         self.run_simple_doctests('docs/tested/est.rst')
 
+    def test_sales(self):
+        self.run_simple_doctests('docs/tested/sales.rst')
+
     def test_bel_de(self):
         self.run_simple_doctests('docs/tested/bel_de.rst')
 
