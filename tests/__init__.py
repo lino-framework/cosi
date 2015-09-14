@@ -23,6 +23,9 @@ class DocsTests(BaseTestCase):
     # def test_cosi(self):
     #     return self.run_docs_doctests('tested/cosi.rst')
 
+    def test_accounting(self):
+        self.run_simple_doctests('docs/tested/accounting.rst')
+
     def test_packages(self):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
