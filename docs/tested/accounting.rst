@@ -2,8 +2,6 @@
 Introduction to accounting
 ==========================
 
-(to be moved to lino_cosi)
-
 This chapter explains some basic truths about accounting as seen by a
 Lino application developer.
 
@@ -18,23 +16,19 @@ Lino application developer.
     -- Tao of programming
 
 
-About this document
--------------------
+.. how to test this document:
 
-This document is part of the Lino test suite. You can test only this
-document by issuing::
+    $ python setup.py test -s tests.DocsTests.test_accounting
 
-  $ python setup.py test -s tests.DocsTests.test_accounting
+    Doctest initialization:
 
-Doctest initialization:
-
->>> from __future__ import print_function
->>> import os
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino.projects.min2.settings.doctests'
->>> from lino.api.doctest import *
->>> from lino.modlib.accounts.utils import *
->>> from lino.modlib.accounts.fields import *
->>> from lino.modlib.accounts.choicelists import *
+    >>> from __future__ import print_function
+    >>> import os
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino.projects.min2.settings.doctests'
+    >>> from lino.api.doctest import *
+    >>> from lino.modlib.accounts.utils import *
+    >>> from lino.modlib.accounts.fields import *
+    >>> from lino.modlib.accounts.choicelists import *
 
 
 Debit and Credit
