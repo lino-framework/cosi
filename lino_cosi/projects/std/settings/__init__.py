@@ -42,7 +42,7 @@ class Site(Site):
         yield 'lino.modlib.contacts'
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'
-        yield 'lino.modlib.accounts'
+        yield 'lino_cosi.lib.accounts'
         yield 'lino.modlib.sepa'
 
         yield 'lino.modlib.excerpts'
@@ -56,10 +56,10 @@ class Site(Site):
         # creates journals
 
         # yield 'lino.modlib.ledger'
-        yield 'lino.modlib.vat'
-        yield 'lino.modlib.sales'
-        yield 'lino.modlib.declarations'
-        yield 'lino.modlib.finan'
+        yield 'lino_cosi.lib.vat'
+        yield 'lino_cosi.lib.sales'
+        yield 'lino_cosi.lib.declarations'
+        yield 'lino_cosi.lib.finan'
         #~ 'lino.modlib.journals',
         #~ 'lino.modlib.projects',
         #~ yield 'lino.modlib.blogs'
