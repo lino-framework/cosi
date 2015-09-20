@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 from django.conf import settings
 from lino.api import dd, rt, _
-from lino.modlib.accounts.utils import DEBIT
+from lino_cosi.lib.accounts.utils import DEBIT
 
 accounts = dd.resolve_app('accounts')
 vat = dd.resolve_app('vat')

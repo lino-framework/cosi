@@ -12,7 +12,7 @@ from django.conf import settings
 
 from lino.api import dd, rt, _
 
-from lino.modlib.accounts.utils import DEBIT, CREDIT
+from lino_cosi.lib.accounts.utils import DEBIT, CREDIT
 from .roles import LedgerStaff
 
 

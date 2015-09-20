@@ -43,7 +43,7 @@ class Site(Site):
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'
         yield 'lino_cosi.lib.accounts'
-        yield 'lino.modlib.sepa'
+        yield 'lino_cosi.lib.sepa'
 
         yield 'lino.modlib.excerpts'
 

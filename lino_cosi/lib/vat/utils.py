@@ -2,10 +2,10 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Utility function for `lino.modlib.vat`.
+"""Utility function for `lino_cosi.lib.vat`.
 
 >>> from decimal import Decimal
->>> from lino.modlib.vat.utils import add_vat, remove_vat
+>>> from lino_cosi.lib.vat.utils import add_vat, remove_vat
 >>> rate = Decimal(21)
 >>> add_vat(100, rate)
 Decimal('121')
@@ -17,7 +17,7 @@ Decimal('100')
 from __future__ import unicode_literals
 
 from decimal import Decimal
-from lino.modlib.accounts.utils import ZERO
+from lino_cosi.lib.accounts.utils import ZERO
 
 HUNDRED = Decimal('100')
 # ZERO = Decimal('0.00')

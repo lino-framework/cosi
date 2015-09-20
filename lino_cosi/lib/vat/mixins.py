@@ -24,7 +24,7 @@ from django.conf import settings
 
 from lino.api import dd, rt, _
 
-from lino.modlib.ledger.mixins import (
+from lino_cosi.lib.ledger.mixins import (
     PartnerRelated, ProjectRelated, VoucherItem)
 
 from .utils import ZERO, ONE

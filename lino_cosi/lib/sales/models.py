@@ -23,7 +23,7 @@ from lino.modlib.excerpts.mixins import Certifiable
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
 from lino_cosi.lib.vat.mixins import get_default_vat_regime
-from lino.modlib.sepa.mixins import Payable
+from lino_cosi.lib.sepa.mixins import Payable
 from lino_cosi.lib.ledger.mixins import Matching, SequencedVoucherItem
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes

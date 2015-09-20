@@ -9,7 +9,7 @@ a group of matching movements.
 
 from lino.api import rt, dd
 
-from lino.modlib.accounts.utils import ZERO
+from lino_cosi.lib.accounts.utils import ZERO
 
 
 class Balance(object):

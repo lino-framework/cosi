@@ -26,7 +26,7 @@ from .mixins import VatDocument, VatItemBase
 
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.mixins import Matching, AccountVoucherItem
-from lino.modlib.sepa.mixins import Payable
+from lino_cosi.lib.sepa.mixins import Payable
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 
 
