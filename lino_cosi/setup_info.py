@@ -5,7 +5,7 @@
 SETUP_INFO = dict(
     name='lino-cosi',
     version='0.0.1',
-    install_requires=['lino', 'django-iban', 'xlwt'],
+    install_requires=['lino', 'django-iban', 'xlwt', 'lxml'],
     tests_require=['beautifulsoup4', 'commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',
     description="A Lino application to make accounting simple",
@@ -35,6 +35,21 @@ SETUP_INFO.update(packages=[
     'lino_cosi',
     'lino_cosi.lib',
     'lino_cosi.lib.cosi',
+    'lino_cosi.lib.accounts',
+    'lino_cosi.lib.auto',
+    'lino_cosi.lib.auto.sales',
+    'lino_cosi.lib.declarations',
+    'lino_cosi.lib.finan',
+    'lino_cosi.lib.finan.fixtures',
+    'lino_cosi.lib.ledger',
+    'lino_cosi.lib.ledger.fixtures',
+    'lino_cosi.lib.sales',
+    'lino_cosi.lib.sales.fixtures',
+    'lino_cosi.lib.sepa',
+    'lino_cosi.lib.sepa.fixtures',
+    'lino_cosi.lib.vat',
+    'lino_cosi.lib.vat.fixtures',
+    'lino_cosi.lib.vatless',
     'lino_cosi.projects',
     'lino_cosi.projects.apc',
     'lino_cosi.projects.apc.settings',
@@ -49,9 +64,9 @@ SETUP_INFO.update(packages=[
 
 SETUP_INFO.update(message_extractors={
     'lino_cosi': [
-        ('**/cache/**',          'ignore', None),
-        ('**.py',                'python', None),
-        ('**.js',                'javascript', None),
+        ('**/cache/**', 'ignore', None),
+        ('**.py', 'python', None),
+        ('**.js', 'javascript', None),
         ('**/templates_jinja/**.html', 'jinja2', None),
     ],
 })
@@ -64,9 +79,10 @@ def add_package_data(package, *patterns):
     l.extend(patterns)
     return l
 
-#~ add_package_data('lino_cosi',
-  #~ 'config/patrols/Patrol/*.odt',
-  #~ 'config/patrols/Overview/*.odt')
+
+# ~ add_package_data('lino_cosi',
+# ~ 'config/patrols/Patrol/*.odt',
+# ~ 'config/patrols/Overview/*.odt')
 
 l = add_package_data('lino_cosi')
 for lng in 'de fr'.split():
