@@ -80,6 +80,8 @@ class ImportStatements(dd.Action):
                     if _statement.get('account_number', None) is not None:
                         # TODO : How to query an account by iban field ?
                         # account = Account.objects.get(iban=_statement['account_number'])
+                        # if not account:
+                        #     account = Account.objects.get(id=1)
                         account = Account.objects.get(id=1)
                         if account:
                             s = Statement(account=account,
@@ -107,7 +109,8 @@ class ImportStatements(dd.Action):
                                                  amount=_movement['amount'],
                                                  partner=partner,
                                                  partner_name=_movement['partner_name'],
-                                                 ref=_movement.get('ref', '') or '')
+                                                 ref=_movement.get('ref', '') or '',
+                                                 bank_account=account)
                                     m.save()
 
         except ValueError:

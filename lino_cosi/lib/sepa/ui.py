@@ -30,7 +30,7 @@ class Accounts(dd.Table):
 
 
 class AccountsByPartner(Accounts):
-    required_roles = dd.login_required(ContactsStaff)
+    required_roles = dd.login_required(ContactsUser)
     master_key = 'partner'
     column_names = 'iban bic remark primary *'
     order_by = ['iban']
