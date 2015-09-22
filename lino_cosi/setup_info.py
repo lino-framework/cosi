@@ -1,10 +1,25 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2014-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 SETUP_INFO = dict(
     name='lino-cosi',
-    version='0.0.1',
+    version='0.0.1',  # never released so far
     install_requires=['lino', 'django-iban', 'xlwt', 'lxml'],
     tests_require=['beautifulsoup4', 'commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',
@@ -17,7 +32,7 @@ make accounting simple.
     author='Luc Saffre',
     author_email='luc.saffre@gmail.com',
     url="http://cosi.lino-framework.org",
-    license='BSD License',
+    license='GNU Affero General Public License v3',
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 2
@@ -26,7 +41,7 @@ Environment :: Web Environment
 Framework :: Django
 Intended Audience :: Developers
 Intended Audience :: System Administrators
-License :: OSI Approved :: BSD License
+License :: OSI Approved :: GNU Affero General Public License v3
 Operating System :: OS Independent
 Topic :: Office/Business :: Scheduling
 """.splitlines())
