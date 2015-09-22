@@ -11,7 +11,7 @@ from lino.api import _
 from lino.modlib.users.choicelists import UserProfiles
 from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
-from lino.modlib.ledger.roles import LedgerUser, LedgerStaff
+from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 
 
 class SiteUser(OfficeUser, LedgerUser):
