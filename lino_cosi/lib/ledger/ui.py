@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.ledger`.
+"""Database models for `lino_cosi.lib.ledger`.
 
 - Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
 
@@ -134,7 +134,7 @@ class ExpectedMovements(dd.VirtualTable):
     A virtual table of :class:`DueMovement` rows, showing
     all "expected" "movements (payments)".
 
-    Subclassed by :class:`lino.modlib.finan.models.SuggestionsByVoucher`.
+    Subclassed by :class:`lino_cosi.lib.finan.models.SuggestionsByVoucher`.
 
 
     """
@@ -459,7 +459,7 @@ class DebtorsCreditors(dd.VirtualTable):
     """
     required_roles = dd.required(AccountingReader)
     auto_fit_column_widths = True
-    column_names = "age due_date partner balance actions"
+    column_names = "age due_date partner partner_id balance actions"
     slave_grid_format = 'html'
     abstract = True
 
@@ -505,9 +505,17 @@ class DebtorsCreditors(dd.VirtualTable):
         rows.sort(f)
         return rows
 
-    @dd.displayfield(_("Partner"))
+    # @dd.displayfield(_("Partner"))
+    # def partner(self, row, ar):
+    #     return ar.obj2html(row)
+
+    @dd.virtualfield(models.ForeignKey('contacts.Partner'))
     def partner(self, row, ar):
-        return ar.obj2html(row)
+        return row
+
+    @dd.virtualfield(models.IntegerField(_("ID")))
+    def partner_id(self, row, ar):
+        return row.pk
 
     @dd.virtualfield(dd.PriceField(_("Balance")))
     def balance(self, row, ar):

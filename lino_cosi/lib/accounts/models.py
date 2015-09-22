@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.accounts`.
+"""Database models for `lino_cosi.lib.accounts`.
 
 """
 
@@ -15,7 +15,7 @@ from lino import mixins
 
 from lino.core.roles import SiteStaff
 
-from .choicelists import AccountTypes, AccountCharts
+from .choicelists import *
 from .utils import DEBIT, CREDIT
 
 
@@ -75,7 +75,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
         The *account chart* to which this account belongs.  This must
         point to an item of
-        :class:`lino.modlib.accounts.choicelists.AccountCharts`.
+        :class:`lino_cosi.lib.accounts.choicelists.AccountCharts`.
     
     .. attribute:: group
 
@@ -95,7 +95,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
         The *account type* of this account.  This must
         point to an item of
-        :class:`lino.modlib.accounts.choicelists.AccountTypes`.
+        :class:`lino_cosi.lib.accounts.choicelists.AccountTypes`.
     
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length

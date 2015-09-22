@@ -1,7 +1,7 @@
 # Copyright 2014-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Adds VAT rules (:mod:`lino.modlib.vat.models.VatRule`) for some
+"""Adds VAT rules (:mod:`lino_cosi.lib.vat.models.VatRule`) for some
 European countries.
 
 """

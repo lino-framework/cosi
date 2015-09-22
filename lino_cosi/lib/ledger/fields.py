@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database fields for `lino.modlib.ledger`.
+"""Database fields for `lino_cosi.lib.ledger`.
 
 
 """

@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Model mixins for `lino.modlib.sepa`.
+Model mixins for `lino_cosi.lib.sepa`.
 
 """
 

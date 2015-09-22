@@ -57,16 +57,15 @@ class Site(Site):
 
         # yield 'lino.modlib.ledger'
         yield 'lino_cosi.lib.vat'
-        yield 'lino_cosi.lib.sales'
         yield 'lino_cosi.lib.declarations'
         yield 'lino_cosi.lib.finan'
+        yield 'lino_cosi.lib.sales'  # automatically added by courses
         #~ 'lino.modlib.journals',
         #~ 'lino.modlib.projects',
         #~ yield 'lino.modlib.blogs'
         #~ yield 'lino.modlib.tickets'
         #~ 'lino.modlib.links',
         #~ 'lino.modlib.thirds',
-        #~ yield 'lino.modlib.cal'
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
         yield 'lino_cosi.lib.cosi'
@@ -81,3 +80,16 @@ class Site(Site):
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
 
+
+class DocsSite(Site):
+    """A special variant used to build the docs.
+    """
+    def get_installed_apps(self):
+        yield super(DocsSite, self).get_installed_apps()
+        yield 'lino_cosi.lib.courses'  # needed for Sphinx autosummar
+        yield 'lino_cosi.lib.vatless'
+
+    def get_apps_modifiers(self, **kw):
+        kw = super(DocsSite, self).get_apps_modifiers(**kw)
+        kw.update(sales='lino_cosi.lib.auto.sales')
+        return kw

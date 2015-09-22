@@ -2,7 +2,7 @@
 # Copyright 2012-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Choicelists for `lino.modlib.accounts`.
+"""Choicelists for `lino_cosi.lib.accounts`.
 
 """
 
@@ -12,7 +12,7 @@ from __future__ import unicode_literals
 from django.db import models
 from lino.api import dd, rt, _
 
-from .fields import DebitOrCreditField
+from .fields import DebitOrCreditField, DCLABELS
 from .utils import DEBIT, CREDIT
 
 

@@ -21,7 +21,7 @@ from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
     verbose_name = _("SEPA")
     site_js_snippets = ['iban/uppercasetextfield.js']
 
@@ -37,7 +37,7 @@ class Plugin(ad.Plugin):
 
     End-users are supposed to download SEPA statement files to that
     directory and then to invoke the
-    :class:`lino.modlib.sepa.models.ImportStatements` action.
+    :class:`lino_cosi.lib.sepa.models.ImportStatements` action.
 
     """
 

@@ -5,8 +5,7 @@
 .. autosummary::
    :toctree:
 
-    lib.cosi.models
-    lib.cosi.roles
+    lib
     projects
     migrate
 
@@ -14,7 +13,8 @@
 
 import os
 
-execfile(os.path.join(os.path.dirname(__file__), 'setup_info.py'))
+fn = os.path.join(os.path.dirname(__file__), 'setup_info.py')
+execfile(fn)
 __version__ = SETUP_INFO['version']
 
 intersphinx_urls = dict(docs="http://cosi.lino-framework.org")

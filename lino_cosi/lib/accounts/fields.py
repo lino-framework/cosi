@@ -32,9 +32,9 @@ class DebitOrCreditStoreField(BooleanStoreField):
 class DebitOrCreditField(models.BooleanField):
 
     """A field that stores either :attr:`DEBIT
-    <lino.modlib.accounts.utils.DEBIT>` or :attr:`CREDIT
-    <lino.modlib.accounts.utils.CREDIT>` (see
-    :mod:`lino.modlib.accounts.utils`).
+    <lino_cosi.lib.accounts.utils.DEBIT>` or :attr:`CREDIT
+    <lino_cosi.lib.accounts.utils.CREDIT>` (see
+    :mod:`lino_cosi.lib.accounts.utils`).
 
     """
     lino_atomizer_class = DebitOrCreditStoreField

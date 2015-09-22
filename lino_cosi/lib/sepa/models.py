@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Database models for `lino.modlib.sepa`.
+Database models for `lino_cosi.lib.sepa`.
 
 """
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class ImportStatements(dd.Action):
     """Import the .xml files found in the directory specified at
     :attr:`import_statements_path
-    <lino.modlib.sepa.Plugin.import_statements_path>`.
+    <lino_cosi.lib.sepa.Plugin.import_statements_path>`.
 
     End-users invoke this via the menu command :menuselection:`SEPA
     --> Import SEPA`.
@@ -42,7 +42,7 @@ class ImportStatements(dd.Action):
 
     def get_view_permission(self, profile):
         """Make it invisible when :attr:`import_statements_path
-        <lino.modlib.sepa.Plugin.import_statements_path>` is empty.
+        <lino_cosi.lib.sepa.Plugin.import_statements_path>` is empty.
 
         """
         if not dd.plugins.sepa.import_statements_path:

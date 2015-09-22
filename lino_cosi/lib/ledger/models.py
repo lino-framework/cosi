@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.ledger`.
+"""Database models for `lino_cosi.lib.ledger`.
 
 - Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
 
@@ -427,7 +427,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     def get_bank_account(self):
         """Return the `sepa.Account` object to which this voucher is to be
         paid. This is needed by
-        :class:`lino.modlib.ledger.utils.DueMovement`.
+        :class:`lino_cosi.lib.ledger.utils.DueMovement`.
 
         """
         return None

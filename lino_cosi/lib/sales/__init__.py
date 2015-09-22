@@ -3,8 +3,8 @@
 
 """Functionality for writing sales invoices.
 
-It is implemented by :mod:`lino.modlib.sales` (basic functionality) or
-:mod:`lino.modlib.auto.sales` (adds common definitions for automatic
+It is implemented by :mod:`lino_cosi.lib.sales` (basic functionality) or
+:mod:`lino_cosi.lib.auto.sales` (adds common definitions for automatic
 generation of invoices).
 
 .. autosummary::
@@ -22,7 +22,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
 
     verbose_name = _("Sales")
 

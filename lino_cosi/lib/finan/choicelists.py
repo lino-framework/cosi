@@ -1,6 +1,6 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
-"""Choicelists for `lino.modlib.finan`.
+"""Choicelists for `lino_cosi.lib.finan`.
 
 """
 

@@ -152,13 +152,13 @@ def get_due_movements(dc, **flt):
 
     Arguments:
 
-        dc (boolean): The caller must specify whether he means the debts and
-               payments *towards the partner* or *towards myself*.
+    :dc: (boolean): The caller must specify whether he means the debts
+         and payments *towards the partner* or *towards myself*.
 
-        **flt: Any keyword argument is forwarded to Django's `filter()
-            <https://docs.djangoproject.com/en/dev/ref/models/querysets/#filter>`_
-            method in order to specifiy which :class:`Movement`
-            objects to consider.
+    :flt: Any keyword argument is forwarded to Django's `filter()
+          <https://docs.djangoproject.com/en/dev/ref/models/querysets/#filter>`_
+          method in order to specifiy which :class:`Movement` objects
+          to consider.
 
     """
     if dc is None:

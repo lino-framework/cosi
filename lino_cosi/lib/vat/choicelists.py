@@ -2,7 +2,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Choicelists for `lino.modlib.vat`.
+Choicelists for `lino_cosi.lib.vat`.
 
 .. autosummary::
 
@@ -21,11 +21,6 @@ class VatClasses(dd.ChoiceList):
     does not contain the actual rate because this still varies
     depending on your country, the time and type of the operation, and
     possibly other factors.
-
-    Typical content is as follows (but applications may redefine or
-    extend this list in :meth:`lino.core.site.Site.setup_choicelists`):
-
-    .. django2rst:: rt.show("vat.VatRegimes")
 
     """
     verbose_name = _("VAT Class")
@@ -48,11 +43,6 @@ class VatRegimes(dd.ChoiceList):
     """
     The VAT regime is a classification of the way how VAT is being
     handled, e.g. whether and how it is to be paid.
-
-    Typical content is as follows (but applications may redefine or
-    extend this list in :meth:`lino.core.site.Site.setup_choicelists`):
-
-    .. django2rst:: rt.show("vat.VatClasses")
 
     """
     verbose_name = _("VAT regime")

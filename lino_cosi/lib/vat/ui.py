@@ -1,7 +1,7 @@
 # Copyright 2012-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Tables for `lino.modlib.vat`.
+"""Tables for `lino_cosi.lib.vat`.
 
 """
 
@@ -21,7 +21,7 @@ from .models import VatAccountInvoice
 
 
 class VatRules(dd.Table):
-    """The table of all :class:`lino.modlib.vat.models.VatRule` objects."""
+    """The table of all :class:`lino_cosi.lib.vat.models.VatRule` objects."""
 
     model = 'vat.VatRule'
     column_names = "seqno country vat_class vat_regime \
@@ -57,7 +57,7 @@ class InvoiceDetail(dd.FormLayout):
 
 class Invoices(PartnerVouchers):
     """The table of all
-    :class:`VatAccountInvoice<lino.modlib.vat.models.VatAccountInvoice>`
+    :class:`VatAccountInvoice<lino_cosi.lib.vat.models.VatAccountInvoice>`
     objects.
 
     """
@@ -74,8 +74,8 @@ class Invoices(PartnerVouchers):
 
 class InvoicesByJournal(Invoices, ByJournal):
     """Shows all invoices of a given journal (whose
-    :attr:`voucher_type<lino.modlib.ledger.models.Journal.voucher_type>`
-    must be :class:`lino.modlib.vat.models.VatAccountInvoice`)
+    :attr:`voucher_type<lino_cosi.lib.ledger.models.Journal.voucher_type>`
+    must be :class:`lino_cosi.lib.vat.models.VatAccountInvoice`)
 
     """
     params_layout = "partner state year"

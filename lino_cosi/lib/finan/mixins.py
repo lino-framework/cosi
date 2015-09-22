@@ -1,7 +1,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 """
-Model mixins for :mod:`lino.modlib.finan`.
+Model mixins for :mod:`lino_cosi.lib.finan`.
 """
 
 

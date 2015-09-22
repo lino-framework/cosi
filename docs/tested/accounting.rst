@@ -1,3 +1,5 @@
+.. _cosi.specs.accounting:
+
 ==========================
 Introduction to accounting
 ==========================
@@ -24,11 +26,9 @@ Lino application developer.
 
     >>> from __future__ import print_function
     >>> import os
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino.projects.min2.settings.doctests'
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
     >>> from lino.api.doctest import *
-    >>> from lino.modlib.accounts.utils import *
-    >>> from lino.modlib.accounts.fields import *
-    >>> from lino.modlib.accounts.choicelists import *
+    >>> from lino_cosi.lib.accounts.models import *
 
 
 Debit and Credit
@@ -113,7 +113,7 @@ These classes are not meant to be instantiated, they are just Lino's
 suggestion for a standardized vocabulary.
 
 >>> print Sheet.objects
-(<class 'lino.modlib.accounts.choicelists.Balance'>, <class 'lino.modlib.accounts.choicelists.Earnings'>, <class 'lino.modlib.accounts.choicelists.CashFlow'>)
+(<class 'lino_cosi.lib.accounts.choicelists.Balance'>, <class 'lino_cosi.lib.accounts.choicelists.Earnings'>, <class 'lino_cosi.lib.accounts.choicelists.CashFlow'>)
 
 The `verbose_name` is what users see. It is a lazily translated
 string, so we must call `unicode()` to see it:

@@ -2,7 +2,7 @@
 # Copyright 2013-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 """
-Database models for `lino.modlib.auto.sales`.
+Database models for `lino_cosi.lib.auto.sales`.
 
 .. autosummary::
 
@@ -36,7 +36,7 @@ from lino.core import dbtables
 contacts = dd.resolve_app('contacts')
 
 
-from lino.modlib.sales.models import *
+from lino_cosi.lib.sales.models import *
 
 
 class InvoicingMode(mixins.PrintableType, mixins.BabelNamed):

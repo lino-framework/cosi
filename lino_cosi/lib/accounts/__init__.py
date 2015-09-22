@@ -19,7 +19,7 @@ from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
     verbose_name = _("Accounting")
 
     ref_length = 20

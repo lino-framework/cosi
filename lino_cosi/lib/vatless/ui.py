@@ -2,7 +2,7 @@
 # Copyright 2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Actors for `lino.modlib.vatless`.
+"""Actors for `lino_cosi.lib.vatless`.
 
 
 
@@ -83,7 +83,7 @@ class Invoices(PartnerVouchers):
 class InvoicesByJournal(ByJournal, Invoices):
     """Shows all simple invoices of a given journal (whose
     :attr:`Journal.voucher_type` must be
-    :class:`lino.modlib.sales.models.AccountInvoice`).
+    :class:`lino_cosi.lib.sales.models.AccountInvoice`).
 
     """
     params_layout = "partner state year"

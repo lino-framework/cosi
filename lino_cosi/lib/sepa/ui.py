@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Tables for `lino.modlib.sepa`.
+Tables for `lino_cosi.lib.sepa`.
 
 """
 

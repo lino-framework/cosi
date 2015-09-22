@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.sales`.
+"""Database models for `lino_cosi.lib.sales`.
 
 """
 
@@ -164,7 +164,7 @@ class VatProductInvoice(SalesDocument, Voucher, Matching, Payable):
     (the invoice items) has been sold to a given partner. The partner
     can be either a private person or an organization.
 
-    Inherits from :class:`lino.modlib.ledger.models.Voucher`.
+    Inherits from :class:`lino_cosi.lib.ledger.models.Voucher`.
 
     """
     class Meta:

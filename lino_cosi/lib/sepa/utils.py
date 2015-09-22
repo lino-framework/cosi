@@ -28,7 +28,7 @@ Traceback (most recent call last):
 ValidationError: [u'Belgian NBAN ends with 83 (expected 84)!']
 
 
-This is also used by :mod:`lino.modlib.sepa`.
+This is also used by :mod:`lino_cosi.lib.sepa`.
 
 
 See also:

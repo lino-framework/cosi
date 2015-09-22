@@ -2,7 +2,7 @@
 # Copyright 2008-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Choicelists for `lino.modlib.ledger`.
+"""Choicelists for `lino_cosi.lib.ledger`.
 
 .. autosummary::
 
@@ -23,7 +23,7 @@ class JournalGroups(dd.ChoiceList):
     there will be a menu item in the main menu.
 
     Journals whose :attr:`journal_group
-    <lino.modlib.ledger.models.Journal.journal_group>` is empty will
+    <lino_cosi.lib.ledger.models.Journal.journal_group>` is empty will
     not be available through the main user menu.
 
     The default configuration has the following journal groups:
@@ -151,7 +151,7 @@ class TradeType(dd.Choice):
     dc = DEBIT
 
     def get_base_account(self):
-        """Return the :class:`lino.modlib.accounts.models.Account` into which
+        """Return the :class:`lino_cosi.lib.accounts.models.Account` into which
         the **base amount** of any operation should be booked.
 
         """
@@ -244,8 +244,8 @@ TradeTypes.add_item('P', _("Purchases"), 'purchases', dc=DEBIT)
 TradeTypes.add_item('W', _("Wages"), 'wages', dc=DEBIT)
 TradeTypes.add_item('C', _("Clearings"), 'clearings', dc=DEBIT)
 
-# Note that :mod:`lino.modlib.sales.models` and/or
-# :mod:`lino.modlib.ledger.models` (if installed) will modify
+# Note that :mod:`lino_cosi.lib.sales.models` and/or
+# :mod:`lino_cosi.lib.ledger.models` (if installed) will modify
 # `TradeTypes.sales` at module level so that the following
 # `inject_vat_fields` will inject the required fields to
 # system.SiteConfig and products.Product (if these are installed).

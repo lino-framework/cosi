@@ -1,7 +1,7 @@
 # Copyright 2012-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.vat`.
+"""Database models for `lino_cosi.lib.vat`.
 
 """
 
@@ -43,7 +43,7 @@ class VatRule(Sequenced, DatePeriod):
     """A rule which defines how VAT is to be handled for a given invoice
     item.
 
-    Example data see :mod:`lino.modlib.vat.fixtures.euvatrates`.
+    Example data see :mod:`lino_cosi.lib.vat.fixtures.euvatrates`.
 
     Database fields:
 
@@ -53,7 +53,7 @@ class VatRule(Sequenced, DatePeriod):
     .. attribute:: vat_regime
 
         The regime for which this rule applies. Pointer to
-        :class:`VatRegimes <lino.modlib.vat.choicelists.VatRegimes>`.
+        :class:`VatRegimes <lino_cosi.lib.vat.choicelists.VatRegimes>`.
     
     .. attribute:: rate
     

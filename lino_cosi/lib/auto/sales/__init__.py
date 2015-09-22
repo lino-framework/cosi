@@ -11,7 +11,7 @@
 
 """
 
-from lino.modlib.sales import Plugin
+from lino_cosi.lib.sales import Plugin
 
 
 class Plugin(Plugin):

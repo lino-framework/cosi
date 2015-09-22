@@ -21,11 +21,11 @@ from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
 
     verbose_name = _("Ledger")
 
-    needs_plugins = ['lino.modlib.accounts']
+    needs_plugins = ['lino_cosi.lib.accounts']
 
     use_pcmn = False
     """
@@ -40,7 +40,7 @@ class Plugin(ad.Plugin):
     """Leave this to `None` for normal behaviour.  Set this to a string of
     the form `'<app_label>.<ModelName>'` if you want to add an
     additional field `project` to all models which inherit from
-    :class:`lino.modlib.ledger.mixins.ProjectRelated`.
+    :class:`lino_cosi.lib.ledger.mixins.ProjectRelated`.
 
     """
 

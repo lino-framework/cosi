@@ -17,11 +17,11 @@ from lino import ad, _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
 
     verbose_name = _("Financial")
 
-    needs_plugins = ['lino.modlib.ledger']
+    needs_plugins = ['lino_cosi.lib.ledger']
 
     # def setup_main_menu(self, site, profile, m):
     #     m = m.add_menu(self.app_label, self.verbose_name)

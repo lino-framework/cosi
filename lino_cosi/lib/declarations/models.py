@@ -1,10 +1,10 @@
 # Copyright 2012-2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Database models for `lino.modlib.vat`.
+"""Database models for `lino_cosi.lib.vat`.
 
 This module defines some central ChoiceLists and Model mixins designed
-to work both with and without :mod:`lino.modlib.ledger` installed.
+to work both with and without :mod:`lino_cosi.lib.ledger` installed.
 
 """
 

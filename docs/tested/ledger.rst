@@ -50,8 +50,8 @@ Basic truths of accounting
 Match rules
 ===========
 
-A **match rule** specifies that a movement into given account can
-be cleared using a given journal.
+A **match rule** specifies that a movement into given account can be
+*cleared* using a given journal.
 
 >>> ses.show(ledger.MatchRules)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
@@ -72,59 +72,52 @@ be cleared using a given journal.
 <BLANKLINE>
 
 
-Partner 112 has 2 open sales invoices:
-
->>> obj = contacts.Partner.objects.get(pk=112)
->>> ses.show(ledger.DebtsByPartner, obj)
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== =========== ========== ==========
- Due date             Balance     Debts      Payments
--------------------- ----------- ---------- ----------
- 3/6/15               35,00       *SLS#13*
- **Total (1 rows)**   **35,00**
-==================== =========== ========== ==========
-<BLANKLINE>
-
-
-
 Debtors
 =======
 
 The table of debtors 
 
->>> ses.show(ledger.Debtors, column_names="partner balance")
+>>> ses.show(ledger.Debtors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-============================= ==============
- Partner                       Balance
------------------------------ --------------
- *Arens Andreas*               35,00
- *Arens Annette*               65,00
- *Bäckerei Ausdemwald*         87,28
- *Rumma & Ko OÜ*               159,59
- *Altenberg Hans*              429,97
- *Ausdemwald Alfons*           79,99
- *Jacobs Jacqueline*           999,95
- *Johnen Johann*               359,97
- *Donderweer BV*               429,97
- *Van Achter NV*               79,99
- *Hans Flott & Co*             33,99
- *Bernd Brechts Bücherladen*   100,00
- *Reinhards Baumschule*        199,99
- *Moulin Rouge*                229,96
- *Auto École Verte*            113,97
- **Total (15 rows)**           **3 404,62**
-============================= ==============
+==================== ========= ==============
+ Partner              ID        Balance
+-------------------- --------- --------------
+ Jacobs Jacqueline    136       999,95
+ Johnen Johann        137       359,97
+ **Total (2 rows)**   **273**   **1 359,92**
+==================== ========= ==============
 <BLANKLINE>
 
 
->>> ses.show(ledger.Creditors, column_names="partner balance")
+**Creditors** are partners hwo gave us credit. The most common
+creditors are providers, i.e. partners who send us a purchase invoice.
+
+>>> ses.show(ledger.Creditors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-====================== ==============
- Partner                Balance
----------------------- --------------
- *Bäckerei Mießen*      495,62
- *Bäckerei Schmitz*     1 176,90
- *Garage Mergelsberg*   3 209,08
- **Total (3 rows)**     **4 881,60**
-====================== ==============
+===================== ========= ==============
+ Partner               ID        Balance
+--------------------- --------- --------------
+ Rumma & Ko OÜ         100       40,40
+ Bäckerei Ausdemwald   101       142,70
+ Bäckerei Mießen       102       609,60
+ Bäckerei Schmitz      103       1 211,90
+ Garage Mergelsberg    104       3 274,08
+ **Total (5 rows)**    **510**   **5 278,68**
+===================== ========= ==============
 <BLANKLINE>
+
+
+Partner 136 has 2 open sales invoices:
+
+>>> obj = contacts.Partner.objects.get(pk=136)
+>>> ses.show(ledger.DebtsByPartner, obj)
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
+==================== ============ =========== ==========
+ Due date             Balance      Debts       Payments
+-------------------- ------------ ----------- ----------
+ 4/13/12              999,95       *SLS#130*
+ **Total (1 rows)**   **999,95**
+==================== ============ =========== ==========
+<BLANKLINE>
+
+

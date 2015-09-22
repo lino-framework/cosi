@@ -2,7 +2,7 @@
 # Copyright 2015 Luc Saffre
 # License: BSD (see file COPYING for details)
 
-"""Model mixins for `lino.modlib.vatless`.
+"""Model mixins for `lino_cosi.lib.vatless`.
 
 
 """
