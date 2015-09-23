@@ -25,8 +25,9 @@ Tables for `lino_cosi.lib.sepa`.
 from __future__ import unicode_literals
 
 from lino.api import dd
-from lino.modlib.contacts.roles import ContactsUser, ContactsStaff
 from lino.api import dd, _, rt
+from .roles import SepaUser, SepaStaff
+from lino.modlib.contacts.roles import ContactsUser
 
 
 class AccountsDetail(dd.FormLayout):
@@ -39,13 +40,13 @@ class AccountsDetail(dd.FormLayout):
 
 
 class Accounts(dd.Table):
-    required_roles = dd.login_required(ContactsStaff)
+    required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Account'
     detail_layout = AccountsDetail()
 
 
 class AccountsByPartner(Accounts):
-    required_roles = dd.login_required(ContactsUser)
+    required_roles = dd.login_required(ContactsUser, SepaUser)
     master_key = 'partner'
     column_names = 'iban bic remark primary *'
     order_by = ['iban']
@@ -62,7 +63,7 @@ class StatementDetail(dd.FormLayout):
 
 
 class Statements(dd.Table):
-    required_roles = dd.login_required(ContactsStaff)
+    required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Statement'
     column_names = 'account date statement_number balance_start balance_end *'
     order_by = ["date"]
@@ -77,19 +78,19 @@ class Statements(dd.Table):
 
 
 class StatementsByAccount(Statements):
-    required_roles = dd.login_required(ContactsUser)
+    required_roles = dd.login_required(SepaUser)
     master_key = 'account'
     column_names = 'date date_done statement_number balance_end'
     auto_fit_column_widths = True
 
 
 class Movements(dd.Table):
-    required_roles = dd.login_required(ContactsStaff)
+    required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Movement'
 
 
 class MovementsByStatement(Movements):
-    required_roles = dd.login_required(ContactsUser)
+    required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
     column_names = 'movement_date amount partner bank_account ref'
     auto_fit_column_widths = True
