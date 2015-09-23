@@ -45,7 +45,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
-  - SEPA : Konten
+  - SEPA : Konten, Statements, Bewegungen
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
   - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
