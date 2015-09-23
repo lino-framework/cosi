@@ -1,14 +1,29 @@
 # Copyright 2012-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 """
-Model mixins for `lino.modlib.vat`.
+Model mixins for `lino_cosi.lib.vat`.
 
 .. autosummary::
 
 It defines two database models :class:`VatRule` and
 :class:`PaymentTerm`, and a series of mixins which are used in
-:mod:`lino.modlib.ledger`, :mod:`lino.modlib.sales` and other apps.
+:mod:`lino_cosi.lib.ledger`, :mod:`lino_cosi.lib.sales` and other apps.
 
 """
 
@@ -76,7 +91,7 @@ class VatTotal(dd.Model):
     """Set this to `True` on subclasses who compute their totals
     automatically, i.e. the fields :attr:`total_base`,
     :attr:`total_vat` and :attr:`total_incl` are disabled.  This is
-    set to `True` for :class:`lino.modlib.sales.models.SalesDocument`.
+    set to `True` for :class:`lino_cosi.lib.sales.models.SalesDocument`.
 
     """
 
@@ -183,7 +198,7 @@ class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
         Save or the Register button to see the invoices totals.
 
         One idea is to have
-        :meth:`lino.modlib.vat.models.VatItemBase.after_ui_save`
+        :meth:`lino_cosi.lib.vat.models.VatItemBase.after_ui_save`
         insert a `refresh_all=True` (into the response to the PUT or
         POST coming from Lino.GridPanel.on_afteredit).
         
@@ -298,7 +313,7 @@ class VatItemBase(VoucherItem, VatTotal):
     """Model mixin for items of a :class:`VatTotal`.
 
     Abstract Base class for
-    :class:`lino.modlib.ledger.models.InvoiceItem`, i.e. the lines of
+    :class:`lino_cosi.lib.ledger.models.InvoiceItem`, i.e. the lines of
     invoices *without* unit prices and quantities.
 
     Subclasses must define a field called "voucher" which must be a
@@ -381,7 +396,6 @@ class VatItemBase(VoucherItem, VatTotal):
     def after_ui_save(self, ar, cw):
         """
         After editing a grid cell automatically show new invoice totals.
-        See :srcref:`docs/tickets/68`
         """
         kw = super(VatItemBase, self).after_ui_save(ar, cw)
         if self.voucher.refresh_after_item_edit:
@@ -396,8 +410,8 @@ class QtyVatItemBase(VatItemBase):
     """Model mixin for items of a :class:`VatTotal`, adds `unit_price` and
 `qty`.
 
-    Abstract Base class for :class:`lino.modlib.sales.InvoiceItem` and
-    :class:`lino.modlib.sales.OrderItem`, i.e. the lines of invoices
+    Abstract Base class for :class:`lino_cosi.lib.sales.InvoiceItem` and
+    :class:`lino_cosi.lib.sales.OrderItem`, i.e. the lines of invoices
     *with* unit prices and quantities.
 
     """

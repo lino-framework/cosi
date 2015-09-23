@@ -1,6 +1,21 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2012-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 """Defines the :class:`DueMovement` class, a volatile object representing
 a group of matching movements.
@@ -152,13 +167,13 @@ def get_due_movements(dc, **flt):
 
     Arguments:
 
-        dc (boolean): The caller must specify whether he means the debts and
-               payments *towards the partner* or *towards myself*.
+    :dc: (boolean): The caller must specify whether he means the debts
+         and payments *towards the partner* or *towards myself*.
 
-        **flt: Any keyword argument is forwarded to Django's `filter()
-            <https://docs.djangoproject.com/en/dev/ref/models/querysets/#filter>`_
-            method in order to specifiy which :class:`Movement`
-            objects to consider.
+    :flt: Any keyword argument is forwarded to Django's `filter()
+          <https://docs.djangoproject.com/en/dev/ref/models/querysets/#filter>`_
+          method in order to specifiy which :class:`Movement` objects
+          to consider.
 
     """
     if dc is None:

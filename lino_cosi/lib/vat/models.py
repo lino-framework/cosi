@@ -1,7 +1,22 @@
 # Copyright 2012-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
 
-"""Database models for `lino.modlib.vat`.
+
+"""Database models for `lino_cosi.lib.vat`.
 
 """
 
@@ -43,7 +58,7 @@ class VatRule(Sequenced, DatePeriod):
     """A rule which defines how VAT is to be handled for a given invoice
     item.
 
-    Example data see :mod:`lino.modlib.vat.fixtures.euvatrates`.
+    Example data see :mod:`lino_cosi.lib.vat.fixtures.euvatrates`.
 
     Database fields:
 
@@ -53,7 +68,7 @@ class VatRule(Sequenced, DatePeriod):
     .. attribute:: vat_regime
 
         The regime for which this rule applies. Pointer to
-        :class:`VatRegimes <lino.modlib.vat.choicelists.VatRegimes>`.
+        :class:`VatRegimes <lino_cosi.lib.vat.choicelists.VatRegimes>`.
     
     .. attribute:: rate
     

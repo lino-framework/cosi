@@ -1,8 +1,23 @@
 # Copyright 2012-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 """
-Choicelists for `lino.modlib.vat`.
+Choicelists for `lino_cosi.lib.vat`.
 
 .. autosummary::
 
@@ -21,11 +36,6 @@ class VatClasses(dd.ChoiceList):
     does not contain the actual rate because this still varies
     depending on your country, the time and type of the operation, and
     possibly other factors.
-
-    Typical content is as follows (but applications may redefine or
-    extend this list in :meth:`lino.core.site.Site.setup_choicelists`):
-
-    .. django2rst:: rt.show("vat.VatRegimes")
 
     """
     verbose_name = _("VAT Class")
@@ -48,11 +58,6 @@ class VatRegimes(dd.ChoiceList):
     """
     The VAT regime is a classification of the way how VAT is being
     handled, e.g. whether and how it is to be paid.
-
-    Typical content is as follows (but applications may redefine or
-    extend this list in :meth:`lino.core.site.Site.setup_choicelists`):
-
-    .. django2rst:: rt.show("vat.VatClasses")
 
     """
     verbose_name = _("VAT regime")

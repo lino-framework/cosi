@@ -1,9 +1,24 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2014-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 """
-Database models for `lino.modlib.sepa`.
+Database models for `lino_cosi.lib.sepa`.
 
 """
 
@@ -25,7 +40,7 @@ logger = logging.getLogger(__name__)
 class ImportStatements(dd.Action):
     """Import the .xml files found in the directory specified at
     :attr:`import_statements_path
-    <lino.modlib.sepa.Plugin.import_statements_path>`.
+    <lino_cosi.lib.sepa.Plugin.import_statements_path>`.
 
     End-users invoke this via the menu command :menuselection:`SEPA
     --> Import SEPA`.
@@ -42,7 +57,7 @@ class ImportStatements(dd.Action):
 
     def get_view_permission(self, profile):
         """Make it invisible when :attr:`import_statements_path
-        <lino.modlib.sepa.Plugin.import_statements_path>` is empty.
+        <lino_cosi.lib.sepa.Plugin.import_statements_path>` is empty.
 
         """
         if not dd.plugins.sepa.import_statements_path:

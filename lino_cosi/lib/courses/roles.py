@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2015 Luc Saffre
+# Copyright 2012-2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -17,30 +17,10 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Defines a default set of user roles and fills
-:class:`lino.modlib.users.choicelists.UserProfiles`.
-
-"""
-
-from lino.api import _
-from lino.modlib.users.choicelists import UserProfiles
-from lino.core.roles import UserRole, SiteAdmin
-from lino.modlib.office.roles import OfficeStaff, OfficeUser
-from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
+from lino.core.roles import SiteUser
 
 
-class SiteUser(OfficeUser, LedgerUser):
+class CoursesUser(SiteUser):
     pass
 
-
-class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff):
-    pass
-
-UserProfiles.clear()
-
-add = UserProfiles.add_item
-
-add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
-add('100', _("User"),           SiteUser)
-add('900', _("Administrator"),  SiteAdmin, name='admin')
 

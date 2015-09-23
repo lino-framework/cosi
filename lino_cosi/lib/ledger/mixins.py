@@ -1,8 +1,23 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2008-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
 
-"""Model mixins for `lino.modlib.ledger`.
+
+"""Model mixins for `lino_cosi.lib.ledger`.
 
 .. autosummary::
 
@@ -23,8 +38,8 @@ class ProjectRelated(dd.Model):
 
         Pointer to the "project". This field exists only if the
         :attr:`project_model
-        <lino.modlib.ledger.Plugin.project_model>` setting of the
-        :mod:`lino.modlib.ledger` plugin is nonempty.
+        <lino_cosi.lib.ledger.Plugin.project_model>` setting of the
+        :mod:`lino_cosi.lib.ledger` plugin is nonempty.
 
     """
     class Meta:
@@ -148,7 +163,7 @@ class VoucherItem(dd.Model):
 
         Pointer to the voucher which contains this item.  Non
         nullable.  The voucher must be a subclass of
-        :class:`ledger.Voucher<lino.modlib.ledger.models.Voucher>`.
+        :class:`ledger.Voucher<lino_cosi.lib.ledger.models.Voucher>`.
         The `related_name` must be `'items'`.
     
 
@@ -159,8 +174,8 @@ class VoucherItem(dd.Model):
         Currently (because of :djangoticket:`19465`), this field is
         not implemented here but in the subclasses:
 
-        :class:`lino.modlib.vat.models.AccountInvoice`
-        :class:`lino.modlib.vat.models.InvoiceItem`
+        :class:`lino_cosi.lib.vat.models.AccountInvoice`
+        :class:`lino_cosi.lib.vat.models.InvoiceItem`
 
     """
 
@@ -197,15 +212,15 @@ class SequencedVoucherItem(Sequenced):
 class AccountVoucherItem(VoucherItem, SequencedVoucherItem):
     """Abstract base class for voucher items which point to an account.
     This is subclassed by
-    :class:`lino.modlib.vat.models.InvoiceItem`
+    :class:`lino_cosi.lib.vat.models.InvoiceItem`
     and
-    :class:`lino.modlib.vatless.models.InvoiceItem`.
+    :class:`lino_cosi.lib.vatless.models.InvoiceItem`.
     It defines the :attr:`account` field and some related methods.
 
     .. attribute:: account
 
         ForeignKey pointing to the account (:class:`accounts.Account
-        <lino.modlib.accounts.models.Account>`) that is to be moved.
+        <lino_cosi.lib.accounts.models.Account>`) that is to be moved.
 
     """
 

@@ -1,8 +1,23 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2008-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
 
-"""Database models for `lino.modlib.accounts`.
+
+"""Database models for `lino_cosi.lib.accounts`.
 
 """
 
@@ -15,7 +30,7 @@ from lino import mixins
 
 from lino.core.roles import SiteStaff
 
-from .choicelists import AccountTypes, AccountCharts
+from .choicelists import *
 from .utils import DEBIT, CREDIT
 
 
@@ -75,7 +90,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
         The *account chart* to which this account belongs.  This must
         point to an item of
-        :class:`lino.modlib.accounts.choicelists.AccountCharts`.
+        :class:`lino_cosi.lib.accounts.choicelists.AccountCharts`.
     
     .. attribute:: group
 
@@ -95,7 +110,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
         The *account type* of this account.  This must
         point to an item of
-        :class:`lino.modlib.accounts.choicelists.AccountTypes`.
+        :class:`lino_cosi.lib.accounts.choicelists.AccountTypes`.
     
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length

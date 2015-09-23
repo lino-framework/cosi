@@ -1,8 +1,23 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2008-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
 
-"""Database models for `lino.modlib.ledger`.
+
+"""Database models for `lino_cosi.lib.ledger`.
 
 - Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
 
@@ -427,7 +442,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     def get_bank_account(self):
         """Return the `sepa.Account` object to which this voucher is to be
         paid. This is needed by
-        :class:`lino.modlib.ledger.utils.DueMovement`.
+        :class:`lino_cosi.lib.ledger.utils.DueMovement`.
 
         """
         return None

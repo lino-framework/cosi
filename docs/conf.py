@@ -9,13 +9,14 @@
 # serve to show the default.
 
 extensions = []
+extlinks = {}
 intersphinx_mapping = {}
 
 from atelier.sphinxconf import configure
 configure(globals(), 'lino_cosi.projects.std.settings.doctests')
 
 from django.conf import settings
-settings.SITE.title = "Lino Cosi Reference Manual"
+settings.SITE.title = "Lino Cosi Documentation"
 
 extensions += ['lino.sphinxcontrib.logo']
 extensions += ['sphinx.ext.autosummary']
@@ -160,5 +161,7 @@ if False:
 
     #~ todo_include_todos = True
 
-
-
+extlinks.update({
+    'djangoticket': (
+        'http://code.djangoproject.com/ticket/%s', 'Django ticket #'),
+})

@@ -3,7 +3,7 @@ import datetime
 from lino_cosi.projects.std.settings import *
 
 
-class Site(Site):
+class Site(DocsSite):
     project_name = 'cosi_std'
 
     title = "Lino Cosi demo"

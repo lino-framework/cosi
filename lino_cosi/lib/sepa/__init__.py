@@ -1,5 +1,20 @@
 # Copyright 2014-2015 Luc Saffre
-# License: BSD (see file COPYING for details)
+# This file is part of Lino Cosi.
+#
+# Lino Cosi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Lino Cosi is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with Lino Cosi.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 
 """Adds models and tables for managing bank accounts for your
 partners.  It requires the :mod:`lino.modlib.contacts` app.
@@ -12,6 +27,7 @@ partners.  It requires the :mod:`lino.modlib.contacts` app.
     mixins
     utils
     fields
+    roles
     fixtures.demo
     fixtures.sample_ibans
 
@@ -21,7 +37,7 @@ from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):
-    "See :doc:`/dev/plugins`."
+    "See :class:`lino.core.plugin.Plugin`."
     verbose_name = _("SEPA")
     site_js_snippets = ['iban/uppercasetextfield.js']
 
@@ -37,7 +53,7 @@ class Plugin(ad.Plugin):
 
     End-users are supposed to download SEPA statement files to that
     directory and then to invoke the
-    :class:`lino.modlib.sepa.models.ImportStatements` action.
+    :class:`lino_cosi.lib.sepa.models.ImportStatements` action.
 
     """
 

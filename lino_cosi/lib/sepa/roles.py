@@ -17,30 +17,17 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Defines a default set of user roles and fills
-:class:`lino.modlib.users.choicelists.UserProfiles`.
-
-"""
-
+from lino.core.roles import UserRole
 from lino.api import _
-from lino.modlib.users.choicelists import UserProfiles
-from lino.core.roles import UserRole, SiteAdmin
-from lino.modlib.office.roles import OfficeStaff, OfficeUser
-from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 
 
-class SiteUser(OfficeUser, LedgerUser):
+class SepaUser(UserRole):
+    """Can see imported statements and movements per partner."""
     pass
 
 
-class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff):
+class SepaStaff(UserRole):
+    """Can see imported statements and movements aso in explorer."""
     pass
 
-UserProfiles.clear()
-
-add = UserProfiles.add_item
-
-add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
-add('100', _("User"),           SiteUser)
-add('900', _("Administrator"),  SiteAdmin, name='admin')
 

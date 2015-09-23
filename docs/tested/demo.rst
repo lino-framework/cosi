@@ -35,25 +35,41 @@ Test whether :meth:`get_db_overview_rst
 
 >>> print(dd.get_db_overview_rst()) 
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-25 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, export_excel, ledger, vat, sales, declarations, finan, cosi.
-47 models:
+28 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, accounts, sepa, uploads, outbox, excerpts, export_excel, ledger, vat, declarations, finan, sales, cosi, cal, courses, vatless.
+66 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
 -------------------------- ------------------------------ --------- -------
  accounts.Account           accounts.Accounts              12        12
  accounts.Group             accounts.Groups                5         7
+ cal.Calendar               cal.Calendars                  4         1
+ cal.Event                  cal.OneEvent                   23        68
+ cal.EventType              cal.EventTypes                 12        2
+ cal.Guest                  cal.Guests                     6         0
+ cal.GuestRole              cal.GuestRoles                 2         0
+ cal.Priority               cal.Priorities                 3         4
+ cal.RecurrentEvent         cal.RecurrentEvents            19        9
+ cal.RemoteCalendar         cal.RemoteCalendars            7         0
+ cal.Room                   cal.Rooms                      2         0
+ cal.Subscription           cal.Subscriptions              4         0
+ cal.Task                   cal.Tasks                      17        0
  contacts.Company           contacts.Companies             26        22
  contacts.CompanyType       contacts.CompanyTypes          3         16
  contacts.Partner           contacts.Partners              22        91
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   gfks.ContentTypes              4         48
+ contenttypes.ContentType   gfks.ContentTypes              4         67
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
+ courses.Course             courses.Courses                28        0
+ courses.Enrolment          courses.Enrolments             14        0
+ courses.Line               courses.Lines                  15        0
+ courses.Slot               courses.Slots                  5         0
+ courses.Topic              courses.Topics                 2         0
  declarations.Declaration   declarations.Declarations      18        0
  excerpts.Excerpt           excerpts.Excerpts              11        0
- excerpts.ExcerptType       excerpts.ExcerptTypes          15        1
+ excerpts.ExcerptType       excerpts.ExcerptTypes          15        2
  finan.BankStatement        finan.BankStatements           12        15
  finan.BankStatementItem    finan.BankStatementItemTable   10        99
  finan.Grouper              finan.Groupers                 11        0
@@ -65,28 +81,31 @@ Test whether :meth:`get_db_overview_rst
  gfks.HelpText              gfks.HelpTexts                 4         2
  ledger.Journal             ledger.Journals                14        7
  ledger.MatchRule           ledger.MatchRules              3         10
- ledger.Movement            ledger.Movements               9         555
+ ledger.Movement            ledger.Movements               9         495
  ledger.PaymentTerm         ledger.PaymentTerms            5         0
- ledger.Voucher             ledger.Vouchers                9         156
+ ledger.Voucher             ledger.Vouchers                9         136
  outbox.Attachment          outbox.Attachments             4         0
  outbox.Mail                outbox.Mails                   8         0
  outbox.Recipient           outbox.Recipients              6         0
  products.Product           products.Products              9         12
  products.ProductCat        products.ProductCats           3         2
- sales.InvoiceItem          sales.InvoiceItemTable         13        90
+ sales.InvoiceItem          sales.InvoiceItemTable         15        51
+ sales.InvoicingMode        sales.InvoicingModes           6         0
  sales.ShippingMode         sales.ShippingModes            3         0
- sales.VatProductInvoice    sales.Invoices                 27        46
+ sales.VatProductInvoice    sales.Invoices                 27        26
  sepa.Account               sepa.Accounts                  6         17
- sepa.Movement              sepa.MovementTable             2         0
- sepa.Statement             sepa.StatementTable            2         0
- system.SiteConfig          system.SiteConfigs             12        1
+ sepa.Movement              sepa.Movements                 9         0
+ sepa.Statement             sepa.Statements                9         0
+ system.SiteConfig          system.SiteConfigs             15        1
  uploads.Upload             uploads.Uploads                9         0
  uploads.UploadType         uploads.UploadTypes            6         0
  users.Authority            users.Authorities              3         0
- users.User                 users.Users                    13        1
+ users.User                 users.Users                    15        1
  vat.InvoiceItem            vat.InvoiceItemTable           9         128
  vat.VatAccountInvoice      vat.Invoices                   21        80
  vat.VatRule                vat.VatRules                   9         11
+ vatless.AccountInvoice     vatless.Invoices               18        0
+ vatless.InvoiceItem        vatless.InvoiceItems           6         0
 ========================== ============================== ========= =======
 <BLANKLINE>
 
