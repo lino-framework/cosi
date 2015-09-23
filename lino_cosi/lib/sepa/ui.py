@@ -31,26 +31,37 @@ from lino.modlib.contacts.roles import ContactsUser
 
 
 class AccountsDetail(dd.FormLayout):
-    main = "general"
-
-    general = dd.Panel("""
+    main = """
     partner:30 iban:40 bic:20 remark:15
     sepa.StatementsByAccount
-    """, label=_("Account"))
+    """
 
 
 class Accounts(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Account'
     detail_layout = AccountsDetail()
+    insert_layout = """
+    partner
+    iban bic
+    """
 
 
 class AccountsByPartner(Accounts):
-    required_roles = dd.login_required(ContactsUser, SepaUser)
+    """Show the bank account(s) defined for a given partner. To be
+    included to a detail window on partner.
+
+    """
+    required_roles = dd.login_required((ContactsUser, SepaUser))
     master_key = 'partner'
     column_names = 'iban bic remark primary *'
     order_by = ['iban']
+    stay_in_grid = True
     auto_fit_column_widths = True
+    insert_layout = """
+    iban bic
+    remark
+    """
 
 
 class StatementDetail(dd.FormLayout):
