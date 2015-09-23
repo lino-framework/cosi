@@ -238,9 +238,9 @@ class Movement(dd.Model):
     movement_date = models.DateField(_('Movement date'), null=True)
     amount = dd.PriceField(_('Amount'), null=True)
     partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
-    partner_name = models.CharField(_('Partner name'), max_length=32)
+    partner_name = models.CharField(_('Partner name'), max_length=35)
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
-    ref = models.CharField(_('Ref'), null=False, max_length=32)
+    ref = models.CharField(_('Ref'), null=False, max_length=35)
 
 
 from .ui import *
