@@ -27,13 +27,14 @@ from lino.modlib.users.choicelists import UserProfiles
 from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
+from lino_cosi.lib.sepa.roles import SepaUser, SepaStaff
 
 
-class SiteUser(OfficeUser, LedgerUser):
+class SiteUser(OfficeUser, LedgerUser, SepaUser):
     pass
 
 
-class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff):
+class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff, SepaStaff):
     pass
 
 UserProfiles.clear()

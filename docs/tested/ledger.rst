@@ -4,23 +4,24 @@
 Ledger
 =======
 
-.. include:: /include/tested.rst
+This document introduces some basic features of accounting.
 
 .. to test only this document:
 
-  $ python setup.py test -s tests.DocsTests.test_ledger
+      $ python setup.py test -s tests.DocsTests.test_ledger
+    
+    doctest init:
 
-
->>> from __future__ import print_function 
->>> from __future__ import unicode_literals
->>> import os
->>> import json
->>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.demo'
->>> from lino.api.shell import *
->>> from django.test.client import Client
->>> from django.utils import translation
->>> ses = rt.login("robin")
->>> translation.activate('en')
+    >>> from __future__ import print_function 
+    >>> from __future__ import unicode_literals
+    >>> import os
+    >>> import json
+    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.demo'
+    >>> from lino.api.shell import *
+    >>> from django.test.client import Client
+    >>> from django.utils import translation
+    >>> ses = rt.login("robin")
+    >>> translation.activate('en')
 
 
 Basic truths of accounting
@@ -72,6 +73,37 @@ A **match rule** specifies that a movement into given account can be
 <BLANKLINE>
 
 
+For example a payment order can be used to pay an open suppliers
+invoice or (less frequently) to send back money that a customer had
+paid too much.
+
+>>> jnl = ledger.Journal.objects.get(ref="PMO")
+>>> jnl
+Journal #4 (u'Payment Orders (PMO)')
+>>> rt.show(ledger.MatchRulesByJournal, jnl)
+==================
+ Account
+------------------
+ (4000) Customers
+ (4400) Suppliers
+==================
+<BLANKLINE>
+
+Or a sales invoice can be used to clear another sales invoice.
+
+>>> jnl = ledger.Journal.objects.get(ref="SLS")
+>>> jnl
+Journal #1 (u'Sales invoices (SLS)')
+>>> rt.show(ledger.MatchRulesByJournal, jnl)
+==================
+ Account
+------------------
+ (4000) Customers
+==================
+<BLANKLINE>
+
+
+
 Debtors
 =======
 
@@ -119,5 +151,6 @@ Partner 136 has 2 open sales invoices:
  **Total (1 rows)**   **999,95**
 ==================== ============ =========== ==========
 <BLANKLINE>
+
 
 

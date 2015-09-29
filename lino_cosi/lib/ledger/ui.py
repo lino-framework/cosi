@@ -16,22 +16,6 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-# This file is part of Lino Cosi.
-#
-# Lino Cosi is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# Lino Cosi is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public
-# License along with Lino Cosi.  If not, see
-# <http://www.gnu.org/licenses/>.
-
 
 """Database models for `lino_cosi.lib.ledger`.
 
@@ -83,10 +67,10 @@ class Journals(dd.Table):
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.Journal'
     order_by = ["seqno"]
-    column_names = "ref:5 name trade_type journal_group " \
+    column_names = "ref:5 name trade_type chart journal_group " \
                    "voucher_type force_sequence * seqno id"
     detail_layout = """
-    ref:5 trade_type seqno id voucher_type:10 journal_group:10
+    ref:5 trade_type seqno id voucher_type:10 chart journal_group:10
     force_sequence account dc build_method template
     name
     printed_name
@@ -94,7 +78,7 @@ class Journals(dd.Table):
     """
     insert_layout = dd.FormLayout("""
     ref name
-    trade_type
+    chart journal_group
     voucher_type
     """, window_size=(60, 'auto'))
 
@@ -154,10 +138,13 @@ class MatchRules(dd.Table):
 
 class MatchRulesByAccount(MatchRules):
     master_key = 'account'
+    column_names = "journal *"
 
 
 class MatchRulesByJournal(ByJournal, MatchRules):
+    order_by = ["account"]
     master_key = 'journal'
+    column_names = "account *"
 
 
 class ExpectedMovements(dd.VirtualTable):
