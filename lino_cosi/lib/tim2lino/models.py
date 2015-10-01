@@ -16,8 +16,10 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
+"""
+This module exists just so that Django finds the fixtures.
 
-# this file exists just for Django to find the fixtures.
+"""
 
 # class Dummy(object):
 #     pass

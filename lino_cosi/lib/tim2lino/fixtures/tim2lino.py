@@ -69,6 +69,8 @@ Person = dd.resolve_model("contacts.Person")
 Company = dd.resolve_model("contacts.Company")
 Account = dd.resolve_model('accounts.Account')
 Group = dd.resolve_model('accounts.Group')
+Journal = dd.resolve_model('ledger.Journal')
+Movement = dd.resolve_model('ledger.Movement')
 # potentially UnresolvedModel:
 Household = dd.resolve_model('households.Household')
 List = dd.resolve_model('lists.List')
@@ -145,10 +147,15 @@ def convert_gender(v):
 
 
 def mton(s):  # PriceField
-    # return s.strip()
+
     s = s.strip()
     if s:
         if s != "GRATIS":
+            # TIM accepted an (erroneous) amount '36535..23' as 36535
+            # (omitting the part after the duplicated ".")
+            i = s.find('..')
+            if i != -1:
+                s = s[:i]
             return Decimal(s)
     return Decimal()
 
@@ -184,15 +191,20 @@ def store_date(row, obj, rowattr, objattr):
         setattr(obj, objattr, v)
 
 
+def year_num(iddoc):
+    # TODO: handle data before A.D. 2000
+    year = ledger.FiscalYears.from_int(2000 + int(iddoc[:2]))
+    num = int(iddoc[2:])
+    return (year, num)
+
+
 def row2jnl(row):
-    year = ledger.FiscalYears.from_int(2000 + int(row.iddoc[:2]))
-    num = int(row.iddoc[2:])
-    # if row.idjnl in ('VKR','EKR'):
     try:
-        jnl = ledger.Journal.objects.get(ref=row.idjnl)
+        jnl = Journal.objects.get(ref=row.idjnl)
+        year, num = year_num(row.iddoc)
         # cl = sales.Invoice
         return jnl, year, num
-    except ledger.Journal.DoesNotExist:
+    except Journal.DoesNotExist:
         return None, None, None
 
 
@@ -250,6 +262,7 @@ class TimLoader(object):
         self.languages = dd.resolve_languages(
             dd.plugins.tim2lino.languages)
         self.must_register = []
+        self.must_match = []
 
     def get_user(self, idusr=None):
         return self.ROOT
@@ -498,12 +511,6 @@ class TimLoader(object):
             self.must_register.append(doc)
         return doc
 
-    def find_match(self, matchstr):
-        """Given a string of type 'VKR940095', locate the corresponding
-        movement.
-
-        """
-        jnl, iddoc
 
     def load_fnl(self, row, **kw):
         jnl, year, number = row2jnl(row)
@@ -519,9 +526,6 @@ class TimLoader(object):
             pass  # some lines contain "***"
         if row.date:
             kw.update(date=row.date)
-        match = row.match.strip()
-        if match:
-            kw.update(match=self.find_match(match))
         try:
             if row.idctr == ('V'):
                 kw.update(partner_id=self.par_pk(row.idcpt.strip()))
@@ -548,7 +552,15 @@ class TimLoader(object):
             logger.warning("Failed to load FNL line %s from %s : %s",
                            row, kw, e)
             raise
-        return doc.add_voucher_item(**kw)
+        try:
+            item = doc.add_voucher_item(**kw)
+            match = row.match.strip()
+            if match:
+                self.must_match.append((doc, item, match))
+            return item
+        except Exception as e:
+            logger.warning("Failed to load FNL line %s from %s : %s",
+                           row, kw, e)
 
     def load_ven(self, row, **kw):
         jnl, year, number = row2jnl(row)
@@ -585,8 +597,10 @@ class TimLoader(object):
         self.VENDICT[(jnl, year, number)] = doc
         if row.etat == self.etat_registered:
             self.must_register.append(doc)
+        match = row.match.strip()
+        if match:
+            self.must_match.append((doc, doc, match))
         return doc
-        # return cl(**kw)
 
     def load_vnl(self, row, **kw):
         jnl, year, number = row2jnl(row)
@@ -995,7 +1009,7 @@ class TimLoader(object):
         settings.SITE.loading_from_dump = False
 
         """
-        We need a FlushDeferredObjects here because most Project 
+        We need a FlushDeferredObjects here because most Project
         objects don't get saved at the first attempt
         """
 
@@ -1007,11 +1021,47 @@ class TimLoader(object):
             yield tim.load_dbf('FIN')
             yield tim.load_dbf('FNL')
 
-            ses = settings.SITE.login('root')
+            ses = rt.login(self.ROOT.username)
 
             for doc in self.must_register:
-                doc.register(ses)
+                try:
+                    doc.register(ses)
+                except Exception as e:
+                    dblogger.warning("Failed to register %s : %s ", doc, e)
+                    
 
+            # Given a string `ms` of type 'VKR940095', locate the corresponding
+            # movement.
+            dblogger.info("Resolving {0} matches", len(self.must_match))
+            for (voucher, matching, ms) in self.must_match:
+                if matching.pk is None:
+                    dblogger.warning("Ignored match %s in %s (pk is None)" % (
+                        ms, matching))
+                    continue
+                idjnl, iddoc = ms[:3], ms[3:]
+                try:
+                    year, num = year_num(iddoc)
+                except ValueError as e:
+                    dblogger.warning("Ignored match %s in %s (%s)" % (
+                        ms, matching, e))
+                try:
+                    jnl = Journal.objects.get(ref=idjnl)
+                except Journal.DoesNotExist:
+                    dblogger.warning("Ignored match %s in %s (invalid JNL)" % (
+                        ms, matching))
+                    continue
+                qs = Movement.objects.filter(
+                    voucher__journal=jnl, voucher__number=num,
+                    voucher__year=year, partner__isnull=False)
+                if qs.count() == 0:
+                    dblogger.warning("Ignored match %s in %s (no movement)" % (
+                        ms, matching))
+                    continue
+                matching.match = qs[0]
+                matching.save()
+                voucher.deregister(ses)
+                voucher.register(ses)
+                
 
 def objects():
     settings.SITE.startup()

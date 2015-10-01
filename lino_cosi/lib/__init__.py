@@ -34,6 +34,7 @@ Plugins
     finan
     declarations
     courses
+    tim2lino
 
 Differentiator packages
 =======================

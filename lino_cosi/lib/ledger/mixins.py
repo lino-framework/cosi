@@ -115,8 +115,8 @@ class Matching(dd.Model):
     `partner`.  The default implementation of the chooser for
     :attr:`match` requires a `journal`.
 
-    Base class for :class:`vat.AccountInvoice`
-    (and e.g. `sales.Invoice`, `finan.DocItem`)
+    Base class for :class:`lino_cosi.lib.vat.AccountInvoice`
+    (and e.g. `lino_cosi.lib.sales.Invoice`, `lino_cosi.lib.finan.DocItem`)
     
     .. attribute:: match
 

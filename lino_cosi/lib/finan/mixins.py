@@ -47,13 +47,17 @@ class FinancialVoucher(ledger.Voucher):
     class Meta:
         abstract = True
 
-    def register(self, ar):
-        super(FinancialVoucher, self).register(ar)
+    def after_state_change(self, ar, old, new):
+        super(FinancialVoucher, self).after_state_change(ar, old, new)
         self.update_satisfied()
 
-    def deregister(self, ar):
-        super(FinancialVoucher, self).deregister(ar)
-        self.update_satisfied()
+    # def register(self, ar):
+    #     super(FinancialVoucher, self).register(ar)
+    #     self.update_satisfied()
+
+    # def deregister(self, ar):
+    #     super(FinancialVoucher, self).deregister(ar)
+    #     self.update_satisfied()
 
     def update_satisfied(self):
         partners = set()
@@ -88,16 +92,16 @@ class FinancialVoucher(ledger.Voucher):
                 amount += i.amount
             else:
                 amount -= i.amount
-            if i.match:
-                match = i.match
-            elif i.partner:
-                match = "%s#%s-%s" % (self.journal.ref, self.pk, i.seqno)
-            else:
-                match = ''
+            # if i.match:
+            #     match = i.match
+            # elif i.partner:
+            #     match = "%s#%s-%s" % (self.journal.ref, self.pk, i.seqno)
+            # else:
+            #     match = ''
             b = self.create_movement(
                 i.account, None, i.dc, i.amount,
                 seqno=i.seqno,
-                match=match,
+                match=i.match,
                 partner=i.partner)
             mvts.append(b)
 

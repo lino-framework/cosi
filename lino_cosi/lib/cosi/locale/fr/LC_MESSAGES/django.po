@@ -1,0 +1,5798 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-10-01 16:37+0300\n"
+"PO-Revision-Date: 2015-06-30 20:04+0300\n"
+"Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: lino_cosi/lib/accounts/__init__.py:38
+msgid "Accounting"
+msgstr "Comptabilité"
+
+#: lino_cosi/lib/accounts/choicelists.py:58
+msgid "Account Chart"
+msgstr "Plan comptable"
+
+#: lino_cosi/lib/accounts/choicelists.py:59
+msgid "Account Charts"
+msgstr "Plan comptables"
+
+#: lino_cosi/lib/accounts/choicelists.py:68
+#, fuzzy
+msgid "Default"
+msgstr "valeur par défault"
+
+#: lino_cosi/lib/accounts/choicelists.py:77
+msgid "Financial statement"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/accounts/choicelists.py:113
+msgid "Balance sheet"
+msgstr "Bilan"
+
+#: lino_cosi/lib/accounts/choicelists.py:123
+msgid "Profit & Loss statement"
+msgstr "Compte de résultats"
+
+#: lino_cosi/lib/accounts/choicelists.py:127
+#: lino_cosi/lib/accounts/choicelists.py:133
+msgid "Cash flow statement"
+msgstr "Tableau de financement"
+
+#: lino_cosi/lib/accounts/choicelists.py:155
+msgid "Assets"
+msgstr "Actifs"
+
+#: lino_cosi/lib/accounts/choicelists.py:163
+msgid "Liabilities"
+msgstr "Obligations"
+
+#: lino_cosi/lib/accounts/choicelists.py:171
+msgid "Capital"
+msgstr ""
+
+#: lino_cosi/lib/accounts/choicelists.py:179
+msgid "Incomes"
+msgstr "Revenus"
+
+#: lino_cosi/lib/accounts/choicelists.py:188
+msgid "Expenses"
+msgstr "Dépenses"
+
+#: lino_cosi/lib/accounts/choicelists.py:197
+msgid "Bank accounts"
+msgstr "Compte en banque"
+
+#: lino_cosi/lib/accounts/choicelists.py:204
+msgid "Account Type"
+msgstr "Type de compte"
+
+#: lino_cosi/lib/accounts/choicelists.py:208
+msgid "D/C"
+msgstr ""
+
+#: lino_cosi/lib/accounts/choicelists.py:212
+#, fuzzy
+msgid "Sheet"
+msgstr "Fiche eID"
+
+#: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:179
+#: lino_cosi/lib/ledger/models.py:536 lino_cosi/lib/ledger/ui.py:390
+msgid "Debit"
+msgstr "Débit"
+
+#: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:180
+#: lino_cosi/lib/ledger/models.py:543 lino_cosi/lib/ledger/ui.py:394
+msgid "Credit"
+msgstr "Crédit"
+
+#: lino_cosi/lib/accounts/fields.py:59
+msgid "Debit (checked) or Credit (not checked)"
+msgstr ""
+
+#: lino_cosi/lib/accounts/models.py:40
+msgid "Account Group"
+msgstr "Groupe de comptes"
+
+#: lino_cosi/lib/accounts/models.py:41
+msgid "Account Groups"
+msgstr "Groupes de comptes"
+
+#: lino_cosi/lib/accounts/models.py:119 lino_cosi/lib/sepa/models.py:150
+msgid "Account"
+msgstr "Compte"
+
+#: lino_cosi/lib/accounts/models.py:120 lino_cosi/lib/sepa/models.py:151
+msgid "Accounts"
+msgstr "Comptes"
+
+#: lino_cosi/lib/auto/sales/models.py:62
+msgid "Invoicing Mode"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:63
+msgid "Invoicing Modes"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:66
+msgid "Additional fee charged when using this invoicing mode."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:76
+msgid ""
+"How many days in advance invoices should be posted so that the customer "
+"has a chance to pay them in time."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:158
+#, python-format
+msgid "No invoiceables found for %s."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:185
+msgid "Create invoice"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:199
+#, fuzzy, python-format
+msgid "%d invoices have been created."
+msgstr "%s a été créé"
+
+#: lino_cosi/lib/auto/sales/models.py:201
+#, python-format
+msgid "This will create %d invoices."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:202
+#: lino_cosi/lib/auto/sales/models.py:332 lino_cosi/lib/courses/models.py:985
+#: lino_cosi/lib/courses/workflows.py:58
+msgid "Are you sure?"
+msgstr "D'accord ?"
+
+#: lino_cosi/lib/auto/sales/models.py:217
+msgid "Create invoice from invoiceables for this partner"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:264
+#: lino_cosi/lib/auto/sales/models.py:467
+msgid "Invoiceable"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:267
+msgid "Voucher item"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:268
+msgid "Voucher items"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:273
+msgid "(type)"
+msgstr "(type)"
+
+#: lino_cosi/lib/auto/sales/models.py:277
+msgid "(object)"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:296
+msgid "Invoicings"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:311
+msgid ""
+"Create and print the invoice for each selected row, making these rows "
+"disappear from this table"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:330
+#, python-format
+msgid "This will create and print %d invoice(s)."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:345
+#: lino_cosi/lib/auto/sales/models.py:441
+msgid "Invoices to create"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:347
+msgid "Table of all partners who should receive an invoice."
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:405
+#, fuzzy
+msgid "First date"
+msgstr "Première page"
+
+#: lino_cosi/lib/auto/sales/models.py:409
+#, fuzzy
+msgid "Last date"
+msgstr "Date début"
+
+#: lino_cosi/lib/auto/sales/models.py:413 lino_cosi/lib/sepa/models.py:254
+#: lino_cosi/lib/vatless/models.py:54 lino_cosi/lib/vatless/models.py:118
+#, fuzzy
+msgid "Amount"
+msgstr "mois"
+
+#: lino_cosi/lib/auto/sales/models.py:421
+msgid "Invoiceables"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:428 lino_cosi/lib/courses/models.py:1113
+#: lino_cosi/lib/ledger/ui.py:551
+#, fuzzy
+msgid "Actions"
+msgstr "Fonction"
+
+#: lino_cosi/lib/auto/sales/models.py:443
+msgid "List of invoiceable items for this partner"
+msgstr ""
+
+#: lino_cosi/lib/auto/sales/models.py:463 lino_cosi/lib/ledger/models.py:283
+#: lino_cosi/lib/sepa/models.py:227
+#, fuzzy
+msgid "Date"
+msgstr "Site"
+
+#: lino_cosi/lib/cosi/roles.py:44 lino_cosi/lib/ledger/roles.py:51
+msgid "Anonymous"
+msgstr "Anonyme"
+
+#: lino_cosi/lib/cosi/roles.py:45 lino_cosi/lib/ledger/roles.py:52
+msgid "User"
+msgstr "Utilisateur"
+
+#: lino_cosi/lib/cosi/roles.py:46 lino_cosi/lib/ledger/roles.py:53
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: lino_cosi/lib/courses/__init__.py:50 lino_cosi/lib/courses/models.py:81
+#: lino_cosi/lib/courses/models.py:311
+msgid "Courses"
+msgstr "Cours"
+
+#: lino_cosi/lib/courses/choicelists.py:41
+#: lino_cosi/lib/ledger/choicelists.py:317
+msgid "Draft"
+msgstr "Brouillon"
+
+#: lino_cosi/lib/courses/choicelists.py:42
+#: lino_cosi/lib/ledger/choicelists.py:318
+msgid "Registered"
+msgstr "Enregistré"
+
+#: lino_cosi/lib/courses/choicelists.py:52
+msgid "Enrolment states"
+msgstr "États d'inscription"
+
+#: lino_cosi/lib/courses/choicelists.py:54
+msgid "invoiceable"
+msgstr "Facturable"
+
+#: lino_cosi/lib/courses/choicelists.py:55
+msgid "Uses a place"
+msgstr ""
+
+#: lino_cosi/lib/courses/choicelists.py:58 lino_cosi/lib/courses/models.py:493
+msgid "Requested"
+msgstr "Demandé"
+
+#: lino_cosi/lib/courses/choicelists.py:59 lino_cosi/lib/courses/models.py:498
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#: lino_cosi/lib/courses/choicelists.py:60
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: lino_cosi/lib/courses/models.py:78
+#, fuzzy
+msgid "Course area"
+msgstr "heures"
+
+#: lino_cosi/lib/courses/models.py:79
+#, fuzzy
+msgid "Course areas"
+msgstr "Séries de cours"
+
+#: lino_cosi/lib/courses/models.py:91
+#, fuzzy
+msgid "Start Time"
+msgstr "Heure de début"
+
+#: lino_cosi/lib/courses/models.py:94
+msgid "End Time"
+msgstr "Heure de fin"
+
+#: lino_cosi/lib/courses/models.py:102
+msgid "Timetable Slot"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:103
+msgid "Timetable Slots"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:107 lino_cosi/lib/courses/models.py:334
+msgid "Name"
+msgstr "Nom"
+
+#: lino_cosi/lib/courses/models.py:129
+msgid "Topic"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:130
+msgid "Topics"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:174
+#, fuzzy
+msgctxt "singular form"
+msgid "Course series"
+msgstr "Séries de cours"
+
+#: lino_cosi/lib/courses/models.py:175
+#, fuzzy
+msgctxt "plural form"
+msgid "Course series"
+msgstr "Séries de cours"
+
+#: lino_cosi/lib/courses/models.py:177
+msgid "Reference"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:180 lino_cosi/lib/courses/models.py:320
+#: lino_cosi/lib/ledger/ui.py:377 lino_cosi/lib/sales/models.py:304
+#: lino_cosi/lib/sales/models.py:364 lino_cosi/lib/sepa/mixins.py:57
+#: lino_cosi/lib/vat/models.py:153 lino_cosi/lib/vatless/models.py:117
+msgid "Description"
+msgstr "Description"
+
+#: lino_cosi/lib/courses/models.py:183
+#, fuzzy
+msgid "Recurrency"
+msgstr "Dates de récurrence"
+
+#: lino_cosi/lib/courses/models.py:186
+msgid "Repeat every"
+msgstr "Répéter"
+
+#: lino_cosi/lib/courses/models.py:190
+msgid ""
+"The type of calendar events to be generated. If this is empty, no "
+"calendar events will be generated."
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:197 lino_cosi/lib/courses/models.py:337
+#: lino_cosi/lib/courses/models.py:754
+#, fuzzy
+msgid "Participation fee"
+msgstr "Confirmation"
+
+#: lino_cosi/lib/courses/models.py:202
+#, fuzzy
+msgid "Default guest role for particpants of events."
+msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
+
+#: lino_cosi/lib/courses/models.py:206
+msgid "Options category"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:212
+#, fuzzy
+msgid "Fees category"
+msgstr "Categorie"
+
+#: lino_cosi/lib/courses/models.py:218
+#, fuzzy
+msgid "Body template"
+msgstr "Modèle"
+
+#: lino_cosi/lib/courses/models.py:269
+msgid "Shows events of courses of this teacher"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:310
+#, fuzzy
+msgid "Course"
+msgstr "heures"
+
+#: lino_cosi/lib/courses/models.py:316
+msgid "Instructor"
+msgstr "Instructeur"
+
+#: lino_cosi/lib/courses/models.py:321 lino_cosi/lib/courses/models.py:763
+#: lino_cosi/lib/finan/mixins.py:149 lino_cosi/lib/sepa/models.py:160
+msgid "Remark"
+msgstr "Remarque"
+
+#: lino_cosi/lib/courses/models.py:328 lino_cosi/lib/courses/models.py:756
+msgctxt "in a course"
+msgid "Places"
+msgstr "Places"
+
+#: lino_cosi/lib/courses/models.py:341
+msgid "Enrolments until"
+msgstr "Inscriptions jusqu'au"
+
+#: lino_cosi/lib/courses/models.py:467
+msgid "Info"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:475 lino_cosi/lib/courses/models.py:551
+msgid "Events"
+msgstr "Rendez-vous"
+
+#: lino_cosi/lib/courses/models.py:481
+msgid "Available places"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:484
+#, fuzzy
+msgid "Unlimited"
+msgstr "Invité"
+
+#: lino_cosi/lib/courses/models.py:503 lino_cosi/lib/courses/models.py:743
+#: lino_cosi/lib/courses/models.py:1036
+msgid "Enrolments"
+msgstr "Inscriptions"
+
+#: lino_cosi/lib/courses/models.py:546 lino_cosi/lib/finan/models.py:206
+#: lino_cosi/lib/finan/models.py:218 lino_cosi/lib/finan/models.py:225
+#: lino_cosi/lib/finan/models.py:232 lino_cosi/lib/sales/models.py:247
+#: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:58
+msgid "General"
+msgstr "Général"
+
+#: lino_cosi/lib/courses/models.py:651
+#, fuzzy
+msgid "Draft courses"
+msgstr "Sources de données"
+
+#: lino_cosi/lib/courses/models.py:666
+msgid "Active courses"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:685
+#, fuzzy
+msgid "Enrolment option"
+msgstr "Titre de noblesse"
+
+#: lino_cosi/lib/courses/models.py:686
+#, fuzzy
+msgid "Enrolment options"
+msgstr "Titre de noblesse"
+
+#: lino_cosi/lib/courses/models.py:691
+msgid "Price"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:742
+msgid "Enrolment"
+msgstr "Inscription"
+
+#: lino_cosi/lib/courses/models.py:752
+msgid "Date of request"
+msgstr "Date de la demande"
+
+#: lino_cosi/lib/courses/models.py:760
+#, fuzzy
+msgid "Option"
+msgstr "Envoi postal"
+
+#: lino_cosi/lib/courses/models.py:765
+#, fuzzy
+msgid "Confirmation details"
+msgstr "Confirmation"
+
+#: lino_cosi/lib/courses/models.py:822
+#, python-format
+msgid "No places left in %s"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:892
+#, fuzzy
+msgid "Course state"
+msgstr "heures"
+
+#: lino_cosi/lib/courses/models.py:894
+msgid "Participants only"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:895
+msgid ""
+"Hide cancelled enrolments. Ignored if you specify an explicit enrolment "
+"state."
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:951
+#, fuzzy
+msgid "Also "
+msgstr "jours"
+
+#: lino_cosi/lib/courses/models.py:969
+#, fuzzy
+msgid "Confirm all"
+msgstr "Confirmation"
+
+#: lino_cosi/lib/courses/models.py:983
+#, python-format
+msgid "This will confirm all %d enrolments in this list."
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:990
+msgid "Pending requested enrolments"
+msgstr "Demandes d’inscription en attente"
+
+#: lino_cosi/lib/courses/models.py:1006
+msgid "Pending confirmed enrolments"
+msgstr "Demandes d’inscription confirmées"
+
+#: lino_cosi/lib/courses/models.py:1068
+#, fuzzy
+msgid "Participant"
+msgstr "Confirmation"
+
+#: lino_cosi/lib/courses/models.py:1097
+#, fuzzy
+msgid "Suggested courses"
+msgstr "Proposé"
+
+#: lino_cosi/lib/courses/models.py:1102
+#, fuzzy, python-format
+msgid "%(details)s for %(master)s"
+msgstr "%(details)s de %(master)s"
+
+#: lino_cosi/lib/courses/models.py:1128
+#, fuzzy
+msgid "Enrol"
+msgstr "Général"
+
+#: lino_cosi/lib/courses/models.py:1133
+#, fuzzy
+msgid "Show enrolment"
+msgstr "Tableau de financement"
+
+#: lino_cosi/lib/courses/workflows.py:71
+#, fuzzy
+msgid "Certify"
+msgstr "Communiqué"
+
+#: lino_cosi/lib/courses/workflows.py:76
+#, python-format
+msgid "Print certificate for <b>%(pupil)s</b>."
+msgstr ""
+
+#: lino_cosi/lib/courses/workflows.py:81
+#, fuzzy
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: lino_cosi/lib/courses/workflows.py:86
+msgid "Check for possible problems."
+msgstr ""
+
+#: lino_cosi/lib/courses/workflows.py:97
+#, python-format
+msgid "Cannot confirm %(pupil)s : %(message)s"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:86
+msgid "Sales base"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:87
+msgid "Sales VAT"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:88
+msgid "Purchases base"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:89
+msgid "Purchases VAT"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:92
+msgid "Investments"
+msgstr ""
+
+#: lino_cosi/lib/declarations/be.py:93
+#, fuzzy
+msgid "Ware"
+msgstr "Imprimer"
+
+#: lino_cosi/lib/declarations/be.py:94
+#, fuzzy
+msgid "Services"
+msgstr "Utilisateurs"
+
+#: lino_cosi/lib/declarations/models.py:65
+msgid "VAT Period"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:66
+msgid "VAT Periods"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:88
+msgid "First Quarter (January-March)"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:89
+msgid "Second Quarter (April-June)"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:90
+msgid "Third Quarter (July-August)"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:91
+msgid "Fourth Quarter (September-December)"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:95
+msgid "January"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:96
+msgid "February"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:97
+msgid "March"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:98
+msgid "April"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:99
+msgid "May"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:100
+msgid "June"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:101
+msgid "July"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:102
+msgid "August"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:103
+msgid "September"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:104
+msgid "October"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:105
+msgid "November"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:106
+msgid "December"
+msgstr ""
+
+#: lino_cosi/lib/declarations/models.py:147
+msgid "VAT declaration"
+msgstr "Déclaration TVA"
+
+#: lino_cosi/lib/declarations/models.py:148
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:252
+msgid "VAT declarations"
+msgstr "Déclarations TVA"
+
+#: lino_cosi/lib/finan/__init__.py:37 lino_cosi/lib/ledger/choicelists.py:68
+msgid "Financial"
+msgstr ""
+
+#: lino_cosi/lib/finan/mixins.py:144
+#, fuzzy
+msgid "Item"
+msgstr "Site"
+
+#: lino_cosi/lib/finan/mixins.py:145
+#, fuzzy
+msgid "Items"
+msgstr "minutes"
+
+#: lino_cosi/lib/finan/mixins.py:196
+msgid "Could not determine the general account"
+msgstr ""
+
+#: lino_cosi/lib/finan/mixins.py:200
+msgid "Could not determine the partner account"
+msgstr ""
+
+#: lino_cosi/lib/finan/mixins.py:226
+msgid "There is already an open grouper for {0}"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:78
+#, fuzzy
+msgid "Grouper"
+msgstr "Propriété"
+
+#: lino_cosi/lib/finan/models.py:79
+#, fuzzy
+msgid "Groupers"
+msgstr "Propriétés"
+
+#: lino_cosi/lib/finan/models.py:91
+#, fuzzy
+msgid "Journal Entry"
+msgstr "Pays"
+
+#: lino_cosi/lib/finan/models.py:92
+#, fuzzy
+msgid "Journal Entries"
+msgstr "Pays"
+
+#: lino_cosi/lib/finan/models.py:102
+msgid "Payment Order"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:103
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:223
+msgid "Payment Orders"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:105
+msgid "Total"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:107
+msgid "Execution date"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:135
+#, fuzzy
+msgid "Bank Statement"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/finan/models.py:136
+#, fuzzy
+msgid "Bank Statements"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/finan/models.py:138
+msgid "Old balance"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:139
+msgid "New balance"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:187
+msgid "Income"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:188
+msgid "Expense"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:211 lino_cosi/lib/ledger/__init__.py:41
+#: lino_cosi/lib/sales/models.py:257 lino_cosi/lib/vat/ui.py:70
+#: lino_cosi/lib/vatless/ui.py:63
+msgid "Ledger"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:359
+msgid "Fill"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:376
+#, fuzzy, python-format
+msgid "%d items have been added to %s."
+msgstr "Enregistrement %s a été mis à jour."
+
+#: lino_cosi/lib/finan/models.py:396
+#, fuzzy
+msgid "Suggestions"
+msgstr "secondes"
+
+#: lino_cosi/lib/ledger/choicelists.py:65
+#: lino_cosi/lib/ledger/choicelists.py:260 lino_cosi/lib/sales/__init__.py:42
+msgid "Sales"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:66
+#: lino_cosi/lib/ledger/choicelists.py:261
+msgid "Purchases"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:67
+#: lino_cosi/lib/ledger/choicelists.py:262
+msgid "Wages"
+msgstr "Salaires"
+
+#: lino_cosi/lib/ledger/choicelists.py:88
+msgid "Fiscal Year"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:89
+msgid "Fiscal Years"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:133
+#, fuzzy
+msgid "Voucher type"
+msgstr "Type de note"
+
+#: lino_cosi/lib/ledger/choicelists.py:134
+#, fuzzy
+msgid "Voucher types"
+msgstr "Types de note"
+
+#: lino_cosi/lib/ledger/choicelists.py:255
+#, fuzzy
+msgid "Trade type"
+msgstr "Type d'organisation"
+
+#: lino_cosi/lib/ledger/choicelists.py:256
+#, fuzzy
+msgid "Trade types"
+msgstr "Types de note"
+
+#: lino_cosi/lib/ledger/choicelists.py:258
+msgid "The type of trade: usually either `sales` or `purchases`."
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:263
+#, fuzzy
+msgid "Clearings"
+msgstr "Avertissement"
+
+#: lino_cosi/lib/ledger/choicelists.py:319
+#, fuzzy
+msgid "Fixed"
+msgstr "Communiqué"
+
+#: lino_cosi/lib/ledger/choicelists.py:326
+#: lino_cosi/lib/ledger/choicelists.py:332
+msgid "Register"
+msgstr "Enregistrer"
+
+#: lino_cosi/lib/ledger/choicelists.py:328
+#: lino_cosi/lib/ledger/choicelists.py:335
+msgid "Deregister"
+msgstr "Réouvrir"
+
+#: lino_cosi/lib/ledger/mixins.py:133
+#, fuzzy
+msgid "The movement to be matched."
+msgstr "Rendez-vous a eu lieu"
+
+#: lino_cosi/lib/ledger/mixins.py:134 lino_cosi/lib/ledger/models.py:506
+#: lino_cosi/lib/ledger/ui.py:206
+msgid "Match"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:104
+msgid "Journal"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:105
+msgid "Journals"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:112
+msgid "Force chronological sequence"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:218
+#, python-format
+msgid "%s is not the last voucher in journal"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:247
+msgid "Payment Term"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:248
+msgid "Payment Terms"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:280 lino_cosi/lib/ledger/models.py:550
+#: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:147
+msgid "Voucher"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:281
+msgid "Vouchers"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:287
+msgid "Narration"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:489 lino_cosi/lib/sepa/models.py:247
+msgid "Movement"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:490 lino_cosi/lib/sepa/models.py:248
+msgid "Movements"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:499
+msgid "Seq.No."
+msgstr "N° de séq"
+
+#: lino_cosi/lib/ledger/models.py:507
+msgid "The movement matched by this one."
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:513
+#, fuzzy
+msgid "Satisfied"
+msgstr "Communiqué"
+
+#: lino_cosi/lib/ledger/models.py:576
+msgid "Match rule"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:577
+msgid "Match rules"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:592
+#, fuzzy
+msgid "Clearable"
+msgstr "Effacer la cache"
+
+#: lino_cosi/lib/ledger/ui.py:160 lino_cosi/lib/ledger/ui.py:218
+msgid "Debts"
+msgstr "Dettes"
+
+#: lino_cosi/lib/ledger/ui.py:166
+#, fuzzy
+msgid "Date until"
+msgstr "expire le"
+
+#: lino_cosi/lib/ledger/ui.py:212 lino_cosi/lib/ledger/ui.py:542
+#: lino_cosi/lib/sepa/mixins.py:56
+msgid "Due date"
+msgstr "Échéance"
+
+#: lino_cosi/lib/ledger/ui.py:213
+msgid "Due date of the eldest debt in this match group"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:218
+msgid "List of invoices in this match group"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:224
+#, fuzzy
+msgid "Payments"
+msgstr "Concepts subordonnés"
+
+#: lino_cosi/lib/ledger/ui.py:224
+msgid "List of payments in this match group"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:229 lino_cosi/lib/ledger/ui.py:538
+#, fuzzy
+msgid "Balance"
+msgstr "a eu lieu"
+
+#: lino_cosi/lib/ledger/ui.py:242
+#, fuzzy
+msgid "Bank account"
+msgstr "Compte en banque"
+
+#: lino_cosi/lib/ledger/ui.py:382
+msgid ""
+"Debit\n"
+"before"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:386
+msgid ""
+"Credit\n"
+"before"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:398
+msgid ""
+"Debit\n"
+"after"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:402
+msgid ""
+"Credit\n"
+"after"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:412
+msgid "General Accounts Balances"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:423 lino_cosi/lib/ledger/ui.py:444
+#: lino_cosi/lib/sepa/models.py:258
+msgid "Ref"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:454
+#, fuzzy
+msgid "Client Accounts Balances"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/ledger/ui.py:462
+#, fuzzy
+msgid "Supplier Accounts Balances"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/ledger/ui.py:534
+msgid "ID"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:546
+msgid "Age"
+msgstr "Âge"
+
+#: lino_cosi/lib/ledger/ui.py:563
+#, fuzzy
+msgid "Debtors"
+msgstr "Revenus"
+
+#: lino_cosi/lib/ledger/ui.py:564
+msgid "List of partners (usually clients)     who are in debt towards us."
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:574
+#, fuzzy
+msgid "Creditors"
+msgstr "Crédit"
+
+#: lino_cosi/lib/ledger/ui.py:575
+msgid "List of partners (usually suppliers)     who are giving credit to us."
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:591
+#, fuzzy
+msgid "Situation"
+msgstr "Envoi postal"
+
+#: lino_cosi/lib/ledger/ui.py:592
+msgid "Overview of the financial situation on a given date."
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:609
+msgid "Activity Report"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:610
+msgid "Overview of the financial activity during a given period."
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:662
+msgid "Show cleared movements"
+msgstr ""
+
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:204
+msgid "Sales invoices"
+msgstr "Factures vente"
+
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:214
+msgid "Purchase invoices"
+msgstr "Factures achat"
+
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:219
+msgid "Bestbank"
+msgstr ""
+
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:235
+msgid "Cash"
+msgstr "Caisse"
+
+#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:242
+msgid "Miscellaneous Journal Entries"
+msgstr "Opérations diverses"
+
+#: lino_cosi/lib/sales/models.py:53
+msgid "Sales price"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:55
+#, fuzzy
+msgid "Sales Base account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/sales/models.py:57
+#, fuzzy
+msgid "Sales VAT account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/sales/models.py:59
+msgid "Clients account"
+msgstr "Compte client"
+
+#: lino_cosi/lib/sales/models.py:63
+#, fuzzy
+msgid "Wages account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/sales/models.py:67
+#, fuzzy
+msgid "Clearings account"
+msgstr "Compte client"
+
+#: lino_cosi/lib/sales/models.py:73
+msgid "Invoicing address"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:115
+msgid "Shipping Mode"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:116
+msgid "Shipping Modes"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:147
+msgid "Subject line"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:149 lino_cosi/lib/sales/models.py:305
+msgid "Discount"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:187 lino_cosi/lib/vat/models.py:144
+#: lino_cosi/lib/vatless/models.py:51
+msgid "Invoice"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:188 lino_cosi/lib/vat/models.py:145
+#: lino_cosi/lib/vatless/models.py:52
+msgid "Invoices"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:235
+msgid "Totals"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:242
+msgid "Header"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:252
+msgid "More"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:400
+#, python-format
+msgid "Going to sign %d documents as user %s. Are you sure?"
+msgstr ""
+
+#: lino_cosi/lib/sepa/__init__.py:41
+msgid "SEPA"
+msgstr ""
+
+#: lino_cosi/lib/sepa/mixins.py:55
+msgid "Your reference"
+msgstr ""
+
+#: lino_cosi/lib/sepa/mixins.py:64
+#, fuzzy
+msgid "Partners mismatch"
+msgstr "Partenaires"
+
+#: lino_cosi/lib/sepa/models.py:54
+#, fuzzy
+msgid "Import SEPA"
+msgstr "important"
+
+#: lino_cosi/lib/sepa/models.py:78
+msgid "Success"
+msgstr "Succès"
+
+#: lino_cosi/lib/sepa/models.py:80
+msgid "Error"
+msgstr ""
+
+#: lino_cosi/lib/sepa/models.py:157
+msgid "IBAN"
+msgstr ""
+
+#: lino_cosi/lib/sepa/models.py:158
+#, fuzzy
+msgid "BIC"
+msgstr "Public"
+
+#: lino_cosi/lib/sepa/models.py:163
+msgid "Primary"
+msgstr "Primaire"
+
+#: lino_cosi/lib/sepa/models.py:165
+msgid ""
+"Enabling this field will automatically disable any previous primary "
+"account and update the partner's IBAN and BIC"
+msgstr ""
+
+#: lino_cosi/lib/sepa/models.py:215 lino_cosi/lib/sepa/ui.py:73
+#, fuzzy
+msgid "Statement"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/sepa/models.py:216
+#, fuzzy
+msgid "Statements"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/sepa/models.py:228
+#, fuzzy
+msgid "Import Date"
+msgstr "important"
+
+#: lino_cosi/lib/sepa/models.py:229
+#, fuzzy
+msgid "Statement number"
+msgstr "Membre de ménage"
+
+#: lino_cosi/lib/sepa/models.py:230
+#, fuzzy
+msgid "Initial amount"
+msgstr "Comptes annuels"
+
+#: lino_cosi/lib/sepa/models.py:231
+msgid "Final amount"
+msgstr ""
+
+#: lino_cosi/lib/sepa/models.py:232
+#, fuzzy
+msgid "Real end balance"
+msgstr "Indépendant"
+
+#: lino_cosi/lib/sepa/models.py:233
+#, fuzzy
+msgid "Currency"
+msgstr "Dates de récurrence"
+
+#: lino_cosi/lib/sepa/models.py:251
+msgid "Unique import ID"
+msgstr ""
+
+#: lino_cosi/lib/sepa/models.py:253
+#, fuzzy
+msgid "Movement date"
+msgstr "Mes rendez-vous aujourd'hui"
+
+#: lino_cosi/lib/sepa/models.py:256
+#, fuzzy
+msgid "Partner name"
+msgstr "Nom de famille"
+
+#: lino_cosi/lib/tim2lino/__init__.py:38
+msgid "Import from TIM"
+msgstr ""
+
+#: lino_cosi/lib/vat/__init__.py:56 lino_cosi/lib/vat/mixins.py:84
+msgid "VAT"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:41
+msgid "VAT Class"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:42
+msgid "VAT Classes"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:45 lino_cosi/lib/vat/choicelists.py:76
+msgid "Exempt"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:46
+msgid "Reduced"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:47
+msgid "Normal"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:63
+#, fuzzy
+msgid "VAT regime"
+msgstr "Heure de début"
+
+#: lino_cosi/lib/vat/choicelists.py:64
+#, fuzzy
+msgid "VAT regimes"
+msgstr "Régime de travail"
+
+#: lino_cosi/lib/vat/choicelists.py:66
+msgid ""
+"Determines how the VAT is being handled,         i.e. whether and how it "
+"is to be paid."
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:71
+msgid "Private person"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:72
+msgid "Subject to VAT"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:73
+msgid "Co-contractor"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:74
+msgid "Intra-community"
+msgstr ""
+
+#: lino_cosi/lib/vat/choicelists.py:75
+msgid "Outside EU"
+msgstr ""
+
+#: lino_cosi/lib/vat/mixins.py:82
+msgid "Total incl. VAT"
+msgstr ""
+
+#: lino_cosi/lib/vat/mixins.py:83
+msgid "Total excl. VAT"
+msgstr ""
+
+#: lino_cosi/lib/vat/mixins.py:422
+msgid "Unit price"
+msgstr ""
+
+#: lino_cosi/lib/vat/mixins.py:423
+msgid "Quantity"
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:50
+#, fuzzy
+msgid "Purchases Base account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/vat/models.py:52
+#, fuzzy
+msgid "Purchases VAT account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/vat/models.py:54 lino_cosi/lib/vatless/models.py:45
+#, fuzzy
+msgid "Suppliers account"
+msgstr "Compte Ventes"
+
+#: lino_cosi/lib/vat/models.py:86
+msgid "VAT rule"
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:87
+msgid "VAT rules"
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:93
+msgid "Editable amount"
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:112
+msgid "Found {num} VAT rules for %{context}!)"
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:179
+msgid "The default VAT regime for         sales and purchases of this partner."
+msgstr ""
+
+#: lino_cosi/lib/vat/models.py:185
+msgid "VAT id"
+msgstr "N° de TVA"
+
+#: lino_cosi/lib/vat/models.py:193
+msgid "The default payment term for sales invoices to this customer."
+msgstr ""
+
+#: lino_cosi/lib/vat/ui.py:125
+msgid "VAT vouchers"
+msgstr ""
+
+#: lino_cosi/lib/vat/ui.py:199 lino_cosi/lib/vatless/ui.py:208
+msgid "Create voucher in journal "
+msgstr ""
+
+#: lino_cosi/lib/vatless/__init__.py:45
+#, fuzzy
+msgid "VAT-less invoicing"
+msgstr "Factures vente"
+
+#: lino_cosi/lib/vatless/ui.py:124
+msgid "Partner vouchers"
+msgstr ""
+
+#~ msgid "Ready to print"
+#~ msgstr "Prèt à imprimer"
+
+#~ msgid "Birth"
+#~ msgstr "avec"
+
+#~ msgid "My received invitations"
+#~ msgstr "Mes invitations reÃ§ues"
+
+#~ msgid "%d tasks to do"
+#~ msgstr "%d tâches à achever"
+
+#~ msgid "Hi, "
+#~ msgstr "Salut,"
+
+#~ msgid "Create visit"
+#~ msgstr "Céer envoi postal"
+
+#~ msgid "My Waiting Guests"
+#~ msgstr "expire le"
+
+#~ msgid "My "
+#~ msgstr "Mes "
+
+#~ msgid "Purchases account"
+#~ msgstr "Compte Achats"
+
+#~ msgid "Unclear events"
+#~ msgstr "Mes rendez-vous à clarifier"
+
+#~ msgid "My unclear events"
+#~ msgstr "Mes rendez-vous à clarifier"
+
+#~ msgid "%d unclear events approaching."
+#~ msgstr "%d rendez-vous à clarifier qui s'approchent."
+
+#~ msgid "Scheduled"
+#~ msgstr "Planifé"
+
+#~ msgid "Reschedule"
+#~ msgstr "Déplacer"
+
+#~ msgid "My notes"
+#~ msgstr "Mes notes"
+
+#~ msgid "Update Reminders"
+#~ msgstr "Rappels passés"
+
+#~ msgid "Event/Note"
+#~ msgstr "Type d'événement"
+
+#~ msgid "Events/Notes"
+#~ msgstr "Types d'événements"
+
+#~ msgid "Action \"%(action)s\" failed for %(record)s:"
+#~ msgstr "L'action %(action)s a échoué pour %(record)s:"
+
+#~ msgid "~Calendar"
+#~ msgstr "Calendrier"
+
+#~ msgid "Missed reminders"
+#~ msgstr "Rappels ratés"
+
+#~ msgid "Holiday"
+#~ msgstr "Lundi"
+
+#~ msgid "Contract"
+#~ msgstr "Contact"
+
+#~ msgid "Contracts"
+#~ msgstr "Contacts"
+
+#~ msgid "Deregister this object."
+#~ msgstr "Aller vers enregistrement"
+
+#~ msgid "National Day"
+#~ msgstr "NISS"
+
+#~ msgid "All Souls' Day"
+#~ msgstr "journée entière"
+
+#~ msgid "All Saints' Day"
+#~ msgstr "journée entière"
+
+#~ msgid "company type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "company types"
+#~ msgstr "Types d'organisation"
+
+#~ msgid "Companies"
+#~ msgstr "Organisations"
+
+#~ msgid "Due"
+#~ msgstr "Rôle"
+
+#~ msgid "title"
+#~ msgstr "Allocution"
+
+#~ msgid "Undo"
+#~ msgstr "Dimanche"
+
+#~ msgid "My events today"
+#~ msgstr "Mes rendez-vous aujourd'hui"
+
+#~ msgid "a Lino application to make Belgian accounting simple."
+#~ msgstr "une application Lino qui rend la comptabilité belge facile."
+
+#~ msgid "Group Type"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "Group Types"
+#~ msgstr "Types d'upload"
+
+#~ msgid "Attestation Type (Content)"
+#~ msgstr "Type d'événement (contenu)"
+
+#~ msgid "The company that runs this site"
+#~ msgstr "La société ou tourne ce site"
+
+#~ msgid "Create attestation"
+#~ msgstr "Description"
+
+#~ msgid "Attestation Types"
+#~ msgstr "Attestation"
+
+#~ msgid "Attestations"
+#~ msgstr "Attestation"
+
+#~ msgid "Managed"
+#~ msgstr "Langue"
+
+#~ msgid "Link type"
+#~ msgstr "Type de lien"
+
+#~ msgid "Template file: %s "
+#~ msgstr "Fichier modèle: %s "
+
+#~ msgid "Teacher type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "Teacher types"
+#~ msgstr "Pièces jointes"
+
+#~ msgid "Teachers"
+#~ msgstr "Pièces jointes"
+
+#~ msgid "Pupil type"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "Pupil types"
+#~ msgstr "Types d'upload"
+
+#~ msgid "Pupil"
+#~ msgstr "au "
+
+#~ msgid "Pupils"
+#~ msgstr "uploads"
+
+#~ msgid "Whether this Person is also a Teacher."
+#~ msgstr "Si ce partenaire est également une personne."
+
+#~ msgid "Whether this Person is also a Pupil."
+#~ msgstr "Si ce partenaire est également une personne."
+
+#~ msgid "upload"
+#~ msgstr "fichier téléchargé"
+
+#~ msgid "uploads"
+#~ msgstr "fichiers téléchargés"
+
+#~ msgid "Create an attestation from this"
+#~ msgstr "Céer courrier"
+
+#~ msgid "Attest"
+#~ msgstr "Site"
+
+#~ msgid "Attestation Type"
+#~ msgstr "Attestation"
+
+#~ msgid "Parency link"
+#~ msgstr "Lien de parenté"
+
+#~ msgid "valid until"
+#~ msgstr "expire le"
+
+#~ msgid "%s expires"
+#~ msgstr "%s expire"
+
+#~ msgid "Team"
+#~ msgstr "Système"
+
+#~ msgid "Teams"
+#~ msgstr "années"
+
+#~ msgid "Membership"
+#~ msgstr "Membre d'équipe"
+
+#~ msgid "Property group"
+#~ msgstr "Groupe de propriétés"
+
+#~ msgid "Create a printout from this"
+#~ msgstr "Créer un extrait"
+
+#~ msgid "Create Printout"
+#~ msgstr "Créer un extrait"
+
+#~ msgid "Badges"
+#~ msgstr "Niveaux de test"
+
+#~ msgid "Badge"
+#~ msgstr "Niveau de test"
+
+#~ msgid "Badge Award"
+#~ msgstr "Changer mot de passe"
+
+#~ msgid "Badge Awards"
+#~ msgstr "Tests de niveau"
+
+#~ msgid "Holder"
+#~ msgstr "Déteneur"
+
+#~ msgid "Awards"
+#~ msgstr "Tests de niveau"
+
+#~ msgid "Select this value"
+#~ msgstr "Aller vers enregistrement"
+
+#~ msgid "Account type"
+#~ msgstr "Type de compte"
+
+#~ msgid "Account types"
+#~ msgstr "Types de compte"
+
+#~ msgid "Giro"
+#~ msgstr "Compte courant"
+
+#~ msgid "Savings"
+#~ msgstr "Compte d'épargne"
+
+#~ msgid "Deposits"
+#~ msgstr "Compte à terme"
+
+#~ msgid "Printout Type"
+#~ msgstr "Type d'extrait"
+
+#~ msgid "Printout Types"
+#~ msgstr "Types d'extrait"
+
+#~ msgid "Printout"
+#~ msgstr "Extrait"
+
+#~ msgid "Printouts"
+#~ msgstr "Extraits"
+
+#~ msgid "Household Role"
+#~ msgstr "Rôle dans ménage"
+
+#~ msgid "Household Roles"
+#~ msgstr "Rôles dans ménage"
+
+#~ msgid "name-giving"
+#~ msgstr "donneur de nom"
+
+#~ msgid "Member of"
+#~ msgstr "Membre de "
+
+#~ msgid "~Links"
+#~ msgstr "liens"
+
+#~ msgid "Dependent Person"
+#~ msgstr "Personne de contact"
+
+#~ msgid "Dependent Persons"
+#~ msgstr "Personnes de contact"
+
+#~ msgid "Parents"
+#~ msgstr "Concepts subordonnés"
+
+#~ msgid "Dependent persons"
+#~ msgstr "Personnes de contact"
+
+#~ msgid " as "
+#~ msgstr "en tant que"
+
+#~ msgid "Upcoming reminders"
+#~ msgstr "Rappels à venir"
+
+#~ msgid "Past reminders"
+#~ msgstr "Rappels passés"
+
+#~ msgid "Certificate"
+#~ msgstr "Communiqué"
+
+#~ msgid "Certificate has been deleted."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "Excerpts history"
+#~ msgstr "Historique des extraits"
+
+#~ msgid "a Lino application for startup projects."
+#~ msgstr "une application Lino qui rend la comptabilité belge facile."
+
+#~ msgid "Printedness has been undone."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "Print this data record."
+#~ msgstr "Supprimer cet enregistrement"
+
+#~ msgid "You have"
+#~ msgstr "Vous avez"
+
+#~ msgid "%d events assigned."
+#~ msgstr "%d évènements vous ont été attribués"
+
+#~ msgid "%d invitations are waiting for your answer."
+#~ msgstr "%d invitations attendent votre réponse."
+
+#~ msgid "Certified"
+#~ msgstr "Communiqué"
+
+#~ msgctxt "calendar event action"
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Welcome"
+#~ msgstr "Bienvenue"
+
+#~ msgid "Congratulatons: you have no warnings."
+#~ msgstr "Félicitations: vous n'avez aucun avertissement."
+
+#~ msgid "Bank account"
+#~ msgstr "Compte Ventes"
+
+#~ msgid "Assign"
+#~ msgstr "Attribuer"
+
+#~ msgid "Company type"
+#~ msgstr "Type de société"
+
+#~ msgid "List Members"
+#~ msgstr "Rappels passés"
+
+#~ msgid "Other uploads"
+#~ msgstr "Fichiers téléchargés"
+
+#~ msgid "Attestation"
+#~ msgstr "Attestation"
+
+#~ msgid "%s has been built."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "No excerpts."
+#~ msgstr "Extraits"
+
+#~ msgid "Guests"
+#~ msgstr "Participants"
+
+#~ msgid "Organisation type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "Organisation types"
+#~ msgstr "Types d'organisation"
+
+#~ msgid "The next automatic id for Person or Organisation"
+#~ msgstr "Identifiant automatique pour la personne ounla société suivante"
+
+#~ msgid "The partner that runs this site"
+#~ msgstr "La société ou tourne ce site"
+
+#~ msgid "Presence"
+#~ msgstr "Présence"
+
+#~ msgid "My pending presences"
+#~ msgstr "Mes présences à confirmer"
+
+#~ msgid "Participation"
+#~ msgstr "Participants"
+
+#~ msgid "Participations"
+#~ msgstr "Confirmation"
+
+#~ msgid "study or education"
+#~ msgstr "Étude"
+
+#~ msgid "Studies & education"
+#~ msgstr "Études"
+
+#~ msgctxt "cal"
+#~ msgid "Started"
+#~ msgstr "Site"
+
+#~ msgid "Ended"
+#~ msgstr "expéditeur"
+
+#~ msgid "Optimizations"
+#~ msgstr "Confirmation"
+
+#~ msgid "Module"
+#~ msgstr "Rôle"
+
+#~ msgid "VAT rate"
+#~ msgstr "Taux TVA"
+
+#~ msgid "VAT rates"
+#~ msgstr "Taux TVA"
+
+#~ msgid "is Person"
+#~ msgstr "est une Personne"
+
+#~ msgid "Whether this Partner is a Person."
+#~ msgstr "Si ce partenaire est également une personne."
+
+#~ msgid "is Company"
+#~ msgstr "est une Organisation"
+
+#~ msgid "Whether this Partner is a Company."
+#~ msgstr "Si ce partenaire est également une organisation."
+
+#~ msgid "is Household"
+#~ msgstr "est un ménage"
+
+#~ msgid "is private"
+#~ msgstr "Privé"
+
+#~ msgid "My events"
+#~ msgstr "Mes évènements"
+
+#~ msgid "response to %(poll)s"
+#~ msgstr "Interview %(poll)s"
+
+#~ msgid "Primary key"
+#~ msgstr "Primaire"
+
+#~ msgid "until"
+#~ msgstr "au "
+
+#~ msgid "Appointment"
+#~ msgstr "Rendez-vous"
+
+#~ msgid "eID sheet"
+#~ msgstr "Fiche eID"
+
+#~ msgid "Repairable"
+#~ msgstr "Effacer la cache"
+
+#~ msgid "My open tickets"
+#~ msgstr "Présences"
+
+#~ msgid "Training Type"
+#~ msgstr "Type de formation"
+
+#~ msgid "Training Types"
+#~ msgstr "Types de formation"
+
+#~ msgid "Study Type"
+#~ msgstr "Type d'étude"
+
+#~ msgid "Study Types"
+#~ msgstr "Types d'étude"
+
+#~ msgid "Event Type"
+#~ msgstr "Type d'événement"
+
+#~ msgid "Calendar entry"
+#~ msgstr "Entrée calendrier"
+
+#~ msgid "You are busy in "
+#~ msgstr "Vous êtes occupé avec"
+
+#~ msgid "Save changes to text ?"
+#~ msgstr "Enregistrer vos changements au texte?"
+
+#~ msgid "Vote"
+#~ msgstr "mois"
+
+#~ msgid "Votes"
+#~ msgstr "minutes"
+
+#~ msgid "Tickets assigned to me"
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Assigned"
+#~ msgstr "Attribué à"
+
+#~ msgid "Active"
+#~ msgstr "Est active"
+
+#~ msgid "Tested"
+#~ msgstr "Proposé"
+
+#~ msgid "Has been fixed and tested."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "See also"
+#~ msgstr "Vue:"
+
+#~ msgid "Referred by"
+#~ msgstr "représenté par"
+
+#~ msgid "Waiting for feedback"
+#~ msgstr "Visiteurs qui m'attendent"
+
+#~ msgid "Opened"
+#~ msgstr "Réouvrir"
+
+#~ msgid "all"
+#~ msgstr "journée entière"
+
+#~ msgid "Course Line"
+#~ msgstr "Série de cours"
+
+#~ msgid "Course Lines"
+#~ msgstr "Séries de cours"
+
+#~ msgid "Oops."
+#~ msgstr "Oups."
+
+#~ msgid "User Levels"
+#~ msgstr "utilisateur"
+
+#~ msgid "Short name"
+#~ msgstr "Dernière page"
+
+#~ msgid "Manager"
+#~ msgstr "Langue"
+
+#~ msgid "User Groups"
+#~ msgstr "utilisateur"
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "Hours worked"
+#~ msgstr ""
+
+#~ msgid "The matched movement."
+#~ msgstr ""
+
+#~ msgid "Roles"
+#~ msgstr "Rôles"
+
+#~ msgid "Trade Type"
+#~ msgstr ""
+
+#~ msgid "Receivables"
+#~ msgstr "Recevoir"
+
+#~ msgid "Customers"
+#~ msgstr "Revenus"
+
+#~ msgid "Suppliers"
+#~ msgstr "Dupliquer"
+
+#~ msgid "Financial institutes"
+#~ msgstr "Comptes annuels"
+
+#~ msgid "Current transactions"
+#~ msgstr "Évènements récurrents"
+
+#~ msgid "Eingliederungseinkommen"
+#~ msgstr ""
+
+#~ msgid "Allgemeine Beihilfen"
+#~ msgstr ""
+
+#~ msgid "Fonds Gas und Elektrizität"
+#~ msgstr ""
+
+#~ msgid "Heizkosten- u. Energiebeihilfe"
+#~ msgstr ""
+
+#~ msgid "Beihilfe für Ausländer"
+#~ msgstr ""
+
+#~ msgid "Sozialhilfe"
+#~ msgstr ""
+
+#~ msgid "Mietbeihilfe"
+#~ msgstr ""
+
+#~ msgid "Mietkaution"
+#~ msgstr "Envoi postal"
+
+#~ msgid "Vorschuss auf Vergütungen o.ä."
+#~ msgstr ""
+
+#~ msgid "Vorschuss auf Pensionen"
+#~ msgstr ""
+
+#~ msgid "Vorsch. Entsch. Arbeitsunfälle"
+#~ msgstr ""
+
+#~ msgid "Vor. Kranken- u. Invalidengeld"
+#~ msgstr ""
+
+#~ msgid "Vorschuss auf Familienzulage"
+#~ msgstr ""
+
+#~ msgid "Vorschuss auf Arbeitslosengeld"
+#~ msgstr ""
+
+#~ msgid "Vorschuss auf Behindertenzulag"
+#~ msgstr ""
+
+#~ msgid "Abhebung von pers. Guthaben"
+#~ msgstr ""
+
+#~ msgid "Einn. Dritter: Weiterleitung"
+#~ msgstr ""
+
+#~ msgid "Unber. erh. Beträge + Erstatt."
+#~ msgstr ""
+
+#~ msgid "Gesundheitsbeihilfe"
+#~ msgstr ""
+
+#~ msgid "Revenues"
+#~ msgstr "Présences"
+
+#~ msgid "KBC"
+#~ msgstr ""
+
+#~ msgid "PO KBC"
+#~ msgstr ""
+
+#~ msgid "Invested time"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "Only rows authored by this user."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Deployment"
+#~ msgstr "Contrat de remplacement"
+
+#~ msgid "VAT Regime"
+#~ msgstr ""
+
+#~ msgid "Senior Developer"
+#~ msgstr ""
+
+#~ msgid "First page"
+#~ msgstr "Première page"
+
+#~ msgid "Previous page"
+#~ msgstr "Page précédente"
+
+#~ msgid "Next page"
+#~ msgstr "Page suivante"
+
+#~ msgid "Last page"
+#~ msgstr "Dernière page"
+
+#~ msgid "Detail"
+#~ msgstr "Détail"
+
+#~ msgid "Open a detail window on this record"
+#~ msgstr ""
+
+#~ msgid "New"
+#~ msgstr "Nouveau"
+
+#~ msgid "Insert a new record"
+#~ msgstr "Insérer un nouvel enregistrement"
+
+#~ msgid "Insert into %s"
+#~ msgstr "Insérer dans %s"
+
+#~ msgid "%s has been updated."
+#~ msgstr "%s a été mis à jour."
+
+#~ msgid "%s : nothing to save."
+#~ msgstr ""
+
+#~ msgid "Save changes in this form"
+#~ msgstr "Enregistrer les changements dans ce formulaire"
+
+#~ msgid "Save"
+#~ msgstr "Enregistrer"
+
+#~ msgid "%s has been created."
+#~ msgstr "%s a été créé"
+
+#~ msgid "Create"
+#~ msgstr "Créer"
+
+#~ msgid "Create the record and open a detail window on it"
+#~ msgstr ""
+
+#~ msgctxt "Ticket"
+#~ msgid "Summary"
+#~ msgstr "Résumé"
+
+#~ msgid "Don't send email notification"
+#~ msgstr ""
+
+#~ msgid "%d row(s) have been updated."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "Delete this record"
+#~ msgstr "Supprimer cet enregistrement"
+
+#~ msgid "Delete"
+#~ msgstr "Supprimer"
+
+#~ msgid "Are you sure ?"
+#~ msgstr "D'accord ?"
+
+#~ msgid "%(details)s of %(master)s"
+#~ msgstr "%(details)s de %(master)s"
+
+#~ msgid "Total (%d rows)"
+#~ msgstr "Total (%d lignes)"
+
+#~ msgid "value"
+#~ msgstr ""
+
+#~ msgid "text"
+#~ msgstr ""
+
+#~ msgid "name"
+#~ msgstr ""
+
+#~ msgid "%(value)r (invalid choice for %(list)s)"
+#~ msgstr "%(value)r (choix non valable pour %(list)s)"
+
+#~ msgid "You have no permission to delete this row."
+#~ msgstr ""
+
+#~ msgid "Quantity (Decimal or Duration)"
+#~ msgstr ""
+
+#~ msgid "Invalid date"
+#~ msgstr "Date invalide"
+
+#~ msgid "Confirmation"
+#~ msgstr "Confirmation"
+
+#~ msgid "User abandoned"
+#~ msgstr ""
+
+#~ msgid "Cannot merge an instance to itself."
+#~ msgstr ""
+
+#~ msgid "Merge %(origin)s into %(target)s"
+#~ msgstr "Fusionner %(origin)s vers %(target)s"
+
+#~ msgid "will be deleted."
+#~ msgstr "va être supprimé."
+
+#~ msgid "will get reassigned."
+#~ msgstr "vont être reassigné(e)s."
+
+#~ msgid "%s will be deleted"
+#~ msgstr "%s va être supprimé."
+
+#~ msgid "Are you sure you want to merge %(this)s into %(merge_to)s?"
+#~ msgstr ""
+
+#~ msgid "Merged %(this)s into %(merge_to)s. Updated %(updated)d related rows."
+#~ msgstr ""
+
+#~ msgid "Merge this object into another object of same class."
+#~ msgstr ""
+
+#~ msgid "Merge"
+#~ msgstr "Fusionner"
+
+#~ msgid "into..."
+#~ msgstr "vers..."
+
+#~ msgid "Reason"
+#~ msgstr "Raison"
+
+#~ msgid "Also reassign volatile related objects"
+#~ msgstr ""
+
+#~ msgid "Workflow"
+#~ msgstr "État"
+
+#~ msgid "Show Last"
+#~ msgstr "Dernier"
+
+#~ msgid "Show the last record in a detail window"
+#~ msgstr ""
+
+#~ msgid "Show All"
+#~ msgstr "Montrer tous"
+
+#~ msgid "Show all records in a table window"
+#~ msgstr ""
+
+#~ msgid "Aborted"
+#~ msgstr "à propos"
+
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#~ msgid "No"
+#~ msgstr "Non"
+
+#~ msgid "the documentation"
+#~ msgstr ""
+
+#~ msgid "No data to display"
+#~ msgstr "Aucun enregistrement"
+
+#~ msgid "Master"
+#~ msgstr "Signalétique"
+
+#~ msgid "Reports"
+#~ msgstr "Rapports"
+
+#~ msgid "Configure"
+#~ msgstr "Configuration"
+
+#~ msgid "Explorer"
+#~ msgstr "Explorateur"
+
+#~ msgid "Site"
+#~ msgstr "Site"
+
+#~ msgid "English"
+#~ msgstr ""
+
+#~ msgid "This is "
+#~ msgstr "Ceci est "
+
+#~ msgid " using "
+#~ msgstr " utilisant "
+
+#~ msgid "%(place)s, %(date)s"
+#~ msgstr "%(place)s, le %(date)s"
+
+#~ msgid "Existing primary key value %r may not be modified."
+#~ msgstr "La clé primaire %r existante ne peut être modifiée"
+
+#~ msgid "%r (invalid choice)"
+#~ msgstr "%r (choix non valide)"
+
+#~ msgid "Invalid value for this field (%s)."
+#~ msgstr ""
+
+#~ msgid "Button"
+#~ msgstr ""
+
+#~ msgid "Row %(rowid)d of %(rowcount)d"
+#~ msgstr "Ligne %(rowid)d de %(rowcount)d"
+
+#~ msgid "No navigation"
+#~ msgstr "Sans navigation"
+
+#~ msgid "State"
+#~ msgstr "État"
+
+#~ msgid "States"
+#~ msgstr "Site"
+
+#~ msgid "Mark this as"
+#~ msgstr "Marquer comme"
+
+#~ msgid "Modified"
+#~ msgstr "Modifié"
+
+#~ msgid "Created"
+#~ msgstr "Créé"
+
+#~ msgid "There are %d similar %s:"
+#~ msgstr ""
+
+#~ msgid "Are you sure you want to create a new %(model)s named %(name)s?"
+#~ msgstr ""
+
+#~ msgid "Must update phonetic words."
+#~ msgstr ""
+
+#~ msgid "Check for missing phonetic words"
+#~ msgstr ""
+
+#~ msgid "Similar record"
+#~ msgstr "Personnes de contact"
+
+#~ msgid "Phonetic words: {0}"
+#~ msgstr ""
+
+#~ msgid "Duplicate"
+#~ msgstr "Dupliquer"
+
+#~ msgid "Duplicated %(old)s to %(new)s."
+#~ msgstr ""
+
+#~ msgid "Cannot find first and last name in \"{0}\""
+#~ msgstr ""
+
+#~ msgid "Mrs"
+#~ msgstr "Mme"
+
+#~ msgctxt "indirect salutation"
+#~ msgid "Mr"
+#~ msgstr "M."
+
+#~ msgctxt "polls"
+#~ msgid "Title"
+#~ msgstr "Allocution"
+
+#~ msgid "First name"
+#~ msgstr "Prénom"
+
+#~ msgid "First or given name."
+#~ msgstr "Prénom"
+
+#~ msgid "Middle name"
+#~ msgstr "Deuxième prénom"
+
+#~ msgid "Space-separated list of all middle names."
+#~ msgstr ""
+
+#~ msgid "Last name (family name)."
+#~ msgstr ""
+
+#~ msgid "Birth date"
+#~ msgstr "Date de naissance"
+
+#~ msgid "unknown"
+#~ msgstr "inconnu"
+
+#~ msgid "%d years"
+#~ msgstr "%d ans"
+
+#~ msgid "Start date"
+#~ msgstr "Date début"
+
+#~ msgid "End date"
+#~ msgstr "Date de fin"
+
+#~ msgid "Date period ends before it started."
+#~ msgstr ""
+
+#~ msgctxt "date"
+#~ msgid "on %s"
+#~ msgstr "le %s"
+
+#~ msgctxt "date range"
+#~ msgid "between %(a)s and %(b)s"
+#~ msgstr "entre le %(a)s et le %(b)s"
+
+#~ msgctxt "date range"
+#~ msgid "from %s"
+#~ msgstr "depuis le %s"
+
+#~ msgctxt "date range"
+#~ msgid "until %s"
+#~ msgstr "jusqu'au %s"
+
+#~ msgid "Period from"
+#~ msgstr "Période du"
+
+#~ msgid "Start date of observed period"
+#~ msgstr ""
+
+#~ msgid "End date of observed period"
+#~ msgstr ""
+
+#~ msgid "Situation on"
+#~ msgstr "Durée (unité)"
+
+#~ msgid "Date of observation"
+#~ msgstr ""
+
+#~ msgid "➕"
+#~ msgstr ""
+
+#~ msgid "❌"
+#~ msgstr ""
+
+#~ msgid "See as "
+#~ msgstr "Vue:"
+
+#~ msgid "Move this row one row upwards"
+#~ msgstr ""
+
+#~ msgid "Moved up."
+#~ msgstr ""
+
+#~ msgid "Move this row one row downwards"
+#~ msgstr ""
+
+#~ msgid "Moved down."
+#~ msgstr ""
+
+#~ msgid "Row # %s"
+#~ msgstr ""
+
+#~ msgid "Move"
+#~ msgstr ""
+
+#~ msgid "Parent"
+#~ msgstr "Imprimer"
+
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#~ msgid "MIME type"
+#~ msgstr "type MIME"
+
+#~ msgid "Models"
+#~ msgstr ""
+
+#~ msgid "app_label"
+#~ msgstr ""
+
+#~ msgid "docstring"
+#~ msgstr ""
+
+#~ msgid "Rows"
+#~ msgstr ""
+
+#~ msgid "Fields"
+#~ msgstr ""
+
+#~ msgid "verbose name"
+#~ msgstr ""
+
+#~ msgid "help text"
+#~ msgstr ""
+
+#~ msgid "Inspector"
+#~ msgstr ""
+
+#~ msgid "Inspected object"
+#~ msgstr ""
+
+#~ msgid "show callables"
+#~ msgstr ""
+
+#~ msgid "Value"
+#~ msgstr "Valeur"
+
+#~ msgid "Type"
+#~ msgstr ""
+
+#~ msgid "Datasource"
+#~ msgstr "Source de données"
+
+#~ msgid "Viewable for"
+#~ msgstr ""
+
+#~ msgid "About"
+#~ msgstr "à propos"
+
+#~ msgid "Show information about this site."
+#~ msgstr ""
+
+#~ msgid "%(date)s at %(time)s"
+#~ msgstr ""
+
+#~ msgid "Server uptime"
+#~ msgstr ""
+
+#~ msgid "Source timestamps:"
+#~ msgstr ""
+
+#~ msgid "Server status"
+#~ msgstr ""
+
+#~ msgid "%s pending threads"
+#~ msgstr ""
+
+#~ msgid "Source files"
+#~ msgstr ""
+
+#~ msgid "Code"
+#~ msgstr ""
+
+#~ msgid "doc"
+#~ msgstr ""
+
+#~ msgid "module name"
+#~ msgstr ""
+
+#~ msgid "Addresses"
+#~ msgstr "Adresses"
+
+#~ msgid "living at"
+#~ msgstr "domicilié(e)"
+
+#~ msgid "Address type"
+#~ msgstr "Types d'adresse"
+
+#~ msgid "Address types"
+#~ msgstr "Types d'adresses"
+
+#~ msgid "Official address"
+#~ msgstr "Adresse officielle"
+
+#~ msgid "Unverified address"
+#~ msgstr "Adresse non vérifiée"
+
+#~ msgid "Declared address"
+#~ msgstr "Adresse déclarée"
+
+#~ msgid "Reference address"
+#~ msgstr "Adresse de référence"
+
+#~ msgid "Obsolete"
+#~ msgstr "Console"
+
+#~ msgctxt "female"
+#~ msgid "Other"
+#~ msgstr "Autre"
+
+#~ msgid "Data source"
+#~ msgstr "Source de données"
+
+#~ msgid "Data sources"
+#~ msgstr "Sources de données"
+
+#~ msgid "Manually entered"
+#~ msgstr "Saisie manuelle"
+
+#~ msgid "Read from eID"
+#~ msgstr "Lu depuis carte d'identité"
+
+#~ msgid "Manage addresses"
+#~ msgstr "Gestion d'adresses"
+
+#~ msgid "Check for missing or non-primary address records"
+#~ msgstr ""
+
+#~ msgid "Owner with address, but no address record."
+#~ msgstr ""
+
+#~ msgid "Unique address is not marked primary."
+#~ msgstr ""
+
+#~ msgid "Multiple addresses, but none is primary."
+#~ msgstr ""
+
+#~ msgid "Multiple primary addresses."
+#~ msgstr ""
+
+#~ msgid "Primary address differs from owner address ({0})."
+#~ msgstr ""
+
+#~ msgid "{0}:{1}->{2}"
+#~ msgstr ""
+
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgid "Appy POD"
+#~ msgstr ""
+
+#~ msgid "Table (landscape)"
+#~ msgstr ""
+
+#~ msgid "Show this table as a pdf document"
+#~ msgstr ""
+
+#~ msgid "List contains more than %d rows"
+#~ msgstr ""
+
+#~ msgid "Table (portrait)"
+#~ msgstr ""
+
+#~ msgid "Labels"
+#~ msgstr "a eu lieu"
+
+#~ msgid "Generate mailing labels for these recipients"
+#~ msgstr ""
+
+#~ msgid "Open an window for multiple file uploads."
+#~ msgstr ""
+
+#~ msgid "Uploader"
+#~ msgstr "Télécharger"
+
+#~ msgid "eID card type"
+#~ msgstr "Type de carte eID"
+
+#~ msgid "eID card types"
+#~ msgstr "Type de carte eID"
+
+#~ msgid "Belgian citizen"
+#~ msgstr "Citoyen belge"
+
+#~ msgid "Kids card (< 12 year)"
+#~ msgstr ""
+
+#~ msgid "Foreigner card A"
+#~ msgstr ""
+
+#~ msgid "Foreigner card B"
+#~ msgstr ""
+
+#~ msgid "Foreigner card C"
+#~ msgstr ""
+
+#~ msgid "Foreigner card D"
+#~ msgstr ""
+
+#~ msgid "Foreigner card E"
+#~ msgstr ""
+
+#~ msgid "Foreigner card E+"
+#~ msgstr ""
+
+#~ msgid "Foreigner card F"
+#~ msgstr ""
+
+#~ msgid "Foreigner card F+"
+#~ msgstr ""
+
+#~ msgid "Simulation"
+#~ msgstr "Envoi postal"
+
+#~ msgid "Read eID card"
+#~ msgstr "Lire carte eID"
+
+#~ msgid "Sorry, I cannot handle that case: %s"
+#~ msgstr "Sorry, ce cas est trop complexe: %s"
+
+#~ msgid "Client %s is up-to-date"
+#~ msgstr ""
+
+#~ msgid "Click OK to apply the following changes for %s"
+#~ msgstr "OK pour appliquer les changements suivants pour client %s"
+
+#~ msgid "%s has been saved."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "Find or create card holder from eID card"
+#~ msgstr "Lire carte eID et localiser ou créer le déteneur"
+
+#~ msgid "New client %s has been created"
+#~ msgstr "Client %s a été créé"
+
+#~ msgid "Create new client %s : Are you sure?"
+#~ msgstr "D'accord pour créer nouveau bénéficiaire %s?"
+
+#~ msgid "Oops!"
+#~ msgstr "Oups!"
+
+#~ msgid "Update card holder data from eID card"
+#~ msgstr "Lire carte eID et mettre à jour ce déteneur"
+
+#~ msgid "National IDs %s and %s don't match "
+#~ msgstr ""
+
+#~ msgid "National ID"
+#~ msgstr "NISS"
+
+#~ msgid "Nationality"
+#~ msgstr "Nationalité"
+
+#~ msgid "eID card number"
+#~ msgstr "Numéro de carte eID"
+
+#~ msgid "ID card valid from"
+#~ msgstr "Carte eID valable depuis"
+
+#~ msgid "eID card issuer"
+#~ msgstr "carte eID émise par"
+
+#~ msgid "noble condition"
+#~ msgstr "Titre de noblesse"
+
+#~ msgid "The eventual noble condition of this person."
+#~ msgstr ""
+
+#~ msgid "eID card"
+#~ msgstr "Carte eID"
+
+#~ msgid "Card no."
+#~ msgstr "N° de carte "
+
+#~ msgid "issued by"
+#~ msgstr "émise par"
+
+#~ msgid "valid from"
+#~ msgstr "valable depuis"
+
+#~ msgid "Must read eID card!"
+#~ msgstr "Lire carte eID svp!"
+
+#~ msgid "Check for invalid SSINs"
+#~ msgstr ""
+
+#~ msgid "Cannot fix invalid SSIN ({0})"
+#~ msgstr ""
+
+#~ msgid "Malformed SSIN '{got}' must be '{expected}'."
+#~ msgstr ""
+
+#~ msgid "Failed to fix malformed SSIN '{got}' of '{obj}'."
+#~ msgstr ""
+
+#~ msgid "Blog"
+#~ msgstr ""
+
+#~ msgid "Blog Entry Type"
+#~ msgstr ""
+
+#~ msgid "Blog Entry Types"
+#~ msgstr "Types d'organisation"
+
+#~ msgid "Blog Entry"
+#~ msgstr ""
+
+#~ msgid "Blog Entries"
+#~ msgstr "Pays"
+
+#~ msgid "Heading"
+#~ msgstr "Titre"
+
+#~ msgid "Body"
+#~ msgstr "Corps du texte"
+
+#~ msgid "Boards"
+#~ msgstr "Conseils"
+
+#~ msgid "Decided"
+#~ msgstr "Décidé"
+
+#~ msgid "Board"
+#~ msgstr "Conseil"
+
+#~ msgid "Works since"
+#~ msgstr "heures"
+
+#~ msgid "Worked until"
+#~ msgstr "Présent jusque"
+
+#~ msgid "Board member"
+#~ msgstr "Membre du conseil"
+
+#~ msgid "Board members"
+#~ msgstr "Membres du conseil"
+
+#~ msgid "HTML"
+#~ msgstr ""
+
+#~ msgid "Show this table in Bootstrap3 interface"
+#~ msgstr ""
+
+#~ msgid "Home"
+#~ msgstr "Départ"
+
+#~ msgid "Calendar"
+#~ msgstr "Calendrier"
+
+#~ msgid "Dates %(min)s to %(max)s"
+#~ msgstr "Dates du %(min)s au %(max)s"
+
+#~ msgid "Start time"
+#~ msgstr "Heure de début"
+
+#~ msgid "End Date"
+#~ msgstr "Date de fin"
+
+#~ msgid "Duration"
+#~ msgstr "Envoi postal"
+
+#~ msgid " on "
+#~ msgstr " le "
+
+#~ msgid "Move down"
+#~ msgstr ""
+
+#~ msgid "Update Events"
+#~ msgstr "Générer les évènements"
+
+#~ msgid "Recurrence Set"
+#~ msgstr ""
+
+#~ msgid "Recurrence Sets"
+#~ msgstr "Dates de récurrence"
+
+#~ msgid "Number of events"
+#~ msgstr "Nombre d'évènements"
+
+#~ msgid "Times"
+#~ msgstr "Heure d'échéance"
+
+#~ msgid "When"
+#~ msgstr "Quand"
+
+#~ msgid "Every %s"
+#~ msgstr "Chaque %s"
+
+#~ msgid "Every %snd %s"
+#~ msgstr "Chaque %se %s"
+
+#~ msgid "Generate events until"
+#~ msgstr "Présent"
+
+#~ msgid "Whether this is private, public or between."
+#~ msgstr "Public, privé ou \"marquer occupé\"."
+
+#~ msgid "Revision"
+#~ msgstr "Version"
+
+#~ msgid " at "
+#~ msgstr " à "
+
+#~ msgid "Remote Calendar"
+#~ msgstr "Calendrier par défaut"
+
+#~ msgid "Remote Calendars"
+#~ msgstr "Calendrier par défaut"
+
+#~ msgid "URL template"
+#~ msgstr ""
+
+#~ msgid "Username"
+#~ msgstr "Nom d'utilisateur"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "read-only"
+#~ msgstr ""
+
+#~ msgid "Room"
+#~ msgstr "Local"
+
+#~ msgid "Rooms"
+#~ msgstr "Locaux"
+
+#~ msgid "Priority"
+#~ msgstr "Priorité"
+
+#~ msgid "Priorities"
+#~ msgstr "Priorités"
+
+#~ msgid "Calendar Event Type"
+#~ msgstr "Type d'entrée calendrier"
+
+#~ msgid "Calendar Event Types"
+#~ msgstr "Types d'entrée calendrier"
+
+#~ msgid "Event is an appointment"
+#~ msgstr "Considéré comme rendez-vous"
+
+#~ msgid "Locks all rooms"
+#~ msgstr "Bloque tous les locaux"
+
+#~ msgid "Locks the user"
+#~ msgstr "Bloque l'utilisateur"
+
+#~ msgid "Event label"
+#~ msgstr "Intitulé d'une entrée"
+
+#~ msgid "Simultaneous events"
+#~ msgstr ""
+
+#~ msgid "How many conflicting events should be tolerated."
+#~ msgstr ""
+
+#~ msgid "Guest Role"
+#~ msgstr "Rôle de participant"
+
+#~ msgid "Guest Roles"
+#~ msgstr "Rôles de participants"
+
+#~ msgid "Calendars"
+#~ msgstr "Calendriers"
+
+#~ msgid "color"
+#~ msgstr "Couleur"
+
+#~ msgid "Subscription"
+#~ msgstr "Abonnement"
+
+#~ msgid "Subscriptions"
+#~ msgstr "Abonnements"
+
+#~ msgid "The calendar you want to subscribe to."
+#~ msgstr ""
+
+#~ msgid "hidden"
+#~ msgstr "caché"
+
+#~ msgid "Task"
+#~ msgstr "Tâche"
+
+#~ msgid "Tasks"
+#~ msgstr "Tâches"
+
+#~ msgid "Due time"
+#~ msgstr "Heure d'échéance"
+
+#~ msgid "Duration value"
+#~ msgstr "Durée (valeur)"
+
+#~ msgid "Recurrent Event"
+#~ msgstr "Évènement récurrent"
+
+#~ msgid "Recurrent Events"
+#~ msgstr "Évènements récurrents"
+
+#~ msgid "Update Guests"
+#~ msgstr "Générer les participants"
+
+#~ msgid "Event"
+#~ msgstr "Évènement"
+
+#~ msgctxt "cal"
+#~ msgid "Events"
+#~ msgstr "Évènements"
+
+#~ msgid "Transparent"
+#~ msgstr "non bloquant"
+
+#~ msgid "all day"
+#~ msgstr "journée entière"
+
+#~ msgid "Assigned to"
+#~ msgstr "Attribué à"
+
+#~ msgid "Unsaved %s"
+#~ msgstr ""
+
+#~ msgid "Busy"
+#~ msgstr "Occupé"
+
+#~ msgid "with"
+#~ msgstr "avec"
+
+#~ msgid "Link URL"
+#~ msgstr ""
+
+#~ msgid "Reminder"
+#~ msgstr "Rappel"
+
+#~ msgid "Responsible user"
+#~ msgstr "Utilisateur responsable"
+
+#~ msgid "Check for missing participants"
+#~ msgstr ""
+
+#~ msgid "No participants although {0} suggestions exist."
+#~ msgstr ""
+
+#~ msgid "Participants"
+#~ msgstr "Confirmation"
+
+#~ msgid "Role"
+#~ msgstr "Rôle"
+
+#~ msgid "due date reached"
+#~ msgstr "date d'échéance atteinte"
+
+#~ msgid "Default access class"
+#~ msgstr "Classe d'accès par défaut"
+
+#~ msgid "The default access class for your calendar events and tasks."
+#~ msgstr ""
+
+#~ msgid "Default Event Type"
+#~ msgstr "Type d'évènement par défault"
+
+#~ msgid "The default event type for your calendar events."
+#~ msgstr "Le type par défaut pour vos évènements et tâches."
+
+#~ msgid "The default type of events on this site."
+#~ msgstr "Le calendrier par défaut pour vos évènements et tâches."
+
+#~ msgid "Site Calendar"
+#~ msgstr "Calendrier par défaut"
+
+#~ msgid "The default calendar of this site."
+#~ msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
+
+#~ msgid "Max automatic events"
+#~ msgstr ""
+
+#~ msgid "Maximum number of automatic events to be generated."
+#~ msgstr ""
+
+#~ msgid "%(num)d reminders for %(user)s have been updated."
+#~ msgstr ""
+
+#~ msgid "List of rooms where calendar events can happen."
+#~ msgstr ""
+
+#~ msgid "List of possible priorities of calendar events."
+#~ msgstr ""
+
+#~ msgid "A calendar task is something you need to do."
+#~ msgstr ""
+
+#~ msgid "Managed by"
+#~ msgstr "Traité par"
+
+#~ msgid "Only rows managed by this user."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Only rows having this state."
+#~ msgstr ""
+
+#~ msgid "My tasks"
+#~ msgstr "Mes tâches"
+
+#~ msgid "Table of all my tasks."
+#~ msgstr ""
+
+#~ msgid "The role of a guest expresses what the partner is going to do there."
+#~ msgstr ""
+
+#~ msgid "A guest is a partner invited to an event. "
+#~ msgstr ""
+
+#~ msgid "Only rows having this event state."
+#~ msgstr ""
+
+#~ msgid "Guest state"
+#~ msgstr "heures"
+
+#~ msgid "Only rows having this guest state."
+#~ msgstr ""
+
+#~ msgid "Presences"
+#~ msgstr "Présences"
+
+#~ msgid "My presences"
+#~ msgstr "Mes présences"
+
+#~ msgid "My pending invitations"
+#~ msgstr ""
+
+#~ msgid "Received invitations which I must accept or reject."
+#~ msgstr ""
+
+#~ msgid "My guests"
+#~ msgstr "Mes visiteurs"
+
+#~ msgid "Observed event"
+#~ msgstr "Évènement observé"
+
+#~ msgid "Observed events"
+#~ msgstr "Évènements observés"
+
+#~ msgid "Okay"
+#~ msgstr "Lundi"
+
+#~ msgid "Pending"
+#~ msgstr "En attente"
+
+#~ msgid "A List of calendar entries. Each entry is called an event."
+#~ msgstr ""
+
+#~ msgid "Only events assigned to this user."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Appointments"
+#~ msgstr "Rendez-vous"
+
+#~ msgid "Appointments today"
+#~ msgstr "Rendez-vous aujourd'hui"
+
+#~ msgid "Today"
+#~ msgstr "Lundi"
+
+#~ msgid "Show all calendar events of the same day."
+#~ msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
+
+#~ msgid "My appointments"
+#~ msgstr "Mes rendez-vous"
+
+#~ msgid "Table of my appointments."
+#~ msgstr ""
+
+#~ msgid "Events assigned to me"
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Table of events assigned to me."
+#~ msgstr "Tableau de tous les rendez-vous proposés."
+
+#~ msgid "%d events have been assigned to you."
+#~ msgstr "Enregistrement %s a été mis à jour."
+
+#~ msgid "Weekday"
+#~ msgstr "Jour"
+
+#~ msgid "Monday"
+#~ msgstr "Lundi"
+
+#~ msgid "Tuesday"
+#~ msgstr "Mardi"
+
+#~ msgid "Wednesday"
+#~ msgstr "Mercredi"
+
+#~ msgid "Thursday"
+#~ msgstr "Jeudi"
+
+#~ msgid "Friday"
+#~ msgstr "Vendredi"
+
+#~ msgid "Saturday"
+#~ msgstr "Samedi"
+
+#~ msgid "Sunday"
+#~ msgstr "Dimanche"
+
+#~ msgid "Duration Unit"
+#~ msgstr "Durée (unité)"
+
+#~ msgid "seconds"
+#~ msgstr "secondes"
+
+#~ msgid "minutes"
+#~ msgstr "minutes"
+
+#~ msgid "hours"
+#~ msgstr "heures"
+
+#~ msgid "days"
+#~ msgstr "jours"
+
+#~ msgid "weeks"
+#~ msgstr "semaines"
+
+#~ msgid "months"
+#~ msgstr "mois"
+
+#~ msgid "years"
+#~ msgstr "années"
+
+#~ msgid "once"
+#~ msgstr "une fois"
+
+#~ msgid "daily"
+#~ msgstr "chaque jour"
+
+#~ msgid "weekly"
+#~ msgstr "chaque semaine"
+
+#~ msgid "monthly"
+#~ msgstr "chaque mois"
+
+#~ msgid "yearly"
+#~ msgstr "chaque année"
+
+#~ msgid "per weekday"
+#~ msgstr "Jour"
+
+#~ msgid "Access Class"
+#~ msgstr "Classe d'accès"
+
+#~ msgid "Private"
+#~ msgstr "Privé"
+
+#~ msgid "Show busy"
+#~ msgstr "Montrer \"occupé\""
+
+#~ msgid "Public"
+#~ msgstr "Public"
+
+#~ msgid "Holidays"
+#~ msgstr "Jours fériés"
+
+#~ msgid "Meeting"
+#~ msgstr "Réunion"
+
+#~ msgid "Task states"
+#~ msgstr "heures"
+
+#~ msgid "To do"
+#~ msgstr "à faire"
+
+#~ msgid "Done"
+#~ msgstr "accomplie"
+
+#~ msgid "Event states"
+#~ msgstr "Mes rendez-vous aujourd'hui"
+
+#~ msgid "The possible states of a calendar event."
+#~ msgstr ""
+
+#~ msgid "Edit guests list"
+#~ msgstr ""
+
+#~ msgid "Suggested"
+#~ msgstr "Proposé"
+
+#~ msgid "Automatically suggested. Default state of an automatic event."
+#~ msgstr ""
+
+#~ msgid "Published"
+#~ msgstr "Publié"
+
+#~ msgid "Visit"
+#~ msgstr "Version"
+
+#~ msgid "Rescheduled"
+#~ msgstr "Déplacé"
+
+#~ msgid "Took place"
+#~ msgstr "Terminé"
+
+#~ msgid "Omitted"
+#~ msgstr "Omis"
+
+#~ msgid "Guest states"
+#~ msgstr "heures"
+
+#~ msgid "Afterwards"
+#~ msgstr ""
+
+#~ msgid "Invited"
+#~ msgstr "Invité"
+
+#~ msgid "Reopen"
+#~ msgstr "Réouvrir"
+
+#~ msgid "Present"
+#~ msgstr "Présent"
+
+#~ msgid "Absent"
+#~ msgstr "Absent"
+
+#~ msgid "Excused"
+#~ msgstr "Excusé"
+
+#~ msgid "Event took place."
+#~ msgstr "L'évènement est terminé."
+
+#~ msgid "Reset"
+#~ msgstr "Réinitialiser"
+
+#~ msgid "Reset to initial state."
+#~ msgstr ""
+
+#~ msgid "Accepted"
+#~ msgstr "Accepté"
+
+#~ msgid "Rejected"
+#~ msgstr "Rejeté"
+
+#~ msgid "Reject"
+#~ msgstr "Rejeter"
+
+#~ msgid "Reject this invitation."
+#~ msgstr "Rejeter cette invitation."
+
+#~ msgid "%(guest)s cannot accept invitation %(day)s at %(time)s"
+#~ msgstr ""
+
+#~ msgid "Accept"
+#~ msgstr "Accepter"
+
+#~ msgid "Accept this invitation."
+#~ msgstr "Accepter cette invitation."
+
+#~ msgid "%(guest)s confirmed invitation %(day)s at %(time)s"
+#~ msgstr ""
+
+#~ msgid "Mark this guest as present."
+#~ msgstr ""
+
+#~ msgid "Mark this guest as absent."
+#~ msgstr ""
+
+#~ msgid "Close meeting"
+#~ msgstr "Terminer la réunion"
+
+#~ msgid "The event took place."
+#~ msgstr "Le rendez-vous a eu lieu."
+
+#~ msgid "Mark this as published. All participants have been informed."
+#~ msgstr "Marquer l'évènement comme planifié. Les participants ont été informés."
+
+#~ msgid "Take"
+#~ msgstr "Accepter"
+
+#~ msgid "Take responsibility for this event."
+#~ msgstr "Prendre la responsabilité de l'évènement."
+
+#~ msgid "Changes"
+#~ msgstr ""
+
+#~ msgid "Change Type"
+#~ msgstr "Langue"
+
+#~ msgid "Change Types"
+#~ msgstr "Langue"
+
+#~ msgid "Update"
+#~ msgstr "Date"
+
+#~ msgid "Remove child"
+#~ msgstr ""
+
+#~ msgid "Add child"
+#~ msgstr ""
+
+#~ msgid "Change"
+#~ msgstr "Langue"
+
+#~ msgid "Object type"
+#~ msgstr "Type de note"
+
+#~ msgid "Object"
+#~ msgstr ""
+
+#~ msgid "Master type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "Only changes from"
+#~ msgstr ""
+
+#~ msgid "Clocking"
+#~ msgstr "Réservation"
+
+#~ msgid "Session Type"
+#~ msgstr ""
+
+#~ msgid "Session Types"
+#~ msgstr "Types d'organisation"
+
+#~ msgid "End session"
+#~ msgstr "Version"
+
+#~ msgid "Stop time-tracking this session."
+#~ msgstr ""
+
+#~ msgid "Close {0} sessions."
+#~ msgstr ""
+
+#~ msgid "End the active session on this ticket."
+#~ msgstr ""
+
+#~ msgid "Start a session on this ticket."
+#~ msgstr ""
+
+#~ msgid "Open session on new ticket"
+#~ msgstr ""
+
+#~ msgid "Session"
+#~ msgstr "Version"
+
+#~ msgid "Sessions"
+#~ msgstr "secondes"
+
+#~ msgid "Summary of the session."
+#~ msgstr ""
+
+#~ msgid "Break Time"
+#~ msgstr "Heure d'échéance"
+
+#~ msgid "Worker"
+#~ msgstr "Ouvrier"
+
+#~ msgid "You are busy with "
+#~ msgstr "Vous êtes occupé avec"
+
+#~ msgid "Service Report"
+#~ msgstr ""
+
+#~ msgid "Service Reports"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "Interesting for"
+#~ msgstr ""
+
+#~ msgid "Only tickets interesting for this site."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Only tickets in this state."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Has been worked on"
+#~ msgstr "%s a été créé"
+
+#~ msgid "My sessions by date"
+#~ msgstr ""
+
+#~ msgid "Worked hours"
+#~ msgstr ""
+
+#~ msgid "Time"
+#~ msgstr "Heure d'échéance"
+
+#~ msgid "site-specific"
+#~ msgstr ""
+
+#~ msgid "Reporter"
+#~ msgstr "Rapports"
+
+#~ msgid "Project"
+#~ msgstr "Rejeter"
+
+#~ msgid "Product"
+#~ msgstr ""
+
+#~ msgid "Tickets"
+#~ msgstr ""
+
+#~ msgid "Comments"
+#~ msgstr "Revenus"
+
+#~ msgid "Comment"
+#~ msgstr "Pays"
+
+#~ msgid "Text"
+#~ msgstr "Suivant"
+
+#~ msgid " by "
+#~ msgstr ""
+
+#~ msgid "Concepts"
+#~ msgstr "Concepts "
+
+#~ msgid "Link Type"
+#~ msgstr "Type de lien"
+
+#~ msgid "Link Types"
+#~ msgstr "Type de lien"
+
+#~ msgid "Jargon"
+#~ msgstr ""
+
+#~ msgid "Obsoletes"
+#~ msgstr "Console"
+
+#~ msgid "Concept"
+#~ msgstr "Concept"
+
+#~ msgid "Abbreviation"
+#~ msgstr "Abbréviation"
+
+#~ msgid "Wikipedia"
+#~ msgstr ""
+
+#~ msgid "Definition"
+#~ msgstr "Définition"
+
+#~ msgid "Jargon domain"
+#~ msgstr "Producteur de jargon"
+
+#~ msgid "Whether this concept designates a domain of specialized vocabulary."
+#~ msgstr ""
+
+#~ msgid "Top-level concepts"
+#~ msgstr "Concepts primaires"
+
+#~ msgid "Link"
+#~ msgstr "lien"
+
+#~ msgid "Links"
+#~ msgstr "liens"
+
+#~ msgid "Children"
+#~ msgstr "Concepts sous-jacents"
+
+#~ msgid "Contacts"
+#~ msgstr "Contacts"
+
+#~ msgid "Region"
+#~ msgstr ""
+
+#~ msgid "Company"
+#~ msgstr "Organisation"
+
+#~ msgid "represented by"
+#~ msgstr "représenté par"
+
+#~ msgid "represented as"
+#~ msgstr "en tant que"
+
+#~ msgctxt "female"
+#~ msgid "Partner"
+#~ msgstr "Partenaire"
+
+#~ msgid "Partners"
+#~ msgstr "Partenaires"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-mail"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Phone"
+#~ msgstr "Téléphone"
+
+#~ msgid "GSM"
+#~ msgstr "GSM"
+
+#~ msgid "Fax"
+#~ msgstr "Fax"
+
+#~ msgid "Remarks"
+#~ msgstr "Remarques"
+
+#~ msgid "Contact"
+#~ msgstr "Contact"
+
+#~ msgid "Person"
+#~ msgstr "Personne"
+
+#~ msgid "Persons"
+#~ msgstr "Personnes"
+
+#~ msgid "Organization type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "Organization types"
+#~ msgstr "Types d'organisation"
+
+#~ msgid "Organization"
+#~ msgstr "Confirmation"
+
+#~ msgid "Organizations"
+#~ msgstr "Confirmation"
+
+#~ msgid "Name prefix"
+#~ msgstr "Préfixe rue"
+
+#~ msgid "Function"
+#~ msgstr "Fonction"
+
+#~ msgid "Functions"
+#~ msgstr "Fonctions"
+
+#~ msgid "Contact Person"
+#~ msgstr "Personne de contact"
+
+#~ msgid "Contact Persons"
+#~ msgstr "Personnes de contact"
+
+#~ msgid "Contact Role"
+#~ msgstr "Rôle"
+
+#~ msgid "Contact persons"
+#~ msgstr "Personnes de contact"
+
+#~ msgid "Contact for"
+#~ msgstr "contact pour"
+
+#~ msgid "Next partner id"
+#~ msgstr ""
+
+#~ msgid "The next automatic id for any new partner."
+#~ msgstr "Identifiant automatique pour la personne ounla société suivante"
+
+#~ msgid "Site owner"
+#~ msgstr ""
+
+#~ msgid "Controlled by"
+#~ msgstr "Lié à"
+
+#~ msgid "Base classes"
+#~ msgstr ""
+
+#~ msgid "Help Text"
+#~ msgstr "Texte d'aide"
+
+#~ msgid "Help Texts"
+#~ msgstr "Textes d'aide"
+
+#~ msgid "Model"
+#~ msgstr "Modèle"
+
+#~ msgid "Field"
+#~ msgstr "Fichier"
+
+#~ msgid "HelpText"
+#~ msgstr ""
+
+#~ msgid "Verbose name"
+#~ msgstr "Prénom"
+
+#~ msgid "database field"
+#~ msgstr ""
+
+#~ msgid "Broken GFKs"
+#~ msgstr ""
+
+#~ msgid "Database object"
+#~ msgstr ""
+
+#~ msgid "Message"
+#~ msgstr ""
+
+#~ msgid "Action"
+#~ msgstr "Fonction"
+
+#~ msgid "Database model"
+#~ msgstr ""
+
+#~ msgid "content type"
+#~ msgstr "Type de note"
+
+#~ msgid "content types"
+#~ msgstr "Types de note"
+
+#~ msgid "Places"
+#~ msgstr "Endroits"
+
+#~ msgid "County"
+#~ msgstr "Pays"
+
+#~ msgid "Place Type"
+#~ msgstr "Type d'endroit"
+
+#~ msgid "Member State"
+#~ msgstr ""
+
+#~ msgid "Division"
+#~ msgstr ""
+
+#~ msgid "Community"
+#~ msgstr "Pays"
+
+#~ msgid "Territory"
+#~ msgstr ""
+
+#~ msgid "Province"
+#~ msgstr ""
+
+#~ msgid "Shire"
+#~ msgstr ""
+
+#~ msgid "Subregion"
+#~ msgstr ""
+
+#~ msgid "Department"
+#~ msgstr ""
+
+#~ msgid "Arrondissement"
+#~ msgstr ""
+
+#~ msgid "Prefecture"
+#~ msgstr ""
+
+#~ msgid "District"
+#~ msgstr ""
+
+#~ msgid "Sector"
+#~ msgstr ""
+
+#~ msgid "City"
+#~ msgstr "Ville"
+
+#~ msgid "Town"
+#~ msgstr "Ville"
+
+#~ msgid "Municipality"
+#~ msgstr ""
+
+#~ msgid "Parish"
+#~ msgstr ""
+
+#~ msgid "Township"
+#~ msgstr ""
+
+#~ msgid "Quarter"
+#~ msgstr "Quartier"
+
+#~ msgid "Borough"
+#~ msgstr ""
+
+#~ msgid "Small borough"
+#~ msgstr ""
+
+#~ msgid "Village"
+#~ msgstr ""
+
+#~ msgid "Zip code"
+#~ msgstr ""
+
+#~ msgid "Address line before street"
+#~ msgstr "Ligne avant le nom de rue"
+
+#~ msgid "Street prefix"
+#~ msgstr "Préfixe rue"
+
+#~ msgid "Text to print before name of street, but to ignore for sorting."
+#~ msgstr ""
+
+#~ msgid "Street"
+#~ msgstr "Rue"
+
+#~ msgid "Name of street, without house number."
+#~ msgstr ""
+
+#~ msgid "No."
+#~ msgstr "No"
+
+#~ msgid "Box"
+#~ msgstr "boîte"
+
+#~ msgid "Text to print after street nuber on the same line."
+#~ msgstr ""
+
+#~ msgid "Address line after street"
+#~ msgstr "Ligne après le nom de rue"
+
+#~ msgid "Address line to print below street line."
+#~ msgstr "Ligne avant le nom de rue"
+
+#~ msgid "Country"
+#~ msgstr "Pays"
+
+#~ msgid "Countries"
+#~ msgstr "Pays"
+
+#~ msgid "ISO code"
+#~ msgstr ""
+
+#~ msgid "Short code"
+#~ msgstr ""
+
+#~ msgid "A short abbreviation for regional usage. Obsolete."
+#~ msgstr ""
+
+#~ msgid "ISO-3 code"
+#~ msgstr ""
+
+#~ msgid "The three-letter code for this country as defined by ISO 3166-1."
+#~ msgstr ""
+
+#~ msgid "Place"
+#~ msgstr "Endroit"
+
+#~ msgid "Part of"
+#~ msgstr ""
+
+#~ msgid "The superordinate geographic place of which this place is a part."
+#~ msgstr ""
+
+#~ msgid "Subdivisions"
+#~ msgstr ""
+
+#~ msgid "%(details)s in %(master)s"
+#~ msgstr "%(details)s de %(master)s"
+
+#~ msgid "Check plausibility of geographical places."
+#~ msgstr ""
+
+#~ msgid "Name contains only digits."
+#~ msgstr ""
+
+#~ msgid "Estonia"
+#~ msgstr "Estonie"
+
+#~ msgid "Belgium"
+#~ msgstr "Belgique"
+
+#~ msgid "Germany"
+#~ msgstr "Allemagne"
+
+#~ msgid "France"
+#~ msgstr "France"
+
+#~ msgid "Netherlands"
+#~ msgstr "Pays-Bas"
+
+#~ msgid "Maroc"
+#~ msgstr "Maroc"
+
+#~ msgid "Russia"
+#~ msgstr "Russie"
+
+#~ msgid "Congo (Democratic Republic)"
+#~ msgstr "Congo (République democratique)"
+
+#~ msgid "in %s"
+#~ msgstr " dans "
+
+#~ msgid "Career"
+#~ msgstr "Parcours"
+
+#~ msgid "Failure"
+#~ msgstr "Échec"
+
+#~ msgid "Ongoing"
+#~ msgstr "en cours"
+
+#~ msgid "How well?"
+#~ msgstr "Montrer tous"
+
+#~ msgid "not at all"
+#~ msgstr "pas du tout"
+
+#~ msgid "a bit"
+#~ msgstr "un peu"
+
+#~ msgid "moderate"
+#~ msgstr ""
+
+#~ msgid "quite well"
+#~ msgstr "plutôt bien"
+
+#~ msgid "very well"
+#~ msgstr "très bien"
+
+#~ msgid "CEF level"
+#~ msgstr "Niveau CEF"
+
+#~ msgid "CEF levels"
+#~ msgstr "Niveaux CEF"
+
+#~ msgid "basic language skills"
+#~ msgstr ""
+
+#~ msgid "independent use of language"
+#~ msgstr ""
+
+#~ msgid "proficient use of language"
+#~ msgstr ""
+
+#~ msgid "language knowledge"
+#~ msgstr "Connaissance de langue"
+
+#~ msgid "language knowledges"
+#~ msgstr "Connaissances de langue"
+
+#~ msgid "Spoken"
+#~ msgstr "Expression orale"
+
+#~ msgid "Written"
+#~ msgstr "Expression écrite"
+
+#~ msgid "Spoken (passively)"
+#~ msgstr "Compréhension orale"
+
+#~ msgid "Written (passively)"
+#~ msgstr "Compréhension écrite"
+
+#~ msgid "native language"
+#~ msgstr "Langue maternelle"
+
+#~ msgid "%s (s/w)"
+#~ msgstr "%s (parlé/écrit)"
+
+#~ msgid "%s (s)"
+#~ msgstr "%s (parlé)"
+
+#~ msgid "%s (w)"
+#~ msgstr "%s (écrit)"
+
+#~ msgid "Establishment"
+#~ msgstr "Établissement"
+
+#~ msgid "Study"
+#~ msgstr "Étude"
+
+#~ msgid "Training"
+#~ msgstr "Formation"
+
+#~ msgid "Education Level"
+#~ msgstr "Niveau académique"
+
+#~ msgid "Education Levels"
+#~ msgstr "Niveaux académiques"
+
+#~ msgid "Education Type"
+#~ msgstr "Type d'éducation"
+
+#~ msgid "Education Types"
+#~ msgstr "Types d'éducation"
+
+#~ msgid "Trainings"
+#~ msgstr "Formations"
+
+#~ msgid "Training content"
+#~ msgstr "Contenu"
+
+#~ msgid "Certificates"
+#~ msgstr "Diplômes"
+
+#~ msgid "Studies"
+#~ msgstr "Études"
+
+#~ msgid "Study content"
+#~ msgstr "Options"
+
+#~ msgctxt "work experience"
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgctxt "work experience"
+#~ msgid "Statuses"
+#~ msgstr "Statuts"
+
+#~ msgid "Work Regime"
+#~ msgstr "Régime de travail"
+
+#~ msgid "Work Regimes"
+#~ msgstr "Régime de travail"
+
+#~ msgid "Contract Duration"
+#~ msgstr "Durée du contrat"
+
+#~ msgid "Contract Durations"
+#~ msgstr "Durées de contrat"
+
+#~ msgid "Job Sector"
+#~ msgstr "Secteur"
+
+#~ msgid "Job Sectors"
+#~ msgstr "Secteurs"
+
+#~ msgid "Job Function"
+#~ msgstr "Fonction"
+
+#~ msgid "Job Functions"
+#~ msgstr "Fonctions"
+
+#~ msgid "Job Experience"
+#~ msgstr "Expérience professionnelle"
+
+#~ msgid "Job Experiences"
+#~ msgstr "Expériences professionnelles"
+
+#~ msgid "company"
+#~ msgstr "Société"
+
+#~ msgid "job title"
+#~ msgstr "Intitulé de la fonction"
+
+#~ msgid "Termination reason"
+#~ msgstr "Motif de la perte"
+
+#~ msgid "CV user"
+#~ msgstr ""
+
+#~ msgid "CV staff"
+#~ msgstr ""
+
+#~ msgid "Prequalifying"
+#~ msgstr "Préqualification"
+
+#~ msgid "Qualifying"
+#~ msgstr "Qualification"
+
+#~ msgid "Alpha"
+#~ msgstr "Alpha"
+
+#~ msgid "Unlimited duration"
+#~ msgstr "Durée indéterminée"
+
+#~ msgid "Limited duration"
+#~ msgstr "Durée déterminée"
+
+#~ msgid "Clearly defined job"
+#~ msgstr "Travail nettement défini"
+
+#~ msgid "Replacement"
+#~ msgstr "Contrat de remplacement"
+
+#~ msgid "Interim"
+#~ msgstr "Intérim"
+
+#~ msgid "Employee"
+#~ msgstr "Employé"
+
+#~ msgid "Voluntary"
+#~ msgstr "Bénévole"
+
+#~ msgid "Student"
+#~ msgstr "Étudiant"
+
+#~ msgid "Laboratory"
+#~ msgstr "Stage"
+
+#~ msgid "Full-time"
+#~ msgstr "Temps-plein"
+
+#~ msgid "Part-time"
+#~ msgstr "Temps partiel"
+
+#~ msgid "Reset DavLink"
+#~ msgstr ""
+
+#~ msgid "Dupable partners"
+#~ msgstr ""
+
+#~ msgid "Phonetic word"
+#~ msgstr ""
+
+#~ msgid "Phonetic words"
+#~ msgstr ""
+
+#~ msgid "Similar partners"
+#~ msgstr "Personnes de contact"
+
+#~ msgid "Where"
+#~ msgstr "Où"
+
+#~ msgid "What"
+#~ msgstr "Quoi"
+
+#~ msgid "Excerpts"
+#~ msgstr "Extraits"
+
+#~ msgid "Excerpt shortcut"
+#~ msgstr ""
+
+#~ msgid "Excerpt shortcuts"
+#~ msgstr ""
+
+#~ msgid "Clear print cache"
+#~ msgstr "Imprimé"
+
+#~ msgid "Oops, the print cache was already cleared."
+#~ msgstr "%s a été créé"
+
+#~ msgid "Print cache file has been cleared."
+#~ msgstr "%s a été créé"
+
+#~ msgid "Going to clear the print cache file of %s"
+#~ msgstr ""
+
+#~ msgid "Printed"
+#~ msgstr "Imprimé"
+
+#~ msgid "Excerpt title"
+#~ msgstr "Type d'extrait"
+
+#~ msgid "The title to be used when printing an excerpt."
+#~ msgstr ""
+
+#~ msgid "Excerpt Type"
+#~ msgstr "Type d'extrait"
+
+#~ msgid "Excerpt Types"
+#~ msgstr "Types d'extrait"
+
+#~ msgid "Certifying"
+#~ msgstr "Communiqué"
+
+#~ msgid "Whether an excerpt of this type is a unique printout."
+#~ msgstr ""
+
+#~ msgid "The model that can issue printouts of this type."
+#~ msgstr "Céer courrier"
+
+#~ msgid "Backward compatible"
+#~ msgstr ""
+
+#~ msgid "Print recipient"
+#~ msgstr "Destinataire"
+
+#~ msgid "Whether to print a recipient field in document."
+#~ msgstr ""
+
+#~ msgid "Print directly"
+#~ msgstr ""
+
+#~ msgid "Cannot set %(c)s without %(p)s"
+#~ msgstr ""
+
+#~ msgid "Cannot set %(c)s for non.certifiable model %(m)s"
+#~ msgstr ""
+
+#~ msgid "Print"
+#~ msgstr "Imprimer"
+
+#~ msgid "Create an excerpt in order to print this data record."
+#~ msgstr ""
+
+#~ msgid "Excerpt type \"%s\" has no body_template"
+#~ msgstr ""
+
+#~ msgid "Excerpt"
+#~ msgstr "Extrait"
+
+#~ msgid "Unprinted %s #%s"
+#~ msgstr "%s #%s non imprimé"
+
+#~ msgid "Preview"
+#~ msgstr "Prévisualisation"
+
+#~ msgid "Recipient (Organization)"
+#~ msgstr ""
+
+#~ msgid "Recipient (Person)"
+#~ msgstr ""
+
+#~ msgid "Certifying excerpts"
+#~ msgstr "Communiqué"
+
+#~ msgid "History of excerpts based on this data record."
+#~ msgstr ""
+
+#~ msgid "Existing excerpts"
+#~ msgstr ""
+
+#~ msgid "not printed"
+#~ msgstr "non imprimé"
+
+#~ msgid "Last week"
+#~ msgstr ""
+
+#~ msgid "Older"
+#~ msgstr "Rôle"
+
+#~ msgctxt "uploaded file"
+#~ msgid "Last"
+#~ msgstr "jours"
+
+#~ msgid "All"
+#~ msgstr "journée entière"
+
+#~ msgid "Please see the attached file."
+#~ msgstr ""
+
+#~ msgid "Subject:"
+#~ msgstr ""
+
+#~ msgid "Sender:"
+#~ msgstr "expéditeur"
+
+#~ msgid "Export to Excel xls format"
+#~ msgstr ""
+
+#~ msgid "Export to .xls"
+#~ msgstr ""
+
+#~ msgid "Export this table as an .xls document"
+#~ msgstr ""
+
+#~ msgid "Hidden"
+#~ msgstr "Invisible"
+
+#~ msgid "Start"
+#~ msgstr "Début"
+
+#~ msgid "End"
+#~ msgstr "Fin"
+
+#~ msgid "Admin"
+#~ msgstr "Langue"
+
+#~ msgid "Select a %s..."
+#~ msgstr "Choisir %s..."
+
+#~ msgid "show"
+#~ msgstr "montrer"
+
+#~ msgid "Insert"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "Manage"
+#~ msgstr "Langue"
+
+#~ msgid "as"
+#~ msgstr "en tant que"
+
+#~ msgid "My settings"
+#~ msgstr "Mes préférences"
+
+#~ msgid "Myself"
+#~ msgstr "Moi-même"
+
+#~ msgid "Act as..."
+#~ msgstr "Travailler en tant que..."
+
+#~ msgid "Log out"
+#~ msgstr "Se déconnecter"
+
+#~ msgid "Change password"
+#~ msgstr "Changer mot de passe"
+
+#~ msgid "Forgot password"
+#~ msgstr "Langue"
+
+#~ msgid "Log in"
+#~ msgstr "Se connecter"
+
+#~ msgid "No data to display."
+#~ msgstr "Pas de données à afficher."
+
+#~ msgid "Show or hide the table parameters panel"
+#~ msgstr ""
+
+#~ msgid "Please wait..."
+#~ msgstr "Veuillez patienter..."
+
+#~ msgid "This field is disabled"
+#~ msgstr ""
+
+#~ msgid "Enter a date in format YYYY-MM-DD (use zeroes for unknown parts)."
+#~ msgstr ""
+
+#~ msgid "Show this panel in own window"
+#~ msgstr "Montrer ce panneau dans une fenêtre à part."
+
+#~ msgid "Warning"
+#~ msgstr "Avertissement"
+
+#~ msgid "Alert"
+#~ msgstr "Alerte"
+
+#~ msgid "Action not available on phantom record."
+#~ msgstr ""
+
+#~ msgid "Cannot show detail for empty foreign key."
+#~ msgstr ""
+
+#~ msgid "Go to record"
+#~ msgstr "Aller vers enregistrement"
+
+#~ msgid "First"
+#~ msgstr "Premier"
+
+#~ msgid "Previous"
+#~ msgstr "Page précédente"
+
+#~ msgid "Next"
+#~ msgstr "Suivant"
+
+#~ msgid "Reload current record"
+#~ msgstr "Relire les données et actualiser l'écran"
+
+#~ msgid "Save changes to current record ?"
+#~ msgstr " Sauvegarder les modifications?"
+
+#~ msgid "No more records to display. Detail window has been closed."
+#~ msgstr ""
+
+#~ msgid "Quick Search"
+#~ msgstr ""
+
+#~ msgid "Enter a text to use as quick search filter"
+#~ msgstr ""
+
+#~ msgid "View"
+#~ msgstr ""
+
+#~ msgid "Select another view of this report"
+#~ msgstr ""
+
+#~ msgid "Page"
+#~ msgstr "Page suivante"
+
+#~ msgid "of {0}"
+#~ msgstr "de {0}"
+
+#~ msgid "Displaying {0} - {1} of {2}"
+#~ msgstr "Enregistrements {0} - {1} de {2}"
+
+#~ msgid "This record is disabled"
+#~ msgstr ""
+
+#~ msgid "Edit help texts for fields on this model."
+#~ msgstr ""
+
+#~ msgid "Cannot show MTI child if checkbox is off."
+#~ msgstr ""
+
+#~ msgid "Failed to delete %(record)s : %(error)s."
+#~ msgstr "Echec lors de l'effacement de %(record)s: %(error)s."
+
+#~ msgid "Error while saving GC for %(table)s: %(error)s"
+#~ msgstr ""
+
+#~ msgid "Families"
+#~ msgstr "Obligations"
+
+#~ msgid "Married"
+#~ msgstr "Marié"
+
+#~ msgid "Married in"
+#~ msgstr "Marié dans"
+
+#~ msgid "Divorced"
+#~ msgstr "Divorcé"
+
+#~ msgid "Father"
+#~ msgstr "Père"
+
+#~ msgid "Mother"
+#~ msgstr "Mère"
+
+#~ msgid "Family"
+#~ msgstr "Familly"
+
+#~ msgid "Households"
+#~ msgstr "Ménages"
+
+#~ msgid "Household member roles"
+#~ msgstr "Membres de ménage"
+
+#~ msgid "Head of household"
+#~ msgstr "Chef de ménage"
+
+#~ msgid "Spouse"
+#~ msgstr "Conjoint"
+
+#~ msgid "Cohabitant"
+#~ msgstr "Cohabitant"
+
+#~ msgid "Child"
+#~ msgstr "Enfant"
+
+#~ msgctxt "female"
+#~ msgid "Relative"
+#~ msgstr "Parente"
+
+#~ msgid "Adopted child"
+#~ msgstr "Enfant adopté"
+
+#~ msgid "Household Type"
+#~ msgstr "Type de ménage"
+
+#~ msgid "Household Types"
+#~ msgstr "Types de ménage"
+
+#~ msgid "Household"
+#~ msgstr "Ménage"
+
+#~ msgid "Household Member"
+#~ msgstr "Membre de ménage"
+
+#~ msgid "Household Members"
+#~ msgstr "Membres de ménage"
+
+#~ msgid "Make this the primary household."
+#~ msgstr "Marquer ce ménage comme primaire"
+
+#~ msgid "Household composition"
+#~ msgstr "Composition de ménage"
+
+#~ msgid "%s is not member of any household"
+#~ msgstr "%s n'est membre d'aucun ménage"
+
+#~ msgid "%s is member of multiple households"
+#~ msgstr "%s est membre de plusieurs ménages"
+
+#~ msgid " and "
+#~ msgstr " et "
+
+#~ msgid " of "
+#~ msgstr " de "
+
+#~ msgid "Create Household"
+#~ msgstr "Créer un ménage"
+
+#~ msgid "Household has been created"
+#~ msgstr "Ménage a été créé"
+
+#~ msgid "Household memberships"
+#~ msgstr "Appartenance aux ménages"
+
+#~ msgid " in "
+#~ msgstr " dans "
+
+#~ msgid "%s is"
+#~ msgstr "%s est"
+
+#~ msgid "Create a household"
+#~ msgstr "Créer un ménage"
+
+#~ msgid "Factual household"
+#~ msgstr "Cohabitation de fait"
+
+#~ msgid "Legal cohabitation"
+#~ msgstr "Cohabitation légale"
+
+#~ msgid "Isolated"
+#~ msgstr "Isolé"
+
+#~ msgid "Parency links"
+#~ msgstr "Liens de parenté"
+
+#~ msgid "Parency type"
+#~ msgstr "Types de parenté"
+
+#~ msgid "Parency types"
+#~ msgstr "Type de parenté"
+
+#~ msgid "Son"
+#~ msgstr "Fils"
+
+#~ msgid "Daughter"
+#~ msgstr "Fille"
+
+#~ msgid "Adoptive father"
+#~ msgstr "Père adoptif"
+
+#~ msgid "Adoptive mother"
+#~ msgstr "Mère adoptive"
+
+#~ msgid "Adopted son"
+#~ msgstr "Fils adoptif"
+
+#~ msgid "Adopted daughter"
+#~ msgstr "Fille adoptive"
+
+#~ msgid "Grandfather"
+#~ msgstr "Grand-père"
+
+#~ msgid "Grandmother"
+#~ msgstr "Grand-mère"
+
+#~ msgid "Grandson"
+#~ msgstr "Petit fils"
+
+#~ msgid "Granddaughter"
+#~ msgstr "Petite fille"
+
+#~ msgid "Husband"
+#~ msgstr "Mari"
+
+#~ msgid "Wife"
+#~ msgstr "Femme"
+
+#~ msgctxt "female"
+#~ msgid "Friend"
+#~ msgstr "Amie"
+
+#~ msgid "Stepfather"
+#~ msgstr "Beau-père"
+
+#~ msgid "Stepmother"
+#~ msgstr "Belle-mère"
+
+#~ msgid "Stepson"
+#~ msgstr "Beau-fils"
+
+#~ msgid "Stepdaughter"
+#~ msgstr "Belle-fille"
+
+#~ msgctxt "male"
+#~ msgid "Brother"
+#~ msgstr "Frère"
+
+#~ msgctxt "female"
+#~ msgid "Sister"
+#~ msgstr "Sœur"
+
+#~ msgctxt "female"
+#~ msgid "Cousin"
+#~ msgstr "Cousine"
+
+#~ msgid "Uncle"
+#~ msgstr "Oncle"
+
+#~ msgid "Aunt"
+#~ msgstr "Tante"
+
+#~ msgid "Nephew"
+#~ msgstr ""
+
+#~ msgid "Niece"
+#~ msgstr "Nièce"
+
+#~ msgid "Personal Link"
+#~ msgstr ""
+
+#~ msgid "Personal Links"
+#~ msgstr ""
+
+#~ msgid "%(child)s is %(what)s"
+#~ msgstr "%(child)s est %(what)s"
+
+#~ msgid "%(type)s of %(parent)s"
+#~ msgstr "%(type)s de %(parent)s"
+
+#~ msgid "Human Links"
+#~ msgstr "Liens de parenté"
+
+#~ msgid "No relationships."
+#~ msgstr "Aucun lien de parenté."
+
+#~ msgid "Create relationship as "
+#~ msgstr "Créer lien de parenté en tant que "
+
+#~ msgid "Import filters"
+#~ msgstr "important"
+
+#~ msgid "Field separator"
+#~ msgstr ""
+
+#~ msgid "Import Filter Item"
+#~ msgstr ""
+
+#~ msgid "Import Filter Items"
+#~ msgstr ""
+
+#~ msgid "Column"
+#~ msgstr "Compte"
+
+#~ msgid "Data to import"
+#~ msgstr "Aucun enregistrement"
+
+#~ msgid "obj2unicode"
+#~ msgstr ""
+
+#~ msgid "Language"
+#~ msgstr "Langue"
+
+#~ msgid "Languages"
+#~ msgstr "Langues"
+
+#~ msgid "German"
+#~ msgstr "Allemagne"
+
+#~ msgid "French"
+#~ msgstr ""
+
+#~ msgid "Dutch"
+#~ msgstr ""
+
+#~ msgid "Estonian"
+#~ msgstr "Estonie"
+
+#~ msgid "Permission denied"
+#~ msgstr ""
+
+#~ msgid "You have no permission to see this resource."
+#~ msgstr ""
+
+#~ msgid "Page not found"
+#~ msgstr "Page non trouvée"
+
+#~ msgid "The requested page could not be found."
+#~ msgstr "La page demandée n'existe pas."
+
+#~ msgid "Server error (500)"
+#~ msgstr ""
+
+#~ msgid "Server Error <em>(500)</em>"
+#~ msgstr ""
+
+#~ msgid "Congratulations, you found an error in our system."
+#~ msgstr ""
+
+#~ msgid "We apologize for the inconvenience."
+#~ msgstr ""
+
+#~ msgid "If you can reproduce this message, please tell us how you did that."
+#~ msgstr ""
+
+#~ msgid "Quick links:"
+#~ msgstr "Raccourcis:"
+
+#~ msgid "Hi, %(first_name)s!"
+#~ msgstr "Salut, %(first_name)s!"
+
+#~ msgid "This is a Lino demo site."
+#~ msgstr "Ceci est un site de démonstration Lino."
+
+#~ msgid "We are running with simulated date set to {0}."
+#~ msgstr ""
+
+#~ msgid "You have entered the <b>admin</b> section."
+#~ msgstr ""
+
+#~ msgid "Welcome to the <b>%s</b> site."
+#~ msgstr ""
+
+#~ msgid "We are running %(name)s version %(version)s"
+#~ msgstr ""
+
+#~ msgid "This demo site has %d users:"
+#~ msgstr "Ce site de démonstration connait %d utilisateurs:"
+
+#~ msgid "You will now probably want to"
+#~ msgstr "Veuillez"
+
+#~ msgid "log in"
+#~ msgstr "vous connecter"
+
+#~ msgid "using one of these names."
+#~ msgstr "en utilisant un de ces noms."
+
+#~ msgid "The password is the same for all of them: \"1234\"."
+#~ msgstr "Ils ont tous le même mot de passe \"1234\"."
+
+#~ msgid "Lists"
+#~ msgstr "Version"
+
+#~ msgid "List Type"
+#~ msgstr "Type d'organisation"
+
+#~ msgid "List Types"
+#~ msgstr "Types d'upload"
+
+#~ msgid "Partner Lists"
+#~ msgstr "Partenaires"
+
+#~ msgid "List memberships"
+#~ msgstr "Membres d'équipe"
+
+#~ msgid "Mailing list"
+#~ msgstr "Salle d'attente"
+
+#~ msgid "Discussion group"
+#~ msgstr ""
+
+#~ msgid "Flags"
+#~ msgstr "Page suivante"
+
+#~ msgid "Announcements"
+#~ msgstr "Inscriptions"
+
+#~ msgid "Weekly newsletter"
+#~ msgstr ""
+
+#~ msgid "General discussion"
+#~ msgstr ""
+
+#~ msgid "Beginners forum"
+#~ msgstr ""
+
+#~ msgid "Developers forum"
+#~ msgstr ""
+
+#~ msgid "PyCon 2014"
+#~ msgstr ""
+
+#~ msgid "Free Software Day 2014"
+#~ msgstr ""
+
+#~ msgid "Schools"
+#~ msgstr ""
+
+#~ msgid "Notes"
+#~ msgstr "minutes"
+
+#~ msgid "Special note type"
+#~ msgstr "Type de note"
+
+#~ msgid "Special note types"
+#~ msgstr "Types de note"
+
+#~ msgid "Note Type"
+#~ msgstr "Type d'observation"
+
+#~ msgid "Note Types"
+#~ msgstr "Types d'observation"
+
+#~ msgid "Event Types"
+#~ msgstr "Types d'événements"
+
+#~ msgid "Note"
+#~ msgstr "mois"
+
+#~ msgid "Note Type (Content)"
+#~ msgstr "Type d'observation"
+
+#~ msgid "Event Type (Form)"
+#~ msgstr "Etape du suivi"
+
+#~ msgid "Subject"
+#~ msgstr ""
+
+#~ msgid "Default system note type"
+#~ msgstr ""
+
+#~ msgid "Office"
+#~ msgstr ""
+
+#~ msgid "Orders"
+#~ msgstr ""
+
+#~ msgid "Inactive"
+#~ msgstr ""
+
+#~ msgid "Order"
+#~ msgstr "Explorateur"
+
+#~ msgid "Outbox"
+#~ msgstr "Courrier sortant"
+
+#~ msgid "Recipient Type"
+#~ msgstr ""
+
+#~ msgid "to"
+#~ msgstr ""
+
+#~ msgid "cc"
+#~ msgstr ""
+
+#~ msgid "bcc"
+#~ msgstr ""
+
+#~ msgid "Attach to email"
+#~ msgstr ""
+
+#~ msgid "Email template"
+#~ msgstr ""
+
+#~ msgid "Create an email from this"
+#~ msgstr "Céer courrier"
+
+#~ msgid "Create email"
+#~ msgstr "Céer courrier"
+
+#~ msgid "Recipient"
+#~ msgstr "Destinataire"
+
+#~ msgid "Recipients"
+#~ msgstr ""
+
+#~ msgid "Send email"
+#~ msgstr "Envoyer"
+
+#~ msgid "No recipients found."
+#~ msgstr ""
+
+#~ msgid "There are recipients without address: "
+#~ msgstr ""
+
+#~ msgid "Couldn't find target file of %s"
+#~ msgstr ""
+
+#~ msgid "Email %(id)s from %(sender)s has been sent to %(num)d recipients."
+#~ msgstr ""
+
+#~ msgid "Outgoing Mail"
+#~ msgstr "Mail envoyé"
+
+#~ msgid "Outgoing Mails"
+#~ msgstr "Mails envoyés"
+
+#~ msgid "My Outbox"
+#~ msgstr "Mon courrier sortant"
+
+#~ msgid "Attachment"
+#~ msgstr "Pièce jointe"
+
+#~ msgid "Attachments"
+#~ msgstr "Pièces jointes"
+
+#~ msgid "Sender"
+#~ msgstr "expéditeur"
+
+#~ msgid "Pages"
+#~ msgstr "Page suivante"
+
+#~ msgid "Node"
+#~ msgstr "Modèle"
+
+#~ msgid "Nodes"
+#~ msgstr "Revenus"
+
+#~ msgid "raw html"
+#~ msgstr ""
+
+#~ msgid "Plausibility"
+#~ msgstr ""
+
+#~ msgid "Plausibility feedback"
+#~ msgstr ""
+
+#~ msgid "Ignorable"
+#~ msgstr "Facturable"
+
+#~ msgid "Serious"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "Severity"
+#~ msgstr ""
+
+#~ msgid "Plausibility problem severities"
+#~ msgstr ""
+
+#~ msgid "Plausibility checker"
+#~ msgstr ""
+
+#~ msgid "Plausibility checkers"
+#~ msgstr ""
+
+#~ msgid "Check plausibility"
+#~ msgstr ""
+
+#~ msgid "Fix plausibility problems"
+#~ msgstr ""
+
+#~ msgid "Plausibility problem"
+#~ msgstr ""
+
+#~ msgid "Plausibility problems"
+#~ msgstr ""
+
+#~ msgid "Responsible"
+#~ msgstr "Utilisateur responsable"
+
+#~ msgid "Only problems for this responsible."
+#~ msgstr ""
+
+#~ msgid "Only problems by this checker."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Plausibility problems assigned to me"
+#~ msgstr ""
+
+#~ msgid "There are {0} plausibility problems assigned to you."
+#~ msgstr ""
+
+#~ msgid "Polls"
+#~ msgstr "Questionnaires"
+
+#~ msgid "Polls user"
+#~ msgstr "Conjoint"
+
+#~ msgid "Choice Set"
+#~ msgstr "Liste de choix"
+
+#~ msgid "Choice Sets"
+#~ msgstr "Listes de choix"
+
+#~ msgid "Choice"
+#~ msgstr "Choix"
+
+#~ msgid "Choices"
+#~ msgstr "Choix"
+
+#~ msgid "Poll"
+#~ msgstr "Questionnaire"
+
+#~ msgid "Details"
+#~ msgstr "Détail"
+
+#~ msgid "Default Choiceset"
+#~ msgstr "Choix multiples"
+
+#~ msgid "Allow multiple choices"
+#~ msgstr "Choix multiples"
+
+#~ msgid "Questions to add"
+#~ msgstr ""
+
+#~ msgid "Result"
+#~ msgstr "Résultat"
+
+#~ msgid "Results"
+#~ msgstr "Résultats"
+
+#~ msgid "Question"
+#~ msgstr "secondes"
+
+#~ msgid "Questions"
+#~ msgstr "secondes"
+
+#~ msgid "Response"
+#~ msgstr "Interview"
+
+#~ msgid "Responses"
+#~ msgstr "Interviews"
+
+#~ msgid "My general remark"
+#~ msgstr "Remarque générale"
+
+#~ msgid "%(user)s's response to %(poll)s"
+#~ msgstr "Interview  %(poll)s avec %(user)s"
+
+#~ msgid "{poll} {partner} {date}"
+#~ msgstr ""
+
+#~ msgid "Answer Choice"
+#~ msgstr "Choix de réponse"
+
+#~ msgid "Answer Choices"
+#~ msgstr "Choix de réponse"
+
+#~ msgid "My answer"
+#~ msgstr "Ma réponse"
+
+#~ msgid "Answer Remark"
+#~ msgstr "Remarque"
+
+#~ msgid "Answer Remarks"
+#~ msgstr "Remarques"
+
+#~ msgid "My remark"
+#~ msgstr "Ma remarque"
+
+#~ msgid "N/A"
+#~ msgstr ""
+
+#~ msgid "Answers"
+#~ msgstr "Réponses"
+
+#~ msgid "Answer"
+#~ msgstr "Réponse"
+
+#~ msgid "#Answers"
+#~ msgstr "# réponses"
+
+#~ msgid "A1"
+#~ msgstr ""
+
+#~ msgid "Poll States"
+#~ msgstr "Mes rendez-vous aujourd'hui"
+
+#~ msgid "Closed"
+#~ msgstr ""
+
+#~ msgid "Publish"
+#~ msgstr "Publié"
+
+#~ msgid "Close"
+#~ msgstr "Couleur"
+
+#~ msgid "Response States"
+#~ msgstr "État d'interview"
+
+#~ msgid "Yes/No"
+#~ msgstr ""
+
+#~ msgid "Yes/Maybe/No"
+#~ msgstr "Oui/Peut-être/Non"
+
+#~ msgid "Maybe"
+#~ msgstr "Peut-être"
+
+#~ msgid "Acquired"
+#~ msgstr "Acquis"
+
+#~ msgid "In progress"
+#~ msgstr "En cours"
+
+#~ msgid "Not acquired"
+#~ msgstr "Non acquis"
+
+#~ msgid "Postings"
+#~ msgstr "Envois postaux"
+
+#~ msgid "Create posting"
+#~ msgstr "Céer envoi postal"
+
+#~ msgid "Create classical mail postings from this"
+#~ msgstr ""
+
+#~ msgid "Going to create %(num)d postings for %(elem)s"
+#~ msgstr "Ceci va créer %(num)d envois postaux pour %(elem)s"
+
+#~ msgid "Open"
+#~ msgstr "Ouvert"
+
+#~ msgid "Ready"
+#~ msgstr "Créé"
+
+#~ msgid "Sent"
+#~ msgstr ""
+
+#~ msgid "Returned"
+#~ msgstr "Retour"
+
+#~ msgid "Print this posting"
+#~ msgstr "Céer envoi postal"
+
+#~ msgid "Posting"
+#~ msgstr "Envoi postal"
+
+#~ msgid "Postings ready to print"
+#~ msgstr "Envois postaux à imprimer"
+
+#~ msgid "%d postings are ready to print."
+#~ msgstr "%d envois postaux à imprimer"
+
+#~ msgid "Postings printed"
+#~ msgstr "Envois postaux imprimés"
+
+#~ msgid "Postings sent"
+#~ msgstr "Envois postaux envoyés"
+
+#~ msgid "Print table using Pisa"
+#~ msgstr ""
+
+#~ msgid "Printing"
+#~ msgstr "Formation"
+
+#~ msgid "Build method"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "This will print %d rows."
+#~ msgstr ""
+
+#~ msgid "Edit Print Template"
+#~ msgstr "Modifier le modèle d'impression"
+
+#~ msgid "Clear cache"
+#~ msgstr "Effacer la cache"
+
+#~ msgid "%s printable cache has been cleared."
+#~ msgstr "%s a été créé"
+
+#~ msgid "This will discard all changes in the generated file."
+#~ msgstr "Ceci va écraser toute modification manuelle dans le document généré."
+
+#~ msgid "Template"
+#~ msgstr "Modèle"
+
+#~ msgid "build time"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "Products"
+#~ msgstr ""
+
+#~ msgid "Product Category"
+#~ msgstr ""
+
+#~ msgid "Product Categories"
+#~ msgstr ""
+
+#~ msgid "Long description"
+#~ msgstr "Description"
+
+#~ msgid "Category"
+#~ msgstr "Categorie"
+
+#~ msgid "Projects"
+#~ msgstr ""
+
+#~ msgid "Project Type"
+#~ msgstr "Type de propriété"
+
+#~ msgid "Project Types"
+#~ msgstr "Types de propriétés"
+
+#~ msgid "Properties"
+#~ msgstr "Propriétés"
+
+#~ msgid "Do you like?"
+#~ msgstr ""
+
+#~ msgid "certainly not"
+#~ msgstr ""
+
+#~ msgid "rather not"
+#~ msgstr ""
+
+#~ msgid "normally"
+#~ msgstr ""
+
+#~ msgid "quite much"
+#~ msgstr ""
+
+#~ msgid "very much"
+#~ msgstr ""
+
+#~ msgid "Property Type"
+#~ msgstr "Type de propriété"
+
+#~ msgid "Property Types"
+#~ msgstr "Types de propriétés"
+
+#~ msgid "Choices List"
+#~ msgstr "Liste de choix"
+
+#~ msgid "default value"
+#~ msgstr "valeur par défault"
+
+#~ msgid "Limit to choices"
+#~ msgstr "Limite aux choix"
+
+#~ msgid "Multiple choices"
+#~ msgstr "Choix multiples"
+
+#~ msgid "Property Choice"
+#~ msgstr "Choix de propriété"
+
+#~ msgid "Property Choices"
+#~ msgstr "Choix de propriétés"
+
+#~ msgid "Designation"
+#~ msgstr "Description"
+
+#~ msgid "Property Group"
+#~ msgstr "Groupe de propriétés"
+
+#~ msgid "Property Groups"
+#~ msgstr "Groupes de propriétés"
+
+#~ msgid "Property"
+#~ msgstr "Propriété"
+
+#~ msgid "Reception"
+#~ msgstr "Réception"
+
+#~ msgid "Waiting"
+#~ msgstr "Attend"
+
+#~ msgid "Gone"
+#~ msgstr "Quitté"
+
+#~ msgid "Waiting since"
+#~ msgstr "Attend depuis"
+
+#~ msgid "Time when the visitor arrived (checked in)."
+#~ msgstr ""
+
+#~ msgid "Waiting until"
+#~ msgstr "Attendu jusque"
+
+#~ msgid "Time when the visitor was received by agent."
+#~ msgstr ""
+
+#~ msgid "Present until"
+#~ msgstr "Présent jusque"
+
+#~ msgid "Time when the visitor left (checked out)."
+#~ msgstr ""
+
+#~ msgid "Default type for prompt events"
+#~ msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
+
+#~ msgid "The event type for prompt events may not invite client!"
+#~ msgstr ""
+
+#~ msgid "Checkin"
+#~ msgstr "Arriver"
+
+#~ msgid "Mark this visitor as arrived"
+#~ msgstr ""
+
+#~ msgid "%(partner)s has started waiting for %(user)s"
+#~ msgstr "%(partner)s a commencé d'attendre %(user)s"
+
+#~ msgid "Checkin in will reassign the event from %(old)s to %(new)s."
+#~ msgstr ""
+
+#~ msgid "Receive"
+#~ msgstr "Recevoir"
+
+#~ msgid "Visitor was received by agent"
+#~ msgstr "Le visiteur a été reçu par l'agent"
+
+#~ msgid "%(guest)s begins consultation with %(user)s."
+#~ msgstr "%(guest)s commence entrevue avec %(user)s."
+
+#~ msgid "Checkout"
+#~ msgstr "Quitter"
+
+#~ msgid "Visitor left the centre"
+#~ msgstr "Le visiteur a quitté le centre"
+
+#~ msgid "%(guest)s leaves after meeting with %(user)s."
+#~ msgstr "%(guest)s quitte après entrevue avec %(user)s."
+
+#~ msgid "Expected Guests"
+#~ msgstr "Visiteurs attendus"
+
+#~ msgid "Received Visitors"
+#~ msgstr "Visiteurs reçus"
+
+#~ msgid "Shows the visitors being received."
+#~ msgstr ""
+
+#~ msgid "Since"
+#~ msgstr "Depuis"
+
+#~ msgid "Busy visitors"
+#~ msgstr "Visiteurs occupés"
+
+#~ msgid "Shows the visitors who are busy with some agent."
+#~ msgstr ""
+
+#~ msgid "Waiting visitors"
+#~ msgstr "Salle d'attente"
+
+#~ msgid "Shows the visitors in the waiting room."
+#~ msgstr ""
+
+#~ msgid "Position"
+#~ msgstr "Envoi postal"
+
+#~ msgid "Position in waiting queue (per agent)"
+#~ msgstr ""
+
+#~ msgid "Gone visitors"
+#~ msgstr "Visiteurs repartis"
+
+#~ msgid "Shows the visitors who have gone."
+#~ msgstr ""
+
+#~ msgid "Visitors waiting for me"
+#~ msgstr "Visiteurs qui m'attendent"
+
+#~ msgid "Visitors busy with me"
+#~ msgstr "Visiteurs occupés avec moi"
+
+#~ msgid "My gone visitors"
+#~ msgstr "Mes visiteurs repartis"
+
+#~ msgid "Optionally booked. Ask customer before any decision."
+#~ msgstr ""
+
+#~ msgid "Booking"
+#~ msgstr "Réservation"
+
+#~ msgid "Bookings"
+#~ msgstr "Réservations"
+
+#~ msgid "The Event Type to which events will be generated."
+#~ msgstr ""
+
+#~ msgid "Contact person"
+#~ msgstr "Personne de contact"
+
+#~ msgid "Organizer"
+#~ msgstr ""
+
+#~ msgid "Date of payment"
+#~ msgstr ""
+
+#~ msgid "Payment terms"
+#~ msgstr ""
+
+#~ msgid "Mail server"
+#~ msgstr ""
+
+#~ msgid "Stars"
+#~ msgstr "Débute"
+
+#~ msgid "Star"
+#~ msgstr "Début"
+
+#~ msgid "Star this database object."
+#~ msgstr ""
+
+#~ msgid "{0} is now starred."
+#~ msgstr ""
+
+#~ msgid "Unstar this database object."
+#~ msgstr ""
+
+#~ msgid "{0} is no longer starred."
+#~ msgstr ""
+
+#~ msgid "Your stars are "
+#~ msgstr "heures"
+
+#~ msgid "INS code"
+#~ msgstr ""
+
+#~ msgid "The official code for this country used by statbel.fgov.be"
+#~ msgstr ""
+
+#~ msgid "Actual country"
+#~ msgstr ""
+
+#~ msgid "The official code for this place used by statbel.fgov.be"
+#~ msgstr ""
+
+#~ msgid "System"
+#~ msgstr "Système"
+
+#~ msgid "Yes or no"
+#~ msgstr "Oui ou non"
+
+#~ msgid "Gender"
+#~ msgstr "Sexe"
+
+#~ msgid "Male"
+#~ msgstr "Masculin"
+
+#~ msgid "Female"
+#~ msgstr "Féminin"
+
+#~ msgid "Starts"
+#~ msgstr "Débute"
+
+#~ msgid "Is active"
+#~ msgstr "Est active"
+
+#~ msgid "Ends"
+#~ msgstr "Termine"
+
+#~ msgid "Rebuild site cache"
+#~ msgstr ""
+
+#~ msgid "Site configuration"
+#~ msgstr "Confirmation"
+
+#~ msgid "Default build method"
+#~ msgstr "Méthode de constuction par défault"
+
+#~ msgid "Site Parameters"
+#~ msgstr "Paramètres du Site"
+
+#~ msgid "Third Party"
+#~ msgstr ""
+
+#~ msgid "Third Parties"
+#~ msgstr "Propriétés"
+
+#~ msgid "Talk"
+#~ msgstr "Détail"
+
+#~ msgid "Sticky"
+#~ msgstr ""
+
+#~ msgid "Refused"
+#~ msgstr "Demandé"
+
+#~ msgid "It has been decided that we won't fix this ticket."
+#~ msgstr ""
+
+#~ msgid "Dependency type"
+#~ msgstr "Types de parenté"
+
+#~ msgid "Dependency types"
+#~ msgstr "Types de parenté"
+
+#~ msgid "Requires"
+#~ msgstr ""
+
+#~ msgid "Required by"
+#~ msgstr "représenté par"
+
+#~ msgid "Triggers"
+#~ msgstr ""
+
+#~ msgid "Triggered by"
+#~ msgstr "représenté par"
+
+#~ msgid "Deploys"
+#~ msgstr ""
+
+#~ msgid "Deployed by"
+#~ msgstr "Type de fichier téléchargé"
+
+#~ msgid "Planned time"
+#~ msgstr "Méthode de construction"
+
+#~ msgid "Ticket type"
+#~ msgstr "Type de note"
+
+#~ msgid "Ticket types"
+#~ msgstr "Types de note"
+
+#~ msgid "Assign tickets to"
+#~ msgstr "Attribué à"
+
+#~ msgid "The user to whom new tickets will be assigned."
+#~ msgstr ""
+
+#~ msgid "Sites"
+#~ msgstr "minutes"
+
+#~ msgid "Milestone"
+#~ msgstr ""
+
+#~ msgid "Milestones"
+#~ msgstr ""
+
+#~ msgid "Label"
+#~ msgstr ""
+
+#~ msgid "Expected for"
+#~ msgstr "Rejeté"
+
+#~ msgid "Reached"
+#~ msgstr "Créé"
+
+#~ msgid "Dependency"
+#~ msgstr ""
+
+#~ msgid "Dependencies"
+#~ msgstr ""
+
+#~ msgid "Spawn a new child ticket from this one."
+#~ msgstr ""
+
+#~ msgid "New ticket {0} has been spawned as child of {1}."
+#~ msgstr ""
+
+#~ msgid "Ticket"
+#~ msgstr "Suivant"
+
+#~ msgid "Nickname"
+#~ msgstr ""
+
+#~ msgid "Short summary of the problem."
+#~ msgstr ""
+
+#~ msgid "Duplicate of"
+#~ msgstr "Dupliquer"
+
+#~ msgid "Milestone for which this ticket has been reported."
+#~ msgstr ""
+
+#~ msgid "The milestone for which this ticket has been fixed."
+#~ msgstr ""
+
+#~ msgid "The user who works on this ticket."
+#~ msgstr ""
+
+#~ msgid "The user who reported this ticket."
+#~ msgstr ""
+
+#~ msgid "Feedback"
+#~ msgstr ""
+
+#~ msgid "Ticket is waiting for feedback from somebody else."
+#~ msgstr ""
+
+#~ msgid "Standby"
+#~ msgstr ""
+
+#~ msgid "Deadline"
+#~ msgstr "Titre"
+
+#~ msgid "Value between 0 and 100."
+#~ msgstr ""
+
+#~ msgid "Overview"
+#~ msgstr "Prévisualisation"
+
+#~ msgid "Interest"
+#~ msgstr "minutes"
+
+#~ msgid "Interests"
+#~ msgstr "minutes"
+
+#~ msgid "Current project"
+#~ msgstr "Évènement récurrent"
+
+#~ msgid "Timeline"
+#~ msgstr ""
+
+#~ msgid "Only project interesting for this site."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Subprojects"
+#~ msgstr "Rejeter"
+
+#~ msgid "No dependencies."
+#~ msgstr ""
+
+#~ msgid "Create dependency as "
+#~ msgstr ""
+
+#~ msgid "Planning"
+#~ msgstr "Avertissement"
+
+#~ msgid "Only rows reporter by this user."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Only tickets assigned to this user."
+#~ msgstr "%d rendez-vous vous ont été attribués"
+
+#~ msgid "Show tickets which are assigned to somebody."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are closed."
+#~ msgstr ""
+
+#~ msgid "Show tickets with project assigned."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are in standby mode."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are private."
+#~ msgstr ""
+
+#~ msgid "Duplicates"
+#~ msgstr "Dupliquer"
+
+#~ msgid "Unassigned tickets"
+#~ msgstr "Présences"
+
+#~ msgid "Tickets to triage"
+#~ msgstr ""
+
+#~ msgid "Triage"
+#~ msgstr "Privé"
+
+#~ msgid "{0} new tickets."
+#~ msgstr "Présences"
+
+#~ msgid "Tickets to talk"
+#~ msgstr ""
+
+#~ msgid "Tickets to do"
+#~ msgstr ""
+
+#~ msgid "Active tickets are those which are neither closed nor in standby mode."
+#~ msgstr ""
+
+#~ msgid "Active tickets"
+#~ msgstr "Présences"
+
+#~ msgid "Interesting tickets"
+#~ msgstr "Présences"
+
+#~ msgid "Tickets Fixed"
+#~ msgstr ""
+
+#~ msgid "Reported tickets"
+#~ msgstr "Présences"
+
+#~ msgid "Reported tickets "
+#~ msgstr "Présences"
+
+#~ msgid "Callback"
+#~ msgstr ""
+
+#~ msgid "Bugfix"
+#~ msgstr ""
+
+#~ msgid "Enhancement"
+#~ msgstr "Contrat de remplacement"
+
+#~ msgid "Upgrade"
+#~ msgstr ""
+
+#~ msgid "Text Field Template"
+#~ msgstr ""
+
+#~ msgid "Text Field Templates"
+#~ msgstr ""
+
+#~ msgid "Template Text"
+#~ msgstr "Texte modèle"
+
+#~ msgid "Uploads"
+#~ msgstr "Fichiers téléchargés"
+
+#~ msgid "Upload shortcut"
+#~ msgstr ""
+
+#~ msgid "Upload shortcuts"
+#~ msgstr ""
+
+#~ msgid "Upload Area"
+#~ msgstr "Type de fichier téléchargé"
+
+#~ msgid "Upload Areas"
+#~ msgstr "Types de fichiers téléchargés"
+
+#~ msgid "Upload"
+#~ msgstr "Télécharger"
+
+#~ msgid "Upload a file from your PC to the server."
+#~ msgstr ""
+
+#~ msgid "Open the uploaded file in a new browser window"
+#~ msgstr ""
+
+#~ msgid "Edit"
+#~ msgstr "Editer"
+
+#~ msgid "Edit metadata of the uploaded file."
+#~ msgstr ""
+
+#~ msgid "All {0} files"
+#~ msgstr ""
+
+#~ msgid "Upload Type"
+#~ msgstr "Type de fichier téléchargé"
+
+#~ msgid "Upload Types"
+#~ msgstr "Types de fichiers téléchargés"
+
+#~ msgid "Max. number"
+#~ msgstr "Numéro de carte eID"
+
+#~ msgid "No need to upload more uploads than N of this type."
+#~ msgstr ""
+
+#~ msgid "-1 means no limit."
+#~ msgstr ""
+
+#~ msgid "Wanted"
+#~ msgstr "Site"
+
+#~ msgid "Add a (+) button when there is no upload of this type."
+#~ msgstr ""
+
+#~ msgid "Uploaded by"
+#~ msgstr "Type de fichier téléchargé"
+
+#~ msgid " [show]"
+#~ msgstr "montrer"
+
+#~ msgid "Users"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "User Profile"
+#~ msgstr "Profil d'utilisateur"
+
+#~ msgid "User Profiles"
+#~ msgstr "Profils d'utilisateur"
+
+#~ msgid "Author"
+#~ msgstr "Auteur"
+
+#~ msgid "My %s"
+#~ msgstr "Mes %s"
+
+#~ msgid "%(details)s"
+#~ msgstr "%(details)s de %(master)s"
+
+#~ msgid "Current password"
+#~ msgstr "Mot de passe actuel"
+
+#~ msgid "New password"
+#~ msgstr "Nouveau mot de passe"
+
+#~ msgid "New password again"
+#~ msgstr "Encore une fois"
+
+#~ msgid "New password has been set for %d users."
+#~ msgstr ""
+
+#~ msgid "Required. Must be unique."
+#~ msgstr ""
+
+#~ msgid "Initials"
+#~ msgstr "au "
+
+#~ msgid "e-mail address"
+#~ msgstr "adresse e-mail"
+
+#~ msgid "Shows the list of all users on this site."
+#~ msgstr ""
+
+#~ msgid "Authority"
+#~ msgstr "Procuration"
+
+#~ msgid "Authorities"
+#~ msgstr "Procurations"
+
+#~ msgid "The user who gets authority to act in your name."
+#~ msgstr ""
+
+#~ msgid "Authorities given"
+#~ msgstr "Procurations accordées"
+
+#~ msgid "Authorities taken"
+#~ msgstr "Procurations reÃ§ues"
+
+#~ msgid "Project vouchers"
+#~ msgstr "Types de propriétés"
+
+#~ msgid "Workflows"
+#~ msgstr ""
+
+#~ msgid "Actor"
+#~ msgstr "contact pour"
+
+#~ msgid "owned only"
+#~ msgstr ""
+
+#~ msgid "Categories"
+#~ msgstr ""
+
+#~ msgid "Hardware"
+#~ msgstr ""
+
+#~ msgid "Service"
+#~ msgstr ""
+
+#~ msgid "Accessories"
+#~ msgstr ""
+
+#~ msgid "Software"
+#~ msgstr ""
+
+#~ msgid "Under construction"
+#~ msgstr "Titre de noblesse"
+
+#~ msgid "Belgian Reference"
+#~ msgstr ""
+
+#~ msgid "Died date"
+#~ msgstr "Première page"
+
+#~ msgid "Estonian Reference"
+#~ msgstr ""
+
+#~ msgid "School"
+#~ msgstr "montrer"
+
+#~ msgid "The regular school where this child goes."
+#~ msgstr ""
+
+#~ msgid "Miscellaneous"
+#~ msgstr ""
+
+#~ msgid "Organisation"
+#~ msgstr "Confirmation"
+
+#~ msgid "Organisations"
+#~ msgstr "Confirmation"
+
+#~ msgid "a Lino application to make surveys and polls."
+#~ msgstr "une application Lino qui rend la comptabilité belge facile."
+
+#~ msgid "Consultant"
+#~ msgstr ""
+
+#~ msgid "Hoster"
+#~ msgstr "Sœur"
+
+#~ msgid "Developer"
+#~ msgstr ""
+
+#~ msgid "Senior"
+#~ msgstr "Utilisateur"
+
+#~ msgid "isikukood"
+#~ msgstr ""
+
+#~ msgid "%(classref)s to %(model)s"
+#~ msgstr ""
+
+#~ msgid "... and %s"
+#~ msgstr ""
+
+#~ msgid " (Menu %s)"
+#~ msgstr ""
+
+#~ msgid "%(field)s (field in %(model)s)"
+#~ msgstr ""
+
+#~ msgid "%s (field)"
+#~ msgstr ""
+
+#~ msgid "%s (app)"
+#~ msgstr ""
+
+#~ msgid "%(model)s (model in %(app)s)"
+#~ msgstr "%(details)s de %(master)s"
+
+#~ msgid "%s (model)"
+#~ msgstr ""
+
+#~ msgid "Views on %s"
+#~ msgstr "Marquer comme %s"
+
+#~ msgid "Fields in %s"
+#~ msgstr ""
+
+#~ msgid "Actions on %s"
+#~ msgstr "Marquer comme %s"
+
+#~ msgid "Tables referring to %s"
+#~ msgstr ""
+
+#~ msgid "%(actor)s (view in %(app)s)"
+#~ msgstr "%(details)s de %(master)s"
+
+#~ msgid "%s (view)"
+#~ msgstr ""
+
+#~ msgid "Problem while inserting %(child)s child of %(parent)s: %(message)s"
+#~ msgstr ""
+
+#~ msgid "Created: {obj}"
+#~ msgstr ""
+
+#~ msgid "Updated: {obj}"
+#~ msgstr ""
+
+#~ msgid "Deleted: {obj}"
+#~ msgstr ""
+
+#~ msgid "Invalid SSIN %s : "
+#~ msgstr "NISS invalide %s : "
+
+#~ msgid "A raw SSIN must have 11 positions"
+#~ msgstr "Un NISS a toujours 13 positions"
+
+#~ msgid "Could not recognize checkdigit"
+#~ msgstr ""
+
+#~ msgid "A formatted SSIN must have 13 positions"
+#~ msgstr "Un NISS a toujours 13 positions"
+
+#~ msgid "Invalid SSIN %s :"
+#~ msgstr "NISS invalide %s : "
+
+#~ msgid "Check digit is %(found)d but should be %(expected)d"
+#~ msgstr ""
+

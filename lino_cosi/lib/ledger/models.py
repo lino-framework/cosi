@@ -453,6 +453,35 @@ class Voucher(UserAuthored, mixins.Registrable):
 class Movement(ProjectRelated):
     """Represents an accounting movement in the ledger.
 
+    .. attribute:: voucher
+
+        Pointer to the :class:`Voucher` who caused this movement.
+
+    .. attribute:: partner
+
+        Pointer to the partner involved in this movement. This may be
+        blank.
+
+    .. attribute:: seqno
+
+        Sequential number within a voucher.
+
+    .. attribute:: account
+
+        Pointer to the :class:`Account` that is being moved by this movement.
+
+    .. attribute:: amount
+    .. attribute:: dc
+
+    .. attribute:: match
+
+        Pointer to the :class:`Movement` that is being cleared by this
+        movement.
+
+    .. attribute:: satisfied
+
+        Whether
+
     """
     allow_cascaded_delete = ['voucher']
 
@@ -467,9 +496,7 @@ class Movement(ProjectRelated):
         related_name="%(app_label)s_%(class)s_set_by_partner",
         blank=True, null=True)
 
-    seqno = models.IntegerField(
-        #~ blank=True,null=False,
-        verbose_name=_("Seq.No."))
+    seqno = models.IntegerField(_("Seq.No."))
 
     account = dd.ForeignKey('accounts.Account')
     amount = dd.PriceField(default=0)
@@ -484,7 +511,7 @@ class Movement(ProjectRelated):
     # match = MatchField(blank=True, null=True)
 
     satisfied = models.BooleanField(_("Satisfied"), default=False)
-    # TODO: rename "satisfied" to "cleared"
+    # TODO: rename "satisfied" to "cleared"?
 
     @dd.chooser(simple_values=True)
     def match_choices(cls, partner, account):
