@@ -67,7 +67,7 @@ class ShowSuggestions(dd.Action):
 
 
 class Grouper(FinancialVoucher):
-    """A rather internal journal entry used to group a series of matches.
+    """An internal journal entry used to group a series of matches.
 
     There are two types of groupers: *partner* groupers and *general
     account* groupers.

@@ -12,3 +12,5 @@ env.languages = "en de fr et nl es".split()
 env.revision_control_system = 'git'
 
 env.cleanable_files = ['docs/api/lino_cosi.*']
+
+env.locale_dir = 'lino_cosi/lib/cosi/locale'

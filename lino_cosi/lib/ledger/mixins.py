@@ -106,14 +106,17 @@ class PartnerRelated(dd.Model):
 class Matching(dd.Model):
     """Model mixin for database objects that are considered *matching
     transactions*.  A **matching transaction** is a transaction that
-    matches some other movement to be cleared.
+    points to some other movement which it "clears" at least partially.
+
+    A movement is cleared when its amount equals the sum of all
+    matching transactions.
 
     Adds a field :attr:`match` and a chooser for it.  Requires a field
     `partner`.  The default implementation of the chooser for
     :attr:`match` requires a `journal`.
 
-    Base class for :class:`vat.AccountInvoice`
-    (and e.g. `sales.Invoice`, `finan.DocItem`)
+    Base class for :class:`lino_cosi.lib.vat.AccountInvoice`
+    (and e.g. `lino_cosi.lib.sales.Invoice`, `lino_cosi.lib.finan.DocItem`)
     
     .. attribute:: match
 

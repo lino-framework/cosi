@@ -63,6 +63,8 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.sales.fixtures',
     'lino_cosi.lib.sepa',
     'lino_cosi.lib.sepa.fixtures',
+    'lino_cosi.lib.tim2lino',
+    'lino_cosi.lib.tim2lino.fixtures',
     'lino_cosi.lib.vat',
     'lino_cosi.lib.vat.fixtures',
     'lino_cosi.lib.vatless',

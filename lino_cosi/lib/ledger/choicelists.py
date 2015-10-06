@@ -177,8 +177,9 @@ class TradeType(dd.Choice):
                        self.base_account_field_name)
 
     def get_vat_account(self):
-        """Return the :class:`ml.accounts.Account` into which the **VAT
-        amount** of any operation should be booked.
+        """Return the :class:`Account <lino_cosi.lib.accounts.models.Account>`
+        into which the **VAT amount** of any operation should be
+        booked.
 
         """
         if self.vat_account_field_name is None:
@@ -187,8 +188,9 @@ class TradeType(dd.Choice):
         return getattr(settings.SITE.site_config, self.vat_account_field_name)
 
     def get_partner_account(self):
-        """Return the :class:`ml.accounts.Account` into which the **total
-      amount** of any operation (base + VAT) should be booked.
+        """Return the :class:`Account <lino_cosi.lib.accounts.models.Account>`
+        into which the **total amount** of any operation (base + VAT)
+        should be booked.
 
         """
         if self.partner_account_field_name is None:
@@ -197,8 +199,9 @@ class TradeType(dd.Choice):
             settings.SITE.site_config, self.partner_account_field_name)
 
     def get_product_base_account(self, product):
-        """Return the :class:`ml.accounts.Account` into which the **base
-        amount** of any operation should be booked.
+        """Return the :class:`Account <lino_cosi.lib.accounts.models.Account>`
+        into which the **base amount** of any operation should be
+        booked.
 
         """
         if self.base_account_field_name is None:
@@ -208,7 +211,7 @@ class TradeType(dd.Choice):
 
     def get_catalog_price(self, product):
         """Return the catalog price of the given product for operations with
-this trade type.
+        this trade type.
 
         """
         return getattr(product, self.price_field_name)

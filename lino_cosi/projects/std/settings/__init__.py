@@ -83,7 +83,7 @@ class Site(Site):
         #~ 'lino.modlib.thirds',
         #~ yield 'lino.modlib.postings'
         # yield 'lino.modlib.pages'
-        yield 'lino_cosi.lib.cosi'
+        # yield 'lino_cosi.lib.cosi'
 
     def setup_plugins(self):
         """
@@ -94,6 +94,29 @@ class Site(Site):
         self.plugins.contacts.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
+
+    def setup_actions(self):
+        super(Site, self).setup_actions()
+        partners = self.modules.contacts
+        from lino.core.merge import MergeAction
+        for m in (partners.Person, partners.Organisation):
+            m.define_action(merge_row=MergeAction(m))
+
+    def setup_layouts(self):
+        super(Site, self).setup_layouts()
+
+        self.modules.system.SiteConfigs.set_detail_layout("""
+        site_company next_partner_id:10
+        default_build_method
+        clients_account   sales_account     sales_vat_account
+        suppliers_account purchases_account purchases_vat_account
+        """)
+
+        self.modules.accounts.Accounts.set_detail_layout("""
+        ref:10 name id:5
+        seqno chart group type clearable
+        ledger.MovementsByAccount
+        """)
 
 
 class DocsSite(Site):

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -17,32 +17,9 @@
 # <http://www.gnu.org/licenses/>.
 
 """
-
-Plugins
-=======
-
-.. autosummary::
-   :toctree:
-
-    cosi
-    accounts
-    sales
-    ledger
-    finan
-    vat
-    vatless
-    finan
-    declarations
-    courses
-    tim2lino
-
-Differentiator packages
-=======================
-
-.. autosummary::
-   :toctree:
-
-    auto
+This module exists just so that Django finds the fixtures.
 
 """
 
+# class Dummy(object):
+#     pass
