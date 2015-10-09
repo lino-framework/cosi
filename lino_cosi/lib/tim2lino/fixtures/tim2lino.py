@@ -1023,12 +1023,17 @@ class TimLoader(object):
 
             ses = rt.login(self.ROOT.username)
 
+            dblogger.info("Register {0} vouchers", len(self.must_register))
+            failures = 0
             for doc in self.must_register:
                 try:
                     doc.register(ses)
                 except Exception as e:
                     dblogger.warning("Failed to register %s : %s ", doc, e)
-                    
+                    failures += 1
+                    if failures > 100:
+                        dblogger.warning("Abandoned after 100 failures.")
+                        break
 
             # Given a string `ms` of type 'VKR940095', locate the corresponding
             # movement.

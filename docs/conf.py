@@ -165,3 +165,5 @@ extlinks.update({
     'djangoticket': (
         'http://code.djangoproject.com/ticket/%s', 'Django ticket #'),
 })
+extlinks.update(
+    ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
