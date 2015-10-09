@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright 2013-2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
@@ -17,33 +16,15 @@
 # <http://www.gnu.org/licenses/>.
 
 """
-
-Plugins
-=======
+Lino Cosi extension of :mod:`lino.modlib.contacts`
 
 .. autosummary::
    :toctree:
 
-    cosi
-    contacts
-    accounts
-    sales
-    ledger
-    finan
-    vat
-    vatless
-    finan
-    declarations
-    courses
-    tim2lino
-
-Differentiator packages
-=======================
-
-.. autosummary::
-   :toctree:
-
-    auto
+    models
+    fixtures.std
+    fixtures.demo
 
 """
 
+from lino.modlib.contacts import Plugin

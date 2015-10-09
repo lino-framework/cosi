@@ -54,7 +54,7 @@ class Site(Site):
         # yield 'lino.modlib.system'
         yield 'lino.modlib.users'
         yield 'lino.modlib.countries'
-        yield 'lino.modlib.contacts'
+        yield 'lino_cosi.lib.contacts'
         #~ yield 'lino.modlib.households'
         yield 'lino.modlib.products'
         yield 'lino_cosi.lib.accounts'

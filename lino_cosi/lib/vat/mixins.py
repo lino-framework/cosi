@@ -19,12 +19,6 @@
 """
 Model mixins for `lino_cosi.lib.vat`.
 
-.. autosummary::
-
-It defines two database models :class:`VatRule` and
-:class:`PaymentTerm`, and a series of mixins which are used in
-:mod:`lino_cosi.lib.ledger`, :mod:`lino_cosi.lib.sales` and other apps.
-
 """
 
 from __future__ import unicode_literals
@@ -44,6 +38,24 @@ from lino_cosi.lib.ledger.mixins import (
 
 from .utils import ZERO, ONE
 from .choicelists import VatClasses, VatRegimes
+
+
+class PartnerDetailMixin(dd.DetailLayout):
+    """Defines a panel :attr:`ledger`, to be added as a tab panel to your
+    layout's `main` element.
+
+    .. attribute:: ledger
+
+        Shows the tables `VouchersByPartner` and `MovementsByPartner`.
+
+    """
+    if dd.is_installed('ledger'):
+        ledger = dd.Panel("""
+        vat.VouchersByPartner
+        ledger.MovementsByPartner
+        """, label=dd.plugins.ledger.verbose_name)
+    else:
+        ledger = dd.DummyPanel()
 
 
 def get_default_vat_regime():
