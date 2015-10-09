@@ -112,6 +112,7 @@ def objects():
         JOURNAL_S = ledger.Journal.objects.get(ref="SLS")
         #~ assert JOURNAL_S.dc == accounts.DEBIT
         CUSTOMERS = Cycler(Person.objects.order_by('id'))
+        assert Person.objects.count() > 0
         ITEMCOUNT = Cycler(1, 2, 3)
         QUANTITIES = Cycler(5, 1, 2, 3)
         SALES_PER_MONTH = Cycler(2, 1, 3, 2, 0)
