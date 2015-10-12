@@ -285,6 +285,7 @@ class EventsByTeacher(cal.Events):
         qs = qs.filter(course__in=teacher.course_set.all())
         return qs
 
+
 class Course(Reservation):
     """A Course is a group of pupils that regularily meet with a given
     teacher in a given room to speak about a given subject.
@@ -401,14 +402,16 @@ class Course(Reservation):
         gr = self.line.guest_role
         if gr is None:
             return
-        fkw = dict(course=self)
-        states = (EnrolmentStates.requested, EnrolmentStates.confirmed)
-        fkw.update(state__in=states)
-        for obj in Enrolment.objects.filter(**fkw):
-            yield Guest(
-                event=event,
-                partner=obj.pupil,
-                role=gr)
+        # fkw = dict(course=self)
+        # states = (EnrolmentStates.requested, EnrolmentStates.confirmed)
+        # fkw.update(state__in=states)
+        qs = Enrolment.objects.filter(course=self).order_by('pupil__name')
+        for obj in qs:
+            if obj.is_guest_for(event):
+                yield Guest(
+                    event=event,
+                    partner=obj.pupil,
+                    role=gr)
 
     def get_free_places(self):
         used_states = EnrolmentStates.filter(uses_a_place=True)
@@ -809,11 +812,12 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         return p
 
     def get_confirm_veto(self, ar):
-        """
-        Called from :class:`ml.courses.ConfirmEnrolment`.
-        If this returns something else than None,
-        then the enrolment won't be confirmed and the return value
-        displayed to the user.
+        """Called from :class:`ConfirmEnrolment
+        <lino_cosi.lib.courses.workflows.ConfirmEnrolment>`.  If this
+        returns something else than `None`, then the enrolment won't
+        be confirmed and the return value will be displayed to the
+        user.
+
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
@@ -821,6 +825,13 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")
+
+    def is_guest_for(self, event):
+        """Return `True` if the pupil of this enrolment should be invited to
+        the given event.
+
+        """
+        return self.state.uses_a_place
 
     def save(self, *args, **kw):
         if not self.course_area:
