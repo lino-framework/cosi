@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2013 Luc Saffre
+# Copyright 2012-2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,29 +19,17 @@
 
 from __future__ import unicode_literals
 
+"""Importing this module will install default workflows for
+`lino_cosi.lib.courses`.
+
 """
-Workflows for the :mod:`lino_cosi.lib.courses` app.
-"""
 
 
-import logging
-logger = logging.getLogger(__name__)
-
-import os
-import cgi
-import datetime
-
-from django.db import models
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import pgettext_lazy as pgettext
-from django.utils.translation import string_concat
-from django.utils.encoding import force_unicode
 
 from lino.api import dd, rt
 
-from lino_cosi.lib.courses.models import EnrolmentStates
-from lino_cosi.lib.courses.models import CourseStates
+from lino_cosi.lib.courses.choicelists import EnrolmentStates, CourseStates
 
 
 class PrintAndChangeStateAction(dd.ChangeStateAction):
@@ -78,6 +66,13 @@ class CertifyEnrolment(PrintAndChangeStateAction):
 
 
 class ConfirmEnrolment(dd.ChangeStateAction):
+    """Confirm this enrolment. Sets the :attr:`state` to `confirmed` after
+    calling :meth:`get_confirm_veto
+    <lino_cosi.lib.courses.models.Enrolment.get_confirm_veto>` to
+    verify whether it is valid (e.g. whether there are enough free
+    places).
+
+    """
     label = _("Confirm")
     #~ icon_name = 'cancel'
     #~ required = dict(states='assigned',owner=True)

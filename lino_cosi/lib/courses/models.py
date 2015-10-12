@@ -62,16 +62,15 @@ cal = dd.resolve_app('cal')
 sales = dd.resolve_app('sales')
 # contacts = dd.resolve_app('contacts')
 
-# """
-# Here we must use `resolve_model` with `strict=True`
-# because we want the concrete model
-# and we don't know whether it is overridden
-# by this application.
-# """
-# Person = dd.resolve_model('contacts.Person', strict=True)
-# equivalent alternative :
-#~ Person = settings.SITE.modules.contacts.Person
+try:
+    teacher_model = dd.plugins.courses.teacher_model
+    pupil_model = dd.plugins.courses.pupil_model
+except AttributeError:
+    # happens only when Sphinx autodoc imports it
+    teacher_model = 'foo.Bar'
+    pupil_model = 'foo.Bar'
 
+FILL_EVENT_GUESTS = False
 
 class CourseAreas(dd.ChoiceList):
     preferred_width = 10
@@ -267,7 +266,7 @@ class LinesByTopic(Lines):
 
 class EventsByTeacher(cal.Events):
     help_text = _("Shows events of courses of this teacher")
-    master = dd.plugins.courses.teacher_model
+    master = teacher_model
     column_names = 'when_text:20 owner room state'
     # column_names = 'when_text:20 course__line room state'
     auto_fit_column_widths = True
@@ -284,6 +283,7 @@ class EventsByTeacher(cal.Events):
         # mycourses = rt.modules.Course.objects.filter(teacher=teacher)
         qs = qs.filter(course__in=teacher.course_set.all())
         return qs
+
 
 class Course(Reservation):
     """A Course is a group of pupils that regularily meet with a given
@@ -303,18 +303,18 @@ class Course(Reservation):
 
     """
 
-    FILL_EVENT_GUESTS = False
-
     class Meta:
         abstract = dd.is_abstract_model(__name__, 'Course')
         verbose_name = _("Course")
         verbose_name_plural = _('Courses')
 
     line = models.ForeignKey('courses.Line')
+
     teacher = models.ForeignKey(
-        dd.plugins.courses.teacher_model,
+        teacher_model,
         verbose_name=_("Instructor"),
         blank=True, null=True)
+
     #~ room = models.ForeignKey(Room,blank=True,null=True)
     slot = models.ForeignKey(Slot, blank=True, null=True)
     description = dd.BabelTextField(_("Description"), blank=True)
@@ -401,14 +401,16 @@ class Course(Reservation):
         gr = self.line.guest_role
         if gr is None:
             return
-        fkw = dict(course=self)
-        states = (EnrolmentStates.requested, EnrolmentStates.confirmed)
-        fkw.update(state__in=states)
-        for obj in Enrolment.objects.filter(**fkw):
-            yield Guest(
-                event=event,
-                partner=obj.pupil,
-                role=gr)
+        # fkw = dict(course=self)
+        # states = (EnrolmentStates.requested, EnrolmentStates.confirmed)
+        # fkw.update(state__in=states)
+        qs = Enrolment.objects.filter(course=self).order_by('pupil__name')
+        for obj in qs:
+            if obj.is_guest_for(event):
+                yield Guest(
+                    event=event,
+                    partner=obj.pupil,
+                    role=gr)
 
     def get_free_places(self):
         used_states = EnrolmentStates.filter(uses_a_place=True)
@@ -511,7 +513,7 @@ dd.update_field(Course, 'every_unit', default=models.NOT_PROVIDED)
 dd.update_field(Course, 'every', default=models.NOT_PROVIDED)
 
 
-if Course.FILL_EVENT_GUESTS:
+if FILL_EVENT_GUESTS:
 
     @dd.receiver(dd.post_save, sender=cal.Event,
                  dispatch_uid="fill_event_guests_from_course")
@@ -573,7 +575,7 @@ class Courses(dd.Table):
         line=models.ForeignKey('courses.Line', blank=True, null=True),
         topic=models.ForeignKey('courses.Topic', blank=True, null=True),
         teacher=models.ForeignKey(
-            dd.plugins.courses.teacher_model,
+            teacher_model,
             blank=True, null=True),
         user=models.ForeignKey(
             settings.SITE.user_model,
@@ -747,7 +749,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
 
     #~ teacher = models.ForeignKey(Teacher)
     course = dd.ForeignKey('courses.Course')
-    pupil = dd.ForeignKey(dd.plugins.courses.pupil_model)
+    pupil = dd.ForeignKey(pupil_model)
     request_date = models.DateField(
         _("Date of request"), default=dd.today)
     state = EnrolmentStates.field(default=EnrolmentStates.requested)
@@ -789,7 +791,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
 
     @dd.chooser()
     def pupil_choices(cls, course):
-        Pupil = dd.resolve_model(dd.plugins.courses.pupil_model)
+        Pupil = dd.resolve_model(pupil_model)
         return Pupil.objects.all()
 
     def create_pupil_choice(self, text):
@@ -797,7 +799,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         Called when an unknown pupil name was given.
         Try to auto-create it.
         """
-        Pupil = dd.resolve_model(dd.plugins.courses.pupil_model)
+        Pupil = dd.resolve_model(pupil_model)
         kw = parse_name(text)
         if len(kw) != 2:
             raise ValidationError(
@@ -809,11 +811,12 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         return p
 
     def get_confirm_veto(self, ar):
-        """
-        Called from :class:`ml.courses.ConfirmEnrolment`.
-        If this returns something else than None,
-        then the enrolment won't be confirmed and the return value
-        displayed to the user.
+        """Called from :class:`ConfirmEnrolment
+        <lino_cosi.lib.courses.workflows.ConfirmEnrolment>`.  If this
+        returns something else than `None`, then the enrolment won't
+        be confirmed and the return value will be displayed to the
+        user.
+
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
@@ -821,6 +824,13 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")
+
+    def is_guest_for(self, event):
+        """Return `True` if the pupil of this enrolment should be invited to
+        the given event.
+
+        """
+        return self.state.uses_a_place
 
     def save(self, *args, **kw):
         if not self.course_area:
@@ -1098,7 +1108,7 @@ class SuggestedCoursesByPupil(ActiveCourses):
     column_names = 'info enrolments free_places custom_actions *'
     auto_fit_column_widths = True
     hide_sums = True
-    master = dd.plugins.courses.pupil_model
+    master = pupil_model
     details_of_master_template = _("%(details)s for %(master)s")
     params_layout = 'topic line teacher active'
 
