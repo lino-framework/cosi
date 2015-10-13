@@ -24,12 +24,14 @@ Database models for `lino_cosi.lib.sepa`.
 
 from __future__ import unicode_literals
 import logging
-from lino_cosi.lib.sepa.camt import CamtParser
+from pprint import pformat
 import glob
 import os
 from django.db import models
+from django.core.exceptions import MultipleObjectsReturned
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
+from .camt import CamtParser
 from .fields import IBANField, BICField
 from .utils import belgian_nban_to_iban_bic, iban2bic
 import time
@@ -81,55 +83,57 @@ class ImportStatements(dd.Action):
 
     def import_file(self, ar, filename):
         Account = rt.modules.sepa.Account
-        Partner = rt.modules.contacts.Partner
 
-        msg = "File {0} would have imported.".format(filename)
-        """Parse a CAMT053 XML file."""
+        # Parse a CAMT053 XML file.
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
+        num = 0
         try:
-            dd.logger.info("Try parsing with camt.")
+            dd.logger.info("Parsing %s with camt.", filename)
             res = parser.parse(data_file)
-            if res is not None:
-                for _statement in res:
-                    if _statement.get('account_number', None) is not None:
-                        # TODO : How to query an account by iban field ?
-                        # account = Account.objects.get(iban=_statement['account_number'])
-                        # if not account:
-                        #     account = Account.objects.get(id=1)
-                        account = Account.objects.get(id=1)
-                        if account:
-                            s = Statement(account=account,
-                                          date=_statement['date'].strftime("%Y-%m-%d"),
-                                          date_done=time.strftime("%Y-%m-%d"),
-                                          statement_number=_statement['name'],
-                                          balance_end=_statement['balance_end'],
-                                          balance_start=_statement['balance_start'],
-                                          balance_end_real=_statement['balance_end_real'],
-                                          currency_code=_statement['currency_code'])
-                            s.save()
-                            for _movement in _statement['transactions']:
-                                partner = None
-                                if _movement.get('partner_name', None) is not None:
-                                    if Partner.objects.filter(name=_movement['partner_name']).exists():
-                                        partner = Partner.objects.get(name=_movement['partner_name'])
-                                    else:
-                                        partner = Partner.objects.order_by('name')[0]
-                                # TODO :check if the movement is already imported.
-                                if not Movement.objects.filter(unique_import_id=_movement['unique_import_id']).exists():
-                                    _ref = _movement.get('ref', '') or ''
-                                    m = Movement(statement=s,
-                                                 unique_import_id=_movement['unique_import_id'],
-                                                 movement_date=_movement['date'],
-                                                 amount=_movement['amount'],
-                                                 partner=partner,
-                                                 partner_name=_movement['partner_name'],
-                                                 ref=_movement.get('ref', '') or '',
-                                                 bank_account=account)
-                                    m.save()
+            if res is None:
+                raise Exception("res is None")
+            for _statement in res:
+                iban = _statement['account_number']
+                if iban is None:
+                    msg = "Statement without account number : {0}"
+                    raise Exception(msg.format(pformat(_statement)))
+                try:
+                    account = Account.objects.get(iban=iban)
+                except Account.DoesNotExist:
+                    account = Account(iban=iban)
+                    account.full_clean()
+                    account.save()
+                except MultipleObjectsReturned:
+                    msg = "Found more than one account with IBAN {0}"
+                    raise Exception(msg.format(iban))
+                s = Statement(account=account,
+                              date=_statement['date'].strftime("%Y-%m-%d"),
+                              date_done=time.strftime("%Y-%m-%d"),
+                              statement_number=_statement['name'],
+                              balance_end=_statement['balance_end'],
+                              balance_start=_statement['balance_start'],
+                              balance_end_real=_statement['balance_end_real'],
+                              currency_code=_statement['currency_code'])
+                s.save()
+                for _movement in _statement['transactions']:
+                    # TODO :check if the movement is already imported.
+                    if not Movement.objects.filter(
+                            unique_import_id=_movement['unique_import_id']).exists():
+                        _ref = _movement.get('ref', '') or ''
+                        m = Movement(statement=s,
+                                     unique_import_id=_movement['unique_import_id'],
+                                     movement_date=_movement['date'],
+                                     amount=_movement['amount'],
+                                     partner_name=_movement.remote_owner,
+                                     ref=_ref,
+                                     bank_account=_movement.remote_account)
+                        m.save()
 
         except ValueError:
             dd.logger.info("Statement file was not a camt file.")
+
+        msg = "Imported {0} statemenmts from file {1}.".format(num, filename)
         dd.logger.info(msg)
         ar.info(msg)
 
@@ -152,7 +156,7 @@ class Account(dd.Model):
 
     partner = dd.ForeignKey(
         'contacts.Partner',
-        related_name='sepa_accounts')
+        related_name='sepa_accounts', null=True, blank=True)
 
     iban = IBANField(verbose_name=_("IBAN"))
     bic = BICField(verbose_name=_("BIC"), blank=True)
