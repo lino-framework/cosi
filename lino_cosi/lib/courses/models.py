@@ -66,11 +66,13 @@ try:
     teacher_model = dd.plugins.courses.teacher_model
     pupil_model = dd.plugins.courses.pupil_model
 except AttributeError:
-    # happens only when Sphinx autodoc imports it
+    # Happens only when Sphinx autodoc imports it and this module is
+    # not installed.
     teacher_model = 'foo.Bar'
     pupil_model = 'foo.Bar'
 
 FILL_EVENT_GUESTS = False
+
 
 class CourseAreas(dd.ChoiceList):
     preferred_width = 10
