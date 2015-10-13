@@ -36,6 +36,7 @@ Plugins
     declarations
     courses
     tim2lino
+    sepa
 
 Differentiator packages
 =======================
