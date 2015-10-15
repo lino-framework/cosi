@@ -16,6 +16,7 @@
 # <http://www.gnu.org/licenses/>.
 
 """Defines entry fields for IBAN and BIC.
+
 """
 
 from django.db import models
