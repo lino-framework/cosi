@@ -349,9 +349,8 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def register_voucher(self, ar):
         """
-        delete any existing movements and re-create them
+        Delete any existing movements and re-create them
         """
-        #~ if self.year is None:
         self.year = FiscalYears.from_date(self.date)
         if self.number is None:
             self.number = self.journal.get_next_number(self)
@@ -363,7 +362,6 @@ class Voucher(UserAuthored, mixins.Registrable):
             m.seqno = seqno
             m.full_clean()
             m.save()
-        #~ super(Voucher,self).register(ar)
 
     def deregister_voucher(self, ar):
         self.number = None
@@ -591,12 +589,4 @@ dd.inject_field(
     'accounts.Account',
     'clearable', models.BooleanField(_("Clearable"), default=False))
 
-
-def update_partner_satisfied(p):
-    """This is called when a voucher has been (un)registered on each
-    partner for whom the voucher caused at least one movement.
-
-    """
-    for m in get_due_movements(DEBIT, partner=p):
-        m.update_satisfied()
 

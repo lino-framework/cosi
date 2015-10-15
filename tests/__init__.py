@@ -19,6 +19,11 @@ class BaseTestCase(TestCase):
     django_settings_module = 'lino_cosi.projects.std.settings.test'
 
 
+class CodeTests(TestCase):
+    def test_sample_ibans(self):
+        self.run_simple_doctests('lino_cosi/lib/sepa/fixtures/sample_ibans.py')
+
+
 class DocsTests(BaseTestCase):
     # def test_cosi(self):
     #     return self.run_docs_doctests('tested/cosi.rst')

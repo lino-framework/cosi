@@ -33,10 +33,6 @@ Usage:
 """
 from __future__ import unicode_literals
 
-import logging
-logger = logging.getLogger(__name__)
-
-
 GET_THEM_ALL = True
 
 import os
@@ -44,6 +40,7 @@ import datetime
 from decimal import Decimal
 # from lino.utils.quantities import Duration
 
+from clint.textui import puts, progress
 from dateutil import parser as dateparser
 
 from django.conf import settings
@@ -147,16 +144,16 @@ def convert_gender(v):
 
 
 def mton(s):  # PriceField
-
     s = s.strip()
-    if s:
-        if s != "GRATIS":
-            # TIM accepted an (erroneous) amount '36535..23' as 36535
-            # (omitting the part after the duplicated ".")
-            i = s.find('..')
-            if i != -1:
-                s = s[:i]
-            return Decimal(s)
+    if not s:
+        return None
+    if s != "GRATIS":
+        # TIM accepted an (erroneous) amount '36535..23' as 36535
+        # (omitting the part after the duplicated ".")
+        i = s.find('..')
+        if i != -1:
+            s = s[:i]
+        return Decimal(s)
     return Decimal()
 
 
@@ -242,8 +239,6 @@ def try_full_clean(i):
 
 class TimLoader(object):
 
-    use_dbf_py = True
-
     LEN_IDGEN = 6
 
     archived_tables = set()
@@ -253,11 +248,15 @@ class TimLoader(object):
     # etat_registered = "C"¹
     etat_registered = "¹"
 
+    sales_gen2art = dict()
+    """A dict which maps a `GEN->IdGen` to a product instance or id.
+    
+    """
+
     def __init__(self, dbpath):
         self.dbpath = dbpath
         self.VENDICT = dict()
         self.FINDICT = dict()
-        self.sales_gen2art = dict()
         self.GROUPS = dict()
         self.languages = dd.resolve_languages(
             dd.plugins.tim2lino.languages)
@@ -341,6 +340,10 @@ class TimLoader(object):
             return 'AO'
         if s == 'TUN':
             return 'TN'
+        if s == 'EST':
+            return 'EE'
+        if s == 'SLO':
+            return 'SK'
         if s == 'S':
             return 'SE'
         if s == 'D-':
@@ -456,8 +459,8 @@ class TimLoader(object):
             obj = accounts.Account(**kw)
             # if idgen == "612410":
                 # raise Exception(20131116)
-            # logger.info("20131116 %s",dd.obj2str(obj))
-            # logger.info("20131116 ACCOUNT %s ",obj)
+            # dblogger.info("20131116 %s",dd.obj2str(obj))
+            # dblogger.info("20131116 ACCOUNT %s ",obj)
             yield obj
 
     def load_jnl(self, row, **kw):
@@ -511,7 +514,6 @@ class TimLoader(object):
             self.must_register.append(doc)
         return doc
 
-
     def load_fnl(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
@@ -549,8 +551,8 @@ class TimLoader(object):
             kw.update(amount=mton(row.mont))
             kw.update(dc=self.dc2lino(row.dc))
         except Exception as e:
-            logger.warning("Failed to load FNL line %s from %s : %s",
-                           row, kw, e)
+            dblogger.warning(
+                "Failed to load FNL line %s from %s : %s", row, kw, e)
             raise
         try:
             item = doc.add_voucher_item(**kw)
@@ -559,8 +561,8 @@ class TimLoader(object):
                 self.must_match.append((doc, item, match))
             return item
         except Exception as e:
-            logger.warning("Failed to load FNL line %s from %s : %s",
-                           row, kw, e)
+            dblogger.warning(
+                "Failed to load FNL line %s from %s : %s", row, kw, e)
 
     def load_ven(self, row, **kw):
         jnl, year, number = row2jnl(row)
@@ -610,7 +612,7 @@ class TimLoader(object):
         if doc is None:
             raise Exception("VNL {0} without document".format(
                 [jnl, year, number]))
-        # logger.info("20131116 %s %s",row.idjnl,row.iddoc)
+        # dblogger.info("20131116 %s %s",row.idjnl,row.iddoc)
         # doc = jnl.get_document(year,number)
         # try:
             # doc = jnl.get_document(year,number)
@@ -622,8 +624,7 @@ class TimLoader(object):
         idart = row.idart.strip()
         if isinstance(doc, sales.VatProductInvoice):
             if row.code in ('A', 'F'):
-                if idart != '*':
-                    kw.update(product=int(idart))
+                kw.update(product=products.Product.get_by_ref(idart))
             elif row.code == 'G':
                 a = self.vnlg2product(row)
                 if a is not None:
@@ -635,8 +636,12 @@ class TimLoader(object):
                 kw.update(account=idart)
         kw.update(title=row.desig.strip())
         kw.update(vat_class=tax2vat(row.idtax))
-        kw.update(total_base=mton(row.cmont))
-        kw.update(total_vat=mton(row.montt))
+        mb = mton(row.cmont)
+        mv = mton(row.montt)
+        kw.update(total_base=mb)
+        kw.update(total_vat=mv)
+        if mb is not None and mv is not None:
+            kw.update(total_incl=mb+mv)
         # kw.update(qty=row.idtax.strip())
         # kw.update(qty=row.montt.strip())
         # kw.update(qty=row.attrib.strip())
@@ -644,8 +649,8 @@ class TimLoader(object):
         try:
             return doc.add_voucher_item(**kw)
         except Exception as e:
-            logger.warning("Failed to load VNL line %s from %s : %s",
-                           row, kw, e)
+            dblogger.warning("Failed to load VNL line %s from %s : %s",
+                             row, kw, e)
 
     def vnlg2product(self, row):
         a = row.idart.strip()
@@ -682,10 +687,18 @@ class TimLoader(object):
                 country = Country.objects.get(isocode=self.short2iso(pk))
                 # country = Country.objects.get(short_code=pk)
             except Country.DoesNotExist:
-                dblogger.warning("Ignored PLZ record %s" % row)
+                dblogger.warning(
+                    "Ignored PLZ %s (with invalid country %s)", row, pk)
                 return
+        zip_code = row['cp'].strip()
+        if Place.objects.filter(zip_code=zip_code, country=country).exists():
+            dblogger.warning(
+                "Ignored PLZ %s (duplicate zip code %s-%s)",
+                row, country.isocode, zip_code)
+            return
+
         kw = dict(
-            zip_code=row['cp'].strip() or '',
+            zip_code=zip_code,
             name=name,
             country=country,
         )
@@ -826,7 +839,7 @@ class TimLoader(object):
                     obj.full_clean()
                     yield obj
                 except ValidationError:
-                    dd.logger.warning(
+                    dblogger.warning(
                         "Ignored invalid PAR->Compte1 %r", compte1)
 
     def load_prj(self, row, **kw):
@@ -920,16 +933,22 @@ class TimLoader(object):
             yield rt.modules.notes.Note(**kw)
 
     def load_art(self, row, **kw):
-        try:
-            pk = int(row.idart)
-        except ValueError as e:
-            logger.warning("Ignored %s: %s", row, e)
+        # try:
+        #     pk = int(row.idart)
+        # except ValueError as e:
+        #     dblogger.warning("Ignored %s: %s", row, e)
+        #     # return
+        idart = row.idart.strip()
+        if not idart:
+            dblogger.warning("Ignored %s: ART->IdArt is empty", row)
             return
-        if pk == 0:
-            pk = 1000  # mysql doesn't accept value 0
-        kw.update(id=pk)
+        kw.update(ref=idart)
+        # if pk == 0:
+        #     pk = 1000  # mysql doesn't accept value 0
+        # kw.update(id=pk)
         self.babel2kw('name', 'name', row, kw)
-        # logger.info("20140823 product %s", kw)
+        # dblogger.info("20140823 product %s", kw)
+        kw.setdefault('name', idart)
         return products.Product(**kw)
 
     def decode_string(self, v):
@@ -952,16 +971,21 @@ class TimLoader(object):
                         kw[lino_fld] = v
             except ex as e:
                 pass
-                logger.info("Ignoring %s", e)
+                dblogger.info("Ignoring %s", e)
 
     def after_load(self, tableName):
-        pass
+        for tableName2, func in dd.plugins.tim2lino.load_listeners:
+            if tableName2 == tableName:
+                func(self)
 
     def after_gen_load(self):
         sc = dict()
         for k, v in dd.plugins.tim2lino.siteconfig_accounts.items():
             sc[k] = self.CHART.get_account_by_ref(v)
         settings.SITE.site_config.update(**sc)
+        # func = dd.plugins.tim2lino.setup_tim2lino
+        # if func:
+        #     func(self)
 
     def objects(tim):
 
@@ -994,14 +1018,17 @@ class TimLoader(object):
 
         self.after_gen_load()
 
-        yield tim.load_dbf('JNL')
         yield tim.load_dbf('ART')
+        yield tim.load_dbf('JNL')
 
         yield dpy.FlushDeferredObjects
 
         # yield tim.load_dbf('NAT')
         yield tim.load_dbf('PLZ')
         yield tim.load_dbf('PAR')
+
+        # from lino_cosi.lib.vat.fixtures import euvatrates
+        # yield euvatrates.objects()
 
         settings.SITE.loading_from_dump = True
         yield tim.load_dbf('PRJ')
@@ -1023,9 +1050,10 @@ class TimLoader(object):
 
             ses = rt.login(self.ROOT.username)
 
-            dblogger.info("Register {0} vouchers", len(self.must_register))
+            dblogger.info("Register %d vouchers", len(self.must_register))
             failures = 0
-            for doc in self.must_register:
+            for doc in progress.bar(self.must_register):
+                # puts("Registering {0}".format(doc))
                 try:
                     doc.register(ses)
                 except Exception as e:
@@ -1037,7 +1065,7 @@ class TimLoader(object):
 
             # Given a string `ms` of type 'VKR940095', locate the corresponding
             # movement.
-            dblogger.info("Resolving {0} matches", len(self.must_match))
+            dblogger.info("Resolving %d matches", len(self.must_match))
             for (voucher, matching, ms) in self.must_match:
                 if matching.pk is None:
                     dblogger.warning("Ignored match %s in %s (pk is None)" % (
@@ -1069,7 +1097,7 @@ class TimLoader(object):
                 
 
 def objects():
-    settings.SITE.startup()
+    # settings.SITE.startup()
     tim = TimLoader(settings.SITE.legacy_data_path)
     for obj in tim.objects():
         yield obj
