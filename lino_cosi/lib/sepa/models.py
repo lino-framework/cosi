@@ -88,6 +88,7 @@ class ImportStatements(dd.Action):
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         num = 0
+        failed_statements = {}
         try:
             dd.logger.info("Parsing %s with camt.", filename)
             res = parser.parse(data_file)
@@ -96,8 +97,10 @@ class ImportStatements(dd.Action):
             for _statement in res:
                 iban = _statement['account_number']
                 if iban is None:
-                    msg = "Statement without account number : {0}"
-                    raise Exception(msg.format(pformat(_statement)))
+                    # msg = "Statement without account number : {0}"
+                    failed_statements[num] = "IBAN Not found"
+                    continue
+                    # raise Exception(msg.format(pformat(_statement)))
                 try:
                     account = Account.objects.get(iban=iban)
                 except Account.DoesNotExist:
@@ -129,13 +132,24 @@ class ImportStatements(dd.Action):
                                      ref=_ref,
                                      bank_account=_movement.remote_account)
                         m.save()
+                num += 1
 
         except ValueError:
             dd.logger.info("Statement file was not a camt file.")
 
-        msg = "Imported {0} statemenmts from file {1}.".format(num, filename)
-        dd.logger.info(msg)
-        ar.info(msg)
+        if len(failed_statements) == 0:
+            msg = "Imported {0} statemenmts from file {1}.".format(num, filename)
+            dd.logger.info(msg)
+            ar.info(msg)
+        else:
+            count_statements_imported = num - len(failed_statements)
+            msg = "Imported {0} statemenmts from file {1} with {2} statements failed.".format(count_statements_imported,
+                                                                                              filename,
+                                                                                              len(failed_statements))
+            dd.logger.info(msg)
+            for i, _statement in enumerate(failed_statements):
+                msg_error = "Statement number {0} failed to be imported : {1}.".format(i + 1, _statement)
+                dd.logger.info(msg_error)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
@@ -257,9 +271,9 @@ class Movement(dd.Model):
     movement_date = models.DateField(_('Movement date'), null=True)
     amount = dd.PriceField(_('Amount'), null=True)
     partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
-    partner_name = models.CharField(_('Partner name'), max_length=32)
+    partner_name = models.CharField(_('Partner name'), max_length=35)
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
-    ref = models.CharField(_('Ref'), null=False, max_length=32)
+    ref = models.CharField(_('Ref'), null=False, max_length=35)
 
 
 from .ui import *
