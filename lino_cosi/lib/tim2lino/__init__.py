@@ -65,6 +65,8 @@ class Plugin(ad.Plugin):
 
     """
 
+    load_listeners = []
+
     siteconfig_accounts = dict(
         clients_account='400000',
         suppliers_account='440000',
@@ -74,3 +76,6 @@ class Plugin(ad.Plugin):
         purchases_account='610000',
         purchases_vat_account='451000',  # due vat 451000, 472200
         clearings_account='499000')  # 462100
+
+    def add_load_listener(self, tableName, func):
+        self.load_listeners.append((tableName, func))

@@ -23,7 +23,7 @@ Model mixins for :mod:`lino_cosi.lib.finan`.
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from lino_cosi.lib.accounts.utils import ZERO
+from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 from lino_cosi.lib.ledger.mixins import VoucherItem, SequencedVoucherItem
 from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching
@@ -60,13 +60,24 @@ class FinancialVoucher(ledger.Voucher):
     #     self.update_satisfied()
 
     def update_satisfied(self):
+        """
+        Called when a voucher has been (de)registered on each partner for
+        whom the voucher caused at least one movement.
+
+        """
+        if True:
+            return
+            # temporarily disabled because it takes much time when
+            # registering 25000 imported vouchers... TODO: allow to
+            # disable it from code, and allow to run it afterwards for
+            # all partners at once.
         partners = set()
-        #~ matches = dict()
         for i in self.items.all():
             if i.partner:
                 partners.add(i.partner)
         for p in partners:
-            ledger.update_partner_satisfied(p)
+            for m in ledger.get_due_movements(DEBIT, partner=p):
+                m.update_satisfied()
 
     def add_item_from_due(self, obj, **kwargs):
         i = self.add_voucher_item(
