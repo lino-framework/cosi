@@ -20,7 +20,7 @@
 """Contains a random list of example IBANs to be used for generating
 demo data.
 
-Thanks to <www.mobilefish.com
+Thanks to `www.mobilefish.com
 <http://www.mobilefish.com/services/random_iban_generator/random_iban_generator.php>`_.
 
 .. how to test only this module:
