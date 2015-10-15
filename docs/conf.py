@@ -167,3 +167,14 @@ extlinks.update({
 })
 extlinks.update(
     ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
+
+
+autodoc_member_order = 'bysource'
+autodoc_default_flags = ['show-inheritance', 'members']
+
+my_font_family = "Swiss, Helvetica, 'Liberation Sans'"
+html_theme_options = {
+    "font_family": my_font_family,
+    "head_font_family": my_font_family,
+}
+
