@@ -124,14 +124,21 @@ class ImportStatements(dd.Action):
                     if not Movement.objects.filter(
                             unique_import_id=_movement['unique_import_id']).exists():
                         _ref = _movement.get('ref', '') or ''
-                        m = Movement(statement=s,
-                                     unique_import_id=_movement['unique_import_id'],
-                                     movement_date=_movement['date'],
-                                     amount=_movement['amount'],
-                                     partner_name=_movement.remote_owner,
-                                     ref=_ref,
-                                     bank_account=_movement.remote_account)
-                        m.save()
+                        if _movement.remote_account:
+                            try:
+                                _bank_account = Account.objects.get(iban=_movement.remote_account)
+                            except Account.DoesNotExist:
+                                _bank_account = Account(iban=_movement.remote_account)
+                                _bank_account.full_clean()
+                                _bank_account.save()
+                            m = Movement(statement=s,
+                                         unique_import_id=_movement['unique_import_id'],
+                                         movement_date=_movement['date'],
+                                         amount=_movement['amount'],
+                                         partner_name=_movement.remote_owner,
+                                         ref=_ref,
+                                         bank_account=_bank_account)
+                            m.save()
                 num += 1
 
         except ValueError:
@@ -148,7 +155,7 @@ class ImportStatements(dd.Action):
                                                                                               len(failed_statements))
             dd.logger.info(msg)
             for i, _statement in enumerate(failed_statements):
-                msg_error = "Statement number {0} failed to be imported : {1}.".format(i + 1, _statement)
+                msg_error = "Statement number {0} failed to be imported : {1}.".format(i + 1, failed_statements[_statement])
                 dd.logger.info(msg_error)
 
 
