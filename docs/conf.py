@@ -167,3 +167,5 @@ extlinks.update({
 })
 extlinks.update(
     ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
+
+
