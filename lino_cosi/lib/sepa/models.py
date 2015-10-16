@@ -126,14 +126,16 @@ class ImportStatements(dd.Action):
                         unique_import_id=_movement['unique_import_id']).exists():
                         continue
                     _ref = _movement.get('ref', '') or ''
+                    kw = dict()
+                    if _movement.remote_bank_bic:
+                        kw.update(remote_bic=_movement.remote_bank_bic)
                     m = Movement(statement=s,
                                  unique_import_id=_movement['unique_import_id'],
                                  movement_date=_movement['date'],
                                  amount=_movement['amount'],
                                  partner_name=_movement.remote_owner,
                                  ref=_ref,
-                                 remote_account=_movement.remote_account,
-                                 remote_bic=_movement.remote_bank_bic)
+                                 remote_account=_movement.remote_account, **kw)
                     m.save()
                 num += 1
 
