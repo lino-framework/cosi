@@ -110,6 +110,7 @@ class ImportStatements(dd.Action):
                 except MultipleObjectsReturned:
                     msg = "Found more than one account with IBAN {0}"
                     dd.logger.warning(msg.format(iban))
+                    continue
                 s = Statement(account=account,
                               date=_statement['date'].strftime("%Y-%m-%d"),
                               date_done=time.strftime("%Y-%m-%d"),
@@ -120,25 +121,20 @@ class ImportStatements(dd.Action):
                               currency_code=_statement['currency_code'])
                 s.save()
                 for _movement in _statement['transactions']:
+                    assert _movement.remote_account == account.iban
                     # TODO :check if the movement is already imported.
-                    if not Movement.objects.filter(
-                            unique_import_id=_movement['unique_import_id']).exists():
-                        _ref = _movement.get('ref', '') or ''
-                        if _movement.remote_account:
-                            try:
-                                _bank_account = Account.objects.get(iban=_movement.remote_account)
-                            except Account.DoesNotExist:
-                                _bank_account = Account(iban=_movement.remote_account)
-                                _bank_account.full_clean()
-                                _bank_account.save()
-                            m = Movement(statement=s,
-                                         unique_import_id=_movement['unique_import_id'],
-                                         movement_date=_movement['date'],
-                                         amount=_movement['amount'],
-                                         partner_name=_movement.remote_owner,
-                                         ref=_ref,
-                                         bank_account=_bank_account)
-                            m.save()
+                    if Movement.objects.filter(
+                        unique_import_id=_movement['unique_import_id']).exists():
+                        continue
+                    _ref = _movement.get('ref', '') or ''
+                    m = Movement(statement=s,
+                                 unique_import_id=_movement['unique_import_id'],
+                                 movement_date=_movement['date'],
+                                 amount=_movement['amount'],
+                                 partner_name=_movement.remote_owner,
+                                 ref=_ref,
+                                 bank_account=account)
+                    m.save()
                 num += 1
 
         except ValueError:
