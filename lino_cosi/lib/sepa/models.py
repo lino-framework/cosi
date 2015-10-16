@@ -109,7 +109,7 @@ class ImportStatements(dd.Action):
                     account.save()
                 except MultipleObjectsReturned:
                     msg = "Found more than one account with IBAN {0}"
-                    raise Exception(msg.format(iban))
+                    dd.logger.warning(msg.format(iban))
                 s = Statement(account=account,
                               date=_statement['date'].strftime("%Y-%m-%d"),
                               date_done=time.strftime("%Y-%m-%d"),
