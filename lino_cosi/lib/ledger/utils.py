@@ -136,7 +136,11 @@ class DueMovement(object):
             self.payments.append(mvt)
             self.balance -= mvt.amount
 
-    def update_satisfied(self):
+    def check_clearings(self):
+        """Check whether involved movements are cleared or not, and update
+        their :attr:`satisfied` field accordingly.
+
+        """
         satisfied = self.balance == ZERO
         if satisfied:
             if not self.has_unsatisfied_movement:

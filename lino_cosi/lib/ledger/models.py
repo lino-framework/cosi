@@ -92,11 +92,19 @@ class Journal(mixins.BabelNamed,
     .. attribute:: printed_name
     .. attribute:: dc
 
+    .. attribute:: auto_check_clearings
+
+        Whether to automatically check and update the 'cleared' status
+        of involved transactions when (de)registering a voucher of
+        this journal.
+
+        This can be temporarily disabled e.g. by batch actions in
+        order to save time.
+
     .. attribute:: template
 
         See :attr:`PrintableType.template
         <lino.mixins.printable.PrintableType.template>`.
-
 
     """
 
@@ -107,7 +115,11 @@ class Journal(mixins.BabelNamed,
     trade_type = TradeTypes.field(blank=True)
     voucher_type = VoucherTypes.field()
     journal_group = JournalGroups.field()
-
+    auto_check_clearings = models.BooleanField(
+        _("Check clearing"), default=True,
+        help_text=_("Automatically update the cleared status of involved "
+                    "transactions when (de)registering a voucher of this "
+                    "journal"))
     force_sequence = models.BooleanField(
         _("Force chronological sequence"), default=False)
     chart = AccountCharts.field()

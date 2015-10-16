@@ -49,35 +49,23 @@ class FinancialVoucher(ledger.Voucher):
 
     def after_state_change(self, ar, old, new):
         super(FinancialVoucher, self).after_state_change(ar, old, new)
-        self.update_satisfied()
+        if self.journal.auto_check_clearings:
+            self.check_clearings()
 
-    # def register(self, ar):
-    #     super(FinancialVoucher, self).register(ar)
-    #     self.update_satisfied()
+    def check_clearings(self):
+        """Update the `satisfied` field of movements of all related partners.
 
-    # def deregister(self, ar):
-    #     super(FinancialVoucher, self).deregister(ar)
-    #     self.update_satisfied()
-
-    def update_satisfied(self):
-        """
         Called when a voucher has been (de)registered on each partner for
         whom the voucher caused at least one movement.
 
         """
-        if True:
-            return
-            # temporarily disabled because it takes much time when
-            # registering 25000 imported vouchers... TODO: allow to
-            # disable it from code, and allow to run it afterwards for
-            # all partners at once.
         partners = set()
         for i in self.items.all():
             if i.partner:
                 partners.add(i.partner)
         for p in partners:
             for m in ledger.get_due_movements(DEBIT, partner=p):
-                m.update_satisfied()
+                m.check_clearings()
 
     def add_item_from_due(self, obj, **kwargs):
         i = self.add_voucher_item(

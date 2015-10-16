@@ -51,6 +51,7 @@ from lino.utils import dblogger
 from lino.utils import dpy
 
 from lino_cosi.lib.accounts.choicelists import AccountTypes
+from lino_cosi.lib.accounts.utils import ZERO
 
 from lino.core.utils import obj2str
 from lino.core.utils import is_valid_email
@@ -143,10 +144,10 @@ def convert_gender(v):
     return None
 
 
-def mton(s):  # PriceField
+def mton(s, default=None):  # PriceField
     s = s.strip()
     if not s:
-        return None
+        return default
     if s != "GRATIS":
         # TIM accepted an (erroneous) amount '36535..23' as 36535
         # (omitting the part after the duplicated ".")
@@ -468,6 +469,8 @@ class TimLoader(object):
         kw.update(ref=row.idjnl, name=row.libell)
         kw.update(chart=self.CHART)
         kw.update(dc=self.dc2lino(row.dc))
+        kw.update(auto_check_clearings=False)
+
         if row.alias == 'VEN':
             if row.idctr == 'V':
                 kw.update(trade_type=vat.TradeTypes.sales)
@@ -505,8 +508,8 @@ class TimLoader(object):
         # kw.update(id=pk)
         kw.update(date=row.date)
         kw.update(user=self.get_user())
-        kw.update(balance1=mton(row.mont1))
-        kw.update(balance2=mton(row.mont2))
+        kw.update(balance1=mton(row.mont1, ZERO))
+        kw.update(balance2=mton(row.mont2, ZERO))
         doc = jnl.create_voucher(**kw)
         self.FINDICT[(jnl, year, number)] = doc
         # print row.etat
@@ -548,7 +551,7 @@ class TimLoader(object):
             else:
                 a = accounts.Account.objects.get(ref=row.idcpt.strip())
                 kw.update(account=a)
-            kw.update(amount=mton(row.mont))
+            kw.update(amount=mton(row.mont, ZERO))
             kw.update(dc=self.dc2lino(row.dc))
         except Exception as e:
             dblogger.warning(

@@ -79,7 +79,7 @@ Test whether :meth:`get_db_overview_rst
  finan.PaymentOrder         finan.PaymentOrders            12        15
  finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        0
  gfks.HelpText              gfks.HelpTexts                 4         2
- ledger.Journal             ledger.Journals                14        7
+ ledger.Journal             ledger.Journals                15        7
  ledger.MatchRule           ledger.MatchRules              3         10
  ledger.Movement            ledger.Movements               9         495
  ledger.PaymentTerm         ledger.PaymentTerms            5         0
@@ -94,7 +94,7 @@ Test whether :meth:`get_db_overview_rst
  sales.ShippingMode         sales.ShippingModes            3         0
  sales.VatProductInvoice    sales.Invoices                 27        26
  sepa.Account               sepa.Accounts                  6         17
- sepa.Movement              sepa.Movements                 9         0
+ sepa.Movement              sepa.Movements                 10        0
  sepa.Statement             sepa.Statements                9         0
  system.SiteConfig          system.SiteConfigs             15        1
  uploads.Upload             uploads.Uploads                9         0
