@@ -121,7 +121,6 @@ class ImportStatements(dd.Action):
                               currency_code=_statement['currency_code'])
                 s.save()
                 for _movement in _statement['transactions']:
-                    assert _movement.remote_account == account.iban
                     # TODO :check if the movement is already imported.
                     if Movement.objects.filter(
                         unique_import_id=_movement['unique_import_id']).exists():
@@ -133,7 +132,8 @@ class ImportStatements(dd.Action):
                                  amount=_movement['amount'],
                                  partner_name=_movement.remote_owner,
                                  ref=_ref,
-                                 bank_account=account)
+                                 remote_account=_movement.remote_account,
+                                 remote_bic=_movement.remote_bank_bic)
                     m.save()
                 num += 1
 
@@ -275,7 +275,8 @@ class Movement(dd.Model):
     amount = dd.PriceField(_('Amount'), null=True)
     partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
     partner_name = models.CharField(_('Partner name'), max_length=35)
-    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+    remote_account = IBANField(verbose_name=_("IBAN"))
+    remote_bic = BICField(verbose_name=_("BIC"), blank=True)
     ref = models.CharField(_('Ref'), null=False, max_length=35)
 
 
