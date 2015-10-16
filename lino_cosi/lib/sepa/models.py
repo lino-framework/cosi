@@ -82,9 +82,8 @@ class ImportStatements(dd.Action):
         return ar.error(msg, alert=_("Error"))
 
     def import_file(self, ar, filename):
+        """Import the named file, which must be a CAMT053 XML file."""
         Account = rt.modules.sepa.Account
-
-        # Parse a CAMT053 XML file.
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         num = 0
