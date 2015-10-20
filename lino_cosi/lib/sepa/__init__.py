@@ -41,7 +41,6 @@ class Plugin(ad.Plugin):
     verbose_name = _("SEPA")
     site_js_snippets = ['iban/uppercasetextfield.js']
 
-    # import_statements_path = "/home/khchine5/Documents/Documentation/Lino/Ticket 505/test_file/"
     import_statements_path = None
     """A path wildcard pointing to xml files which need to get imported.
 
@@ -61,17 +60,14 @@ class Plugin(ad.Plugin):
     """This attribute define whether, Cosi have to delete the SEPA file after it get imported.
     """
 
-    # def setup_main_menu(config, site, profile, m):
-    #     m = m.add_menu(config.app_label, config.verbose_name)
-    #     m.add_action('system.SiteConfig', 'import_sepa')
-    #     m.add_action('sepa.Orphanedaccounts')
     needs_plugins = ['lino_cosi.lib.ledger']
 
     def setup_main_menu(self, site, profile, m):
         mg = site.plugins.accounts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('system.SiteConfig', 'import_sepa')
-        m.add_action('sepa.Orphanedaccounts')
+        m.add_action('sepa.OrphanedAccounts')
+
     def setup_explorer_menu(config, site, profile, m):
         m = m.add_menu(config.app_label, config.verbose_name)
         m.add_action('sepa.Accounts')

@@ -120,11 +120,12 @@ class MovementsByStatement(Movements):
     auto_fit_column_widths = True
 
 
-class Orphanedaccounts(dd.Table):
+class OrphanedAccounts(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Account'
     order_by = ["id"]
     detail_layout = AccountsDetail()
+    label = _("Orphaned bank accounts")
     insert_layout = """
     partner
     iban bic
@@ -133,7 +134,3 @@ class Orphanedaccounts(dd.Table):
     @classmethod
     def get_queryset(self, ar):
         return self.model.objects.filter(partner=None)
-
-    @classmethod
-    def get_actor_label(self):
-        return _("Orphaned accounts")
