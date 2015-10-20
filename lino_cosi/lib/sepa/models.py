@@ -148,7 +148,8 @@ class ImportStatements(dd.Action):
                                          amount=_movement['amount'],
                                          partner_name=_movement.remote_owner,
                                          ref=_ref,
-                                         bank_account=_bank_account,
+                                         remote_account=_bank_account.iban,
+                                         remote_bic = _bank_account.bic,
                                          message=_movement._message or ' ',
                                          eref=_movement.eref or ' ',
                                          remote_owner=_movement.remote_owner or ' ',
@@ -167,7 +168,8 @@ class ImportStatements(dd.Action):
                             m.amount = _movement['amount']
                             m.partner_name = _movement.remote_owner
                             m.ref = _ref
-                            m.bank_account = _bank_account,
+                            m.remote_account=_bank_account.iban,
+                            m.remote_bic = _bank_account.bic,
                             m.message = _movement._message or ' '
                             m.eref = _movement.eref or ' '
                             m.remote_owner = _movement.remote_owner or ' '

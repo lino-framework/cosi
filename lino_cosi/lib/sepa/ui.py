@@ -101,7 +101,7 @@ class MovementDetail(dd.FormLayout):
 
     general = dd.Panel("""
     statement:30 unique_import_id:30 movement_date:20 amount:20
-    partner:20 bank_account:20 ref:20 message:20 eref:20
+    partner:20 remote_account:20 remote_bic:10 ref:20 message:20 eref:10
     remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
     remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
     """, label=_("Movement"))
