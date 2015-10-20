@@ -111,13 +111,15 @@ The table of debtors
 
 >>> ses.show(ledger.Debtors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ========= ==============
- Partner              ID        Balance
--------------------- --------- --------------
- Jacobs Jacqueline    136       999,95
- Johnen Johann        137       359,97
- **Total (2 rows)**   **273**   **1 359,92**
-==================== ========= ==============
+===================== ========= ==============
+ Partner               ID        Balance
+--------------------- --------- --------------
+ Bäckerei Ausdemwald   101       3,32
+ Garage Mergelsberg    104       3,30
+ Jacobs Jacqueline     136       999,95
+ Johnen Johann         137       359,97
+ **Total (4 rows)**    **478**   **1 366,54**
+===================== ========= ==============
 <BLANKLINE>
 
 
@@ -126,16 +128,38 @@ creditors are providers, i.e. partners who send us a purchase invoice.
 
 >>> ses.show(ledger.Creditors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-===================== ========= ==============
- Partner               ID        Balance
---------------------- --------- --------------
- Rumma & Ko OÜ         100       40,40
- Bäckerei Ausdemwald   101       142,70
- Bäckerei Mießen       102       609,60
- Bäckerei Schmitz      103       1 211,90
- Garage Mergelsberg    104       3 274,08
- **Total (5 rows)**    **510**   **5 278,68**
-===================== ========= ==============
+=================================== ========== ===============
+ Partner                             ID         Balance
+----------------------------------- ---------- ---------------
+ Rumma & Ko OÜ                       100        0,70
+ Bäckerei Mießen                     102        2,59
+ Bäckerei Schmitz                    103        0,70
+ Arens Andreas                       112        999,95
+ Arens Annette                       113        359,97
+ Altenberg Hans                      114        289,92
+ Ausdemwald Alfons                   115        70,00
+ Bastiaensen Laurent                 116        245,00
+ Collard Charlotte                   117        4 569,70
+ Chantraine Marc                     119        359,97
+ Charlier Ulrike                     118        999,95
+ Demeulenaere Dorothée               121        70,00
+ Dericum Daniel                      120        289,92
+ Dobbelstein-Demeulenaere Dorothée   122        245,00
+ Dobbelstein Dorothée                123        4 569,70
+ Ernst Berta                         124        999,95
+ Evertz Bernd                        125        359,97
+ Emonts Daniel                       127        70,00
+ Evers Eberhart                      126        289,92
+ Engels Edgar                        128        245,00
+ Faymonville Luc                     129        4 569,70
+ Gernegroß Germaine                  130        999,95
+ Groteclaes Gregory                  131        359,97
+ Hilgers Henri                       133        70,00
+ Hilgers Hildegard                   132        289,92
+ Ingels Irene                        134        245,00
+ Jansen Jérémy                       135        4 569,70
+ **Total (27 rows)**                 **3269**   **26 142,15**
+=================================== ========== ===============
 <BLANKLINE>
 
 

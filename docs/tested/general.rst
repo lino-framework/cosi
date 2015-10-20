@@ -26,11 +26,12 @@ Rolf is the local system administrator, he has a complete menu:
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
-- Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Buchhaltung :
   - Verkauf : Verkaufsrechnungen (SLS)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MwSt.-Erklärungen (VAT)
+  - Orphaned bank accounts
+- Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
@@ -45,9 +46,9 @@ Rolf is the local system administrator, he has a complete menu:
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
+  - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
   - SEPA : Konten, Statements, Bewegungen
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
-  - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
 - Site : Info
