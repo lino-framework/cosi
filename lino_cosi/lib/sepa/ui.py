@@ -68,7 +68,8 @@ class StatementDetail(dd.FormLayout):
     main = "general"
 
     general = dd.Panel("""
-    account:30 date:40 statement_number:20 balance_start:15
+    account:30 statement_number:30 balance_start:15 balance_end:20
+    account__partner:20 date:10 date_done:10
     sepa.MovementsByStatement
     """, label=_("Statement"))
 
@@ -95,9 +96,21 @@ class StatementsByAccount(Statements):
     auto_fit_column_widths = True
 
 
+class MovementDetail(dd.FormLayout):
+    main = "general"
+
+    general = dd.Panel("""
+    statement:30 unique_import_id:30 movement_date:20 amount:20
+    partner:20 bank_account:20 ref:20 message:20 eref:20
+    remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
+    remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
+    """, label=_("Movement"))
+
+
 class Movements(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Movement'
+    detail_layout = MovementDetail()
 
 
 class MovementsByStatement(Movements):
@@ -105,3 +118,22 @@ class MovementsByStatement(Movements):
     master_key = 'statement'
     column_names = 'movement_date amount partner remote_account ref'
     auto_fit_column_widths = True
+
+
+class Orphanedaccounts(dd.Table):
+    required_roles = dd.login_required(SepaStaff)
+    model = 'sepa.Account'
+    order_by = ["id"]
+    detail_layout = AccountsDetail()
+    insert_layout = """
+    partner
+    iban bic
+    """
+
+    @classmethod
+    def get_queryset(self, ar):
+        return self.model.objects.filter(partner=None)
+
+    @classmethod
+    def get_actor_label(self):
+        return _("Orphaned accounts")
