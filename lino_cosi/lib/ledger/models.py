@@ -61,6 +61,7 @@ from .utils import get_due_movements
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
                           JournalGroups, TradeTypes)
 from .mixins import PartnerRelated, ProjectRelated, VoucherNumber, JournalRef
+from .mixins import FKMATCH
 from .ui import *
 
 
@@ -512,18 +513,24 @@ class Movement(ProjectRelated):
     amount = dd.PriceField(default=0)
     dc = DebitOrCreditField()
 
-    match = models.ForeignKey(
-        'ledger.Movement', verbose_name=_("Match"),
-        help_text=_("The movement matched by this one."),
-        related_name="%(app_label)s_%(class)s_set_by_match",
-        blank=True, null=True)
+    if FKMATCH:
+
+        match = models.ForeignKey(
+            'ledger.Movement', verbose_name=_("Match"),
+            help_text=_("The movement matched by this one."),
+            related_name="%(app_label)s_%(class)s_set_by_match",
+            blank=True, null=True)
+
+    else:
+
+        match = models.CharField(_("Match"), blank=True, max_length=20)
 
     # match = MatchField(blank=True, null=True)
 
     satisfied = models.BooleanField(_("Satisfied"), default=False)
     # TODO: rename "satisfied" to "cleared"?
 
-    @dd.chooser(simple_values=True)
+    @dd.chooser(simple_values=not FKMATCH)
     def match_choices(cls, partner, account):
         #~ DC = voucher.journal.dc
         #~ choices = []
@@ -531,6 +538,8 @@ class Movement(ProjectRelated):
             partner=partner, account=account, satisfied=False)
         qs = qs.order_by('voucher__date')
         #~ qs = qs.distinct('match')
+        if FKMATCH:
+            return qs
         return qs.values_list('match', flat=True)
 
     #~ def full_clean(self,*args,**kw):

@@ -199,11 +199,14 @@ def year_num(iddoc):
 def row2jnl(row):
     try:
         jnl = Journal.objects.get(ref=row.idjnl)
-        year, num = year_num(row.iddoc)
-        # cl = sales.Invoice
-        return jnl, year, num
     except Journal.DoesNotExist:
         return None, None, None
+    year, num = year_num(row.iddoc)
+    if year < 2002:
+        # Don't import vouchers before 20002. TODO: make this
+        # configurable
+        return None, None, None
+    return jnl, year, num
 
 
 def ticket_state(idpns):
@@ -262,7 +265,7 @@ class TimLoader(object):
         self.languages = dd.resolve_languages(
             dd.plugins.tim2lino.languages)
         self.must_register = []
-        self.must_match = []
+        self.must_match = {}
 
     def get_user(self, idusr=None):
         return self.ROOT
@@ -502,7 +505,9 @@ class TimLoader(object):
     def load_fin(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
-            raise Exception("No journal for FIN record %s" % row)
+            dblogger.info("No journal for FIN record %s", row)
+            # raise Exception("No journal for FIN record %s" % row)
+            return
         kw.update(year=year)
         kw.update(number=number)
         # kw.update(id=pk)
@@ -520,7 +525,9 @@ class TimLoader(object):
     def load_fnl(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
-            raise Exception("No journal for FNL record %s" % row)
+            dblogger.info("No journal for FNL record %s", row)
+            return
+            # raise Exception("No journal for FNL record %s" % row)
         doc = self.FINDICT.get((jnl, year, number))
         if doc is None:
             raise Exception("FNL %r without document" %
@@ -558,10 +565,13 @@ class TimLoader(object):
                 "Failed to load FNL line %s from %s : %s", row, kw, e)
             raise
         try:
+            kw.update(match=row.match.strip())
             item = doc.add_voucher_item(**kw)
-            match = row.match.strip()
-            if match:
-                self.must_match.append((doc, item, match))
+            # match = row.match.strip()
+            # if match:
+            #     lst = self.must_match.setdefault(match, [])
+            #     lst.append((doc, item))
+            #     # self.must_match.append((doc, item, match))
             return item
         except Exception as e:
             dblogger.warning(
@@ -595,6 +605,7 @@ class TimLoader(object):
         kw.update(user=self.get_user(row.auteur))
         kw.update(total_excl=mton(row.montr))
         kw.update(total_vat=mton(row.montt))
+        kw.update(match=row.match.strip())
         doc = jnl.create_voucher(**kw)
         # doc.partner = partner
         # doc.full_clean()
@@ -602,9 +613,11 @@ class TimLoader(object):
         self.VENDICT[(jnl, year, number)] = doc
         if row.etat == self.etat_registered:
             self.must_register.append(doc)
-        match = row.match.strip()
-        if match:
-            self.must_match.append((doc, doc, match))
+        # match = row.match.strip()
+        # if match:
+        #     lst = self.must_match.setdefault(match, [])
+        #     lst.append((doc, doc))
+        #     # self.must_match.append((doc, doc, match))
         return doc
 
     def load_vnl(self, row, **kw):
@@ -1069,34 +1082,35 @@ class TimLoader(object):
             # Given a string `ms` of type 'VKR940095', locate the corresponding
             # movement.
             dblogger.info("Resolving %d matches", len(self.must_match))
-            for (voucher, matching, ms) in self.must_match:
-                if matching.pk is None:
-                    dblogger.warning("Ignored match %s in %s (pk is None)" % (
-                        ms, matching))
-                    continue
-                idjnl, iddoc = ms[:3], ms[3:]
-                try:
-                    year, num = year_num(iddoc)
-                except ValueError as e:
-                    dblogger.warning("Ignored match %s in %s (%s)" % (
-                        ms, matching, e))
-                try:
-                    jnl = Journal.objects.get(ref=idjnl)
-                except Journal.DoesNotExist:
-                    dblogger.warning("Ignored match %s in %s (invalid JNL)" % (
-                        ms, matching))
-                    continue
-                qs = Movement.objects.filter(
-                    voucher__journal=jnl, voucher__number=num,
-                    voucher__year=year, partner__isnull=False)
-                if qs.count() == 0:
-                    dblogger.warning("Ignored match %s in %s (no movement)" % (
-                        ms, matching))
-                    continue
-                matching.match = qs[0]
-                matching.save()
-                voucher.deregister(ses)
-                voucher.register(ses)
+            for ms, lst in self.must_match.items():
+                for (voucher, matching) in lst:
+                    if matching.pk is None:
+                        dblogger.warning("Ignored match %s in %s (pk is None)" % (
+                            ms, matching))
+                        continue
+                    idjnl, iddoc = ms[:3], ms[3:]
+                    try:
+                        year, num = year_num(iddoc)
+                    except ValueError as e:
+                        dblogger.warning("Ignored match %s in %s (%s)" % (
+                            ms, matching, e))
+                    try:
+                        jnl = Journal.objects.get(ref=idjnl)
+                    except Journal.DoesNotExist:
+                        dblogger.warning("Ignored match %s in %s (invalid JNL)" % (
+                            ms, matching))
+                        continue
+                    qs = Movement.objects.filter(
+                        voucher__journal=jnl, voucher__number=num,
+                        voucher__year=year, partner__isnull=False)
+                    if qs.count() == 0:
+                        dblogger.warning("Ignored match %s in %s (no movement)" % (
+                            ms, matching))
+                        continue
+                    matching.match = qs[0]
+                    matching.save()
+                    voucher.deregister(ses)
+                    voucher.register(ses)
                 
 
 def objects():
