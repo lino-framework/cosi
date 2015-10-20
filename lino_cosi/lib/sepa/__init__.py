@@ -28,6 +28,8 @@ partners.  It requires the :mod:`lino.modlib.contacts` app.
     utils
     fields
     roles
+    camt
+    parserlib
     fixtures.demo
     fixtures.sample_ibans
 

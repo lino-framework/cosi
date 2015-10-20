@@ -31,6 +31,9 @@ from lino.api import dd, rt, _
 from lino.mixins import Sequenced
 
 
+FKMATCH = False
+
+
 class ProjectRelated(dd.Model):
     """Model mixin for objects that are related to a :attr:`project`.
 
@@ -109,7 +112,7 @@ class Matching(dd.Model):
     points to some other movement which it "clears" at least partially.
 
     A movement is cleared when its amount equals the sum of all
-    matching transactions.
+    matching movements.
 
     Adds a field :attr:`match` and a chooser for it.  Requires a field
     `partner`.  The default implementation of the chooser for
@@ -120,20 +123,28 @@ class Matching(dd.Model):
     
     .. attribute:: match
 
-       Pointer to the :class:`voucher
-       <lino.modlib.ledger.mixins.Voucher>` which is being cleared by
+       Pointer to the :class:`movement
+       <lino.modlib.ledger.models.Movement>` which is being cleared by
        this movement.
 
     """
     class Meta:
         abstract = True
 
-    match = dd.ForeignKey(
-        'ledger.Movement',
-        help_text=_("The movement to be matched."),
-        verbose_name=_("Match"),
-        related_name="%(app_label)s_%(class)s_set_by_match",
-        blank=True, null=True)
+    if FKMATCH:
+
+        match = dd.ForeignKey(
+            'ledger.Movement',
+            help_text=_("The movement to be matched."),
+            verbose_name=_("Match"),
+            related_name="%(app_label)s_%(class)s_set_by_match",
+            blank=True, null=True)
+
+    else:
+
+        match = dd.CharField(
+            _("Match"), max_length=20, blank=True,
+            help_text=_("The movement to be matched."))
 
     @classmethod
     def get_match_choices(cls, journal, partner):
@@ -147,11 +158,12 @@ class Matching(dd.Model):
             fkw.update(partner=partner)
         qs = rt.modules.ledger.Movement.objects.filter(**fkw)
         qs = qs.order_by('voucher__date')
-        #~ qs = qs.distinct('match')
-        return qs
-        # return qs.values_list('match', flat=True)
+        # qs = qs.distinct('match')
+        if FKMATCH:
+            return qs
+        return qs.values_list('match', flat=True)
 
-    @dd.chooser()
+    @dd.chooser(simple_values=not FKMATCH)
     def match_choices(cls, journal, partner):
         # todo: move this to implementing classes?
         return cls.get_match_choices(journal, partner)

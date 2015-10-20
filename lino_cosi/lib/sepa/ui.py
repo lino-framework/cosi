@@ -116,7 +116,7 @@ class Movements(dd.Table):
 class MovementsByStatement(Movements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
-    column_names = 'movement_date amount partner bank_account ref'
+    column_names = 'movement_date amount partner remote_account ref'
     auto_fit_column_widths = True
 
 

@@ -18,10 +18,9 @@ Content
 .. toctree::
    :maxdepth: 1
 
-   install/index
-   tested/index
    tour/index
+   tested/index
+   install/index
    API <api/index>
-   todo
    changes
    

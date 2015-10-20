@@ -238,7 +238,7 @@ class InvoiceDetail(dd.FormLayout):
     date partner vat_regime
     order subject your_ref
     payment_term due_date:20
-    shipping_mode
+    shipping_mode printed
     """, label=_("Header"))  # sales_remark
 
     general = dd.Panel("""

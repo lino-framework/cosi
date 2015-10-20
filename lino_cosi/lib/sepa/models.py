@@ -82,9 +82,8 @@ class ImportStatements(dd.Action):
         return ar.error(msg, alert=_("Error"))
 
     def import_file(self, ar, filename):
+        """Import the named file, which must be a CAMT053 XML file."""
         Account = rt.modules.sepa.Account
-
-        # Parse a CAMT053 XML file.
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         num = 0
@@ -333,7 +332,8 @@ class Movement(dd.Model):
     amount = dd.PriceField(_('Amount'), null=True)
     partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
     partner_name = models.CharField(_('Partner name'), max_length=35)
-    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+    remote_account = IBANField(verbose_name=_("IBAN"))
+    remote_bic = BICField(verbose_name=_("BIC"), blank=True)
     ref = models.CharField(_('Ref'), null=False, max_length=35)
     message = models.CharField(_('Message'), max_length=128)
     eref = models.CharField(_('End to end reference'), max_length=128)
