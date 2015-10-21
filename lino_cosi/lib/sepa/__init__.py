@@ -58,7 +58,7 @@ class Plugin(ad.Plugin):
 
     """
 
-    delete_imported_xml_files = True
+    delete_imported_xml_files = False
     """This attribute define whether, Cosi have to delete the SEPA file after it get imported.
     """
 
