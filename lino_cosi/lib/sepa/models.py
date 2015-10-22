@@ -110,7 +110,9 @@ class ImportStatements(dd.Action):
                     account.save()
                 except MultipleObjectsReturned:
                     msg = "Found more than one account with IBAN {0}"
-                    raise Exception(msg.format(iban))
+                    # raise Exception(msg.format(iban))
+                    dd.logger.warning(msg.format(iban))
+                    continue
                 if not Statement.objects.filter(
                         statement_number=_statement['name'], account=account).exists():
                     s = Statement(account=account,
@@ -168,8 +170,8 @@ class ImportStatements(dd.Action):
                             m.amount = _movement['amount']
                             m.partner_name = _movement.remote_owner
                             m.ref = _ref
-                            m.remote_account=_bank_account.iban,
-                            m.remote_bic = _bank_account.bic,
+                            m.remote_account=_bank_account.iban
+                            m.remote_bic = _bank_account.bic
                             m.message = _movement._message or ' '
                             m.eref = _movement.eref or ' '
                             m.remote_owner = _movement.remote_owner or ' '
