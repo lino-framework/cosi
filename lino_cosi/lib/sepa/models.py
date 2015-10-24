@@ -205,15 +205,10 @@ class ImportStatements(dd.Action):
                 dd.logger.info(msg_error)
         # Deleting the imported file
         if dd.plugins.sepa.delete_imported_xml_files:
-            try:
-                os.remove(filename)
-                msg = "The file {0} would have been deleted.".format(filename)
-                dd.logger.info(msg)
-                ar.info(msg)
-            except OSError:
-                msg = "We can't delete the file {0}.".format(filename)
-                dd.logger.info(msg)
-                ar.info(msg)
+             os.remove(filename)
+             msg = "The file {0} would have been deleted.".format(filename)
+             dd.logger.info(msg)
+             ar.info(msg)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
