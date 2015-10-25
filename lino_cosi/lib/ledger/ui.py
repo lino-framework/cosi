@@ -269,14 +269,13 @@ dd.inject_action('accounts.Account', due=dd.ShowSlaveTable(DebtsByAccount))
 
 
 class DebtsByPartner(ExpectedMovements):
-    """
-    This is the table being printed in a Payment Reminder.  Usually
+    """This is the table being printed in a Payment Reminder.  Usually
     this table has one row per sales invoice which is not fully paid.
     But several invoices ("debts") may be grouped by match.  If the
     partner has purchase invoices, these are deduced from the balance.
 
     This table is accessible by clicking the "Debts" action button on
-    a :class:`Partner <ml.contacts.Partner>`.
+    a Partner.
 
     """
     master = 'contacts.Partner'

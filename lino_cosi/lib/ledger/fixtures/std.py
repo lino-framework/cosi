@@ -23,7 +23,7 @@
 
 from __future__ import unicode_literals
 
-from lino.api import dd
+from lino.api import dd, rt, _
 notes = dd.resolve_app('notes')
 
 
@@ -38,3 +38,12 @@ def objects():
                               en="Payment reminder",
                               fr="Rappel de paiement",
                               de="Zahlungserinnerung"))
+
+    ExcerptType = rt.modules.excerpts.ExcerptType
+    ContentType = rt.modules.contenttypes.ContentType
+
+    yield ExcerptType(
+        body_template="payment_reminder.body.html",
+        content_type=ContentType.objects.get_for_model(
+            dd.resolve_model('contacts.Partner')),
+        **dd.str2kw('name', _("Payment reminder")))

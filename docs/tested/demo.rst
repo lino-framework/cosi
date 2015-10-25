@@ -69,7 +69,7 @@ Test whether :meth:`get_db_overview_rst
  courses.Topic              courses.Topics                 2         0
  declarations.Declaration   declarations.Declarations      18        0
  excerpts.Excerpt           excerpts.Excerpts              11        0
- excerpts.ExcerptType       excerpts.ExcerptTypes          15        2
+ excerpts.ExcerptType       excerpts.ExcerptTypes          15        3
  finan.BankStatement        finan.BankStatements           12        15
  finan.BankStatementItem    finan.BankStatementItemTable   10        344
  finan.Grouper              finan.Groupers                 11        0
