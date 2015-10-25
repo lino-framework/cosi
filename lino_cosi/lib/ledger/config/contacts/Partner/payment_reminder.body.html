@@ -8,15 +8,14 @@
      fr="Nous vous rappelons que les factures suivantes sont ouvertes.")}}</p>
 
 <p class="EnhancedPar">
-{{this.partner.get_full_name(nominative=True)}}
+{{obj.get_full_name(nominative=True)}}
 <br>
-{{tr(de="wohnhaft zu",fr="domicilié"+this.partner.mf("","e","(e)")+" à")}}
-{{', '.join(this.partner.address_location_lines())}}
+{{', '.join(obj.address_location_lines())}}
 </p>
 
 
 <p>{{ar.renderer.__class__.__name__}}</p>
-<p>{{ar.show(site.modules.ledger.DuePaymentsByPartner,this.partner)}}</p>
+<p>{{ar.show(site.modules.ledger.DebtsByPartner, obj)}}</p>
 
 <p></p>
 <p></p>
