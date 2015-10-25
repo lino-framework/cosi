@@ -40,7 +40,7 @@ def objects():
                               de="Zahlungserinnerung"))
 
     ExcerptType = rt.modules.excerpts.ExcerptType
-    ContentType = rt.modules.contenttypes.Contenttypes
+    ContentType = rt.modules.contenttypes.ContentType
 
     yield ExcerptType(
         body_template="payment_reminder.body.html",
