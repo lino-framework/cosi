@@ -336,7 +336,7 @@ class Movement(dd.Model):
     ref = models.CharField(_('Ref'), null=False, max_length=35)
     message = models.CharField(_('Message'), max_length=128)
     eref = models.CharField(_('End to end reference'), max_length=128)
-    remote_owner = models.CharField(_('Remote owner'), max_length=32)
+    remote_owner = models.CharField(_('Remote owner'), max_length=128)
     remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128)
     remote_owner_city = models.CharField(_('Remote owner city'), max_length=32)
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10)
