@@ -102,7 +102,6 @@ class ImportStatements(dd.Action):
                     continue
                     # raise Exception(msg.format(pformat(_statement)))
                 try:
-                    # TODO : Do we have to create a new partner for this acccont ?
                     account = Account.objects.get(iban=iban)
                 except Account.DoesNotExist:
                     account = Account(iban=iban)
@@ -135,54 +134,47 @@ class ImportStatements(dd.Action):
                 s.save()
                 for _movement in _statement['transactions']:
                     _ref = _movement.get('ref', '') or ''
-                    if _movement.remote_account:
-                        try:
-                            _bank_account = Account.objects.get(iban=_movement.remote_account)
-                        except Account.DoesNotExist:
-                            _bank_account = Account(iban=_movement.remote_account)
-                            _bank_account.full_clean()
-                            _bank_account.save()
-                        if not Movement.objects.filter(
-                                unique_import_id=_movement['unique_import_id']).exists():
-                            m = Movement(statement=s,
-                                         unique_import_id=_movement['unique_import_id'],
-                                         movement_date=_movement['date'],
-                                         amount=_movement['amount'],
-                                         partner_name=_movement.remote_owner,
-                                         ref=_ref,
-                                         remote_account=_bank_account.iban,
-                                         remote_bic = _bank_account.bic,
-                                         message=_movement._message or ' ',
-                                         eref=_movement.eref or ' ',
-                                         remote_owner=_movement.remote_owner or ' ',
-                                         remote_owner_address=_movement.remote_owner_address or ' ',
-                                         remote_owner_city=_movement.remote_owner_city or ' ',
-                                         remote_owner_postalcode=_movement.remote_owner_postalcode or ' ',
-                                         remote_owner_country_code=_movement.remote_owner_country_code or ' ',
-                                         transfer_type=_movement.transfer_type or ' ',
-                                         execution_date=_movement.execution_date or ' ',
-                                         value_date=_movement.value_date or ' ', )
-                            m.save()
-                        elif movements_to_update:
-                            m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
-                            m.statement = s
-                            m.movement_date = _movement['date']
-                            m.amount = _movement['amount']
-                            m.partner_name = _movement.remote_owner
-                            m.ref = _ref
-                            m.remote_account=_bank_account.iban
-                            m.remote_bic = _bank_account.bic
-                            m.message = _movement._message or ' '
-                            m.eref = _movement.eref or ' '
-                            m.remote_owner = _movement.remote_owner or ' '
-                            m.remote_owner_address = _movement.remote_owner_address or ' '
-                            m.remote_owner_city = _movement.remote_owner_city or ' '
-                            m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
-                            m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
-                            m.transfer_type = _movement.transfer_type or ' '
-                            m.execution_date = _movement.execution_date or ' '
-                            m.value_date = _movement.value_date or ' '
-                            m.save()
+                    if not Movement.objects.filter(
+                            unique_import_id=_movement['unique_import_id']).exists():
+                        m = Movement(statement=s,
+                                     unique_import_id=_movement['unique_import_id'],
+                                     movement_date=_movement['date'],
+                                     amount=_movement['amount'],
+                                     partner_name=_movement.remote_owner,
+                                     ref=_ref,
+                                     remote_account=_movement.remote_account or '',
+                                     remote_bic=_movement.remote_bank_bic or '',
+                                     message=_movement._message or ' ',
+                                     eref=_movement.eref or ' ',
+                                     remote_owner=_movement.remote_owner or ' ',
+                                     remote_owner_address=_movement.remote_owner_address or ' ',
+                                     remote_owner_city=_movement.remote_owner_city or ' ',
+                                     remote_owner_postalcode=_movement.remote_owner_postalcode or ' ',
+                                     remote_owner_country_code=_movement.remote_owner_country_code or ' ',
+                                     transfer_type=_movement.transfer_type or ' ',
+                                     execution_date=_movement.execution_date or ' ',
+                                     value_date=_movement.value_date or ' ', )
+                        m.save()
+                    elif movements_to_update:
+                        m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
+                        m.statement = s
+                        m.movement_date = _movement['date']
+                        m.amount = _movement['amount']
+                        m.partner_name = _movement.remote_owner
+                        m.ref = _ref
+                        m.remote_account = _movement.remote_account or ''
+                        m.remote_bic = _movement.remote_bank_bic or ''
+                        m.message = _movement._message or ' '
+                        m.eref = _movement.eref or ' '
+                        m.remote_owner = _movement.remote_owner or ' '
+                        m.remote_owner_address = _movement.remote_owner_address or ' '
+                        m.remote_owner_city = _movement.remote_owner_city or ' '
+                        m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
+                        m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
+                        m.transfer_type = _movement.transfer_type or ' '
+                        m.execution_date = _movement.execution_date or ' '
+                        m.value_date = _movement.value_date or ' '
+                        m.save()
 
                 num += 1
 
@@ -205,10 +197,10 @@ class ImportStatements(dd.Action):
                 dd.logger.info(msg_error)
         # Deleting the imported file
         if dd.plugins.sepa.delete_imported_xml_files:
-             os.remove(filename)
-             msg = "The file {0} would have been deleted.".format(filename)
-             dd.logger.info(msg)
-             ar.info(msg)
+            os.remove(filename)
+            msg = "The file {0} would have been deleted.".format(filename)
+            dd.logger.info(msg)
+            ar.info(msg)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
