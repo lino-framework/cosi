@@ -205,15 +205,10 @@ class ImportStatements(dd.Action):
                 dd.logger.info(msg_error)
         # Deleting the imported file
         if dd.plugins.sepa.delete_imported_xml_files:
-            try:
-                os.remove(filename)
-                msg = "The file {0} would have been deleted.".format(filename)
-                dd.logger.info(msg)
-                ar.info(msg)
-            except OSError:
-                msg = "We can't delete the file {0}.".format(filename)
-                dd.logger.info(msg)
-                ar.info(msg)
+             os.remove(filename)
+             msg = "The file {0} would have been deleted.".format(filename)
+             dd.logger.info(msg)
+             ar.info(msg)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
@@ -341,7 +336,7 @@ class Movement(dd.Model):
     ref = models.CharField(_('Ref'), null=False, max_length=35)
     message = models.CharField(_('Message'), max_length=128)
     eref = models.CharField(_('End to end reference'), max_length=128)
-    remote_owner = models.CharField(_('Remote owner'), max_length=32)
+    remote_owner = models.CharField(_('Remote owner'), max_length=128)
     remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128)
     remote_owner_city = models.CharField(_('Remote owner city'), max_length=32)
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10)
