@@ -14,3 +14,11 @@ Version 0.0.1 (released :blogref:`20150922`)
 ============================================
 
 This is a first prototype.
+
+
+Version 0.0.2 (released :blogref:`20151028`)
+============================================
+
+Quite some changes, but the main reason is to get it pass on drone.io.
+
+
