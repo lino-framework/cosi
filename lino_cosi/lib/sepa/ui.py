@@ -96,27 +96,22 @@ class StatementsByAccount(Statements):
     auto_fit_column_widths = True
 
 
-class MovementDetail(dd.FormLayout):
-    main = "general"
-
-    general = dd.Panel("""
-    statement:30 unique_import_id:30 movement_date:20 amount:20
-    partner:20 remote_account:20 remote_bic:10 ref:20 message:20 eref:10
-    remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
-    remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
-    """, label=_("Movement"))
-
-
 class Movements(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Movement'
-    detail_layout = MovementDetail()
+    detail_layout = """
+    statement:30 unique_import_id:30 movement_date:20 amount:20
+    partner:20 remote_account:20 remote_bic:10 ref:20 eref:10
+    remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
+    remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
+    message
+    """
 
 
 class MovementsByStatement(Movements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
-    column_names = 'movement_date amount partner remote_account ref'
+    column_names = 'movement_date amount partner remote_account ref *'
     auto_fit_column_widths = True
 
 

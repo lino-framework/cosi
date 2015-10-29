@@ -75,7 +75,7 @@ class ImportStatements(dd.Action):
             for filename in glob.iglob(wc):
                 self.import_file(ar, filename)
                 count += 1
-            msg = "{0} xml files would have been imported.".format(count)
+            msg = "{0} xml files have been imported.".format(count)
             dd.logger.info(msg)
             return ar.success(msg, alert=_("Success"))
         msg = "No import_statements_path configured."
@@ -198,7 +198,7 @@ class ImportStatements(dd.Action):
         # Deleting the imported file
         if dd.plugins.sepa.delete_imported_xml_files:
             os.remove(filename)
-            msg = "The file {0} would have been deleted.".format(filename)
+            msg = "The file {0} has been deleted.".format(filename)
             dd.logger.info(msg)
             ar.info(msg)
 
@@ -319,23 +319,23 @@ class Movement(dd.Model):
     statement = dd.ForeignKey('sepa.Statement')
     unique_import_id = models.CharField(_('Unique import ID'), max_length=128)
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
-    movement_date = models.DateField(_('Movement date'), null=True)
-    amount = dd.PriceField(_('Amount'), null=True)
+    movement_date = models.DateField(_('Movement date'), null=True, blank=True)
+    amount = dd.PriceField(_('Amount'), null=True, blank=True)
     partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
-    partner_name = models.CharField(_('Partner name'), max_length=35)
-    remote_account = IBANField(verbose_name=_("IBAN"))
+    partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
+    remote_account = IBANField(verbose_name=_("IBAN"), blank=True)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
-    ref = models.CharField(_('Ref'), null=False, max_length=35)
-    message = models.CharField(_('Message'), max_length=128)
+    ref = models.CharField(_('Ref'), null=False, max_length=35, blank=True)
+    message = models.TextField(_('Message'), max_length=128, blank=True)
     eref = models.CharField(_('End to end reference'), max_length=128)
-    remote_owner = models.CharField(_('Remote owner'), max_length=128)
-    remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128)
-    remote_owner_city = models.CharField(_('Remote owner city'), max_length=32)
-    remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10)
-    remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4)
-    transfer_type = models.CharField(_('Transfer type'), max_length=32, )
-    execution_date = models.DateField(_('Execution date'), null=True)
-    value_date = models.DateField(_('Value date'), null=True)
+    remote_owner = models.CharField(_('Remote owner'), max_length=128, blank=True)
+    remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128, blank=True)
+    remote_owner_city = models.CharField(_('Remote owner city'), max_length=32, blank=True)
+    remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10, blank=True)
+    remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4, blank=True)
+    transfer_type = models.CharField(_('Transfer type'), max_length=32, blank=True)
+    execution_date = models.DateField(_('Execution date'), null=True, blank=True)
+    value_date = models.DateField(_('Value date'), null=True, blank=True)
 
 
 from .ui import *
