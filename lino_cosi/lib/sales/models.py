@@ -188,8 +188,6 @@ class VatProductInvoice(SalesDocument, Voucher, Matching, Payable):
         verbose_name_plural = _("Invoices")
 
     order = dd.ForeignKey('orders.Order', blank=True, null=True)
-    # state = InvoiceStates.field(default=InvoiceStates.draft)
-    # workflow_state_field = 'state'
 
     def full_clean(self, *args, **kw):
         if self.due_date is None:

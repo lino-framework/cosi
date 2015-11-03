@@ -298,7 +298,8 @@ class Voucher(UserAuthored, mixins.Registrable):
     year = FiscalYears.field(blank=True)
     number = VoucherNumber(blank=True, null=True)
     narration = models.CharField(_("Narration"), max_length=200, blank=True)
-    state = VoucherStates.field(default=VoucherStates.draft)
+    state = VoucherStates.field(
+        default=VoucherStates.draft.as_callable())
     workflow_state_field = 'state'
 
     #~ @classmethod
