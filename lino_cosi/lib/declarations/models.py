@@ -149,7 +149,6 @@ class Declaration(ledger.Voucher):
 
     #~ year = FiscalYears.field()
     period = DeclarationPeriods.field()
-    # state = DeclarationStates.field(default=DeclarationStates.draft)
 
     #~ def save(self,*args,**kw):
         #~ if self.state == DeclarationStates.draft:

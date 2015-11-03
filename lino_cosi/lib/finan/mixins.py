@@ -42,7 +42,6 @@ class FinancialVoucher(ledger.Voucher):
     :class:`PaymentOrder` and
     :class:`BankStatement`.
     """
-    # state = VoucherStates.field(default=VoucherStates.draft)
 
     class Meta:
         abstract = True
