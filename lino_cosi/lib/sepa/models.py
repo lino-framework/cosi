@@ -326,7 +326,7 @@ class Movement(dd.Model):
     remote_account = IBANField(verbose_name=_("IBAN"), blank=True)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
     ref = models.CharField(_('Ref'), null=False, max_length=35, blank=True)
-    message = models.TextField(_('Message'), max_length=128, blank=True)
+    message = models.TextField(_('Message'), blank=True)
     eref = models.CharField(_('End to end reference'), max_length=128)
     remote_owner = models.CharField(_('Remote owner'), max_length=128, blank=True)
     remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128, blank=True)
