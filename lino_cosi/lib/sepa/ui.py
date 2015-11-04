@@ -64,22 +64,16 @@ class AccountsByPartner(Accounts):
     """
 
 
-class StatementDetail(dd.FormLayout):
-    main = "general"
-
-    general = dd.Panel("""
-    account:30 statement_number:30 balance_start:15 balance_end:20
-    account__partner:20 date:10 date_done:10
-    sepa.MovementsByStatement
-    """, label=_("Statement"))
-
-
 class Statements(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Statement'
-    column_names = 'account date statement_number balance_start balance_end *'
+    column_names = 'account date statement_number:21 balance_start balance_end *'
     order_by = ["date"]
-    detail_layout = StatementDetail()
+    detail_layout = """
+    account:30 statement_number:30 balance_start:15 balance_end:20
+    account__partner:20 date:10 date_done:10
+    sepa.MovementsByStatement
+    """
     auto_fit_column_widths = True
 
     # insert_layout = dd.FormLayout("""
@@ -92,7 +86,7 @@ class Statements(dd.Table):
 class StatementsByAccount(Statements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'account'
-    column_names = 'date date_done statement_number balance_end'
+    column_names = 'statement_number balance_start date balance_end date_done currency_code *'
     auto_fit_column_widths = True
 
 
@@ -101,7 +95,7 @@ class Movements(dd.Table):
     model = 'sepa.Movement'
     detail_layout = """
     statement:30 unique_import_id:30 movement_date:20 amount:20
-    partner:20 remote_account:20 remote_bic:10 ref:20 eref:10
+    remote_account:20 remote_bic:10 ref:20 eref:10
     remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
     remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
     message
@@ -111,7 +105,7 @@ class Movements(dd.Table):
 class MovementsByStatement(Movements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
-    column_names = 'movement_date amount partner remote_account ref *'
+    column_names = 'movement_date amount remote_owner remote_account ref *'
     auto_fit_column_widths = True
 
 

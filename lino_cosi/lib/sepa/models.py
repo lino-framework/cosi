@@ -295,7 +295,8 @@ class Statement(dd.Model):
     account = dd.ForeignKey('sepa.Account')
     date = models.DateField(_('Date'), null=True)
     date_done = models.DateTimeField(_('Import Date'), null=True)
-    statement_number = models.CharField(_('Statement number'), null=False, max_length=128)
+    statement_number = models.CharField(
+        _('Statement number'), null=False, max_length=128)
     balance_start = dd.PriceField(_("Initial amount"), null=True)
     balance_end = dd.PriceField(_("Final amount"), null=True)
     balance_end_real = dd.PriceField(_("Real end balance"), null=True)
@@ -321,7 +322,7 @@ class Movement(dd.Model):
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
     movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
-    partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
+    # partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
     partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
     remote_account = IBANField(verbose_name=_("IBAN"), blank=True)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
