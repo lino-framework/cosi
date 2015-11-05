@@ -20,6 +20,12 @@
 ##############################################################################
 # File taken from https://github.com/OCA/bank-statement-import/blob/8.0/account_bank_statement_import_camt/camt.py
 
+# Modifications by Luc Saffre: they completely ignored the ``<Dt>``
+# element of opening and closing balances.  Their statement had a date
+# which was the `execution_date` of the first transaction.  Now they
+# set two dates `start_date` and `end_date`.
+# http://lxml.de/xpathxslt.html
+
 import re
 from datetime import datetime
 from lxml import etree
@@ -29,6 +35,12 @@ from lino_cosi.lib.sepa.parserlib import BankStatement
 class CamtParser(object):
     """Parser for camt bank statement import files."""
 
+    def parse_date(self, ns, node):
+        """"Parse a <Bal> element for a <Dt>."""
+        dt = node.xpath('ns:Dt/ns:Dt', namespaces={'ns': ns})
+        if dt:
+            return datetime.strptime(dt[0].text, "%Y-%m-%d")
+        
     def parse_amount(self, ns, node):
         """Parse element that contains Amount and CreditDebitIndicator."""
         if node is None:
@@ -138,7 +150,7 @@ class CamtParser(object):
         transaction.data = etree.tostring(node)
         return transaction
 
-    def get_balance_amounts(self, ns, node):
+    def parse_balance_amounts(self, statement, ns, node):
         """Return opening and closing balance.
 
         Depending on kind of balance and statement, the balance might be in a
@@ -166,10 +178,12 @@ class CamtParser(object):
                         start_balance_node = balance_node[0]
                     if not end_balance_node:
                         end_balance_node = balance_node[-1]
-        return (
-            self.parse_amount(ns, start_balance_node),
-            self.parse_amount(ns, end_balance_node)
-        )
+
+        statement.start_date = self.parse_date(ns, start_balance_node)
+        statement.start_balance = self.parse_amount(ns, start_balance_node)
+
+        statement.end_balance = self.parse_amount(ns, end_balance_node)
+        statement.end_date = self.parse_date(ns, end_balance_node)
 
     def parse_statement(self, ns, node):
         """Parse a single Stmt node."""
@@ -184,15 +198,14 @@ class CamtParser(object):
             ns, node, './ns:Id', statement, 'statement_id')
         self.add_value_from_node(
             ns, node, './ns:Acct/ns:Ccy', statement, 'local_currency')
-        (statement.start_balance, statement.end_balance) = (
-            self.get_balance_amounts(ns, node))
+        self.parse_balance_amounts(statement, ns, node)
         transaction_nodes = node.xpath('./ns:Ntry', namespaces={'ns': ns})
         for entry_node in transaction_nodes:
             transaction = statement.create_transaction()
             self.parse_transaction(ns, entry_node, transaction)
-        if statement['transactions']:
-            statement.date = datetime.strptime(
-                statement['transactions'][0].execution_date, "%Y-%m-%d")
+        # if statement['transactions']:
+        #     statement.date = datetime.strptime(
+        #         statement['transactions'][0].execution_date, "%Y-%m-%d")
         return statement
 
     def check_version(self, ns, root):

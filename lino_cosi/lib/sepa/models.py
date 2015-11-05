@@ -115,17 +115,21 @@ class ImportStatements(dd.Action):
                 if not Statement.objects.filter(
                         statement_number=_statement['name'], account=account).exists():
                     s = Statement(account=account,
-                                  date=_statement['date'].strftime("%Y-%m-%d"),
-                                  date_done=time.strftime("%Y-%m-%d"),
+                                  start_date=_statement['start_date'],
+                                  end_date=_statement['end_date'],
+                                  # date_done=time.strftime("%Y-%m-%d"),
                                   statement_number=_statement['name'],
                                   balance_end=_statement['balance_end'],
                                   balance_start=_statement['balance_start'],
                                   balance_end_real=_statement['balance_end_real'],
                                   currency_code=_statement['currency_code'])
                 else:
-                    s = Statement.objects.get(statement_number=_statement['name'], account=account)
-                    s.date = _statement['date'].strftime("%Y-%m-%d")
-                    s.date_done = time.strftime("%Y-%m-%d")
+                    s = Statement.objects.get(
+                        statement_number=_statement['name'], account=account)
+                    # s.date = _statement['date'].strftime("%Y-%m-%d")
+                    # s.date_done = time.strftime("%Y-%m-%d")
+                    s.start_date = _statement['start_date']
+                    s.end_date = _statement['end_date']
                     s.balance_end = _statement['balance_end']
                     s.balance_start = _statement['balance_start']
                     s.balance_end_real = _statement['balance_end_real']
@@ -285,16 +289,12 @@ class Statement(dd.Model):
         verbose_name_plural = _("Statements")
 
     def __unicode__(self):
-        if self.account:
-            if self.date:
-                return "{0} ({1})".format(self.account, self.date)
-            else:
-                return self.account
-        return ''
+        return self.statement_number
 
     account = dd.ForeignKey('sepa.Account')
-    date = models.DateField(_('Date'), null=True)
-    date_done = models.DateTimeField(_('Import Date'), null=True)
+    start_date = models.DateField(_('Start date'), null=True)
+    end_date = models.DateField(_('End date'), null=True)
+    # date_done = models.DateTimeField(_('Import Date'), null=True)
     statement_number = models.CharField(
         _('Statement number'), null=False, max_length=128)
     balance_start = dd.PriceField(_("Initial amount"), null=True)
