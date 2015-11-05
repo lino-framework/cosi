@@ -82,7 +82,7 @@ class Statements(dd.Table):
     column_names = ('account account__partner statement_number:20 '
                     'balance_start start_date balance_end end_date '
                     'currency_code *')
-    order_by = ["date"]
+    order_by = ["start_date"]
     detail_layout = StatementDetail()
     auto_fit_column_widths = True
     editable = False
