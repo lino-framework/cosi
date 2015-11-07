@@ -94,7 +94,7 @@ Test whether :meth:`get_db_overview_rst
  sales.ShippingMode         sales.ShippingModes            3         0
  sales.VatProductInvoice    sales.Invoices                 27        26
  sepa.Account               sepa.Accounts                  6         17
- sepa.Movement              sepa.Movements                 20        0
+ sepa.Movement              sepa.Movements                 19        0
  sepa.Statement             sepa.Statements                9         0
  system.SiteConfig          system.SiteConfigs             15        1
  uploads.Upload             uploads.Uploads                9         0

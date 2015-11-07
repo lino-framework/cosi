@@ -20,6 +20,7 @@
 ##############################################################################
 # File taken from https://github.com/OCA/bank-statement-import/blob/8.0/account_bank_statement_import/parserlib.py
 
+
 class BankTransaction(dict):
     """Single transaction that is part of a bank statement."""
 
@@ -203,14 +204,24 @@ class BankStatement(dict):
         self['balance_end_real'] = end_balance
 
     @property
-    def date(self):
+    def start_date(self):
         """property getter"""
-        return self['date']
+        return self['start_date']
 
-    @date.setter
-    def date(self, date):
+    @start_date.setter
+    def start_date(self, date):
         """property setter"""
-        self['date'] = date
+        self['start_date'] = date
+
+    @property
+    def end_date(self):
+        """property getter"""
+        return self['end_date']
+
+    @end_date.setter
+    def end_date(self, date):
+        """property setter"""
+        self['end_date'] = date
 
     def create_transaction(self):
         """Create and append transaction.
@@ -231,6 +242,7 @@ class BankStatement(dict):
         self.statement_id = ''
         self.local_account = ''
         self.local_currency = ''
-        self.date = ''
+        self.start_date = None
+        self.end_date = None
         self.start_balance = 0.0
         self.end_balance = 0.0

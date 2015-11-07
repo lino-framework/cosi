@@ -31,6 +31,9 @@ from django.db import models
 from django.core.exceptions import MultipleObjectsReturned
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
+from lino.utils.xmlgen.html import E
+from lino.utils import join_elems
+
 from .camt import CamtParser
 from .fields import IBANField, BICField
 from .utils import belgian_nban_to_iban_bic, iban2bic
@@ -115,17 +118,21 @@ class ImportStatements(dd.Action):
                 if not Statement.objects.filter(
                         statement_number=_statement['name'], account=account).exists():
                     s = Statement(account=account,
-                                  date=_statement['date'].strftime("%Y-%m-%d"),
-                                  date_done=time.strftime("%Y-%m-%d"),
+                                  start_date=_statement['start_date'],
+                                  end_date=_statement['end_date'],
+                                  # date_done=time.strftime("%Y-%m-%d"),
                                   statement_number=_statement['name'],
                                   balance_end=_statement['balance_end'],
                                   balance_start=_statement['balance_start'],
                                   balance_end_real=_statement['balance_end_real'],
                                   currency_code=_statement['currency_code'])
                 else:
-                    s = Statement.objects.get(statement_number=_statement['name'], account=account)
-                    s.date = _statement['date'].strftime("%Y-%m-%d")
-                    s.date_done = time.strftime("%Y-%m-%d")
+                    s = Statement.objects.get(
+                        statement_number=_statement['name'], account=account)
+                    # s.date = _statement['date'].strftime("%Y-%m-%d")
+                    # s.date_done = time.strftime("%Y-%m-%d")
+                    s.start_date = _statement['start_date']
+                    s.end_date = _statement['end_date']
                     s.balance_end = _statement['balance_end']
                     s.balance_start = _statement['balance_start']
                     s.balance_end_real = _statement['balance_end_real']
@@ -134,6 +141,7 @@ class ImportStatements(dd.Action):
                 s.save()
                 for _movement in _statement['transactions']:
                     _ref = _movement.get('ref', '') or ''
+                    addr = '\n'.join(_movement.remote_owner_address)
                     if not Movement.objects.filter(
                             unique_import_id=_movement['unique_import_id']).exists():
                         m = Movement(statement=s,
@@ -144,16 +152,16 @@ class ImportStatements(dd.Action):
                                      ref=_ref,
                                      remote_account=_movement.remote_account or '',
                                      remote_bic=_movement.remote_bank_bic or '',
-                                     message=_movement._message or ' ',
-                                     eref=_movement.eref or ' ',
-                                     remote_owner=_movement.remote_owner or ' ',
-                                     remote_owner_address=_movement.remote_owner_address or ' ',
-                                     remote_owner_city=_movement.remote_owner_city or ' ',
-                                     remote_owner_postalcode=_movement.remote_owner_postalcode or ' ',
-                                     remote_owner_country_code=_movement.remote_owner_country_code or ' ',
-                                     transfer_type=_movement.transfer_type or ' ',
-                                     execution_date=_movement.execution_date or ' ',
-                                     value_date=_movement.value_date or ' ', )
+                                     message=_movement._message or '',
+                                     eref=_movement.eref or '',
+                                     remote_owner=_movement.remote_owner or '',
+                                     remote_owner_address=addr,
+                                     remote_owner_city=_movement.remote_owner_city or '',
+                                     remote_owner_postalcode=_movement.remote_owner_postalcode or '',
+                                     remote_owner_country_code=_movement.remote_owner_country_code or '',
+                                     transfer_type=_movement.transfer_type or '',
+                                     execution_date=_movement.execution_date or '',
+                                     value_date=_movement.value_date or '', )
                         m.save()
                     elif movements_to_update:
                         m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
@@ -167,7 +175,7 @@ class ImportStatements(dd.Action):
                         m.message = _movement._message or ' '
                         m.eref = _movement.eref or ' '
                         m.remote_owner = _movement.remote_owner or ' '
-                        m.remote_owner_address = _movement.remote_owner_address or ' '
+                        m.remote_owner_address = addr
                         m.remote_owner_city = _movement.remote_owner_city or ' '
                         m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
                         m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
@@ -285,17 +293,14 @@ class Statement(dd.Model):
         verbose_name_plural = _("Statements")
 
     def __unicode__(self):
-        if self.account:
-            if self.date:
-                return "{0} ({1})".format(self.account, self.date)
-            else:
-                return self.account
-        return ''
+        return self.statement_number
 
     account = dd.ForeignKey('sepa.Account')
-    date = models.DateField(_('Date'), null=True)
-    date_done = models.DateTimeField(_('Import Date'), null=True)
-    statement_number = models.CharField(_('Statement number'), null=False, max_length=128)
+    start_date = models.DateField(_('Start date'), null=True)
+    end_date = models.DateField(_('End date'), null=True)
+    # date_done = models.DateTimeField(_('Import Date'), null=True)
+    statement_number = models.CharField(
+        _('Statement number'), null=False, max_length=128)
     balance_start = dd.PriceField(_("Initial amount"), null=True)
     balance_end = dd.PriceField(_("Final amount"), null=True)
     balance_end_real = dd.PriceField(_("Real end balance"), null=True)
@@ -321,12 +326,12 @@ class Movement(dd.Model):
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
     movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
-    partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
+    # partner = models.ForeignKey('contacts.Partner', related_name='sepa_movement', null=True)
     partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
     remote_account = IBANField(verbose_name=_("IBAN"), blank=True)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
     ref = models.CharField(_('Ref'), null=False, max_length=35, blank=True)
-    message = models.TextField(_('Message'), max_length=128, blank=True)
+    message = models.TextField(_('Message'), blank=True)
     eref = models.CharField(_('End to end reference'), max_length=128)
     remote_owner = models.CharField(_('Remote owner'), max_length=128, blank=True)
     remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128, blank=True)
@@ -337,5 +342,37 @@ class Movement(dd.Model):
     execution_date = models.DateField(_('Execution date'), null=True, blank=True)
     value_date = models.DateField(_('Value date'), null=True, blank=True)
 
+    @dd.displayfield(_("Remote account"))
+    def remote_html(self, ar):
+        elems = []
+        elems += [self.remote_account, " "]
+        elems += ["(BIC:", self.remote_bic, ")"]
+        elems.append(E.br())
+        elems += [E.b(self.remote_owner), ", "]
+        elems.append(E.br())
+        elems += [self.remote_owner_address, ", "]
+        elems += [self.remote_owner_postalcode, " "]
+        elems += [self.remote_owner_city, " "]
+        elems += [self.remote_owner_country_code]
+        return E.div(*elems)
 
+    @dd.displayfield(_("Message"))
+    def message_html(self, ar):
+        from django.utils.translation import ugettext as _
+        elems = []
+        # elems += [_("Date"), dd.fds(self.movement_date), " "]
+        # elems += [_("Amount"), ' ', E.b(unicode(self.amount)), " "]
+        # self.execution_date
+        elems += self.message.splitlines()
+        elems.append(E.br())
+        elems += [_("ref:"), ': ', self.ref, ' ']
+        elems += [_("eref:"), ': ', self.eref]
+        elems.append(E.br())
+        elems += [_("TT:"), ': ', E.b(self.transfer_type), ' ']
+        elems += [_("Value date"), ': ', E.b(dd.fds(self.value_date)), " "]
+        elems += [_("Execution date"), ': ',
+                  E.b(dd.fds(self.execution_date)), " "]
+        return E.div(*elems)
+
+        
 from .ui import *
