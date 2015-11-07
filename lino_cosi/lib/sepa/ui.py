@@ -117,7 +117,7 @@ class Movements(dd.Table):
 class MovementsByStatement(Movements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
-    column_names = 'movement_date amount remote_owner message *'
+    column_names = 'movement_date amount remote_html message_html *'
     auto_fit_column_widths = True
 
 

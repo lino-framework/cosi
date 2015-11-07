@@ -31,6 +31,9 @@ from django.db import models
 from django.core.exceptions import MultipleObjectsReturned
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
+from lino.utils.xmlgen.html import E
+from lino.utils import join_elems
+
 from .camt import CamtParser
 from .fields import IBANField, BICField
 from .utils import belgian_nban_to_iban_bic, iban2bic
@@ -138,6 +141,7 @@ class ImportStatements(dd.Action):
                 s.save()
                 for _movement in _statement['transactions']:
                     _ref = _movement.get('ref', '') or ''
+                    addr = '\n'.join(_movement.remote_owner_address)
                     if not Movement.objects.filter(
                             unique_import_id=_movement['unique_import_id']).exists():
                         m = Movement(statement=s,
@@ -148,16 +152,16 @@ class ImportStatements(dd.Action):
                                      ref=_ref,
                                      remote_account=_movement.remote_account or '',
                                      remote_bic=_movement.remote_bank_bic or '',
-                                     message=_movement._message or ' ',
-                                     eref=_movement.eref or ' ',
-                                     remote_owner=_movement.remote_owner or ' ',
-                                     remote_owner_address=_movement.remote_owner_address or ' ',
-                                     remote_owner_city=_movement.remote_owner_city or ' ',
-                                     remote_owner_postalcode=_movement.remote_owner_postalcode or ' ',
-                                     remote_owner_country_code=_movement.remote_owner_country_code or ' ',
-                                     transfer_type=_movement.transfer_type or ' ',
-                                     execution_date=_movement.execution_date or ' ',
-                                     value_date=_movement.value_date or ' ', )
+                                     message=_movement._message or '',
+                                     eref=_movement.eref or '',
+                                     remote_owner=_movement.remote_owner or '',
+                                     remote_owner_address=addr,
+                                     remote_owner_city=_movement.remote_owner_city or '',
+                                     remote_owner_postalcode=_movement.remote_owner_postalcode or '',
+                                     remote_owner_country_code=_movement.remote_owner_country_code or '',
+                                     transfer_type=_movement.transfer_type or '',
+                                     execution_date=_movement.execution_date or '',
+                                     value_date=_movement.value_date or '', )
                         m.save()
                     elif movements_to_update:
                         m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
@@ -171,7 +175,7 @@ class ImportStatements(dd.Action):
                         m.message = _movement._message or ' '
                         m.eref = _movement.eref or ' '
                         m.remote_owner = _movement.remote_owner or ' '
-                        m.remote_owner_address = _movement.remote_owner_address or ' '
+                        m.remote_owner_address = addr
                         m.remote_owner_city = _movement.remote_owner_city or ' '
                         m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
                         m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
@@ -338,5 +342,37 @@ class Movement(dd.Model):
     execution_date = models.DateField(_('Execution date'), null=True, blank=True)
     value_date = models.DateField(_('Value date'), null=True, blank=True)
 
+    @dd.displayfield(_("Remote account"))
+    def remote_html(self, ar):
+        elems = []
+        elems += [self.remote_account, " "]
+        elems += ["(BIC:", self.remote_bic, ")"]
+        elems.append(E.br())
+        elems += [E.b(self.remote_owner), ", "]
+        elems.append(E.br())
+        elems += [self.remote_owner_address, ", "]
+        elems += [self.remote_owner_postalcode, " "]
+        elems += [self.remote_owner_city, " "]
+        elems += [self.remote_owner_country_code]
+        return E.div(*elems)
 
+    @dd.displayfield(_("Message"))
+    def message_html(self, ar):
+        from django.utils.translation import ugettext as _
+        elems = []
+        # elems += [_("Date"), dd.fds(self.movement_date), " "]
+        # elems += [_("Amount"), ' ', E.b(unicode(self.amount)), " "]
+        # self.execution_date
+        elems += self.message.splitlines()
+        elems.append(E.br())
+        elems += [_("ref:"), ': ', self.ref, ' ']
+        elems += [_("eref:"), ': ', self.eref]
+        elems.append(E.br())
+        elems += [_("TT:"), ': ', E.b(self.transfer_type), ' ']
+        elems += [_("Value date"), ': ', E.b(dd.fds(self.value_date)), " "]
+        elems += [_("Execution date"), ': ',
+                  E.b(dd.fds(self.execution_date)), " "]
+        return E.div(*elems)
+
+        
 from .ui import *
