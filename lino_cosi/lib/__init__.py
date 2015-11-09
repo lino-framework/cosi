@@ -46,5 +46,14 @@ Differentiator packages
 
     auto
 
+Not yet used
+============
+
+.. autosummary::
+   :toctree:
+
+    orders
+    delivery
+
 """
 
