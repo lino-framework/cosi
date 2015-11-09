@@ -42,7 +42,6 @@ Rolf is the local system administrator, he has a complete menu:
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale, Zahlungsbedingungen
   - Büro : Upload-Arten, Auszugsarten
   - MwSt. : MwSt-Regeln
-  - Verkauf : Lieferarten
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
@@ -52,3 +51,5 @@ Rolf is the local system administrator, he has a complete menu:
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
 - Site : Info
+
+

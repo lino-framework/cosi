@@ -184,13 +184,4 @@ dd.inject_field(
     'vat_id',
     models.CharField(_("VAT id"), max_length=200, blank=True))
 
-dd.inject_field(
-    'contacts.Partner',
-    'payment_term',
-    models.ForeignKey(
-        'ledger.PaymentTerm',
-        blank=True, null=True,
-        help_text=_("The default payment term for "
-                    "sales invoices to this customer.")))
-
 from .ui import *

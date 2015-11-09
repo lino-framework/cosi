@@ -35,7 +35,8 @@ from django.db import models
 from lino.api import dd, _
 
 from lino_cosi.lib.ledger.mixins import (
-    ProjectRelated, PartnerRelated, AccountVoucherItem, Matching)
+    ProjectRelated,  # PartnerRelated,
+    AccountVoucherItem, Matching)
 from lino_cosi.lib.sepa.mixins import Payable
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
@@ -45,7 +46,8 @@ TradeTypes.purchases.update(
     partner_account_field_label=_("Suppliers account"))
 
 
-class AccountInvoice(PartnerRelated, Payable, Voucher, Matching):
+#class AccountInvoice(PartnerRelated, Payable, Voucher, Matching):
+class AccountInvoice(Payable, Voucher, Matching):
 
     class Meta:
         verbose_name = _("Invoice")

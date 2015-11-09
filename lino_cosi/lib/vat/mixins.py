@@ -200,8 +200,13 @@ class VatTotal(dd.Model):
             self.total_vat = self.total_incl - self.total_base
 
 
-class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
+#class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
+class VatDocument(ProjectRelated, VatTotal):
     """Abstract base class for invoices, offers and other vouchers.
+
+    .. attribute:: partner
+
+       Mandatory field to be defined in another class.
 
     .. attribute:: refresh_after_item_edit
 
@@ -301,17 +306,15 @@ class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
                 match=self.match)
 
     def fill_defaults(self):
-        if not self.payment_term:
-            self.payment_term = self.partner.payment_term
+        super(VatDocument, self).fill_defaults()
         if not self.vat_regime:
             self.vat_regime = self.partner.vat_regime
             if not self.vat_regime:
                 self.vat_regime = get_default_vat_regime()
 
     def full_clean(self, *args, **kw):
-        self.fill_defaults()
-        self.compute_totals()
         super(VatDocument, self).full_clean(*args, **kw)
+        self.compute_totals()
 
     def before_state_change(self, ar, old, new):
         if new.name == 'registered':
