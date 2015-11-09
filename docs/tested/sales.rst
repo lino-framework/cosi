@@ -24,3 +24,6 @@ Sales
 >>> r = check_json_result(res, "navinfo data disable_delete id title")
 >>> r['title']
 u'Sales invoices (SLS) \xbb SLS#20'
+
+
+

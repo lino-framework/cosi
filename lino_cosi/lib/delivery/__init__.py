@@ -16,17 +16,12 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Functionality for writing sales invoices.
-
-It is implemented by :mod:`lino_cosi.lib.sales` (basic functionality) or
-:mod:`lino_cosi.lib.auto.sales` (adds common definitions for automatic
-generation of invoices).
+"""Adds delivery notes to the sales workflow.
 
 .. autosummary::
     :toctree:
 
     models
-    fixtures.demo
 
 
 
@@ -39,5 +34,11 @@ from django.utils.translation import ugettext_lazy as _
 class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
 
-    verbose_name = _("Sales")
+    verbose_name = _("Delivery")
+
+    def setup_config_menu(self, site, profile, m):
+        m = m.add_menu("sales", self.verbose_name)
+        # m.add_action('sales.InvoicingModes')
+        m.add_action('delivery.ShippingModes')
+
 

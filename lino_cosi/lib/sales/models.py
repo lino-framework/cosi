@@ -102,27 +102,6 @@ dd.inject_field(
 #         _("Deregister"), states="registered", icon_name='pencil')
 #     #~ InvoiceStates.submitted.add_transition(_("Submit"),states="registered")
 
-
-class ShippingMode(mixins.BabelNamed):
-    """
-    Represents a possible method of how the items described in a
-    :class:`SalesDocument` are to be transferred from us to our customer.
-
-    .. attribute:: price
-
-    """
-    class Meta:
-        verbose_name = _("Shipping Mode")
-        verbose_name_plural = _("Shipping Modes")
-
-    price = dd.PriceField(blank=True, null=True)
-
-
-class ShippingModes(dd.Table):
-
-    model = 'sales.ShippingMode'
-
-
 class SalesDocument(VatDocument, Certifiable):
     """Common base class for `orders.Order` and :class:`VatProductInvoice`.
 
@@ -138,15 +117,8 @@ class SalesDocument(VatDocument, Certifiable):
 
     language = dd.LanguageField()
 
-    # ship_to = models.ForeignKey('contacts.Partner',
-        # blank=True,null=True,
-        # related_name="ship_to_%(class)s")
-    # your_ref = models.CharField(
-    #     _("Your reference"), max_length=200, blank=True)
-    shipping_mode = models.ForeignKey(ShippingMode, blank=True, null=True)
     subject = models.CharField(_("Subject line"), max_length=200, blank=True)
     intro = models.TextField("Introductive Text", blank=True)
-    discount = dd.PercentageField(_("Discount"), blank=True, null=True)
 
     def get_printable_type(self):
         return self.journal
@@ -212,10 +184,6 @@ class VatProductInvoice(SalesDocument, Voucher, Matching, Payable):
         yield 'due_date'
         yield 'order'
 
-        # yield 'imode'
-        yield 'shipping_mode'
-        yield 'discount'
-
         yield 'date'
         yield 'user'
         #~ yield 'item_vat'
@@ -225,7 +193,6 @@ class InvoiceDetail(dd.FormLayout):
     main = "general more ledger"
 
     totals = dd.Panel("""
-    # discount
     total_base
     total_vat
     total_incl
@@ -235,8 +202,7 @@ class InvoiceDetail(dd.FormLayout):
     invoice_header = dd.Panel("""
     date partner vat_regime
     order subject your_ref
-    payment_term due_date:20
-    shipping_mode printed
+    payment_term due_date:20 printed
     """, label=_("Header"))  # sales_remark
 
     general = dd.Panel("""
@@ -358,8 +324,12 @@ class InvoiceItem(ProductDocItem, SequencedVoucherItem):
     class Meta:
         abstract = dd.is_abstract_model(__name__, 'InvoiceItem')
 
-    voucher = models.ForeignKey('sales.VatProductInvoice', related_name='items')
+    voucher = models.ForeignKey(
+        'sales.VatProductInvoice', related_name='items')
     title = models.CharField(_("Description"), max_length=200, blank=True)
+    ship_ref = models.CharField(
+        _("Shipment reference"), max_length=200, blank=True)
+    ship_date = models.DateField(_("Shipment date"), blank=True, null=True)
 
 
 class ItemsByInvoice(ItemsByDocument):

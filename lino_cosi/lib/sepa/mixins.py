@@ -29,18 +29,17 @@ from django.core.exceptions import ValidationError
 
 from lino.api import dd, rt, _
 
+from lino_cosi.lib.ledger.mixins import PartnerRelated
 
-class Payable(dd.Model):
+
+class Payable(PartnerRelated):
     """Model mixin for database objects that are considered *payable
     transactions*. To be combined with some mixin which defines a
     field `partner`.
 
     A **payable transaction** is a transaction that is expected to
-    create a payment.
+    cause a payment.
 
-    Base class for :class:`vat.AccountInvoice`
-    (and e.g. `sales.Invoice`, `finan.DocItem`)
-    
     .. attribute:: your_ref
     .. attribute:: due_date
     .. attribute:: title
@@ -58,12 +57,17 @@ class Payable(dd.Model):
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     def full_clean(self):
-        super(Payable, self).full_clean()
         if self.bank_account:
             if self.bank_account.partner != self.partner:
                 raise ValidationError(_("Partners mismatch"))
         else:
             self.partner_changed(None)
+
+        if not self.due_date:
+            if self.payment_term is not None:
+                self.due_date = self.payment_term.get_due_date(self.date)
+
+        super(Payable, self).full_clean()
 
     @classmethod
     def get_registrable_fields(cls, site):

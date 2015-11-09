@@ -66,10 +66,9 @@ class ProjectRelated(dd.Model):
 
 class PartnerRelated(dd.Model):
     """Base class for things that are related to one and only one trade
-    partner (i.e. another organization or person). This is base class
-    for both (1) trade document vouchers (e.g. invoices or offers) and
-    (2) for the individual entries of financial vouchers and ledger
-    movements.
+    partner. This is base class for both (1) trade document vouchers
+    (e.g. invoices or offers) and (2) for the individual entries of
+    financial vouchers and ledger movements.
 
     .. attribute:: partner
 
@@ -80,6 +79,10 @@ class PartnerRelated(dd.Model):
 
         The payment terms to be used in this document.  A pointer to
         :class:`PaymentTerm`.
+
+    .. attribute:: recipient
+
+        Alias for the partner
 
     """
     class Meta:
@@ -94,6 +97,10 @@ class PartnerRelated(dd.Model):
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
         blank=True, null=True)
 
+    def get_recipient(self):
+        return self.partner
+    recipient = property(get_recipient)
+
     @classmethod
     def get_registrable_fields(cls, site):
         for f in super(PartnerRelated, cls).get_registrable_fields(site):
@@ -101,10 +108,13 @@ class PartnerRelated(dd.Model):
         yield 'partner'
         yield 'payment_term'
 
-    def get_recipient(self):
-        return self.partner
-    recipient = property(get_recipient)
+    def fill_defaults(self):
+        if not self.payment_term:
+            self.payment_term = self.partner.payment_term
 
+    def full_clean(self, *args, **kw):
+        self.fill_defaults()
+        super(PartnerRelated, self).full_clean(*args, **kw)
 
 class Matching(dd.Model):
     """Model mixin for database objects that are considered *matching

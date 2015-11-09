@@ -11,9 +11,10 @@ Tested code snippets on the demo database
     
     doctest init:
 
-    >>> import os
-    >>> import json
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
+    >>> #import os
+    >>> # os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
+    >>> from lino import startup
+    >>> startup('lino_cosi.projects.std.settings.doctests')
     >>> from lino.api.doctest import *
     >>> ses = rt.login('robin')
 
@@ -30,13 +31,81 @@ using the Django API:
 The test database
 -----------------
 
-Test whether :meth:`get_db_overview_rst 
-<ad.Site.get_db_overview_rst>` returns the expected result:
 
->>> print(dd.get_db_overview_rst()) 
+>>> from lino.utils.diag import analyzer
+>>> print analyzer.show_database_structure()
+... #doctest: +NORMALIZE_WHITESPACE +REPORT_UDIFF
+- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, clearable, chart, group, type
+- accounts.Group : id, name, chart, ref, account_type
+- cal.Calendar : id, name, description, color
+- cal.Event : id, modified, created, build_time, build_method, user, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state, assigned_to
+- cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting
+- cal.Guest : id, event, partner, role, state, remark
+- cal.GuestRole : id, name
+- cal.Priority : id, name, ref
+- cal.RecurrentEvent : id, name, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, event_type, description
+- cal.RemoteCalendar : id, seqno, type, url_template, username, password, readonly
+- cal.Room : id, name
+- cal.Subscription : id, user, calendar, is_hidden
+- cal.Task : id, modified, created, user, owner_type, owner_id, start_date, start_time, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
+- contacts.Company : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, partner_ptr, prefix, type, vat_id
+- contacts.CompanyType : id, name, abbr
+- contacts.Partner : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient
+- contacts.Person : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
+- contacts.Role : id, type, person, company
+- contacts.RoleType : id, name
+- contenttypes.ContentType : id, name, app_label, model
+- countries.Country : name, isocode, short_code, iso3
+- countries.Place : id, name, country, zip_code, type, parent
+- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, tariff, enrolments_until
+- courses.Enrolment : id, user, printed_by, invoice, course_area, course, pupil, request_date, state, amount, places, option, remark, confirmation_details
+- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, tariff, guest_role, options_cat, fees_cat, body_template
+- courses.Slot : id, seqno, start_time, end_time, name
+- courses.Topic : id, name
+- declarations.Declaration : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, period, sales_base, sales_vat, purchases_base, purchases_vat, purchases_investments, purchases_ware, purchases_services
+- excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
+- excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
+- finan.BankStatement : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, balance1, balance2
+- finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
+- finan.Grouper : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner
+- finan.GrouperItem : id, seqno, match, amount, dc, remark, account, partner, voucher
+- finan.JournalEntry : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr
+- finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
+- finan.PaymentOrder : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, total, execution_date
+- finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
+- gfks.HelpText : id, content_type, field, help_text
+- ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, chart, account, printed_name, dc
+- ledger.MatchRule : id, account, journal
+- ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
+- ledger.PaymentTerm : id, name, days, months, end_of_month
+- ledger.Voucher : id, user, date, journal, year, number, narration, state, declared_in
+- outbox.Attachment : id, owner_type, owner_id, mail
+- outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
+- outbox.Recipient : id, mail, partner, type, address, name
+- products.Product : id, ref, name, description, cat, vat_class, sales_account, sales_price, purchases_account
+- products.ProductCat : id, name, description
+- sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, ship_ref, ship_date, invoiceable_type, invoiceable_id
+- sales.InvoicingMode : id, build_method, template, name, price, advance_days
+- sales.VatProductInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
+- sepa.Account : id, partner, iban, bic, remark, primary
+- sepa.Movement : id, statement, unique_import_id, movement_date, amount, partner_name, remote_account, remote_bic, ref, message, eref, remote_owner, remote_owner_address, remote_owner_city, remote_owner_postalcode, remote_owner_country_code, transfer_type, execution_date, value_date
+- sepa.Statement : id, account, start_date, end_date, statement_number, balance_start, balance_end, balance_end_real, currency_code
+- system.SiteConfig : id, default_build_method, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
+- uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
+- uploads.UploadType : id, name, upload_area, max_number, wanted, shortcut
+- users.Authority : id, user, authorized
+- users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
+- vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
+- vat.VatAccountInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
+- vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
+- vatless.AccountInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
+- vatless.InvoiceItem : id, seqno, account, voucher, title, amount
+<BLANKLINE>
+
+>>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 28 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, vat, declarations, finan, sales, cal, courses, vatless.
-66 models:
+65 models:
 ========================== ============================== ========= =======
  Name                       Default table                  #fields   #rows
 -------------------------- ------------------------------ --------- -------
@@ -59,7 +128,7 @@ Test whether :meth:`get_db_overview_rst
  contacts.Person            contacts.Persons               29        69
  contacts.Role              contacts.Roles                 4         0
  contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   gfks.ContentTypes              4         67
+ contenttypes.ContentType   gfks.ContentTypes              4         66
  countries.Country          countries.Countries            4         8
  countries.Place            countries.Places               6         78
  courses.Course             courses.Courses                28        0
@@ -89,10 +158,9 @@ Test whether :meth:`get_db_overview_rst
  outbox.Recipient           outbox.Recipients              6         0
  products.Product           products.Products              9         12
  products.ProductCat        products.ProductCats           3         2
- sales.InvoiceItem          sales.InvoiceItemTable         15        51
+ sales.InvoiceItem          sales.InvoiceItemTable         17        51
  sales.InvoicingMode        sales.InvoicingModes           6         0
- sales.ShippingMode         sales.ShippingModes            3         0
- sales.VatProductInvoice    sales.Invoices                 27        26
+ sales.VatProductInvoice    sales.Invoices                 25        26
  sepa.Account               sepa.Accounts                  6         17
  sepa.Movement              sepa.Movements                 19        0
  sepa.Statement             sepa.Statements                9         0

@@ -612,3 +612,12 @@ dd.inject_field(
     'clearable', models.BooleanField(_("Clearable"), default=False))
 
 
+dd.inject_field(
+    'contacts.Partner',
+    'payment_term',
+    models.ForeignKey(
+        'ledger.PaymentTerm',
+        blank=True, null=True,
+        help_text=_("The default payment term for "
+                    "sales invoices to this customer.")))
+
