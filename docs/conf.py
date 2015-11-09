@@ -19,9 +19,9 @@ from django.conf import settings
 settings.SITE.title = "Lino Cosi Documentation"
 
 extensions += ['lino.sphinxcontrib.logo']
-extensions += ['sphinx.ext.autosummary']
+# extensions += ['sphinx.ext.autosummary']
+# autodoc_default_flags = ['members']
 autosummary_generate = True
-autodoc_default_flags = ['members']
 
 
 from django.utils.importlib import import_module
