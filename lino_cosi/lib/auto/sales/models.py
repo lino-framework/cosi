@@ -44,7 +44,8 @@ from lino.api import dd, rt
 from lino.utils import AttrDict
 from lino.utils.xmlgen.html import E
 
-from lino.mixins.printable import BuildMethods
+from lino.mixins.printable import BuildMethods, CachedPrintAction
+from lino.mixins import PrintableType, BabelNamed
 
 from lino.core import dbtables
 
@@ -54,7 +55,7 @@ contacts = dd.resolve_app('contacts')
 from lino_cosi.lib.sales.models import *
 
 
-class InvoicingMode(mixins.PrintableType, mixins.BabelNamed):
+class InvoicingMode(PrintableType, BabelNamed):
     """The method of issuing/sending invoices.
 
     """
@@ -300,7 +301,7 @@ class InvoicingsByInvoiceable(InvoiceItemsByProduct):  # 20130709
     column_names = "voucher qty title description:20x1 discount unit_price total_incl total_base total_vat"
 
 
-class CreateAllInvoices(mixins.CachedPrintAction):
+class CreateAllInvoices(CachedPrintAction):
     """Create and print the invoice for each selected row, making these
 rows disappear from this table
 

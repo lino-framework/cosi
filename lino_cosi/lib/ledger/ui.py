@@ -102,7 +102,8 @@ class ByJournal(dd.Table):
 class PaymentTerms(dd.Table):
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.PaymentTerm'
-    order_by = ["id"]
+    order_by = ["ref"]
+    column_names = "ref name months days end_of_month *"
 
 
 class Vouchers(dd.Table):

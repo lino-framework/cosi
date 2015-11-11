@@ -11,8 +11,8 @@ Sales
     
     doctest init:
 
-    >>> import os
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
+    >>> from lino import startup
+    >>> startup('lino_cosi.projects.std.settings.doctests')
     >>> from lino.api.doctest import *
     >>> ses = rt.login('robin')
 
@@ -26,4 +26,36 @@ Sales
 u'Sales invoices (SLS) \xbb SLS#20'
 
 
+IllegalText: The <text:section> element does not allow text
+===========================================================
 
+The following reproduces a situation which caused above error
+until :blogref:`20151111`. 
+
+TODO: it is currently disabled for different reasons: leaves dangling
+temporary directories, does not reproduce the problem (probably
+because we must clear the cache).
+
+>> obj = rt.modules.sales.VatProductInvoice.objects.all()[0]
+>> obj
+VatProductInvoice #1 (u'SLS#1')
+>> from lino.modlib.appypod.appy_renderer import AppyRenderer
+>> tplfile = rt.find_config_file('sales/VatProductInvoice/Default.odt')
+>> context = dict()
+>> outfile = "tmp.odt"
+>> renderer = AppyRenderer(ses, tplfile, context, outfile)
+>> ar = rt.modules.sales.ItemsByInvoicePrint.request(obj)
+>> print(renderer.insert_table(ar))  #doctest: +ELLIPSIS
+<table:table ...</table:table-rows></table:table>
+
+
+>> item = obj.items.all()[0]
+>> item.description = """
+... <p>intro:</p><ol><li>first</li><li>second</li></ol>
+... <p></p>
+... """
+>> item.save()
+>> print(renderer.insert_table(ar))  #doctest: +ELLIPSIS
+Traceback (most recent call last):
+...
+IllegalText: The <text:section> element does not allow text

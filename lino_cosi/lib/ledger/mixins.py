@@ -111,10 +111,16 @@ class PartnerRelated(dd.Model):
     def fill_defaults(self):
         if not self.payment_term:
             self.payment_term = self.partner.payment_term
+            self.payment_term_changed()
 
     def full_clean(self, *args, **kw):
         self.fill_defaults()
         super(PartnerRelated, self).full_clean(*args, **kw)
+
+    def payment_term_changed(self, ar=None):
+        if self.payment_term:
+            self.due_date = self.payment_term.get_due_date(self.date)
+
 
 class Matching(dd.Model):
     """Model mixin for database objects that are considered *matching
