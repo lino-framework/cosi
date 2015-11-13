@@ -77,20 +77,21 @@ The test database
 - ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, chart, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
-- ledger.PaymentTerm : id, name, days, months, end_of_month
+- ledger.PaymentTerm : id, ref, name, days, months, end_of_month
 - ledger.Voucher : id, user, date, journal, year, number, narration, state, declared_in
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
 - products.Product : id, ref, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
-- sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, ship_ref, ship_date, invoiceable_type, invoiceable_id
+- sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
 - sales.InvoicingMode : id, build_method, template, name, price, advance_days
 - sales.VatProductInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - sepa.Movement : id, statement, unique_import_id, movement_date, amount, partner_name, remote_account, remote_bic, ref, message, eref, remote_owner, remote_owner_address, remote_owner_city, remote_owner_postalcode, remote_owner_country_code, transfer_type, execution_date, value_date
 - sepa.Statement : id, account, start_date, end_date, statement_number, balance_start, balance_end, balance_end_real, currency_code
 - system.SiteConfig : id, default_build_method, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
+- tinymce.TextFieldTemplate : id, user, name, description, text
 - uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
 - uploads.UploadType : id, name, upload_area, max_number, wanted, shortcut
 - users.Authority : id, user, authorized
@@ -104,77 +105,78 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-28 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, vat, declarations, finan, sales, cal, courses, vatless.
-65 models:
-========================== ============================== ========= =======
- Name                       Default table                  #fields   #rows
--------------------------- ------------------------------ --------- -------
- accounts.Account           accounts.Accounts              12        12
- accounts.Group             accounts.Groups                5         7
- cal.Calendar               cal.Calendars                  4         1
- cal.Event                  cal.OneEvent                   23        68
- cal.EventType              cal.EventTypes                 12        2
- cal.Guest                  cal.Guests                     6         0
- cal.GuestRole              cal.GuestRoles                 2         0
- cal.Priority               cal.Priorities                 3         4
- cal.RecurrentEvent         cal.RecurrentEvents            19        9
- cal.RemoteCalendar         cal.RemoteCalendars            7         0
- cal.Room                   cal.Rooms                      2         0
- cal.Subscription           cal.Subscriptions              4         0
- cal.Task                   cal.Tasks                      17        0
- contacts.Company           contacts.Companies             26        22
- contacts.CompanyType       contacts.CompanyTypes          3         16
- contacts.Partner           contacts.Partners              22        91
- contacts.Person            contacts.Persons               29        69
- contacts.Role              contacts.Roles                 4         0
- contacts.RoleType          contacts.RoleTypes             2         5
- contenttypes.ContentType   gfks.ContentTypes              4         66
- countries.Country          countries.Countries            4         8
- countries.Place            countries.Places               6         78
- courses.Course             courses.Courses                28        0
- courses.Enrolment          courses.Enrolments             14        0
- courses.Line               courses.Lines                  15        0
- courses.Slot               courses.Slots                  5         0
- courses.Topic              courses.Topics                 2         0
- declarations.Declaration   declarations.Declarations      18        0
- excerpts.Excerpt           excerpts.Excerpts              11        0
- excerpts.ExcerptType       excerpts.ExcerptTypes          15        3
- finan.BankStatement        finan.BankStatements           12        15
- finan.BankStatementItem    finan.BankStatementItemTable   10        344
- finan.Grouper              finan.Groupers                 11        0
- finan.GrouperItem          finan.GrouperItemTable         9         0
- finan.JournalEntry         finan.FinancialVouchers        10        0
- finan.JournalEntryItem     finan.JournalEntryItemTable    10        0
- finan.PaymentOrder         finan.PaymentOrders            12        15
- finan.PaymentOrderItem     finan.PaymentOrderItemTable    10        0
- gfks.HelpText              gfks.HelpTexts                 4         2
- ledger.Journal             ledger.Journals                15        7
- ledger.MatchRule           ledger.MatchRules              3         10
- ledger.Movement            ledger.Movements               9         740
- ledger.PaymentTerm         ledger.PaymentTerms            5         0
- ledger.Voucher             ledger.Vouchers                9         136
- outbox.Attachment          outbox.Attachments             4         0
- outbox.Mail                outbox.Mails                   8         0
- outbox.Recipient           outbox.Recipients              6         0
- products.Product           products.Products              9         12
- products.ProductCat        products.ProductCats           3         2
- sales.InvoiceItem          sales.InvoiceItemTable         17        51
- sales.InvoicingMode        sales.InvoicingModes           6         0
- sales.VatProductInvoice    sales.Invoices                 25        26
- sepa.Account               sepa.Accounts                  6         17
- sepa.Movement              sepa.Movements                 19        0
- sepa.Statement             sepa.Statements                9         0
- system.SiteConfig          system.SiteConfigs             15        1
- uploads.Upload             uploads.Uploads                9         0
- uploads.UploadType         uploads.UploadTypes            6         0
- users.Authority            users.Authorities              3         0
- users.User                 users.Users                    15        1
- vat.InvoiceItem            vat.InvoiceItemTable           9         128
- vat.VatAccountInvoice      vat.Invoices                   21        80
- vat.VatRule                vat.VatRules                   9         11
- vatless.AccountInvoice     vatless.Invoices               18        0
- vatless.InvoiceItem        vatless.InvoiceItems           6         0
-========================== ============================== ========= =======
+29 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, tinymce, vat, declarations, finan, sales, cal, courses, vatless.
+66 models:
+=========================== ============================== ========= =======
+ Name                        Default table                  #fields   #rows
+--------------------------- ------------------------------ --------- -------
+ accounts.Account            accounts.Accounts              12        12
+ accounts.Group              accounts.Groups                5         7
+ cal.Calendar                cal.Calendars                  4         1
+ cal.Event                   cal.OneEvent                   23        68
+ cal.EventType               cal.EventTypes                 12        2
+ cal.Guest                   cal.Guests                     6         0
+ cal.GuestRole               cal.GuestRoles                 2         0
+ cal.Priority                cal.Priorities                 3         4
+ cal.RecurrentEvent          cal.RecurrentEvents            19        9
+ cal.RemoteCalendar          cal.RemoteCalendars            7         0
+ cal.Room                    cal.Rooms                      2         0
+ cal.Subscription            cal.Subscriptions              4         0
+ cal.Task                    cal.Tasks                      17        0
+ contacts.Company            contacts.Companies             26        22
+ contacts.CompanyType        contacts.CompanyTypes          3         16
+ contacts.Partner            contacts.Partners              22        91
+ contacts.Person             contacts.Persons               29        69
+ contacts.Role               contacts.Roles                 4         0
+ contacts.RoleType           contacts.RoleTypes             2         5
+ contenttypes.ContentType    gfks.ContentTypes              4         67
+ countries.Country           countries.Countries            4         8
+ countries.Place             countries.Places               6         78
+ courses.Course              courses.Courses                28        0
+ courses.Enrolment           courses.Enrolments             14        0
+ courses.Line                courses.Lines                  15        0
+ courses.Slot                courses.Slots                  5         0
+ courses.Topic               courses.Topics                 2         0
+ declarations.Declaration    declarations.Declarations      18        0
+ excerpts.Excerpt            excerpts.Excerpts              11        0
+ excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
+ finan.BankStatement         finan.BankStatements           12        15
+ finan.BankStatementItem     finan.BankStatementItemTable   10        344
+ finan.Grouper               finan.Groupers                 11        0
+ finan.GrouperItem           finan.GrouperItemTable         9         0
+ finan.JournalEntry          finan.FinancialVouchers        10        0
+ finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
+ finan.PaymentOrder          finan.PaymentOrders            12        15
+ finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        0
+ gfks.HelpText               gfks.HelpTexts                 4         2
+ ledger.Journal              ledger.Journals                15        7
+ ledger.MatchRule            ledger.MatchRules              3         10
+ ledger.Movement             ledger.Movements               9         740
+ ledger.PaymentTerm          ledger.PaymentTerms            6         7
+ ledger.Voucher              ledger.Vouchers                9         136
+ outbox.Attachment           outbox.Attachments             4         0
+ outbox.Mail                 outbox.Mails                   8         0
+ outbox.Recipient            outbox.Recipients              6         0
+ products.Product            products.Products              9         12
+ products.ProductCat         products.ProductCats           3         2
+ sales.InvoiceItem           sales.InvoiceItems             15        51
+ sales.InvoicingMode         sales.InvoicingModes           6         0
+ sales.VatProductInvoice     sales.Invoices                 25        26
+ sepa.Account                sepa.Accounts                  6         17
+ sepa.Movement               sepa.Movements                 19        0
+ sepa.Statement              sepa.Statements                9         0
+ system.SiteConfig           system.SiteConfigs             15        1
+ tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
+ uploads.Upload              uploads.Uploads                9         0
+ uploads.UploadType          uploads.UploadTypes            6         0
+ users.Authority             users.Authorities              3         0
+ users.User                  users.Users                    15        1
+ vat.InvoiceItem             vat.InvoiceItemTable           9         128
+ vat.VatAccountInvoice       vat.Invoices                   21        80
+ vat.VatRule                 vat.VatRules                   9         11
+ vatless.AccountInvoice      vatless.Invoices               18        0
+ vatless.InvoiceItem         vatless.InvoiceItems           6         0
+=========================== ============================== ========= =======
 <BLANKLINE>
 
 

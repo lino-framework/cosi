@@ -48,6 +48,8 @@ class Site(Site):
 
     user_profiles_module = 'lino_cosi.lib.cosi.roles'
 
+    textfield_format = 'html'
+
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()
         yield 'lino.modlib.gfks'
@@ -66,6 +68,7 @@ class Site(Site):
         # yield 'lino.modlib.uploads'
         # yield 'lino.modlib.appypod'
         yield 'lino.modlib.export_excel'
+        yield 'lino.modlib.tinymce'
 
         # ledger must come before sales because its demo fixture
         # creates journals

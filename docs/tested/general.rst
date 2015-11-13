@@ -40,16 +40,17 @@ Rolf is the local system administrator, he has a complete menu:
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontenpläne, Kontengruppen, Konten, Journale, Zahlungsbedingungen
-  - Büro : Upload-Arten, Auszugsarten
+  - Büro : Upload-Arten, Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
   - SEPA : Konten, Statements, Bewegungen
-  - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge
+  - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
+  - Verkauf : invoice items
 - Site : Info
 
 

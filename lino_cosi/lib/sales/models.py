@@ -31,7 +31,8 @@ from django.utils.translation import ugettext_lazy as _
 from lino.api import dd, rt
 
 from lino.core import actions
-from lino import mixins
+
+from lino.utils.xmlgen.html import E
 
 from lino.modlib.excerpts.mixins import Certifiable
 
@@ -207,7 +208,7 @@ class InvoiceDetail(dd.FormLayout):
 
     general = dd.Panel("""
     invoice_header:60 totals:20
-    ItemsByInvoice
+    InvoiceItems ItemsByInvoice
     """, label=_("General"))
 
     more = dd.Panel("""
@@ -260,12 +261,19 @@ class InvoicesByJournal(Invoices, ByJournal):
 
 
 class ProductDocItem(QtyVatItemBase):
+    """Mixin for voucher items which potentially refer to a product.
 
+    .. attribute:: product
+    .. attribute:: description
+    .. attribute:: discount
+
+    """
     class Meta:
         abstract = True
 
     product = models.ForeignKey('products.Product', blank=True, null=True)
-    description = dd.RichTextField(_("Description"), blank=True, null=True)
+    description = dd.RichTextField(
+        _("Description"), blank=True, null=True)
     discount = dd.PercentageField(_("Discount"), blank=True, null=True)
 
     def get_base_account(self, tt):
@@ -313,39 +321,64 @@ class ProductDocItem(QtyVatItemBase):
             self.discount_changed(ar)
 
 
-class ItemsByDocument(dd.Table):
-    column_names = "seqno:3 product title description:20x1 discount unit_price qty total_incl *"
-    master_key = 'voucher'
-    order_by = ["seqno"]
-
-
 class InvoiceItem(ProductDocItem, SequencedVoucherItem):
-
+    """An item of a sales invoice."""
     class Meta:
         abstract = dd.is_abstract_model(__name__, 'InvoiceItem')
 
     voucher = models.ForeignKey(
         'sales.VatProductInvoice', related_name='items')
-    title = models.CharField(_("Description"), max_length=200, blank=True)
-    ship_ref = models.CharField(
-        _("Shipment reference"), max_length=200, blank=True)
-    ship_date = models.DateField(_("Shipment date"), blank=True, null=True)
+    title = models.CharField(_("Heading"), max_length=200, blank=True)
+    # ship_ref = models.CharField(
+    #     _("Shipment reference"), max_length=200, blank=True)
+    # ship_date = models.DateField(_("Shipment date"), blank=True, null=True)
 
 
-class ItemsByInvoice(ItemsByDocument):
-    #~ debug_permissions = 20130128
+class InvoiceItems(dd.Table):
+    """Shows all sales invoice items."""
     model = 'sales.InvoiceItem'
     auto_fit_column_widths = True
-    column_names = "seqno:3 product title description:20x1 \
-    discount unit_price qty total_incl *"
-    hidden_columns = "seqno description total_base total_vat"
+    column_names = "product title discount unit_price qty total_incl *"
+    # hidden_columns = "seqno description total_base total_vat"
+    detail_layout = dd.DetailLayout("""
+    seqno product discount
+    unit_price qty total_base total_vat total_incl
+    title
+    description""", window_size=(80, 20))
+
+    insert_layout = """
+    product discount qty
+    title
+    """
+
+    stay_in_grid = True
+
+
+class ItemsByInvoice(InvoiceItems):
+    master_key = 'voucher'
+    order_by = ["seqno"]
 
 
 class ItemsByInvoicePrint(ItemsByInvoice):
-    column_names = "title:40 unit_price:10 qty:5 total_incl:10"
+    column_names = "description_print unit_price qty total_incl"
+
+    @dd.displayfield(_("Description"))
+    def description_print(cls, self, ar):
+        if True:
+            if self.description:
+                elems = [E.p(E.b(self.title))]
+                # desc = E.raw('<div>%s</div>' % self.description)
+                desc = E.raw(self.description)
+                elems.extend(desc)
+                return E.div(*elems)
+            return E.span(self.title)
+        # experimental
+        if self.description:
+            return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
+        return "<p>{0}</p>".format(self.title)
 
 
-class InvoiceItemsByProduct(ItemsByInvoice):
+class InvoiceItemsByProduct(InvoiceItems):
     master_key = 'product'
     column_names = "voucher voucher__partner qty title \
 description:20x1 discount unit_price total_incl total_base total_vat"

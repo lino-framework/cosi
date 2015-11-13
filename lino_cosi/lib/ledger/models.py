@@ -251,7 +251,8 @@ class Journal(mixins.BabelNamed,
         return cls.get_template_choices(build_method, template_groups)
 
 
-class PaymentTerm(mixins.BabelNamed):
+class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
+              
     """A convention on how an invoice should be paid.
 
     """
@@ -260,9 +261,9 @@ class PaymentTerm(mixins.BabelNamed):
         verbose_name = _("Payment Term")
         verbose_name_plural = _("Payment Terms")
 
-    days = models.IntegerField(default=0)
-    months = models.IntegerField(default=0)
-    end_of_month = models.BooleanField(default=False)
+    days = models.IntegerField(_("Days"), default=0)
+    months = models.IntegerField(_("Months"), default=0)
+    end_of_month = models.BooleanField(_("End of month"), default=False)
 
     def get_due_date(self, date1):
         assert isinstance(date1, datetime.date), \

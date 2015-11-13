@@ -57,6 +57,7 @@ from lino.core.utils import obj2str
 from lino.core.utils import is_valid_email
 
 from lino_cosi.lib.ledger.choicelists import JournalGroups
+# from lino_cosi.lib.ledger.fixtures.std import payment_terms
 
 from lino.api import dd, rt
 
@@ -1115,6 +1116,9 @@ class TimLoader(object):
 
 def objects():
     # settings.SITE.startup()
+
+    # yield payment_terms()
+
     tim = TimLoader(settings.SITE.legacy_data_path)
     for obj in tim.objects():
         yield obj

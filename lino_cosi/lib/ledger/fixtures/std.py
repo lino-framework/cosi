@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2014 Luc Saffre
+# Copyright 2012-2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,26 +19,37 @@
 
 """
 
+.. xfile:: payment_reminder.body.html
+
+  Defines the body text of a payment reminder.
+
 """
 
 from __future__ import unicode_literals
 
 from lino.api import dd, rt, _
-notes = dd.resolve_app('notes')
+
+
+def payment_terms():
+    """Loads a default list of payment terms
+    (:class:`lino_cosi.lib.ledger.models.PaymentTerm`).
+
+    """
+    def PT(name, ref, **kwargs):
+        kwargs['ref'] = ref
+        kwargs = dd.str2kw('name', name, **kwargs)
+        return rt.modules.ledger.PaymentTerm(**kwargs)
+    
+    yield PT(_("Payment in advance"), "PIA")
+    yield PT(_("Payment seven days after invoice date"), "07", days=7)
+    yield PT(_("Payment ten days after invoice date"), "10", days=10)
+    yield PT(_("Payment 30 days after invoice date"), "30", days=30)
+    yield PT(_("Payment 60 days after invoice date"), "60", days=60)
+    yield PT(_("Payment 90 days after invoice date"), "90", days=90)
+    yield PT(_("Payment end of month"), "EOM", end_of_month=True)
 
 
 def objects():
-    if False and notes:
-        NoteType = dd.resolve_model('notes.NoteType')
-        yield NoteType(
-            template="Letter.odt",
-            build_method="appyodt",
-            body_template="payment_reminder.body.html",
-            **dd.babel_values('name',
-                              en="Payment reminder",
-                              fr="Rappel de paiement",
-                              de="Zahlungserinnerung"))
-
     ExcerptType = rt.modules.excerpts.ExcerptType
     ContentType = rt.modules.contenttypes.ContentType
 
@@ -47,3 +58,7 @@ def objects():
         content_type=ContentType.objects.get_for_model(
             dd.resolve_model('contacts.Partner')),
         **dd.str2kw('name', _("Payment reminder")))
+
+    yield payment_terms()
+
+
