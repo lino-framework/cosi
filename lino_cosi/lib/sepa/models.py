@@ -91,11 +91,11 @@ class ImportStatements(dd.Action):
     def import_file(self, ar, filename):
         """Import the named file, which must be a CAMT053 XML file."""
         Account = rt.modules.sepa.Account
+        dd.logger.debug("Importing file %s.", filename)
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
         # try:
-        dd.logger.info("Parsing %s with camt.", filename)
         res = parser.parse(data_file)
         self.imported_files += 1
         failed_statements = 0
