@@ -322,7 +322,7 @@ class Course(Reservation):
     description = dd.BabelTextField(_("Description"), blank=True)
     remark = models.TextField(_("Remark"), blank=True)
 
-    quick_search_fields = ('line__name', 'line__topic__name')
+    quick_search_fields = 'line__name line__topic__name'
 
     state = CourseStates.field(
         default=CourseStates.draft.as_callable())
