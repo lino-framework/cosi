@@ -73,13 +73,18 @@ class ImportStatements(dd.Action):
         if not pth:
             msg = "No import_statements_path configured."
             return ar.error(msg, alert=_("Error"))
+        self.new_statements = 0
+        self.updated_statements = 0
+        self.failed_statements = 0
+        self.imported_files = 0
         dd.logger.info("Importing XML files from %s...", pth)
         wc = os.path.join(pth, '*.[Xx][Mm][Ll]')
-        count = 0
         for filename in glob.iglob(wc):
             self.import_file(ar, filename)
-            count += 1
-        msg = "{0} XML files have been imported.".format(count)
+        msg = "{0} XML files with {1} new and {2} updated " \
+              "statements have been imported."
+        msg = msg.format(
+            self.imported_files, self.new_statements, self.updated_statements)
         dd.logger.info(msg)
         return ar.success(msg, alert=_("Success"))
 
@@ -88,11 +93,12 @@ class ImportStatements(dd.Action):
         Account = rt.modules.sepa.Account
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
-        imported_statements = 0
-        failed_statements = 0
+        # imported_statements = 0
         # try:
         dd.logger.info("Parsing %s with camt.", filename)
         res = parser.parse(data_file)
+        self.imported_files += 1
+        failed_statements = 0
         if res is None:
             raise Exception("res is None")
         for stmt in res:
@@ -100,7 +106,7 @@ class ImportStatements(dd.Action):
             unique_id = stmt['name']
             movements_to_update = False
             if iban is None:
-                dd.logger.info("Statement without IBAN : %s", unique_id)
+                dd.logger.warning("Statement without IBAN : %s", unique_id)
                 failed_statements += 1
                 continue
                 # raise Exception(msg.format(pformat(stmt)))
@@ -111,22 +117,12 @@ class ImportStatements(dd.Action):
                 account.full_clean()
                 account.save()
             except MultipleObjectsReturned:
-                msg = "Found more than one account with IBAN {0}"
-                # raise Exception(msg.format(iban))
-                dd.logger.warning(msg.format(iban))
+                dd.logger.warning(
+                    "Found more than one account with IBAN %s", iban)
+                failed_statements += 1
                 continue
-            if not Statement.objects.filter(
-                    statement_number=stmt['name'], account=account).exists():
-                s = Statement(account=account,
-                              start_date=stmt['start_date'],
-                              end_date=stmt['end_date'],
-                              # date_done=time.strftime("%Y-%m-%d"),
-                              statement_number=stmt['name'],
-                              balance_end=stmt['balance_end'],
-                              balance_start=stmt['balance_start'],
-                              balance_end_real=stmt['balance_end_real'],
-                              currency_code=stmt['currency_code'])
-            else:
+            if Statement.objects.filter(
+                statement_number=stmt['name'], account=account).exists():
                 s = Statement.objects.get(
                     statement_number=stmt['name'], account=account)
                 # s.date = stmt['date'].strftime("%Y-%m-%d")
@@ -138,14 +134,28 @@ class ImportStatements(dd.Action):
                 s.balance_end_real = stmt['balance_end_real']
                 s.currency_code = stmt['currency_code']
                 movements_to_update = True
+                self.new_statements += 1
+            else:
+                s = Statement(account=account,
+                              start_date=stmt['start_date'],
+                              end_date=stmt['end_date'],
+                              # date_done=time.strftime("%Y-%m-%d"),
+                              statement_number=stmt['name'],
+                              balance_end=stmt['balance_end'],
+                              balance_start=stmt['balance_start'],
+                              balance_end_real=stmt['balance_end_real'],
+                              currency_code=stmt['currency_code'])
+                self.updated_statements += 1
+
             s.save()
             for mvmt in stmt['transactions']:
-                _ref = mvmt.get('ref', '') or ''
+                _ref = mvmt.get('ref', '')
                 addr = '\n'.join(mvmt.remote_owner_address)
+                mvmt_id = mvmt['unique_import_id']
                 if not Movement.objects.filter(
-                        unique_import_id=mvmt['unique_import_id']).exists():
+                        unique_import_id=mvmt_id).exists():
                     m = Movement(statement=s,
-                                 unique_import_id=mvmt['unique_import_id'],
+                                 unique_import_id=mvmt_id,
                                  movement_date=mvmt['date'],
                                  amount=mvmt['amount'],
                                  partner_name=mvmt.remote_owner,
@@ -164,7 +174,7 @@ class ImportStatements(dd.Action):
                                  value_date=mvmt.value_date or '', )
                     m.save()
                 elif movements_to_update:
-                    m = Movement.objects.get(unique_import_id=mvmt['unique_import_id'])
+                    m = Movement.objects.get(unique_import_id=mvmt_id)
                     m.statement = s
                     m.movement_date = mvmt['date']
                     m.amount = mvmt['amount']
@@ -183,19 +193,22 @@ class ImportStatements(dd.Action):
                     m.execution_date = mvmt.execution_date or ' '
                     m.value_date = mvmt.value_date or ' '
                     m.save()
-
-            imported_statements += 1
+                else:
+                    dd.logger.warning(
+                        "Existing transaction in a new statement?! %s", mvmt_id)
 
         # except ValueError:
         #     dd.logger.info("Statement file was not a camt file.")
 
-        msg = "Imported {0} statements from file {1}.".format(
-            imported_statements, filename)
-        dd.logger.info(msg)
+        # msg = "Imported {0} statements from file {1}.".format(
+        #     self.new_statements, self.updated_statements, filename)
+        # dd.logger.info(msg)
         # ar.info(msg)
         if failed_statements > 0:
             dd.logger.warning(
-                "%d statements were NOT imported", failed_statements)
+                "%d statements were NOT imported from %s",
+                failed_statements, filename)
+            self.failed_statements += failed_statements
         elif dd.plugins.sepa.delete_imported_xml_files:
             # Delete the imported file if there were no errors
             os.remove(filename)
