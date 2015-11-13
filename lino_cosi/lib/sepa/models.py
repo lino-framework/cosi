@@ -32,7 +32,6 @@ from django.core.exceptions import MultipleObjectsReturned
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
 from lino.utils.xmlgen.html import E
-from lino.utils import join_elems
 
 from .camt import CamtParser
 from .fields import IBANField, BICField
@@ -89,21 +88,22 @@ class ImportStatements(dd.Action):
         Account = rt.modules.sepa.Account
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
-        num = 0
-        failed_statements = {}
+        imported_statements = 0
+        failed_statements = 0
         # try:
         dd.logger.info("Parsing %s with camt.", filename)
         res = parser.parse(data_file)
         if res is None:
             raise Exception("res is None")
-        for _statement in res:
-            iban = _statement['account_number']
+        for stmt in res:
+            iban = stmt['account_number']
+            unique_id = stmt['name']
             movements_to_update = False
             if iban is None:
-                # msg = "Statement without account number : {0}"
-                failed_statements[num] = "IBAN Not found"
+                dd.logger.info("Statement without IBAN : %s", unique_id)
+                failed_statements += 1
                 continue
-                # raise Exception(msg.format(pformat(_statement)))
+                # raise Exception(msg.format(pformat(stmt)))
             try:
                 account = Account.objects.get(iban=iban)
             except Account.DoesNotExist:
@@ -116,95 +116,88 @@ class ImportStatements(dd.Action):
                 dd.logger.warning(msg.format(iban))
                 continue
             if not Statement.objects.filter(
-                    statement_number=_statement['name'], account=account).exists():
+                    statement_number=stmt['name'], account=account).exists():
                 s = Statement(account=account,
-                              start_date=_statement['start_date'],
-                              end_date=_statement['end_date'],
+                              start_date=stmt['start_date'],
+                              end_date=stmt['end_date'],
                               # date_done=time.strftime("%Y-%m-%d"),
-                              statement_number=_statement['name'],
-                              balance_end=_statement['balance_end'],
-                              balance_start=_statement['balance_start'],
-                              balance_end_real=_statement['balance_end_real'],
-                              currency_code=_statement['currency_code'])
+                              statement_number=stmt['name'],
+                              balance_end=stmt['balance_end'],
+                              balance_start=stmt['balance_start'],
+                              balance_end_real=stmt['balance_end_real'],
+                              currency_code=stmt['currency_code'])
             else:
                 s = Statement.objects.get(
-                    statement_number=_statement['name'], account=account)
-                # s.date = _statement['date'].strftime("%Y-%m-%d")
+                    statement_number=stmt['name'], account=account)
+                # s.date = stmt['date'].strftime("%Y-%m-%d")
                 # s.date_done = time.strftime("%Y-%m-%d")
-                s.start_date = _statement['start_date']
-                s.end_date = _statement['end_date']
-                s.balance_end = _statement['balance_end']
-                s.balance_start = _statement['balance_start']
-                s.balance_end_real = _statement['balance_end_real']
-                s.currency_code = _statement['currency_code']
+                s.start_date = stmt['start_date']
+                s.end_date = stmt['end_date']
+                s.balance_end = stmt['balance_end']
+                s.balance_start = stmt['balance_start']
+                s.balance_end_real = stmt['balance_end_real']
+                s.currency_code = stmt['currency_code']
                 movements_to_update = True
             s.save()
-            for _movement in _statement['transactions']:
-                _ref = _movement.get('ref', '') or ''
-                addr = '\n'.join(_movement.remote_owner_address)
+            for mvmt in stmt['transactions']:
+                _ref = mvmt.get('ref', '') or ''
+                addr = '\n'.join(mvmt.remote_owner_address)
                 if not Movement.objects.filter(
-                        unique_import_id=_movement['unique_import_id']).exists():
+                        unique_import_id=mvmt['unique_import_id']).exists():
                     m = Movement(statement=s,
-                                 unique_import_id=_movement['unique_import_id'],
-                                 movement_date=_movement['date'],
-                                 amount=_movement['amount'],
-                                 partner_name=_movement.remote_owner,
+                                 unique_import_id=mvmt['unique_import_id'],
+                                 movement_date=mvmt['date'],
+                                 amount=mvmt['amount'],
+                                 partner_name=mvmt.remote_owner,
                                  ref=_ref,
-                                 remote_account=_movement.remote_account or '',
-                                 remote_bic=_movement.remote_bank_bic or '',
-                                 message=_movement._message or '',
-                                 eref=_movement.eref or '',
-                                 remote_owner=_movement.remote_owner or '',
+                                 remote_account=mvmt.remote_account or '',
+                                 remote_bic=mvmt.remote_bank_bic or '',
+                                 message=mvmt._message or '',
+                                 eref=mvmt.eref or '',
+                                 remote_owner=mvmt.remote_owner or '',
                                  remote_owner_address=addr,
-                                 remote_owner_city=_movement.remote_owner_city or '',
-                                 remote_owner_postalcode=_movement.remote_owner_postalcode or '',
-                                 remote_owner_country_code=_movement.remote_owner_country_code or '',
-                                 transfer_type=_movement.transfer_type or '',
-                                 execution_date=_movement.execution_date or '',
-                                 value_date=_movement.value_date or '', )
+                                 remote_owner_city=mvmt.remote_owner_city or '',
+                                 remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
+                                 remote_owner_country_code=mvmt.remote_owner_country_code or '',
+                                 transfer_type=mvmt.transfer_type or '',
+                                 execution_date=mvmt.execution_date or '',
+                                 value_date=mvmt.value_date or '', )
                     m.save()
                 elif movements_to_update:
-                    m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
+                    m = Movement.objects.get(unique_import_id=mvmt['unique_import_id'])
                     m.statement = s
-                    m.movement_date = _movement['date']
-                    m.amount = _movement['amount']
-                    m.partner_name = _movement.remote_owner
+                    m.movement_date = mvmt['date']
+                    m.amount = mvmt['amount']
+                    m.partner_name = mvmt.remote_owner
                     m.ref = _ref
-                    m.remote_account = _movement.remote_account or ''
-                    m.remote_bic = _movement.remote_bank_bic or ''
-                    m.message = _movement._message or ' '
-                    m.eref = _movement.eref or ' '
-                    m.remote_owner = _movement.remote_owner or ' '
+                    m.remote_account = mvmt.remote_account or ''
+                    m.remote_bic = mvmt.remote_bank_bic or ''
+                    m.message = mvmt._message or ' '
+                    m.eref = mvmt.eref or ' '
+                    m.remote_owner = mvmt.remote_owner or ' '
                     m.remote_owner_address = addr
-                    m.remote_owner_city = _movement.remote_owner_city or ' '
-                    m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
-                    m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
-                    m.transfer_type = _movement.transfer_type or ' '
-                    m.execution_date = _movement.execution_date or ' '
-                    m.value_date = _movement.value_date or ' '
+                    m.remote_owner_city = mvmt.remote_owner_city or ' '
+                    m.remote_owner_postalcode = mvmt.remote_owner_postalcode or ' '
+                    m.remote_owner_country_code = mvmt.remote_owner_country_code or ' '
+                    m.transfer_type = mvmt.transfer_type or ' '
+                    m.execution_date = mvmt.execution_date or ' '
+                    m.value_date = mvmt.value_date or ' '
                     m.save()
 
-            num += 1
+            imported_statements += 1
 
         # except ValueError:
         #     dd.logger.info("Statement file was not a camt file.")
 
-        if len(failed_statements) == 0:
-            msg = "Imported {0} statemenmts from file {1}.".format(num, filename)
-            dd.logger.info(msg)
-            ar.info(msg)
-        else:
-            count_statements_imported = num - len(failed_statements)
-            msg = "Imported {0} statemenmts from file {1} with {2} statements failed.".format(count_statements_imported,
-                                                                                              filename,
-                                                                                              len(failed_statements))
-            dd.logger.info(msg)
-            for i, _statement in enumerate(failed_statements):
-                msg_error = "Statement number {0} failed to be imported : {1}.".format(i + 1,
-                                                                                       failed_statements[_statement])
-                dd.logger.info(msg_error)
-        # Deleting the imported file
-        if dd.plugins.sepa.delete_imported_xml_files:
+        msg = "Imported {0} statements from file {1}.".format(
+            imported_statements, filename)
+        dd.logger.info(msg)
+        # ar.info(msg)
+        if failed_statements > 0:
+            dd.logger.warning(
+                "%d statements were NOT imported", failed_statements)
+        elif dd.plugins.sepa.delete_imported_xml_files:
+            # Delete the imported file if there were no errors
             os.remove(filename)
             msg = "The file {0} has been deleted.".format(filename)
             dd.logger.info(msg)
