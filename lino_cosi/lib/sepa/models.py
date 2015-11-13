@@ -104,7 +104,6 @@ class ImportStatements(dd.Action):
         for stmt in res:
             iban = stmt['account_number']
             unique_id = stmt['name']
-            movements_to_update = False
             if iban is None:
                 dd.logger.warning("Statement without IBAN : %s", unique_id)
                 failed_statements += 1
@@ -134,7 +133,7 @@ class ImportStatements(dd.Action):
                 s.balance_end_real = stmt['balance_end_real']
                 s.currency_code = stmt['currency_code']
                 movements_to_update = True
-                self.new_statements += 1
+                self.updated_statements += 1
             else:
                 s = Statement(account=account,
                               start_date=stmt['start_date'],
@@ -145,35 +144,19 @@ class ImportStatements(dd.Action):
                               balance_start=stmt['balance_start'],
                               balance_end_real=stmt['balance_end_real'],
                               currency_code=stmt['currency_code'])
-                self.updated_statements += 1
-
+                self.new_statements += 1
+                movements_to_update = False
             s.save()
+
             for mvmt in stmt['transactions']:
                 _ref = mvmt.get('ref', '')
                 addr = '\n'.join(mvmt.remote_owner_address)
                 mvmt_id = mvmt['unique_import_id']
-                if not Movement.objects.filter(
-                        unique_import_id=mvmt_id).exists():
-                    m = Movement(statement=s,
-                                 unique_import_id=mvmt_id,
-                                 movement_date=mvmt['date'],
-                                 amount=mvmt['amount'],
-                                 partner_name=mvmt.remote_owner,
-                                 ref=_ref,
-                                 remote_account=mvmt.remote_account or '',
-                                 remote_bic=mvmt.remote_bank_bic or '',
-                                 message=mvmt._message or '',
-                                 eref=mvmt.eref or '',
-                                 remote_owner=mvmt.remote_owner or '',
-                                 remote_owner_address=addr,
-                                 remote_owner_city=mvmt.remote_owner_city or '',
-                                 remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
-                                 remote_owner_country_code=mvmt.remote_owner_country_code or '',
-                                 transfer_type=mvmt.transfer_type or '',
-                                 execution_date=mvmt.execution_date or '',
-                                 value_date=mvmt.value_date or '', )
-                    m.save()
-                elif movements_to_update:
+                if Movement.objects.filter(unique_import_id=mvmt_id).exists():
+                    if not movements_to_update:
+                        dd.logger.warning(
+                            "Existing transaction in a new statement?! %s",
+                            mvmt_id)
                     m = Movement.objects.get(unique_import_id=mvmt_id)
                     m.statement = s
                     m.movement_date = mvmt['date']
@@ -194,8 +177,25 @@ class ImportStatements(dd.Action):
                     m.value_date = mvmt.value_date or ' '
                     m.save()
                 else:
-                    dd.logger.warning(
-                        "Existing transaction in a new statement?! %s", mvmt_id)
+                    m = Movement(statement=s,
+                                 unique_import_id=mvmt_id,
+                                 movement_date=mvmt['date'],
+                                 amount=mvmt['amount'],
+                                 partner_name=mvmt.remote_owner,
+                                 ref=_ref,
+                                 remote_account=mvmt.remote_account or '',
+                                 remote_bic=mvmt.remote_bank_bic or '',
+                                 message=mvmt._message or '',
+                                 eref=mvmt.eref or '',
+                                 remote_owner=mvmt.remote_owner or '',
+                                 remote_owner_address=addr,
+                                 remote_owner_city=mvmt.remote_owner_city or '',
+                                 remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
+                                 remote_owner_country_code=mvmt.remote_owner_country_code or '',
+                                 transfer_type=mvmt.transfer_type or '',
+                                 execution_date=mvmt.execution_date or '',
+                                 value_date=mvmt.value_date or '', )
+                    m.save()
 
         # except ValueError:
         #     dd.logger.info("Statement file was not a camt file.")
@@ -210,7 +210,7 @@ class ImportStatements(dd.Action):
                 failed_statements, filename)
             self.failed_statements += failed_statements
         elif dd.plugins.sepa.delete_imported_xml_files:
-            # Delete the imported file if there were no errors
+            # Delete imported file if there were no errors
             os.remove(filename)
             msg = "The file {0} has been deleted.".format(filename)
             dd.logger.info(msg)
