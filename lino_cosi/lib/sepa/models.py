@@ -71,18 +71,18 @@ class ImportStatements(dd.Action):
 
     def run_from_ui(self, ar):
         pth = dd.plugins.sepa.import_statements_path
-        wc = os.path.join(pth, '*.xml')
-        dd.logger.info("Importing SEPA statements from %s...", wc)
+        if not pth:
+            msg = "No import_statements_path configured."
+            return ar.error(msg, alert=_("Error"))
+        dd.logger.info("Importing XML files from %s...", pth)
+        wc = os.path.join(pth, '*.[Xx][Mm][Ll]')
         count = 0
-        if pth:
-            for filename in glob.iglob(wc):
-                self.import_file(ar, filename)
-                count += 1
-            msg = "{0} xml files have been imported.".format(count)
-            dd.logger.info(msg)
-            return ar.success(msg, alert=_("Success"))
-        msg = "No import_statements_path configured."
-        return ar.error(msg, alert=_("Error"))
+        for filename in glob.iglob(wc):
+            self.import_file(ar, filename)
+            count += 1
+        msg = "{0} XML files have been imported.".format(count)
+        dd.logger.info(msg)
+        return ar.success(msg, alert=_("Success"))
 
     def import_file(self, ar, filename):
         """Import the named file, which must be a CAMT053 XML file."""
@@ -91,103 +91,103 @@ class ImportStatements(dd.Action):
         data_file = open(filename, 'rb').read()
         num = 0
         failed_statements = {}
-        try:
-            dd.logger.info("Parsing %s with camt.", filename)
-            res = parser.parse(data_file)
-            if res is None:
-                raise Exception("res is None")
-            for _statement in res:
-                iban = _statement['account_number']
-                movements_to_update = False
-                if iban is None:
-                    # msg = "Statement without account number : {0}"
-                    failed_statements[num] = "IBAN Not found"
-                    continue
-                    # raise Exception(msg.format(pformat(_statement)))
-                try:
-                    account = Account.objects.get(iban=iban)
-                except Account.DoesNotExist:
-                    account = Account(iban=iban)
-                    account.full_clean()
-                    account.save()
-                except MultipleObjectsReturned:
-                    msg = "Found more than one account with IBAN {0}"
-                    # raise Exception(msg.format(iban))
-                    dd.logger.warning(msg.format(iban))
-                    continue
-                if not Statement.objects.filter(
-                        statement_number=_statement['name'], account=account).exists():
-                    s = Statement(account=account,
-                                  start_date=_statement['start_date'],
-                                  end_date=_statement['end_date'],
-                                  # date_done=time.strftime("%Y-%m-%d"),
-                                  statement_number=_statement['name'],
-                                  balance_end=_statement['balance_end'],
-                                  balance_start=_statement['balance_start'],
-                                  balance_end_real=_statement['balance_end_real'],
-                                  currency_code=_statement['currency_code'])
-                else:
-                    s = Statement.objects.get(
-                        statement_number=_statement['name'], account=account)
-                    # s.date = _statement['date'].strftime("%Y-%m-%d")
-                    # s.date_done = time.strftime("%Y-%m-%d")
-                    s.start_date = _statement['start_date']
-                    s.end_date = _statement['end_date']
-                    s.balance_end = _statement['balance_end']
-                    s.balance_start = _statement['balance_start']
-                    s.balance_end_real = _statement['balance_end_real']
-                    s.currency_code = _statement['currency_code']
-                    movements_to_update = True
-                s.save()
-                for _movement in _statement['transactions']:
-                    _ref = _movement.get('ref', '') or ''
-                    addr = '\n'.join(_movement.remote_owner_address)
-                    if not Movement.objects.filter(
-                            unique_import_id=_movement['unique_import_id']).exists():
-                        m = Movement(statement=s,
-                                     unique_import_id=_movement['unique_import_id'],
-                                     movement_date=_movement['date'],
-                                     amount=_movement['amount'],
-                                     partner_name=_movement.remote_owner,
-                                     ref=_ref,
-                                     remote_account=_movement.remote_account or '',
-                                     remote_bic=_movement.remote_bank_bic or '',
-                                     message=_movement._message or '',
-                                     eref=_movement.eref or '',
-                                     remote_owner=_movement.remote_owner or '',
-                                     remote_owner_address=addr,
-                                     remote_owner_city=_movement.remote_owner_city or '',
-                                     remote_owner_postalcode=_movement.remote_owner_postalcode or '',
-                                     remote_owner_country_code=_movement.remote_owner_country_code or '',
-                                     transfer_type=_movement.transfer_type or '',
-                                     execution_date=_movement.execution_date or '',
-                                     value_date=_movement.value_date or '', )
-                        m.save()
-                    elif movements_to_update:
-                        m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
-                        m.statement = s
-                        m.movement_date = _movement['date']
-                        m.amount = _movement['amount']
-                        m.partner_name = _movement.remote_owner
-                        m.ref = _ref
-                        m.remote_account = _movement.remote_account or ''
-                        m.remote_bic = _movement.remote_bank_bic or ''
-                        m.message = _movement._message or ' '
-                        m.eref = _movement.eref or ' '
-                        m.remote_owner = _movement.remote_owner or ' '
-                        m.remote_owner_address = addr
-                        m.remote_owner_city = _movement.remote_owner_city or ' '
-                        m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
-                        m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
-                        m.transfer_type = _movement.transfer_type or ' '
-                        m.execution_date = _movement.execution_date or ' '
-                        m.value_date = _movement.value_date or ' '
-                        m.save()
+        # try:
+        dd.logger.info("Parsing %s with camt.", filename)
+        res = parser.parse(data_file)
+        if res is None:
+            raise Exception("res is None")
+        for _statement in res:
+            iban = _statement['account_number']
+            movements_to_update = False
+            if iban is None:
+                # msg = "Statement without account number : {0}"
+                failed_statements[num] = "IBAN Not found"
+                continue
+                # raise Exception(msg.format(pformat(_statement)))
+            try:
+                account = Account.objects.get(iban=iban)
+            except Account.DoesNotExist:
+                account = Account(iban=iban)
+                account.full_clean()
+                account.save()
+            except MultipleObjectsReturned:
+                msg = "Found more than one account with IBAN {0}"
+                # raise Exception(msg.format(iban))
+                dd.logger.warning(msg.format(iban))
+                continue
+            if not Statement.objects.filter(
+                    statement_number=_statement['name'], account=account).exists():
+                s = Statement(account=account,
+                              start_date=_statement['start_date'],
+                              end_date=_statement['end_date'],
+                              # date_done=time.strftime("%Y-%m-%d"),
+                              statement_number=_statement['name'],
+                              balance_end=_statement['balance_end'],
+                              balance_start=_statement['balance_start'],
+                              balance_end_real=_statement['balance_end_real'],
+                              currency_code=_statement['currency_code'])
+            else:
+                s = Statement.objects.get(
+                    statement_number=_statement['name'], account=account)
+                # s.date = _statement['date'].strftime("%Y-%m-%d")
+                # s.date_done = time.strftime("%Y-%m-%d")
+                s.start_date = _statement['start_date']
+                s.end_date = _statement['end_date']
+                s.balance_end = _statement['balance_end']
+                s.balance_start = _statement['balance_start']
+                s.balance_end_real = _statement['balance_end_real']
+                s.currency_code = _statement['currency_code']
+                movements_to_update = True
+            s.save()
+            for _movement in _statement['transactions']:
+                _ref = _movement.get('ref', '') or ''
+                addr = '\n'.join(_movement.remote_owner_address)
+                if not Movement.objects.filter(
+                        unique_import_id=_movement['unique_import_id']).exists():
+                    m = Movement(statement=s,
+                                 unique_import_id=_movement['unique_import_id'],
+                                 movement_date=_movement['date'],
+                                 amount=_movement['amount'],
+                                 partner_name=_movement.remote_owner,
+                                 ref=_ref,
+                                 remote_account=_movement.remote_account or '',
+                                 remote_bic=_movement.remote_bank_bic or '',
+                                 message=_movement._message or '',
+                                 eref=_movement.eref or '',
+                                 remote_owner=_movement.remote_owner or '',
+                                 remote_owner_address=addr,
+                                 remote_owner_city=_movement.remote_owner_city or '',
+                                 remote_owner_postalcode=_movement.remote_owner_postalcode or '',
+                                 remote_owner_country_code=_movement.remote_owner_country_code or '',
+                                 transfer_type=_movement.transfer_type or '',
+                                 execution_date=_movement.execution_date or '',
+                                 value_date=_movement.value_date or '', )
+                    m.save()
+                elif movements_to_update:
+                    m = Movement.objects.get(unique_import_id=_movement['unique_import_id'])
+                    m.statement = s
+                    m.movement_date = _movement['date']
+                    m.amount = _movement['amount']
+                    m.partner_name = _movement.remote_owner
+                    m.ref = _ref
+                    m.remote_account = _movement.remote_account or ''
+                    m.remote_bic = _movement.remote_bank_bic or ''
+                    m.message = _movement._message or ' '
+                    m.eref = _movement.eref or ' '
+                    m.remote_owner = _movement.remote_owner or ' '
+                    m.remote_owner_address = addr
+                    m.remote_owner_city = _movement.remote_owner_city or ' '
+                    m.remote_owner_postalcode = _movement.remote_owner_postalcode or ' '
+                    m.remote_owner_country_code = _movement.remote_owner_country_code or ' '
+                    m.transfer_type = _movement.transfer_type or ' '
+                    m.execution_date = _movement.execution_date or ' '
+                    m.value_date = _movement.value_date or ' '
+                    m.save()
 
-                num += 1
+            num += 1
 
-        except ValueError:
-            dd.logger.info("Statement file was not a camt file.")
+        # except ValueError:
+        #     dd.logger.info("Statement file was not a camt file.")
 
         if len(failed_statements) == 0:
             msg = "Imported {0} statemenmts from file {1}.".format(num, filename)
