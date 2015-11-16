@@ -214,7 +214,10 @@ class ImportStatements(dd.Action):
             os.remove(filename)
             msg = "The file {0} has been deleted.".format(filename)
             dd.logger.info(msg)
-            ar.info(msg)
+            # ar.info(msg)
+        else:
+            msg = "File {0} was imported but NOT deleted.".format(filename)
+            dd.logger.info(msg)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
