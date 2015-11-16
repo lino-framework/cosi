@@ -211,10 +211,14 @@ class ImportStatements(dd.Action):
             self.failed_statements += failed_statements
         elif dd.plugins.sepa.delete_imported_xml_files:
             # Delete imported file if there were no errors
-            os.remove(filename)
-            msg = "The file {0} has been deleted.".format(filename)
-            dd.logger.info(msg)
-            ar.info(msg)
+            try:
+                os.remove(filename)
+            except OSError as err:
+                dd.logger.warning("Failed to delete %s : %s", filename, err)
+            else:
+                dd.logger.info("The file %s has been deleted.", filename)
+        else:
+            dd.logger.info("File %s was imported but NOT deleted.", filename)
 
 
 dd.inject_action('system.SiteConfig', import_sepa=ImportStatements())
