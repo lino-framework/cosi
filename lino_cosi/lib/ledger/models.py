@@ -570,6 +570,8 @@ class Movement(ProjectRelated):
 
     @dd.displayfield(_("Voucher"))
     def voucher_link(self, ar):
+        if ar is None:
+            return ''
         #~ return self.voucher.get_mti_leaf().obj2html(ar)
         return ar.obj2html(self.voucher.get_mti_leaf())
 

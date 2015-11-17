@@ -22,7 +22,6 @@
 
 """
 
-
 from lino.api import dd, _
 
 
@@ -49,16 +48,19 @@ from lino.api import dd, _
 
 
 class DcAmountField(dd.VirtualField):
-    """An editable virtual field to get and set both database fields
-    :attr:`amount` and :attr:`dc`
+    """An editable virtual PriceField to get and set both database fields
+    :attr:`amount` and :attr:`dc` at once. It may be used only on
+    models which also defines these two fields.
 
     """
 
     editable = True
+    empty_values = set([None])
 
-    def __init__(self, dc, *args, **kw):
+    def __init__(self, dc, *args, **kwargs):
         self.dc = dc
-        dd.VirtualField.__init__(self, dd.PriceField(*args, **kw), None)
+        kwargs.update(blank=True)
+        dd.VirtualField.__init__(self, dd.PriceField(*args, **kwargs), None)
 
     def set_value_in_object(self, request, obj, value):
         obj.amount = value

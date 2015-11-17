@@ -163,6 +163,26 @@ class BankStatement(dict):
         self._set_transaction_ids()
 
     @property
+    def legal_sequence_number(self):
+        """property getter"""
+        return self['legal_sequence_number']
+
+    @legal_sequence_number.setter
+    def legal_sequence_number(self, v):
+        """property setter"""
+        self['legal_sequence_number'] = v
+
+    @property
+    def electronic_sequence_number(self):
+        """property getter"""
+        return self['electronic_sequence_number']
+
+    @electronic_sequence_number.setter
+    def electronic_sequence_number(self, v):
+        """property setter"""
+        self['electronic_sequence_number'] = v
+
+    @property
     def local_account(self):
         """property getter"""
         return self['account_number']
@@ -240,6 +260,8 @@ class BankStatement(dict):
         super(BankStatement, self).__init__()
         self['transactions'] = []
         self.statement_id = ''
+        self.legal_sequence_number = None
+        self.electronic_sequence_number = None
         self.local_account = ''
         self.local_currency = ''
         self.start_date = None

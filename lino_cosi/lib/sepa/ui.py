@@ -67,7 +67,7 @@ class StatementDetail(dd.FormLayout):
 
     top_left = """
     account:20 account__partner:30
-    statement_number currency_code
+    statement_number sequence_number currency_code
     """
 
     top_right = """
@@ -79,7 +79,7 @@ class StatementDetail(dd.FormLayout):
 class Statements(dd.Table):
     required_roles = dd.login_required(SepaStaff)
     model = 'sepa.Statement'
-    column_names = ('account account__partner statement_number:20 '
+    column_names = ('account account__partner sequence_number statement_number:20 '
                     'balance_start start_date balance_end end_date '
                     'currency_code *')
     order_by = ["start_date"]
@@ -97,7 +97,7 @@ class Statements(dd.Table):
 class StatementsByAccount(Statements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'account'
-    column_names = 'statement_number balance_start start_date balance_end end_date currency_code *'
+    column_names = 'sequence_number balance_start start_date balance_end end_date currency_code *'
     auto_fit_column_widths = True
 
 

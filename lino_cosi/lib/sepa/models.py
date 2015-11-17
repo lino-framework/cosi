@@ -132,6 +132,7 @@ class ImportStatements(dd.Action):
                 s.balance_start = stmt['balance_start']
                 s.balance_end_real = stmt['balance_end_real']
                 s.currency_code = stmt['currency_code']
+                s.sequence_number = stmt['legal_sequence_number']
                 movements_to_update = True
                 self.updated_statements += 1
             else:
@@ -143,6 +144,7 @@ class ImportStatements(dd.Action):
                               balance_end=stmt['balance_end'],
                               balance_start=stmt['balance_start'],
                               balance_end_real=stmt['balance_end_real'],
+                              sequence_number=stmt['legal_sequence_number'],
                               currency_code=stmt['currency_code'])
                 self.new_statements += 1
                 movements_to_update = False
@@ -197,13 +199,6 @@ class ImportStatements(dd.Action):
                                  value_date=mvmt.value_date or '', )
                     m.save()
 
-        # except ValueError:
-        #     dd.logger.info("Statement file was not a camt file.")
-
-        # msg = "Imported {0} statements from file {1}.".format(
-        #     self.new_statements, self.updated_statements, filename)
-        # dd.logger.info(msg)
-        # ar.info(msg)
         if failed_statements > 0:
             dd.logger.warning(
                 "%d statements were NOT imported from %s",
@@ -315,6 +310,10 @@ class Statement(dd.Model):
     balance_end = dd.PriceField(_("Final amount"), null=True)
     balance_end_real = dd.PriceField(_("Real end balance"), null=True)
     currency_code = models.CharField(_('Currency'), max_length=3)
+    sequence_number = models.IntegerField(
+        _('Sequence number'), null=True,
+        help_text=_("The legal sequential number of the paper statement, "
+                    "as assigned by the account servicer."))
 
     # fields like statement_number, date, solde_initial, solde_final
 

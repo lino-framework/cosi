@@ -67,6 +67,8 @@ class FinancialVoucher(ledger.Voucher):
                 m.check_clearings()
 
     def add_item_from_due(self, obj, **kwargs):
+        # if not obj.balance:
+        #     raise Exception("20151117")
         i = self.add_voucher_item(
             obj.account, dc=not obj.dc,
             amount=obj.balance, partner=obj.partner,
@@ -142,7 +144,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         verbose_name = _("Item")
         verbose_name_plural = _("Items")
 
-    amount = dd.PriceField(default=0)
+    amount = dd.PriceField(default=ZERO)
     dc = DebitOrCreditField()
     remark = models.CharField(_("Remark"), max_length=200, blank=True)
     account = dd.ForeignKey('accounts.Account', blank=True)
@@ -164,12 +166,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
             m = ledger.DueMovement(dc, self)
             self.dc = dc
             self.amount = m.balance
-            #~ if m.balance > 0:
-                #~ self.dc = not self.voucher.journal.dc
-                #~ self.amount = m.balance
-            #~ else:
-                #~ self.dc = self.voucher.journal.dc
-                #~ self.amount = - m.balance
+            # if not m.balance:
+            #     raise Exception("20151117")
 
     def partner_changed(self, ar):
         """The :meth:`trigger method <lino.core.model.Model.FOO_changed>` for
@@ -192,7 +190,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
             if self.account_id is None:
                 raise ValidationError(
                     _("Could not determine the general account"))
-        print self.partner_id
+        # print self.partner_id
         if self.partner_id is None:
             raise ValidationError(
                 _("Could not determine the partner account"))
@@ -202,6 +200,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         `DueMovement` instance).
 
         """
+        # if not match.balance:
+        #     raise Exception("20151117")
         if match.trade_type is not None:
             self.account = match.trade_type.get_partner_account()
         if self.account_id is None:
@@ -235,12 +235,13 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         grouper.save()
         self.match = grouper
 
-    def full_clean(self, *args, **kw):
+    def full_clean(self, *args, **kwargs):
         if self.dc is None:
             self.dc = self.voucher.journal.dc
         if self.amount < 0:
             self.amount = - self.amount
             self.dc = not self.dc
-        return super(FinancialVoucherItem, self).full_clean(*args, **kw)
-
+        # dd.logger.info("20151117 FinancialVoucherItem.full_clean a %s", self.amount)
+        super(FinancialVoucherItem, self).full_clean(*args, **kwargs)
+        # dd.logger.info("20151117 FinancialVoucherItem.full_clean b %s", self.amount)
 

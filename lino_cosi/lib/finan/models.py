@@ -30,6 +30,7 @@ from lino_cosi.lib.ledger.fields import DcAmountField
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from lino.api import dd, rt, _
+from lino.core.utils import obj2str
 
 from .mixins import FinancialVoucher, FinancialVoucherItem
 
@@ -368,8 +369,11 @@ class FillSuggestions(dd.Action):
         for obj in ar.selected_rows:
             i = voucher.add_item_from_due(obj, seqno=seqno)
             if i is not None:
+                # dd.logger.info("20151117 gonna full_clean %s", obj2str(i))
                 i.full_clean()
+                # dd.logger.info("20151117 gonna save %s", obj2str(i))
                 i.save()
+                # dd.logger.info("20151117 ok")
                 seqno = i.seqno + 1
                 n += 1
 
