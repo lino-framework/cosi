@@ -32,11 +32,10 @@
 # http://lxml.de/xpathxslt.html
 
 
-
 import re
 from datetime import datetime
 from lxml import etree
-from lino_cosi.lib.sepa.parserlib import BankStatement
+from .parserlib import BankStatement
 
 
 class CamtParser(object):

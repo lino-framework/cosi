@@ -25,14 +25,9 @@ These are real data randomly collected from Internet.
 """
 
 from __future__ import unicode_literals
-import glob
-import os
-import time
 
 from lino.utils.instantiator import Instantiator
 from lino.api import rt
-from lino_cosi.lib.sepa.camt import CamtParser
-from lino_cosi.lib.sepa.models import Movement, Statement
 
 Company = Instantiator('contacts.Company', 'name url').build
 Account = Instantiator('sepa.Account', 'partner bic iban remark').build

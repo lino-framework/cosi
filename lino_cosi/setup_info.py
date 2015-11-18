@@ -64,6 +64,8 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.sales.fixtures',
     'lino_cosi.lib.sepa',
     'lino_cosi.lib.sepa.fixtures',
+    'lino_cosi.lib.b2c',
+    'lino_cosi.lib.b2c.fixtures',
     'lino_cosi.lib.tim2lino',
     'lino_cosi.lib.tim2lino.fixtures',
     'lino_cosi.lib.contacts',

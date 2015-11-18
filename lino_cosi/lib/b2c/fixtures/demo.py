@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2015 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -18,43 +18,18 @@
 
 """
 
-Plugins
-=======
-
-.. autosummary::
-   :toctree:
-
-    cosi
-    contacts
-    accounts
-    sales
-    ledger
-    finan
-    vat
-    vatless
-    finan
-    declarations
-    courses
-    tim2lino
-    sepa
-    b2c
-
-Differentiator packages
-=======================
-
-.. autosummary::
-   :toctree:
-
-    auto
-
-Not yet used
-============
-
-.. autosummary::
-   :toctree:
-
-    orders
-    delivery
-
 """
 
+import os
+HERE = os.path.dirname(__file__)
+
+from lino.api import dd, rt
+
+from django.conf import settings
+
+
+def objects():
+    ses = rt.login('wilfried')
+    dd.plugins.b2c.import_statements_path = HERE
+    settings.SITE.site_config.import_b2c(ses)
+    return []
