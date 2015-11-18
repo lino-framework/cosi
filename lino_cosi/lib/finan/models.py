@@ -75,6 +75,7 @@ class Grouper(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'Grouper')
         verbose_name = _("Grouper")
         verbose_name_plural = _("Groupers")
@@ -88,6 +89,7 @@ class JournalEntry(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'JournalEntry')
         verbose_name = _("Journal Entry")
         verbose_name_plural = _("Journal Entries")
@@ -99,6 +101,7 @@ class PaymentOrder(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'PaymentOrder')
         verbose_name = _("Payment Order")
         verbose_name_plural = _("Payment Orders")
@@ -132,6 +135,7 @@ class BankStatement(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'BankStatement')
         verbose_name = _("Bank Statement")
         verbose_name_plural = _("Bank Statements")

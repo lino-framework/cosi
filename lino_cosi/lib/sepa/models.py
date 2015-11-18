@@ -228,6 +228,7 @@ class Account(dd.Model):
     """
 
     class Meta:
+        app_label = 'sepa'
         abstract = dd.is_abstract_model(__name__, 'Account')
         verbose_name = _("Account")
         verbose_name_plural = _("Accounts")
@@ -293,6 +294,7 @@ class Statement(dd.Model):
     """
 
     class Meta:
+        app_label = 'sepa'
         abstract = dd.is_abstract_model(__name__, 'Statement')
         verbose_name = _("Statement")
         verbose_name_plural = _("Statements")
@@ -326,6 +328,7 @@ class Movement(dd.Model):
     """
 
     class Meta:
+        app_label = 'sepa'
         abstract = dd.is_abstract_model(__name__, 'Movement')
         verbose_name = _("Movement")
         verbose_name_plural = _("Movements")
