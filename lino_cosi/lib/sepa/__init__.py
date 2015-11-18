@@ -17,19 +17,22 @@
 
 
 """Adds models and tables for managing bank accounts for your
-partners.  It requires the :mod:`lino.modlib.contacts` app.
+partners.  It requires the :mod:`lino.modlib.contacts` plugin.
+
+The name ``sepa`` is actually irritating because this plugin won't do
+any SEPA transfer. Maybe rename it to ``iban``? OTOH it is needed by
+the SEPA modules :mod:`lino_cosi.lib.b2c` and
+:mod:`lino_cosi.lib.c2b`.
+
 
 .. autosummary::
    :toctree:
 
     models
-    ui
     mixins
     utils
     fields
     roles
-    camt
-    parserlib
     fixtures.demo
     fixtures.sample_ibans
 
@@ -42,36 +45,5 @@ class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
     verbose_name = _("SEPA")
     site_js_snippets = ['iban/uppercasetextfield.js']
-
-    import_statements_path = None
-    """A path wildcard pointing to xml files which need to get imported.
-
-    As a system admin you can set this e.g. by specifying in your
-    :xfile:`settings.py` (*before* instantiating your
-    :setting:`SITE`)::
-
-       ad.configure_plugin('sepa', import_statements_path="/var/sepa")
-
-    End-users are supposed to download SEPA statement files to that
-    directory and then to invoke the
-    :class:`lino_cosi.lib.sepa.models.ImportStatements` action.
-
-    """
-
-    delete_imported_xml_files = False
-    """This attribute define whether, Cosi have to delete the SEPA file after it get imported.
-    """
-
     needs_plugins = ['lino_cosi.lib.ledger']
 
-    def setup_main_menu(self, site, profile, m):
-        mg = site.plugins.accounts
-        m = m.add_menu(mg.app_label, mg.verbose_name)
-        m.add_action('system.SiteConfig', 'import_sepa')
-        m.add_action('sepa.OrphanedAccounts')
-
-    def setup_explorer_menu(config, site, profile, m):
-        m = m.add_menu(config.app_label, config.verbose_name)
-        m.add_action('sepa.Accounts')
-        m.add_action('sepa.Statements')
-        m.add_action('sepa.Movements')

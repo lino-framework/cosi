@@ -54,7 +54,7 @@ The test database
 - contacts.Person : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
 - contacts.Role : id, type, person, company
 - contacts.RoleType : id, name
-- contenttypes.ContentType : id, name, app_label, model
+- contenttypes.ContentType : id, app_label, model
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, name, country, zip_code, type, parent
 - courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, tariff, enrolments_until
@@ -88,8 +88,6 @@ The test database
 - sales.InvoicingMode : id, build_method, template, name, price, advance_days
 - sales.VatProductInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
-- sepa.Movement : id, statement, unique_import_id, movement_date, amount, partner_name, remote_account, remote_bic, ref, message, eref, remote_owner, remote_owner_address, remote_owner_city, remote_owner_postalcode, remote_owner_country_code, transfer_type, execution_date, value_date
-- sepa.Statement : id, account, start_date, end_date, statement_number, balance_start, balance_end, balance_end_real, currency_code
 - system.SiteConfig : id, default_build_method, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
 - uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
@@ -105,8 +103,8 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-29 apps: staticfiles, about, bootstrap3, lino_startup, appypod, printing, system, contenttypes, gfks, users, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, tinymce, vat, declarations, finan, sales, cal, courses, vatless.
-66 models:
+32 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, appypod, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, tinymce, vat, declarations, finan, sales, cal, courses, vatless.
+64 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -129,7 +127,7 @@ The test database
  contacts.Person             contacts.Persons               29        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             2         5
- contenttypes.ContentType    gfks.ContentTypes              4         67
+ contenttypes.ContentType    gfks.ContentTypes              3         65
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                28        0
@@ -163,8 +161,6 @@ The test database
  sales.InvoicingMode         sales.InvoicingModes           6         0
  sales.VatProductInvoice     sales.Invoices                 25        26
  sepa.Account                sepa.Accounts                  6         17
- sepa.Movement               sepa.Movements                 19        0
- sepa.Statement              sepa.Statements                9         0
  system.SiteConfig           system.SiteConfigs             15        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
  uploads.Upload              uploads.Uploads                9         0

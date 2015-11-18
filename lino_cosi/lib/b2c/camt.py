@@ -20,16 +20,22 @@
 ##############################################################################
 # File taken from https://github.com/OCA/bank-statement-import/blob/8.0/account_bank_statement_import_camt/camt.py
 
-# Modifications by Luc Saffre: they completely ignored the ``<Dt>``
+# Modifications by Luc Saffre: 
+
+# they completely ignored the ``<Dt>``
 # element of opening and closing balances.  Their statement had a date
 # which was the `execution_date` of the first transaction.  Now they
 # set two dates `start_date` and `end_date`.
+
+# they ignored the sequence number (legal or electronic)
+
 # http://lxml.de/xpathxslt.html
+
 
 import re
 from datetime import datetime
 from lxml import etree
-from lino_cosi.lib.sepa.parserlib import BankStatement
+from .parserlib import BankStatement
 
 
 class CamtParser(object):
@@ -196,6 +202,11 @@ class CamtParser(object):
         )
         self.add_value_from_node(
             ns, node, './ns:Id', statement, 'statement_id')
+        self.add_value_from_node(
+            ns, node, './ns:LglSeqNb', statement, 'legal_sequence_number')
+        self.add_value_from_node(
+            ns, node, './ns:ElctrncSeqNb', statement,
+            'electronic_sequence_number')
         self.add_value_from_node(
             ns, node, './ns:Acct/ns:Ccy', statement, 'local_currency')
         self.parse_balance_amounts(statement, ns, node)

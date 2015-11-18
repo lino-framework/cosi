@@ -18,56 +18,36 @@
 
 
 """
-Tables for `lino_cosi.lib.sepa`.
+Tables for `lino_cosi.lib.b2c`.
 
 """
 
 from __future__ import unicode_literals
 
 from lino.api import dd, _
-from .roles import SepaUser, SepaStaff
-from lino.modlib.contacts.roles import ContactsUser
+from lino_cosi.lib.sepa.roles import SepaUser
 
 
 class Accounts(dd.Table):
-    required_roles = dd.login_required(SepaStaff)
-    model = 'sepa.Account'
+    required_roles = dd.login_required(SepaUser)
+    model = 'b2c.Account'
     detail_layout = """
-    partner:30 iban:40 bic:20 remark:15
-    sepa.StatementsByAccount
+    iban bic last_movement
+    b2c.StatementsByAccount
     """
-    insert_layout = """
-    partner
-    iban bic
-    """
-
-
-class AccountsByPartner(Accounts):
-    """Show the bank account(s) defined for a given partner. To be
-    included to a detail window on partner.
-
-    """
-    required_roles = dd.login_required((ContactsUser, SepaUser))
-    master_key = 'partner'
-    column_names = 'iban bic remark primary *'
-    order_by = ['iban']
-    stay_in_grid = True
-    auto_fit_column_widths = True
-    insert_layout = """
-    iban bic
-    remark
-    """
+    column_names = "iban bic last_movement partners *"
+    editable = False
 
 
 class StatementDetail(dd.FormLayout):
     main = """
     top_left top_right
-    sepa.MovementsByStatement
+    b2c.MovementsByStatement
     """
 
     top_left = """
-    account:20 account__partner:30
-    statement_number currency_code
+    account:20 currency_code
+    statement_number sequence_number
     """
 
     top_right = """
@@ -77,9 +57,9 @@ class StatementDetail(dd.FormLayout):
 
 
 class Statements(dd.Table):
-    required_roles = dd.login_required(SepaStaff)
-    model = 'sepa.Statement'
-    column_names = ('account account__partner statement_number:20 '
+    required_roles = dd.login_required(SepaUser)
+    model = 'b2c.Statement'
+    column_names = ('account sequence_number statement_number:20 '
                     'balance_start start_date balance_end end_date '
                     'currency_code *')
     order_by = ["start_date"]
@@ -97,13 +77,13 @@ class Statements(dd.Table):
 class StatementsByAccount(Statements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'account'
-    column_names = 'statement_number balance_start start_date balance_end end_date currency_code *'
+    column_names = 'sequence_number balance_start start_date balance_end end_date currency_code *'
     auto_fit_column_widths = True
 
 
 class Movements(dd.Table):
-    required_roles = dd.login_required(SepaStaff)
-    model = 'sepa.Movement'
+    required_roles = dd.login_required(SepaUser)
+    model = 'b2c.Movement'
     editable = False
     detail_layout = """
     statement:30 unique_import_id:30 movement_date:20 amount:20
@@ -121,16 +101,3 @@ class MovementsByStatement(Movements):
     auto_fit_column_widths = True
 
 
-class OrphanedAccounts(Accounts):
-    required_roles = dd.login_required(SepaStaff)
-    model = 'sepa.Account'
-    order_by = ["id"]
-    label = _("Orphaned bank accounts")
-    insert_layout = """
-    partner
-    iban bic
-    """
-
-    @classmethod
-    def get_queryset(self, ar):
-        return self.model.objects.filter(partner=None)

@@ -30,6 +30,7 @@ from lino_cosi.lib.ledger.fields import DcAmountField
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from lino.api import dd, rt, _
+from lino.core.utils import obj2str
 
 from .mixins import FinancialVoucher, FinancialVoucherItem
 
@@ -74,6 +75,7 @@ class Grouper(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'Grouper')
         verbose_name = _("Grouper")
         verbose_name_plural = _("Groupers")
@@ -87,6 +89,7 @@ class JournalEntry(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'JournalEntry')
         verbose_name = _("Journal Entry")
         verbose_name_plural = _("Journal Entries")
@@ -98,6 +101,7 @@ class PaymentOrder(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'PaymentOrder')
         verbose_name = _("Payment Order")
         verbose_name_plural = _("Payment Orders")
@@ -131,6 +135,7 @@ class BankStatement(FinancialVoucher):
 
     """
     class Meta:
+        app_label = 'finan'
         abstract = dd.is_abstract_model(__name__, 'BankStatement')
         verbose_name = _("Bank Statement")
         verbose_name_plural = _("Bank Statements")
@@ -368,8 +373,11 @@ class FillSuggestions(dd.Action):
         for obj in ar.selected_rows:
             i = voucher.add_item_from_due(obj, seqno=seqno)
             if i is not None:
+                # dd.logger.info("20151117 gonna full_clean %s", obj2str(i))
                 i.full_clean()
+                # dd.logger.info("20151117 gonna save %s", obj2str(i))
                 i.save()
+                # dd.logger.info("20151117 ok")
                 seqno = i.seqno + 1
                 n += 1
 

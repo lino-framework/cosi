@@ -110,6 +110,7 @@ class Journal(mixins.BabelNamed,
     """
 
     class Meta:
+        app_label = 'ledger'
         verbose_name = _("Journal")
         verbose_name_plural = _("Journals")
 
@@ -258,6 +259,7 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
     """
 
     class Meta:
+        app_label = 'ledger'
         verbose_name = _("Payment Term")
         verbose_name_plural = _("Payment Terms")
 
@@ -291,6 +293,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     """
 
     class Meta:
+        app_label = 'ledger'
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
 
@@ -300,7 +303,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     number = VoucherNumber(blank=True, null=True)
     narration = models.CharField(_("Narration"), max_length=200, blank=True)
     state = VoucherStates.field(
-        default=VoucherStates.draft.as_callable())
+        default=VoucherStates.draft.as_callable)
     workflow_state_field = 'state'
 
     #~ @classmethod
@@ -499,6 +502,7 @@ class Movement(ProjectRelated):
     allow_cascaded_delete = ['voucher']
 
     class Meta:
+        app_label = 'ledger'
         verbose_name = _("Movement")
         verbose_name_plural = _("Movements")
 
@@ -570,6 +574,8 @@ class Movement(ProjectRelated):
 
     @dd.displayfield(_("Voucher"))
     def voucher_link(self, ar):
+        if ar is None:
+            return ''
         #~ return self.voucher.get_mti_leaf().obj2html(ar)
         return ar.obj2html(self.voucher.get_mti_leaf())
 
@@ -594,6 +600,7 @@ be cleared using a given journal.
     # allow_cascaded_delete = ['account', 'journal']
 
     class Meta:
+        app_label = 'ledger'
         verbose_name = _("Match rule")
         verbose_name_plural = _("Match rules")
         unique_together = ['account', 'journal']

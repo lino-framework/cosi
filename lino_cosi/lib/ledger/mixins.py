@@ -108,14 +108,15 @@ class PartnerRelated(dd.Model):
         yield 'partner'
         yield 'payment_term'
 
-    def fill_defaults(self):
-        if not self.payment_term:
-            self.payment_term = self.partner.payment_term
-            self.payment_term_changed()
-
     def full_clean(self, *args, **kw):
         self.fill_defaults()
         super(PartnerRelated, self).full_clean(*args, **kw)
+
+    def fill_defaults(self):
+        if not self.payment_term:
+            self.payment_term = self.partner.payment_term
+            if self.payment_term:
+                self.payment_term_changed()
 
     def payment_term_changed(self, ar=None):
         if self.payment_term:

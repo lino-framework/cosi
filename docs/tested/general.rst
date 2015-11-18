@@ -30,7 +30,6 @@ Rolf is the local system administrator, he has a complete menu:
   - Verkauf : Verkaufsrechnungen (SLS)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG), MwSt.-Erklärungen (VAT)
-  - Partnerlose Bankkonten
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Berichte :
   - System : Broken GFKs
@@ -46,7 +45,6 @@ Rolf is the local system administrator, he has a complete menu:
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen
   - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten
-  - SEPA : Konten, Kontoauszüge, Bewegungen
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
