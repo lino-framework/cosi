@@ -100,6 +100,7 @@ class Slot(mixins.Sequenced, StartEndTime):
     """
     """
     class Meta:
+        app_label = 'courses'
         verbose_name = _("Timetable Slot")  # Zeitnische
         verbose_name_plural = _('Timetable Slots')
 
@@ -127,6 +128,7 @@ class Slots(dd.Table):
 class Topic(mixins.BabelNamed, mixins.Printable):
 
     class Meta:
+        app_label = 'courses'
         verbose_name = _("Topic")
         verbose_name_plural = _('Topics')
 
@@ -172,6 +174,7 @@ class Line(ExcerptTitle):
 
     """
     class Meta:
+        app_label = 'courses'
         verbose_name = pgettext("singular form", "Course series")
         verbose_name_plural = pgettext("plural form", 'Course series')
         abstract = dd.is_abstract_model(__name__, 'Line')
@@ -306,6 +309,7 @@ class Course(Reservation):
     """
 
     class Meta:
+        app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Course')
         verbose_name = _("Course")
         verbose_name_plural = _('Courses')
@@ -686,6 +690,7 @@ if False:
     class Option(mixins.BabelNamed):
 
         class Meta:
+            app_label = 'courses'
             abstract = dd.is_abstract_model(__name__, 'Option')
             verbose_name = _("Enrolment option")
             verbose_name_plural = _('Enrolment options')
@@ -743,6 +748,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
     workflow_state_field = 'state'
 
     class Meta:
+        app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Enrolment')
         verbose_name = _("Enrolment")
         verbose_name_plural = _('Enrolments')
@@ -757,7 +763,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         _("Date of request"), default=dd.today)
     state = EnrolmentStates.field(
         default=EnrolmentStates.requested.as_callable())
-    amount = dd.PriceField(_("Participation fee"), blank=True)
+    amount = dd.PriceField(_("Participation fee"), blank=True, null=True)
     places = models.PositiveIntegerField(
         pgettext("in a course", "Places"),
         help_text=("number of participants"),
@@ -836,13 +842,16 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         """
         return self.state.uses_a_place
 
-    def save(self, *args, **kw):
+    def full_clean(self, *args, **kwargs):
         if not self.course_area:
             if self.course and self.course.line:
                 self.course_area = self.course.line.course_area
         if self.amount is None:
             self.compute_amount()
-        super(Enrolment, self).save(*args, **kw)
+        super(Enrolment, self).full_clean(*args, **kwargs)
+
+    # def save(self, *args, **kw):
+    #     super(Enrolment, self).save(*args, **kw)
 
     def get_print_templates(self, bm, action):
         return [self.state.name + bm.template_ext]
