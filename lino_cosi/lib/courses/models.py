@@ -185,7 +185,7 @@ class Line(ExcerptTitle):
 
     every_unit = Recurrencies.field(
         _("Recurrency"),
-        default=Recurrencies.per_weekday.as_callable(),
+        default=Recurrencies.per_weekday.as_callable,
         blank=True)  # iCal:DURATION
     every = models.IntegerField(_("Repeat every"), default=1)
 
@@ -329,7 +329,7 @@ class Course(Reservation):
     quick_search_fields = 'line__name line__topic__name'
 
     state = CourseStates.field(
-        default=CourseStates.draft.as_callable())
+        default=CourseStates.draft.as_callable)
 
     max_places = models.PositiveIntegerField(
         pgettext("in a course", "Places"),
@@ -762,7 +762,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
     request_date = models.DateField(
         _("Date of request"), default=dd.today)
     state = EnrolmentStates.field(
-        default=EnrolmentStates.requested.as_callable())
+        default=EnrolmentStates.requested.as_callable)
     amount = dd.PriceField(_("Participation fee"), blank=True, null=True)
     places = models.PositiveIntegerField(
         pgettext("in a course", "Places"),
