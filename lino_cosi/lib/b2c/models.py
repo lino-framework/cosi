@@ -238,8 +238,8 @@ class Account(dd.Model):
         verbose_name = _("Imported bank account")
         verbose_name_plural = _("Imported bank accounts")
 
-    iban = IBANField(_("IBAN"), unique=True, blank=False)
-    bic = BICField(_("BIC"), blank=True)
+    iban = IBANField(verbose_name=_("IBAN"), unique=True, blank=False)
+    bic = BICField(verbose_name=_("BIC"), blank=True)
     last_movement = models.DateField(_('Last movement'), null=True, blank=True)
 
     def __unicode__(self):
