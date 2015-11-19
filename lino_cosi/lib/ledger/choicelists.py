@@ -110,7 +110,8 @@ class VoucherType(dd.Choice):
         self.model = model
         value = dd.full_model_name(model)
         # text = model._meta.verbose_name + ' (%s)' % dd.full_model_name(model)
-        text = '%s (%s)' % (model._meta.verbose_name, dd.full_model_name(model))
+        text = u'%s (%s)' % (
+            model._meta.verbose_name, dd.full_model_name(model))
         # text = model._meta.verbose_name + ' (%s.%s)' % (
         #     model.__module__, model.__name__)
         name = None
