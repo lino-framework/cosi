@@ -101,6 +101,7 @@ for y in range(settings.SITE.start_year, dd.today().year + 5):
     s = str(y)
     FiscalYears.add_item(s[2:], s)
 
+from django.utils.translation import string_concat
 
 class VoucherType(dd.Choice):
 
@@ -110,9 +111,8 @@ class VoucherType(dd.Choice):
         self.model = model
         value = dd.full_model_name(model)
         # text = model._meta.verbose_name + ' (%s)' % dd.full_model_name(model)
-        text = u'%s (%s)' % (
-            model._meta.verbose_name, dd.full_model_name(model))
         # text = model._meta.verbose_name + ' (%s.%s)' % (
+        text = string_concat(model._meta.verbose_name, " (", value, ")")
         #     model.__module__, model.__name__)
         name = None
         super(VoucherType, self).__init__(value, text, name)
