@@ -100,7 +100,6 @@ class ImportStatements(dd.Action):
         failed_statements = 0
         for stmt in parser.parse(data_file):
             iban = stmt.local_account
-            unique_id = stmt.unique_id
             if iban is None:
                 dd.logger.warning("Statement %s has no IBAN", stmt)
                 failed_statements += 1
@@ -117,13 +116,12 @@ class ImportStatements(dd.Action):
                     "Found more than one account with IBAN %s", iban)
                 failed_statements += 1
                 continue
-            key = dict(account=account, statement_number=unique_id)
+            key = dict(account=account, statement_number=stmt.unique_id)
             data = dict(
                 start_date=stmt.start_date,
                 end_date=stmt.end_date,
                 balance_end=stmt.end_balance,
                 balance_start=stmt.start_balance,
-                #sequence_number=stmt.legal_sequence_number,
                 local_currency=stmt.local_currency)
 
             try:
@@ -154,8 +152,6 @@ class ImportStatements(dd.Action):
             last_movement = None
             for mvmt in stmt.transactions:
                 last_movement = max(last_movement, mvmt.value_date)
-                addr = '\n'.join(mvmt.remote_owner_address)
-                mvmt_id = mvmt.unique_import_id
                 key = dict(statement=s, seqno=mvmt.seqno)
                 data = dict(
                     value_date=mvmt.value_date,
@@ -168,7 +164,7 @@ class ImportStatements(dd.Action):
                     message=mvmt.message or '',
                     eref=mvmt.eref or '',
                     remote_owner=mvmt.remote_owner or '',
-                    remote_owner_address=addr or '',
+                    remote_owner_address=mvmt.remote_owner_address or '',
                     remote_owner_city=mvmt.remote_owner_city or '',
                     remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
                     remote_owner_country_code=mvmt.remote_owner_country_code or '',
@@ -183,7 +179,7 @@ class ImportStatements(dd.Action):
                     if not movements_to_update:
                         dd.logger.warning(
                             "Existing transaction in a new statement?! %s",
-                            mvmt_id)
+                            mvmt)
 
                     for k, v in data.items():
                         setattr(s, k, v)

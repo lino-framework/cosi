@@ -62,7 +62,7 @@ class BankTransaction(object):
         self.message = None  # message from the remote party
         self.eref = None  # end to end reference for transactions
         self.remote_owner = None  # name of the other party
-        self.remote_owner_address = []  # other parties address lines
+        self.remote_owner_address = None  # other parties address lines
         self.remote_owner_city = None  # other parties city name
         self.remote_owner_postalcode = None  # other parties zip code
         self.remote_owner_country_code = None  # other parties country code
@@ -75,9 +75,9 @@ class BankTransaction(object):
         # If True, make cancelled debit eligible for a next direct debit run
         # self.data = ''  # Raw data from which the transaction has been parsed
 
-    @property
-    def unique_import_id(self):
-        return self.statement.statement_id + str(self.seqno).zfill(4)
+    # @property
+    # def unique_import_id(self):
+    #     return self.statement.statement_id + str(self.seqno).zfill(4)
 
 
 class BankStatement(object):
