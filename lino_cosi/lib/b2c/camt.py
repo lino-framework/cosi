@@ -22,6 +22,7 @@
 
 # Modifications by Luc Saffre: 
 
+# Replaced classes defined in parserlib by simple pythonic classes
 # they completely ignored the ``<Dt>``
 # element of opening and closing balances.  Their statement had a date
 # which was the `execution_date` of the first transaction.  Now they
@@ -35,7 +36,83 @@
 import re
 from datetime import datetime
 from lxml import etree
-from .parserlib import BankStatement
+
+
+class BankTransaction(object):
+    """Single transaction that is part of a bank statement."""
+
+    def __init__(self, stmt, seqno):
+        """Define and initialize attributes.
+
+        Not all attributes are already used in the actual import.
+        """
+        self.statement = stmt
+        self.seqno = seqno
+        self.value_date = None  # The value date of the action
+        self.name = None  # unique id ?
+        self.transfer_type = None  # Action type that initiated this message
+        self.booking_date = None  # The posted date of the action
+        self.remote_account_iban = None  # The account of the other party
+        self.remote_account_other = None  # The account of the other party
+        self.remote_currency = None  # The currency used by the other party
+        self.exchange_rate = None
+        # The exchange rate used for conversion of local_currency and
+        # remote_currency
+        self.transferred_amount = None  # actual amount transferred
+        self.message = None  # message from the remote party
+        self.eref = None  # end to end reference for transactions
+        self.remote_owner = None  # name of the other party
+        self.remote_owner_address = None  # other parties address lines
+        self.remote_owner_city = None  # other parties city name
+        self.remote_owner_postalcode = None  # other parties zip code
+        self.remote_owner_country_code = None  # other parties country code
+        self.remote_bank_bic = None  # bic of other party's bank
+        self.provision_costs = None  # costs charged by bank for transaction
+        self.provision_costs_currency = None
+        self.provision_costs_description = None
+        self.error_message = None  # error message for interaction with user
+        self.storno_retry = None
+        # If True, make cancelled debit eligible for a next direct debit run
+        # self.data = ''  # Raw data from which the transaction has been parsed
+
+    # @property
+    # def unique_import_id(self):
+    #     return self.statement.statement_id + str(self.seqno).zfill(4)
+
+
+class BankStatement(object):
+    """A bank statement groups data about several bank transactions."""
+
+    def __init__(self):
+        self.statement_id = None
+        self.legal_sequence_number = None
+        self.electronic_sequence_number = None
+        self.local_account = None
+        self.local_currency = None
+        self.start_date = None
+        self.end_date = None
+        self.start_balance = None
+        self.end_balance = None
+        self.transactions = []
+
+    def create_transaction(self):
+        """Create and append transaction.
+        """
+        obj = BankTransaction(self, len(self.transactions) + 1)
+        self.transactions.append(obj)
+        return obj
+
+    @property
+    def unique_id(self):
+        year = self.end_date.year
+        if self.start_date.year != year:
+            raise Exception(
+                "%s starts %s and ends %s (different years)" % (
+                    self, self.start_date, self.end_date))
+        return str(year) + "/" + str(self.legal_sequence_number).zfill(4)
+        
+    def __str__(self):
+        return "Statement %s" % self.statement_id
 
 
 class CamtParser(object):
@@ -88,14 +165,14 @@ class CamtParser(object):
                 './ns:RmtInf/ns:Ustrd',
                 './ns:AddtlTxInf',
                 './ns:AddtlNtryInf',
-            ], transaction, 'message')
+            ], transaction, 'message', join_str='\n')
         # eref
         self.add_value_from_node(
             ns, node, [
                 './ns:RmtInf/ns:Strd/ns:CdtrRefInf/ns:Ref',
                 './ns:Refs/ns:EndToEndId',
             ],
-            transaction, 'eref'
+            transaction, 'eref', join_str='\n'
         )
         # remote party values
         party_type = 'Dbtr'
@@ -115,7 +192,8 @@ class CamtParser(object):
             address_node = party_node[0].xpath(
                 './ns:PstlAdr/ns:AdrLine', namespaces={'ns': ns})
             if address_node:
-                transaction.remote_owner_address = [address_node[0].text]
+                transaction.remote_owner_address = '\n'.join(
+                    [ln.text for ln in address_node])
         # Get remote_account from iban or from domestic account:
         account_node = node.xpath(
             './ns:RltdPties/ns:%sAcct/ns:Id' % party_type,
@@ -125,7 +203,7 @@ class CamtParser(object):
             iban_node = account_node[0].xpath(
                 './ns:IBAN', namespaces={'ns': ns})
             if iban_node:
-                transaction.remote_account = iban_node[0].text
+                transaction.remote_account_iban = iban_node[0].text
                 bic_node = node.xpath(
                     './ns:RltdAgts/ns:%sAgt/ns:FinInstnId/ns:BIC' % party_type,
                     namespaces={'ns': ns}
@@ -135,7 +213,7 @@ class CamtParser(object):
             else:
                 self.add_value_from_node(
                     ns, account_node[0], './ns:Othr/ns:Id', transaction,
-                    'remote_account'
+                    'remote_account_other'
                 )
 
     def parse_transaction(self, ns, node, transaction):
@@ -145,7 +223,7 @@ class CamtParser(object):
             'transfer_type'
         )
         self.add_value_from_node(
-            ns, node, './ns:BookgDt/ns:Dt', transaction, 'execution_date')
+            ns, node, './ns:BookgDt/ns:Dt', transaction, 'booking_date')
         self.add_value_from_node(
             ns, node, './ns:ValDt/ns:Dt', transaction, 'value_date')
         transaction.transferred_amount = self.parse_amount(ns, node)
@@ -153,7 +231,7 @@ class CamtParser(object):
             './ns:NtryDtls/ns:TxDtls', namespaces={'ns': ns})
         if details_node:
             self.parse_transaction_details(ns, details_node[0], transaction)
-        transaction.data = etree.tostring(node)
+        #transaction.data = etree.tostring(node)
         return transaction
 
     def parse_balance_amounts(self, statement, ns, node):
@@ -214,9 +292,6 @@ class CamtParser(object):
         for entry_node in transaction_nodes:
             transaction = statement.create_transaction()
             self.parse_transaction(ns, entry_node, transaction)
-        # if statement['transactions']:
-        #     statement.date = datetime.strptime(
-        #         statement['transactions'][0].execution_date, "%Y-%m-%d")
         return statement
 
     def check_version(self, ns, root):
@@ -252,13 +327,11 @@ class CamtParser(object):
             root = etree.fromstring(
                 data.decode('iso-8859-15').encode('utf-8'))
         if root is None:
-            raise ValueError(
+            raise IOError(
                 'Not a valid xml file, or not an xml file at all.')
         ns = root.tag[1:root.tag.index("}")]
         self.check_version(ns, root)
-        statements = []
         for node in root[0][1:]:
             statement = self.parse_statement(ns, node)
-            if len(statement['transactions']):
-                statements.append(statement)
-        return statements
+            if len(statement.transactions):
+                yield statement

@@ -28,7 +28,7 @@ from pprint import pformat
 import glob
 import os
 from django.db import models
-from django.core.exceptions import MultipleObjectsReturned
+from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
 from lino.utils.xmlgen.html import E
@@ -89,22 +89,19 @@ class ImportStatements(dd.Action):
 
     def import_file(self, ar, filename):
         """Import the named file, which must be a CAMT053 XML file."""
+        dd.logger.info("Importing file %s ...", filename)
         Account = rt.modules.b2c.Account
         dd.logger.debug("Importing file %s.", filename)
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
         # try:
-        res = parser.parse(data_file)
         self.imported_files += 1
         failed_statements = 0
-        if res is None:
-            raise Exception("res is None")
-        for stmt in res:
-            iban = stmt['account_number']
-            unique_id = stmt['name']
+        for stmt in parser.parse(data_file):
+            iban = stmt.local_account
             if iban is None:
-                dd.logger.warning("Statement without IBAN : %s", unique_id)
+                dd.logger.warning("Statement %s has no IBAN", stmt)
                 failed_statements += 1
                 continue
                 # raise Exception(msg.format(pformat(stmt)))
@@ -119,86 +116,91 @@ class ImportStatements(dd.Action):
                     "Found more than one account with IBAN %s", iban)
                 failed_statements += 1
                 continue
-            if Statement.objects.filter(
-                statement_number=stmt['name'], account=account).exists():
-                s = Statement.objects.get(
-                    statement_number=stmt['name'], account=account)
-                # s.date = stmt['date'].strftime("%Y-%m-%d")
-                # s.date_done = time.strftime("%Y-%m-%d")
-                s.start_date = stmt['start_date']
-                s.end_date = stmt['end_date']
-                s.balance_end = stmt['balance_end']
-                s.balance_start = stmt['balance_start']
-                s.balance_end_real = stmt['balance_end_real']
-                s.currency_code = stmt['currency_code']
-                s.sequence_number = stmt['legal_sequence_number']
+            key = dict(account=account, statement_number=stmt.unique_id)
+            data = dict(
+                start_date=stmt.start_date,
+                end_date=stmt.end_date,
+                balance_end=stmt.end_balance,
+                balance_start=stmt.start_balance,
+                local_currency=stmt.local_currency)
+
+            try:
+                s = Statement.objects.get(**key)
+                for k, v in data.items():
+                    setattr(s, k, v)
+                    # old = getattr(s, k)
+                    # if old != v:
+                    #     dd.logger.warning(
+                    #         "Updated statement %s, %s %s -> %s",
+                    #         unique_id, k, old, v)
+                    #     setattr(s, k, v)
                 movements_to_update = True
                 self.updated_statements += 1
-            else:
-                s = Statement(account=account,
-                              start_date=stmt['start_date'],
-                              end_date=stmt['end_date'],
-                              # date_done=time.strftime("%Y-%m-%d"),
-                              statement_number=stmt['name'],
-                              balance_end=stmt['balance_end'],
-                              balance_start=stmt['balance_start'],
-                              balance_end_real=stmt['balance_end_real'],
-                              sequence_number=stmt['legal_sequence_number'],
-                              currency_code=stmt['currency_code'])
+            except Statement.DoesNotExist:
+                data.update(key)
+                s = Statement(**data)
                 self.new_statements += 1
                 movements_to_update = False
-            s.save()
+            try:
+                s.full_clean()
+                s.save()
+            except ValidationError as e:
+                dd.logger.warning("Failed to save statement %s : %s", s, e)
+                failed_statements += 1
+                continue
 
             last_movement = None
-            for mvmt in stmt['transactions']:
-                last_movement = max(last_movement, mvmt['date'])
-                _ref = mvmt.get('ref', '')
-                addr = '\n'.join(mvmt.remote_owner_address)
-                mvmt_id = mvmt['unique_import_id']
-                if Movement.objects.filter(unique_import_id=mvmt_id).exists():
+            for mvmt in stmt.transactions:
+                last_movement = max(last_movement, mvmt.value_date)
+                key = dict(statement=s, seqno=mvmt.seqno)
+                data = dict(
+                    value_date=mvmt.value_date,
+                    booking_date=mvmt.booking_date,
+                    amount=mvmt.transferred_amount,
+                    partner_name=mvmt.remote_owner or '',
+                    remote_account=mvmt.remote_account_iban or
+                    mvmt.remote_account_other or '',
+                    remote_bic=mvmt.remote_bank_bic or '',
+                    message=mvmt.message or '',
+                    eref=mvmt.eref or '',
+                    remote_owner=mvmt.remote_owner or '',
+                    remote_owner_address=mvmt.remote_owner_address or '',
+                    remote_owner_city=mvmt.remote_owner_city or '',
+                    remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
+                    remote_owner_country_code=mvmt.remote_owner_country_code or '',
+                    transfer_type=mvmt.transfer_type or '')
+
+                try:
+                    m = Movement.objects.get(**key)
+                    if m.statement != s:
+                        raise Exception(
+                            "Invalid transaction: statement %s != %s" % (
+                                m.statement, s))
                     if not movements_to_update:
                         dd.logger.warning(
                             "Existing transaction in a new statement?! %s",
-                            mvmt_id)
-                    m = Movement.objects.get(unique_import_id=mvmt_id)
-                    m.statement = s
-                    m.movement_date = mvmt['date']
-                    m.amount = mvmt['amount']
-                    m.partner_name = mvmt.remote_owner
-                    m.ref = _ref
-                    m.remote_account = mvmt.remote_account or ''
-                    m.remote_bic = mvmt.remote_bank_bic or ''
-                    m.message = mvmt._message or ' '
-                    m.eref = mvmt.eref or ' '
-                    m.remote_owner = mvmt.remote_owner or ' '
-                    m.remote_owner_address = addr
-                    m.remote_owner_city = mvmt.remote_owner_city or ' '
-                    m.remote_owner_postalcode = mvmt.remote_owner_postalcode or ' '
-                    m.remote_owner_country_code = mvmt.remote_owner_country_code or ' '
-                    m.transfer_type = mvmt.transfer_type or ' '
-                    m.execution_date = mvmt.execution_date or ' '
-                    m.value_date = mvmt.value_date or ' '
+                            mvmt)
+
+                    for k, v in data.items():
+                        setattr(s, k, v)
+                        # old = getattr(m, k)
+                        # if old != v:
+                        #     dd.logger.warning(
+                        #         "Updated movement %s, %s %s -> %s",
+                        #         m, k, old, v)
+                        #     setattr(s, k, v)
+                except Movement.DoesNotExist:
+                    data.update(key)
+                    m = Movement(**data)
+
+                try:
+                    m.full_clean()
                     m.save()
-                else:
-                    m = Movement(statement=s,
-                                 unique_import_id=mvmt_id,
-                                 movement_date=mvmt['date'],
-                                 amount=mvmt['amount'],
-                                 partner_name=mvmt.remote_owner,
-                                 ref=_ref,
-                                 remote_account=mvmt.remote_account or '',
-                                 remote_bic=mvmt.remote_bank_bic or '',
-                                 message=mvmt._message or '',
-                                 eref=mvmt.eref or '',
-                                 remote_owner=mvmt.remote_owner or '',
-                                 remote_owner_address=addr,
-                                 remote_owner_city=mvmt.remote_owner_city or '',
-                                 remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
-                                 remote_owner_country_code=mvmt.remote_owner_country_code or '',
-                                 transfer_type=mvmt.transfer_type or '',
-                                 execution_date=mvmt.execution_date or '',
-                                 value_date=mvmt.value_date or '', )
-                    m.save()
+                except ValidationError as e:
+                    dd.logger.warning(
+                        "Failed to save movement %s : %s", s, e)
+                    break
+
             if account.last_movement != last_movement:
                 account.last_movement = last_movement
                 account.full_clean()
@@ -238,8 +240,8 @@ class Account(dd.Model):
         verbose_name = _("Imported bank account")
         verbose_name_plural = _("Imported bank accounts")
 
-    iban = IBANField(_("IBAN"), unique=True, blank=False)
-    bic = BICField(_("BIC"), blank=True)
+    iban = IBANField(verbose_name=_("IBAN"), unique=True, blank=False)
+    bic = BICField(verbose_name=_("BIC"), blank=True)
     last_movement = models.DateField(_('Last movement'), null=True, blank=True)
 
     def __unicode__(self):
@@ -285,19 +287,22 @@ class Statement(dd.Model):
         return self.statement_number
 
     account = dd.ForeignKey('b2c.Account')
+    statement_number = models.CharField(
+        _('Statement number'), null=False, max_length=10,
+        help_text=_("Combination of the year and the legal sequential number"
+                    " of the paper statement."))
+
     start_date = models.DateField(_('Start date'), null=True)
     end_date = models.DateField(_('End date'), null=True)
     # date_done = models.DateTimeField(_('Import Date'), null=True)
-    statement_number = models.CharField(
-        _('Statement number'), null=False, max_length=128)
     balance_start = dd.PriceField(_("Initial amount"), null=True)
     balance_end = dd.PriceField(_("Final amount"), null=True)
-    balance_end_real = dd.PriceField(_("Real end balance"), null=True)
-    currency_code = models.CharField(_('Currency'), max_length=3)
-    sequence_number = models.IntegerField(
-        _('Sequence number'), null=True,
-        help_text=_("The legal sequential number of the paper statement, "
-                    "as assigned by the account servicer."))
+    # balance_end_real = dd.PriceField(_("Real end balance"), null=True)
+    local_currency = models.CharField(_('Currency'), max_length=3)
+    # sequence_number = models.IntegerField(
+    #     _('Sequence number'), null=True,
+    #     help_text=_("The legal sequential number of the paper statement, "
+    #                 "as assigned by the account servicer."))
 
     # fields like statement_number, date, solde_initial, solde_final
 
@@ -316,15 +321,17 @@ class Movement(dd.Model):
         verbose_name_plural = _("Movements")
 
     statement = dd.ForeignKey('b2c.Statement')
-    unique_import_id = models.CharField(_('Unique import ID'), max_length=128)
+    seqno = models.IntegerField(_('No.'),
+        help_text=_("The sequence number of this transaction in the statement."))
+    # unique_import_id = models.CharField(_('Unique import ID'), max_length=128)
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
-    movement_date = models.DateField(_('Movement date'), null=True, blank=True)
+    # movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
     # partner = models.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
     partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
-    remote_account = IBANField(verbose_name=_("IBAN"), blank=True)
+    remote_account = models.CharField(_("IBAN"), blank=True, max_length=64)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
-    ref = models.CharField(_('Ref'), max_length=35, blank=True)
+    # ref = models.CharField(_('Ref'), max_length=35, blank=True)
     message = models.TextField(_('Message'), blank=True)
     eref = models.CharField(_('End to end reference'), max_length=128, blank=True)
     remote_owner = models.CharField(_('Remote owner'), max_length=128, blank=True)
@@ -333,7 +340,7 @@ class Movement(dd.Model):
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10, blank=True)
     remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4, blank=True)
     transfer_type = models.CharField(_('Transfer type'), max_length=32, blank=True)
-    execution_date = models.DateField(_('Execution date'), null=True, blank=True)
+    booking_date = models.DateField(_('Execution date'), null=True, blank=True)
     value_date = models.DateField(_('Value date'), null=True, blank=True)
 
     @dd.displayfield(_("Remote account"))
@@ -356,16 +363,16 @@ class Movement(dd.Model):
         elems = []
         # elems += [_("Date"), dd.fds(self.movement_date), " "]
         # elems += [_("Amount"), ' ', E.b(unicode(self.amount)), " "]
-        # self.execution_date
-        elems += self.message.splitlines()
+        # self.booking_date
+        elems += self.message  # .splitlines()
         elems.append(E.br())
-        elems += [_("ref:"), ': ', self.ref, ' ']
+        # elems += [_("ref:"), ': ', self.ref, ' ']
         elems += [_("eref:"), ': ', self.eref]
         elems.append(E.br())
         elems += [_("TT:"), ': ', E.b(self.transfer_type), ' ']
         elems += [_("Value date"), ': ', E.b(dd.fds(self.value_date)), " "]
-        elems += [_("Execution date"), ': ',
-                  E.b(dd.fds(self.execution_date)), " "]
+        elems += [_("Booking date"), ': ',
+                  E.b(dd.fds(self.booking_date)), " "]
         return E.div(*elems)
 
         

@@ -20,6 +20,8 @@
 ##############################################################################
 # File taken from https://github.com/OCA/bank-statement-import/blob/8.0/account_bank_statement_import/parserlib.py
 
+raise Exception("No longer used since 20151120")
+
 
 class BankTransaction(dict):
     """Single transaction that is part of a bank statement."""
