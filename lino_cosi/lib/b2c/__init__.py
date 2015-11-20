@@ -56,7 +56,6 @@ statement.
     models
     ui
     camt
-    parserlib
     fixtures.demo
 
 """

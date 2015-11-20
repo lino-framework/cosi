@@ -46,8 +46,8 @@ class StatementDetail(dd.FormLayout):
     """
 
     top_left = """
-    account:20 currency_code
-    statement_number sequence_number
+    account:20 local_currency
+    statement_number
     """
 
     top_right = """
@@ -59,9 +59,9 @@ class StatementDetail(dd.FormLayout):
 class Statements(dd.Table):
     required_roles = dd.login_required(SepaUser)
     model = 'b2c.Statement'
-    column_names = ('account sequence_number statement_number:20 '
+    column_names = ('account statement_number '
                     'balance_start start_date balance_end end_date '
-                    'currency_code *')
+                    'local_currency *')
     order_by = ["start_date"]
     detail_layout = StatementDetail()
     auto_fit_column_widths = True
@@ -77,7 +77,7 @@ class Statements(dd.Table):
 class StatementsByAccount(Statements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'account'
-    column_names = 'sequence_number balance_start start_date balance_end end_date currency_code *'
+    column_names = 'statement_number balance_start start_date balance_end end_date local_currency *'
     auto_fit_column_widths = True
 
 
@@ -86,10 +86,10 @@ class Movements(dd.Table):
     model = 'b2c.Movement'
     editable = False
     detail_layout = """
-    statement:30 unique_import_id:30 movement_date:20 amount:20
-    remote_account:20 remote_bic:10 ref:20 eref:10
+    statement:30 seqno booking_date:20 amount:20
+    remote_account:20 remote_bic:10 eref:10
     remote_owner:20 remote_owner_address:20 remote_owner_city:20 remote_owner_postalcode:20
-    remote_owner_country_code:20 transfer_type:20 execution_date:20 value_date:20
+    remote_owner_country_code:20 transfer_type:20 value_date:20
     message
     """
 
@@ -97,7 +97,7 @@ class Movements(dd.Table):
 class MovementsByStatement(Movements):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
-    column_names = 'movement_date amount remote_html message_html *'
+    column_names = 'booking_date amount remote_html message_html *'
     auto_fit_column_widths = True
 
 

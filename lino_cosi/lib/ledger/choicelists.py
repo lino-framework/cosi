@@ -24,6 +24,7 @@
 """
 
 from django.conf import settings
+from django.utils.translation import string_concat
 
 from lino.api import dd, rt, _
 
@@ -101,7 +102,6 @@ for y in range(settings.SITE.start_year, dd.today().year + 5):
     s = str(y)
     FiscalYears.add_item(s[2:], s)
 
-from django.utils.translation import string_concat
 
 class VoucherType(dd.Choice):
 
