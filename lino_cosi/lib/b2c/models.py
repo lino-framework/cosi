@@ -76,10 +76,11 @@ class ImportStatements(dd.Action):
         self.updated_statements = 0
         self.failed_statements = 0
         self.imported_files = 0
-        dd.logger.info("Importing XML files from %s...", pth)
+        dd.logger.info("Importing all XML files from %s...", pth)
         wc = os.path.join(pth, '*.[Xx][Mm][Ll]')
         for filename in glob.iglob(wc):
             self.import_file(ar, filename)
+
         msg = "{0} XML files with {1} new and {2} updated " \
               "statements have been imported."
         msg = msg.format(
@@ -91,11 +92,9 @@ class ImportStatements(dd.Action):
         """Import the named file, which must be a CAMT053 XML file."""
         dd.logger.info("Importing file %s ...", filename)
         Account = rt.modules.b2c.Account
-        dd.logger.debug("Importing file %s.", filename)
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
-        # try:
         self.imported_files += 1
         failed_statements = 0
         for stmt in parser.parse(data_file):
@@ -104,7 +103,12 @@ class ImportStatements(dd.Action):
                 dd.logger.warning("Statement %s has no IBAN", stmt)
                 failed_statements += 1
                 continue
-                # raise Exception(msg.format(pformat(stmt)))
+            try:
+                unique_id = stmt.unique_id
+            except Exception as e:
+                dd.logger.warning("Statement %s : %s", stmt, e)
+                failed_statements += 1
+                continue
             try:
                 account = Account.objects.get(iban=iban)
             except Account.DoesNotExist:
@@ -116,7 +120,7 @@ class ImportStatements(dd.Action):
                     "Found more than one account with IBAN %s", iban)
                 failed_statements += 1
                 continue
-            key = dict(account=account, statement_number=stmt.unique_id)
+            key = dict(account=account, statement_number=unique_id)
             data = dict(
                 start_date=stmt.start_date,
                 end_date=stmt.end_date,
@@ -128,12 +132,6 @@ class ImportStatements(dd.Action):
                 s = Statement.objects.get(**key)
                 for k, v in data.items():
                     setattr(s, k, v)
-                    # old = getattr(s, k)
-                    # if old != v:
-                    #     dd.logger.warning(
-                    #         "Updated statement %s, %s %s -> %s",
-                    #         unique_id, k, old, v)
-                    #     setattr(s, k, v)
                 movements_to_update = True
                 self.updated_statements += 1
             except Statement.DoesNotExist:
@@ -183,12 +181,6 @@ class ImportStatements(dd.Action):
 
                     for k, v in data.items():
                         setattr(s, k, v)
-                        # old = getattr(m, k)
-                        # if old != v:
-                        #     dd.logger.warning(
-                        #         "Updated movement %s, %s %s -> %s",
-                        #         m, k, old, v)
-                        #     setattr(s, k, v)
                 except Movement.DoesNotExist:
                     data.update(key)
                     m = Movement(**data)
