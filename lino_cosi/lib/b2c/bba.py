@@ -17,26 +17,27 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""BBA Bank Transaction Codes
+"""BBA Bank Transaction Code designations.
 
-The defines just a utility function :func:`code2desc` which returns
-the designation of a bank transaction code, i.e. the value that is
-being imported into the :attr:`transfer_type
-<lino_cosi.lib.b2c.models.Movement.transfer_type>` field.
-
-BBA = The Belgian Bankers’ and Stockbroking Firms’ Association
-(Association belge des banques et des sociétés de bourse)
-
-Source : `www.febelfin.be
+The defines a utility function :func:`code2desc` which returns the
+designation of a *bank transaction code*, as specified by the `XML
+message for statement Implementation guidelines
 <https://www.febelfin.be/sites/default/files/files/Standard-XML-Statement-v1-en_0.pdf>`_
+of the Belgian Federation of Financial Sector.
 
-- 01 to 39 : domestic or local SEPA transactions
-- 41 to 79 : foreign/non-SEPA  transactions
-- 80 to 89 : other families
+This is being used by the :attr:`txcd_text
+<lino_cosi.lib.b2c.models.Movement.txcd_text>` field of an imported
+movement.
 
 
 >>> print(code2desc('0103000'))
 Standing order
+
+>>> print(code2desc('0150000'))
+Transfer in your favour
+
+>>> print(code2desc('8033000'))
+Miscellaneous fees and commissions
 
 """
 
@@ -51,6 +52,10 @@ def lines2dict(s):
             k, txt = ln.split(None, 1)
             d[k] = txt
     return d
+
+# - 01 to 39 : domestic or local SEPA transactions
+# - 41 to 79 : foreign/non-SEPA  transactions
+# - 80 to 89 : other families
 
 FAMILIES = lines2dict("""
 01 Domestic or local SEPA credit transfers

@@ -341,18 +341,36 @@ class Movement(dd.Model):
 
 
     
+    .. attribute:: statement
+
+    .. attribute:: seqno
+
+    .. attribute:: booking_date
+
+    .. attribute:: value_date
+
     .. attribute:: transfer_type
 
        The actual historic name of the :attr:`txcd`.
 
     .. attribute:: txcd
-        The BankTransactionCode (`<BkTxCd>`).
+
+        The Bank Transaction Code (`<BkTxCd>`) or "transfer type".
         Actually it is the "proprietary" part of this code.
 
-    .. attribute:: txcode_text
+    .. attribute:: txcd_text
 
         Virtual field with the textual interpretation of the
-        :attr:`txcd`
+        :attr:`txcd`. Currently this works only for BBA codes (defined
+        in :mod:`lino_cosi.lib.b2c.bba`).
+
+    .. attribute:: remote_account
+    .. attribute:: remote_bic
+    .. attribute:: remote_owner
+    .. attribute:: remote_owner_address
+    .. attribute:: remote_owner_city
+    .. attribute:: remote_owner_postalcode
+    .. attribute:: remote_owner_country_code
 
     """
 
