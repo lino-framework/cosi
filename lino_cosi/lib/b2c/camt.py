@@ -51,6 +51,7 @@ class BankTransaction(object):
         self.value_date = None  # The value date of the action
         self.name = None  # unique id ?
         self.transfer_type = None  # Action type that initiated this message
+        self.transfer_type_issuer = None
         self.booking_date = None  # The posted date of the action
         self.remote_account_iban = None  # The account of the other party
         self.remote_account_other = None  # The account of the other party
@@ -109,7 +110,11 @@ class BankStatement(object):
             raise Exception(
                 "%s starts %s and ends %s (different years)" % (
                     self, self.start_date, self.end_date))
-        return str(year) + "/" + str(self.electronic_sequence_number).zfill(4)
+        num = self.electronic_sequence_number
+        if num is None:
+            raise Exception(
+                "%s has no electronic_sequence_number" % self)
+        return str(year) + "/" + str(num).zfill(4)
         
     def __str__(self):
         return "Statement %s" % self.statement_id
@@ -221,6 +226,10 @@ class CamtParser(object):
         self.add_value_from_node(
             ns, node, './ns:BkTxCd/ns:Prtry/ns:Cd', transaction,
             'transfer_type'
+        )
+        self.add_value_from_node(
+            ns, node, './ns:BkTxCd/ns:Prtry/ns:Issr', transaction,
+            'transfer_type_issuer'
         )
         self.add_value_from_node(
             ns, node, './ns:BookgDt/ns:Dt', transaction, 'booking_date')

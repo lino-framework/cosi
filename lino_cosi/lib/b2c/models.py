@@ -288,7 +288,7 @@ class Statement(dd.Model):
 
     account = dd.ForeignKey('b2c.Account')
     statement_number = models.CharField(
-        _('Statement number'), null=False, max_length=10,
+        _('Statement number'), blank=False, max_length=10,
         help_text=_("Combination of the year and the legal sequential number"
                     " of the paper statement."))
 
