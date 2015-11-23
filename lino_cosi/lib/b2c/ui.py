@@ -62,7 +62,7 @@ class Statements(dd.Table):
     column_names = ('account statement_number '
                     'balance_start start_date balance_end end_date '
                     'local_currency *')
-    order_by = ["start_date"]
+    order_by = ["-start_date"]
     detail_layout = StatementDetail()
     auto_fit_column_widths = True
     editable = False
@@ -79,6 +79,7 @@ class StatementsByAccount(Statements):
     master_key = 'account'
     column_names = 'statement_number balance_start start_date balance_end end_date local_currency *'
     auto_fit_column_widths = True
+    
 
 
 class Movements(dd.Table):
