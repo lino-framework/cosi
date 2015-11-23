@@ -109,7 +109,7 @@ class BankStatement(object):
             raise Exception(
                 "%s starts %s and ends %s (different years)" % (
                     self, self.start_date, self.end_date))
-        return str(year) + "/" + str(self.legal_sequence_number).zfill(4)
+        return str(year) + "/" + str(self.electronic_sequence_number).zfill(4)
         
     def __str__(self):
         return "Statement %s" % self.statement_id
