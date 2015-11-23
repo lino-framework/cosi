@@ -32,7 +32,7 @@ class Accounts(dd.Table):
     required_roles = dd.login_required(SepaUser)
     model = 'b2c.Account'
     detail_layout = """
-    iban bic last_movement
+    iban bic last_movement partners
     b2c.StatementsByAccount
     """
     column_names = "iban bic last_movement partners *"
