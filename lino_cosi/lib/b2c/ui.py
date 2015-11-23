@@ -84,7 +84,7 @@ class StatementsByAccount(Statements):
 class MovementDetail(dd.FormLayout):
     main = """
     statement seqno booking_date value_date amount
-    remote_account remote_bic eref transfer_type
+    remote_account remote_bic eref txcd_text
     remote_owner
     addr_left addr_right
     message

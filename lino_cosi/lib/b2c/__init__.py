@@ -56,7 +56,9 @@ statement.
     models
     ui
     camt
+    bba
     fixtures.demo
+
 
 """
 
