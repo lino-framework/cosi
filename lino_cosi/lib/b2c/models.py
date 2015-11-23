@@ -120,7 +120,7 @@ class ImportStatements(dd.Action):
                 account = Account.objects.get(**key)
                 for k, v in data.items():
                     if v:
-                        setattr(s, k, v)
+                        setattr(account, k, v)
             except Account.DoesNotExist:
                 key.update(data)
                 account = Account(**key)
