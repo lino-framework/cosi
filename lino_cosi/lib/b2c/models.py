@@ -32,6 +32,7 @@ from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
 from lino.utils.xmlgen.html import E
+from lino.utils import join_elems
 
 from lino_cosi.lib.sepa.fields import IBANField, BICField
 from lino_cosi.lib.sepa.utils import belgian_nban_to_iban_bic, iban2bic
@@ -76,10 +77,11 @@ class ImportStatements(dd.Action):
         self.updated_statements = 0
         self.failed_statements = 0
         self.imported_files = 0
-        dd.logger.info("Importing XML files from %s...", pth)
+        dd.logger.info("Importing all XML files from %s...", pth)
         wc = os.path.join(pth, '*.[Xx][Mm][Ll]')
         for filename in glob.iglob(wc):
             self.import_file(ar, filename)
+
         msg = "{0} XML files with {1} new and {2} updated " \
               "statements have been imported."
         msg = msg.format(
@@ -91,11 +93,9 @@ class ImportStatements(dd.Action):
         """Import the named file, which must be a CAMT053 XML file."""
         dd.logger.info("Importing file %s ...", filename)
         Account = rt.modules.b2c.Account
-        dd.logger.debug("Importing file %s.", filename)
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
-        # try:
         self.imported_files += 1
         failed_statements = 0
         for stmt in parser.parse(data_file):
@@ -104,11 +104,26 @@ class ImportStatements(dd.Action):
                 dd.logger.warning("Statement %s has no IBAN", stmt)
                 failed_statements += 1
                 continue
-                # raise Exception(msg.format(pformat(stmt)))
             try:
-                account = Account.objects.get(iban=iban)
+                unique_id = stmt.unique_id
+            except Exception as e:
+                dd.logger.warning("Statement %s : %s", stmt, e)
+                failed_statements += 1
+                continue
+
+            # get or create the Account
+            key = dict(iban=iban)
+            data = dict(
+                owner_name=stmt.owner_name,
+                account_name=stmt.account_name)
+            try:
+                account = Account.objects.get(**key)
+                for k, v in data.items():
+                    if v:
+                        setattr(account, k, v)
             except Account.DoesNotExist:
-                account = Account(iban=iban)
+                key.update(data)
+                account = Account(**key)
                 account.full_clean()
                 account.save()
             except MultipleObjectsReturned:
@@ -116,7 +131,9 @@ class ImportStatements(dd.Action):
                     "Found more than one account with IBAN %s", iban)
                 failed_statements += 1
                 continue
-            key = dict(account=account, statement_number=stmt.unique_id)
+
+            # get or create the Statement
+            key = dict(account=account, statement_number=unique_id)
             data = dict(
                 start_date=stmt.start_date,
                 end_date=stmt.end_date,
@@ -128,12 +145,6 @@ class ImportStatements(dd.Action):
                 s = Statement.objects.get(**key)
                 for k, v in data.items():
                     setattr(s, k, v)
-                    # old = getattr(s, k)
-                    # if old != v:
-                    #     dd.logger.warning(
-                    #         "Updated statement %s, %s %s -> %s",
-                    #         unique_id, k, old, v)
-                    #     setattr(s, k, v)
                 movements_to_update = True
                 self.updated_statements += 1
             except Statement.DoesNotExist:
@@ -157,18 +168,19 @@ class ImportStatements(dd.Action):
                     value_date=mvmt.value_date,
                     booking_date=mvmt.booking_date,
                     amount=mvmt.transferred_amount,
-                    partner_name=mvmt.remote_owner or '',
+                    # partner_name=mvmt.remote_owner or '',
                     remote_account=mvmt.remote_account_iban or
                     mvmt.remote_account_other or '',
                     remote_bic=mvmt.remote_bank_bic or '',
                     message=mvmt.message or '',
                     eref=mvmt.eref or '',
                     remote_owner=mvmt.remote_owner or '',
-                    remote_owner_address=mvmt.remote_owner_address or '',
                     remote_owner_city=mvmt.remote_owner_city or '',
                     remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
                     remote_owner_country_code=mvmt.remote_owner_country_code or '',
                     transfer_type=mvmt.transfer_type or '')
+                data.update(
+                    remote_owner_address=mvmt.remote_owner_address)
 
                 try:
                     m = Movement.objects.get(**key)
@@ -183,12 +195,6 @@ class ImportStatements(dd.Action):
 
                     for k, v in data.items():
                         setattr(s, k, v)
-                        # old = getattr(m, k)
-                        # if old != v:
-                        #     dd.logger.warning(
-                        #         "Updated movement %s, %s %s -> %s",
-                        #         m, k, old, v)
-                        #     setattr(s, k, v)
                 except Movement.DoesNotExist:
                     data.update(key)
                     m = Movement(**data)
@@ -232,6 +238,22 @@ class Account(dd.Model):
 
     One partner can have more than one bank account.
 
+    .. attribute:: account_name
+
+        Name of the account, as assigned by the account servicing
+        institution, in agreement with the account owner in order to
+        provide an additional means of identification of the account.
+        Usage: The account name is different from the
+        :attr:`owner_name`. The account name is used in certain user
+        communities to provide a means of identifying the account, in
+        addition to the account owner's identity and the account
+        number.
+
+    .. attribute:: owner_name
+
+        Name by which a party is known and which is usually used to
+        identify that party.
+
     """
 
     class Meta:
@@ -242,6 +264,10 @@ class Account(dd.Model):
 
     iban = IBANField(verbose_name=_("IBAN"), unique=True, blank=False)
     bic = BICField(verbose_name=_("BIC"), blank=True)
+    account_name = models.CharField(
+        _("Account name"), max_length=70, blank=True)
+    owner_name = models.CharField(
+        _("Owner name"), max_length=70, blank=True)
     last_movement = models.DateField(_('Last movement'), null=True, blank=True)
 
     def __unicode__(self):
@@ -255,7 +281,7 @@ class Account(dd.Model):
         qs = rt.modules.sepa.Account.objects.filter(iban=self.iban)
         for obj in qs:
             elems.append(ar.obj2html(obj.partner))
-        return E.p(*elems)
+        return E.p(*join_elems(elems, ', '))
 
 
 PRIMARY_FIELDS = dd.fields_list(Account, 'iban bic')
@@ -288,7 +314,7 @@ class Statement(dd.Model):
 
     account = dd.ForeignKey('b2c.Account')
     statement_number = models.CharField(
-        _('Statement number'), null=False, max_length=10,
+        _('Statement number'), blank=False, max_length=10,
         help_text=_("Combination of the year and the legal sequential number"
                     " of the paper statement."))
 
@@ -328,14 +354,15 @@ class Movement(dd.Model):
     # movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
     # partner = models.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
-    partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
+    # partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
     remote_account = models.CharField(_("IBAN"), blank=True, max_length=64)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
     # ref = models.CharField(_('Ref'), max_length=35, blank=True)
     message = models.TextField(_('Message'), blank=True)
     eref = models.CharField(_('End to end reference'), max_length=128, blank=True)
     remote_owner = models.CharField(_('Remote owner'), max_length=128, blank=True)
-    remote_owner_address = models.CharField(_('Remote owner adress'), max_length=128, blank=True)
+    remote_owner_address = models.TextField(
+        _('Remote owner adress'), blank=True)
     remote_owner_city = models.CharField(_('Remote owner city'), max_length=32, blank=True)
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10, blank=True)
     remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4, blank=True)
@@ -351,7 +378,7 @@ class Movement(dd.Model):
         elems.append(E.br())
         elems += [E.b(self.remote_owner), ", "]
         elems.append(E.br())
-        elems += [self.remote_owner_address, ", "]
+        elems += [" / ".join(self.remote_owner_address.splitlines()), ", "]
         elems += [self.remote_owner_postalcode, " "]
         elems += [self.remote_owner_city, " "]
         elems += [self.remote_owner_country_code]

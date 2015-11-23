@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino 1.6.14\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-18 17:43+0200\n"
+"POT-Creation-Date: 2015-11-23 12:32+0200\n"
 "PO-Revision-Date: 2014-06-06 11:29+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language-Team: es <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Last date"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:414 lino_cosi/lib/b2c/models.py:322
+#: lino_cosi/lib/auto/sales/models.py:414 lino_cosi/lib/b2c/models.py:354
 #: lino_cosi/lib/vatless/models.py:56 lino_cosi/lib/vatless/models.py:120
 msgid "Amount"
 msgstr ""
@@ -238,174 +238,164 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/__init__.py:71
+#: lino_cosi/lib/b2c/__init__.py:70
 msgid "SEPA import"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:57
+#: lino_cosi/lib/b2c/models.py:58
 msgid "Import SEPA"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:74
+#: lino_cosi/lib/b2c/models.py:75
 msgid "Error"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:88
+#: lino_cosi/lib/b2c/models.py:90
 msgid "Success"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:238
+#: lino_cosi/lib/b2c/models.py:261
 msgid "Imported bank account"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:239
+#: lino_cosi/lib/b2c/models.py:262
 msgid "Imported bank accounts"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:241 lino_cosi/lib/b2c/models.py:325
+#: lino_cosi/lib/b2c/models.py:264 lino_cosi/lib/b2c/models.py:357
 #: lino_cosi/lib/sepa/models.py:67
 msgid "IBAN"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:242 lino_cosi/lib/b2c/models.py:326
+#: lino_cosi/lib/b2c/models.py:265 lino_cosi/lib/b2c/models.py:358
 #: lino_cosi/lib/sepa/models.py:68
 msgid "BIC"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:243
+#: lino_cosi/lib/b2c/models.py:267
+msgid "Account name"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:269
+msgid "Owner name"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:270
 msgid "Last movement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:248
+#: lino_cosi/lib/b2c/models.py:275
 msgid "Partners"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:281
+#: lino_cosi/lib/b2c/models.py:308
 msgid "Statement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:282 lino_cosi/lib/sepa/models.py:112
+#: lino_cosi/lib/b2c/models.py:309 lino_cosi/lib/sepa/models.py:112
 msgid "Statements"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:288
-msgid "Start date"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:289
-msgid "End date"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:292
+#: lino_cosi/lib/b2c/models.py:316
 msgid "Statement number"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:293
-msgid "Initial amount"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:294
-msgid "Final amount"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:295
-msgid "Real end balance"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:296
-msgid "Currency"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:298
-msgid "Sequence number"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:299
+#: lino_cosi/lib/b2c/models.py:317
 msgid ""
-"The legal sequential number of the paper statement, as assigned by the "
-"account servicer."
+"Combination of the year and the legal sequential number of the paper "
+"statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:315 lino_cosi/lib/ledger/models.py:506
-msgid "Movement"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:316 lino_cosi/lib/ledger/models.py:507
-msgid "Movements"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:319
-msgid "Unique import ID"
+#: lino_cosi/lib/b2c/models.py:320
+msgid "Start date"
 msgstr ""
 
 #: lino_cosi/lib/b2c/models.py:321
-msgid "Movement date"
+msgid "End date"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:323
+msgid "Initial amount"
 msgstr ""
 
 #: lino_cosi/lib/b2c/models.py:324
-msgid "Partner name"
+msgid "Final amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:327 lino_cosi/lib/ledger/ui.py:423
-#: lino_cosi/lib/ledger/ui.py:444
-msgid "Ref"
+#: lino_cosi/lib/b2c/models.py:326
+msgid "Currency"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:328 lino_cosi/lib/b2c/models.py:353
+#: lino_cosi/lib/b2c/models.py:345 lino_cosi/lib/ledger/models.py:506
+msgid "Movement"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:346 lino_cosi/lib/ledger/models.py:507
+msgid "Movements"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:349
+msgid "No."
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:350
+msgid "The sequence number of this transaction in the statement."
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:360 lino_cosi/lib/b2c/models.py:385
 msgid "Message"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:329
+#: lino_cosi/lib/b2c/models.py:361
 msgid "End to end reference"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:330
+#: lino_cosi/lib/b2c/models.py:362
 msgid "Remote owner"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:331
+#: lino_cosi/lib/b2c/models.py:363
 msgid "Remote owner adress"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:332
+#: lino_cosi/lib/b2c/models.py:364
 msgid "Remote owner city"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:333
+#: lino_cosi/lib/b2c/models.py:365
 msgid "Remote owner postal code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:334
+#: lino_cosi/lib/b2c/models.py:366
 msgid "Remote owner country code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:335
+#: lino_cosi/lib/b2c/models.py:367
 msgid "Transfer type"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:336 lino_cosi/lib/b2c/models.py:367
-#: lino_cosi/lib/finan/models.py:111
+#: lino_cosi/lib/b2c/models.py:368 lino_cosi/lib/finan/models.py:111
 msgid "Execution date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:337 lino_cosi/lib/b2c/models.py:366
+#: lino_cosi/lib/b2c/models.py:369 lino_cosi/lib/b2c/models.py:398
 msgid "Value date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:339
+#: lino_cosi/lib/b2c/models.py:371
 msgid "Remote account"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:362
-msgid "ref:"
-msgstr ""
-
-#: lino_cosi/lib/b2c/models.py:363
+#: lino_cosi/lib/b2c/models.py:395
 msgid "eref:"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:365
+#: lino_cosi/lib/b2c/models.py:397
 msgid "TT:"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:399
+msgid "Booking date"
 msgstr ""
 
 #: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/models.py:555
@@ -442,12 +432,12 @@ msgid "Courses"
 msgstr ""
 
 #: lino_cosi/lib/courses/choicelists.py:41
-#: lino_cosi/lib/ledger/choicelists.py:317 lino_cosi/lib/orders/models.py:49
+#: lino_cosi/lib/ledger/choicelists.py:319 lino_cosi/lib/orders/models.py:49
 msgid "Draft"
 msgstr ""
 
 #: lino_cosi/lib/courses/choicelists.py:42
-#: lino_cosi/lib/ledger/choicelists.py:318 lino_cosi/lib/orders/models.py:50
+#: lino_cosi/lib/ledger/choicelists.py:320 lino_cosi/lib/orders/models.py:50
 msgid "Registered"
 msgstr ""
 
@@ -855,7 +845,7 @@ msgstr ""
 msgid "Shipping Modes"
 msgstr ""
 
-#: lino_cosi/lib/finan/__init__.py:37 lino_cosi/lib/ledger/choicelists.py:68
+#: lino_cosi/lib/finan/__init__.py:37 lino_cosi/lib/ledger/choicelists.py:69
 msgid "Financial"
 msgstr ""
 
@@ -951,64 +941,64 @@ msgstr ""
 msgid "Suggestions"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:65
-#: lino_cosi/lib/ledger/choicelists.py:260 lino_cosi/lib/sales/__init__.py:42
+#: lino_cosi/lib/ledger/choicelists.py:66
+#: lino_cosi/lib/ledger/choicelists.py:262 lino_cosi/lib/sales/__init__.py:42
 msgid "Sales"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:66
-#: lino_cosi/lib/ledger/choicelists.py:261
+#: lino_cosi/lib/ledger/choicelists.py:67
+#: lino_cosi/lib/ledger/choicelists.py:263
 msgid "Purchases"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:67
-#: lino_cosi/lib/ledger/choicelists.py:262
+#: lino_cosi/lib/ledger/choicelists.py:68
+#: lino_cosi/lib/ledger/choicelists.py:264
 msgid "Wages"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:88
+#: lino_cosi/lib/ledger/choicelists.py:89
 msgid "Fiscal Year"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:89
+#: lino_cosi/lib/ledger/choicelists.py:90
 msgid "Fiscal Years"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:133
+#: lino_cosi/lib/ledger/choicelists.py:135
 msgid "Voucher type"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:134
+#: lino_cosi/lib/ledger/choicelists.py:136
 msgid "Voucher types"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:255
+#: lino_cosi/lib/ledger/choicelists.py:257
 msgid "Trade type"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:256
+#: lino_cosi/lib/ledger/choicelists.py:258
 msgid "Trade types"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:258
+#: lino_cosi/lib/ledger/choicelists.py:260
 msgid "The type of trade: usually either `sales` or `purchases`."
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:263
+#: lino_cosi/lib/ledger/choicelists.py:265
 msgid "Clearings"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:319
+#: lino_cosi/lib/ledger/choicelists.py:321
 msgid "Fixed"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:326
-#: lino_cosi/lib/ledger/choicelists.py:332 lino_cosi/lib/orders/models.py:56
+#: lino_cosi/lib/ledger/choicelists.py:328
+#: lino_cosi/lib/ledger/choicelists.py:334 lino_cosi/lib/orders/models.py:56
 msgid "Register"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:328
-#: lino_cosi/lib/ledger/choicelists.py:335 lino_cosi/lib/orders/models.py:57
+#: lino_cosi/lib/ledger/choicelists.py:330
+#: lino_cosi/lib/ledger/choicelists.py:337 lino_cosi/lib/orders/models.py:57
 msgid "Deregister"
 msgstr ""
 
@@ -1173,6 +1163,10 @@ msgstr ""
 
 #: lino_cosi/lib/ledger/ui.py:412
 msgid "General Accounts Balances"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:423 lino_cosi/lib/ledger/ui.py:444
+msgid "Ref"
 msgstr ""
 
 #: lino_cosi/lib/ledger/ui.py:454
@@ -5888,5 +5882,29 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Orphaned bank accounts"
+#~ msgstr ""
+
+#~ msgid "Real end balance"
+#~ msgstr ""
+
+#~ msgid "Sequence number"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The legal sequential number of the "
+#~ "paper statement, as assigned by the "
+#~ "account servicer."
+#~ msgstr ""
+
+#~ msgid "Unique import ID"
+#~ msgstr ""
+
+#~ msgid "Movement date"
+#~ msgstr ""
+
+#~ msgid "Partner name"
+#~ msgstr ""
+
+#~ msgid "ref:"
 #~ msgstr ""
 
