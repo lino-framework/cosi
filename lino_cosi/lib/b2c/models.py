@@ -37,6 +37,7 @@ from lino.utils import join_elems
 from lino_cosi.lib.sepa.fields import IBANField, BICField
 from lino_cosi.lib.sepa.utils import belgian_nban_to_iban_bic, iban2bic
 from .camt import CamtParser
+from .bba import code2desc
 
 logger = logging.getLogger(__name__)
 
@@ -178,7 +179,7 @@ class ImportStatements(dd.Action):
                     remote_owner_city=mvmt.remote_owner_city or '',
                     remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
                     remote_owner_country_code=mvmt.remote_owner_country_code or '',
-                    transfer_type=mvmt.transfer_type or '')
+                    txcd=mvmt.txcd or '')
                 data.update(
                     remote_owner_address=mvmt.remote_owner_address)
 
@@ -338,6 +339,21 @@ class Movement(dd.Model):
 
     This data is automaticaly imported by :class:`ImportStatements`.
 
+
+    
+    .. attribute:: transfer_type
+
+       The actual historic name of the :attr:`txcd`.
+
+    .. attribute:: txcd
+        The BankTransactionCode (`<BkTxCd>`).
+        Actually it is the "proprietary" part of this code.
+
+    .. attribute:: txcode_text
+
+        Virtual field with the textual interpretation of the
+        :attr:`txcd`
+
     """
 
     class Meta:
@@ -366,7 +382,7 @@ class Movement(dd.Model):
     remote_owner_city = models.CharField(_('Remote owner city'), max_length=32, blank=True)
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10, blank=True)
     remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4, blank=True)
-    transfer_type = models.CharField(_('Transfer type'), max_length=32, blank=True)
+    txcd = models.CharField(_('Transfer type'), max_length=32, blank=True)
     booking_date = models.DateField(_('Execution date'), null=True, blank=True)
     value_date = models.DateField(_('Value date'), null=True, blank=True)
 
@@ -396,11 +412,14 @@ class Movement(dd.Model):
         # elems += [_("ref:"), ': ', self.ref, ' ']
         elems += [_("eref:"), ': ', self.eref]
         elems.append(E.br())
-        elems += [_("TT:"), ': ', E.b(self.transfer_type), ' ']
+        elems += [E.b(self.txcd_text), ' ']
         elems += [_("Value date"), ': ', E.b(dd.fds(self.value_date)), " "]
         elems += [_("Booking date"), ': ',
                   E.b(dd.fds(self.booking_date)), " "]
         return E.div(*elems)
 
+    @dd.displayfield(_("BkTxCd"))
+    def txcd_text(self, ar):
+        return code2desc(self.txcd)
         
 from .ui import *
