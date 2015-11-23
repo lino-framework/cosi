@@ -63,7 +63,7 @@ class BankTransaction(object):
         self.message = None  # message from the remote party
         self.eref = None  # end to end reference for transactions
         self.remote_owner = None  # name of the other party
-        self.remote_owner_address = None  # other parties address lines
+        self.remote_owner_address = ''  # other parties address lines
         self.remote_owner_city = None  # other parties city name
         self.remote_owner_postalcode = None  # other parties zip code
         self.remote_owner_country_code = None  # other parties country code
@@ -89,6 +89,8 @@ class BankStatement(object):
         self.legal_sequence_number = None
         self.electronic_sequence_number = None
         self.local_account = None
+        self.account_name = ''
+        self.owner_name = ''
         self.local_currency = None
         self.start_date = None
         self.end_date = None
@@ -296,6 +298,12 @@ class CamtParser(object):
             'electronic_sequence_number')
         self.add_value_from_node(
             ns, node, './ns:Acct/ns:Ccy', statement, 'local_currency')
+
+        self.add_value_from_node(
+            ns, node, './ns:Acct/ns:Nm', statement, 'account_name')
+        self.add_value_from_node(
+            ns, node, './ns:Acct/ns:Ownr/ns:Nm', statement, 'owner_name')
+
         self.parse_balance_amounts(statement, ns, node)
         transaction_nodes = node.xpath('./ns:Ntry', namespaces={'ns': ns})
         for entry_node in transaction_nodes:
