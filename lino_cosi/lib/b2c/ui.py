@@ -32,17 +32,17 @@ class Accounts(dd.Table):
     required_roles = dd.login_required(SepaUser)
     model = 'b2c.Account'
     detail_layout = """
-    iban bic last_movement owner_name account_name partners
+    iban bic last_transaction owner_name account_name partners
     b2c.StatementsByAccount
     """
-    column_names = "iban bic last_movement partners owner_name account_name *"
+    column_names = "iban bic last_transaction partners owner_name account_name *"
     editable = False
 
 
 class StatementDetail(dd.FormLayout):
     main = """
     top_left top_right
-    b2c.MovementsByStatement
+    b2c.TransactionsByStatement
     """
 
     top_left = """
@@ -81,7 +81,7 @@ class StatementsByAccount(Statements):
     auto_fit_column_widths = True
     
 
-class MovementDetail(dd.FormLayout):
+class TransactionDetail(dd.FormLayout):
     main = """
     statement seqno booking_date value_date amount
     remote_account remote_bic eref txcd_text
@@ -97,15 +97,15 @@ class MovementDetail(dd.FormLayout):
     """
 
 
-class Movements(dd.Table):
+class Transactions(dd.Table):
     required_roles = dd.login_required(SepaUser)
-    model = 'b2c.Movement'
+    model = 'b2c.Transaction'
     editable = False
-    detail_layout = MovementDetail()
+    detail_layout = TransactionDetail()
     column_names = "statement seqno value_date amount remote_account remote_owner *"
 
 
-class MovementsByStatement(Movements):
+class TransactionsByStatement(Transactions):
     required_roles = dd.login_required(SepaUser)
     master_key = 'statement'
     column_names = 'booking_date amount remote_html message_html *'

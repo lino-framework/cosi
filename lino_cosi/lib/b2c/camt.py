@@ -50,8 +50,8 @@ class BankTransaction(object):
         self.seqno = seqno
         self.value_date = None  # The value date of the action
         self.name = None  # unique id ?
-        self.txcd = None  # Action type that initiated this message
-        self.txcd_issuer = None
+        self.txcd = ''  # Action type that initiated this message
+        self.txcd_issuer = ''
         self.booking_date = None  # The posted date of the action
         self.remote_account_iban = None  # The account of the other party
         self.remote_account_other = None  # The account of the other party

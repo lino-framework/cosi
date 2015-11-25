@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino 1.6.14\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-23 12:32+0200\n"
+"POT-Creation-Date: 2015-11-25 19:27+0200\n"
 "PO-Revision-Date: 2014-06-06 11:29+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language-Team: es <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Last date"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:414 lino_cosi/lib/b2c/models.py:354
+#: lino_cosi/lib/auto/sales/models.py:414 lino_cosi/lib/b2c/models.py:395
 #: lino_cosi/lib/vatless/models.py:56 lino_cosi/lib/vatless/models.py:120
 msgid "Amount"
 msgstr ""
@@ -238,164 +238,977 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/__init__.py:70
+#: lino_cosi/lib/b2c/__init__.py:72
 msgid "SEPA import"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:58
+#: lino_cosi/lib/b2c/febelfin.py:55
+msgid "Individual transfer order"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:56
+msgid "Individual transfer order initiated by the bank"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:57 lino_cosi/lib/b2c/febelfin.py:250
+msgid "Standing order"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:58
+msgid "Payment of wages, etc."
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:59
+msgid "Collective transfer"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:60 lino_cosi/lib/b2c/febelfin.py:253
+msgid "Transfer from your account"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:61
+msgid "Financial centralisation"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:62 lino_cosi/lib/b2c/febelfin.py:106
+#: lino_cosi/lib/b2c/febelfin.py:121 lino_cosi/lib/b2c/febelfin.py:158
+#: lino_cosi/lib/b2c/febelfin.py:183 lino_cosi/lib/b2c/febelfin.py:228
+#: lino_cosi/lib/b2c/febelfin.py:242 lino_cosi/lib/b2c/febelfin.py:326
+msgid "Costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:63
+msgid "Your issue circular cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:64 lino_cosi/lib/b2c/febelfin.py:75
+#: lino_cosi/lib/b2c/febelfin.py:85 lino_cosi/lib/b2c/febelfin.py:96
+#: lino_cosi/lib/b2c/febelfin.py:107 lino_cosi/lib/b2c/febelfin.py:116
+#: lino_cosi/lib/b2c/febelfin.py:130 lino_cosi/lib/b2c/febelfin.py:140
+#: lino_cosi/lib/b2c/febelfin.py:148 lino_cosi/lib/b2c/febelfin.py:159
+#: lino_cosi/lib/b2c/febelfin.py:169 lino_cosi/lib/b2c/febelfin.py:184
+#: lino_cosi/lib/b2c/febelfin.py:199 lino_cosi/lib/b2c/febelfin.py:211
+#: lino_cosi/lib/b2c/febelfin.py:222 lino_cosi/lib/b2c/febelfin.py:230
+#: lino_cosi/lib/b2c/febelfin.py:239 lino_cosi/lib/b2c/febelfin.py:243
+#: lino_cosi/lib/b2c/febelfin.py:247 lino_cosi/lib/b2c/febelfin.py:258
+#: lino_cosi/lib/b2c/febelfin.py:264 lino_cosi/lib/b2c/febelfin.py:270
+#: lino_cosi/lib/b2c/febelfin.py:276 lino_cosi/lib/b2c/febelfin.py:286
+#: lino_cosi/lib/b2c/febelfin.py:297
+msgid "Codes proper to each bank"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:65 lino_cosi/lib/b2c/febelfin.py:76
+#: lino_cosi/lib/b2c/febelfin.py:86 lino_cosi/lib/b2c/febelfin.py:97
+#: lino_cosi/lib/b2c/febelfin.py:108 lino_cosi/lib/b2c/febelfin.py:117
+#: lino_cosi/lib/b2c/febelfin.py:123 lino_cosi/lib/b2c/febelfin.py:131
+#: lino_cosi/lib/b2c/febelfin.py:141 lino_cosi/lib/b2c/febelfin.py:149
+#: lino_cosi/lib/b2c/febelfin.py:160 lino_cosi/lib/b2c/febelfin.py:170
+#: lino_cosi/lib/b2c/febelfin.py:185 lino_cosi/lib/b2c/febelfin.py:200
+#: lino_cosi/lib/b2c/febelfin.py:212 lino_cosi/lib/b2c/febelfin.py:223
+#: lino_cosi/lib/b2c/febelfin.py:231 lino_cosi/lib/b2c/febelfin.py:240
+#: lino_cosi/lib/b2c/febelfin.py:244 lino_cosi/lib/b2c/febelfin.py:248
+#: lino_cosi/lib/b2c/febelfin.py:259 lino_cosi/lib/b2c/febelfin.py:265
+#: lino_cosi/lib/b2c/febelfin.py:271 lino_cosi/lib/b2c/febelfin.py:277
+#: lino_cosi/lib/b2c/febelfin.py:287 lino_cosi/lib/b2c/febelfin.py:298
+#: lino_cosi/lib/b2c/febelfin.py:333 lino_cosi/lib/b2c/febelfin.py:334
+msgid "Cancellation or correction"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:66
+msgid "Transfer in your favour"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:67
+msgid "Transfer in your favour - initiated by the bank"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:68
+msgid "Payment in your favour"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:69
+msgid "Unexecutable transfer order"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:70
+msgid "Non-presented circular cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:71
+msgid "Unpaid postal order"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:72 lino_cosi/lib/b2c/febelfin.py:261
+msgid "Transfer to your account"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:73
+msgid "Financial centralization"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:74 lino_cosi/lib/b2c/febelfin.py:115
+#: lino_cosi/lib/b2c/febelfin.py:129 lino_cosi/lib/b2c/febelfin.py:147
+#: lino_cosi/lib/b2c/febelfin.py:168 lino_cosi/lib/b2c/febelfin.py:198
+#: lino_cosi/lib/b2c/febelfin.py:221 lino_cosi/lib/b2c/febelfin.py:237
+#: lino_cosi/lib/b2c/febelfin.py:246 lino_cosi/lib/b2c/febelfin.py:263
+#: lino_cosi/lib/b2c/febelfin.py:275 lino_cosi/lib/b2c/febelfin.py:296
+msgid "Reimbursement of costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:77
+msgid "Payment of your cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:78
+msgid "Payment of voucher"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:79
+msgid "Unpaid voucher"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:80
+msgid "Department store cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:81
+msgid "Your purchase bank cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:82
+msgid "Your certified cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:83
+msgid "Cheque-related costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:84
+msgid "Provisionally unpaid"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:87
+msgid ""
+"First credit of cheques, vouchers, luncheon vouchers, postal orders, "
+"credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:89
+msgid "Remittance of cheques, vouchers, etc. credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:90
+msgid "Reversal of voucher"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:91
+msgid "Reversal of cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:92
+msgid "Second credit of unpaid cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:93
+msgid "Remittance of cheque by your branch-credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:95
+msgid "Reimbursement of cheque-related costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:98
+msgid "Loading a GSM card"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:99
+msgid "Payment by means of a payment card within the Eurozone"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:100
+msgid "Settlement credit cards"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:101
+msgid "Cash withdrawal from an ATM"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:102
+msgid "Loading Proton"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:103
+msgid "Payment with tank card"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:104
+msgid "Payment by GSM"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:105
+msgid "Payment by means of a payment card outside the Eurozone"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:109
+msgid "Credit after a payment at a terminal"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:110
+msgid "Unloading Proton"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:111
+msgid "Loading GSM cards"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:112
+msgid "Cash deposit at an ATM"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:113
+msgid "Income from payments by GSM"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:114
+msgid "Credit after Proton payments"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:118
+msgid "Payment"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:119
+msgid "Unpaid debt"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:120 lino_cosi/lib/b2c/febelfin.py:126
+msgid "Reimbursement"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:122
+msgid "Codes proper to each institution"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:124
+msgid "Credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:125
+msgid "Credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:127
+msgid "Unexecutable reimbursement"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:128
+msgid "Reversal"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:132
+msgid "Payment commercial paper"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:133
+msgid "Commercial paper claimed back"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:134
+msgid "Extension of maturity date"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:135
+msgid "Unpaid commercial paper"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:136 lino_cosi/lib/ledger/fixtures/std.py:43
+msgid "Payment in advance"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:137
+msgid "Agio on supplier's bill"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:138
+msgid "Costs related to commercial paper"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:139
+msgid "Return of an irregular bill of exchange"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:142
+msgid "Remittance of commercial paper-credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:143
+msgid "Remittance of commercial paper-credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:144
+msgid "Remittance of commercial paper for discount"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:145
+msgid "Remittance of supplier's bill with guarantee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:146
+msgid "Remittance of supplier's bill without guarantee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:150
+msgid "Cash withdrawal"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:151
+msgid "Purchase of foreign bank notes"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:152
+msgid "Purchase of gold/pieces"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:153
+msgid "Purchase of petrol coupons"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:154
+msgid "Cash withdrawal by your branch or agents"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:155
+msgid "Purchase of fiscal stamps"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:156 lino_cosi/lib/b2c/febelfin.py:166
+msgid "Difference in payment"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:157
+msgid "Purchase of traveller's cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:161
+msgid "Cash payment"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:162
+msgid "Payment night safe"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:163
+msgid "Payment by your branch/agents"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:164
+msgid "Sale of foreign bank notes"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:165
+msgid "Sale of gold/pieces under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:167
+msgid "Sale of traveller's cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:171
+msgid "Purchase of securities"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:172
+msgid "Tenders"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:173
+msgid "Subscription to securities"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:174
+msgid "Issues"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:175
+msgid "Partial payment subscription"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:176
+msgid "Share option plan -- exercising an option"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:177 lino_cosi/lib/b2c/febelfin.py:197
+msgid "Settlement of securities"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:178
+msgid "Payable coupons/repayable securities"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:179
+msgid "Your repurchase of issue"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:180
+msgid "Interim interest on subscription"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:181
+msgid "Management fee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:182
+msgid "Regularisation costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:186
+msgid "Sale of securities"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:187
+msgid "Tender"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:188
+msgid ""
+"Payment of coupons from a deposit or settlement of coupons delivered over"
+" the counter - credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:190
+msgid ""
+"Repayable securities from a deposit or delivered at the counter -- credit"
+" under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:192
+msgid ""
+"Interim interest on subscription When reimbursed separately to the "
+"subscriber"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:194
+msgid "Your issue"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:195
+msgid "Retrocession of issue commission"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:196
+msgid "Compensation for missing coupon"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:201
+msgid "Short-term loan"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:202
+msgid "Long-term loan"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:203
+msgid "Settlement of fixed advance"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:204
+msgid "Your repayment instalment credits"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:205
+msgid "Your repayment mortgage loan"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:206
+msgid "Settlement of bank acceptances"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:207
+msgid "Your repayment hire-purchase and similar claims"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:208
+msgid "Documentary import credits"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:209
+msgid "Other credit applications"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:210
+msgid "Credit-related costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:213
+msgid "Settlement of instalment credit"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:214
+msgid "Fixed advance -- capital and interest"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:215
+msgid "Fixed advance -- interest only"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:216
+msgid "Subsidy"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:217
+msgid "Settlement of mortgage loan"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:218
+msgid "Term loan"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:219
+msgid "Documentary export credits"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:220
+msgid "Settlement of discount bank acceptance"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:224
+msgid "Spot purchase of foreign exchange"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:225
+msgid "Forward purchase of foreign exchange"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:226 lino_cosi/lib/b2c/febelfin.py:234
+msgid "Capital and/or interest term investment"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:227 lino_cosi/lib/b2c/febelfin.py:236
+msgid "Value (date) correction"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:229 lino_cosi/lib/b2c/febelfin.py:238
+msgid "Undefined transaction"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:232
+msgid "Spot sale of foreign exchange"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:233
+msgid "Forward sale of foreign exchange"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:235
+msgid "Interest term investment"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:241 lino_cosi/lib/b2c/febelfin.py:245
+msgid "Closing"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:249 lino_cosi/lib/b2c/febelfin.py:260
+msgid "Transfer"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:251
+msgid "Collective payments of wages"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:252
+msgid "Collective transfers"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:254
+msgid "Financial centralisation (debit)"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:255
+msgid "Costs relating to outgoing foreign transfers and non-SEPA transfers"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:257
+msgid "Costs relating to incoming foreign and non-SEPA transfers"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:262
+msgid "Financial centralisation (credit)"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:266
+msgid "Payment of a foreign cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:267
+msgid "Unpaid foreign cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:268
+msgid "Purchase of an international bank cheque"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:269
+msgid "Costs relating to payment of foreign cheques"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:272
+msgid "Remittance of foreign cheque credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:273
+msgid "Remittance of foreign cheque credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:274
+msgid "Reversal of cheques"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:278
+msgid "Payment of foreign bill"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:279
+msgid "Bill claimed back"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:280
+msgid "Extension"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:281
+msgid "Unpaid foreign bill"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:282
+msgid "Payment documents abroad"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:283
+msgid "Discount foreign supplier's bills"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:284
+msgid "Warrant fallen due"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:285
+msgid "Costs relating to the payment of a foreign bill"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:288
+msgid "Remittance of foreign bill credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:289
+msgid "Remittance of foreign bill credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:290
+msgid "Discount abroad"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:291
+msgid "Remittance of guaranteed foreign supplier's bill"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:292
+msgid "Idem without guarantee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:293
+msgid "Remittance of documents abroad - credit under usual reserve"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:294
+msgid "Remittance of documents abroad - credit after collection"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:295
+msgid "Warrant"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:299
+msgid "Costs relating to electronic output"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:300
+msgid "Costs for holding a documentary cash credit"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:301
+msgid "Damage relating to bills and cheques"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:302
+msgid "Insurance costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:303
+msgid "Registering compensation for savings accounts"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:304
+msgid "Postage"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:305
+msgid "Purchase of Smartcard"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:306
+msgid "Fees and commissions charged separately"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:307
+msgid "Costs for opening a bank guarantee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:308
+msgid "Renting of safes"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:309
+msgid "Handling costs instalment credit"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:310
+msgid "Night safe"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:311
+msgid "Bank confirmation to revisor or accountant"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:312
+msgid "Charge for safe custody"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:313
+msgid "Trade information"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:314
+msgid "Special charge for safe custody"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:315
+msgid "Drawing up a certificate"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:316
+msgid "Pay-packet charges"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:317
+msgid "Management/custody"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:318 lino_cosi/lib/b2c/febelfin.py:329
+msgid "Research costs"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:319
+msgid "Participation in and management of interest refund system"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:320
+msgid "Renting of direct debit box"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:321
+msgid "Travel insurance premium"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:322
+msgid "Subscription fee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:323
+msgid "Information charges"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:324
+msgid "Writ service fee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:325
+msgid "Miscellaneous fees and commissions"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:327
+msgid "Access right to database"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:328
+msgid "Surety fee"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:330
+msgid "Printing of forms"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:331
+msgid "Documentary credit charges"
+msgstr ""
+
+#: lino_cosi/lib/b2c/febelfin.py:332
+msgid "Charging fees for transactions"
+msgstr ""
+
+#: lino_cosi/lib/b2c/models.py:59
 msgid "Import SEPA"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:75
+#: lino_cosi/lib/b2c/models.py:76
 msgid "Error"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:90
+#: lino_cosi/lib/b2c/models.py:91
 msgid "Success"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:261
+#: lino_cosi/lib/b2c/models.py:264
 msgid "Imported bank account"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:262
+#: lino_cosi/lib/b2c/models.py:265
 msgid "Imported bank accounts"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:264 lino_cosi/lib/b2c/models.py:357
+#: lino_cosi/lib/b2c/models.py:267 lino_cosi/lib/b2c/models.py:398
 #: lino_cosi/lib/sepa/models.py:67
 msgid "IBAN"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:265 lino_cosi/lib/b2c/models.py:358
+#: lino_cosi/lib/b2c/models.py:268 lino_cosi/lib/b2c/models.py:399
 #: lino_cosi/lib/sepa/models.py:68
 msgid "BIC"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:267
+#: lino_cosi/lib/b2c/models.py:270
 msgid "Account name"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:269
+#: lino_cosi/lib/b2c/models.py:272
 msgid "Owner name"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:270
+#: lino_cosi/lib/b2c/models.py:273
 msgid "Last movement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:275
+#: lino_cosi/lib/b2c/models.py:278
 msgid "Partners"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:308
+#: lino_cosi/lib/b2c/models.py:311
 msgid "Statement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:309 lino_cosi/lib/sepa/models.py:112
+#: lino_cosi/lib/b2c/models.py:312 lino_cosi/lib/sepa/models.py:112
 msgid "Statements"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:316
+#: lino_cosi/lib/b2c/models.py:319
 msgid "Statement number"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:317
+#: lino_cosi/lib/b2c/models.py:320
 msgid ""
 "Combination of the year and the legal sequential number of the paper "
 "statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:320
+#: lino_cosi/lib/b2c/models.py:323
 msgid "Start date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:321
+#: lino_cosi/lib/b2c/models.py:324
 msgid "End date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:323
+#: lino_cosi/lib/b2c/models.py:326
 msgid "Initial amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:324
+#: lino_cosi/lib/b2c/models.py:327
 msgid "Final amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:326
+#: lino_cosi/lib/b2c/models.py:329
 msgid "Currency"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:345 lino_cosi/lib/ledger/models.py:506
+#: lino_cosi/lib/b2c/models.py:386 lino_cosi/lib/ledger/models.py:506
 msgid "Movement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:346 lino_cosi/lib/ledger/models.py:507
+#: lino_cosi/lib/b2c/models.py:387 lino_cosi/lib/ledger/models.py:507
 msgid "Movements"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:349
+#: lino_cosi/lib/b2c/models.py:390
 msgid "No."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:350
+#: lino_cosi/lib/b2c/models.py:391
 msgid "The sequence number of this transaction in the statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:360 lino_cosi/lib/b2c/models.py:385
+#: lino_cosi/lib/b2c/models.py:401 lino_cosi/lib/b2c/models.py:427
 msgid "Message"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:361
+#: lino_cosi/lib/b2c/models.py:402
 msgid "End to end reference"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:362
+#: lino_cosi/lib/b2c/models.py:403
 msgid "Remote owner"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:363
+#: lino_cosi/lib/b2c/models.py:405
 msgid "Remote owner adress"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:364
+#: lino_cosi/lib/b2c/models.py:406
 msgid "Remote owner city"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:365
+#: lino_cosi/lib/b2c/models.py:407
 msgid "Remote owner postal code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:366
+#: lino_cosi/lib/b2c/models.py:408
 msgid "Remote owner country code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:367
+#: lino_cosi/lib/b2c/models.py:409
 msgid "Transfer type"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:368 lino_cosi/lib/finan/models.py:111
+#: lino_cosi/lib/b2c/models.py:410 lino_cosi/lib/finan/models.py:111
 msgid "Execution date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:369 lino_cosi/lib/b2c/models.py:398
+#: lino_cosi/lib/b2c/models.py:411 lino_cosi/lib/b2c/models.py:440
 msgid "Value date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:371
+#: lino_cosi/lib/b2c/models.py:413
 msgid "Remote account"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:395
+#: lino_cosi/lib/b2c/models.py:437
 msgid "eref:"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:397
-msgid "TT:"
+#: lino_cosi/lib/b2c/models.py:441
+msgid "Booking date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:399
-msgid "Booking date"
+#: lino_cosi/lib/b2c/models.py:445
+msgid "BkTxCd"
 msgstr ""
 
 #: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/models.py:555
@@ -1239,10 +2052,6 @@ msgstr ""
 
 #: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:242
 msgid "Miscellaneous Journal Entries"
-msgstr ""
-
-#: lino_cosi/lib/ledger/fixtures/std.py:43
-msgid "Payment in advance"
 msgstr ""
 
 #: lino_cosi/lib/ledger/fixtures/std.py:44
@@ -5890,12 +6699,6 @@ msgstr ""
 #~ msgid "Sequence number"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "The legal sequential number of the "
-#~ "paper statement, as assigned by the "
-#~ "account servicer."
-#~ msgstr ""
-
 #~ msgid "Unique import ID"
 #~ msgstr ""
 
@@ -5906,5 +6709,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "ref:"
+#~ msgstr ""
+
+#~ msgid "TT:"
 #~ msgstr ""
 

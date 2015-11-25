@@ -37,7 +37,7 @@ from lino.utils import join_elems
 from lino_cosi.lib.sepa.fields import IBANField, BICField
 from lino_cosi.lib.sepa.utils import belgian_nban_to_iban_bic, iban2bic
 from .camt import CamtParser
-from .bba import code2desc
+from .febelfin import code2desc
 
 logger = logging.getLogger(__name__)
 
@@ -146,13 +146,13 @@ class ImportStatements(dd.Action):
                 s = Statement.objects.get(**key)
                 for k, v in data.items():
                     setattr(s, k, v)
-                movements_to_update = True
+                transactions_to_update = True
                 self.updated_statements += 1
             except Statement.DoesNotExist:
                 data.update(key)
                 s = Statement(**data)
                 self.new_statements += 1
-                movements_to_update = False
+                transactions_to_update = False
             try:
                 s.full_clean()
                 s.save()
@@ -161,9 +161,9 @@ class ImportStatements(dd.Action):
                 failed_statements += 1
                 continue
 
-            last_movement = None
+            last_transaction = None
             for mvmt in stmt.transactions:
-                last_movement = max(last_movement, mvmt.value_date)
+                last_transaction = max(last_transaction, mvmt.value_date)
                 key = dict(statement=s, seqno=mvmt.seqno)
                 data = dict(
                     value_date=mvmt.value_date,
@@ -179,37 +179,38 @@ class ImportStatements(dd.Action):
                     remote_owner_city=mvmt.remote_owner_city or '',
                     remote_owner_postalcode=mvmt.remote_owner_postalcode or '',
                     remote_owner_country_code=mvmt.remote_owner_country_code or '',
-                    txcd=mvmt.txcd or '')
+                    txcd=mvmt.txcd,
+                    txcd_issuer=mvmt.txcd_issuer)
                 data.update(
                     remote_owner_address=mvmt.remote_owner_address)
 
                 try:
-                    m = Movement.objects.get(**key)
+                    m = Transaction.objects.get(**key)
                     if m.statement != s:
                         raise Exception(
                             "Invalid transaction: statement %s != %s" % (
                                 m.statement, s))
-                    if not movements_to_update:
+                    if not transactions_to_update:
                         dd.logger.warning(
                             "Existing transaction in a new statement?! %s",
                             mvmt)
 
                     for k, v in data.items():
                         setattr(s, k, v)
-                except Movement.DoesNotExist:
+                except Transaction.DoesNotExist:
                     data.update(key)
-                    m = Movement(**data)
+                    m = Transaction(**data)
 
                 try:
                     m.full_clean()
                     m.save()
                 except ValidationError as e:
                     dd.logger.warning(
-                        "Failed to save movement %s : %s", s, e)
+                        "Failed to save transaction %s : %s", s, e)
                     break
 
-            if account.last_movement != last_movement:
-                account.last_movement = last_movement
+            if account.last_transaction != last_transaction:
+                account.last_transaction = last_transaction
                 account.full_clean()
                 account.save()
 
@@ -269,7 +270,7 @@ class Account(dd.Model):
         _("Account name"), max_length=70, blank=True)
     owner_name = models.CharField(
         _("Owner name"), max_length=70, blank=True)
-    last_movement = models.DateField(_('Last movement'), null=True, blank=True)
+    last_transaction = models.DateField(_('Last transaction'), null=True, blank=True)
 
     def __unicode__(self):
         return self.iban
@@ -334,8 +335,8 @@ class Statement(dd.Model):
     # fields like statement_number, date, solde_initial, solde_final
 
 
-class Movement(dd.Model):
-    """A movement within a bank statement.
+class Transaction(dd.Model):
+    """A transaction within a bank statement.
 
     This data is automaticaly imported by :class:`ImportStatements`.
 
@@ -358,11 +359,16 @@ class Movement(dd.Model):
         The Bank Transaction Code (`<BkTxCd>`) or "transfer type".
         Actually it is the "proprietary" part of this code.
 
+    .. attribute:: txcd_issuer
+
+        The issuer or the :attr:`txcd`.
+
     .. attribute:: txcd_text
 
-        Virtual field with the textual interpretation of the
-        :attr:`txcd`. Currently this works only for BBA codes (defined
-        in :mod:`lino_cosi.lib.b2c.bba`).
+        Virtual field with the textual translated description of the
+        :attr:`txcd`.  Currently this works only for Belgian codes
+        where :attr:`txcd_issuer` is `"BBA"` as defined in
+        :mod:`lino_cosi.lib.b2c.febelfin`).
 
     .. attribute:: remote_account
     .. attribute:: remote_bic
@@ -376,9 +382,9 @@ class Movement(dd.Model):
 
     class Meta:
         app_label = 'b2c'
-        abstract = dd.is_abstract_model(__name__, 'Movement')
-        verbose_name = _("Movement")
-        verbose_name_plural = _("Movements")
+        abstract = dd.is_abstract_model(__name__, 'Transaction')
+        verbose_name = _("Transaction")
+        verbose_name_plural = _("Transactions")
 
     statement = dd.ForeignKey('b2c.Statement')
     seqno = models.IntegerField(_('No.'),
@@ -401,6 +407,7 @@ class Movement(dd.Model):
     remote_owner_postalcode = models.CharField(_('Remote owner postal code'), max_length=10, blank=True)
     remote_owner_country_code = models.CharField(_('Remote owner country code'), max_length=4, blank=True)
     txcd = models.CharField(_('Transfer type'), max_length=32, blank=True)
+    txcd_issuer = models.CharField(_('TxCd issuer'), max_length=35, blank=True)
     booking_date = models.DateField(_('Execution date'), null=True, blank=True)
     value_date = models.DateField(_('Value date'), null=True, blank=True)
 
@@ -422,7 +429,7 @@ class Movement(dd.Model):
     def message_html(self, ar):
         from django.utils.translation import ugettext as _
         elems = []
-        # elems += [_("Date"), dd.fds(self.movement_date), " "]
+        # elems += [_("Date"), dd.fds(self.transaction_date), " "]
         # elems += [_("Amount"), ' ', E.b(unicode(self.amount)), " "]
         # self.booking_date
         elems += self.message  # .splitlines()
@@ -438,6 +445,8 @@ class Movement(dd.Model):
 
     @dd.displayfield(_("BkTxCd"))
     def txcd_text(self, ar):
-        return code2desc(self.txcd)
+        if self.txcd_issuer == 'BBA':
+            return code2desc(self.txcd[:4])
+        return "{0}:{1}".format(self.txcd_issuer, self.txcd)
         
 from .ui import *
