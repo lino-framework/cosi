@@ -19,25 +19,8 @@
 
 """BBA Bank Transaction Code designations.
 
-The defines a utility function :func:`code2desc` which returns the
-designation of a *bank transaction code*, as specified by the `XML
-message for statement Implementation guidelines
-<https://www.febelfin.be/sites/default/files/files/Standard-XML-Statement-v1-en_0.pdf>`_
-of the Belgian Federation of Financial Sector.
-
-This is being used by the :attr:`txcd_text
-<lino_cosi.lib.b2c.models.Movement.txcd_text>` field of an imported
-movement.
-
-
->>> print(code2desc('0103000'))
-Standing order
-
->>> print(code2desc('0150000'))
-Transfer in your favour
-
->>> print(code2desc('8033000'))
-Miscellaneous fees and commissions
+This module is obsolete and has been replaced by
+:mod:`lino_cosi.lib.b2c.febelfin`
 
 """
 
@@ -183,7 +166,7 @@ for ln in """
 01 48 Codes proper to each bank
 01 49 Cancellation or correction
 01 50 Transfer in your favour
-01 51 Transfer in your favour – initiated by the bank
+01 51 Transfer in your favour - initiated by the bank
 01 52 Payment in your favour
 01 54 Unexecutable transfer order
 01 60 Non-presented circular cheque
@@ -236,14 +219,14 @@ for ln in """
 04 55 Income from payments by GSM
 04 68 Credit after Proton payments
 04 87 Reimbursement of costs
-04 90–98 Codes proper to each bank
+04 90-98 Codes proper to each bank
 04 99 Cancellation or correction
 
 05 01 Payment
 05 03 Unpaid debt
 05 05 Reimbursement
 05 37 Costs
-05 40–48 Codes proper to each institution
+05 40-48 Codes proper to each institution
 05 49 Cancellation or correction
 
 05 50 Credit after collection
@@ -283,7 +266,7 @@ for ln in """
 09 13 Cash withdrawal by your branch or agents
 09 17 Purchase of fiscal stamps
 09 19 Difference in payment
-09 25 Purchase of traveller’s cheque
+09 25 Purchase of traveller's cheque
 09 37 Costs
 09 40-48 Codes proper to each bank
 09 49 Cancellation or correction
@@ -294,7 +277,7 @@ for ln in """
 09 60 Sale of foreign bank notes
 09 62 Sale of gold/pieces under usual reserve
 09 68 Difference in payment
-09 70 Sale of traveller’s cheque
+09 70 Sale of traveller's cheque
 09 87 Reimbursement of costs
 09 90-98 Codes proper to each bank
 09 99 Cancellation or correction
@@ -304,7 +287,7 @@ for ln in """
 11 03 Subscription to securities
 11 04 Issues
 11 05 Partial payment subscription
-11 06 Share option plan – exercising an option
+11 06 Share option plan -- exercising an option
 11 09 Settlement of securities
 11 11 Payable coupons/repayable securities
 11 13 Your repurchase of issue
@@ -341,8 +324,8 @@ for ln in """
 13 49 Cancellation or correction
 
 13 50 Settlement of instalment credit
-13 54 Fixed advance – capital and interest
-13 55 Fixed advance – interest only
+13 54 Fixed advance -- capital and interest
+13 55 Fixed advance -- interest only
 13 56 Subsidy
 13 60 Settlement of mortgage loan
 13 62 Term loan
@@ -479,6 +462,8 @@ for ln in """
     if ln:
         fam, cod, txt = ln.split(None, 2)
         CODES[fam][cod] = txt
+        # print fam, cod
+        # print u"""    '{0}{1}' : _("{2}"),""".format(fam, cod, txt)
 
 
 def code2desc(c):

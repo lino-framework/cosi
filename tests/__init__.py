@@ -23,8 +23,8 @@ class CodeTests(TestCase):
     def test_sample_ibans(self):
         self.run_simple_doctests('lino_cosi/lib/sepa/fixtures/sample_ibans.py')
 
-    def test_bba(self):
-        self.run_simple_doctests('lino_cosi/lib/b2c/bba.py')
+    def test_febelfin(self):
+        self.run_simple_doctests('lino_cosi/lib/b2c/febelfin.py')
 
 
 class DocsTests(BaseTestCase):

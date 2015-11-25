@@ -56,7 +56,7 @@ statement.
     models
     ui
     camt
-    bba
+    febelfin
     fixtures.demo
 
 
@@ -102,4 +102,4 @@ class Plugin(ad.Plugin):
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('b2c.Accounts')
         m.add_action('b2c.Statements')
-        m.add_action('b2c.Movements')
+        m.add_action('b2c.Transactions')
