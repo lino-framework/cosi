@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-11-25 19:27+0200\n"
-"PO-Revision-Date: 2015-11-25 20:36+0300\n"
+"PO-Revision-Date: 2015-11-26 16:34+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language-Team: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -317,7 +317,7 @@ msgstr ""
 #: lino_cosi/lib/b2c/febelfin.py:287 lino_cosi/lib/b2c/febelfin.py:298
 #: lino_cosi/lib/b2c/febelfin.py:333 lino_cosi/lib/b2c/febelfin.py:334
 msgid "Cancellation or correction"
-msgstr ""
+msgstr "Annulation ou correction"
 
 #: lino_cosi/lib/b2c/febelfin.py:66
 msgid "Transfer in your favour"
@@ -333,23 +333,23 @@ msgstr "Versement en votre faveur "
 
 #: lino_cosi/lib/b2c/febelfin.py:69
 msgid "Unexecutable transfer order"
-msgstr ""
+msgstr "Virement non exécutable"
 
 #: lino_cosi/lib/b2c/febelfin.py:70
 msgid "Non-presented circular cheque"
-msgstr ""
+msgstr "Chèque circulaire non présenté"
 
 #: lino_cosi/lib/b2c/febelfin.py:71
 msgid "Unpaid postal order"
-msgstr ""
+msgstr "Assignation postale impayée"
 
 #: lino_cosi/lib/b2c/febelfin.py:72 lino_cosi/lib/b2c/febelfin.py:261
 msgid "Transfer to your account"
-msgstr ""
+msgstr "Virement à votre compte"
 
 #: lino_cosi/lib/b2c/febelfin.py:73
 msgid "Financial centralization"
-msgstr ""
+msgstr "Centralisation financière"
 
 #: lino_cosi/lib/b2c/febelfin.py:74 lino_cosi/lib/b2c/febelfin.py:115
 #: lino_cosi/lib/b2c/febelfin.py:129 lino_cosi/lib/b2c/febelfin.py:147
@@ -358,102 +358,103 @@ msgstr ""
 #: lino_cosi/lib/b2c/febelfin.py:246 lino_cosi/lib/b2c/febelfin.py:263
 #: lino_cosi/lib/b2c/febelfin.py:275 lino_cosi/lib/b2c/febelfin.py:296
 msgid "Reimbursement of costs"
-msgstr ""
+msgstr "Restitution des frais"
 
 #: lino_cosi/lib/b2c/febelfin.py:77
 msgid "Payment of your cheque"
-msgstr ""
+msgstr "Paiement de votre chèque"
 
 #: lino_cosi/lib/b2c/febelfin.py:78
 msgid "Payment of voucher"
-msgstr ""
+msgstr "Paiement de bon"
 
 #: lino_cosi/lib/b2c/febelfin.py:79
 msgid "Unpaid voucher"
-msgstr ""
+msgstr "Bon impayé"
 
 #: lino_cosi/lib/b2c/febelfin.py:80
 msgid "Department store cheque"
-msgstr ""
+msgstr "Chèque magasin"
 
 #: lino_cosi/lib/b2c/febelfin.py:81
 msgid "Your purchase bank cheque"
-msgstr ""
+msgstr "Confection chèque bancaire"
 
 #: lino_cosi/lib/b2c/febelfin.py:82
 msgid "Your certified cheque"
-msgstr ""
+msgstr "Votre chèque certifié"
 
 #: lino_cosi/lib/b2c/febelfin.py:83
 msgid "Cheque-related costs"
-msgstr ""
+msgstr "Frais"
 
 #: lino_cosi/lib/b2c/febelfin.py:84
 msgid "Provisionally unpaid"
-msgstr ""
+msgstr "Provisoirement impayé"
 
 #: lino_cosi/lib/b2c/febelfin.py:87
 msgid ""
 "First credit of cheques, vouchers, luncheon vouchers, postal orders, credit "
 "under usual reserve"
 msgstr ""
+"Premier crédit de chèques, bons, chèques repas, assignations postales, "
+"crédit sbf "
 
 #: lino_cosi/lib/b2c/febelfin.py:89
 msgid "Remittance of cheques, vouchers, etc. credit after collection"
-msgstr ""
+msgstr "Remise de chèques, bons, etc.  crédit après encaissement "
 
 #: lino_cosi/lib/b2c/febelfin.py:90
 msgid "Reversal of voucher"
-msgstr ""
+msgstr "Contre-passation d'un bon"
 
 #: lino_cosi/lib/b2c/febelfin.py:91
 msgid "Reversal of cheque"
-msgstr ""
+msgstr "Contre-passation chèque"
 
 #: lino_cosi/lib/b2c/febelfin.py:92
 msgid "Second credit of unpaid cheque"
-msgstr ""
+msgstr "Deuxième crédit d’un chèque  impayé "
 
 #: lino_cosi/lib/b2c/febelfin.py:93
 msgid "Remittance of cheque by your branch-credit under usual reserve"
-msgstr ""
+msgstr "Remise d'un chèque par votre succursale "
 
 #: lino_cosi/lib/b2c/febelfin.py:95
 msgid "Reimbursement of cheque-related costs"
-msgstr ""
+msgstr "Restitution des frais"
 
 #: lino_cosi/lib/b2c/febelfin.py:98
 msgid "Loading a GSM card"
-msgstr ""
+msgstr "Chargement carte GSM"
 
 #: lino_cosi/lib/b2c/febelfin.py:99
 msgid "Payment by means of a payment card within the Eurozone"
-msgstr ""
+msgstr "Paiement par carte de débit dans l’euro zone"
 
 #: lino_cosi/lib/b2c/febelfin.py:100
 msgid "Settlement credit cards"
-msgstr ""
+msgstr "Décompte cartes de crédit"
 
 #: lino_cosi/lib/b2c/febelfin.py:101
 msgid "Cash withdrawal from an ATM"
-msgstr ""
+msgstr "Retrait d’argent via guichet automatique"
 
 #: lino_cosi/lib/b2c/febelfin.py:102
 msgid "Loading Proton"
-msgstr ""
+msgstr "Chargement Proton"
 
 #: lino_cosi/lib/b2c/febelfin.py:103
 msgid "Payment with tank card"
-msgstr ""
+msgstr "Paiement par carte essence"
 
 #: lino_cosi/lib/b2c/febelfin.py:104
-#, fuzzy
 msgid "Payment by GSM"
-msgstr "Concepts subordonnés"
+msgstr "Paiement par GSM"
 
 #: lino_cosi/lib/b2c/febelfin.py:105
 msgid "Payment by means of a payment card outside the Eurozone"
-msgstr ""
+msgstr "Paiement par carte de débit en dehors de l’euro zone"
 
 #: lino_cosi/lib/b2c/febelfin.py:109
 msgid "Credit after a payment at a terminal"
