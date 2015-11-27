@@ -26,8 +26,11 @@ class SepaUser(UserRole):
     pass
 
 
-class SepaStaff(UserRole):
-    """Can see imported statements and movements aso in explorer."""
+class SepaStaff(SepaUser):
+    """Can see imported statements and movements also globally in the
+    :menuselection`Explorer` menu.
+
+    """
     pass
 
 
