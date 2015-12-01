@@ -60,7 +60,8 @@ class Plugin(ad.Plugin):
 
     def setup_main_menu(config, site, profile, main):
         m = main.add_menu("courses", config.verbose_name)
-        m.add_action('courses.Courses')
+        m.add_action('courses.DraftCourses')
+        m.add_action('courses.ActiveCourses')
         m.add_action('courses.Lines')
         m.add_action('courses.PendingRequestedEnrolments')
         m.add_action('courses.PendingConfirmedEnrolments')
@@ -75,6 +76,7 @@ class Plugin(ad.Plugin):
         m = m.add_menu("courses", config.verbose_name)
         #~ m.add_action(Presences)
         #~ m.add_action(Events)
+        m.add_action('courses.AllCourses')
         m.add_action('courses.Enrolments')
         # m.add_action('courses.Options')
         m.add_action('courses.EnrolmentStates')

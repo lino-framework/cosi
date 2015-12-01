@@ -564,8 +564,9 @@ class CourseDetail(dd.FormLayout):
 
 
 class Courses(dd.Table):
+    """Base table for all courses.
+    """
     model = 'courses.Course'
-    #~ order_by = ['date','start_time']
     detail_layout = CourseDetail()
     insert_layout = """
     start_date
@@ -575,7 +576,8 @@ class Courses(dd.Table):
                    "room workflow_buttons *"
     # order_by = ['start_date']
     # order_by = 'line__name room__name start_date'.split()
-    order_by = ['name']
+    # order_by = ['name']
+    order_by = ['-start_date', '-start_time']
     auto_fit_column_widths = True
 
     parameters = mixins.ObservedPeriod(
@@ -625,22 +627,26 @@ class Courses(dd.Table):
                 yield unicode(v)
 
 
+class AllCourses(Courses):
+    pass
+
+
 class CoursesByTeacher(Courses):
     master_key = "teacher"
     column_names = "start_date start_time end_time line room *"
-    order_by = ['start_date']
+    order_by = ['-start_date']
 
 
 class CoursesByLine(Courses):
     """Show the courses per course line."""
     master_key = "line"
     column_names = "info weekdays_text room times_text teacher *"
-    order_by = ['room__name', 'start_date']
+    order_by = ['room__name', '-start_date']
 
 
 class CoursesByTopic(Courses):
     master = Topic
-    order_by = ['start_date']
+    order_by = ['-start_date']
     column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
 
     @classmethod
@@ -673,9 +679,7 @@ class DraftCourses(Courses):
 class ActiveCourses(Courses):
 
     label = _("Active courses")
-    #~ column_names = 'info requested confirmed teacher company room'
     column_names = 'info enrolments free_places teacher room *'
-    #~ auto_fit_column_widths = True
     hide_sums = True
 
     @classmethod
