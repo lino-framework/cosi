@@ -446,7 +446,10 @@ class Transaction(dd.Model):
     @dd.displayfield(_("BkTxCd"))
     def txcd_text(self, ar):
         if self.txcd_issuer == 'BBA':
-            return code2desc(self.txcd[:4])
+            # until we get a list of German translations, users in
+            # Eupen prefer FR over EN
+            with translation.override('fr'):
+                return code2desc(self.txcd[:4])
         return "{0}:{1}".format(self.txcd_issuer, self.txcd)
         
 from .ui import *
