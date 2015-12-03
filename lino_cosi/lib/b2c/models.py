@@ -29,6 +29,7 @@ import glob
 import os
 from django.db import models
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
+from django.utils import translation
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
 from lino.utils.xmlgen.html import E
