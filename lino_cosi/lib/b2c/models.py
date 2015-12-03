@@ -24,19 +24,17 @@ Database models for `lino_cosi.lib.b2c`.
 
 from __future__ import unicode_literals
 import logging
-from pprint import pformat
 import glob
 import os
 from django.db import models
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.utils import translation
+from django.utils.encoding import force_unicode
 from lino.api import dd, _, rt
-from lino.core.utils import ChangeWatcher
 from lino.utils.xmlgen.html import E
 from lino.utils import join_elems
 
 from lino_cosi.lib.sepa.fields import IBANField, BICField
-from lino_cosi.lib.sepa.utils import belgian_nban_to_iban_bic, iban2bic
 from .camt import CamtParser
 from .febelfin import code2desc
 
@@ -450,7 +448,7 @@ class Transaction(dd.Model):
             # until we get a list of German translations, users in
             # Eupen prefer FR over EN
             with translation.override('fr'):
-                return code2desc(self.txcd[:4])
+                return force_unicode(code2desc(self.txcd[:4]))
         return "{0}:{1}".format(self.txcd_issuer, self.txcd)
         
 from .ui import *
