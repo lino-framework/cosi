@@ -9,11 +9,9 @@ General
 
     >>> from __future__ import print_function
     >>> from __future__ import unicode_literals
-    >>> import os
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.doctests'
-    >>> import json
-    >>> from lino.api import dd, rt
-    >>> from lino.api.shell import *
+    >>> import lino
+    >>> lino.startup('lino_cosi.projects.apc.settings.doctests')
+    >>> from lino.api.doctest import *
 
 User profiles
 -------------

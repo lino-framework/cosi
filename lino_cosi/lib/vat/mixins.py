@@ -27,7 +27,7 @@ from __future__ import print_function
 import logging
 logger = logging.getLogger(__name__)
 
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.conf import settings
 
@@ -57,6 +57,12 @@ class PartnerDetailMixin(dd.DetailLayout):
         """, label=dd.plugins.ledger.verbose_name)
     else:
         ledger = dd.DummyPanel()
+
+CENT = Decimal('.01')
+
+
+def myround(d):
+    return d.quantize(CENT, rounding=ROUND_HALF_UP)
 
 
 def get_default_vat_regime():
@@ -156,7 +162,7 @@ class VatTotal(dd.Model):
             self.total_incl = None
             self.total_vat = None
         else:
-            self.total_incl = self.total_base * (ONE + rule.rate)
+            self.total_incl = myround(self.total_base * (ONE + rule.rate))
             self.total_vat = self.total_incl - self.total_base
 
     def total_vat_changed(self, ar):
@@ -197,11 +203,11 @@ class VatTotal(dd.Model):
             self.total_base = None
             self.total_vat = None
         else:
-            self.total_base = self.total_incl / (ONE + rule.rate)
-            self.total_vat = self.total_incl - self.total_base
+            self.total_base = myround(self.total_incl / (ONE + rule.rate))
+            self.total_vat = myround(self.total_incl - self.total_base)
 
 
-#class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
+# class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
 class VatDocument(ProjectRelated, VatTotal):
     """Abstract base class for invoices, offers and other vouchers.
 
@@ -297,6 +303,7 @@ class VatDocument(ProjectRelated, VatTotal):
         sum = Decimal()
         for a, m in sums_dict.items():
             if m:
+                m = myround(m)
                 yield self.create_movement(a, None, not self.journal.dc, m)
                 sum += m
 
@@ -385,10 +392,10 @@ class VatItemBase(VoucherItem, VatTotal):
         # else:
         #     rate = rule.rate
         if self.voucher.vat_regime.item_vat:  # unit_price_includes_vat
-            self.total_incl = amount
+            self.total_incl = myround(amount)
             self.total_incl_changed(ar)
         else:
-            self.total_base = amount
+            self.total_base = myround(amount)
             self.total_base_changed(ar)
 
     def reset_totals(self, ar):
@@ -454,6 +461,6 @@ class QtyVatItemBase(VatItemBase):
                     #~ self.unit_price = self.total_base / self.qty
 
         if self.unit_price is not None and self.qty is not None:
-            self.set_amount(ar, self.unit_price * self.qty)
+            self.set_amount(ar, myround(self.unit_price * self.qty))
 
 

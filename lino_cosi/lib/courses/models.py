@@ -54,7 +54,7 @@ from lino.modlib.excerpts.mixins import Certifiable
 from lino.modlib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
 from lino.modlib.cal.mixins import Reservation
-from lino.modlib.cal.utils import Recurrencies
+from lino.modlib.cal.choicelists import Recurrencies
 
 from .choicelists import EnrolmentStates, CourseStates
 

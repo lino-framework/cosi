@@ -38,13 +38,14 @@ from lino.modlib.excerpts.mixins import Certifiable
 
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
-from lino_cosi.lib.vat.mixins import get_default_vat_regime
+from lino_cosi.lib.vat.mixins import get_default_vat_regime, myround
 from lino_cosi.lib.sepa.mixins import Payable
 from lino_cosi.lib.ledger.mixins import Matching, SequencedVoucherItem
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.ui import PartnerVouchers, ByJournal
+
 
 # ledger = dd.resolve_app('ledger', strict=True)
 
@@ -306,10 +307,10 @@ class ProductDocItem(QtyVatItemBase):
             catalog_price = add_vat(catalog_price, cat_rule.rate)
 
         if self.discount is None:
-            self.unit_price = catalog_price
+            self.unit_price = myround(catalog_price)
         else:
-            self.unit_price = catalog_price * \
-                (HUNDRED - self.discount) / HUNDRED
+            self.unit_price = myround(
+                catalog_price * (HUNDRED - self.discount) / HUNDRED)
         self.unit_price_changed(ar)
 
     def product_changed(self, ar):

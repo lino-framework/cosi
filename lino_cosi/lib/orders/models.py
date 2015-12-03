@@ -34,6 +34,8 @@ from lino import mixins
 from lino.utils import mti
 #~ from lino.utils.quantities import Duration
 
+from lino_cosi.lib.vat.mixins import myround
+
 
 contacts = dd.resolve_app('contacts')
 accounts = dd.resolve_app('accounts')
@@ -258,8 +260,8 @@ class ProductDocItem(ledger.VoucherItem, vat.QtyVatItemBase):
             if self.qty is None:
                 self.qty = Decimal("1")
             if self.product.price is not None:
-                self.unit_price = self.product.price * \
-                    (HUNDRED - self.discount) / HUNDRED
+                self.unit_price = myround(self.product.price * \
+                    (HUNDRED - self.discount) / HUNDRED)
                 self.unit_price_changed(ar)
 
 

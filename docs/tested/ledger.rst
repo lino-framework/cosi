@@ -14,12 +14,10 @@ This document introduces some basic features of accounting.
 
     >>> from __future__ import print_function 
     >>> from __future__ import unicode_literals
-    >>> import os
-    >>> import json
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.demo'
-    >>> from lino.api.shell import *
-    >>> from django.test.client import Client
-    >>> from django.utils import translation
+    >>> import lino
+    >>> lino.startup('lino_cosi.projects.std.settings.demo')
+    >>> from lino.api.doctest import *
+    >>> # from django.utils import translation
     >>> ses = rt.login("robin")
     >>> translation.activate('en')
 
@@ -114,11 +112,11 @@ The table of debtors
 ===================== ========= ==============
  Partner               ID        Balance
 --------------------- --------- --------------
- Bäckerei Ausdemwald   101       3,32
+ Bäckerei Ausdemwald   101       3,30
  Garage Mergelsberg    104       3,30
  Jacobs Jacqueline     136       999,95
  Johnen Johann         137       359,97
- **Total (4 rows)**    **478**   **1 366,54**
+ **Total (4 rows)**    **478**   **1 366,52**
 ===================== ========= ==============
 <BLANKLINE>
 
@@ -132,7 +130,7 @@ creditors are providers, i.e. partners who send us a purchase invoice.
  Partner                             ID         Balance
 ----------------------------------- ---------- ---------------
  Rumma & Ko OÜ                       100        0,70
- Bäckerei Mießen                     102        2,59
+ Bäckerei Mießen                     102        2,60
  Bäckerei Schmitz                    103        0,70
  Arens Andreas                       112        999,95
  Arens Annette                       113        359,97
@@ -158,7 +156,7 @@ creditors are providers, i.e. partners who send us a purchase invoice.
  Hilgers Hildegard                   132        289,92
  Ingels Irene                        134        245,00
  Jansen Jérémy                       135        4 569,70
- **Total (27 rows)**                 **3269**   **26 142,15**
+ **Total (27 rows)**                 **3269**   **26 142,16**
 =================================== ========== ===============
 <BLANKLINE>
 

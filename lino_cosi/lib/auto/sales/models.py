@@ -34,7 +34,10 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 
-from django.contrib.contenttypes.models import ContentType
+from lino.modlib.gfks.fields import GenericForeignKeyIdField
+from lino.core.gfks import GenericForeignKey, ContentType
+
+# from django.contrib.contenttypes.models import ContentType
 
 from decimal import Decimal
 
@@ -272,11 +275,11 @@ class InvoiceItem(InvoiceItem):  # 20130709
         ContentType,
         editable=False, blank=True, null=True,
         verbose_name=string_concat(invoiceable_label, ' ', _('(type)')))
-    invoiceable_id = dd.GenericForeignKeyIdField(
+    invoiceable_id = GenericForeignKeyIdField(
         invoiceable_type,
         editable=False, blank=True, null=True,
         verbose_name=string_concat(invoiceable_label, ' ', _('(object)')))
-    invoiceable = dd.GenericForeignKey(
+    invoiceable = GenericForeignKey(
         'invoiceable_type', 'invoiceable_id',
         verbose_name=invoiceable_label)
 

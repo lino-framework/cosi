@@ -41,6 +41,9 @@ from decimal import Decimal
 from django.conf import settings
 from lino.utils import Cycler
 from lino.api import dd
+
+from lino_cosi.lib.vat.mixins import myround
+
 vat = dd.resolve_app('vat')
 sales = dd.resolve_app('sales')
 ledger = dd.resolve_app('ledger')
@@ -85,11 +88,9 @@ def objects():
             ar = MODEL.request(user=u)
             for j in range(ITEMCOUNT.pop()):
                 item = vat.InvoiceItem(voucher=invoice,
-                                       account=jnl.get_allowed_accounts()[
-                                           0],
+                                       account=jnl.get_allowed_accounts()[0],
                                        #~ product=PRODUCTS.pop(),
-                                       total_incl=AMOUNTS.pop()
-                )
+                                       total_incl=AMOUNTS.pop())
                 item.total_incl_changed(ar)
                 item.before_ui_save(ar)
                 #~ if item.total_incl:
@@ -185,7 +186,7 @@ def objects():
                     (amount * INFLATION_RATE * (date.year - START_YEAR))
                 item = vat.InvoiceItem(voucher=invoice,
                                        account=account,
-                                       total_incl=amount +
+                                       total_incl=myround(amount) +
                                        AMOUNT_DELTAS.pop())
                 item.total_incl_changed(REQUEST)
                 item.before_ui_save(REQUEST)
