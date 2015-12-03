@@ -89,7 +89,7 @@ Now imagine that the user gets a break and leaves her browser open,
 the server meanwhile did a dump and a reload. So the sessions have
 been removed:
 
->>> sessions.Session.objects.all().delete()
+>>> x = sessions.Session.objects.all().delete()
 
 The user comes back and resizes her browser window, or some other
 action which will trigger a refresh.  The same URL will now cause a

@@ -29,7 +29,7 @@ from django.db.models import Q
 
 from lino.mixins.periods import DatePeriod
 from lino.mixins import Sequenced
-from lino.modlib.system.mixins import PeriodEvents
+from lino.modlib.system.choicelists import PeriodEvents
 
 from lino.api import dd, rt, _
 
