@@ -28,6 +28,8 @@ from django.db import models
 from lino.api import dd, _, rt
 from lino.core.utils import ChangeWatcher
 
+from lino.utils.format_date import fds
+
 from .fields import IBANField, BICField
 from .utils import belgian_nban_to_iban_bic, iban2bic
 from .roles import SepaUser, SepaStaff
@@ -118,7 +120,7 @@ class Account(dd.Model):
             b2c = Account.objects.get(iban=self.iban)
         except Account.DoesNotExist:
             return ''
-        return ar.obj2html(b2c, dd.fds(b2c.last_movement))
+        return ar.obj2html(b2c, fds(b2c.last_transaction))
 
 
 PRIMARY_FIELDS = dd.fields_list(Account, 'iban bic')
