@@ -20,22 +20,25 @@
 ##############################################################################
 # File taken from https://github.com/OCA/bank-statement-import/blob/8.0/account_bank_statement_import_camt/camt.py
 
-# Modifications by Luc Saffre: 
+# Modifications by Luc Saffre:
 
-# Replaced classes defined in parserlib by simple pythonic classes
-# they completely ignored the ``<Dt>``
+# Replaced classes defined in parserlib by simple pythonic classes.
+# The original completely ignored the ``<Dt>``
 # element of opening and closing balances.  Their statement had a date
 # which was the `execution_date` of the first transaction.  Now they
 # set two dates `start_date` and `end_date`.
-
-# they ignored the sequence number (legal or electronic)
+# The original ignored the sequence number (legal or electronic).
+# balances not float but Decimal
 
 # http://lxml.de/xpathxslt.html
 
 
 import re
 from datetime import datetime
+from decimal import Decimal
 from lxml import etree
+
+from lino_cosi.lib.accounts.utils import ZERO
 
 
 class BankTransaction(object):
@@ -134,15 +137,15 @@ class CamtParser(object):
     def parse_amount(self, ns, node):
         """Parse element that contains Amount and CreditDebitIndicator."""
         if node is None:
-            return 0.0
+            return ZERO
         sign = 1
-        amount = 0.0
+        amount = ZERO
         sign_node = node.xpath('ns:CdtDbtInd', namespaces={'ns': ns})
         if sign_node and sign_node[0].text == 'DBIT':
             sign = -1
         amount_node = node.xpath('ns:Amt', namespaces={'ns': ns})
         if amount_node:
-            amount = sign * float(amount_node[0].text)
+            amount = sign * Decimal(amount_node[0].text)
         return amount
 
     def add_value_from_node(
