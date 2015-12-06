@@ -57,6 +57,7 @@ class ShippingMode(mixins.BabelNamed):
 
     """
     class Meta:
+        app_label = 'delivery'
         verbose_name = _("Shipping Mode")
         verbose_name_plural = _("Shipping Modes")
 
