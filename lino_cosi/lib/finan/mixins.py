@@ -27,6 +27,7 @@ from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 from lino_cosi.lib.ledger.mixins import VoucherItem, SequencedVoucherItem
 from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching
+from lino.utils.xmlgen.html import E
 
 from lino.api import dd, rt, _
 
@@ -123,7 +124,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     .. attribute:: amount
 
-        The amount to be booked.
+        The amount to be booked. If this is empty, then the voucher
+        cannot be registered.
 
     .. attribute:: dc
 
@@ -147,7 +149,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
     amount = dd.PriceField(default=ZERO)
     dc = DebitOrCreditField()
     remark = models.CharField(_("Remark"), max_length=200, blank=True)
-    account = dd.ForeignKey('accounts.Account', blank=True)
+    account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
     @dd.chooser()
@@ -186,7 +188,16 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
             elif len(suggestions) == 1:
                 self.fill_suggestion(suggestions[0])
             else:
-                self.set_grouper(suggestions)
+                def ok(ar2):
+                    # self.fill_suggestion(suggestions[0])
+                    # self.set_grouper(suggestions)
+                    ar2.error(_("Oops, not implemented."))
+                    return
+
+                html = E.div(
+                    E.p("Cool", E.b(str(len(suggestions)), "suggestions")))
+                ar.confirm(ok, E.tostring(html))
+                return
             if self.account_id is None:
                 raise ValidationError(
                     _("Could not determine the general account"))

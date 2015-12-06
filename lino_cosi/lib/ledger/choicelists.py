@@ -312,13 +312,28 @@ def inject_vat_fields(sender, **kw):
                                           blank=True, null=True))
 
 
+class VoucherState(dd.State):
+    """Base class for items of :class:`VoucherStates`.
+    """
+    editable = False
+    """
+    Whether a voucher in this state is editable.
+    """
+
+
 class VoucherStates(dd.Workflow):
-    #~ label = _("State")
-    pass
+    """The list of possible states for a voucher."""
+
+    item_class = VoucherState
+
+    @classmethod
+    def get_editable_states(cls):
+        return [o for o in cls.objects() if o.editable]
+
 add = VoucherStates.add_item
 add('10', _("Draft"), 'draft', editable=True)
-add('20', _("Registered"), 'registered', editable=False)
-add('30', _("Fixed"), 'fixed', editable=False)
+add('20', _("Registered"), 'registered')
+add('30', _("Fixed"), 'fixed')
 
 
 @dd.receiver(dd.pre_analyze)
@@ -330,10 +345,13 @@ def setup_vat_workflow(sender=None, **kw):
             _("Deregister"), required_states="registered", icon_name='pencil')
     else:
         VoucherStates.registered.add_transition(
-            unichr(0x25c6),  # ◆
-            help_text=_("Register"), required_states='draft')
+            # unichr(0x25c6),  # ◆
+            _("Register"),
+            help_text=_("Register"),
+            required_states='draft')
         VoucherStates.draft.add_transition(
-            unichr(0x25c7),  # ◇
+            _("Deregister"),
+            # unichr(0x25c7),  # ◇
             help_text=_("Deregister"),
             required_states="registered")
 
