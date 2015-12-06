@@ -181,22 +181,17 @@ class VouchersByPartner(dd.VirtualTable):
 
         actions = []
 
-        def add_action(btn):
-            if btn is None:
-                return False
-            actions.append(btn)
-            return True
-
         for vt in vtypes:
             for jnl in vt.get_journals():
                 sar = vt.table_class.insert_action.request_from(
                     ar, master_instance=jnl,
                     known_values=dict(partner=obj))
-                actions.append(
-                    sar.ar2button(label=unicode(jnl), icon_name=None))
-                actions.append(' ')
+                btn = sar.ar2button(label=unicode(jnl), icon_name=None)
+                if len(actions):
+                    actions.append(', ')
+                actions.append(btn)
 
-        elems += [E.br(), _("Create voucher in journal ")] + actions
+        elems += [E.br(), _("Create voucher in journal "), " "] + actions
         return E.div(*elems)
 
 

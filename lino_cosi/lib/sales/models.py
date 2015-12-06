@@ -209,7 +209,7 @@ class InvoiceDetail(dd.FormLayout):
 
     general = dd.Panel("""
     invoice_header:60 totals:20
-    InvoiceItems ItemsByInvoice
+    ItemsByInvoice
     """, label=_("General"))
 
     more = dd.Panel("""
