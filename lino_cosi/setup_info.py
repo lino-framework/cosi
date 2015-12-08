@@ -16,7 +16,7 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 
 SETUP_INFO = dict(
     name='lino-cosi',
@@ -26,7 +26,7 @@ SETUP_INFO = dict(
                    'commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',
     description="A Lino application to make accounting simple",
-    long_description="""
+    long_description=u"""
 
 **Lino Così** is a `Lino <http://www.lino-framework.org>`_ application
 to make accounting simple.  It is targeted to small but possibly
@@ -132,6 +132,8 @@ def add_package_data(package, *patterns):
 # ~ 'config/patrols/Patrol/*.odt',
 # ~ 'config/patrols/Overview/*.odt')
 
-l = add_package_data('lino_cosi')
+l = add_package_data('lino_cosi.lib.cosi')
 for lng in 'de fr'.split():
-    l.append('locale/%s/LC_MESSAGES/*.mo' % lng)
+    l.append('lino_cosi/lib/cosi/locale/%s/LC_MESSAGES/*.mo' % lng)
+
+# print 20151208, SETUP_INFO['package_data']

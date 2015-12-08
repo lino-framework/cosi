@@ -64,61 +64,26 @@ def objects():
     Person = dd.resolve_model('contacts.Person')
     Product = dd.resolve_model('products.Product')
 
-    if False:  # old system
-
-        MODEL = vat.VatAccountInvoice
-        vt = ledger.VoucherTypes.get_for_model(MODEL)
-        JOURNALS = Cycler(vt.get_journals())
-        Partner = dd.resolve_model(partner_model)
-        #~ logger.info("20130105 mini Partners %s",Partner.objects.all().count())
-        #~ PARTNERS = Cycler(Partner.objects.order_by('name'))
-        PARTNERS = Cycler(Company.objects.order_by('id'))
-        USERS = Cycler(settings.SITE.user_model.objects.all())
-        AMOUNTS = Cycler([Decimal(x) for x in
-                          "2.50 6.80 9.95 14.50 20 29.90 39.90 39.90 99.95 199.95 599.95 1599.99".split()])
-        ITEMCOUNT = Cycler(1, 2, 3)
-        for i in range(10):
-            u = USERS.pop()
-            jnl = JOURNALS.pop()
-            invoice = MODEL(journal=jnl,
-                            partner=PARTNERS.pop(),
-                            user=u,
-                            date=settings.SITE.demo_date(-30 + i))
-            yield invoice
-            ar = MODEL.request(user=u)
-            for j in range(ITEMCOUNT.pop()):
-                item = vat.InvoiceItem(voucher=invoice,
-                                       account=jnl.get_allowed_accounts()[0],
-                                       #~ product=PRODUCTS.pop(),
-                                       total_incl=AMOUNTS.pop())
-                item.total_incl_changed(ar)
-                item.before_ui_save(ar)
-                #~ if item.total_incl:
-                    #~ print "20121208 ok", item
-                #~ else:
-                    #~ if item.product.price:
-                        #~ raise Exception("20121208")
-                yield item
-            invoice.register(ar)
-            invoice.save()
-
     USERS = Cycler(settings.SITE.user_model.objects.all())
 
     if sales:
 
-        yield Product(name="Foo", sales_price='399.90')
-        yield Product(name="Bar", sales_price='599.90')
-        yield Product(name="Baz", sales_price='990.00')
+        # yield Product(name="Foo", sales_price='399.90')
+        # yield Product(name="Bar", sales_price='599.90')
+        # yield Product(name="Baz", sales_price='990.00')
         PRODUCTS = Cycler(Product.objects.order_by('id'))
         JOURNAL_S = ledger.Journal.objects.get(ref="SLS")
-        #~ assert JOURNAL_S.dc == accounts.DEBIT
-        CUSTOMERS = Cycler(Person.objects.order_by('id'))
+        CUSTOMERS = Cycler(Person.objects.filter(
+            gender=dd.Genders.male).order_by('id'))
         assert Person.objects.count() > 0
         ITEMCOUNT = Cycler(1, 2, 3)
-        QUANTITIES = Cycler(5, 1, 2, 3)
-        SALES_PER_MONTH = Cycler(2, 1, 3, 2, 0)
+        QUANTITIES = Cycler(15, 10, 8, 4)
+        # SALES_PER_MONTH = Cycler(2, 1, 3, 2, 0)
+        SALES_PER_MONTH = Cycler(5, 4, 1, 8, 6)
 
-    PROVIDERS = Cycler(Company.objects.order_by('id'))
+    # purchases:
+    PROVIDERS = Cycler(Company.objects.filter(
+        sepa_accounts__iban__isnull=False).order_by('id'))
 
     JOURNAL_P = ledger.Journal.objects.get(ref="PRC")
     #~ assert JOURNAL_P.dc == accounts.CREDIT
@@ -130,9 +95,9 @@ def objects():
     DATE_DELTAS = Cycler((1, 2, 3, 4, 5, 6, 7))
     INFLATION_RATE = Decimal("0.02")
 
-    """
-    5 "purchase stories" : each story represents a provider who sends
+    """"purchase stories" : each story represents a provider who sends
     monthly invoices.
+
     """
     PURCHASE_STORIES = []
     for i in range(5):
@@ -143,20 +108,26 @@ def objects():
             story[1].append((ACCOUNTS.pop(), AMOUNTS.pop()))
         PURCHASE_STORIES.append(story)
 
-    #~ date = settings.SITE.demo_date() + delta(years=-2)
-    START_YEAR = settings.SITE.start_year  # 2011
+    START_YEAR = dd.plugins.ledger.start_year
     date = datetime.date(START_YEAR, 1, 1)
-    end_date = datetime.date(START_YEAR+1, 5, 1)
+    end_date = settings.SITE.demo_date(-10)  # + delta(years=-2)
+    # end_date = datetime.date(START_YEAR+1, 5, 1)
     while date < end_date:
 
         if sales:
+            partner = None
             for i in range(SALES_PER_MONTH.pop()):
+                # Every fifth time there are two successive invoices
+                # to the same partner.
+                if partner is None or i % 5:
+                    partner = CUSTOMERS.pop()
                 #~ print __file__, date
                 invoice = sales.VatProductInvoice(
                     journal=JOURNAL_S,
-                    partner=CUSTOMERS.pop(),
+                    partner=partner,
                     user=USERS.pop(),
-                    date=date + delta(days=10 + DATE_DELTAS.pop()))
+                    date=date + delta(days=5 + i))
+                    # date=date + delta(days=10 + DATE_DELTAS.pop()))
                 yield invoice
                 for j in range(ITEMCOUNT.pop()):
                     item = sales.InvoiceItem(
@@ -200,8 +171,7 @@ def objects():
             invoice.save()
 
         if finan and (end_date - date) > MORE_THAN_A_MONTH:
-            # last month not yet done
-            #~ po = finan.PaymentOrder(journal=JOURNAL_PO,
+            # bank statements of last month are not yet entered into database
             JOURNAL_PO = ledger.Journal.objects.get(ref="PMO")
             po = JOURNAL_PO.create_voucher(
                 user=USERS.pop(),
@@ -215,7 +185,6 @@ def objects():
             po.register(REQUEST)
             po.save()
 
-            #~ bs = finan.BankStatement(journal=JOURNAL_BANK,
             JOURNAL_BANK = ledger.Journal.objects.get(ref="BNK")
             bs = JOURNAL_BANK.create_voucher(
                 user=USERS.pop(),

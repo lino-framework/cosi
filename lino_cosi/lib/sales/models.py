@@ -148,7 +148,7 @@ class SalesDocuments(PartnerVouchers):
     pass
 
 
-class VatProductInvoice(SalesDocument, Voucher, Matching, Payable):
+class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
     """A sales invoice is a legal document which describes that something
     (the invoice items) has been sold to a given partner. The partner
     can be either a private person or an organization.
@@ -160,6 +160,8 @@ class VatProductInvoice(SalesDocument, Voucher, Matching, Payable):
         abstract = dd.is_abstract_model(__name__, 'VatProductInvoice')
         verbose_name = _("Invoice")
         verbose_name_plural = _("Invoices")
+
+    quick_search_fields = "partner__name subject"
 
     order = dd.ForeignKey('orders.Order', blank=True, null=True)
 

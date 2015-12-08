@@ -78,10 +78,12 @@ class FiscalYears(dd.ChoiceList):
     """A list of the fiscal years available in this database.
 
     The default value for this list is 5 years starting from
-    :attr:`lino.core.site.Site.start_year`.  If the fiscal year of
-    your company is the same as the calendar year, then the default
-    entries in this should do.  Otherwise you can always override this
-    in your :meth:`lino.core.site.Site.setup_choicelists`.
+    :attr:`start_year <lino_cosi.lib.ledger.Plugin.start_year>`.
+
+    If the fiscal year of your company is the same as the calendar
+    year, then the default entries in this should do.  Otherwise you
+    can override this in your
+    :meth:`lino.core.site.Site.setup_choicelists`.
 
     """
     required_roles = dd.login_required(LedgerStaff)
@@ -98,7 +100,7 @@ class FiscalYears(dd.ChoiceList):
     def from_date(cls, date):
         return cls.from_int(date.year)
 
-for y in range(settings.SITE.start_year, dd.today().year + 5):
+for y in range(dd.plugins.ledger.start_year, dd.today().year + 5):
     s = str(y)
     FiscalYears.add_item(s[2:], s)
 

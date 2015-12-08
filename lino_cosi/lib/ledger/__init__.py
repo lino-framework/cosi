@@ -69,6 +69,21 @@ class Plugin(ad.Plugin):
 
     """
     
+    start_year = 2012
+    """An integer with the calendar year in which this site starts working.
+
+    This is used to fill the default list of :class:`FiscalYears
+    <lino_cosi.lib.ledger.choicelists.FiscalYears>`.  And by
+    :mod:`lino_cosi.lib.ledger.fixtures.demo_bookings` for generating
+    demo invoices.
+
+    """
+
+    def on_site_startup(self, site):
+        if site.the_demo_date is not None:
+            if self.start_year > site.the_demo_date.year:
+                raise Exception("start_year is after the_demo_date")
+
     def setup_main_menu(self, site, profile, m):
         if not self.intrusive_menu:
             mg = site.plugins.accounts

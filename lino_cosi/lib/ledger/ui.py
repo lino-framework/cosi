@@ -166,11 +166,10 @@ class ExpectedMovements(dd.VirtualTable):
     parameters = dd.ParameterPanel(
         date_until=models.DateField(_("Date until"), blank=True, null=True),
         trade_type=TradeTypes.field(blank=True),
-        for_journal=dd.ForeignKey('ledger.Journal', blank=True))
-        #~ dc=DebitOrCreditField(default=accounts.DEBIT))
-    params_layout = "trade_type date_until for_journal"
-
-    #~ DUE_DC = accounts.DEBIT
+        for_journal=dd.ForeignKey('ledger.Journal', blank=True),
+        partner=dd.ForeignKey('contacts.Partner', blank=True),
+    )
+    params_layout = "trade_type date_until for_journal partner"
 
     @classmethod
     def get_dc(cls, ar=None):
@@ -183,6 +182,8 @@ class ExpectedMovements(dd.VirtualTable):
         pv = ar.param_values
         if pv.trade_type:
             flt.update(account=pv.trade_type.get_partner_account())
+        if pv.partner:
+            flt.update(partner=pv.partner)
         if pv.date_until is not None:
             flt.update(voucher__date__lte=pv.date_until)
         if pv.for_journal is not None:
@@ -652,36 +653,59 @@ class Movements(dd.Table):
     
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.Movement'
-    column_names = 'voucher_link account debit credit *'
+    column_names = 'voucher__date voucher_link voucher__narration ' \
+                   'account debit credit *'
     editable = False
     parameters = mixins.ObservedPeriod(
-        pyear=FiscalYears.field(blank=True),
-        ppartner=models.ForeignKey('contacts.Partner', blank=True, null=True),
-        paccount=models.ForeignKey('accounts.Account', blank=True, null=True),
-        pjournal=JournalRef(blank=True),
+        year=FiscalYears.field(blank=True),
+        partner=models.ForeignKey('contacts.Partner', blank=True, null=True),
+        account=models.ForeignKey('accounts.Account', blank=True, null=True),
+        journal=JournalRef(blank=True),
         cleared=dd.YesNo.field(_("Show cleared movements"), blank=True))
     params_layout = """
     start_date end_date cleared
-    pjournal pyear ppartner paccount"""
+    journal year partner account"""
 
     @classmethod
     def get_request_queryset(cls, ar):
         qs = super(Movements, cls).get_request_queryset(ar)
 
-        if ar.param_values.cleared == dd.YesNo.yes:
+        pv = ar.param_values
+        if pv.cleared == dd.YesNo.yes:
             qs = qs.filter(satisfied=True)
-        elif ar.param_values.cleared == dd.YesNo.no:
+        elif pv.cleared == dd.YesNo.no:
             qs = qs.filter(satisfied=False)
 
-        if ar.param_values.ppartner:
-            qs = qs.filter(partner=ar.param_values.ppartner)
-        if ar.param_values.paccount:
-            qs = qs.filter(account=ar.param_values.paccount)
-        if ar.param_values.pyear:
-            qs = qs.filter(voucher__year=ar.param_values.pyear)
-        if ar.param_values.pjournal:
-            qs = qs.filter(voucher__journal=ar.param_values.pjournal)
+        # if ar.param_values.partner:
+        #     qs = qs.filter(partner=ar.param_values.partner)
+        # if ar.param_values.paccount:
+        #     qs = qs.filter(account=ar.param_values.paccount)
+        # if ar.param_values.pyear:
+        #     qs = qs.filter(voucher__year=ar.param_values.pyear)
+        if ar.param_values.journal:
+            qs = qs.filter(voucher__journal=pv.journal)
         return qs
+
+    @classmethod
+    def get_simple_parameters(cls):
+        p = super(Movements, cls).get_simple_parameters()
+        p.add('partner')
+        # p.add('journal')
+        p.add('year')
+        p.add('account')
+        return p
+
+    @classmethod
+    def get_title_tags(cls, ar):
+        for t in super(Movements, cls).get_title_tags(ar):
+            yield t
+        pv = ar.param_values
+        if pv.journal is not None:
+            yield pv.journal.ref
+        if pv.cleared == dd.YesNo.yes:
+            yield unicode(_("only cleared"))
+        elif pv.cleared == dd.YesNo.no:
+            yield unicode(_("only open"))
 
 
 class MovementsByVoucher(Movements):
@@ -703,8 +727,12 @@ class MovementsByPartner(Movements):
     def param_defaults(cls, ar, **kw):
         kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
         kw.update(cleared=dd.YesNo.no)
-        kw.update(pyear='')
+        kw.update(year='')
         return kw
+
+    @classmethod
+    def setup_request(self, ar):
+        ar.no_data_text = _("No uncleared movements")
 
 
 class MovementsByProject(MovementsByPartner):
@@ -727,7 +755,7 @@ class MovementsByAccount(Movements):
         kw = super(MovementsByAccount, cls).param_defaults(ar, **kw)
         if ar.master_instance is not None and ar.master_instance.clearable:
             kw.update(cleared=dd.YesNo.no)
-            kw.update(pyear='')
+            kw.update(year='')
         return kw
 
 

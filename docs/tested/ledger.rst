@@ -17,7 +17,6 @@ This document introduces some basic features of accounting.
     >>> import lino
     >>> lino.startup('lino_cosi.projects.std.settings.demo')
     >>> from lino.api.doctest import *
-    >>> # from django.utils import translation
     >>> ses = rt.login("robin")
     >>> translation.activate('en')
 
@@ -105,73 +104,62 @@ Journal #1 (u'Sales invoices (SLS)')
 Debtors
 =======
 
-The table of debtors 
+**Debtors** are partners who received credit from us and thereefore
+are in debt towards us. The most common debtors are customers,
+i.e. partners who received a sales invoice from us (and did not yet
+pay that invoice).
 
 >>> ses.show(ledger.Debtors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-===================== ========= ==============
- Partner               ID        Balance
---------------------- --------- --------------
- Bäckerei Ausdemwald   101       3,30
- Garage Mergelsberg    104       3,30
- Jacobs Jacqueline     136       999,95
- Johnen Johann         137       359,97
- **Total (4 rows)**    **478**   **1 366,52**
-===================== ========= ==============
+===================== ========== ===============
+ Partner               ID         Balance
+--------------------- ---------- ---------------
+ Faymonville Luc       129        2 349,81
+ Groteclaes Gregory    131        951,82
+ Hilgers Henri         133        525,00
+ Jansen Jérémy         135        600,00
+ Johnen Johann         137        4 239,63
+ Jonas Josef           138        465,96
+ Jousten Jan           139        770,00
+ Kaivers Karl          140        2 999,85
+ Lambertz Guido        141        2 039,82
+ Malmendier Marc       145        679,81
+ Mießen Michael        147        280,00
+ Emonts Erich          149        3 854,78
+ **Total (12 rows)**   **1664**   **19 756,48**
+===================== ========== ===============
 <BLANKLINE>
 
 
 **Creditors** are partners hwo gave us credit. The most common
-creditors are providers, i.e. partners who send us a purchase invoice.
+creditors are providers, i.e. partners who send us a purchase invoice
+(which we did not yet pay).
 
 >>> ses.show(ledger.Creditors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-=================================== ========== ===============
- Partner                             ID         Balance
------------------------------------ ---------- ---------------
- Rumma & Ko OÜ                       100        0,70
- Bäckerei Mießen                     102        2,60
- Bäckerei Schmitz                    103        0,70
- Arens Andreas                       112        999,95
- Arens Annette                       113        359,97
- Altenberg Hans                      114        289,92
- Ausdemwald Alfons                   115        70,00
- Bastiaensen Laurent                 116        245,00
- Collard Charlotte                   117        4 569,70
- Chantraine Marc                     119        359,97
- Charlier Ulrike                     118        999,95
- Demeulenaere Dorothée               121        70,00
- Dericum Daniel                      120        289,92
- Dobbelstein-Demeulenaere Dorothée   122        245,00
- Dobbelstein Dorothée                123        4 569,70
- Ernst Berta                         124        999,95
- Evertz Bernd                        125        359,97
- Emonts Daniel                       127        70,00
- Evers Eberhart                      126        289,92
- Engels Edgar                        128        245,00
- Faymonville Luc                     129        4 569,70
- Gernegroß Germaine                  130        999,95
- Groteclaes Gregory                  131        359,97
- Hilgers Henri                       133        70,00
- Hilgers Hildegard                   132        289,92
- Ingels Irene                        134        245,00
- Jansen Jérémy                       135        4 569,70
- **Total (27 rows)**                 **3269**   **26 142,16**
-=================================== ========== ===============
+==================== ========= ===============
+ Partner              ID        Balance
+-------------------- --------- ---------------
+ AS Express Post      181       83,60
+ AS Matsalu Veevärk   182       283,60
+ Eesti Energia AS     183       10 090,36
+ **Total (3 rows)**   **546**   **10 457,56**
+==================== ========= ===============
 <BLANKLINE>
 
 
-Partner 136 has 2 open sales invoices:
+Partner 149 has 2 open sales invoices:
 
->>> obj = contacts.Partner.objects.get(pk=136)
+>>> obj = contacts.Partner.objects.get(pk=149)
 >>> ses.show(ledger.DebtsByPartner, obj)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ============ =========== ==========
- Due date             Balance      Debts       Payments
--------------------- ------------ ----------- ----------
- 4/13/12              999,95       *SLS#130*
- **Total (1 rows)**   **999,95**
-==================== ============ =========== ==========
+==================== ============== ========== ==========
+ Due date             Balance        Debts      Payments
+-------------------- -------------- ---------- ----------
+ 5/10/15              535,00         *SLS#49*
+ 5/11/15              3 319,78       *SLS#50*
+ **Total (2 rows)**   **3 854,78**
+==================== ============== ========== ==========
 <BLANKLINE>
 
 

@@ -17,13 +17,15 @@ Sales
     >>> ses = rt.login('robin')
 
 
->>> mt = 26
->>> url = '/api/sales/InvoicesByJournal/20'
->>> url += '?mt={0}&mk=1&an=detail&fmt=json'.format(mt)
+>>> mt = contenttypes.ContentType.objects.get_for_model(sales.VatProductInvoice).id
+>>> obj = sales.VatProductInvoice.objects.get(journal__ref="SLS", number=20)
+>>> url = '/api/sales/InvoicesByJournal/{0}'.format(obj.id)
+>>> url += '?mt={0}&mk={1}&an=detail&fmt=json'.format(mt, obj.journal.id)
 >>> res = test_client.get(url, REMOTE_USER='robin')
+>>> # res.content
 >>> r = check_json_result(res, "navinfo data disable_delete id title")
 >>> r['title']
-u'Sales invoices (SLS) \xbb SLS#20'
+u'Sales invoices (SLS) \xbb SLS#46'
 
 
 IllegalText: The <text:section> element does not allow text

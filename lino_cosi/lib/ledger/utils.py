@@ -83,7 +83,7 @@ class DueMovement(object):
         self.dc = dc
         self.partner = mvt.partner
         self.account = mvt.account
-        self.match = mvt
+        self.match = mvt.match
         self.pk = self.id = mvt.id
 
         self.debts = []
@@ -95,10 +95,10 @@ class DueMovement(object):
         self.has_satisfied_movement = False
         self.bank_account = None
 
-        self.collect(mvt)
+        # self.collect(mvt)
 
         qs = rt.modules.ledger.Movement.objects.filter(
-            partner=self.partner, account=self.account, match=mvt)
+            partner=self.partner, account=self.account, match=self.match)
         for mvt in qs.order_by('voucher__date'):
             self.collect(mvt)
 
@@ -127,7 +127,7 @@ class DueMovement(object):
                 if self.bank_account != bank_account:
                     self.bank_account = bank_account
                 elif self.bank_account != bank_account:
-                    raise Exception("More than one IBAN/BIC")
+                    raise Exception("More than one bank account")
             # else:
             #     dd.logger.info(
             #         "20150810 no bank account for {0}".format(voucher))
@@ -189,6 +189,6 @@ def get_due_movements(dc, **flt):
         k = (mvt.account, mvt.partner)
         matches = matches_by_account.setdefault(k, set())
         m = mvt.match or mvt
-        if not m in matches:
+        if m not in matches:
             matches.add(m)
             yield DueMovement(dc, mvt)
