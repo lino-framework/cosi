@@ -127,7 +127,7 @@ criteria.
         return "{country} {vat_class} {rate}".format(**kw)
 
 
-class VatAccountInvoice(VatDocument, Voucher, Payable, Matching):
+class VatAccountInvoice(VatDocument, Payable, Voucher, Matching):
     """An invoice for which the user enters just the bare accounts and
     amounts (not products, quantities, discounts).
 

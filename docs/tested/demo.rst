@@ -138,28 +138,28 @@ The test database
  declarations.Declaration    declarations.Declarations      18        0
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
- finan.BankStatement         finan.BankStatements           12        15
- finan.BankStatementItem     finan.BankStatementItemTable   10        344
+ finan.BankStatement         finan.BankStatements           12        3
+ finan.BankStatementItem     finan.BankStatementItemTable   10        10
  finan.Grouper               finan.Groupers                 11        0
  finan.GrouperItem           finan.GrouperItemTable         9         0
  finan.JournalEntry          finan.FinancialVouchers        10        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            12        15
- finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        0
+ finan.PaymentOrder          finan.PaymentOrders            12        3
+ finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        15
  gfks.HelpText               gfks.HelpTexts                 4         2
  ledger.Journal              ledger.Journals                15        7
  ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               9         740
+ ledger.Movement             ledger.Movements               9         193
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
- ledger.Voucher              ledger.Vouchers                9         136
+ ledger.Voucher              ledger.Vouchers                9         55
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
- products.Product            products.Products              9         12
+ products.Product            products.Products              9         9
  products.ProductCat         products.ProductCats           3         2
- sales.InvoiceItem           sales.InvoiceItems             15        51
+ sales.InvoiceItem           sales.InvoiceItems             15        48
  sales.InvoicingMode         sales.InvoicingModes           6         0
- sales.VatProductInvoice     sales.Invoices                 25        26
+ sales.VatProductInvoice     sales.Invoices                 25        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             15        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
@@ -167,13 +167,14 @@ The test database
  uploads.UploadType          uploads.UploadTypes            6         0
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    15        1
- vat.InvoiceItem             vat.InvoiceItemTable           9         128
- vat.VatAccountInvoice       vat.Invoices                   21        80
+ vat.InvoiceItem             vat.InvoiceItemTable           9         40
+ vat.VatAccountInvoice       vat.Invoices                   21        25
  vat.VatRule                 vat.VatRules                   9         11
  vatless.AccountInvoice      vatless.Invoices               18        0
  vatless.InvoiceItem         vatless.InvoiceItems           6         0
 =========================== ============================== ========= =======
 <BLANKLINE>
+
 
 
 Person #115 is not a Partner

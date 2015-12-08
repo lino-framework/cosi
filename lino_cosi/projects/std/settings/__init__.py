@@ -127,7 +127,7 @@ class DocsSite(Site):
     """
     def get_installed_apps(self):
         yield super(DocsSite, self).get_installed_apps()
-        yield 'lino_cosi.lib.courses'  # needed for Sphinx autosummar
+        yield 'lino_cosi.lib.courses'  # needed for Sphinx autosummary
         yield 'lino_cosi.lib.vatless'
 
     def get_apps_modifiers(self, **kw):

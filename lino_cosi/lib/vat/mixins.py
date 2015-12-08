@@ -311,7 +311,7 @@ class VatDocument(ProjectRelated, VatTotal):
         if a is not None:
             yield self.create_movement(
                 a, None, self.journal.dc, sum, partner=self.partner,
-                match=self.match)
+                match=self.get_voucher_match())
 
     def fill_defaults(self):
         super(VatDocument, self).fill_defaults()

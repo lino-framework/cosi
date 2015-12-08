@@ -121,8 +121,8 @@ class PaymentOrder(FinancialVoucher):
         yield self.create_movement(a, None, self.journal.dc, -amount)
 
     def add_item_from_due(self, obj, **kwargs):
-        if obj.bank_account is None:
-            return
+        # if obj.bank_account is None:
+        #     return
         i = super(PaymentOrder, self).add_item_from_due(obj, **kwargs)
         i.bank_account = obj.bank_account
         return i
@@ -196,7 +196,11 @@ class BankStatementItem(FinancialVoucherItem):
 class PaymentOrderItem(FinancialVoucherItem):
     """An item of a :class:`PaymentOrder`."""
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
-    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+    bank_account = dd.ForeignKey('sepa.Account', blank=True)
+
+    # def full_clean(self, *args, **kwargs):
+        
+    #     super(PaymentOrderItem, self).full_clean(*args, **kwargs)
 
 # dd.update_field(PaymentOrderItem, 'iban', blank=True)
 # dd.update_field(PaymentOrderItem, 'bic', blank=True)
@@ -331,7 +335,7 @@ class ItemsByVoucher(dd.Table):
     column_names = "date partner account match remark debit credit seqno *"
     master_key = 'voucher'
     auto_fit_column_widths = True
-    hidden_columns = 'id amount dc seqno'
+    # hidden_columns = 'id amount dc seqno'
 
 
 class ItemsByJournalEntry(ItemsByVoucher):
@@ -355,10 +359,10 @@ class ItemsByGrouper(ItemsByVoucher):
 
 
 class FillSuggestions(dd.Action):
-    """Fill selected suggestions into a financial voucher.
+    """Fill selected suggestions from a SuggestionsByVoucher table into a
+    financial voucher.
 
-    This creates one voucher item for each selected DueMovement
-    object.
+    This creates one voucher item for each selected row.
 
     """
     label = _("Fill")
@@ -398,6 +402,9 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     master_instance (:attr:`master <lino.core.actors.Actor.master>`)
 
     This is an abstract virtual slave table.
+
+    Every row is a :class:`DueMovement
+    <lino_cosi.lib.ledger.utils.DueMovement>` object.
 
     """
 

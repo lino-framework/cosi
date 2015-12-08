@@ -26,7 +26,7 @@ from django.core.exceptions import ValidationError
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 from lino_cosi.lib.ledger.mixins import VoucherItem, SequencedVoucherItem
-from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching
+from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching, FKMATCH
 from lino.utils.xmlgen.html import E
 
 from lino.api import dd, rt, _
@@ -136,9 +136,11 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     .. attribute:: match
 
-        The voucher that caused this voucher item.  For example the
-        :attr:`match` of the payment of an invoice points to that
-        invoice.
+        (if FKMATCH) The voucher that caused this voucher item.  For
+        example the :attr:`match` of the payment of an invoice points
+        to that invoice.
+
+        An arbitrary string used to group several movements.
 
     """
     class Meta:
@@ -152,7 +154,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
-    @dd.chooser()
+    @dd.chooser(simple_values=not FKMATCH)
     def match_choices(cls, voucher, partner):
         return cls.get_match_choices(voucher.journal, partner)
 

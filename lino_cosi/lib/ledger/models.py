@@ -290,6 +290,30 @@ class Voucher(UserAuthored, mixins.Registrable):
     
     Subclasses must define a field `state`.
 
+    .. attribute:: journal
+
+        The journal into which this voucher has been booked. This is a
+        mandatory pointer to a :class:`Journal` instance.
+
+    .. attribute:: number
+
+        The sequence number of this voucher in the :attr:`journal`.
+
+    .. attribute:: date
+
+        The date of the journal entry, i.e. when this voucher has been
+        journalized or booked.
+
+    .. attribute:: year
+
+        The fiscal year to which this entry is to be assigned to. This
+        may differ from the year given by :attr:`date`.
+
+    .. attribute:: narration
+
+        A short explanation which ascertains the subject matter of
+        this journal entry.
+
     """
 
     class Meta:
@@ -358,6 +382,9 @@ class Voucher(UserAuthored, mixins.Registrable):
         # ~ return "%s#%s" % (self.journal.ref,self.number)
         return "%s%s" % (self.id, self.journal.ref)
 
+    def get_voucher_match(self):
+        return "{0}#{1}".format(self.journal.ref, self.number)
+        
     def before_state_change(self, ar, old, new):
         if new.name == 'registered':
             self.register_voucher(ar)
@@ -464,6 +491,7 @@ class Voucher(UserAuthored, mixins.Registrable):
 
         """
         return None
+        # raise NotImplementedError()
 
 
 class Movement(ProjectRelated):
