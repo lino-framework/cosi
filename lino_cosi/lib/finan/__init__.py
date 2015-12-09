@@ -51,4 +51,4 @@ class Plugin(ad.Plugin):
         m.add_action('finan.BankStatements')
         m.add_action('finan.JournalEntries')
         m.add_action('finan.PaymentOrders')
-        m.add_action('finan.Groupers')
+        # m.add_action('finan.Groupers')

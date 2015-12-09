@@ -30,7 +30,6 @@ from lino_cosi.lib.ledger.fields import DcAmountField
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from lino.api import dd, rt, _
-from lino.core.utils import obj2str
 
 from .mixins import FinancialVoucher, FinancialVoucherItem
 
@@ -40,8 +39,10 @@ ledger = dd.resolve_app('ledger')
 
 class ShowSuggestions(dd.Action):
     # started as a copy of ShowSlaveTable
-    TABLE2ACTION_ATTRS = tuple('help_text icon_name label sort_index'.split())
-    show_in_bbar = True
+    # TABLE2ACTION_ATTRS = tuple('help_text icon_name label sort_index'.split())
+    TABLE2ACTION_ATTRS = tuple('help_text label sort_index'.split())
+    show_in_bbar = False
+    show_in_workflow = True
 
     @classmethod
     def get_actor_label(self):
@@ -49,7 +50,7 @@ class ShowSuggestions(dd.Action):
 
     def attach_to_actor(self, actor, name):
         if actor.suggestions_table is None:
-            logger.info("%s has no suggestions_table", actor)
+            # logger.info("%s has no suggestions_table", actor)
             return  # don't attach
         if isinstance(actor.suggestions_table, basestring):
             T = rt.modules.resolve(actor.suggestions_table)
@@ -67,21 +68,21 @@ class ShowSuggestions(dd.Action):
         ar.set_response(eval_js=js)
 
 
-class Grouper(FinancialVoucher):
-    """An internal journal entry used to group a series of matches.
+# class Grouper(FinancialVoucher):
+#     """An internal journal entry used to group a series of matches.
 
-    There are two types of groupers: *partner* groupers and *general
-    account* groupers.
+#     There are two types of groupers: *partner* groupers and *general
+#     account* groupers.
 
-    """
-    class Meta:
-        app_label = 'finan'
-        abstract = dd.is_abstract_model(__name__, 'Grouper')
-        verbose_name = _("Grouper")
-        verbose_name_plural = _("Groupers")
+#     """
+#     class Meta:
+#         app_label = 'finan'
+#         abstract = dd.is_abstract_model(__name__, 'Grouper')
+#         verbose_name = _("Grouper")
+#         verbose_name_plural = _("Groupers")
 
-    partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
-    # account = dd.ForeignKey('accounts.Account', blank=True, null=True)
+#     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
+#     # account = dd.ForeignKey('accounts.Account', blank=True, null=True)
 
 
 class JournalEntry(FinancialVoucher):
@@ -172,9 +173,9 @@ class BankStatement(FinancialVoucher):
         yield self.create_movement(a, None, not self.journal.dc, amount)
 
 
-class GrouperItem(FinancialVoucherItem):
-    """An item of a :class:`Grouper`."""
-    voucher = dd.ForeignKey('finan.Grouper', related_name='items')
+# class GrouperItem(FinancialVoucherItem):
+#     """An item of a :class:`Grouper`."""
+#     voucher = dd.ForeignKey('finan.Grouper', related_name='items')
 
 
 class JournalEntryItem(FinancialVoucherItem):
@@ -234,11 +235,11 @@ class BankStatementDetail(JournalEntryDetail):
     """, label=_("General"))
 
 
-class GrouperDetail(JournalEntryDetail):
-    general = dd.Panel("""
-    date partner user workflow_buttons
-    finan.ItemsByGrouper
-    """, label=_("General"))
+# class GrouperDetail(JournalEntryDetail):
+#     general = dd.Panel("""
+#     date partner user workflow_buttons
+#     finan.ItemsByGrouper
+#     """, label=_("General"))
 
 
 class FinancialVouchers(dd.Table):
@@ -290,15 +291,15 @@ class PaymentOrders(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
 
 
-class Groupers(FinancialVouchers):
-    """The table of all :class:`Grouper` vouchers."""
-    model = 'finan.Grouper'
-    column_names = "date id number partner user workflow_buttons"
-    detail_layout = GrouperDetail()
-    insert_layout = """
-    date user
-    partner
-    """
+# class Groupers(FinancialVouchers):
+#     """The table of all :class:`Grouper` vouchers."""
+#     model = 'finan.Grouper'
+#     column_names = "date id number partner user workflow_buttons"
+#     detail_layout = GrouperDetail()
+#     insert_layout = """
+#     date user
+#     partner
+#     """
 
 
 class BankStatements(FinancialVouchers):
@@ -326,8 +327,8 @@ class BankStatementsByJournal(ledger.ByJournal, BankStatements):
     pass
 
 
-class GroupersByJournal(ledger.ByJournal, Groupers):
-    pass
+# class GroupersByJournal(ledger.ByJournal, Groupers):
+#     pass
 
 
 class ItemsByVoucher(dd.Table):
@@ -336,6 +337,8 @@ class ItemsByVoucher(dd.Table):
     master_key = 'voucher'
     auto_fit_column_widths = True
     # hidden_columns = 'id amount dc seqno'
+    suggest = ShowSuggestions()
+    suggestions_table = None  # 'finan.SuggestionsByJournalEntry'
 
 
 class ItemsByJournalEntry(ItemsByVoucher):
@@ -345,20 +348,24 @@ class ItemsByJournalEntry(ItemsByVoucher):
 
 class ItemsByBankStatement(ItemsByVoucher):
     model = 'finan.BankStatementItem'
-    column_names = "date partner account match remark debit credit seqno *"
+    column_names = "date partner account match remark debit credit "\
+                   "workflow_buttons seqno *"
+    suggestions_table = 'finan.SuggestionsByBankStatementItem'
 
 
 class ItemsByPaymentOrder(ItemsByVoucher):
     model = 'finan.PaymentOrderItem'
-    column_names = "seqno partner bank_account match amount remark *"
+    column_names = "seqno partner workflow_buttons bank_account match "\
+                   "amount remark *"
+    suggestions_table = 'finan.SuggestionsByPaymentOrderItem'
 
 
-class ItemsByGrouper(ItemsByVoucher):
-    model = 'finan.GrouperItem'
-    column_names = "seqno partner match amount remark *"
+# class ItemsByGrouper(ItemsByVoucher):
+#     model = 'finan.GrouperItem'
+#     column_names = "seqno partner match amount remark *"
 
 
-class FillSuggestions(dd.Action):
+class FillSuggestionsToVoucher(dd.Action):
     """Fill selected suggestions from a SuggestionsByVoucher table into a
     financial voucher.
 
@@ -375,6 +382,42 @@ class FillSuggestions(dd.Action):
         seqno = None
         n = 0
         for obj in ar.selected_rows:
+            i = voucher.add_item_from_due(obj, seqno=seqno)
+            if i is not None:
+                # dd.logger.info("20151117 gonna full_clean %s", obj2str(i))
+                i.full_clean()
+                # dd.logger.info("20151117 gonna save %s", obj2str(i))
+                i.save()
+                # dd.logger.info("20151117 ok")
+                seqno = i.seqno + 1
+                n += 1
+
+        msg = _("%d items have been added to %s.") % (n, voucher)
+        logger.info(msg)
+        kw.update(close_window=True)
+        ar.success(msg, **kw)
+
+
+class FillSuggestionsToVoucherItem(FillSuggestionsToVoucher):
+
+    def run_from_ui(self, ar, **kw):
+        i = ar.master_instance
+        voucher = i.voucher
+        obj = ar.selected_rows[0]
+        i.account = obj.account
+        i.dc = not obj.dc
+        i.amount = obj.balance
+        i.partner = obj.partner
+        i.match = obj.match
+        if i.amount < 0:
+            i.amount = - i.amount
+            i.dc = not i.dc
+        i.full_clean()
+        i.save()
+
+        seqno = i.seqno
+        n = 0
+        for obj in ar.selected_rows[1:]:
             i = voucher.add_item_from_due(obj, seqno=seqno)
             if i is not None:
                 # dd.logger.info("20151117 gonna full_clean %s", obj2str(i))
@@ -416,7 +459,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     auto_fit_column_widths = True
     cell_edit = False
 
-    do_fill = FillSuggestions()
+    do_fill = FillSuggestionsToVoucher()
 
     @classmethod
     def get_dc(cls, ar=None):
@@ -429,12 +472,11 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
 
     @classmethod
     def param_defaults(cls, ar, **kw):
-        voucher = ar.master_instance
         kw = super(SuggestionsByVoucher, cls).param_defaults(ar, **kw)
-        #~ kw = super(MyEvents,self).param_defaults(ar,**kw)
+        voucher = ar.master_instance
         kw.update(for_journal=voucher.journal)
         kw.update(date_until=voucher.date)
-        #~ kw.update(trade_type=vat.TradeTypes.purchases)
+        # kw.update(trade_type=vat.TradeTypes.purchases)
         return kw
 
     @classmethod
@@ -461,11 +503,11 @@ class SuggestionsByPaymentOrder(SuggestionsByVoucher):
     def param_defaults(cls, ar, **kw):
         kw = super(SuggestionsByPaymentOrder, cls).param_defaults(ar, **kw)
         voucher = ar.master_instance
-        #~ kw.update(journal=voucher.journal)
+        # kw.update(journal=voucher.journal)
         kw.update(date_until=voucher.execution_date or voucher.date)
         if voucher.journal.trade_type is not None:
             kw.update(trade_type=voucher.journal.trade_type)
-        #~ kw.update(trade_type=vat.TradeTypes.purchases)
+        # kw.update(trade_type=vat.TradeTypes.purchases)
         return kw
 
 
@@ -474,9 +516,50 @@ class SuggestionsByBankStatement(SuggestionsByVoucher):
     master = 'finan.BankStatement'
 
 
+class SuggestionsByVoucherItem(SuggestionsByVoucher):
+
+    do_fill = FillSuggestionsToVoucherItem()
+
+    @classmethod
+    def get_dc(cls, ar=None):
+        if ar is None:
+            return None
+        item = ar.master_instance
+        if item is None:
+            return None
+        return item.voucher.journal.dc
+
+    @classmethod
+    def param_defaults(cls, ar, **kw):
+        # Note that we skip immeditate parent
+        kw = super(SuggestionsByVoucher, cls).param_defaults(ar, **kw)
+        item = ar.master_instance
+        voucher = item.voucher
+        kw.update(for_journal=voucher.journal)
+        kw.update(date_until=voucher.date)
+        kw.update(partner=item.partner)
+        return kw
+
+
+class SuggestionsByBankStatementItem(SuggestionsByVoucherItem):
+    """A :class:`SuggestionsByVoucherItem` table for a
+    :class:`BankStatementItem`.
+
+    """
+    master = 'finan.BankStatementItem'
+
+
+class SuggestionsByPaymentOrderItem(SuggestionsByVoucherItem):
+    """A :class:`SuggestionsByVoucherItem` table for a
+    :class:`PaymentOrderItem`.
+
+    """
+    master = 'finan.PaymentOrderItem'
+
+
 # Declare the voucher types:
 
 VoucherTypes.add_item(JournalEntry, JournalEntriesByJournal)
 VoucherTypes.add_item(PaymentOrder, PaymentOrdersByJournal)
 VoucherTypes.add_item(BankStatement, BankStatementsByJournal)
-VoucherTypes.add_item(Grouper, GroupersByJournal)
+# VoucherTypes.add_item(Grouper, GroupersByJournal)

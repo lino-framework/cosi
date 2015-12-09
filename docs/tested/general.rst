@@ -46,7 +46,7 @@ Rolf is the local system administrator, he has a complete menu:
   - SEPA : Konten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, MwSt.-Erklärungen
-  - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge, Groupers
+  - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
   - Verkauf : invoice items
 - Site : Info
 

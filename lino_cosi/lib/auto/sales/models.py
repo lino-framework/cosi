@@ -19,8 +19,6 @@
 """
 Database models for `lino_cosi.lib.auto.sales`.
 
-.. autosummary::
-
 """
 
 from __future__ import unicode_literals
