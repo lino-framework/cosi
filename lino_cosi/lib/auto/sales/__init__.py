@@ -17,7 +17,8 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""
+"""Extends :mod:`lino_cosi.lib.sales` to add functionality for
+automatically generating invoices.
 
 .. autosummary::
     :toctree:

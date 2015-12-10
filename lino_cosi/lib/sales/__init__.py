@@ -18,17 +18,19 @@
 
 """Functionality for writing sales invoices.
 
-It is implemented by :mod:`lino_cosi.lib.sales` (basic functionality) or
-:mod:`lino_cosi.lib.auto.sales` (adds common definitions for automatic
-generation of invoices).
+This module is extended by :mod:`lino_cosi.lib.auto.sales` which adds
+common definitions for automatic generation of invoices.
+
+When writing sales invoices it is recommended to also use
+:mod:`lino_cosi.lib.vat` (and not :mod:`lino_cosi.lib.vatless`) even
+when the site owner is not subject to VAT. You can hide the VAT fields
+and define a VAT rate of 0 for everything.
 
 .. autosummary::
     :toctree:
 
     models
     fixtures.demo
-
-
 
 """
 
@@ -40,6 +42,8 @@ class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
 
     verbose_name = _("Sales")
+
+    needs_plugins = ['lino.modlib.products', 'lino_cosi.lib.vat']
 
     def setup_explorer_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
