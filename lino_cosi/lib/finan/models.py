@@ -27,8 +27,10 @@ from django.db import models
 
 from lino_cosi.lib.accounts.utils import ZERO, DEBIT, CREDIT
 from lino_cosi.lib.ledger.fields import DcAmountField
-from lino_cosi.lib.ledger.choicelists import VoucherTypes
+from lino_cosi.lib.ledger.choicelists import VoucherTypes, TradeTypes
 from lino_cosi.lib.ledger.roles import LedgerStaff
+from lino_cosi.lib.ledger.mixins import ProjectRelated
+
 from lino.api import dd, rt, _
 
 from .mixins import FinancialVoucher, FinancialVoucherItem
@@ -85,7 +87,7 @@ class ShowSuggestions(dd.Action):
 #     # account = dd.ForeignKey('accounts.Account', blank=True, null=True)
 
 
-class JournalEntry(FinancialVoucher):
+class JournalEntry(FinancialVoucher, ProjectRelated):
     """This is the model for "journal entries" ("operations diverses").
 
     """
@@ -112,6 +114,7 @@ class PaymentOrder(FinancialVoucher):
         _("Execution date"), blank=True, null=True)
 
     def get_wanted_movements(self):
+        # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         a = self.journal.account
         if not a:
             raise Exception("No account in %s" % self.journal)
@@ -163,6 +166,7 @@ class BankStatement(FinancialVoucher):
                 self.balance1 = prev.balance2
 
     def get_wanted_movements(self):
+        # dd.logger.info("20151211 cosi.BankStatement.get_wanted_movements()")
         a = self.journal.account
         if not a:
             raise Exception("No account in %s" % self.journal)
@@ -180,6 +184,8 @@ class BankStatement(FinancialVoucher):
 
 class JournalEntryItem(FinancialVoucherItem):
     """An item of a :class:`JournalEntry`."""
+    class Meta:
+        app_label = 'finan'
     voucher = dd.ForeignKey('finan.JournalEntry', related_name='items')
     date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Debit"))
@@ -188,6 +194,8 @@ class JournalEntryItem(FinancialVoucherItem):
 
 class BankStatementItem(FinancialVoucherItem):
     """An item of a :class:`BankStatement`."""
+    class Meta:
+        app_label = 'finan'
     voucher = dd.ForeignKey('finan.BankStatement', related_name='items')
     date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Income"))
@@ -196,8 +204,10 @@ class BankStatementItem(FinancialVoucherItem):
 
 class PaymentOrderItem(FinancialVoucherItem):
     """An item of a :class:`PaymentOrder`."""
+    class Meta:
+        app_label = 'finan'
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
-    bank_account = dd.ForeignKey('sepa.Account', blank=True)
+    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     # def full_clean(self, *args, **kwargs):
         
@@ -278,15 +288,30 @@ class FinancialVouchers(dd.Table):
                 qs = qs.filter(journal=ar.param_values.pjournal)
         return qs
 
+    @classmethod
+    def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
+        vt = VoucherTypes.get_for_table(cls)
+        if isinstance(trade_type, basestring):
+            trade_type = TradeTypes.get_by_name(trade_type)
+        if isinstance(account, basestring):
+            account = chart.get_account_by_ref(account)
+            #~ account = account.Account.objects.get(chart=chart,ref=account)
+        kw.update(chart=chart)
+        if account is not None:
+            kw.update(account=account)
+        return ledger.Journal(trade_type=trade_type, voucher_type=vt, **kw)
+
+
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
+    column_names = "date id number state user *"
 
 
 class PaymentOrders(FinancialVouchers):
     """The table of all :class:`PaymentOrder` vouchers."""
     model = 'finan.PaymentOrder'
-    column_names = "date id number user *"
+    column_names = "date id number state user *"
     detail_layout = PaymentOrderDetail()
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
 
@@ -305,7 +330,7 @@ class PaymentOrders(FinancialVouchers):
 class BankStatements(FinancialVouchers):
     """The table of all :class:`BankStatement` vouchers."""
     model = 'finan.BankStatement'
-    column_names = "date id number balance1 balance2 user *"
+    column_names = "date id number balance1 balance2 state user *"
     detail_layout = BankStatementDetail()
     insert_layout = """
     date user

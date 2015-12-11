@@ -80,12 +80,14 @@ class FinancialVoucher(ledger.Voucher):
         return i
 
     def get_wanted_movements(self):
+        # dd.logger.info("20151211 FinancialVoucher.get_wanted_movements()")
         amount, movements = self.get_finan_movements()
         if amount:
             raise Exception("Missing amount %s in movements" % amount)
         return movements
 
     def get_finan_movements(self):
+        # dd.logger.info("20151211 get_finan_movements()")
         amount = ZERO
         mvts = []
         for i in self.items.all():
@@ -222,6 +224,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.dc = match.dc
         self.amount = - match.balance
         self.match = match.match
+        self.project = match.project
 
     def set_grouper(self, suggestions):
         # not tested
