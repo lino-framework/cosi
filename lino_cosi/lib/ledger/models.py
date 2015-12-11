@@ -60,7 +60,7 @@ from lino_cosi.lib.accounts.fields import DebitOrCreditField
 from .utils import get_due_movements
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
                           JournalGroups, TradeTypes)
-from .mixins import PartnerRelated, ProjectRelated, VoucherNumber, JournalRef
+from .mixins import ProjectRelated, VoucherNumber, JournalRef
 from .mixins import FKMATCH
 from .ui import *
 
@@ -355,15 +355,12 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     @classmethod
     def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
-    #~ def create_journal(cls,jnl_id,trade_type,**kw):
-        #~ doctype = get_doctype(cls)
-        #~ jnl = Journal(doctype=doctype,id=jnl_id,*args,**kw)
+        vt = VoucherTypes.get_for_model(cls)
         if isinstance(trade_type, basestring):
             trade_type = TradeTypes.get_by_name(trade_type)
         if isinstance(account, basestring):
             account = chart.get_account_by_ref(account)
             #~ account = account.Account.objects.get(chart=chart,ref=account)
-        vt = VoucherTypes.get_by_value(dd.full_model_name(cls))
         kw.update(chart=chart)
         if account is not None:
             kw.update(account=account)
@@ -396,17 +393,23 @@ class Voucher(UserAuthored, mixins.Registrable):
         """
         Delete any existing movements and re-create them
         """
+        # dd.logger.info("20151211 cosi.Voucher.register_voucher()")
         self.year = FiscalYears.from_date(self.date)
         if self.number is None:
             self.number = self.journal.get_next_number(self)
         assert self.number is not None
+        # dd.logger.info("20151211 movement_set.all().delete()")
         self.movement_set.all().delete()
         seqno = 0
-        for m in self.get_wanted_movements():
+        # dd.logger.info("20151211 gonna call get_wanted_movements()")
+        movements = list(self.get_wanted_movements())
+        # dd.logger.info("20151211 gonna save %d movements", len(movements))
+        for m in movements:
             seqno += 1
             m.seqno = seqno
             m.full_clean()
             m.save()
+        # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
 
     def deregister_voucher(self, ar):
         self.number = None
@@ -427,6 +430,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         raise NotImplementedError()
 
     def create_movement(self, account, project, dc, amount, **kw):
+        # dd.logger.info("20151211 ledger.create_movement()")
         assert isinstance(account, rt.modules.accounts.Account)
         kw['voucher'] = self
         kw['account'] = account
@@ -439,7 +443,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         kw['amount'] = amount
         kw['dc'] = dc
 
-        b = Movement(**kw)
+        b = rt.modules.ledger.Movement(**kw)
         return b
 
     #~ def get_row_permission(self,ar,state,ba):

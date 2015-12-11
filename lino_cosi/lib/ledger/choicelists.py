@@ -111,7 +111,8 @@ class VoucherType(dd.Choice):
         self.table_class = table_class
         model = dd.resolve_model(model)
         self.model = model
-        value = dd.full_model_name(model)
+        # value = dd.full_model_name(model)
+        value = str(table_class)
         # text = model._meta.verbose_name + ' (%s)' % dd.full_model_name(model)
         # text = model._meta.verbose_name + ' (%s.%s)' % (
         text = string_concat(model._meta.verbose_name, " (", value, ")")
@@ -146,8 +147,16 @@ class VoucherTypes(dd.ChoiceList):
         Return the :class:`VoucherType` for the given model.
         """
         for o in self.objects():
-            # ~ o.model = dd.resolve_model(o.model) # TODO: resolve only once
-            if o.model is model:
+            if issubclass(o.model, model):
+                return o
+
+    @classmethod
+    def get_for_table(self, table_class):
+        """
+        Return the :class:`VoucherType` for the given table.
+        """
+        for o in self.objects():
+            if issubclass(o.table_class, table_class):
                 return o
 
     @classmethod

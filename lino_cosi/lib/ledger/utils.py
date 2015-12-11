@@ -84,6 +84,7 @@ class DueMovement(object):
         self.partner = mvt.partner
         self.account = mvt.account
         self.match = mvt.match
+        self.project = mvt.project
         self.pk = self.id = mvt.id
 
         self.debts = []
@@ -97,8 +98,11 @@ class DueMovement(object):
 
         # self.collect(mvt)
 
-        qs = rt.modules.ledger.Movement.objects.filter(
-            partner=self.partner, account=self.account, match=self.match)
+        flt = dict(partner=self.partner, account=self.account,
+                   match=self.match)
+        if self.project:
+            flt.update(project=self.project)
+        qs = rt.modules.ledger.Movement.objects.filter(**flt)
         for mvt in qs.order_by('voucher__date'):
             self.collect(mvt)
 
