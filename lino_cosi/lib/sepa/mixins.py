@@ -29,6 +29,7 @@ from django.core.exceptions import ValidationError
 
 from lino.api import dd, rt, _
 
+from lino.utils import SumCollector
 from lino_cosi.lib.ledger.mixins import PartnerRelated
 
 
@@ -94,4 +95,27 @@ class Payable(PartnerRelated):
     def bank_account_choices(cls, partner):
         return rt.modules.sepa.Account.objects.filter(
             partner=partner).order_by('iban')
+
+    def get_payable_sums_dict(self):
+        raise NotImplemented()
+
+    def get_wanted_movements(self):
+        item_sums = self.get_payable_sums_dict()
+        # logger.info("20120901 get_wanted_movements %s", sums_dict)
+        counter_sums = SumCollector()
+        for k, amount in item_sums.items():
+            acc, prj = k
+            yield self.create_movement(acc, None, not self.journal.dc, amount)
+            counter_sums.collect(prj, amount)
+
+        acc = self.get_trade_type().get_partner_account()
+        if acc is None:
+            if len(counter_sums.items()):
+                raise Exception("Could not find partner account")
+        else:
+            for prj, amount in counter_sums.items():
+                yield self.create_movement(
+                    acc, prj, self.journal.dc, amount,
+                    partner=self.partner,
+                    match=self.match or self.get_default_match())
 

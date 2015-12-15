@@ -31,10 +31,10 @@ from decimal import Decimal, ROUND_HALF_UP
 
 from django.conf import settings
 
+from lino.utils import SumCollector
 from lino.api import dd, rt, _
 
-from lino_cosi.lib.ledger.mixins import (
-    PartnerRelated, ProjectRelated, VoucherItem)
+from lino_cosi.lib.ledger.mixins import ProjectRelated, VoucherItem
 
 from .utils import ZERO, ONE
 from .choicelists import VatClasses, VatRegimes
@@ -207,7 +207,6 @@ class VatTotal(dd.Model):
             self.total_vat = myround(self.total_incl - self.total_base)
 
 
-# class VatDocument(PartnerRelated, ProjectRelated, VatTotal):
 class VatDocument(ProjectRelated, VatTotal):
     """Abstract base class for invoices, offers and other vouchers.
 
@@ -272,15 +271,8 @@ class VatDocument(ProjectRelated, VatTotal):
         self.total_vat = vat
         self.total_incl = vat + base
 
-    def get_sums_dict(self):
-        sums_dict = dict()
-
-        def book(account, amount):
-            if account in sums_dict:
-                sums_dict[account] += amount
-            else:
-                sums_dict[account] = amount
-        #~ if self.journal.type == JournalTypes.purchases:
+    def get_payable_sums_dict(self):
+        sums = SumCollector()
         tt = self.get_trade_type()
         vat_account = tt.get_vat_account()
         if vat_account is None:
@@ -292,26 +284,11 @@ class VatDocument(ProjectRelated, VatTotal):
                     raise Exception(
                         "No base account for %s (total_base is %r)" % (
                             i, i.total_base))
-                book(b, i.total_base)
+                sums.collect((b, i.project or self.project), i.total_base)
             if i.total_vat:
-                book(vat_account, i.total_vat)
-        return sums_dict
-
-    def get_wanted_movements(self):
-        sums_dict = self.get_sums_dict()
-        #~ logger.info("20120901 get_wanted_movements %s",sums_dict)
-        sum = Decimal()
-        for a, m in sums_dict.items():
-            if m:
-                m = myround(m)
-                yield self.create_movement(a, None, not self.journal.dc, m)
-                sum += m
-
-        a = self.get_trade_type().get_partner_account()
-        if a is not None:
-            yield self.create_movement(
-                a, None, self.journal.dc, sum, partner=self.partner,
-                match=self.get_voucher_match())
+                sums.collect(
+                    (vat_account, i.project or self.project), i.total_vat)
+        return sums
 
     def fill_defaults(self):
         super(VatDocument, self).fill_defaults()

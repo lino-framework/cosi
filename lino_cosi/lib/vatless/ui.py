@@ -48,19 +48,35 @@ class ItemsByInvoice(InvoiceItems):
     order_by = ["seqno"]
 
 
+class ItemsByProjectInvoice(ItemsByInvoice):
+    """Like :class:`ItemsByInvoice`, but in a project invoice we don't
+    want to have a project column per item.
+
+    """
+    column_names = "account amount title"
+
+
 class InvoiceDetail(dd.FormLayout):
     main = "general ledger"
 
     general = dd.Panel("""
-    id date partner user
-    due_date your_ref bank_account workflow_buttons amount
+    id date partner bank_account
+    due_date your_ref user workflow_buttons amount
     ItemsByInvoice
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    journal year number narration state
+    journal year number narration match state
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
+
+
+class ProjectInvoiceDetail(InvoiceDetail):
+    general = dd.Panel("""
+    id date project partner bank_account
+    due_date your_ref user workflow_buttons amount
+    ItemsByProjectInvoice
+    """, label=_("General"))
 
 
 class Invoices(PartnerVouchers):
@@ -104,14 +120,26 @@ class InvoicesByJournal(ByJournal, Invoices):
     params_layout = "partner state year"
     column_names = "number date " \
         "partner amount due_date user workflow_buttons *"
-                  #~ "ledger_remark:10 " \
     insert_layout = """
     partner
     date amount
     """
     order_by = ["-number"]
 
+
+class ProjectInvoicesByJournal(InvoicesByJournal):
+    column_names = "number date " \
+        "project partner amount due_date user workflow_buttons *"
+    insert_layout = """
+    project
+    partner
+    date amount
+    """
+    detail_layout = ProjectInvoiceDetail()
+    
+
 VoucherTypes.add_item(AccountInvoice, InvoicesByJournal)
+VoucherTypes.add_item(AccountInvoice, ProjectInvoicesByJournal)
 
 
 class VouchersByPartner(dd.VirtualTable):
@@ -180,11 +208,10 @@ class VouchersByPartner(dd.VirtualTable):
             if vc and vc.state.name == "draft":
                 elems += [ar.obj2html(vc), " "]
 
-        vtypes = set()
-        for m in rt.models_by_base(PartnerRelated):
-            vt = VoucherTypes.get_by_value(dd.full_model_name(m))
-            if vt is not None:
-                vtypes.add(vt)
+        vtypes = []
+        for vt in VoucherTypes.items():
+            if issubclass(vt.model, PartnerRelated):
+                vtypes.append(vt)
 
         actions = []
 
@@ -201,11 +228,12 @@ class VouchersByPartner(dd.VirtualTable):
                     sar = vt.table_class.insert_action.request_from(
                         ar, master_instance=jnl,
                         known_values=flt)
-                    actions.append(
-                        sar.ar2button(label=unicode(jnl), icon_name=None))
-                    actions.append(' ')
+                    btn = sar.ar2button(label=unicode(jnl), icon_name=None)
+                    if len(actions):
+                        actions.append(', ')
+                    actions.append(btn)
 
-            elems += [E.br(), _("Create voucher in journal ")] + actions
+            elems += [E.br(), _("Create voucher in journal"), " "] + actions
         return E.div(*elems)
 
 

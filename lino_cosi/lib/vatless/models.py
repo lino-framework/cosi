@@ -34,6 +34,8 @@ from django.db import models
 
 from lino.api import dd, _
 
+from lino.utils import SumCollector
+
 from lino_cosi.lib.ledger.mixins import (
     ProjectRelated,  # PartnerRelated,
     AccountVoucherItem, Matching)
@@ -46,8 +48,7 @@ TradeTypes.purchases.update(
     partner_account_field_label=_("Suppliers account"))
 
 
-#class AccountInvoice(PartnerRelated, Payable, Voucher, Matching):
-class AccountInvoice(Payable, Voucher, Matching):
+class AccountInvoice(Payable, Voucher, Matching, ProjectRelated):
 
     class Meta:
         verbose_name = _("Invoice")
@@ -64,16 +65,9 @@ class AccountInvoice(Payable, Voucher, Matching):
                 base += i.amount
         self.amount = base
 
-    def get_sums_dict(self):
-        sums_dict = dict()
-
-        def book(account, prj, amount):
-            k = (account, prj)
-            if k in sums_dict:
-                sums_dict[k] += amount
-            else:
-                sums_dict[k] = amount
+    def get_payable_sums_dict(self):
         tt = self.get_trade_type()
+        sums = SumCollector()
         for i in self.items.order_by('seqno'):
             if i.amount:
                 b = i.get_base_account(tt)
@@ -81,25 +75,8 @@ class AccountInvoice(Payable, Voucher, Matching):
                     raise Exception(
                         "No base account for %s (amount is %r)" % (
                             i, i.amount))
-                book(b, i.project, i.amount)
-        return sums_dict
-
-    def get_wanted_movements(self):
-        sums_dict = self.get_sums_dict()
-        #~ logger.info("20120901 get_wanted_movements %s",sums_dict)
-        sum = Decimal()
-        for k, m in sums_dict.items():
-            a, prj = k
-            if m:
-                yield self.create_movement(a, prj, not self.journal.dc, m)
-                sum += m
-
-        a = self.get_trade_type().get_partner_account()
-        if a is not None:
-            yield self.create_movement(
-                a, None, self.journal.dc, sum,
-                partner=self.partner,
-                match=self.match)
+                sums.collect((b, i.project or self.project), i.amount)
+        return sums
 
     def full_clean(self, *args, **kw):
         self.compute_totals()

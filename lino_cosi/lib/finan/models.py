@@ -27,7 +27,7 @@ from django.db import models
 
 from lino_cosi.lib.accounts.utils import ZERO, DEBIT, CREDIT
 from lino_cosi.lib.ledger.fields import DcAmountField
-from lino_cosi.lib.ledger.choicelists import VoucherTypes, TradeTypes
+from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from lino_cosi.lib.ledger.mixins import ProjectRelated
 
@@ -45,6 +45,7 @@ class ShowSuggestions(dd.Action):
     TABLE2ACTION_ATTRS = tuple('help_text label sort_index'.split())
     show_in_bbar = False
     show_in_workflow = True
+    readonly = False
 
     @classmethod
     def get_actor_label(self):
@@ -62,6 +63,11 @@ class ShowSuggestions(dd.Action):
         for k in self.TABLE2ACTION_ATTRS:
             setattr(self, k, getattr(actor.suggestions_table, k))
         return super(ShowSuggestions, self).attach_to_actor(actor, name)
+
+    # def get_action_permission(self, ar, obj, state):
+        
+    #     return super(ShowSuggestions, self).get_action_permission(
+    #         ar, obj, state)
 
     def run_from_ui(self, ar, **kw):
         obj = ar.selected_rows[0]
@@ -288,20 +294,6 @@ class FinancialVouchers(dd.Table):
                 qs = qs.filter(journal=ar.param_values.pjournal)
         return qs
 
-    @classmethod
-    def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
-        vt = VoucherTypes.get_for_table(cls)
-        if isinstance(trade_type, basestring):
-            trade_type = TradeTypes.get_by_name(trade_type)
-        if isinstance(account, basestring):
-            account = chart.get_account_by_ref(account)
-            #~ account = account.Account.objects.get(chart=chart,ref=account)
-        kw.update(chart=chart)
-        if account is not None:
-            kw.update(account=account)
-        return ledger.Journal(trade_type=trade_type, voucher_type=vt, **kw)
-
-
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
@@ -477,7 +469,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     """
 
     label = _("Suggestions")
-    column_names = 'partner match account due_date debts payments balance *'
+    column_names = 'partner project match account due_date debts payments balance *'
     window_size = (70, 20)  # (width, height)
 
     editable = False

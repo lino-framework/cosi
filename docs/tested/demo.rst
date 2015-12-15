@@ -67,8 +67,6 @@ The test database
 - excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
 - finan.BankStatement : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.Grouper : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner
-- finan.GrouperItem : id, seqno, match, amount, dc, remark, account, partner, voucher
 - finan.JournalEntry : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
 - finan.PaymentOrder : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, total, execution_date
@@ -104,7 +102,7 @@ The test database
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 32 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, appypod, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, tinymce, vat, declarations, finan, sales, cal, courses, vatless.
-64 models:
+62 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -127,7 +125,7 @@ The test database
  contacts.Person             contacts.Persons               29        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             2         5
- contenttypes.ContentType    gfks.ContentTypes              3         65
+ contenttypes.ContentType    gfks.ContentTypes              3         63
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                28        0
@@ -140,8 +138,6 @@ The test database
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
  finan.BankStatement         finan.BankStatements           12        3
  finan.BankStatementItem     finan.BankStatementItemTable   10        10
- finan.Grouper               finan.Groupers                 11        0
- finan.GrouperItem           finan.GrouperItemTable         9         0
  finan.JournalEntry          finan.FinancialVouchers        10        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
  finan.PaymentOrder          finan.PaymentOrders            12        3

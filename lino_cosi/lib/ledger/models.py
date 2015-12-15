@@ -57,7 +57,7 @@ from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.choicelists import AccountTypes, AccountCharts
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 
-from .utils import get_due_movements
+from .utils import get_due_movements, check_clearings
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
                           JournalGroups, TradeTypes)
 from .mixins import ProjectRelated, VoucherNumber, JournalRef
@@ -342,9 +342,14 @@ class Voucher(UserAuthored, mixins.Registrable):
     def get_trade_type(self):
         return self.journal.trade_type
 
+    def get_partner(self):
+        """Raturn the partner related to this voucher. Overridden by
+        PartnerRelated vouchers."""
+        return None
+
     @classmethod
     def get_journals(cls):
-        vt = VoucherTypes.get_by_value(dd.full_model_name(cls))
+        vt = VoucherTypes.get_for_model(cls)
         #~ doctype = get_doctype(cls)
         return Journal.objects.filter(voucher_type=vt).order_by('seqno')
 
@@ -399,7 +404,12 @@ class Voucher(UserAuthored, mixins.Registrable):
             self.number = self.journal.get_next_number(self)
         assert self.number is not None
         # dd.logger.info("20151211 movement_set.all().delete()")
-        self.movement_set.all().delete()
+        existing_mvts = self.movement_set.all()
+        partners = set()
+        if self.journal.auto_check_clearings:
+            for m in existing_mvts.filter(partner__isnull=False):
+                partners.add(m.partner)
+        existing_mvts.delete()
         seqno = 0
         # dd.logger.info("20151211 gonna call get_wanted_movements()")
         movements = list(self.get_wanted_movements())
@@ -409,12 +419,16 @@ class Voucher(UserAuthored, mixins.Registrable):
             m.seqno = seqno
             m.full_clean()
             m.save()
+            if m.partner:
+                partners.add(m.partner)
+        if self.journal.auto_check_clearings:
+            for p in partners:
+                check_clearings(p)
         # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
 
     def deregister_voucher(self, ar):
         self.number = None
         self.movement_set.all().delete()
-        #~ super(Voucher,self).deregister(ar)
 
     def disable_delete(self, ar=None):
         msg = self.journal.disable_voucher_delete(self)
@@ -530,6 +544,13 @@ class Movement(ProjectRelated):
 
         Whether
 
+    .. attribute:: voucher_partner
+
+        A virtual field which returns the *partner of the voucher*.
+        For incoming invoices this is the supplier, for outgoing
+        invoices this is the customer, for financial vouchers this is
+        empty.
+
     """
     allow_cascaded_delete = ['voucher']
 
@@ -610,6 +631,16 @@ class Movement(ProjectRelated):
             return ''
         #~ return self.voucher.get_mti_leaf().obj2html(ar)
         return ar.obj2html(self.voucher.get_mti_leaf())
+
+    @dd.displayfield(_("Voucher partner"))
+    def voucher_partner(self, ar):
+        if ar is None:
+            return ''
+        voucher = self.voucher.get_mti_leaf()
+        p = voucher.get_partner()
+        if p is None:
+            return ''
+        return ar.obj2html(p)
 
     #~ @dd.displayfield(_("Matched by"))
     #~ def matched_by(self,ar):
