@@ -18,12 +18,12 @@
 
 
 """
-Creates fictive demo bookings
+Creates fictive demo bookings:
 
 - monthly purchases (causing costs)
 - monthly sales
-- monthly payment orders and bank statements
 
+See also :mod:`lino_cosi.lib.finan.fixtures.demo_bookings`
 
 """
 
@@ -40,14 +40,12 @@ from decimal import Decimal
 
 from django.conf import settings
 from lino.utils import Cycler
-from lino.api import dd
+from lino.api import dd, rt
 
 from lino_cosi.lib.vat.mixins import myround
 
 vat = dd.resolve_app('vat')
 sales = dd.resolve_app('sales')
-ledger = dd.resolve_app('ledger')
-finan = dd.resolve_app('finan')
 
 partner_model = settings.SITE.partners_app_label + '.Partner'
 
@@ -60,6 +58,7 @@ MORE_THAN_A_MONTH = datetime.timedelta(days=40)
 
 def objects():
 
+    Journal = rt.modules.ledger.Journal
     Company = dd.resolve_model('contacts.Company')
     Person = dd.resolve_model('contacts.Person')
     Product = dd.resolve_model('products.Product')
@@ -72,7 +71,7 @@ def objects():
         # yield Product(name="Bar", sales_price='599.90')
         # yield Product(name="Baz", sales_price='990.00')
         PRODUCTS = Cycler(Product.objects.order_by('id'))
-        JOURNAL_S = ledger.Journal.objects.get(ref="SLS")
+        JOURNAL_S = Journal.objects.get(ref="SLS")
         CUSTOMERS = Cycler(Person.objects.filter(
             gender=dd.Genders.male).order_by('id'))
         assert Person.objects.count() > 0
@@ -85,7 +84,7 @@ def objects():
     PROVIDERS = Cycler(Company.objects.filter(
         sepa_accounts__iban__isnull=False).order_by('id'))
 
-    JOURNAL_P = ledger.Journal.objects.get(ref="PRC")
+    JOURNAL_P = Journal.objects.get(ref="PRC")
     #~ assert JOURNAL_P.dc == accounts.CREDIT
     ACCOUNTS = Cycler(JOURNAL_P.get_allowed_accounts())
     AMOUNTS = Cycler([Decimal(x) for x in
@@ -170,32 +169,5 @@ def objects():
             invoice.register(REQUEST)
             invoice.save()
 
-        if finan and (end_date - date) > MORE_THAN_A_MONTH:
-            # bank statements of last month are not yet entered into database
-            JOURNAL_PO = ledger.Journal.objects.get(ref="PMO")
-            po = JOURNAL_PO.create_voucher(
-                user=USERS.pop(),
-                date=date + delta(days=20))
-            yield po
-            suggestions = finan.SuggestionsByPaymentOrder.request(po)
-            ba = finan.SuggestionsByPaymentOrder.get_action_by_name('do_fill')
-            ar = ba.request(master_instance=po)
-            ar.selected_rows = [x for x in suggestions]
-            ar.run()
-            po.register(REQUEST)
-            po.save()
-
-            JOURNAL_BANK = ledger.Journal.objects.get(ref="BNK")
-            bs = JOURNAL_BANK.create_voucher(
-                user=USERS.pop(),
-                date=date + delta(days=28))
-            yield bs
-            suggestions = finan.SuggestionsByBankStatement.request(bs)
-            ba = suggestions.actor.get_action_by_name('do_fill')
-            ar = ba.request(master_instance=bs)
-            ar.selected_rows = [x for x in suggestions]
-            ar.run()
-            bs.register(REQUEST)
-            bs.save()
 
         date += delta(months=1)

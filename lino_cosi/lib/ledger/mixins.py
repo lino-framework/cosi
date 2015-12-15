@@ -97,6 +97,10 @@ class PartnerRelated(dd.Model):
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
         blank=True, null=True)
 
+    def get_partner(self):
+        """Overrides Voucher.get_partner"""
+        return self.partner
+
     def get_recipient(self):
         return self.partner
     recipient = property(get_recipient)
@@ -219,16 +223,12 @@ class VoucherItem(dd.Model):
     # title = models.CharField(_("Description"), max_length=200, blank=True)
 
     def get_row_permission(self, ar, state, ba):
+        """Items of registered invoices may not be edited
+
         """
-        Items of registered invoices may not be edited
-        """
-        #~ logger.info("VoucherItem.get_row_permission %s %s %s",self.voucher,state,ba)
         if not self.voucher.state.editable:
-            #~ if not ar.bound_action.action.readonly:
             if not ba.action.readonly:
                 return False
-        #~ if not self.voucher.get_row_permission(ar,self.voucher.state,ba):
-            #~ return False
         return super(VoucherItem, self).get_row_permission(ar, state, ba)
 
 

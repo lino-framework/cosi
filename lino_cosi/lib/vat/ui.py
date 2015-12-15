@@ -169,29 +169,31 @@ class VouchersByPartner(dd.VirtualTable):
         elems = []
         sar = self.request(master_instance=obj)
         # elems += ["Partner:", unicode(ar.master_instance)]
+
         for voucher in sar:
             vc = voucher.get_mti_leaf()
             if vc and vc.state.name == "draft":
                 elems += [ar.obj2html(vc), " "]
 
-        vtypes = set()
-        for m in rt.models_by_base(VatDocument):
-            vtypes.add(
-                VoucherTypes.get_by_value(dd.full_model_name(m)))
+        vtypes = []
+        for vt in VoucherTypes.items():
+            if issubclass(vt.model, VatDocument):
+                vtypes.append(vt)
 
         actions = []
 
-        for vt in vtypes:
-            for jnl in vt.get_journals():
-                sar = vt.table_class.insert_action.request_from(
-                    ar, master_instance=jnl,
-                    known_values=dict(partner=obj))
-                btn = sar.ar2button(label=unicode(jnl), icon_name=None)
-                if len(actions):
-                    actions.append(', ')
-                actions.append(btn)
+        if not ar.get_user().profile.readonly:
+            for vt in vtypes:
+                for jnl in vt.get_journals():
+                    sar = vt.table_class.insert_action.request_from(
+                        ar, master_instance=jnl,
+                        known_values=dict(partner=obj))
+                    btn = sar.ar2button(label=unicode(jnl), icon_name=None)
+                    if len(actions):
+                        actions.append(', ')
+                    actions.append(btn)
 
-        elems += [E.br(), _("Create voucher in journal "), " "] + actions
+        elems += [E.br(), _("Create voucher in journal"), " "] + actions
         return E.div(*elems)
 
 

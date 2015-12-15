@@ -25,10 +25,11 @@ Adds functionality for managing financial stuff.
     models
     choicelists
     mixins
+    fixtures.demo_bookings
 
 """
 
-from lino import ad, _
+from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):

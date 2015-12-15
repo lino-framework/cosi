@@ -17,14 +17,15 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Defines the :class:`DueMovement` class, a volatile object representing
-a group of matching movements.
+"""Utilities for `lino_cosi.lib.ledger`
 
 """
 
 from lino.api import rt, dd
 
-from lino_cosi.lib.accounts.utils import ZERO
+from lino.utils import SumCollector
+
+from lino_cosi.lib.accounts.utils import ZERO, DEBIT
 
 
 class Balance(object):
@@ -53,11 +54,12 @@ class Balance(object):
 
 
 class DueMovement(object):
-    """A **due movement** is a movement which a partner should do in
-    order to satisfy their debt.  Or which we should do in order to
-    satisfy our debt.
+    """
+    A volatile object representing a group of matching movements.
 
-    It represents a group of "matching" movements.
+    A **due movement** is a movement which a partner should do in
+    order to satisfy their debt.  Or which we should do in order to
+    satisfy our debt towards a partner.
 
     The "matching" movements of a given movement are those whose
     `match`, `partner` and `account` fields have the same values.
@@ -65,14 +67,14 @@ class DueMovement(object):
     These movements are themselves grouped into "debts" and "payments".
     A "debt" increases the debt and a "payment" decreases it.
     
+    .. attribute:: match
+
+        The common `match` string of these movments
+
     .. attribute:: dc
 
         Whether I mean *my* debts and payments (towards that partner)
         or those *of the partner* (towards me).
-
-    .. attribute:: match
-
-        The first :class:`Movement` object of the group.
 
     .. attribute:: partner
 
@@ -81,9 +83,9 @@ class DueMovement(object):
     """
     def __init__(self, dc, mvt):
         self.dc = dc
+        self.match = mvt.match
         self.partner = mvt.partner
         self.account = mvt.account
-        self.match = mvt.match
         self.project = mvt.project
         self.pk = self.id = mvt.id
 
@@ -98,13 +100,15 @@ class DueMovement(object):
 
         # self.collect(mvt)
 
-        flt = dict(partner=self.partner, account=self.account,
-                   match=self.match)
-        if self.project:
-            flt.update(project=self.project)
-        qs = rt.modules.ledger.Movement.objects.filter(**flt)
-        for mvt in qs.order_by('voucher__date'):
-            self.collect(mvt)
+        # flt = dict(partner=self.partner, account=self.account,
+        #            match=self.match)
+        # if self.project:
+        #     flt.update(project=self.project)
+        # else:
+        #     flt.update(project__isnull=True)
+        # qs = rt.modules.ledger.Movement.objects.filter(**flt)
+        # for mvt in qs.order_by('voucher__date'):
+        #     self.collect(mvt)
 
     def collect(self, mvt):
         """Add the given movement to the list of movements that are being
@@ -140,7 +144,7 @@ class DueMovement(object):
             self.payments.append(mvt)
             self.balance -= mvt.amount
 
-    def check_clearings(self):
+    def unused_check_clearings(self):
         """Check whether involved movements are cleared or not, and update
         their :attr:`satisfied` field accordingly.
 
@@ -162,6 +166,9 @@ def get_due_movements(dc, **flt):
     """Analyze the movements corresponding to the given filter condition
     `flt` and yield a series of :class:`DueMovement` objects which
     --if they were booked-- would satisfy the given movements.
+
+    This is the data source for :class:`ExpectedMovements
+    <lino_cosi.lib.ledger.ui.ExpectedMovements>` and subclasses.
     
     There will be at most one :class:`DueMovement` per (account,
     partner, match), each of them grouping the movements with same
@@ -189,10 +196,42 @@ def get_due_movements(dc, **flt):
     qs = rt.modules.ledger.Movement.objects.filter(**flt)
     qs = qs.order_by('voucher__date')
     matches_by_account = dict()
+    matches = []
     for mvt in qs:
-        k = (mvt.account, mvt.partner)
-        matches = matches_by_account.setdefault(k, set())
-        m = mvt.match or mvt
-        if m not in matches:
-            matches.add(m)
-            yield DueMovement(dc, mvt)
+        k = (mvt.account, mvt.partner, mvt.project, mvt.match)
+        dm = matches_by_account.get(k)
+        if dm is None:
+            dm = DueMovement(dc, mvt)
+            matches_by_account[k] = dm
+            matches.append(dm)
+        dm.collect(mvt)
+        # matches = matches_by_account.setdefault(k, set())
+        # m = mvt.match or mvt
+        # if m not in matches:
+        #     matches.add(m)
+        #     yield DueMovement(dc, mvt)
+    return matches
+
+
+def check_clearings(partner, matches=[]):
+    """Check whether involved movements are cleared or not, and update
+    their :attr:`satisfied` field accordingly.
+
+    """
+    qs = rt.modules.ledger.Movement.objects.filter(
+        partner=partner).order_by('match')
+    if len(matches):
+        qs = qs.filter(match__in=matches)
+    sums = SumCollector()
+    for mvt in qs:
+        k = (mvt.match, mvt.account)
+        if mvt.dc == DEBIT:
+            sums.collect(k, mvt.amount)
+        else:
+            sums.collect(k, - mvt.amount)
+
+    for k, balance in sums.items():
+        match, account = k
+        sat = (balance == ZERO)
+        qs.filter(account=account, match=match).update(satisfied=sat)
+

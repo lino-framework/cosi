@@ -24,7 +24,7 @@
 - :class:`DebtsByAccount` and :class:`DebtsByPartner` are two reports
   based on :class:`ExpectedMovements`
 
-- :class:`GeneralAccountsBalance`, :class:`ClientAccountsBalance` and
+- :class:`GeneralAccountsBalance`, :class:`CustomerAccountsBalance` and
   :class:`SupplierAccountsBalance` three reports based on
   :class:`AccountsBalance` and :class:`PartnerAccountsBalance`
 
@@ -54,7 +54,7 @@ from lino.utils import join_elems
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 
 from .utils import Balance, DueMovement, get_due_movements
-from .choicelists import TradeTypes, FiscalYears
+from .choicelists import TradeTypes, FiscalYears, VoucherTypes
 from .choicelists import VoucherStates
 from .mixins import JournalRef
 from .roles import AccountingReader, LedgerUser, LedgerStaff
@@ -70,8 +70,8 @@ class Journals(dd.Table):
     column_names = "ref:5 name trade_type chart journal_group " \
                    "voucher_type force_sequence * seqno id"
     detail_layout = """
-    ref:5 trade_type seqno id voucher_type:10 chart journal_group:10
-    force_sequence account dc build_method template
+    ref:5 trade_type seqno id voucher_type:10 journal_group:10
+    force_sequence auto_check_clearings chart account dc build_method template
     name
     printed_name
     MatchRulesByJournal
@@ -97,6 +97,20 @@ class ByJournal(dd.Table):
 
         """
         return unicode(ar.master_instance)
+
+    @classmethod
+    def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
+        vt = VoucherTypes.get_for_table(cls)
+        if isinstance(trade_type, basestring):
+            trade_type = TradeTypes.get_by_name(trade_type)
+        if isinstance(account, basestring):
+            account = chart.get_account_by_ref(account)
+            #~ account = account.Account.objects.get(chart=chart,ref=account)
+        kw.update(chart=chart)
+        if account is not None:
+            kw.update(account=account)
+        return rt.modules.ledger.Journal(
+            trade_type=trade_type, voucher_type=vt, **kw)
 
 
 class PaymentTerms(dd.Table):
@@ -168,8 +182,9 @@ class ExpectedMovements(dd.VirtualTable):
         trade_type=TradeTypes.field(blank=True),
         for_journal=dd.ForeignKey('ledger.Journal', blank=True),
         partner=dd.ForeignKey('contacts.Partner', blank=True),
+        project=dd.ForeignKey(dd.plugins.ledger.project_model, blank=True),
     )
-    params_layout = "trade_type date_until for_journal partner"
+    params_layout = "trade_type date_until for_journal project partner"
 
     @classmethod
     def get_dc(cls, ar=None):
@@ -184,6 +199,8 @@ class ExpectedMovements(dd.VirtualTable):
             flt.update(account=pv.trade_type.get_partner_account())
         if pv.partner:
             flt.update(partner=pv.partner)
+        if pv.project:
+            flt.update(project=pv.project)
         if pv.date_until is not None:
             flt.update(voucher__date__lte=pv.date_until)
         if pv.for_journal is not None:
@@ -236,6 +253,10 @@ class ExpectedMovements(dd.VirtualTable):
     def partner(self, row, ar):
         return row.partner
 
+    @dd.virtualfield(dd.ForeignKey(dd.plugins.ledger.project_model))
+    def project(self, row, ar):
+        return row.project
+
     @dd.virtualfield(dd.ForeignKey('accounts.Account'))
     def account(self, row, ar):
         return row.account
@@ -261,7 +282,6 @@ class DebtsByAccount(ExpectedMovements):
             return []
         if not account.clearable:
             return []
-        #~ return get_due_movements(cls.DUE_DC,account=account,satisfied=False)
         flt.update(satisfied=False, account=account)
         # ignore trade_type to avoid overriding account
         ar.param_values.trade_type = None
@@ -330,7 +350,7 @@ class AccountsBalance(dd.VirtualTable):
       ref description old_d old_c during_d during_c new_d new_c
 
     Subclasses are :class:'GeneralAccountsBalance`,
-    :class:'ClientAccountsBalance` and
+    :class:'CustomerAccountsBalance` and
     :class:'SupplierAccountsBalance`.
 
     """
@@ -377,7 +397,6 @@ class AccountsBalance(dd.VirtualTable):
 
     @dd.displayfield(_("Description"))
     def description(self, row, ar):
-        #~ return unicode(row)
         return ar.obj2html(row)
 
     @dd.virtualfield(dd.PriceField(_("Debit\nbefore")))
@@ -447,12 +466,12 @@ class PartnerAccountsBalance(AccountsBalance):
         return str(row.pk)
 
 
-class ClientAccountsBalance(PartnerAccountsBalance):
+class CustomerAccountsBalance(PartnerAccountsBalance):
     """
     A :class:`PartnerAccountsBalance` for the TradeType "sales".
 
     """
-    label = _("Client Accounts Balances")
+    label = _("Customer Accounts Balances")
     trade_type = TradeTypes.sales
 
 
@@ -562,8 +581,8 @@ class Debtors(DebtorsCreditors):
 
     """
     label = _("Debtors")
-    help_text = _("List of partners (usually clients) \
-    who are in debt towards us.")
+    help_text = _("List of partners who are in debt towards us "
+                  "(usually customers).")
     d_or_c = CREDIT
 
 
@@ -573,8 +592,8 @@ class Creditors(DebtorsCreditors):
     :class:`DebtorsCreditors`.
     """
     label = _("Creditors")
-    help_text = _("List of partners (usually suppliers) \
-    who are giving credit to us.")
+    help_text = _("List of partners who are giving credit to us "
+                  "(usually suppliers).")
 
     d_or_c = DEBIT
 
@@ -603,7 +622,7 @@ class ActivityReport(Report):
     A report consisting of the following tables:
 
     - :class:`GeneralAccountsBalance`
-    - :class:`ClientAccountsBalance`
+    - :class:`CustomerAccountsBalance`
     - :class:`SupplierAccountsBalance`
 
     """
@@ -621,7 +640,7 @@ class ActivityReport(Report):
 
     report_items = (
         GeneralAccountsBalance,
-        ClientAccountsBalance,
+        CustomerAccountsBalance,
         SupplierAccountsBalance)
 
 
@@ -653,8 +672,9 @@ class Movements(dd.Table):
     
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.Movement'
-    column_names = 'voucher__date voucher_link voucher__narration ' \
-                   'account debit credit *'
+    column_names = 'voucher__date voucher_link description \
+    debit credit match satisfied *'
+
     editable = False
     parameters = mixins.ObservedPeriod(
         year=FiscalYears.field(blank=True),
@@ -707,6 +727,22 @@ class Movements(dd.Table):
         elif pv.cleared == dd.YesNo.no:
             yield unicode(_("only open"))
 
+    @dd.displayfield(_("Description"))
+    def description(cls, self, ar):
+        if ar is None:
+            return ''
+        elems = []
+        elems.append(ar.obj2html(self.account))
+        voucher = self.voucher.get_mti_leaf()
+        if voucher.narration:
+            elems.append(voucher.narration)
+        p = voucher.get_partner()
+        if p is not None:
+            elems.append(ar.obj2html(p))
+        if self.project:
+            elems.append(ar.obj2html(self.project))
+        return E.p(*join_elems(elems, " / "))
+
 
 class MovementsByVoucher(Movements):
     master_key = 'voucher'
@@ -718,8 +754,6 @@ class MovementsByVoucher(Movements):
 class MovementsByPartner(Movements):
     master_key = 'partner'
     order_by = ['-voucher__date']
-    column_names = ('voucher__date voucher_link debit credit '
-                    'match project satisfied *')
     slave_grid_format = "html"
     # auto_fit_column_widths = True
 
@@ -734,19 +768,60 @@ class MovementsByPartner(Movements):
     def setup_request(self, ar):
         ar.no_data_text = _("No uncleared movements")
 
+    @dd.displayfield(_("Description"))
+    def description(cls, self, ar):
+        if ar is None:
+            return ''
+        elems = []
+        elems.append(ar.obj2html(self.account))
+        voucher = self.voucher.get_mti_leaf()
+        if voucher.narration:
+            elems.append(voucher.narration)
+        p = voucher.get_partner()
+        if p is not None and p != ar.master_instance:
+            elems.append(ar.obj2html(p))
+        if self.project:
+            elems.append(ar.obj2html(self.project))
+        return E.p(*join_elems(elems, " / "))
+
 
 class MovementsByProject(MovementsByPartner):
     master_key = 'project'
-    column_names = ('voucher__date voucher_link account partner debit credit '
-                    'match satisfied *')
     slave_grid_format = "html"
+
+    @dd.displayfield(_("Description"))
+    def description(cls, self, ar):
+        if ar is None:
+            return ''
+        elems = []
+        elems.append(ar.obj2html(self.account))
+        voucher = self.voucher.get_mti_leaf()
+        if voucher.narration:
+            elems.append(voucher.narration)
+        p = voucher.get_partner()
+        if p is not None:
+            elems.append(ar.obj2html(p))
+        if self.partner and self.partner != p:
+            elems.append(ar.obj2html(self.partner))
+        return E.p(*join_elems(elems, " / "))
 
 
 class MovementsByAccount(Movements):
+    """Shows the movements done on a given general account.
+    
+    .. attribute:: description
+
+        A virtual field showing a comma-separated list of the
+        following items:
+
+        - voucher narration
+        - voucher partner
+        - transaction's partner
+        - transaction's project
+
+    """
     master_key = 'account'
     order_by = ['-voucher__date']
-    column_names = 'voucher__date voucher_link debit credit \
-    partner match satisfied'
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 
@@ -757,5 +832,22 @@ class MovementsByAccount(Movements):
             kw.update(cleared=dd.YesNo.no)
             kw.update(year='')
         return kw
+
+    @dd.displayfield(_("Description"))
+    def description(cls, self, ar):
+        if ar is None:
+            return ''
+        elems = []
+        voucher = self.voucher.get_mti_leaf()
+        if voucher.narration:
+            elems.append(voucher.narration)
+        p = voucher.get_partner()
+        if p is not None:
+            elems.append(ar.obj2html(p))
+        if self.partner:
+            elems.append(ar.obj2html(self.partner))
+        if self.project:
+            elems.append(ar.obj2html(self.project))
+        return E.p(*join_elems(elems, " / "))
 
 

@@ -47,25 +47,10 @@ class FinancialVoucher(ledger.Voucher):
     class Meta:
         abstract = True
 
-    def after_state_change(self, ar, old, new):
-        super(FinancialVoucher, self).after_state_change(ar, old, new)
-        if self.journal.auto_check_clearings:
-            self.check_clearings()
-
-    def check_clearings(self):
-        """Update the `satisfied` field of movements of all related partners.
-
-        Called when a voucher has been (de)registered on each partner for
-        whom the voucher caused at least one movement.
-
-        """
-        partners = set()
-        for i in self.items.all():
-            if i.partner:
-                partners.add(i.partner)
-        for p in partners:
-            for m in ledger.get_due_movements(DEBIT, partner=p):
-                m.check_clearings()
+    # def after_state_change(self, ar, old, new):
+    #     super(FinancialVoucher, self).after_state_change(ar, old, new)
+    #     if self.journal.auto_check_clearings:
+    #         self.check_clearings()
 
     def add_item_from_due(self, obj, **kwargs):
         # if not obj.balance:
@@ -73,7 +58,7 @@ class FinancialVoucher(ledger.Voucher):
         i = self.add_voucher_item(
             obj.account, dc=not obj.dc,
             amount=obj.balance, partner=obj.partner,
-            match=obj.match, **kwargs)
+            match=obj.match, project=obj.project, **kwargs)
         if i.amount < 0:
             i.amount = - i.amount
             i.dc = not i.dc
@@ -226,7 +211,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.match = match.match
         self.project = match.project
 
-    def set_grouper(self, suggestions):
+    def unused_set_grouper(self, suggestions):
         # not tested
         Grouper = rt.modules.finan.Grouper
         GrouperItem = rt.modules.finan.GrouperItem

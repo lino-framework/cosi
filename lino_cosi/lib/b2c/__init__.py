@@ -98,7 +98,7 @@ class Plugin(ad.Plugin):
         m.add_action('system.SiteConfig', 'import_b2c')
 
     def setup_explorer_menu(self, site, profile, m):
-        mg = self
+        mg = site.plugins.sepa
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('b2c.Accounts')
         m.add_action('b2c.Statements')

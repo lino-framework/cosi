@@ -91,15 +91,12 @@ class Plugin(ad.Plugin):
 
         Journal = site.modules.ledger.Journal
         JournalGroups = site.modules.ledger.JournalGroups
-        try:
-            for grp in JournalGroups.objects():
-                subm = m.add_menu(grp.name, grp.text)
-                for jnl in Journal.objects.filter(journal_group=grp):
-                    subm.add_action(jnl.voucher_type.table_class,
-                                    label=unicode(jnl),
-                                    params=dict(master_instance=jnl))
-        except Exception:
-            pass
+        for grp in JournalGroups.objects():
+            subm = m.add_menu(grp.name, grp.text)
+            for jnl in Journal.objects.filter(journal_group=grp):
+                subm.add_action(jnl.voucher_type.table_class,
+                                label=unicode(jnl),
+                                params=dict(master_instance=jnl))
 
     def setup_reports_menu(self, site, profile, m):
         mg = site.plugins.accounts
