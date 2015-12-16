@@ -136,18 +136,18 @@ The test database
  declarations.Declaration    declarations.Declarations      18        0
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
- finan.BankStatement         finan.BankStatements           12        3
- finan.BankStatementItem     finan.BankStatementItemTable   10        10
+ finan.BankStatement         finan.BankStatements           12        4
+ finan.BankStatementItem     finan.BankStatementItemTable   10        18
  finan.JournalEntry          finan.FinancialVouchers        10        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            12        3
- finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        15
+ finan.PaymentOrder          finan.PaymentOrders            12        4
+ finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
  ledger.Journal              ledger.Journals                15        7
  ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               9         193
+ ledger.Movement             ledger.Movements               9         208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
- ledger.Voucher              ledger.Vouchers                9         55
+ ledger.Voucher              ledger.Vouchers                9         57
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0

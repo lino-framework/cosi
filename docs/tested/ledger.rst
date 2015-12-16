@@ -111,23 +111,16 @@ pay that invoice).
 
 >>> ses.show(ledger.Debtors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-===================== ========== ===============
- Partner               ID         Balance
---------------------- ---------- ---------------
- Faymonville Luc       129        2 349,81
- Groteclaes Gregory    131        951,82
- Hilgers Henri         133        525,00
- Jansen Jérémy         135        600,00
- Johnen Johann         137        4 239,63
- Jonas Josef           138        465,96
- Jousten Jan           139        770,00
- Kaivers Karl          140        2 999,85
- Lambertz Guido        141        2 039,82
- Malmendier Marc       145        679,81
- Mießen Michael        147        280,00
- Emonts Erich          149        3 854,78
- **Total (12 rows)**   **1664**   **19 756,48**
-===================== ========== ===============
+==================== ========= ==============
+ Partner              ID        Balance
+-------------------- --------- --------------
+ Kaivers Karl         140       2 999,85
+ Lambertz Guido       141       2 039,82
+ Malmendier Marc      145       679,81
+ Mießen Michael       147       280,00
+ Emonts Erich         149       3 854,78
+ **Total (5 rows)**   **722**   **9 854,26**
+==================== ========= ==============
 <BLANKLINE>
 
 
@@ -137,14 +130,14 @@ creditors are providers, i.e. partners who send us a purchase invoice
 
 >>> ses.show(ledger.Creditors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-==================== ========= ===============
+==================== ========= ==============
  Partner              ID        Balance
--------------------- --------- ---------------
- AS Express Post      181       83,60
- AS Matsalu Veevärk   182       283,60
- Eesti Energia AS     183       10 090,36
- **Total (3 rows)**   **546**   **10 457,56**
-==================== ========= ===============
+-------------------- --------- --------------
+ AS Express Post      181       41,10
+ AS Matsalu Veevärk   182       143,40
+ Eesti Energia AS     183       5 045,18
+ **Total (3 rows)**   **546**   **5 229,68**
+==================== ========= ==============
 <BLANKLINE>
 
 
@@ -156,8 +149,8 @@ Partner 149 has 2 open sales invoices:
 ==================== ============== ========== ==========
  Due date             Balance        Debts      Payments
 -------------------- -------------- ---------- ----------
- 5/10/15              535,00         *SLS#49*
- 5/11/15              3 319,78       *SLS#50*
+ 5/10/15              535,00         *SLS#43*
+ 5/11/15              3 319,78       *SLS#44*
  **Total (2 rows)**   **3 854,78**
 ==================== ============== ========== ==========
 <BLANKLINE>
