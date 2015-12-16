@@ -284,10 +284,9 @@ class VatDocument(ProjectRelated, VatTotal):
                     raise Exception(
                         "No base account for %s (total_base is %r)" % (
                             i, i.total_base))
-                sums.collect((b, i.project or self.project), i.total_base)
+                sums.collect((b, self.project), i.total_base)
             if i.total_vat:
-                sums.collect(
-                    (vat_account, i.project or self.project), i.total_vat)
+                sums.collect((vat_account, self.project), i.total_vat)
         return sums
 
     def fill_defaults(self):

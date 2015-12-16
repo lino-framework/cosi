@@ -55,10 +55,12 @@ class FinancialVoucher(ledger.Voucher):
     def add_item_from_due(self, obj, **kwargs):
         # if not obj.balance:
         #     raise Exception("20151117")
+        if obj.project:
+            kwargs.update(project=obj.project)
         i = self.add_voucher_item(
             obj.account, dc=not obj.dc,
             amount=obj.balance, partner=obj.partner,
-            match=obj.match, project=obj.project, **kwargs)
+            match=obj.match, **kwargs)
         if i.amount < 0:
             i.amount = - i.amount
             i.dc = not i.dc
