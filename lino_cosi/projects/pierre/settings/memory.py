@@ -1,9 +1,3 @@
 from .demo import *
-
-
-class Site(Site):
-    pass
-    # title = Site.title + " (:memory:)"
-
-SITE = Site(globals())
+SITE.verbose_name = SITE.verbose_name + " (:memory:)"
 DATABASES['default']['NAME'] = ':memory:'

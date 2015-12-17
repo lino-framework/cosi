@@ -48,11 +48,12 @@ def objects(refs="PMO BNK"):
     USERS = Cycler(settings.SITE.user_model.objects.all())
     OFFSETS = Cycler(12, 20, 28)
 
+    START_YEAR = dd.plugins.ledger.start_year
+    end_date = settings.SITE.demo_date(-30)
+
     for ref in refs.split():
         offset = OFFSETS.pop()
-        START_YEAR = dd.plugins.ledger.start_year
         date = datetime.date(START_YEAR, 1, 1)
-        end_date = settings.SITE.demo_date(-30)
         jnl = Journal.objects.get(ref=ref)
         sug_table = jnl.voucher_type.table_class.suggestions_table
         while date < end_date:
