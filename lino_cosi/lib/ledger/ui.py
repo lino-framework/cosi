@@ -60,6 +60,17 @@ from .mixins import JournalRef
 from .roles import AccountingReader, LedgerUser, LedgerStaff
 
 
+class JournalDetail(dd.DetailLayout):
+    main = """
+    name ref:5
+    trade_type seqno id voucher_type:10 journal_group:10
+    chart account build_method template
+    dc force_sequence auto_check_clearings
+    printed_name
+    MatchRulesByJournal
+    """
+
+
 class Journals(dd.Table):
     """The default table showing all instances of :class:`Journal`.
 
@@ -69,13 +80,7 @@ class Journals(dd.Table):
     order_by = ["seqno"]
     column_names = "ref:5 name trade_type chart journal_group " \
                    "voucher_type force_sequence * seqno id"
-    detail_layout = """
-    ref:5 trade_type seqno id voucher_type:10 journal_group:10
-    force_sequence auto_check_clearings chart account dc build_method template
-    name
-    printed_name
-    MatchRulesByJournal
-    """
+    detail_layout = JournalDetail()
     insert_layout = dd.FormLayout("""
     ref name
     chart journal_group

@@ -59,8 +59,8 @@ class Account(dd.Model):
     class Meta:
         app_label = 'sepa'
         abstract = dd.is_abstract_model(__name__, 'Account')
-        verbose_name = _("Account")
-        verbose_name_plural = _("Accounts")
+        verbose_name = _("Bank account")
+        verbose_name_plural = _("Bank accounts")
 
     partner = dd.ForeignKey(
         'contacts.Partner',

@@ -31,6 +31,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from lino.api import dd, rt, _
 from lino import mixins
@@ -111,8 +112,9 @@ class Journal(mixins.BabelNamed,
     chart = AccountCharts.field()
     # chart = dd.ForeignKey('accounts.Chart')
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
-    printed_name = dd.BabelCharField(max_length=100, blank=True)
-    dc = DebitOrCreditField()
+    printed_name = dd.BabelCharField(
+        _("Printed document designation"), max_length=100, blank=True)
+    dc = DebitOrCreditField(_("Primary booking direction"))
 
     @dd.chooser()
     def account_choices(cls, chart):
@@ -667,6 +669,23 @@ be cleared using a given journal.
 
     account = dd.ForeignKey('accounts.Account')
     journal = JournalRef()
+
+    def full_clean(self):
+        if self.journal.chart != self.account.chart:
+            raise ValidationError("Journal and account must be in same chart!")
+
+    @dd.chooser()
+    def unused_account_choices(self, journal):
+        # would be nice, but doesn't work because matchrules are
+        # usually entered via MatchRulesByJournal where journal is
+        # always None.
+        if journal:
+            fkw = {journal.trade_type.name + '_allowed': True}
+            fkw.update(chart=journal.chart)
+            return rt.modules.accounts.Account.objects.filter(
+                chart=voucher.journal.chart, **fkw)
+        print "20151221 journal is None"
+        return []
 
 
 for tt in TradeTypes.objects():

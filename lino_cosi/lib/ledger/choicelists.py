@@ -61,6 +61,8 @@ class JournalGroups(dd.ChoiceList):
         For financial journals (bank statements and cash reports)
 
     """
+    verbose_name = _("Journal group")
+    verbose_name_plural = _("Journal groups")
 
 add = JournalGroups.add_item
 add('10', _("Sales"), 'sales')
