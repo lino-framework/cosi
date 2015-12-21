@@ -92,6 +92,10 @@ class AccountInvoice(Payable, Voucher, Matching, ProjectRelated):
 
 class InvoiceItem(AccountVoucherItem, ProjectRelated):
     """An item of an :class:`AccountInvoice`."""
+    class Meta:
+        verbose_name = _("Invoice item")
+        verbose_name_plural = _("Invoice items")
+
     voucher = dd.ForeignKey('vatless.AccountInvoice', related_name='items')
     title = models.CharField(_("Description"), max_length=200, blank=True)
     amount = dd.PriceField(_("Amount"), blank=True, null=True)

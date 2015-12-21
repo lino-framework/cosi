@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  lino.modlib.systen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-14 16:59+0200\n"
+"POT-Creation-Date: 2015-12-21 14:34+0200\n"
 "PO-Revision-Date: 2014-02-05 09:34+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: nl\n"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Expenses"
 msgstr ""
 
-#: lino_cosi/lib/accounts/choicelists.py:197
+#: lino_cosi/lib/accounts/choicelists.py:197 lino_cosi/lib/sepa/models.py:63
 msgid "Bank accounts"
 msgstr ""
 
@@ -91,13 +91,13 @@ msgid "Sheet"
 msgstr "Waar"
 
 #: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:197
-#: lino_cosi/lib/ledger/models.py:605 lino_cosi/lib/ledger/ui.py:410
+#: lino_cosi/lib/ledger/models.py:613 lino_cosi/lib/ledger/ui.py:419
 #, fuzzy
 msgid "Debit"
 msgstr "Bearbeiten"
 
 #: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:198
-#: lino_cosi/lib/ledger/models.py:612 lino_cosi/lib/ledger/ui.py:414
+#: lino_cosi/lib/ledger/models.py:620 lino_cosi/lib/ledger/ui.py:423
 #, fuzzy
 msgid "Credit"
 msgstr "Bearbeiten"
@@ -114,11 +114,11 @@ msgstr ""
 msgid "Account Groups"
 msgstr ""
 
-#: lino_cosi/lib/accounts/models.py:119 lino_cosi/lib/sepa/models.py:62
+#: lino_cosi/lib/accounts/models.py:123
 msgid "Account"
 msgstr ""
 
-#: lino_cosi/lib/accounts/models.py:120 lino_cosi/lib/sepa/models.py:63
+#: lino_cosi/lib/accounts/models.py:124
 msgid "Accounts"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgid "Last date"
 msgstr "Erste Seite"
 
 #: lino_cosi/lib/auto/sales/models.py:415 lino_cosi/lib/b2c/models.py:394
-#: lino_cosi/lib/vatless/models.py:57 lino_cosi/lib/vatless/models.py:97
+#: lino_cosi/lib/vatless/models.py:57 lino_cosi/lib/vatless/models.py:101
 msgid "Amount"
 msgstr ""
 
@@ -234,7 +234,7 @@ msgid "Invoiceables"
 msgstr ""
 
 #: lino_cosi/lib/auto/sales/models.py:430 lino_cosi/lib/courses/models.py:1140
-#: lino_cosi/lib/ledger/ui.py:571
+#: lino_cosi/lib/ledger/ui.py:580
 #, fuzzy
 msgid "Actions"
 msgstr "Omschrijving"
@@ -243,7 +243,7 @@ msgstr "Omschrijving"
 msgid "List of invoiceable items for this partner"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:465 lino_cosi/lib/ledger/models.py:324
+#: lino_cosi/lib/auto/sales/models.py:465 lino_cosi/lib/ledger/models.py:310
 #, fuzzy
 msgid "Date"
 msgstr "Zustand"
@@ -1285,12 +1285,12 @@ msgid "Courses"
 msgstr ""
 
 #: lino_cosi/lib/courses/choicelists.py:41
-#: lino_cosi/lib/ledger/choicelists.py:345 lino_cosi/lib/orders/models.py:51
+#: lino_cosi/lib/ledger/choicelists.py:347 lino_cosi/lib/orders/models.py:51
 msgid "Draft"
 msgstr ""
 
 #: lino_cosi/lib/courses/choicelists.py:42
-#: lino_cosi/lib/ledger/choicelists.py:346 lino_cosi/lib/orders/models.py:52
+#: lino_cosi/lib/ledger/choicelists.py:348 lino_cosi/lib/orders/models.py:52
 #, fuzzy
 msgid "Registered"
 msgstr "Entregistrieren"
@@ -1379,12 +1379,12 @@ msgid "Reference"
 msgstr "Referenz"
 
 #: lino_cosi/lib/courses/models.py:184 lino_cosi/lib/courses/models.py:326
-#: lino_cosi/lib/ledger/ui.py:398 lino_cosi/lib/ledger/ui.py:730
-#: lino_cosi/lib/ledger/ui.py:771 lino_cosi/lib/ledger/ui.py:792
-#: lino_cosi/lib/ledger/ui.py:836 lino_cosi/lib/orders/models.py:249
+#: lino_cosi/lib/ledger/ui.py:407 lino_cosi/lib/ledger/ui.py:739
+#: lino_cosi/lib/ledger/ui.py:780 lino_cosi/lib/ledger/ui.py:801
+#: lino_cosi/lib/ledger/ui.py:845 lino_cosi/lib/orders/models.py:249
 #: lino_cosi/lib/sales/models.py:279 lino_cosi/lib/sales/models.py:368
 #: lino_cosi/lib/sepa/mixins.py:57 lino_cosi/lib/vat/models.py:153
-#: lino_cosi/lib/vatless/models.py:96
+#: lino_cosi/lib/vatless/models.py:100
 msgid "Description"
 msgstr "Omschrijving"
 
@@ -1439,7 +1439,7 @@ msgid "Instructor"
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:327 lino_cosi/lib/courses/models.py:779
-#: lino_cosi/lib/finan/mixins.py:155 lino_cosi/lib/sepa/models.py:72
+#: lino_cosi/lib/finan/mixins.py:142 lino_cosi/lib/sepa/models.py:72
 msgid "Remark"
 msgstr ""
 
@@ -1730,33 +1730,33 @@ msgstr ""
 msgid "Shipping Modes"
 msgstr ""
 
-#: lino_cosi/lib/finan/__init__.py:38 lino_cosi/lib/ledger/choicelists.py:69
+#: lino_cosi/lib/finan/__init__.py:38 lino_cosi/lib/ledger/choicelists.py:71
 msgid "Financial"
 msgstr ""
 
-#: lino_cosi/lib/finan/mixins.py:150
+#: lino_cosi/lib/finan/mixins.py:137
 #, fuzzy
 msgid "Item"
 msgstr "Site"
 
-#: lino_cosi/lib/finan/mixins.py:151
+#: lino_cosi/lib/finan/mixins.py:138
 #, fuzzy
 msgid "Items"
 msgstr "Site"
 
-#: lino_cosi/lib/finan/mixins.py:198
+#: lino_cosi/lib/finan/mixins.py:185
 msgid "Oops, not implemented."
 msgstr ""
 
-#: lino_cosi/lib/finan/mixins.py:207
+#: lino_cosi/lib/finan/mixins.py:194
 msgid "Could not determine the general account"
 msgstr ""
 
-#: lino_cosi/lib/finan/mixins.py:211
+#: lino_cosi/lib/finan/mixins.py:198
 msgid "Could not determine the partner account"
 msgstr ""
 
-#: lino_cosi/lib/finan/mixins.py:240
+#: lino_cosi/lib/finan/mixins.py:227
 msgid "There is already an open grouper for {0}"
 msgstr ""
 
@@ -1819,84 +1819,92 @@ msgstr "Geschlecht"
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:412 lino_cosi/lib/finan/models.py:448
+#: lino_cosi/lib/finan/models.py:412 lino_cosi/lib/finan/models.py:455
 #, fuzzy, python-format
 msgid "%d items have been added to %s."
 msgstr "%s wurde aktualisiert."
 
-#: lino_cosi/lib/finan/models.py:471
+#: lino_cosi/lib/finan/models.py:478
 msgid "Suggestions"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:66
-#: lino_cosi/lib/ledger/choicelists.py:273 lino_cosi/lib/sales/__init__.py:44
+#: lino_cosi/lib/ledger/choicelists.py:64
+msgid "Journal group"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:65
+msgid "Journal groups"
+msgstr ""
+
+#: lino_cosi/lib/ledger/choicelists.py:68
+#: lino_cosi/lib/ledger/choicelists.py:275 lino_cosi/lib/sales/__init__.py:43
 #, fuzzy
 msgid "Sales"
 msgstr "Männlich"
 
-#: lino_cosi/lib/ledger/choicelists.py:67
-#: lino_cosi/lib/ledger/choicelists.py:274
+#: lino_cosi/lib/ledger/choicelists.py:69
+#: lino_cosi/lib/ledger/choicelists.py:276
 msgid "Purchases"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:68
-#: lino_cosi/lib/ledger/choicelists.py:275
+#: lino_cosi/lib/ledger/choicelists.py:70
+#: lino_cosi/lib/ledger/choicelists.py:277
 #, fuzzy
 msgid "Wages"
 msgstr "Nächste Seite"
 
-#: lino_cosi/lib/ledger/choicelists.py:91
+#: lino_cosi/lib/ledger/choicelists.py:93
 msgid "Fiscal Year"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:92
+#: lino_cosi/lib/ledger/choicelists.py:94
 #, fuzzy
 msgid "Fiscal Years"
 msgstr "Jahre"
 
-#: lino_cosi/lib/ledger/choicelists.py:138
+#: lino_cosi/lib/ledger/choicelists.py:140
 #, fuzzy
 msgid "Voucher type"
 msgstr "Änderungsart"
 
-#: lino_cosi/lib/ledger/choicelists.py:139
+#: lino_cosi/lib/ledger/choicelists.py:141
 #, fuzzy
 msgid "Voucher types"
 msgstr "Änderungsart"
 
-#: lino_cosi/lib/ledger/choicelists.py:268
+#: lino_cosi/lib/ledger/choicelists.py:270
 #, fuzzy
 msgid "Trade type"
 msgstr "Letzte Seite"
 
-#: lino_cosi/lib/ledger/choicelists.py:269
+#: lino_cosi/lib/ledger/choicelists.py:271
 #, fuzzy
 msgid "Trade types"
 msgstr "Änderungsart"
 
-#: lino_cosi/lib/ledger/choicelists.py:271
+#: lino_cosi/lib/ledger/choicelists.py:273
 msgid "The type of trade: usually either `sales` or `purchases`."
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:276
+#: lino_cosi/lib/ledger/choicelists.py:278
 #, fuzzy
 msgid "Clearings"
 msgstr "Änderung"
 
-#: lino_cosi/lib/ledger/choicelists.py:347
+#: lino_cosi/lib/ledger/choicelists.py:349
 #, fuzzy
 msgid "Fixed"
 msgstr "Bearbeitet"
 
-#: lino_cosi/lib/ledger/choicelists.py:354
-#: lino_cosi/lib/ledger/choicelists.py:360
-#: lino_cosi/lib/ledger/choicelists.py:361 lino_cosi/lib/orders/models.py:58
+#: lino_cosi/lib/ledger/choicelists.py:356
+#: lino_cosi/lib/ledger/choicelists.py:362
+#: lino_cosi/lib/ledger/choicelists.py:363 lino_cosi/lib/orders/models.py:58
 msgid "Register"
 msgstr "Registrieren"
 
-#: lino_cosi/lib/ledger/choicelists.py:356
-#: lino_cosi/lib/ledger/choicelists.py:364
-#: lino_cosi/lib/ledger/choicelists.py:366 lino_cosi/lib/orders/models.py:59
+#: lino_cosi/lib/ledger/choicelists.py:358
+#: lino_cosi/lib/ledger/choicelists.py:366
+#: lino_cosi/lib/ledger/choicelists.py:368 lino_cosi/lib/orders/models.py:59
 msgid "Deregister"
 msgstr "Entregistrieren"
 
@@ -1905,253 +1913,261 @@ msgid "The movement to be matched."
 msgstr ""
 
 #: lino_cosi/lib/ledger/mixins.py:160 lino_cosi/lib/ledger/mixins.py:167
-#: lino_cosi/lib/ledger/models.py:569 lino_cosi/lib/ledger/models.py:576
-#: lino_cosi/lib/ledger/ui.py:225
+#: lino_cosi/lib/ledger/models.py:577 lino_cosi/lib/ledger/models.py:584
+#: lino_cosi/lib/ledger/ui.py:234
 msgid "Match"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:114
+#: lino_cosi/lib/ledger/models.py:99
 msgid "Journal"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:115
+#: lino_cosi/lib/ledger/models.py:100
 msgid "Journals"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:121
+#: lino_cosi/lib/ledger/models.py:106
 #, fuzzy
 msgid "Check clearing"
 msgstr "Änderung"
 
-#: lino_cosi/lib/ledger/models.py:122
+#: lino_cosi/lib/ledger/models.py:107
 msgid ""
 "Automatically update the cleared status of involved transactions when "
 "(de)registering a voucher of this journal"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:126
+#: lino_cosi/lib/ledger/models.py:111
 msgid "Force chronological sequence"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:232
+#: lino_cosi/lib/ledger/models.py:116
+msgid "Printed document designation"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:117
+msgid "Primary booking direction"
+msgstr ""
+
+#: lino_cosi/lib/ledger/models.py:218
 #, python-format
 msgid "%s is not the last voucher in journal"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:263
+#: lino_cosi/lib/ledger/models.py:249
 msgid "Payment Term"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:264
+#: lino_cosi/lib/ledger/models.py:250
 msgid "Payment Terms"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:266
+#: lino_cosi/lib/ledger/models.py:252
 msgid "Days"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:267
+#: lino_cosi/lib/ledger/models.py:253
 msgid "Months"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:268
+#: lino_cosi/lib/ledger/models.py:254
 msgid "End of month"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:321 lino_cosi/lib/ledger/models.py:619
+#: lino_cosi/lib/ledger/models.py:307 lino_cosi/lib/ledger/models.py:627
 #: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:175
 msgid "Voucher"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:322
+#: lino_cosi/lib/ledger/models.py:308
 msgid "Vouchers"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:328
+#: lino_cosi/lib/ledger/models.py:314
 #, fuzzy
 msgid "Narration"
 msgstr "Bestätigung"
 
-#: lino_cosi/lib/ledger/models.py:550
+#: lino_cosi/lib/ledger/models.py:558
 msgid "Movement"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:551
+#: lino_cosi/lib/ledger/models.py:559
 msgid "Movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:560
+#: lino_cosi/lib/ledger/models.py:568
 msgid "Seq.No."
 msgstr "Seq.-Nr."
 
-#: lino_cosi/lib/ledger/models.py:570
+#: lino_cosi/lib/ledger/models.py:578
 msgid "The movement matched by this one."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:580
+#: lino_cosi/lib/ledger/models.py:588
 #, fuzzy
 msgid "Satisfied"
 msgstr "Bearbeitet"
 
-#: lino_cosi/lib/ledger/models.py:626
+#: lino_cosi/lib/ledger/models.py:634
 #, fuzzy
 msgid "Voucher partner"
 msgstr "Änderungsart"
 
-#: lino_cosi/lib/ledger/models.py:658
+#: lino_cosi/lib/ledger/models.py:666
 msgid "Match rule"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:659
+#: lino_cosi/lib/ledger/models.py:667
 msgid "Match rules"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:674
+#: lino_cosi/lib/ledger/models.py:699
 #, fuzzy
 msgid "Clearable"
 msgstr "Cache löschen"
 
-#: lino_cosi/lib/ledger/models.py:683
+#: lino_cosi/lib/ledger/models.py:708
 msgid "The default payment term for sales invoices to this customer."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:175 lino_cosi/lib/ledger/ui.py:237
+#: lino_cosi/lib/ledger/ui.py:180 lino_cosi/lib/ledger/ui.py:246
 #, fuzzy
 msgid "Debts"
 msgstr "Modell"
 
-#: lino_cosi/lib/ledger/ui.py:181
+#: lino_cosi/lib/ledger/ui.py:186
 #, fuzzy
 msgid "Date until"
 msgstr "Empfänger"
 
-#: lino_cosi/lib/ledger/ui.py:231 lino_cosi/lib/ledger/ui.py:562
+#: lino_cosi/lib/ledger/ui.py:240 lino_cosi/lib/ledger/ui.py:571
 #: lino_cosi/lib/sepa/mixins.py:56
 msgid "Due date"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:232
+#: lino_cosi/lib/ledger/ui.py:241
 msgid "Due date of the eldest debt in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:237
+#: lino_cosi/lib/ledger/ui.py:246
 msgid "List of invoices in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:243
+#: lino_cosi/lib/ledger/ui.py:252
 #, fuzzy
 msgid "Payments"
 msgstr "Drucken"
 
-#: lino_cosi/lib/ledger/ui.py:243
+#: lino_cosi/lib/ledger/ui.py:252
 msgid "List of payments in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:248 lino_cosi/lib/ledger/ui.py:558
+#: lino_cosi/lib/ledger/ui.py:257 lino_cosi/lib/ledger/ui.py:567
 #, fuzzy
 msgid "Balance"
 msgstr "Vorlage"
 
-#: lino_cosi/lib/ledger/ui.py:265
+#: lino_cosi/lib/ledger/ui.py:274 lino_cosi/lib/sepa/models.py:62
 msgid "Bank account"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:402
+#: lino_cosi/lib/ledger/ui.py:411
 msgid ""
 "Debit\n"
 "before"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:406
+#: lino_cosi/lib/ledger/ui.py:415
 msgid ""
 "Credit\n"
 "before"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:418
+#: lino_cosi/lib/ledger/ui.py:427
 msgid ""
 "Debit\n"
 "after"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:422
+#: lino_cosi/lib/ledger/ui.py:431
 msgid ""
 "Credit\n"
 "after"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:432
+#: lino_cosi/lib/ledger/ui.py:441
 msgid "General Accounts Balances"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:443 lino_cosi/lib/ledger/ui.py:464
+#: lino_cosi/lib/ledger/ui.py:452 lino_cosi/lib/ledger/ui.py:473
 msgid "Ref"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:474
+#: lino_cosi/lib/ledger/ui.py:483
 msgid "Customer Accounts Balances"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:482
+#: lino_cosi/lib/ledger/ui.py:491
 msgid "Supplier Accounts Balances"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:554
+#: lino_cosi/lib/ledger/ui.py:563
 msgid "ID"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:566
+#: lino_cosi/lib/ledger/ui.py:575
 msgid "Age"
 msgstr "Alter"
 
-#: lino_cosi/lib/ledger/ui.py:583
+#: lino_cosi/lib/ledger/ui.py:592
 #, fuzzy
 msgid "Debtors"
 msgstr "Modell"
 
-#: lino_cosi/lib/ledger/ui.py:584
+#: lino_cosi/lib/ledger/ui.py:593
 msgid "List of partners who are in debt towards us (usually customers)."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:594
+#: lino_cosi/lib/ledger/ui.py:603
 #, fuzzy
 msgid "Creditors"
 msgstr "Bearbeiten"
 
-#: lino_cosi/lib/ledger/ui.py:595
+#: lino_cosi/lib/ledger/ui.py:604
 msgid "List of partners who are giving credit to us (usually suppliers)."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:611
+#: lino_cosi/lib/ledger/ui.py:620
 #, fuzzy
 msgid "Situation"
 msgstr "Omschrijving"
 
-#: lino_cosi/lib/ledger/ui.py:612
+#: lino_cosi/lib/ledger/ui.py:621
 msgid "Overview of the financial situation on a given date."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:629
+#: lino_cosi/lib/ledger/ui.py:638
 msgid "Activity Report"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:630
+#: lino_cosi/lib/ledger/ui.py:639
 msgid "Overview of the financial activity during a given period."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:684
+#: lino_cosi/lib/ledger/ui.py:693
 msgid "Show cleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:726
+#: lino_cosi/lib/ledger/ui.py:735
 msgid "only cleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:728
+#: lino_cosi/lib/ledger/ui.py:737
 msgid "only open"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:769
+#: lino_cosi/lib/ledger/ui.py:778
 msgid "No uncleared movements"
 msgstr ""
 
@@ -2383,11 +2399,11 @@ msgstr ""
 msgid "Total excl. VAT"
 msgstr ""
 
-#: lino_cosi/lib/vat/mixins.py:422
+#: lino_cosi/lib/vat/mixins.py:421
 msgid "Unit price"
 msgstr ""
 
-#: lino_cosi/lib/vat/mixins.py:423
+#: lino_cosi/lib/vat/mixins.py:422
 msgid "Quantity"
 msgstr ""
 
@@ -2438,6 +2454,14 @@ msgstr ""
 
 #: lino_cosi/lib/vatless/__init__.py:45
 msgid "VAT-less invoicing"
+msgstr ""
+
+#: lino_cosi/lib/vatless/models.py:96
+msgid "Invoice item"
+msgstr ""
+
+#: lino_cosi/lib/vatless/models.py:97
+msgid "Invoice items"
 msgstr ""
 
 #: lino_cosi/lib/vatless/ui.py:152

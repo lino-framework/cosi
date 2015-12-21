@@ -416,11 +416,18 @@ class FillSuggestionsToVoucher(dd.Action):
 
 
 class FillSuggestionsToVoucherItem(FillSuggestionsToVoucher):
+    """Fill the selected suggestions as items to the voucher. The *first*
+    selected suggestion does not create a new item but replaces the
+    item for which it was called.
 
+    """
     def run_from_ui(self, ar, **kw):
         i = ar.master_instance
         voucher = i.voucher
         obj = ar.selected_rows[0]
+        # i is the voucher item from which the suggestion table had
+        # been called. obj is the first selected DueMovement object
+        print 20151217, ar.selected_rows, obj
         i.account = obj.account
         i.dc = not obj.dc
         i.amount = obj.balance

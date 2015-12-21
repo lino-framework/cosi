@@ -29,8 +29,8 @@ from lino_cosi.projects.std.settings import *
 
 class Site(Site):
     languages = 'de fr nl'
-    demo_fixtures = 'std all_countries be euvatrates furniture \
-    minimal_ledger demo demo2'.split()
+    demo_fixtures = 'std few_countries euvatrates furniture \
+    minimal_ledger demo demo_bookings demo2'.split()
 
     def setup_plugins(self):
         super(Site, self).setup_plugins()

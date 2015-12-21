@@ -111,6 +111,7 @@ def objects():
     date = datetime.date(START_YEAR, 1, 1)
     end_date = settings.SITE.demo_date(-10)  # + delta(years=-2)
     # end_date = datetime.date(START_YEAR+1, 5, 1)
+    print(20151216, START_YEAR, settings.SITE.demo_date(), end_date - date)
     while date < end_date:
 
         if sales:
@@ -135,14 +136,7 @@ def objects():
                         qty=QUANTITIES.pop())
                     item.product_changed(REQUEST)
                     item.before_ui_save(REQUEST)
-                    #~ if item.total_incl:
-                        #~ print "20121208 ok", item
-                    #~ else:
-                        #~ if item.product.price:
-                            #~ raise Exception("20121208")
                     yield item
-                #~ invoice.set_workflow_state('registered')
-                # ~ invoice.state = 'registered' # automatically call
                 invoice.register(REQUEST)
                 invoice.save()
 
@@ -168,6 +162,5 @@ def objects():
                 yield item
             invoice.register(REQUEST)
             invoice.save()
-
 
         date += delta(months=1)

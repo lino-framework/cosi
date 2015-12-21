@@ -1,5 +1,6 @@
 .. _cosi.tested.bel_de:
 
+===========================================
 Refusing permission to an anonymous request
 ===========================================
 
@@ -11,15 +12,9 @@ Refusing permission to an anonymous request
 
     >>> from __future__ import print_function
     >>> from __future__ import unicode_literals
-    >>> import os
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.apc.settings.sestests'
-    >>> import json
-    >>> from bs4 import BeautifulSoup
-    >>> from __future__ import print_function 
-    >>> from __future__ import unicode_literals
-    >>> from lino.api.shell import *
-    >>> from django.test.client import Client
-    >>> from django.utils import translation
+    >>> import lino
+    >>> lino.startup('lino_cosi.projects.apc.settings.sestests')
+    >>> from lino.api.doctest import *
 
 
 This document reproduces a unicode error which occurred when Lino
@@ -60,8 +55,8 @@ True
 
 Some client logs in and gets some data:
 
->>> client = Client()
->>> res = client.post('/auth', data=dict(username="rolf", password="1234"))
+>>> # client = Client()
+>>> res = test_client.post('/auth', data=dict(username="rolf", password="1234"))
 >>> res.status_code
 200
 >>> r = json.loads(res.content)
@@ -76,14 +71,14 @@ will do the following AJAX call to get its data:
 >>> url = '/api/sales/InvoicesByJournal'
 >>> url += "?start=0&limit=25&fmt=json&rp=ext-comp-1135"
 >>> url += "&pv=1&pv=&pv=&mt=24&mk=1"
->>> res = client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+>>> res = test_client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 >>> res.status_code
 200
 >>> r = json.loads(res.content)
 >>> r.keys()
 [u'count', u'rows', u'success', u'no_data_text', u'title', u'param_values']
 >>> len(r['rows'])
-21
+26
 
 Now imagine that the user gets a break and leaves her browser open,
 the server meanwhile did a dump and a reload. So the sessions have
@@ -95,7 +90,7 @@ The user comes back and resizes her browser window, or some other
 action which will trigger a refresh.  The same URL will now cause a
 `PermissionDenied` exception:
 
->>> res = client.get(url)
+>>> res = test_client.get(url)
 >>> res.status_code
 403
 >>> soup = BeautifulSoup(res.content)
@@ -117,7 +112,7 @@ We must say this explicitly to Django's test client by
 setting the extra HTTP header `HTTP_X_REQUESTED_WITH` to
 'XMLHttpRequest'.
 
->>> res = client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+>>> res = test_client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 >>> res.status_code
 403
 >>> print(res.content)

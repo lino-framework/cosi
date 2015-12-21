@@ -43,7 +43,7 @@ class InvoiceItems(dd.Table):
 
 
 class ItemsByInvoice(InvoiceItems):
-    column_names = "project account amount title"
+    column_names = "project account amount title move_buttons *"
     master_key = 'voucher'
     order_by = ["seqno"]
 
@@ -53,7 +53,7 @@ class ItemsByProjectInvoice(ItemsByInvoice):
     want to have a project column per item.
 
     """
-    column_names = "account amount title"
+    column_names = "account amount title move_buttons *"
 
 
 class InvoiceDetail(dd.FormLayout):

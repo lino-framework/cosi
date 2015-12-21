@@ -73,9 +73,8 @@ class Plugin(ad.Plugin):
     """An integer with the calendar year in which this site starts working.
 
     This is used to fill the default list of :class:`FiscalYears
-    <lino_cosi.lib.ledger.choicelists.FiscalYears>`.  And by
-    :mod:`lino_cosi.lib.ledger.fixtures.demo_bookings` for generating
-    demo invoices.
+    <lino_cosi.lib.ledger.choicelists.FiscalYears>`, and by certain
+    fixtures for generating demo invoices.
 
     """
 

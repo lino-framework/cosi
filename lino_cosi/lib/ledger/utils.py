@@ -110,6 +110,10 @@ class DueMovement(object):
         # for mvt in qs.order_by('voucher__date'):
         #     self.collect(mvt)
 
+    def __repr__(self):
+        return "{0} {1} {2}".format(
+            dd.obj2str(self.partner), self.match, self.balance)
+
     def collect(self, mvt):
         """Add the given movement to the list of movements that are being
         satisfied by this DueMovement.
@@ -144,6 +148,12 @@ class DueMovement(object):
             self.payments.append(mvt)
             self.balance -= mvt.amount
 
+    def collect_all(self):
+        flt = dict(
+            partner=self.partner, account=self.account, match=self.match)
+        for mvt in rt.modules.ledger.Movement.objects.filter(**flt):
+            self.collect(mvt)
+            
     def unused_check_clearings(self):
         """Check whether involved movements are cleared or not, and update
         their :attr:`satisfied` field accordingly.

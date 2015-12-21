@@ -60,6 +60,17 @@ from .mixins import JournalRef
 from .roles import AccountingReader, LedgerUser, LedgerStaff
 
 
+class JournalDetail(dd.DetailLayout):
+    main = """
+    name ref:5
+    trade_type seqno id voucher_type:10 journal_group:10
+    chart account build_method template
+    dc force_sequence auto_check_clearings
+    printed_name
+    MatchRulesByJournal
+    """
+
+
 class Journals(dd.Table):
     """The default table showing all instances of :class:`Journal`.
 
@@ -69,13 +80,7 @@ class Journals(dd.Table):
     order_by = ["seqno"]
     column_names = "ref:5 name trade_type chart journal_group " \
                    "voucher_type force_sequence * seqno id"
-    detail_layout = """
-    ref:5 trade_type seqno id voucher_type:10 journal_group:10
-    force_sequence auto_check_clearings chart account dc build_method template
-    name
-    printed_name
-    MatchRulesByJournal
-    """
+    detail_layout = JournalDetail()
     insert_layout = dd.FormLayout("""
     ref name
     chart journal_group
@@ -195,6 +200,8 @@ class ExpectedMovements(dd.VirtualTable):
         #~ if ar.param_values.journal:
             #~ pass
         pv = ar.param_values
+        # if pv is None:
+        #     raise Exception("No pv in %s" % ar)
         if pv.trade_type:
             flt.update(account=pv.trade_type.get_partner_account())
         if pv.partner:
@@ -215,12 +222,14 @@ class ExpectedMovements(dd.VirtualTable):
 
     @classmethod
     def get_row_by_pk(cls, ar, pk):
+        # for i in ar.data_iterator:
+        #     if i.id == pk:
+        #         return i
+        # raise Exception("Not found: %s in %s" % (pk, ar))
         mvt = rt.modules.ledger.Movement.objects.get(pk=pk)
-        return cls.get_row_for(mvt, ar)
-
-    @classmethod
-    def get_row_for(cls, mvt, ar):
-        return DueMovement(cls.get_dc(ar), mvt)
+        dm = DueMovement(cls.get_dc(ar), mvt)
+        dm.collect_all()
+        return dm
 
     @dd.displayfield(_("Match"))
     def match(self, row, ar):
