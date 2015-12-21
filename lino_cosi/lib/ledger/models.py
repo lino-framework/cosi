@@ -19,22 +19,6 @@
 
 """Database models for `lino_cosi.lib.ledger`.
 
-- Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
-
-- :class:`DebtsByAccount` and :class:`DebtsByPartner` are two reports
-  based on :class:`ExpectedMovements`
-
-- :class:`GeneralAccountsBalance`, :class:`ClientAccountsBalance` and
-  :class:`SupplierAccountsBalance` three reports based on
-  :class:`AccountsBalance` and :class:`PartnerAccountsBalance`
-
-- :class:`Debtors` and :class:`Creditors` are tables with one row for
-  each partner who has a positive balance (either debit or credit).
-  Accessible via :menuselection:`Reports --> Ledger --> Debtors` and
-  :menuselection:`Reports --> Ledger --> Creditors`
-
-
-
 
 """
 
@@ -404,31 +388,44 @@ class Voucher(UserAuthored, mixins.Registrable):
             self.number = self.journal.get_next_number(self)
         assert self.number is not None
         # dd.logger.info("20151211 movement_set.all().delete()")
+
+        def doit(partners):
+            seqno = 0
+            # dd.logger.info("20151211 gonna call get_wanted_movements()")
+            movements = list(self.get_wanted_movements())
+            # dd.logger.info("20151211 gonna save %d movements", len(movements))
+            for m in movements:
+                seqno += 1
+                m.seqno = seqno
+                m.full_clean()
+                m.save()
+                if m.partner:
+                    partners.add(m.partner)
+
+        self.do_and_clear(doit)
+
+    def do_and_clear(self, doit):
         existing_mvts = self.movement_set.all()
         partners = set()
         if self.journal.auto_check_clearings:
             for m in existing_mvts.filter(partner__isnull=False):
                 partners.add(m.partner)
         existing_mvts.delete()
-        seqno = 0
-        # dd.logger.info("20151211 gonna call get_wanted_movements()")
-        movements = list(self.get_wanted_movements())
-        # dd.logger.info("20151211 gonna save %d movements", len(movements))
-        for m in movements:
-            seqno += 1
-            m.seqno = seqno
-            m.full_clean()
-            m.save()
-            if m.partner:
-                partners.add(m.partner)
+        doit(partners)
         if self.journal.auto_check_clearings:
             for p in partners:
                 check_clearings(p)
+        
         # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
 
     def deregister_voucher(self, ar):
         self.number = None
-        self.movement_set.all().delete()
+
+        def doit(partners):
+            pass
+        self.do_and_clear(doit)
+
+        # self.movement_set.all().delete()
 
     def disable_delete(self, ar=None):
         msg = self.journal.disable_voucher_delete(self)

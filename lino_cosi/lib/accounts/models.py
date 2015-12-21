@@ -75,6 +75,10 @@ class GroupsByChart(Groups):
     order_by = ['ref']
     column_names = 'ref name account_type *'
 
+    @classmethod
+    def get_master_instance(cls, ar, model, pk):
+        return AccountCharts.get_by_value(pk)
+
 
 class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
     """An **account** is an item of an account chart used to collect

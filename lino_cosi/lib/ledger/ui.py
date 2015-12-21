@@ -195,6 +195,8 @@ class ExpectedMovements(dd.VirtualTable):
         #~ if ar.param_values.journal:
             #~ pass
         pv = ar.param_values
+        # if pv is None:
+        #     raise Exception("No pv in %s" % ar)
         if pv.trade_type:
             flt.update(account=pv.trade_type.get_partner_account())
         if pv.partner:
@@ -215,12 +217,14 @@ class ExpectedMovements(dd.VirtualTable):
 
     @classmethod
     def get_row_by_pk(cls, ar, pk):
+        # for i in ar.data_iterator:
+        #     if i.id == pk:
+        #         return i
+        # raise Exception("Not found: %s in %s" % (pk, ar))
         mvt = rt.modules.ledger.Movement.objects.get(pk=pk)
-        return cls.get_row_for(mvt, ar)
-
-    @classmethod
-    def get_row_for(cls, mvt, ar):
-        return DueMovement(cls.get_dc(ar), mvt)
+        dm = DueMovement(cls.get_dc(ar), mvt)
+        dm.collect_all()
+        return dm
 
     @dd.displayfield(_("Match"))
     def match(self, row, ar):

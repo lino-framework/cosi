@@ -18,8 +18,8 @@
 
 
 """Creates fictive demo bookings to monthly payment orders and bank
-statements.
- bank statements of last month are not yet entered into database
+statements.  Bank statements of last month are not yet entered into
+database
 
 """
 

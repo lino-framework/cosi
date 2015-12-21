@@ -30,7 +30,6 @@ and define a VAT rate of 0 for everything.
     :toctree:
 
     models
-    fixtures.demo
 
 """
 
