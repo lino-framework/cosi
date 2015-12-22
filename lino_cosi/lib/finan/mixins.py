@@ -137,7 +137,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         verbose_name = _("Item")
         verbose_name_plural = _("Items")
 
-    amount = dd.PriceField(default=ZERO)
+    amount = dd.PriceField(_("Amount"), default=ZERO)
     dc = DebitOrCreditField()
     remark = models.CharField(_("Remark"), max_length=200, blank=True)
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
