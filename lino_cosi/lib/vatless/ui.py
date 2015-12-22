@@ -43,6 +43,9 @@ class InvoiceItems(dd.Table):
 
 
 class ItemsByInvoice(InvoiceItems):
+    """This is the "content" part of an invoice.
+
+    """
     column_names = "project account amount title move_buttons *"
     master_key = 'voucher'
     order_by = ["seqno"]
@@ -66,7 +69,8 @@ class InvoiceDetail(dd.FormLayout):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    journal year number narration match state
+    journal year number match state
+    narration
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 

@@ -192,6 +192,8 @@ class JournalEntryItem(FinancialVoucherItem):
     """An item of a :class:`JournalEntry`."""
     class Meta:
         app_label = 'finan'
+        verbose_name = _("Journal Entry item")
+        verbose_name_plural = _("Journal Entry items")
     voucher = dd.ForeignKey('finan.JournalEntry', related_name='items')
     date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Debit"))
@@ -202,6 +204,8 @@ class BankStatementItem(FinancialVoucherItem):
     """An item of a :class:`BankStatement`."""
     class Meta:
         app_label = 'finan'
+        verbose_name = _("Bank Statement item")
+        verbose_name_plural = _("Bank Statement items")
     voucher = dd.ForeignKey('finan.BankStatement', related_name='items')
     date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Income"))
@@ -212,6 +216,9 @@ class PaymentOrderItem(FinancialVoucherItem):
     """An item of a :class:`PaymentOrder`."""
     class Meta:
         app_label = 'finan'
+        verbose_name = _("Payment Order item")
+        verbose_name_plural = _("Payment Order items")
+
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-21 14:34+0200\n"
-"PO-Revision-Date: 2015-12-21 14:36+0300\n"
+"POT-Creation-Date: 2015-12-22 10:08+0200\n"
+"PO-Revision-Date: 2015-12-22 10:11+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -89,12 +89,12 @@ msgstr ""
 msgid "Sheet"
 msgstr "eID-Inhalt"
 
-#: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:197
+#: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:199
 #: lino_cosi/lib/ledger/models.py:613 lino_cosi/lib/ledger/ui.py:419
 msgid "Debit"
 msgstr ""
 
-#: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:198
+#: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:200
 #: lino_cosi/lib/ledger/models.py:620 lino_cosi/lib/ledger/ui.py:423
 msgid "Credit"
 msgstr "Kredit"
@@ -1238,10 +1238,10 @@ msgid "BkTxCd"
 msgstr "Transaktionscode"
 
 #: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/models.py:555
-#: lino_cosi/lib/finan/models.py:232 lino_cosi/lib/finan/models.py:244
-#: lino_cosi/lib/finan/models.py:251 lino_cosi/lib/sales/models.py:215
-#: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:66
-#: lino_cosi/lib/vatless/ui.py:79
+#: lino_cosi/lib/finan/models.py:239 lino_cosi/lib/finan/models.py:251
+#: lino_cosi/lib/finan/models.py:258 lino_cosi/lib/sales/models.py:215
+#: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:69
+#: lino_cosi/lib/vatless/ui.py:83
 msgid "General"
 msgstr "Allgemein"
 
@@ -1761,30 +1761,54 @@ msgstr "Alter Saldo"
 msgid "New balance"
 msgstr "Neuer Saldo"
 
+#: lino_cosi/lib/finan/models.py:195
+msgid "Journal Entry item"
+msgstr "Belegszeile Diverse Buchungen"
+
+#: lino_cosi/lib/finan/models.py:196
+msgid "Journal Entry items"
+msgstr "Belegszeilen Diverse Buchungen"
+
 #: lino_cosi/lib/finan/models.py:207
+msgid "Bank Statement item"
+msgstr "Belegszeile Kontoauszüge"
+
+#: lino_cosi/lib/finan/models.py:208
+msgid "Bank Statement items"
+msgstr "Belegszeilen Kontoauszüge"
+
+#: lino_cosi/lib/finan/models.py:211
 msgid "Income"
 msgstr "Eingang"
 
-#: lino_cosi/lib/finan/models.py:208
+#: lino_cosi/lib/finan/models.py:212
 msgid "Expense"
 msgstr "Ausgabe"
 
-#: lino_cosi/lib/finan/models.py:237 lino_cosi/lib/ledger/__init__.py:41
+#: lino_cosi/lib/finan/models.py:219
+msgid "Payment Order item"
+msgstr "Belegszeile Zahlungsaufträge"
+
+#: lino_cosi/lib/finan/models.py:220
+msgid "Payment Order items"
+msgstr "Belegszeilen Zahlungsaufträge"
+
+#: lino_cosi/lib/finan/models.py:244 lino_cosi/lib/ledger/__init__.py:41
 #: lino_cosi/lib/sales/models.py:225 lino_cosi/lib/vat/ui.py:70
-#: lino_cosi/lib/vatless/ui.py:71
+#: lino_cosi/lib/vatless/ui.py:75
 msgid "Ledger"
 msgstr "Buchhaltung"
 
-#: lino_cosi/lib/finan/models.py:392
+#: lino_cosi/lib/finan/models.py:399
 msgid "Fill"
 msgstr "Füllen"
 
-#: lino_cosi/lib/finan/models.py:412 lino_cosi/lib/finan/models.py:455
+#: lino_cosi/lib/finan/models.py:419 lino_cosi/lib/finan/models.py:462
 #, fuzzy, python-format
 msgid "%d items have been added to %s."
 msgstr "%(num)d Erinnerungen für %(user)s wurden aktualisiert."
 
-#: lino_cosi/lib/finan/models.py:478
+#: lino_cosi/lib/finan/models.py:485
 msgid "Suggestions"
 msgstr "Vorschläge"
 
@@ -1917,19 +1941,18 @@ msgstr "Zahlungsbedingungen"
 
 #: lino_cosi/lib/ledger/models.py:252
 msgid "Days"
-msgstr ""
+msgstr "Tage"
 
 #: lino_cosi/lib/ledger/models.py:253
-#, fuzzy
 msgid "Months"
-msgstr "Betrag"
+msgstr "Monate"
 
 #: lino_cosi/lib/ledger/models.py:254
 msgid "End of month"
-msgstr ""
+msgstr "Monatsende"
 
 #: lino_cosi/lib/ledger/models.py:307 lino_cosi/lib/ledger/models.py:627
-#: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:175
+#: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:179
 msgid "Voucher"
 msgstr "Beleg"
 
@@ -1939,7 +1962,7 @@ msgstr "Belege"
 
 #: lino_cosi/lib/ledger/models.py:314
 msgid "Narration"
-msgstr ""
+msgstr "Beschreibung"
 
 #: lino_cosi/lib/ledger/models.py:558
 msgid "Movement"
@@ -1962,9 +1985,8 @@ msgid "Satisfied"
 msgstr "Befriedigt"
 
 #: lino_cosi/lib/ledger/models.py:634
-#, fuzzy
 msgid "Voucher partner"
-msgstr "Belegart"
+msgstr "Partner"
 
 #: lino_cosi/lib/ledger/models.py:666
 msgid "Match rule"
@@ -2114,16 +2136,15 @@ msgstr "Lettrierte Bewegungen zeigen"
 
 #: lino_cosi/lib/ledger/ui.py:735
 msgid "only cleared"
-msgstr ""
+msgstr "nur lettrierte"
 
 #: lino_cosi/lib/ledger/ui.py:737
 msgid "only open"
-msgstr ""
+msgstr "nur offene"
 
 #: lino_cosi/lib/ledger/ui.py:778
-#, fuzzy
 msgid "No uncleared movements"
-msgstr "Lettrierte Bewegungen zeigen"
+msgstr "Keine offenen Bewegungen"
 
 #: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:204
 msgid "Sales invoices"
@@ -2215,14 +2236,12 @@ msgid "Clients account"
 msgstr "Konto für Kunden"
 
 #: lino_cosi/lib/sales/models.py:65
-#, fuzzy
 msgid "Wages account"
-msgstr "Konto für MWSt-Betrag Verkäufe"
+msgstr "Konto für Löhne und Gehälter"
 
 #: lino_cosi/lib/sales/models.py:69
-#, fuzzy
 msgid "Clearings account"
-msgstr "Konto für Kunden"
+msgstr "Konto für Lettrierungen"
 
 #: lino_cosi/lib/sales/models.py:75
 msgid "Invoicing address"
@@ -2396,26 +2415,23 @@ msgstr "MwSt.-Nr."
 msgid "VAT vouchers"
 msgstr "MwSt.-Belege"
 
-#: lino_cosi/lib/vat/ui.py:196 lino_cosi/lib/vatless/ui.py:236
+#: lino_cosi/lib/vat/ui.py:196 lino_cosi/lib/vatless/ui.py:240
 msgid "Create voucher in journal"
 msgstr "Beleg erstellen in Journal"
 
 #: lino_cosi/lib/vatless/__init__.py:45
-#, fuzzy
 msgid "VAT-less invoicing"
-msgstr "Verkaufsrechnungen"
+msgstr "Fakturierung ohne MwSt"
 
 #: lino_cosi/lib/vatless/models.py:96
-#, fuzzy
 msgid "Invoice item"
-msgstr "Fakturierbar"
+msgstr "Rechnungsposition"
 
 #: lino_cosi/lib/vatless/models.py:97
-#, fuzzy
 msgid "Invoice items"
-msgstr "Belegszeilen"
+msgstr "Rechnungspositionen"
 
-#: lino_cosi/lib/vatless/ui.py:152
+#: lino_cosi/lib/vatless/ui.py:156
 msgid "Partner vouchers"
 msgstr "Partner-Belege"
 

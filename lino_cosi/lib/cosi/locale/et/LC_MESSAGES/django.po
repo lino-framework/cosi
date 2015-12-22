@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-21 14:34+0200\n"
+"POT-Creation-Date: 2015-12-22 10:08+0200\n"
 "PO-Revision-Date: 2015-04-06 10:26+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: et\n"
@@ -89,12 +89,12 @@ msgstr ""
 msgid "Sheet"
 msgstr "Kus"
 
-#: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:197
+#: lino_cosi/lib/accounts/fields.py:32 lino_cosi/lib/finan/models.py:199
 #: lino_cosi/lib/ledger/models.py:613 lino_cosi/lib/ledger/ui.py:419
 msgid "Debit"
 msgstr "Deebet"
 
-#: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:198
+#: lino_cosi/lib/accounts/fields.py:33 lino_cosi/lib/finan/models.py:200
 #: lino_cosi/lib/ledger/models.py:620 lino_cosi/lib/ledger/ui.py:423
 msgid "Credit"
 msgstr "Krediit"
@@ -1253,10 +1253,10 @@ msgid "BkTxCd"
 msgstr ""
 
 #: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/models.py:555
-#: lino_cosi/lib/finan/models.py:232 lino_cosi/lib/finan/models.py:244
-#: lino_cosi/lib/finan/models.py:251 lino_cosi/lib/sales/models.py:215
-#: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:66
-#: lino_cosi/lib/vatless/ui.py:79
+#: lino_cosi/lib/finan/models.py:239 lino_cosi/lib/finan/models.py:251
+#: lino_cosi/lib/finan/models.py:258 lino_cosi/lib/sales/models.py:215
+#: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:69
+#: lino_cosi/lib/vatless/ui.py:83
 msgid "General"
 msgstr "Üld"
 
@@ -1772,30 +1772,60 @@ msgstr "Algsaldo"
 msgid "New balance"
 msgstr "Lõppsaldo"
 
+#: lino_cosi/lib/finan/models.py:195
+#, fuzzy
+msgid "Journal Entry item"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/finan/models.py:196
+#, fuzzy
+msgid "Journal Entry items"
+msgstr "Dokumendi read"
+
 #: lino_cosi/lib/finan/models.py:207
+#, fuzzy
+msgid "Bank Statement item"
+msgstr "Konto väljavõte"
+
+#: lino_cosi/lib/finan/models.py:208
+#, fuzzy
+msgid "Bank Statement items"
+msgstr "Konto väljavõted"
+
+#: lino_cosi/lib/finan/models.py:211
 msgid "Income"
 msgstr "Sisse"
 
-#: lino_cosi/lib/finan/models.py:208
+#: lino_cosi/lib/finan/models.py:212
 msgid "Expense"
 msgstr "Välja"
 
-#: lino_cosi/lib/finan/models.py:237 lino_cosi/lib/ledger/__init__.py:41
+#: lino_cosi/lib/finan/models.py:219
+#, fuzzy
+msgid "Payment Order item"
+msgstr "Maksetingimus"
+
+#: lino_cosi/lib/finan/models.py:220
+#, fuzzy
+msgid "Payment Order items"
+msgstr "Maksetingimused"
+
+#: lino_cosi/lib/finan/models.py:244 lino_cosi/lib/ledger/__init__.py:41
 #: lino_cosi/lib/sales/models.py:225 lino_cosi/lib/vat/ui.py:70
-#: lino_cosi/lib/vatless/ui.py:71
+#: lino_cosi/lib/vatless/ui.py:75
 msgid "Ledger"
 msgstr "Raamatupidamine"
 
-#: lino_cosi/lib/finan/models.py:392
+#: lino_cosi/lib/finan/models.py:399
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:412 lino_cosi/lib/finan/models.py:455
+#: lino_cosi/lib/finan/models.py:419 lino_cosi/lib/finan/models.py:462
 #, python-format
 msgid "%d items have been added to %s."
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:478
+#: lino_cosi/lib/finan/models.py:485
 msgid "Suggestions"
 msgstr "Ettepanekud"
 
@@ -1945,7 +1975,7 @@ msgid "End of month"
 msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:307 lino_cosi/lib/ledger/models.py:627
-#: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:175
+#: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:179
 msgid "Voucher"
 msgstr "Dokument"
 
@@ -2420,7 +2450,7 @@ msgstr "KMKR nr"
 msgid "VAT vouchers"
 msgstr "KM dokumendid"
 
-#: lino_cosi/lib/vat/ui.py:196 lino_cosi/lib/vatless/ui.py:236
+#: lino_cosi/lib/vat/ui.py:196 lino_cosi/lib/vatless/ui.py:240
 #, fuzzy
 msgid "Create voucher in journal"
 msgstr "Loo dokument žurnaalis"
@@ -2440,7 +2470,7 @@ msgstr "Dokumendi rida"
 msgid "Invoice items"
 msgstr "Dokumendi read"
 
-#: lino_cosi/lib/vatless/ui.py:152
+#: lino_cosi/lib/vatless/ui.py:156
 #, fuzzy
 msgid "Partner vouchers"
 msgstr "KM dokumendid"

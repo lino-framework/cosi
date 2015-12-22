@@ -117,7 +117,7 @@ class PartnerRelated(dd.Model):
         super(PartnerRelated, self).full_clean(*args, **kw)
 
     def fill_defaults(self):
-        if not self.payment_term:
+        if not self.payment_term and self.partner_id:
             self.payment_term = self.partner.payment_term
             if self.payment_term:
                 self.payment_term_changed()
