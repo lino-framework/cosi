@@ -39,7 +39,7 @@ from lino.utils import mti
 
 from lino.modlib.users.mixins import UserAuthored
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
-from lino_cosi.lib.accounts.choicelists import AccountTypes, AccountCharts
+from lino_cosi.lib.accounts.choicelists import AccountTypes
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 
 from .utils import get_due_movements, check_clearings
@@ -73,7 +73,6 @@ class Journal(mixins.BabelNamed,
 
     .. attribute:: force_sequence
 
-    .. attribute:: chart
     .. attribute:: account
     .. attribute:: printed_name
     .. attribute:: dc
@@ -109,17 +108,15 @@ class Journal(mixins.BabelNamed,
                     "journal"))
     force_sequence = models.BooleanField(
         _("Force chronological sequence"), default=False)
-    chart = AccountCharts.field()
-    # chart = dd.ForeignKey('accounts.Chart')
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     printed_name = dd.BabelCharField(
         _("Printed document designation"), max_length=100, blank=True)
     dc = DebitOrCreditField(_("Primary booking direction"))
 
-    @dd.chooser()
-    def account_choices(cls, chart):
-        fkw = dict(type=AccountTypes.bank_accounts)
-        return rt.modules.accounts.Account.objects.filter(chart=chart, **fkw)
+    # @dd.chooser()
+    # def account_choices(cls, chart):
+    #     fkw = dict(type=AccountTypes.bank_accounts)
+    #     return rt.modules.accounts.Account.objects.filter(chart=chart, **fkw)
 
     def get_doc_model(self):
         """The model of vouchers in this Journal.
@@ -163,7 +160,7 @@ class Journal(mixins.BabelNamed,
     def get_allowed_accounts(self, **kw):
         if self.trade_type:
             kw[self.trade_type.name + '_allowed'] = True
-        kw.update(chart=self.chart)
+        # kw.update(chart=self.chart)
         return rt.modules.accounts.Account.objects.filter(**kw)
 
     def get_next_number(self, voucher):
@@ -345,14 +342,12 @@ class Voucher(UserAuthored, mixins.Registrable):
         return cls.get_journals()
 
     @classmethod
-    def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
+    def create_journal(cls, trade_type=None, account=None, **kw):
         vt = VoucherTypes.get_for_model(cls)
         if isinstance(trade_type, basestring):
             trade_type = TradeTypes.get_by_name(trade_type)
         if isinstance(account, basestring):
-            account = chart.get_account_by_ref(account)
-            #~ account = account.Account.objects.get(chart=chart,ref=account)
-        kw.update(chart=chart)
+            account = rt.modules.accounts.Account.get_by_ref(account)
         if account is not None:
             kw.update(account=account)
         return Journal(trade_type=trade_type, voucher_type=vt, **kw)
@@ -494,7 +489,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     def add_voucher_item(self, account=None, **kw):
         if account is not None:
             if isinstance(account, basestring):
-                account = self.journal.chart.get_account_by_ref(account)
+                account = rt.modules.accounts.Account.get_by_ref(account)
             kw['account'] = account
         kw.update(voucher=self)
         #~ logger.info("20131116 %s",self.items.model)
@@ -670,10 +665,6 @@ be cleared using a given journal.
     account = dd.ForeignKey('accounts.Account')
     journal = JournalRef()
 
-    def full_clean(self):
-        if self.journal.chart != self.account.chart:
-            raise ValidationError("Journal and account must be in same chart!")
-
     @dd.chooser()
     def unused_account_choices(self, journal):
         # would be nice, but doesn't work because matchrules are
@@ -681,9 +672,7 @@ be cleared using a given journal.
         # always None.
         if journal:
             fkw = {journal.trade_type.name + '_allowed': True}
-            fkw.update(chart=journal.chart)
-            return rt.modules.accounts.Account.objects.filter(
-                chart=voucher.journal.chart, **fkw)
+            return rt.modules.accounts.Account.objects.filter(**fkw)
         print "20151221 journal is None"
         return []
 

@@ -422,8 +422,6 @@ class TimLoader(object):
             return
         if len(idgen) < self.LEN_IDGEN:
             # dclsel = row.dclsel.strip()
-            # kw.update(chart=accounts.Chart.objects.get(pk=1))
-            kw.update(chart=self.CHART)
             kw.update(ref=idgen)
             kw.update(account_type=pcmn2type(idgen))
             self.babel2kw('libell', 'name', row, kw)
@@ -451,10 +449,8 @@ class TimLoader(object):
                 if ag is not None:
                     break
             # dclsel = row.dclsel.strip()
-            # kw.update(chart=accounts.Chart.objects.get(pk=1))
             kw.update(ref=idgen)
             kw.update(group=ag)
-            kw.update(chart=self.CHART)
             kw.update(type=pcmn2type(idgen))
             self.babel2kw('libell', 'name', row, kw)
             # def names2kw(kw,*names):
@@ -471,7 +467,6 @@ class TimLoader(object):
     def load_jnl(self, row, **kw):
         vcl = None
         kw.update(ref=row.idjnl, name=row.libell)
-        kw.update(chart=self.CHART)
         kw.update(dc=self.dc2lino(row.dc))
         kw.update(auto_check_clearings=False)
 
@@ -490,7 +485,7 @@ class TimLoader(object):
             idgen = row.idgen.strip()
             kw.update(journal_group=JournalGroups.financial)
             if idgen:
-                kw.update(account=self.CHART.get_account_by_ref(idgen))
+                kw.update(account=rt.modules.accounts.Account.get_by_ref(idgen))
                 if idgen.startswith('58'):
                     kw.update(trade_type=vat.TradeTypes.purchases)
                     vcl = finan.PaymentOrder
@@ -998,7 +993,7 @@ class TimLoader(object):
     def after_gen_load(self):
         sc = dict()
         for k, v in dd.plugins.tim2lino.siteconfig_accounts.items():
-            sc[k] = self.CHART.get_account_by_ref(v)
+            sc[k] = rt.modules.accounts.Accout.get_by_ref(v)
         settings.SITE.site_config.update(**sc)
         # func = dd.plugins.tim2lino.setup_tim2lino
         # if func:
@@ -1013,9 +1008,6 @@ class TimLoader(object):
         yield self.ROOT
 
         # settings.SITE.loading_from_dump = True
-
-        self.CHART = accounts.AccountCharts.default
-        yield self.CHART
 
         if False:
             self.DIM = sales.InvoicingMode(name='Default')

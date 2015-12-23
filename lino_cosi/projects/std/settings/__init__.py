@@ -117,7 +117,7 @@ class Site(Site):
 
         self.modules.accounts.Accounts.set_detail_layout("""
         ref:10 name id:5
-        seqno chart group type clearable
+        seqno group type clearable
         ledger.MovementsByAccount
         """)
 

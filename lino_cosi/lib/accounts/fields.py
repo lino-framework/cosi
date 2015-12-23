@@ -26,12 +26,7 @@ from django.db import models
 from lino.core.store import BooleanStoreField
 from lino.api import _
 
-from .utils import DEBIT, CREDIT
-
-DCLABELS = {
-    DEBIT: _("Debit"),
-    CREDIT: _("Credit")
-}
+from .utils import DEBIT, CREDIT, DCLABELS
 
 
 class DebitOrCreditStoreField(BooleanStoreField):

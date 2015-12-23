@@ -74,22 +74,12 @@ current_group = None
 def objects():
 
     JournalGroups = rt.modules.ledger.JournalGroups
-    chart = rt.modules.accounts.AccountCharts.default
-
-    # chart = accounts.Chart(**dd.babel_values(
-    #     'name', en="Minimal Accounts Chart",
-    #     fr="Plan comptable réduit",
-    #     et="Minimaalne kontoplaan",
-    #     de="Reduzierter Kontenplan"))
-    # yield chart
-    #~ account = Instantiator(accounts.Account,"ref name").build
 
     def Group(ref, type, fr, de, en, et=None):
         if et is None:
             et = en
         global current_group
         current_group = accounts.Group(
-            chart=chart,
             ref=ref,
             account_type=accounts.AccountTypes.get_by_name(type),
             **dd.babel_values('name', de=de, fr=fr, en=en, et=et))
@@ -98,7 +88,6 @@ def objects():
     def Account(ref, type, fr, de, en, et, **kw):
         kw.update(dd.babel_values('name', de=de, fr=fr, en=en, et=et))
         return accounts.Account(
-            chart=chart,
             group=current_group,
             ref=ref,
             type=accounts.AccountTypes.get_by_name(type),
@@ -196,7 +185,7 @@ def objects():
 
     ## JOURNALS
 
-    kw = dict(chart=chart, journal_group=JournalGroups.sales)
+    kw = dict(journal_group=JournalGroups.sales)
     if sales:
         MODEL = sales.VatProductInvoice
     else:
@@ -248,7 +237,7 @@ def objects():
         yield finan.JournalEntry.create_journal(**kw)
 
     if declarations:
-        kw = dict(chart=chart, journal_group=JournalGroups.financial)
+        kw = dict(journal_group=JournalGroups.financial)
         kw.update(dd.str2kw('name', _("VAT declarations")))
         # kw = dd.babel_values(
         #     'name', en="VAT declarations",

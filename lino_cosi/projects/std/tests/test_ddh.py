@@ -118,8 +118,7 @@ class DDHTests(RemoteAuthTestCase):
             Journal,
             ref="VKR", name="VKR",
             voucher_type=VoucherTypes.get_for_model(Invoice),
-            journal_group=JournalGroups.sales,
-            chart=AccountCharts.default)
+            journal_group=JournalGroups.sales)
         
         pe, pa = createit()
 
