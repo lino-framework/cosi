@@ -25,8 +25,8 @@ Lino application developer.
     Doctest initialization:
 
     >>> from __future__ import print_function
-    >>> import os
-    >>> os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
+    >>> import lino
+    >>> lino.startup('lino_cosi.projects.std.settings.doctests')
     >>> from lino.api.doctest import *
     >>> from lino_cosi.lib.accounts.models import *
 

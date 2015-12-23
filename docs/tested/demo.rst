@@ -35,8 +35,8 @@ The test database
 >>> from lino.utils.diag import analyzer
 >>> print analyzer.show_database_structure()
 ... #doctest: +NORMALIZE_WHITESPACE +REPORT_UDIFF
-- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, clearable, chart, group, type
-- accounts.Group : id, name, chart, ref, account_type
+- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, clearable, group, type
+- accounts.Group : id, name, ref, account_type
 - cal.Calendar : id, name, description, color
 - cal.Event : id, modified, created, build_time, build_method, user, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state, assigned_to
 - cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting
@@ -72,7 +72,7 @@ The test database
 - finan.PaymentOrder : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
 - gfks.HelpText : id, content_type, field, help_text
-- ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, chart, account, printed_name, dc
+- ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
@@ -106,8 +106,8 @@ The test database
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
- accounts.Account            accounts.Accounts              12        12
- accounts.Group              accounts.Groups                5         7
+ accounts.Account            accounts.Accounts              11        12
+ accounts.Group              accounts.Groups                4         7
  cal.Calendar                cal.Calendars                  4         1
  cal.Event                   cal.OneEvent                   23        68
  cal.EventType               cal.EventTypes                 12        2
@@ -143,7 +143,7 @@ The test database
  finan.PaymentOrder          finan.PaymentOrders            12        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
- ledger.Journal              ledger.Journals                15        7
+ ledger.Journal              ledger.Journals                14        7
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7

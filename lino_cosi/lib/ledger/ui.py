@@ -64,7 +64,7 @@ class JournalDetail(dd.DetailLayout):
     main = """
     name ref:5
     trade_type seqno id voucher_type:10 journal_group:10
-    chart account build_method template
+    account build_method template
     dc force_sequence auto_check_clearings
     printed_name
     MatchRulesByJournal
@@ -78,12 +78,12 @@ class Journals(dd.Table):
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.Journal'
     order_by = ["seqno"]
-    column_names = "ref:5 name trade_type chart journal_group " \
+    column_names = "ref:5 name trade_type journal_group " \
                    "voucher_type force_sequence * seqno id"
     detail_layout = JournalDetail()
     insert_layout = dd.FormLayout("""
     ref name
-    chart journal_group
+    journal_group
     voucher_type
     """, window_size=(60, 'auto'))
 
@@ -104,14 +104,12 @@ class ByJournal(dd.Table):
         return unicode(ar.master_instance)
 
     @classmethod
-    def create_journal(cls, trade_type=None, account=None, chart=None, **kw):
+    def create_journal(cls, trade_type=None, account=None, **kw):
         vt = VoucherTypes.get_for_table(cls)
         if isinstance(trade_type, basestring):
             trade_type = TradeTypes.get_by_name(trade_type)
         if isinstance(account, basestring):
-            account = chart.get_account_by_ref(account)
-            #~ account = account.Account.objects.get(chart=chart,ref=account)
-        kw.update(chart=chart)
+            account = rt.modules.accounts.Account.get_by_ref(account)
         if account is not None:
             kw.update(account=account)
         return rt.modules.ledger.Journal(

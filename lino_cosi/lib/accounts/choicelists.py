@@ -25,47 +25,10 @@ from __future__ import unicode_literals
 
 
 from django.db import models
-from lino.api import dd, rt, _
+from lino.api import dd, _
 
-from .fields import DebitOrCreditField, DCLABELS
+from .fields import DebitOrCreditField
 from .utils import DEBIT, CREDIT
-
-
-class AccountChart(dd.Choice):
-    """An **account chart** is a collection of accounts which are
-    considered a whole. See also :class:`AccountCharts`.
-
-    """
-    def get_account_by_ref(self, ref):
-        Account = rt.modules.accounts.Account
-        try:
-            #~ print 20121203, dict(ref=account,chart=self.journal.chart)
-            return Account.objects.get(ref=ref, chart=self)
-        except Account.DoesNotExist:
-            raise Warning("No account with reference %r" % ref)
-
-
-class AccountCharts(dd.ChoiceList):
-    """The global list of account charts available in this application.
-    In normal applications there is one single account chart named
-    :attr:`default`.
-
-    .. attribute:: default
-
-        The default account chart.
-
-    """
-    verbose_name = _("Account Chart")
-    verbose_name_plural = _("Account Charts")
-    item_class = AccountChart
-    required_roles = dd.required(dd.SiteStaff)
-
-    detail_layout = """
-    name
-    GroupsByChart
-    """
-
-AccountCharts.add_item("default", _("Default"), 'default')
 
 
 class Sheet(object):

@@ -23,7 +23,15 @@ r"""Utilities for `lino_cosi.lib.accounts`.
 """
 
 from decimal import Decimal
+from lino.api import _
+
 ZERO = Decimal(0)
 
 DEBIT = True
 CREDIT = False
+
+DCLABELS = {
+    DEBIT: _("Debit"),
+    CREDIT: _("Credit")
+}
+

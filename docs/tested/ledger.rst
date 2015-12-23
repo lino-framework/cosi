@@ -31,9 +31,9 @@ Basic truths of accounting
 
 >>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-==================== =============================== ============ ================================ ========
- Reference            Designation                     Trade type   Account                          dc
--------------------- ------------------------------- ------------ -------------------------------- --------
+==================== =============================== ============ ================================ ===========================
+ Reference            Designation                     Trade type   Account                          Primary booking direction
+-------------------- ------------------------------- ------------ -------------------------------- ---------------------------
  SLS                  Sales invoices                  Sales                                         Credit
  PRC                  Purchase invoices               Purchases                                     Debit
  BNK                  Bestbank                        Purchases    (5500) Bestbank                  Debit
@@ -42,7 +42,7 @@ Basic truths of accounting
  MSG                  Miscellaneous Journal Entries                (5700) Cash                      Debit
  VAT                  VAT declarations                             (4513) VAT to declare            Debit
  **Total (7 rows)**                                                                                 **6**
-==================== =============================== ============ ================================ ========
+==================== =============================== ============ ================================ ===========================
 <BLANKLINE>
 
 Match rules
