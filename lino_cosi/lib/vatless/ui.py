@@ -63,22 +63,23 @@ class InvoiceDetail(dd.FormLayout):
     main = "general ledger"
 
     general = dd.Panel("""
-    id date partner bank_account
-    due_date your_ref user workflow_buttons amount
+    id voucher_date user workflow_buttons
+    partner payment_term due_date bank_account
+    your_ref narration amount
     ItemsByInvoice
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    journal year number match state
-    narration
+    entry_date journal year number match state
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 
 
 class ProjectInvoiceDetail(InvoiceDetail):
     general = dd.Panel("""
-    id date project partner bank_account
-    due_date your_ref user workflow_buttons amount
+    id voucher_date project user workflow_buttons:20
+    partner payment_term due_date bank_account
+    your_ref narration amount
     ItemsByProjectInvoice
     """, label=_("General"))
 
@@ -91,12 +92,12 @@ class Invoices(PartnerVouchers):
     #     **PartnerVouchers.parameters)
     # params_layout = "project partner state journal year"
     # params_panel_hidden = True
-    column_names = "date id number partner amount user *"
+    column_names = "voucher_date id number partner amount user *"
     detail_layout = InvoiceDetail()
     insert_layout = """
     journal
     partner
-    date amount
+    voucher_date
     """
     # start_at_bottom = True
 
@@ -122,22 +123,22 @@ class InvoicesByJournal(ByJournal, Invoices):
 
     """
     params_layout = "partner state year"
-    column_names = "number date " \
+    column_names = "number voucher_date " \
         "partner amount due_date user workflow_buttons *"
     insert_layout = """
     partner
-    date amount
+    voucher_date
     """
-    order_by = ["-number"]
+    order_by = ["-id"]
 
 
 class ProjectInvoicesByJournal(InvoicesByJournal):
-    column_names = "number date " \
+    column_names = "number voucher_date " \
         "project partner amount due_date user workflow_buttons *"
     insert_layout = """
     project
     partner
-    date amount
+    voucher_date
     """
     detail_layout = ProjectInvoiceDetail()
     
@@ -171,7 +172,7 @@ class VouchersByPartner(dd.VirtualTable):
                 rows += list(M.objects.filter(**flt))
 
             def by_date(a, b):
-                return cmp(b.date, a.date)
+                return cmp(b.voucher_date, a.voucher_date)
 
             rows.sort(by_date)
         return rows
@@ -189,9 +190,9 @@ class VouchersByPartner(dd.VirtualTable):
     def partner(self, row, ar):
         return row.partner
 
-    @dd.virtualfield('ledger.Voucher.date')
+    @dd.virtualfield('ledger.Voucher.entry_date')
     def date(self, row, ar):
-        return row.date
+        return row.entry_date
 
     @dd.virtualfield('ledger.Voucher.state')
     def state(self, row, ar):

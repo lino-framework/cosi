@@ -195,7 +195,7 @@ class Declaration(ledger.Voucher):
                 for mvt in ledger.Movement.objects.filter(
                     voucher__journal=jnl,
                     voucher__year=self.year,
-                    voucher__date__month=month,
+                    voucher__entry_date__month=month,
                     voucher__declared_in__isnull=True
                 ):
 
@@ -205,7 +205,7 @@ class Declaration(ledger.Voucher):
                 for doc in ledger.Voucher.objects.filter(
                     journal=jnl,
                     year=self.year,
-                    date__month=month,
+                    entry_date__month=month,
                     declared_in__isnull=True
                 ):
 
@@ -289,12 +289,12 @@ class Declarations(dd.Table):
     model = Declaration
     column_names = 'year period workflow_buttons * state id'
     insert_layout = dd.FormLayout("""
-    date 
-    year 
+    entry_date
+    year
     period
     """, window_size=(40, 'auto'))
     detail_layout = dd.FormLayout("""
-    date year period user workflow_buttons
+    entry_date year period user workflow_buttons
     fields
     VouchersByDeclaration
     """, fields=DeclarationFields.fields_layout)
@@ -303,7 +303,7 @@ class Declarations(dd.Table):
 class DeclarationsByJournal(ledger.ByJournal, Declarations):
     params_panel_hidden = True
     #master = journals.Journal
-    column_names = "number period date user *"
+    column_names = "number period entry_date user *"
 
 
 def customize_ledger():

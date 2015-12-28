@@ -59,7 +59,7 @@ def objects(refs="PMO BNK"):
         while date < end_date:
             voucher = jnl.create_voucher(
                 user=USERS.pop(),
-                date=date + delta(days=offset))
+                voucher_date=date + delta(days=offset))
             yield voucher
             suggestions = sug_table.request(voucher)
             ba = sug_table.get_action_by_name('do_fill')

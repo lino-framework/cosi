@@ -282,15 +282,20 @@ class Voucher(UserAuthored, mixins.Registrable):
 
         The sequence number of this voucher in the :attr:`journal`.
 
-    .. attribute:: date
+    .. attribute:: entry_date
 
         The date of the journal entry, i.e. when this voucher has been
         journalized or booked.
 
+    .. attribute:: voucher_date
+
+        The date on the voucher, i.e. when this voucher has been
+        issued by its emitter.
+
     .. attribute:: year
 
         The fiscal year to which this entry is to be assigned to. This
-        may differ from the year given by :attr:`date`.
+        may differ from the year given by :attr:`entry_date`.
 
     .. attribute:: narration
 
@@ -304,7 +309,8 @@ class Voucher(UserAuthored, mixins.Registrable):
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
 
-    date = models.DateField(_("Date"), default=dd.today)
+    voucher_date = models.DateField(_("Voucher date"), default=dd.today)
+    entry_date = models.DateField(_("Entry date"), default=dd.today)
     journal = JournalRef()
     year = FiscalYears.field(blank=True)
     number = VoucherNumber(blank=True, null=True)
@@ -320,7 +326,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         #~ return jnl
 
     def get_due_date(self):
-        return self.date
+        return self.voucher_date
 
     def get_trade_type(self):
         return self.journal.trade_type
@@ -362,8 +368,8 @@ class Voucher(UserAuthored, mixins.Registrable):
         # ~ return "#%s (%s %s)" % (self.number,self.journal,self.year)
 
     def get_default_match(self):
-        # ~ return "%s#%s" % (self.journal.ref,self.number)
-        return "%s%s" % (self.id, self.journal.ref)
+        return "%s#%s" % (self.journal.ref, self.id)
+        # return "%s%s" % (self.id, self.journal.ref)
 
     def get_voucher_match(self):
         return "{0}#{1}".format(self.journal.ref, self.number)
@@ -380,7 +386,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         Delete any existing movements and re-create them
         """
         # dd.logger.info("20151211 cosi.Voucher.register_voucher()")
-        self.year = FiscalYears.from_date(self.date)
+        self.year = FiscalYears.from_date(self.entry_date)
         if self.number is None:
             self.number = self.journal.get_next_number(self)
         assert self.number is not None
@@ -442,6 +448,11 @@ class Voucher(UserAuthored, mixins.Registrable):
         assert isinstance(account, rt.modules.accounts.Account)
         kw['voucher'] = self
         kw['account'] = account
+        if account.clearable:
+            kw.update(satisfied=False)
+        else:
+            kw.update(satisfied=True)
+
         if dd.plugins.ledger.project_model:
             kw['project'] = project
 
@@ -545,6 +556,16 @@ class Movement(ProjectRelated):
         invoices this is the customer, for financial vouchers this is
         empty.
 
+    .. attribute:: voucher_link
+
+        A virtual field which shows a link to the voucher.
+
+    .. attribute:: match_link
+
+        A virtual field which shows a clickable variant of the match
+        string. Clicking it will open a table with all movements
+        having that match.
+
     """
     allow_cascaded_delete = ['voucher']
 
@@ -589,7 +610,7 @@ class Movement(ProjectRelated):
         #~ choices = []
         qs = cls.objects.filter(
             partner=partner, account=account, satisfied=False)
-        qs = qs.order_by('voucher__date')
+        qs = qs.order_by('voucher__entry_date')
         #~ qs = qs.distinct('match')
         if FKMATCH:
             return qs
@@ -603,7 +624,7 @@ class Movement(ProjectRelated):
         #~ return unicode(self.voucher)
     def select_text(self):
         v = self.voucher.get_mti_leaf()
-        return "%s (%s)" % (v, v.date)
+        return "%s (%s)" % (v, v.entry_date)
 
     @dd.virtualfield(dd.PriceField(_("Debit")))
     def debit(self, ar):
@@ -636,6 +657,14 @@ class Movement(ProjectRelated):
             return ''
         return ar.obj2html(p)
 
+    @dd.displayfield(_("Match"))
+    def match_link(self, ar):
+        if ar is None or not self.match:
+            return ''
+        sar = rt.modules.ledger.MovementsByMatch.request(
+            master_instance=self.match, parent=ar)
+        return sar.ar2button(label=self.match)
+
     #~ @dd.displayfield(_("Matched by"))
     #~ def matched_by(self,ar):
         #~ elems = [obj.voucher_link(ar) for obj in Movement.objects.filter(match=self)]
@@ -647,6 +676,8 @@ class Movement(ProjectRelated):
 
     def __unicode__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
+
+Movement.set_widget_options('voucher_link', width=12)
 
 
 class MatchRule(dd.Model):
@@ -682,10 +713,6 @@ for tt in TradeTypes.objects():
         'accounts.Account',
         tt.name + '_allowed',
         models.BooleanField(verbose_name=tt.text, default=False))
-
-dd.inject_field(
-    'accounts.Account',
-    'clearable', models.BooleanField(_("Clearable"), default=False))
 
 
 dd.inject_field(

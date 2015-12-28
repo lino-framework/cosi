@@ -169,7 +169,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         if self.due_date is None:
             if self.payment_term is not None:
                 self.due_date = self.payment_term.get_due_date(
-                    self.date)
+                    self.voucher_date)
         # SalesDocument.before_save(self)
         # ledger.LedgerDocumentMixin.before_save(self)
         super(VatProductInvoice, self).full_clean(*args, **kw)
@@ -188,7 +188,8 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         yield 'due_date'
         yield 'order'
 
-        yield 'date'
+        yield 'voucher_date'
+        yield 'entry_date'
         yield 'user'
         #~ yield 'item_vat'
 
@@ -204,7 +205,7 @@ class InvoiceDetail(dd.FormLayout):
     """, label=_("Totals"))
 
     invoice_header = dd.Panel("""
-    date partner vat_regime
+    voucher_date partner vat_regime
     order subject your_ref
     payment_term due_date:20 printed
     """, label=_("Header"))  # sales_remark
@@ -220,7 +221,7 @@ class InvoiceDetail(dd.FormLayout):
     """, label=_("More"))
 
     ledger = dd.Panel("""
-    journal year number narration
+    entry_date journal year number narration
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 
@@ -228,10 +229,10 @@ class InvoiceDetail(dd.FormLayout):
 class Invoices(SalesDocuments):
     model = 'sales.VatProductInvoice'
     order_by = ["-id"]
-    column_names = "id date partner total_incl user *"
+    column_names = "id voucher_date partner total_incl user *"
     detail_layout = InvoiceDetail()
     insert_layout = dd.FormLayout("""
-    partner date
+    partner voucher_date
     subject
     """, window_size=(40, 'auto'))
     # parameters = dict(
@@ -256,11 +257,10 @@ class InvoicesByJournal(Invoices, ByJournal):
     """
     params_panel_hidden = True
     params_layout = "partner year state"
-    column_names = "number date due_date " \
+    column_names = "id voucher_date due_date " \
         "partner " \
         "total_incl order subject:10 " \
         "total_base total_vat user *"
-                  #~ "ledger_remark:10 " \
 
 
 class ProductDocItem(QtyVatItemBase):
@@ -410,7 +410,7 @@ class DocumentsToSign(Invoices):
     use_as_default_table = False
     filter = dict(user__isnull=True)
     #~ can_add = perms.never
-    column_names = "number:4 order date " \
+    column_names = "number:4 order voucher_date " \
         "partner:10 " \
         "subject:10 total_incl total_base total_vat "
     #~ actions = Invoices.actions + [ SignAction() ]
@@ -418,9 +418,9 @@ class DocumentsToSign(Invoices):
 
 class InvoicesByPartner(Invoices):
     #~ model = 'sales.VatProductInvoice'
-    order_by = ["-date", '-id']
+    order_by = ["-voucher_date", '-id']
     master_key = 'partner'
-    column_names = "date total_incl total_base total_vat *"
+    column_names = "voucher_date total_incl total_base total_vat *"
 
 
 #~ class SalesByPerson(SalesDocuments):

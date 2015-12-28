@@ -76,23 +76,6 @@ class ShowSuggestions(dd.Action):
         ar.set_response(eval_js=js)
 
 
-# class Grouper(FinancialVoucher):
-#     """An internal journal entry used to group a series of matches.
-
-#     There are two types of groupers: *partner* groupers and *general
-#     account* groupers.
-
-#     """
-#     class Meta:
-#         app_label = 'finan'
-#         abstract = dd.is_abstract_model(__name__, 'Grouper')
-#         verbose_name = _("Grouper")
-#         verbose_name_plural = _("Groupers")
-
-#     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
-#     # account = dd.ForeignKey('accounts.Account', blank=True, null=True)
-
-
 class JournalEntry(FinancialVoucher, ProjectRelated):
     """This is the model for "journal entries" ("operations diverses").
 
@@ -102,6 +85,13 @@ class JournalEntry(FinancialVoucher, ProjectRelated):
         abstract = dd.is_abstract_model(__name__, 'JournalEntry')
         verbose_name = _("Journal Entry")
         verbose_name_plural = _("Journal Entries")
+
+    def get_wanted_movements(self):
+        # dd.logger.info("20151211 FinancialVoucher.get_wanted_movements()")
+        amount, movements = self.get_finan_movements()
+        if amount:
+            raise Exception("Missing amount %s in movements" % amount)
+        return movements
 
 
 class PaymentOrder(FinancialVoucher):
@@ -121,14 +111,19 @@ class PaymentOrder(FinancialVoucher):
 
     def get_wanted_movements(self):
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
-        a = self.journal.account
-        if not a:
+        acc = self.journal.account
+        if not acc:
             raise Exception("No account in %s" % self.journal)
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
             yield m
-        yield self.create_movement(a, None, self.journal.dc, -amount)
+            if acc.needs_partner:
+                yield self.create_movement(
+                    acc, m.project, m.dc, -m.amount,
+                    partner=m.partner, match=m.match or m.get_default_match())
+        if not acc.needs_partner:
+            yield self.create_movement(acc, None, self.journal.dc, -amount)
 
     def add_item_from_due(self, obj, **kwargs):
         # if obj.bank_account is None:
@@ -158,7 +153,7 @@ class BankStatement(FinancialVoucher):
             #~ logger.info("20131005 no journal")
             return None
         qs = self.__class__.objects.filter(
-            journal=self.journal).order_by('-date')
+            journal=self.journal).order_by('-voucher_date')
         if qs.count() > 0:
             #~ logger.info("20131005 no other vouchers")
             return qs[0]
@@ -181,11 +176,6 @@ class BankStatement(FinancialVoucher):
         for m in movements:
             yield m
         yield self.create_movement(a, None, not self.journal.dc, amount)
-
-
-# class GrouperItem(FinancialVoucherItem):
-#     """An item of a :class:`Grouper`."""
-#     voucher = dd.ForeignKey('finan.Grouper', related_name='items')
 
 
 class JournalEntryItem(FinancialVoucherItem):
@@ -234,7 +224,7 @@ class JournalEntryDetail(dd.FormLayout):
     main = "general ledger"
 
     general = dd.Panel("""
-    date user narration workflow_buttons
+    voucher_date user narration workflow_buttons
     finan.ItemsByJournalEntry
     """, label=_("General"))
 
@@ -246,37 +236,28 @@ class JournalEntryDetail(dd.FormLayout):
 
 class PaymentOrderDetail(JournalEntryDetail):
     general = dd.Panel("""
-    date user narration total execution_date workflow_buttons
+    voucher_date user narration total execution_date workflow_buttons
     finan.ItemsByPaymentOrder
     """, label=_("General"))
 
 
 class BankStatementDetail(JournalEntryDetail):
     general = dd.Panel("""
-    date balance1 balance2 user workflow_buttons
+    voucher_date balance1 balance2 user workflow_buttons
     finan.ItemsByBankStatement
     """, label=_("General"))
 
 
-# class GrouperDetail(JournalEntryDetail):
-#     general = dd.Panel("""
-#     date partner user workflow_buttons
-#     finan.ItemsByGrouper
-#     """, label=_("General"))
-
-
 class FinancialVouchers(dd.Table):
-    """The table of all :class:`JournalEntry` vouchers.
-
-    This is also the base table for the default tables of all other
-    financial voucher types (:class:`PaymentOrders`,
-    :class:`BankStatemens` and :class:`Groupers`).
+    """Base class for the default tables of all other financial voucher
+    types (:class:`JournalEntries` , :class:`PaymentOrders` and
+    :class:`BankStatemens`).
 
     """
     model = 'finan.JournalEntry'
     required_roles = dd.login_required(LedgerStaff)
     params_panel_hidden = True
-    order_by = ["date", "id"]
+    order_by = ["voucher_date", "id"]
     parameters = dict(
         pyear=ledger.FiscalYears.field(blank=True),
         #~ ppartner=models.ForeignKey('contacts.Partner',blank=True,null=True),
@@ -284,7 +265,7 @@ class FinancialVouchers(dd.Table):
     params_layout = "pjournal pyear"
     detail_layout = JournalEntryDetail()
     insert_layout = dd.FormLayout("""
-    date user
+    voucher_date
     narration
     """, window_size=(40, 'auto'))
 
@@ -304,35 +285,24 @@ class FinancialVouchers(dd.Table):
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
-    column_names = "date id number state user *"
+    column_names = "voucher_date id number state user *"
 
 
 class PaymentOrders(FinancialVouchers):
     """The table of all :class:`PaymentOrder` vouchers."""
     model = 'finan.PaymentOrder'
-    column_names = "date id number state user *"
+    column_names = "voucher_date narration total execution_date id number state *"
     detail_layout = PaymentOrderDetail()
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
-
-
-# class Groupers(FinancialVouchers):
-#     """The table of all :class:`Grouper` vouchers."""
-#     model = 'finan.Grouper'
-#     column_names = "date id number partner user workflow_buttons"
-#     detail_layout = GrouperDetail()
-#     insert_layout = """
-#     date user
-#     partner
-#     """
 
 
 class BankStatements(FinancialVouchers):
     """The table of all :class:`BankStatement` vouchers."""
     model = 'finan.BankStatement'
-    column_names = "date id number balance1 balance2 state user *"
+    column_names = "voucher_date id number balance1 balance2 state user *"
     detail_layout = BankStatementDetail()
     insert_layout = """
-    date user
+    voucher_date
     balance1
     balance2
     """
@@ -484,7 +454,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
 
     label = _("Suggestions")
     column_names = 'partner project match account due_date debts payments balance *'
-    window_size = (70, 20)  # (width, height)
+    window_size = ('90%', 20)  # (width, height)
 
     editable = False
     auto_fit_column_widths = True
@@ -506,7 +476,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
         kw = super(SuggestionsByVoucher, cls).param_defaults(ar, **kw)
         voucher = ar.master_instance
         kw.update(for_journal=voucher.journal)
-        kw.update(date_until=voucher.date)
+        kw.update(date_until=voucher.voucher_date)
         # kw.update(trade_type=vat.TradeTypes.purchases)
         return kw
 
@@ -535,7 +505,7 @@ class SuggestionsByPaymentOrder(SuggestionsByVoucher):
         kw = super(SuggestionsByPaymentOrder, cls).param_defaults(ar, **kw)
         voucher = ar.master_instance
         # kw.update(journal=voucher.journal)
-        kw.update(date_until=voucher.execution_date or voucher.date)
+        kw.update(date_until=voucher.execution_date or voucher.voucher_date)
         if voucher.journal.trade_type is not None:
             kw.update(trade_type=voucher.journal.trade_type)
         # kw.update(trade_type=vat.TradeTypes.purchases)
@@ -567,7 +537,7 @@ class SuggestionsByVoucherItem(SuggestionsByVoucher):
         item = ar.master_instance
         voucher = item.voucher
         kw.update(for_journal=voucher.journal)
-        kw.update(date_until=voucher.date)
+        kw.update(date_until=voucher.voucher_date)
         kw.update(partner=item.partner)
         return kw
 

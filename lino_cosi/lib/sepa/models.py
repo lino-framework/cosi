@@ -30,7 +30,7 @@ from lino.core.utils import ChangeWatcher
 
 from lino.utils.format_date import fds
 
-from .fields import IBANField, BICField
+from .fields import IBANField, BICField, IBAN_FORMFIELD
 from .utils import belgian_nban_to_iban_bic, iban2bic
 from .roles import SepaUser, SepaStaff
 from lino.modlib.contacts.roles import ContactsUser
@@ -82,9 +82,10 @@ class Account(dd.Model):
     allow_cascaded_delete = ['partner']
 
     def __unicode__(self):
-        if self.remark:
-            return "{0} ({1})".format(self.iban, self.remark)
-        return self.iban
+        return IBAN_FORMFIELD.prepare_value(self.iban)
+        # if self.remark:
+        #     return "{0} ({1})".format(self.iban, self.remark)
+        # return self.iban
 
     def full_clean(self):
         if self.iban and not self.bic:

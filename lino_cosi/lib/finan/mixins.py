@@ -67,11 +67,7 @@ class FinancialVoucher(ledger.Voucher):
         return i
 
     def get_wanted_movements(self):
-        # dd.logger.info("20151211 FinancialVoucher.get_wanted_movements()")
-        amount, movements = self.get_finan_movements()
-        if amount:
-            raise Exception("Missing amount %s in movements" % amount)
-        return movements
+        raise NotImplemented()
 
     def get_finan_movements(self):
         # dd.logger.info("20151211 get_finan_movements()")
@@ -82,17 +78,11 @@ class FinancialVoucher(ledger.Voucher):
                 amount += i.amount
             else:
                 amount -= i.amount
-            # if i.match:
-            #     match = i.match
-            # elif i.partner:
-            #     match = "%s#%s-%s" % (self.journal.ref, self.pk, i.seqno)
-            # else:
-            #     match = ''
+            # kw = dict(seqno=i.seqno, partner=i.partner)
+            kw = dict(partner=i.partner)
+            kw.update(match=i.match or i.get_default_match())
             b = self.create_movement(
-                i.account, None, i.dc, i.amount,
-                seqno=i.seqno,
-                match=i.match,
-                partner=i.partner)
+                i.account, i.project, i.dc, i.amount, **kw)
             mvts.append(b)
 
         return amount, mvts
@@ -148,7 +138,9 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         return cls.get_match_choices(voucher.journal, partner)
 
     def get_default_match(self):
-        return str(self.date)
+        return "%s#%s:%s" % (
+            self.voucher.journal.ref, self.voucher.id, self.seqno)
+        # return str(self.date)
 
     def get_siblings(self):
         return self.voucher.items.all()

@@ -124,7 +124,7 @@ class PartnerRelated(dd.Model):
 
     def payment_term_changed(self, ar=None):
         if self.payment_term:
-            self.due_date = self.payment_term.get_due_date(self.date)
+            self.due_date = self.payment_term.get_due_date(self.voucher_date)
 
 
 class Matching(dd.Model):
@@ -178,7 +178,7 @@ class Matching(dd.Model):
         if partner:
             fkw.update(partner=partner)
         qs = rt.modules.ledger.Movement.objects.filter(**fkw)
-        qs = qs.order_by('voucher__date')
+        qs = qs.order_by('voucher__entry_date')
         # qs = qs.distinct('match')
         if FKMATCH:
             return qs

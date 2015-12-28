@@ -111,7 +111,7 @@ def objects():
     date = datetime.date(START_YEAR, 1, 1)
     end_date = settings.SITE.demo_date(-10)  # + delta(years=-2)
     # end_date = datetime.date(START_YEAR+1, 5, 1)
-    print(20151216, START_YEAR, settings.SITE.demo_date(), end_date - date)
+    # print(20151216, START_YEAR, settings.SITE.demo_date(), end_date - date)
     while date < end_date:
 
         if sales:
@@ -126,7 +126,9 @@ def objects():
                     journal=JOURNAL_S,
                     partner=partner,
                     user=USERS.pop(),
-                    date=date + delta(days=5 + i))
+                    voucher_date=date + delta(days=5 + i),
+                    entry_date=date + delta(days=5 + i + 1),
+                )
                     # date=date + delta(days=10 + DATE_DELTAS.pop()))
                 yield invoice
                 for j in range(ITEMCOUNT.pop()):
@@ -141,9 +143,11 @@ def objects():
                 invoice.save()
 
         for story in PURCHASE_STORIES:
+            vd = date + delta(days=DATE_DELTAS.pop())
             invoice = vat.VatAccountInvoice(
                 journal=JOURNAL_P, partner=story[0], user=USERS.pop(),
-                date=date + delta(days=DATE_DELTAS.pop()))
+                voucher_date=vd,
+                entry_date=vd + delta(days=1))
             yield invoice
             for account, amount in story[1]:
                 amount += amount + \
