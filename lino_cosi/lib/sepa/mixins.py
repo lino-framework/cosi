@@ -66,7 +66,8 @@ class Payable(PartnerRelated):
 
         if not self.due_date:
             if self.payment_term is not None:
-                self.due_date = self.payment_term.get_due_date(self.date)
+                self.due_date = self.payment_term.get_due_date(
+                    self.voucher_date)
 
         super(Payable, self).full_clean()
 
@@ -86,7 +87,7 @@ class Payable(PartnerRelated):
                 self.bank_account = qs[0]
         
     def get_due_date(self):
-        return self.due_date or self.date
+        return self.due_date or self.voucher_date
 
     def get_bank_account(self):
         return self.bank_account

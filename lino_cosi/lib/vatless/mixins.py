@@ -38,6 +38,7 @@ class PartnerDetailMixin(dd.DetailLayout):
     """
     if dd.is_installed('ledger'):
         ledger = dd.Panel("""
+        payment_term
         vatless.VouchersByPartner
         ledger.MovementsByPartner
         """, label=dd.plugins.ledger.verbose_name)

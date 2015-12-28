@@ -22,6 +22,7 @@
 from django.db import models
 
 from localflavor.generic import models as iban_fields
+from localflavor.generic.forms import IBANFormField
 
 from django.utils.six import with_metaclass
 
@@ -29,6 +30,8 @@ from lino.api import dd
 
 from lino.utils.jsgen import js_code
 from lino.modlib.extjs.elems import CharFieldElement
+
+IBAN_FORMFIELD = IBANFormField()
 
 
 class UppercaseTextFieldElement(CharFieldElement):

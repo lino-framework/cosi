@@ -204,7 +204,9 @@ def get_due_movements(dc, **flt):
     if dc is None:
         return
     qs = rt.modules.ledger.Movement.objects.filter(**flt)
-    qs = qs.order_by('voucher__date')
+    qs = qs.filter(account__clearable=True)
+    # qs = qs.exclude(match='')
+    qs = qs.order_by('voucher__voucher_date')
     matches_by_account = dict()
     matches = []
     for mvt in qs:
@@ -229,7 +231,7 @@ def check_clearings(partner, matches=[]):
 
     """
     qs = rt.modules.ledger.Movement.objects.filter(
-        partner=partner).order_by('match')
+        partner=partner, account__clearable=True).order_by('match')
     if len(matches):
         qs = qs.filter(match__in=matches)
     sums = SumCollector()

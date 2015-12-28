@@ -352,7 +352,7 @@ class VatItemBase(VoucherItem, VatTotal):
             self.voucher.vat_regime, self.vat_class,
             self.voucher.partner.country or
             dd.plugins.countries.get_my_country(),
-            self.voucher.date)
+            self.voucher.voucher_date)
         return rule
 
     #~ def save(self,*args,**kw):

@@ -96,6 +96,17 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
         point to an item of
         :class:`lino_cosi.lib.accounts.choicelists.AccountTypes`.
     
+    .. attribute:: needs_partner
+
+        Whether bookings to this account need a partner specified.
+
+        This causes the contra entry of financial documents to be
+        detailed (i.e. one for every item) or not (i.e. a single
+        contra entry per voucher, without project nor partner).
+
+        This option is currently not used otherwise, e.g. Lino does
+        not verify this for manually entered transactions.
+
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length
 
@@ -106,6 +117,8 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
     group = models.ForeignKey('accounts.Group')
     type = AccountTypes.field()  # blank=True)
+    needs_partner = models.BooleanField(_("Needs partner"), default=False)
+    clearable = models.BooleanField(_("Clearable"), default=False)
 
     def full_clean(self, *args, **kw):
         if self.group_id is not None:
@@ -133,9 +146,10 @@ class Accounts(dd.Table):
     name
     """
     detail_layout = """
-    ref name
-    group type
-    # help_text
+    ref group type id
+    name
+    needs_partner clearable
+    ledger.MovementsByAccount
     """
 
 
