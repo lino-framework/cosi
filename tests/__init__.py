@@ -56,13 +56,18 @@ class DocsTests(BaseTestCase):
         return self.run_simple_doctests('docs/tested/general.rst')
 
 
+class DemoTests(TestCase):
+
+    def test_std(self):
+        self.run_django_manage_test('lino_cosi/projects/std')
+
+
 class DjangoTests(BaseTestCase):
     """
     $ python setup.py test -s tests.DemoTests.test_admin
     """
 
     def test_admin(self):
-        self.run_django_manage_test('lino_cosi/projects/std')
         self.run_django_manage_test('lino_cosi/projects/apc')
         self.run_django_manage_test('lino_cosi/projects/ylle')
         # self.run_django_manage_test('lino_cosi/projects/std/settings/start')

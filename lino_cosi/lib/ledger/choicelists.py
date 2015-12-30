@@ -366,6 +366,7 @@ def setup_vat_workflow(sender=None, **kw):
             _("Deregister"),
             # unichr(0x25c7),  # ◇
             help_text=_("Deregister"),
+            required_roles=dd.login_required(LedgerStaff),
             required_states="registered")
 
 

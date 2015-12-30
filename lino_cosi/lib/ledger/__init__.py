@@ -115,9 +115,9 @@ class Plugin(ad.Plugin):
         mg = site.plugins.accounts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('ledger.MatchRules')
-        m.add_action('ledger.Vouchers')
+        m.add_action('ledger.AllVouchers')
         m.add_action('ledger.VoucherTypes')
-        m.add_action('ledger.Movements')
+        m.add_action('ledger.AllMovements')
         m.add_action('ledger.FiscalYears')
         m.add_action('ledger.TradeTypes')
 

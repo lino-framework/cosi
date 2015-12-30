@@ -127,7 +127,7 @@ class Vouchers(dd.Table):
     """
     The base table for all tables working on :class:`Voucher`.
     """
-    required_roles = dd.login_required(LedgerStaff)
+    required_roles = dd.login_required(LedgerUser)
     model = 'ledger.Voucher'
     editable = False
     order_by = ["entry_date", "number"]
@@ -147,6 +147,10 @@ class Vouchers(dd.Table):
             if pv.journal:
                 qs = qs.filter(journal=pv.journal)
         return qs
+
+
+class AllVouchers(Vouchers):
+    required_roles = dd.login_required(LedgerStaff)
 
 
 class MatchRules(dd.Table):
@@ -669,16 +673,16 @@ class ActivityReport(Report):
 class Movements(dd.Table):
     """
     The base table for all tables working on :class:`Movement`.
+    Defines filtering parameters and general behaviour.
 
-    Displayed by :menuselection:`Explorer --> Accounting --> Movements`.
+    Subclassed by e.g. :class:`AllMovements`,
+    :class:`MovementsByVoucher`,
+    :class:`MovementsByAccount` and :class:`MovementsByPartner`.
 
-    This is also the base class for :class:`MovementsByVoucher`,
-    :class:`MovementsByAccount` and :class:`MovementsByPartner` and
-    defines e.g. filtering parameters.
     """
     
-    required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.Movement'
+    required_roles = dd.login_required(LedgerUser)
     column_names = 'voucher__entry_date voucher_link description \
     debit credit match_link satisfied *'
 
@@ -749,6 +753,13 @@ class Movements(dd.Table):
         if self.project:
             elems.append(ar.obj2html(self.project))
         return E.p(*join_elems(elems, " / "))
+
+
+class AllMovements(Movements):
+    """
+    Displayed by :menuselection:`Explorer --> Accounting --> Movements`.
+    """
+    required_roles = dd.login_required(LedgerStaff)
 
 
 class MovementsByVoucher(Movements):

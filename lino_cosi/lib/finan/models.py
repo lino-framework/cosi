@@ -28,7 +28,7 @@ from django.db import models
 from lino_cosi.lib.accounts.utils import ZERO, DEBIT, CREDIT
 from lino_cosi.lib.ledger.fields import DcAmountField
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
-from lino_cosi.lib.ledger.roles import LedgerStaff
+from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_cosi.lib.ledger.mixins import ProjectRelated
 
 from lino.api import dd, rt, _
@@ -255,7 +255,7 @@ class FinancialVouchers(dd.Table):
 
     """
     model = 'finan.JournalEntry'
-    required_roles = dd.login_required(LedgerStaff)
+    required_roles = dd.login_required(LedgerUser)
     params_panel_hidden = True
     order_by = ["voucher_date", "id"]
     parameters = dict(
@@ -309,6 +309,18 @@ class BankStatements(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByBankStatement'
 
 
+class AllBankStatements(BankStatements):
+    required_roles = dd.login_required(LedgerStaff)
+
+
+class AllJournalEntries(JournalEntries):
+    required_roles = dd.login_required(LedgerStaff)
+
+
+class AllPaymentOrders(PaymentOrders):
+    required_roles = dd.login_required(LedgerStaff)
+
+
 class PaymentOrdersByJournal(ledger.ByJournal, PaymentOrders):
     pass
 
@@ -319,10 +331,6 @@ class JournalEntriesByJournal(ledger.ByJournal, JournalEntries):
 
 class BankStatementsByJournal(ledger.ByJournal, BankStatements):
     pass
-
-
-# class GroupersByJournal(ledger.ByJournal, Groupers):
-#     pass
 
 
 class ItemsByVoucher(dd.Table):
