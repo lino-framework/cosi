@@ -63,7 +63,6 @@ class DDHTests(RemoteAuthTestCase):
         Journal = rt.modules.ledger.Journal
         VoucherTypes = rt.modules.ledger.VoucherTypes
         JournalGroups = rt.modules.ledger.JournalGroups
-        AccountCharts = rt.modules.accounts.AccountCharts
 
         u = User(username='robin',
                  profile=UserProfiles.admin,

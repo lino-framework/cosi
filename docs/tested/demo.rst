@@ -11,8 +11,6 @@ Tested code snippets on the demo database
     
     doctest init:
 
-    >>> #import os
-    >>> # os.environ['DJANGO_SETTINGS_MODULE'] = 'lino_cosi.projects.std.settings.doctests'
     >>> from lino import startup
     >>> startup('lino_cosi.projects.std.settings.doctests')
     >>> from lino.api.doctest import *
@@ -35,7 +33,7 @@ The test database
 >>> from lino.utils.diag import analyzer
 >>> print analyzer.show_database_structure()
 ... #doctest: +NORMALIZE_WHITESPACE +REPORT_UDIFF
-- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, clearable, group, type
+- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, group, type, needs_partner, clearable
 - accounts.Group : id, name, ref, account_type
 - cal.Calendar : id, name, description, color
 - cal.Event : id, modified, created, build_time, build_method, user, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state, assigned_to
@@ -62,21 +60,21 @@ The test database
 - courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, tariff, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
-- declarations.Declaration : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, period, sales_base, sales_vat, purchases_base, purchases_vat, purchases_investments, purchases_ware, purchases_services
+- declarations.Declaration : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, period, sales_base, sales_vat, purchases_base, purchases_vat, purchases_investments, purchases_ware, purchases_services
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
 - excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
-- finan.BankStatement : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, balance1, balance2
+- finan.BankStatement : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.JournalEntry : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr
+- finan.JournalEntry : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.PaymentOrder : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, total, execution_date
+- finan.PaymentOrder : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
 - gfks.HelpText : id, content_type, field, help_text
 - ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
-- ledger.Voucher : id, user, date, journal, year, number, narration, state, declared_in
+- ledger.Voucher : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
@@ -84,7 +82,7 @@ The test database
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
 - sales.InvoicingMode : id, build_method, template, name, price, advance_days
-- sales.VatProductInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
+- sales.VatProductInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -93,9 +91,9 @@ The test database
 - users.Authority : id, user, authorized
 - users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
-- vat.VatAccountInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
+- vat.VatAccountInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
-- vatless.AccountInvoice : id, user, date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
+- vatless.AccountInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, declared_in, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
 - vatless.InvoiceItem : id, seqno, account, voucher, title, amount
 <BLANKLINE>
 
@@ -106,7 +104,7 @@ The test database
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
- accounts.Account            accounts.Accounts              11        12
+ accounts.Account            accounts.Accounts              12        12
  accounts.Group              accounts.Groups                4         7
  cal.Calendar                cal.Calendars                  4         1
  cal.Event                   cal.OneEvent                   23        68
@@ -133,21 +131,21 @@ The test database
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 2         0
- declarations.Declaration    declarations.Declarations      18        0
+ declarations.Declaration    declarations.Declarations      19        0
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
- finan.BankStatement         finan.BankStatements           12        4
+ finan.BankStatement         finan.BankStatements           13        4
  finan.BankStatementItem     finan.BankStatementItemTable   10        18
- finan.JournalEntry          finan.FinancialVouchers        10        0
+ finan.JournalEntry          finan.FinancialVouchers        11        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            12        4
+ finan.PaymentOrder          finan.PaymentOrders            13        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
  ledger.Journal              ledger.Journals                14        7
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
- ledger.Voucher              ledger.Vouchers                9         57
+ ledger.Voucher              ledger.Vouchers                10        57
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
@@ -155,7 +153,7 @@ The test database
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
  sales.InvoicingMode         sales.InvoicingModes           6         0
- sales.VatProductInvoice     sales.Invoices                 25        24
+ sales.VatProductInvoice     sales.Invoices                 26        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             15        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
@@ -164,9 +162,9 @@ The test database
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    15        1
  vat.InvoiceItem             vat.InvoiceItemTable           9         40
- vat.VatAccountInvoice       vat.Invoices                   21        25
+ vat.VatAccountInvoice       vat.Invoices                   22        25
  vat.VatRule                 vat.VatRules                   9         11
- vatless.AccountInvoice      vatless.Invoices               18        0
+ vatless.AccountInvoice      vatless.Invoices               19        0
  vatless.InvoiceItem         vatless.InvoiceItems           6         0
 =========================== ============================== ========= =======
 <BLANKLINE>

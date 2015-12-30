@@ -49,7 +49,7 @@ class Plugin(ad.Plugin):
 
     def setup_explorer_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('finan.BankStatements')
-        m.add_action('finan.JournalEntries')
-        m.add_action('finan.PaymentOrders')
+        m.add_action('finan.AllBankStatements')
+        m.add_action('finan.AllJournalEntries')
+        m.add_action('finan.AllPaymentOrders')
         # m.add_action('finan.Groupers')

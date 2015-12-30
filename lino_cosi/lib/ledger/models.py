@@ -374,12 +374,29 @@ class Voucher(UserAuthored, mixins.Registrable):
     def get_voucher_match(self):
         return "{0}#{1}".format(self.journal.ref, self.number)
         
-    def before_state_change(self, ar, old, new):
-        if new.name == 'registered':
-            self.register_voucher(ar)
-        elif new.name == 'draft':
-            self.deregister_voucher(ar)
-        super(Voucher, self).before_state_change(ar, old, new)
+    def set_workflow_state(self, ar, state_field, newstate):
+        """"""
+        def doit(ar2):
+            if newstate.name == 'registered':
+                self.register_voucher(ar2)
+            elif newstate.name == 'draft':
+                self.deregister_voucher(ar2)
+            super(Voucher, self).set_workflow_state(ar2, state_field, newstate)
+
+        if newstate.name == 'registered':
+            ar.confirm(
+                doit,
+                _("Are you sure you want to register "
+                  "voucher {0}?").format(self))
+        else:
+            doit(ar)
+
+    # def before_state_change(self, ar, old, new):
+    #     if new.name == 'registered':
+    #         self.register_voucher(ar)
+    #     elif new.name == 'draft':
+    #         self.deregister_voucher(ar)
+    #     super(Voucher, self).before_state_change(ar, old, new)
 
     def register_voucher(self, ar):
         """
