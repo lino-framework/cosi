@@ -81,7 +81,8 @@ class Plugin(ad.Plugin):
     def on_site_startup(self, site):
         if site.the_demo_date is not None:
             if self.start_year > site.the_demo_date.year:
-                raise Exception("start_year is after the_demo_date")
+                raise Exception(
+                    "plugins.ledger.start_year is after the_demo_date")
 
     def setup_main_menu(self, site, profile, m):
         if not self.intrusive_menu:
