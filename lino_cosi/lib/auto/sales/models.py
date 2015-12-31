@@ -160,7 +160,9 @@ def create_invoice_for(obj, ar):
         raise Warning(_("No invoiceables found for %s.") % obj)
     M = VatProductInvoice
     jnl = M.get_journals()[0]
-    invoice = M(partner=obj, journal=jnl, date=settings.SITE.today())
+    invoice = M(partner=obj, journal=jnl,
+                voucher_date=settings.SITE.today(),
+                entry_date=settings.SITE.today())
     invoice.save()
     for ii in invoiceables:
         i = InvoiceItem(voucher=invoice, invoiceable=ii,
