@@ -270,8 +270,7 @@ class AccountVoucherItem(VoucherItem, SequencedVoucherItem):
     def account_choices(self, voucher):
         if voucher and voucher.journal:
             fkw = {voucher.journal.trade_type.name + '_allowed': True}
-            return rt.modules.accounts.Account.objects.filter(
-                chart=voucher.journal.chart, **fkw)
+            return rt.modules.accounts.Account.objects.filter(**fkw)
         return []
 
 
