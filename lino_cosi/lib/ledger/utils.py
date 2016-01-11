@@ -21,11 +21,18 @@
 
 """
 
+from decimal import Decimal, ROUND_HALF_UP
 from lino.api import rt, dd
 
 from lino.utils import SumCollector
 
 from lino_cosi.lib.accounts.utils import ZERO, DEBIT
+
+CENT = Decimal('.01')
+
+
+def myround(d):
+    return d.quantize(CENT, rounding=ROUND_HALF_UP)
 
 
 class Balance(object):

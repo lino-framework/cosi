@@ -27,13 +27,14 @@ from __future__ import print_function
 import logging
 logger = logging.getLogger(__name__)
 
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal
 
 from django.conf import settings
 
 from lino.utils import SumCollector
 from lino.api import dd, rt, _
 
+from lino_cosi.lib.ledger.utils import myround
 from lino_cosi.lib.ledger.mixins import ProjectRelated, VoucherItem
 
 from .utils import ZERO, ONE
@@ -57,13 +58,6 @@ class PartnerDetailMixin(dd.DetailLayout):
         """, label=dd.plugins.ledger.verbose_name)
     else:
         ledger = dd.DummyPanel()
-
-CENT = Decimal('.01')
-
-
-def myround(d):
-    return d.quantize(CENT, rounding=ROUND_HALF_UP)
-
 
 def get_default_vat_regime():
     return dd.plugins.vat.default_vat_regime
