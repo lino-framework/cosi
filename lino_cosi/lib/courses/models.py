@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -247,7 +247,7 @@ class Line(ExcerptTitle):
 class Lines(dd.Table):
     model = 'courses.Line'
     column_names = ("ref name topic course_area "
-                    "event_type guest_role every_unit every *")
+                    "event_type guest_role every_unit description every *")
     order_by = ['ref', 'name']
     detail_layout = """
     id name ref
