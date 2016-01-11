@@ -56,6 +56,7 @@ from lino_cosi.lib.accounts.utils import ZERO
 from lino.core.utils import obj2str
 from lino.core.utils import is_valid_email
 
+from lino_cosi.lib.ledger.utils import myround
 from lino_cosi.lib.ledger.choicelists import JournalGroups
 # from lino_cosi.lib.ledger.fixtures.std import payment_terms
 
@@ -155,7 +156,7 @@ def mton(s, default=None):  # PriceField
         i = s.find('..')
         if i != -1:
             s = s[:i]
-        return Decimal(s)
+        return myround(Decimal(s))
     return Decimal()
 
 
@@ -507,7 +508,8 @@ class TimLoader(object):
         kw.update(year=year)
         kw.update(number=number)
         # kw.update(id=pk)
-        kw.update(date=row.date)
+        kw.update(voucher_date=row.date)
+        kw.update(entry_date=row.date)
         kw.update(user=self.get_user())
         kw.update(balance1=mton(row.mont1, ZERO))
         kw.update(balance2=mton(row.mont2, ZERO))
@@ -597,7 +599,8 @@ class TimLoader(object):
             # partner=contacts.Partner.objects.get(pk=self.par_pk(row.idpar))
         else:
             raise Exception("Unknown TradeType %r" % jnl.trade_type)
-        kw.update(date=row.date)
+        kw.update(voucher_date=row.date)
+        kw.update(entry_date=row.date)
         kw.update(user=self.get_user(row.auteur))
         kw.update(total_excl=mton(row.montr))
         kw.update(total_vat=mton(row.montt))
@@ -993,7 +996,7 @@ class TimLoader(object):
     def after_gen_load(self):
         sc = dict()
         for k, v in dd.plugins.tim2lino.siteconfig_accounts.items():
-            sc[k] = rt.modules.accounts.Accout.get_by_ref(v)
+            sc[k] = rt.modules.accounts.Account.get_by_ref(v)
         settings.SITE.site_config.update(**sc)
         # func = dd.plugins.tim2lino.setup_tim2lino
         # if func:
