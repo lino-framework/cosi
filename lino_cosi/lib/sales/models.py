@@ -281,7 +281,7 @@ class ProductDocItem(QtyVatItemBase):
 
     def get_base_account(self, tt):
         if self.product is None:
-            return
+            return tt.get_base_account()
         return tt.get_product_base_account(self.product)
         #~ return self.voucher.journal.chart.get_account_by_ref(ref)
 

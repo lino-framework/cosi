@@ -69,9 +69,13 @@ class VatRegimes(dd.ChoiceList):
 
 add = VatRegimes.add_item
 add('10', _("Private person"), 'private')
+add('11', _("Private person (reduced)"), 'reduced')
 add('20', _("Subject to VAT"), 'subject')
 add('25', _("Co-contractor"), 'cocontractor')
 add('30', _("Intra-community"), 'intracom')
 add('40', _("Outside EU"), 'outside')
 add('50', _("Exempt"), 'exempt', item_vat=False)
+add('70', _("Germany"), 'de')
+add('71', _("Luxemburg"), 'lu')
+
 

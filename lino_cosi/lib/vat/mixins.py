@@ -275,9 +275,8 @@ class VatDocument(ProjectRelated, VatTotal):
             if i.total_base:
                 b = i.get_base_account(tt)
                 if b is None:
-                    raise Exception(
-                        "No base account for %s (total_base is %r)" % (
-                            i, i.total_base))
+                    msg = "No base account for {0} (tt {1}, total_base {2})"
+                    raise Exception(msg.format(i, tt, i.total_base))
                 sums.collect((b, self.project), i.total_base)
             if i.total_vat:
                 sums.collect((vat_account, self.project), i.total_vat)
