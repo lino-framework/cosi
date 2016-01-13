@@ -35,6 +35,12 @@ from __future__ import unicode_literals
 
 GET_THEM_ALL = True
 
+START_YEAR = 2002
+"""
+Don't import vouchers before 2002. TODO: make this
+configurable
+"""
+
 import os
 import datetime
 from decimal import Decimal
@@ -90,6 +96,7 @@ if True:
     sepa = dd.resolve_app('sepa')
     lists = dd.resolve_app('lists')
 
+VatRule = rt.modules.vat.VatRule
 
 def dbfmemo(s):
     s = s.replace('\r\n', '\n')
@@ -102,7 +109,7 @@ def dbfmemo(s):
 # def convert_username(name):
     # return name.lower()
 
-from lino_cosi.lib.vat.choicelists import VatClasses
+from lino_cosi.lib.vat.choicelists import VatClasses, VatRegimes
 
 
 def tax2vat(idtax):
@@ -120,6 +127,27 @@ def tax2vat(idtax):
     else:
         return VatClasses.normal
     raise Exception("Unknown VNl->IdTax %r" % idtax)
+
+
+def vat_regime(idreg):
+    if idreg == 'A':
+        return VatRegimes.subject
+    elif idreg == 'P':
+        return VatRegimes.private
+    elif idreg == 'C':
+        return VatRegimes.cocontractor
+    elif idreg == 'I':
+        return VatRegimes.intracom
+    elif idreg == 'S':
+        return VatRegimes.intracom
+    elif idreg == 'X':
+        return VatRegimes.outside
+    elif idreg == '0':
+        return VatRegimes.exempt
+    elif idreg == 'D':
+        return VatRegimes.de
+    elif idreg == 'L':
+        return VatRegimes.lu
 
 
 def pcmn2type(idgen):
@@ -200,14 +228,14 @@ def year_num(iddoc):
 
 def row2jnl(row):
     try:
-        jnl = Journal.objects.get(ref=row.idjnl)
+        jnl = Journal.objects.get(ref=row.idjnl.strip())
     except Journal.DoesNotExist:
         return None, None, None
     year, num = year_num(row.iddoc)
-    if year < 2002:
-        # Don't import vouchers before 20002. TODO: make this
-        # configurable
-        return None, None, None
+    # if year < 2002:
+    #     # Don't import vouchers before 2002. TODO: make this
+    #     # configurable
+    #     return None, None, None
     return jnl, year, num
 
 
@@ -467,7 +495,7 @@ class TimLoader(object):
 
     def load_jnl(self, row, **kw):
         vcl = None
-        kw.update(ref=row.idjnl, name=row.libell)
+        kw.update(ref=row.idjnl.strip(), name=row.libell)
         kw.update(dc=self.dc2lino(row.dc))
         kw.update(auto_check_clearings=False)
 
@@ -502,8 +530,9 @@ class TimLoader(object):
     def load_fin(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
-            dblogger.info("No journal for FIN record %s", row)
-            # raise Exception("No journal for FIN record %s" % row)
+            dblogger.info("No journal %s (%s)", row.idjnl, row)
+            return
+        if year < START_YEAR:
             return
         kw.update(year=year)
         kw.update(number=number)
@@ -523,9 +552,10 @@ class TimLoader(object):
     def load_fnl(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
-            dblogger.info("No journal for FNL record %s", row)
+            dblogger.info("No journal %s (%s)", row.idjnl, row)
             return
-            # raise Exception("No journal for FNL record %s" % row)
+        if year < START_YEAR:
+            return
         doc = self.FINDICT.get((jnl, year, number))
         if doc is None:
             raise Exception("FNL %r without document" %
@@ -578,9 +608,13 @@ class TimLoader(object):
     def load_ven(self, row, **kw):
         jnl, year, number = row2jnl(row)
         if jnl is None:
+            dblogger.info("No journal %s (%s)", row.idjnl, row)
+            return
+        if year < START_YEAR:
             return
         kw.update(year=year)
         kw.update(number=number)
+        kw.update(vat_regime=vat_regime(row.idreg.strip()))
         # kw.update(id=pk)
         partner = self.get_customer(row.idpar)
         if partner is None:
@@ -623,10 +657,15 @@ class TimLoader(object):
         jnl, year, number = row2jnl(row)
         if jnl is None:
             return
+        if year < START_YEAR:
+            return
         doc = self.VENDICT.get((jnl, year, number))
         if doc is None:
-            raise Exception("VNL {0} without document".format(
-                [jnl, year, number]))
+            msg = "VNL {0} without document".format(
+                [jnl.ref, year, number])
+            dblogger.warning(msg)
+            return
+            # raise Exception(msg)
         # dblogger.info("20131116 %s %s",row.idjnl,row.iddoc)
         # doc = jnl.get_document(year,number)
         # try:
@@ -650,7 +689,8 @@ class TimLoader(object):
             if row.code == 'G':
                 kw.update(account=idart)
         kw.update(title=row.desig.strip())
-        kw.update(vat_class=tax2vat(row.idtax))
+        vc = tax2vat(row.idtax)
+        kw.update(vat_class=vc)
         mb = mton(row.cmont)
         mv = mton(row.montt)
         kw.update(total_base=mb)
@@ -661,8 +701,20 @@ class TimLoader(object):
         # kw.update(qty=row.montt.strip())
         # kw.update(qty=row.attrib.strip())
         # kw.update(date=row.date)
+
+        # check whether we need a vat rule
+        if mv and mb:
+            vatrule = dict(vat_class=vc, vat_regime=doc.vat_regime)
+            vatrule.update(
+                country=doc.partner.country or
+                dd.plugins.countries.get_my_country())
+            try:
+                VatRule.objects.get(**vatrule)
+            except VatRule.DoesNotExist:
+                vatrule.update(rate=myround(mv / mb))
+                yield VatRule(**vatrule)
         try:
-            return doc.add_voucher_item(**kw)
+            yield doc.add_voucher_item(**kw)
         except Exception as e:
             dblogger.warning("Failed to load VNL line %s from %s : %s",
                              row, kw, e)
@@ -736,6 +788,7 @@ class TimLoader(object):
         self.store(kw, prefix=row.allo)
         self.store(kw, created=row.get('datcrea', None))
 
+        self.store(kw, vat_regime=vat_regime(row.idreg.strip()))
         cl = self.par_class(row)
         if cl is Company:
             cl = Company
@@ -1006,7 +1059,7 @@ class TimLoader(object):
 
         self = tim
 
-        self.ROOT = users.User(username='luc', profile='900')
+        self.ROOT = users.User(username='tim', profile='900')
         self.ROOT.set_password("1234")
         yield self.ROOT
 
