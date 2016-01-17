@@ -1,0 +1,32 @@
+This is a sales invoice.
+
+<div>
+{% block recipient %}
+{{obj.partner.get_address_html()}}
+{% endblock %}
+</div>
+
+<div>
+{% block intro %}
+<h2>{{obj}}</h2>
+{{_("User:")}} {{this.user}}
+{{_("Date:")}}{{fdl(obj.voucher_date)}}
+
+{% endblock %}
+</div>
+
+<div>
+{% block body %}
+{{as_table(rt.modules.sales.ItemsByInvoicePrint.request(master_instance=obj))}}
+{% endblock %}
+</div>
+
+<div>
+{% block payment %}
+<p class="Default">
+{{_("Date of payment")}} : {{fds(obj.due_date)}}
+<br/>
+{{_("Payment terms")}} : {{obj.payment_term}}
+</p>
+{% endblock %}
+</div>
