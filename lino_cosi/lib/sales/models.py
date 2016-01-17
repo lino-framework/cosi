@@ -26,11 +26,14 @@ from __future__ import unicode_literals
 from decimal import Decimal
 
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from lino.api import dd, rt
 
 from lino.core import actions
+
+from lino.utils.restify import restify
 
 from lino.utils.xmlgen.html import E
 
@@ -367,7 +370,7 @@ class ItemsByInvoicePrint(ItemsByInvoice):
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
-        if True:
+        if settings.SITE.textfield_format == 'html':
             if self.description:
                 elems = [E.p(E.b(self.title))]
                 # desc = E.raw('<div>%s</div>' % self.description)
@@ -375,6 +378,16 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                 elems.extend(desc)
                 return E.div(*elems)
             return E.span(self.title)
+        elif settings.SITE.textfield_format == 'plain':
+            if self.description:
+                elems = [E.p(E.b(self.title))]
+                # desc = E.raw('<div>%s</div>' % self.description)
+                html = restify(ar.parse_memo(self.description))
+                desc = E.raw(html)
+                elems.extend(desc)
+                return E.div(*elems)
+            return E.span(self.title)
+                
         # experimental
         if self.description:
             return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
