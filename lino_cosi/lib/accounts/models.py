@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -28,7 +28,8 @@ from django.utils.translation import ugettext_lazy as _
 from lino.api import dd, rt
 from lino import mixins
 
-from lino.core.roles import SiteStaff
+# from lino.core.roles import SiteStaff
+from lino_cosi.lib.ledger.roles import LedgerStaff
 
 from .choicelists import *
 from .utils import DEBIT, CREDIT, DCLABELS
@@ -49,7 +50,7 @@ class Group(mixins.BabelNamed):
 class Groups(dd.Table):
     """The global table of all account groups."""
     model = 'accounts.Group'
-    required_roles = dd.required(SiteStaff)
+    required_roles = dd.required(LedgerStaff)
     order_by = ['ref']
     column_names = 'ref name account_type *'
 
@@ -138,7 +139,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
 class Accounts(dd.Table):
     model = 'accounts.Account'
-    required_roles = dd.required(SiteStaff)
+    required_roles = dd.required(LedgerStaff)
     order_by = ['ref']
     column_names = "ref name group *"
     insert_layout = """
