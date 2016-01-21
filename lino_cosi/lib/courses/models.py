@@ -247,7 +247,7 @@ class Line(ExcerptTitle):
 class Lines(dd.Table):
     model = 'courses.Line'
     column_names = ("ref name topic course_area "
-                    "event_type guest_role every_unit description every *")
+                    "event_type guest_role every_unit every *")
     order_by = ['ref', 'name']
     detail_layout = """
     id name ref
@@ -664,7 +664,7 @@ class CoursesBySlot(Courses):
 
 class DraftCourses(Courses):
     label = _("Draft courses")
-    column_names = 'info teacher room *'
+    column_names = 'info teacher room description *'
     hide_sums = True
 
     @classmethod
@@ -679,7 +679,7 @@ class DraftCourses(Courses):
 class ActiveCourses(Courses):
 
     label = _("Active courses")
-    column_names = 'info enrolments free_places teacher room *'
+    column_names = 'info enrolments free_places teacher room description *'
     hide_sums = True
 
     @classmethod
