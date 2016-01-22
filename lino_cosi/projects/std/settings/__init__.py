@@ -76,7 +76,7 @@ class Site(Site):
 
         # yield 'lino.modlib.ledger'
         yield 'lino_cosi.lib.vat'
-        yield 'lino_cosi.lib.declarations'
+        # yield 'lino_cosi.lib.declarations'
         yield 'lino_cosi.lib.finan'
         yield 'lino_cosi.lib.sales'  # automatically added by courses
         #~ 'lino.modlib.journals',

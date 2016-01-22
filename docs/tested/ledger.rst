@@ -40,8 +40,7 @@ Basic truths of accounting
  PMO                  Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
  CSH                  Cash                                         (5700) Cash                      Debit
  MSG                  Miscellaneous Journal Entries                (5700) Cash                      Debit
- VAT                  VAT declarations                             (4513) VAT to declare            Debit
- **Total (7 rows)**                                                                                 **6**
+ **Total (6 rows)**                                                                                 **5**
 ==================== =============================== ============ ================================ ===========================
 <BLANKLINE>
 
