@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lino\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-27 16:11+0200\n"
-"PO-Revision-Date: 2016-01-27 17:07+0300\n"
+"PO-Revision-Date: 2016-01-27 23:27+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -624,9 +624,8 @@ msgid "Sale of traveller's cheque"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:188
-#, fuzzy
 msgid "Purchase of securities"
-msgstr "Kursserien"
+msgstr "Einkauf von Sicherheiten"
 
 #: lino_cosi/lib/b2c/febelfin.py:189
 #, fuzzy
@@ -1343,12 +1342,12 @@ msgstr "Themen"
 #: lino_cosi/lib/courses/models.py:178
 msgctxt "singular form"
 msgid "Course series"
-msgstr "Kursserie"
+msgstr "Kursreihe"
 
 #: lino_cosi/lib/courses/models.py:179
 msgctxt "plural form"
 msgid "Course series"
-msgstr "Kursserien"
+msgstr "Kursreihen"
 
 #: lino_cosi/lib/courses/models.py:181
 msgid "Reference"

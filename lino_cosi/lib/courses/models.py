@@ -348,8 +348,6 @@ class Course(Reservation, Duplicable):
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
 
-    duplicate = mixins.Duplicate()
-
     def on_duplicate(self, ar, master):
         self.state = CourseStates.draft
         super(Course, self).on_duplicate(ar, master)
