@@ -50,6 +50,7 @@ from lino import mixins
 from lino.utils import join_elems
 from lino.utils.xmlgen.html import E
 from lino.mixins.human import parse_name
+from lino.mixins.duplicable import Duplicable
 from lino.modlib.excerpts.mixins import Certifiable
 from lino.modlib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
@@ -125,7 +126,7 @@ class Slots(dd.Table):
     """
 
 
-class Topic(mixins.BabelNamed, mixins.Printable):
+class Topic(mixins.BabelNamed, mixins.Printable, Duplicable):
 
     class Meta:
         app_label = 'courses'
@@ -143,7 +144,7 @@ class Topics(dd.Table):
     """
 
 
-class Line(ExcerptTitle):
+class Line(ExcerptTitle, Duplicable):
     """A **line** (or **series**) of courses groups courses into a
     configurable list of categories.
 
@@ -246,12 +247,12 @@ class Line(ExcerptTitle):
 
 class Lines(dd.Table):
     model = 'courses.Line'
-    column_names = ("ref name topic course_area "
+    column_names = ("ref name topic #course_area "
                     "event_type guest_role every_unit every *")
     order_by = ['ref', 'name']
     detail_layout = """
     id name ref
-    course_area topic fees_cat tariff options_cat body_template
+    #course_area topic fees_cat tariff options_cat body_template
     event_type guest_role every_unit every
     description
     excerpt_title
@@ -290,7 +291,7 @@ class EventsByTeacher(cal.Events):
         return qs
 
 
-class Course(Reservation):
+class Course(Reservation, Duplicable):
     """A Course is a group of pupils that regularily meet with a given
     teacher in a given room to speak about a given subject.
 
