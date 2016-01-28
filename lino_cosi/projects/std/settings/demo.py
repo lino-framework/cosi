@@ -8,7 +8,7 @@ class Site(DocsSite):
 
     title = "Lino Cosi demo"
     is_demo_site = True
-    ignore_dates_after = datetime.date(2019, 05, 22)
+    # ignore_dates_after = datetime.date(2019, 05, 22)
     the_demo_date = datetime.date(2015, 05, 12)
 
     def setup_plugins(self):

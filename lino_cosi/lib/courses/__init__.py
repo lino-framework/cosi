@@ -58,26 +58,22 @@ class Plugin(ad.Plugin):
             return "-"
         return d.strftime("%d.%m.")
 
-    def setup_main_menu(config, site, profile, main):
-        m = main.add_menu("courses", config.verbose_name)
+    def setup_main_menu(self, site, profile, main):
+        m = main.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.DraftCourses')
         m.add_action('courses.ActiveCourses')
         m.add_action('courses.Lines')
         m.add_action('courses.PendingRequestedEnrolments')
         m.add_action('courses.PendingConfirmedEnrolments')
 
-    def setup_config_menu(config, site, profile, m):
-        m = m.add_menu("courses", config.verbose_name)
-        #~ m.add_action(Rooms)
+    def setup_config_menu(self, site, profile, m):
+        m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.Topics')
         m.add_action('courses.Slots')
 
-    def setup_explorer_menu(config, site, profile, m):
-        m = m.add_menu("courses", config.verbose_name)
-        #~ m.add_action(Presences)
-        #~ m.add_action(Events)
+    def setup_explorer_menu(self, site, profile, m):
+        m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.AllCourses')
         m.add_action('courses.Enrolments')
-        # m.add_action('courses.Options')
         m.add_action('courses.EnrolmentStates')
 

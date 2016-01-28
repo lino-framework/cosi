@@ -106,12 +106,12 @@ The test database
  accounts.Account            accounts.Accounts              12        12
  accounts.Group              accounts.Groups                4         7
  cal.Calendar                cal.Calendars                  4         1
- cal.Event                   cal.OneEvent                   23        68
+ cal.Event                   cal.OneEvent                   23        131
  cal.EventType               cal.EventTypes                 12        2
  cal.Guest                   cal.Guests                     6         0
  cal.GuestRole               cal.GuestRoles                 2         0
  cal.Priority                cal.Priorities                 3         4
- cal.RecurrentEvent          cal.RecurrentEvents            19        9
+ cal.RecurrentEvent          cal.RecurrentEvents            19        16
  cal.RemoteCalendar          cal.RemoteCalendars            7         0
  cal.Room                    cal.Rooms                      2         0
  cal.Subscription            cal.Subscriptions              4         0
