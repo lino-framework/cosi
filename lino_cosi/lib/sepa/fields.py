@@ -52,8 +52,7 @@ class IBANFieldElement(UppercaseTextFieldElement):
         return kw
 
 
-class UppercaseTextField(with_metaclass(
-        models.SubfieldBase, models.CharField, dd.CustomField)):
+class UppercaseTextField(models.CharField, dd.CustomField):
     """A custom CharField that accepts only uppercase caracters."""
     def create_layout_elem(self, *args, **kw):
         return UppercaseTextFieldElement(*args, **kw)
@@ -62,6 +61,9 @@ class UppercaseTextField(with_metaclass(
         if isinstance(value, basestring):
             return value.upper()
         return value
+
+    def get_prep_value(self, value):
+        return str(value) if value else ''
 
 
 class BICField(with_metaclass(
