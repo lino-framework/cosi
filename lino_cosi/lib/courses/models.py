@@ -102,6 +102,7 @@ class Slot(mixins.Sequenced, StartEndTime):
     """
     class Meta:
         app_label = 'courses'
+        app_label = 'courses'
         verbose_name = _("Timetable Slot")  # Zeitnische
         verbose_name_plural = _('Timetable Slots')
 
@@ -604,6 +605,7 @@ class Courses(dd.Table):
 
         if ar.param_values.topic:
             qs = qs.filter(line__topic=ar.param_values.topic)
+
         flt = Q(enrolments_until__isnull=True)
         flt |= Q(enrolments_until__gte=dd.today())
         if ar.param_values.active == dd.YesNo.yes:
@@ -644,17 +646,18 @@ class CoursesByLine(Courses):
 
 
 class CoursesByTopic(Courses):
-    master = Topic
+    master = 'courses.Topic'
     order_by = ['-start_date']
     column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
+    params_layout = """line teacher user state active:10"""
 
     @classmethod
     def get_request_queryset(self, ar):
+        Course = rt.modules.courses.Course
         topic = ar.master_instance
         if topic is None:
-            return []
-        return settings.SITE.modules.courses.Course.objects.filter(
-            line__topic=topic)
+            return Course.objects.null()
+        return Course.objects.filter(line__topic=topic)
 
 
 class CoursesBySlot(Courses):
