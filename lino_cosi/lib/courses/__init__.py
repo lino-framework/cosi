@@ -40,9 +40,7 @@ The participants of a course are stored as **Enrolments**.
 """
 
 
-from lino.api import ad
-
-from django.utils.translation import ugettext_lazy as _
+from lino.api import ad, _
 
 
 class Plugin(ad.Plugin):

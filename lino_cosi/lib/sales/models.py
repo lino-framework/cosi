@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -160,6 +160,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
 
     """
     class Meta:
+        app_label = 'sales'
         abstract = dd.is_abstract_model(__name__, 'VatProductInvoice')
         verbose_name = _("Invoice")
         verbose_name_plural = _("Invoices")
@@ -330,6 +331,7 @@ class ProductDocItem(QtyVatItemBase):
 class InvoiceItem(ProductDocItem, SequencedVoucherItem):
     """An item of a sales invoice."""
     class Meta:
+        app_label = 'sales'
         abstract = dd.is_abstract_model(__name__, 'InvoiceItem')
 
     voucher = models.ForeignKey(

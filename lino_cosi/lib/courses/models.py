@@ -102,6 +102,7 @@ class Slot(mixins.Sequenced, StartEndTime):
     """
     class Meta:
         app_label = 'courses'
+        app_label = 'courses'
         verbose_name = _("Timetable Slot")  # Zeitnische
         verbose_name_plural = _('Timetable Slots')
 
