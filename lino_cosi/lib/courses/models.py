@@ -326,8 +326,8 @@ class Course(Reservation, Duplicable):
         return self.line.event_type
 
     def update_cal_summary(self, i):
-        return "%s %s" % (dd.babelattr(
-            self.line.event_type, 'event_label'), i)
+        label = dd.babelattr(self.line.event_type, 'event_label')
+        return "%s %d" % (label, i)
 
     def suggest_cal_guests(self, event):
         """Look up enrolments of this course and suggest them as guests."""
