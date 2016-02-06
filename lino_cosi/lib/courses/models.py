@@ -47,8 +47,6 @@ from django.utils.translation import pgettext_lazy as pgettext
 from lino.api import dd, rt
 from lino import mixins
 
-from lino.utils import join_elems
-from lino.utils.xmlgen.html import E
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
 from lino.modlib.excerpts.mixins import Certifiable
@@ -114,35 +112,12 @@ class Slot(mixins.Sequenced, StartEndTime):
         return self.name or "%s-%s" % (self.start_time, self.end_time)
 
 
-class Slots(dd.Table):
-    model = Slot
-    required_roles = dd.required(dd.SiteAdmin)
-    insert_layout = """
-    start_time end_time
-    name
-    """
-    detail_layout = """
-    name start_time end_time
-    courses.CoursesBySlot
-    """
-
-
 class Topic(mixins.BabelNamed, mixins.Printable, Duplicable):
 
     class Meta:
         app_label = 'courses'
         verbose_name = _("Topic")
         verbose_name_plural = _('Topics')
-
-
-class Topics(dd.Table):
-    model = Topic
-    required_roles = dd.required(dd.SiteAdmin)
-    detail_layout = """
-    id name
-    courses.LinesByTopic
-    courses.CoursesByTopic
-    """
 
 
 class Line(ExcerptTitle, Duplicable):
@@ -246,52 +221,6 @@ class Line(ExcerptTitle, Duplicable):
             'excerpts')
 
 
-class Lines(dd.Table):
-    model = 'courses.Line'
-    column_names = ("ref name topic #course_area "
-                    "event_type guest_role every_unit every *")
-    order_by = ['ref', 'name']
-    detail_layout = """
-    id name ref
-    #course_area topic fees_cat tariff options_cat body_template
-    event_type guest_role every_unit every
-    description
-    excerpt_title
-    courses.CoursesByLine
-    """
-    insert_layout = dd.FormLayout("""
-    name
-    ref topic
-    every_unit every event_type
-    description
-    """, window_size=(70, 16))
-
-
-class LinesByTopic(Lines):
-    master_key = "topic"
-
-
-class EventsByTeacher(cal.Events):
-    help_text = _("Shows events of courses of this teacher")
-    master = teacher_model
-    column_names = 'when_text:20 owner room state'
-    # column_names = 'when_text:20 course__line room state'
-    auto_fit_column_widths = True
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        teacher = ar.master_instance
-        if teacher is None:
-            return []
-        if True:
-            return []
-        # TODO: build a list of courses, then show events by course
-        qs = super(EventsByTeacher, self).get_request_queryset(ar)
-        # mycourses = rt.modules.Course.objects.filter(teacher=teacher)
-        qs = qs.filter(course__in=teacher.course_set.all())
-        return qs
-
-
 class Course(Reservation, Duplicable):
     """A Course is a group of pupils that regularily meet with a given
     teacher in a given room to speak about a given subject.
@@ -307,6 +236,8 @@ class Course(Reservation, Duplicable):
       
     - Marking an automatically generated event as "Cancelled" will not
       create a replacement event.
+
+    .. attribute:: enrolments_until
 
     """
 
@@ -439,8 +370,8 @@ class Course(Reservation, Duplicable):
                 self.every_unit = self.line.every_unit
             if self.every is None:
                 self.every = self.line.every
-        if self.enrolments_until is None:
-            self.enrolments_until = self.start_date
+        # if self.enrolments_until is None:
+        #     self.enrolments_until = self.start_date
         # if self.id is not None:
         #     if self.enrolments_until is None:
         #         qs = self.get_existing_auto_events()
@@ -542,155 +473,6 @@ if FILL_EVENT_GUESTS:
             cal.Guest(partner=e.pupil, event=event).save()
 
 
-class CourseDetail(dd.FormLayout):
-    #~ start = "start_date start_time"
-    #~ end = "end_date end_time"
-    #~ freq = "every every_unit"
-    #~ start end freq
-    main = "general events courses.EnrolmentsByCourse"
-    general = dd.Panel("""
-    line teacher start_date end_date start_time end_time
-    enrolments_until room #slot workflow_buttons id:8 user
-    description
-    """, label=_("General"))
-    events = dd.Panel("""
-    max_places max_events max_date every_unit every
-    monday tuesday wednesday thursday friday saturday sunday
-    cal.EventsByController
-    """, label=_("Events"))
-    # enrolments = dd.Panel("""
-    # OptionsByCourse:20 EnrolmentsByCourse:40
-    # """, label=_("Enrolments"))
-
-
-class Courses(dd.Table):
-    """Base table for all courses.
-    """
-    model = 'courses.Course'
-    detail_layout = CourseDetail()
-    insert_layout = """
-    start_date
-    line teacher
-    """
-    column_names = "start_date enrolments_until line teacher " \
-                   "room workflow_buttons *"
-    # order_by = ['start_date']
-    # order_by = 'line__name room__name start_date'.split()
-    # order_by = ['name']
-    order_by = ['-start_date', '-start_time']
-    auto_fit_column_widths = True
-
-    parameters = mixins.ObservedPeriod(
-        line=models.ForeignKey('courses.Line', blank=True, null=True),
-        topic=models.ForeignKey('courses.Topic', blank=True, null=True),
-        teacher=models.ForeignKey(
-            teacher_model,
-            blank=True, null=True),
-        user=models.ForeignKey(
-            settings.SITE.user_model,
-            blank=True, null=True),
-        state=CourseStates.field(blank=True),
-        active=dd.YesNo.field(blank=True),
-    )
-
-    params_layout = """topic line teacher user state active:10"""
-
-    simple_param_fields = 'line teacher state user'.split()
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        qs = super(Courses, self).get_request_queryset(ar)
-        if isinstance(qs, list):
-            return qs
-
-        if ar.param_values.topic:
-            qs = qs.filter(line__topic=ar.param_values.topic)
-
-        flt = Q(enrolments_until__isnull=True)
-        flt |= Q(enrolments_until__gte=dd.today())
-        if ar.param_values.active == dd.YesNo.yes:
-            qs = qs.filter(flt)
-        elif ar.param_values.active == dd.YesNo.no:
-            qs = qs.exclude(flt)
-        # logger.info("20140820 %s", dd.today())
-        return qs
-
-    @classmethod
-    def get_title_tags(self, ar):
-        for t in super(Courses, self).get_title_tags(ar):
-            yield t
-
-        if ar.param_values.topic:
-            yield unicode(ar.param_values.topic)
-        for n in self.simple_param_fields:
-            v = ar.param_values.get(n)
-            if v:
-                yield unicode(v)
-
-
-class AllCourses(Courses):
-    pass
-
-
-class CoursesByTeacher(Courses):
-    master_key = "teacher"
-    column_names = "start_date start_time end_time line room *"
-    order_by = ['-start_date']
-
-
-class CoursesByLine(Courses):
-    """Show the courses per course line."""
-    master_key = "line"
-    column_names = "info weekdays_text room times_text teacher *"
-    order_by = ['room__name', '-start_date']
-
-
-class CoursesByTopic(Courses):
-    master = 'courses.Topic'
-    order_by = ['-start_date']
-    column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
-    params_layout = """line teacher user state active:10"""
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        Course = rt.modules.courses.Course
-        topic = ar.master_instance
-        if topic is None:
-            return Course.objects.null()
-        return Course.objects.filter(line__topic=topic)
-
-
-class CoursesBySlot(Courses):
-    master_key = "slot"
-
-
-class DraftCourses(Courses):
-    label = _("Draft courses")
-    column_names = 'info teacher room description *'
-    hide_sums = True
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.draft)
-        kw.update(user=ar.get_user())
-        # kw.update(active=dd.YesNo.yes)
-        return kw
-
-
-class ActiveCourses(Courses):
-
-    label = _("Active courses")
-    column_names = 'info enrolments free_places teacher room description *'
-    hide_sums = True
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.registered)
-        kw.update(active=dd.YesNo.yes)
-        return kw
-
 if False:
 
     class Option(mixins.BabelNamed):
@@ -728,7 +510,8 @@ if False:
         required_roles = dd.required()
 
 
-## ENROLMENT
+# ENROLMENT
+
 
 class CreateInvoiceForEnrolment(sales.CreateInvoice):
 
@@ -796,6 +579,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         qs = rt.modules.courses.Course.objects.filter(flt)
         if course_area:
             qs = qs.filter(line__course_area=course_area)
+        dd.logger.info("20160206 %s", qs.query)
         return qs
 
     @dd.chooser()
@@ -908,259 +692,4 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         return self.course.line.get_excerpt_title()
 
 
-class Enrolments(dd.Table):
-    #~ debug_permissions=20130531
-    required_roles = dd.required(dd.SiteStaff)
-    model = 'courses.Enrolment'
-    stay_in_grid = True
-    parameters = mixins.ObservedPeriod(
-        author=dd.ForeignKey(
-            settings.SITE.user_model, blank=True, null=True),
-        state=EnrolmentStates.field(blank=True, null=True),
-        course_state=CourseStates.field(
-            _("Course state"), blank=True, null=True),
-        participants_only=models.BooleanField(
-            _("Participants only"),
-            help_text=_(
-                "Hide cancelled enrolments. "
-                "Ignored if you specify an explicit enrolment state."),
-            default=True),
-    )
-    params_layout = """start_date end_date author state \
-    course_state participants_only"""
-    order_by = ['request_date']
-    column_names = 'request_date course pupil workflow_buttons user *'
-    #~ hidden_columns = 'id state'
-    insert_layout = """
-    request_date user
-    course pupil
-    remark
-    """
-    detail_layout = """
-    request_date user
-    course pupil
-    remark amount workflow_buttons
-    confirmation_details sales.InvoicingsByInvoiceable
-    """
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        qs = super(Enrolments, self).get_request_queryset(ar)
-        if isinstance(qs, list):
-            return qs
-        if ar.param_values.author is not None:
-            qs = qs.filter(user=ar.param_values.author)
-
-        if ar.param_values.state:
-            qs = qs.filter(state=ar.param_values.state)
-        else:
-            if ar.param_values.participants_only:
-                qs = qs.exclude(state=EnrolmentStates.cancelled)
-
-        if ar.param_values.course_state:
-            qs = qs.filter(course__state=ar.param_values.course_state)
-
-        if ar.param_values.start_date is None or ar.param_values.end_date is None:
-            period = None
-        else:
-            period = (ar.param_values.start_date, ar.param_values.end_date)
-        if period is not None:
-            qs = qs.filter(dd.inrange_filter('request_date', period))
-
-        return qs
-
-    @classmethod
-    def get_title_tags(self, ar):
-        for t in super(Enrolments, self).get_title_tags(ar):
-            yield t
-
-        if ar.param_values.state:
-            yield unicode(ar.param_values.state)
-        elif not ar.param_values.participants_only:
-            yield unicode(_("Also ")) + unicode(EnrolmentStates.cancelled.text)
-        if ar.param_values.course_state:
-            yield unicode(
-                settings.SITE.modules.courses.Course._meta.verbose_name) \
-                + ' ' + unicode(ar.param_values.course_state)
-        if ar.param_values.author:
-            yield unicode(ar.param_values.author)
-
-
-if dd.is_installed('products'):
-
-    class EnrolmentsByOption(Enrolments):
-        master_key = 'option'
-        column_names = 'course pupil remark amount request_date *'
-        order_by = ['request_date']
-    
-
-class ConfirmAllEnrolments(dd.Action):
-    label = _("Confirm all")
-    select_rows = False
-    http_method = 'POST'
-
-    def run_from_ui(self, ar, **kw):
-        obj = ar.selected_rows[0]
-        assert obj is None
-
-        def ok(ar):
-            for obj in ar:
-                obj.state = EnrolmentStates.confirmed
-                obj.save()
-                ar.set_response(refresh_all=True)
-
-        msg = _(
-            "This will confirm all %d enrolments in this list.") % ar.get_total_count()
-        ar.confirm(ok, msg, _("Are you sure?"))
-
-
-class PendingRequestedEnrolments(Enrolments):
-
-    label = _("Pending requested enrolments")
-    auto_fit_column_widths = True
-    params_panel_hidden = True
-    column_names = 'request_date course pupil remark user amount workflow_buttons'
-    hidden_columns = 'id state'
-
-    # confirm_all = ConfirmAllEnrolments()
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(PendingRequestedEnrolments, self).param_defaults(ar, **kw)
-        kw.update(state=EnrolmentStates.requested)
-        return kw
-
-
-class PendingConfirmedEnrolments(Enrolments):
-    label = _("Pending confirmed enrolments")
-    auto_fit_column_widths = True
-    params_panel_hidden = True
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(PendingConfirmedEnrolments, self).param_defaults(ar, **kw)
-        kw.update(state=EnrolmentStates.confirmed)
-        # kw.update(course_state=CourseStates.ended)
-        return kw
-
-
-class EnrolmentsByPupil(Enrolments):
-    params_panel_hidden = True
-    required_roles = dd.required()
-    master_key = "pupil"
-    column_names = 'request_date course user:10 remark amount:10 workflow_buttons *'
-    auto_fit_column_widths = True
-    _course_area = None  # CourseAreas.default
-
-    @classmethod
-    def get_known_values(self):
-        if self._course_area is not None:
-            return dict(course_area=self._course_area)
-        return dict()
-
-    @classmethod
-    def get_actor_label(self):
-        if self._course_area is not None:
-            return self._course_area.text
-        return _("Enrolments")
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(EnrolmentsByPupil, self).param_defaults(ar, **kw)
-        kw.update(participants_only=False)
-        return kw
-
-    insert_layout = """
-    course
-    places option
-    remark
-    request_date user
-    """
-
-
-class EnrolmentsByCourse(Enrolments):
-    params_panel_hidden = True
-    required_roles = dd.required()
-    master_key = "course"
-    column_names = 'request_date pupil_info option \
-    remark amount:10 workflow_buttons *'
-    auto_fit_column_widths = True
-    # cell_edit = False
-
-    insert_layout = """
-    pupil
-    places option
-    remark
-    request_date user
-    """
-
-    @dd.virtualfield(dd.HtmlBox(_("Participant")))
-    def pupil_info(cls, self, ar):
-        elems = [ar.obj2html(self.pupil,
-                             self.pupil.get_full_name(nominative=True))]
-        elems += [', ']
-        elems += join_elems(
-            list(self.pupil.address_location_lines()),
-            sep=', ')
-        return E.div(*elems)
-
-
-# class EventsByCourse(cal.Events):
-#     required = dd.required(user_groups='office')
-#     master_key = 'course'
-#     column_names = 'when_text:20 linked_date summary workflow_buttons *'
-#     auto_fit_column_widths = True
-
-
-# dd.inject_field(
-#     'cal.Event',
-#     'course',
-#     dd.ForeignKey(
-#         'courses.Course',
-#         blank=True, null=True,
-#         help_text=_("Fill in only if this event is a session of a course."),
-#         related_name="events_by_course"))
-
-
-class SuggestedCoursesByPupil(ActiveCourses):
-    label = _("Suggested courses")
-    column_names = 'info enrolments free_places custom_actions *'
-    auto_fit_column_widths = True
-    hide_sums = True
-    master = pupil_model
-    details_of_master_template = _("%(details)s for %(master)s")
-    params_layout = 'topic line teacher active'
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        qs = super(SuggestedCoursesByPupil, self).get_request_queryset(ar)
-        pupil = ar.master_instance
-        if pupil is not None:
-            qs = qs.exclude(enrolment__pupil=pupil)
-        return qs
-
-    @dd.displayfield(_("Actions"))
-    def custom_actions(self, course, ar, **kw):
-        mi = ar.master_instance
-        if mi is None:
-            return ''
-        kv = dict(course=course)
-        # kv.update(granting=self)
-        # at = self.aid_type
-        # ct = at.confirmation_type
-        # if not ct:
-        #     return ''
-        # free = course.get_free_places()
-        sar = ar.spawn_request(
-            actor=EnrolmentsByPupil, master_instance=mi, known_values=kv)
-        if sar.get_total_count() == 0:
-            txt = _("Enrol")
-            iar = EnrolmentsByPupil.insert_action.request_from(sar)
-            btn = iar.ar2button(txt, icon_name=None)
-            # btn = sar.insert_button(txt, icon_name=None)
-        else:
-            txt = _("Show enrolment")
-            btn = ar.obj2html(sar.data_iterator[0])
-        return E.span(btn)  # E.p(...) until 20150128
-
-
+from .ui import *
