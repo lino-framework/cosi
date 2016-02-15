@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -55,6 +55,8 @@ contacts = dd.resolve_app('contacts')
 
 from lino_cosi.lib.sales.models import *
 
+from .mixins import Invoiceable
+
 
 class InvoicingMode(PrintableType, BabelNamed):
     """The method of issuing/sending invoices.
@@ -87,75 +89,30 @@ class InvoicingModes(dd.Table):
     model = InvoicingMode
 
 
-class Invoiceable(dd.Model):
-    """Mixin for things that are "invoiceable", i.e. for which a customer
-    is going to receive an invoice.
-
-    .. attribute:: invoice
+def get_invoiceables_for(partner, max_date=None):
+    """Yield a list of invoiceables for the given partner,
+    one for each invoice line to generate.
 
     """
-
-    invoiceable_date_field = ''
-    """The name of the field which holds the invoiceable date.  Must be
-    set by subclasses.
-
-    """
-
-    class Meta:
-        abstract = True
-
-    invoice = dd.ForeignKey('sales.VatProductInvoice', blank=True, null=True)
-
-    @classmethod
-    def get_partner_filter(cls, partner):
-        """
-        To be implemented by subclasses.
-        Return the filter to apply to :class:`lino.modlib.contacts.models.Partner` in
-        order to get the partner who must receive the invoice.
-
-        """
-        raise NotImplementedError()
-
-    def get_invoiceable_product(self):
-        """To be implemented by subclasses.  Return the product to put into
-      the invoice item.
-
-        """
-        return None
-
-    def get_invoiceable_qty(self):
-        """To be implemented by subclasses.  Return the quantity to put into
-        the invoice item.
-
-        """
-        return None
-
-    def get_invoiceable_title(self):
-        """Return the title to put into the invoice item.  May be overridden
-        by subclasses.
-
-        """
-        return unicode(self)
-
-    def get_invoiceable_amount(self):
-        return None
-
-    @classmethod
-    def get_invoiceables_for(cls, partner, max_date=None):
-        if settings.SITE.site_config.site_company:
-            if partner.id == settings.SITE.site_config.site_company.id:
-                return
-        #~ logger.info('20130711 get_invoiceables_for (%s,%s)', partner, max_date)
-        for m in rt.models_by_base(cls):
-            flt = m.get_partner_filter(partner)
-            qs = m.objects.filter(flt)
-            for obj in qs.order_by(m.invoiceable_date_field):
-                if obj.get_invoiceable_product() is not None:
-                    yield obj
+    if settings.SITE.site_config.site_company:
+        if partner.id == settings.SITE.site_config.site_company.id:
+            return
+    dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
+    for m in rt.models_by_base(Invoiceable):
+        qs = m.get_invoiceables_for_partner(partner, max_date)
+        if qs is None:
+            continue
+        # flt = m.get_partner_filter(partner)
+        # qs = m.objects.filter(flt)
+        for obj in qs.order_by(m.invoiceable_date_field):
+            if obj.get_invoiceable_product() is not None:
+                yield obj
 
 
 def create_invoice_for(obj, ar):
-    invoiceables = list(Invoiceable.get_invoiceables_for(obj))
+    """Create an invoice for the given partner.
+    """
+    invoiceables = list(get_invoiceables_for(obj))
     if len(invoiceables) == 0:
         raise Warning(_("No invoiceables found for %s.") % obj)
     M = VatProductInvoice
@@ -374,7 +331,7 @@ class InvoicesToCreate(dd.VirtualTable):
 
     @classmethod
     def get_row_for(self, partner):
-        invoiceables = list(Invoiceable.get_invoiceables_for(partner))
+        invoiceables = list(get_invoiceables_for(partner))
         amount = Decimal()
         first_date = last_date = None
         for i in invoiceables:
@@ -456,7 +413,7 @@ class InvoiceablesByPartner(dd.VirtualTable):
         mi = ar.master_instance
         if mi is None:
             return rows
-        for obj in Invoiceable.get_invoiceables_for(mi):
+        for obj in get_invoiceables_for(mi):
             rows.append((getattr(obj, obj.invoiceable_date_field), obj))
 
         def f(a, b):
