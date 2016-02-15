@@ -406,7 +406,10 @@ class Course(Reservation, Duplicable):
 
     @dd.displayfield(_("Info"))
     def info(self, ar):
-        return unicode(self)
+        if ar is None:
+            return ''
+        return ar.obj2html(self)
+        # return unicode(self)
 
     #~ @dd.displayfield(_("Where"))
     #~ def where_text(self,ar):
@@ -653,7 +656,14 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         return self.pupil.language
 
     @classmethod
-    def get_partner_filter(cls, partner):
+    def get_invoiceables_for_partner(cls, partner, max_date=None):
+        if isinstance(partner, rt.modules.courses.Pupil):
+            q1 = models.Q(pupil__invoice_recipient__isnull=True, pupil=partner)
+            q2 = models.Q(pupil__invoice_recipient=partner)
+            return cls.objects.filter(models.Q(q1 | q2, invoice__isnull=True))
+
+    @classmethod
+    def unsued_get_partner_filter(cls, partner):
         q1 = models.Q(pupil__invoice_recipient__isnull=True, pupil=partner)
         q2 = models.Q(pupil__invoice_recipient=partner)
         return models.Q(q1 | q2, invoice__isnull=True)
