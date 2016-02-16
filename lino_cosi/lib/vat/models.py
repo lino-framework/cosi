@@ -101,10 +101,10 @@ criteria.
         qs = cls.objects.order_by('seqno')
         qs = qs.filter(Q(country__isnull=True) | Q(country=country))
         if vat_class is not None:
-            qs = qs.filter(Q(vat_class='') | Q(vat_class=vat_class))
+            qs = qs.filter(Q(vat_class__isnull=True) | Q(vat_class=vat_class))
         if vat_regime is not None:
             qs = qs.filter(
-                Q(vat_regime='') | Q(vat_regime=vat_regime))
+                Q(vat_regime__isnull=True) | Q(vat_regime=vat_regime))
         qs = PeriodEvents.active.add_filter(qs, date)
         if qs.count() == 1:
             return qs[0]
