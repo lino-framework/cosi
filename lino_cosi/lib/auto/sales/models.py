@@ -93,6 +93,7 @@ def get_invoiceables_for(partner, max_date=None):
     """Yield a list of invoiceables for the given partner,
     one for each invoice line to generate.
 
+
     """
     if settings.SITE.site_config.site_company:
         if partner.id == settings.SITE.site_config.site_company.id:

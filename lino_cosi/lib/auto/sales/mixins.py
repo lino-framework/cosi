@@ -31,7 +31,7 @@ from decimal import Decimal
 
 ZERO = Decimal()
 
-from lino.api import dd
+from lino.api import dd, rt
 
 
 class Invoiceable(dd.Model):
