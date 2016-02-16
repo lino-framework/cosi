@@ -31,7 +31,8 @@ from decimal import Decimal
 
 ZERO = Decimal()
 
-from lino.api import dd
+from lino.api import dd, rt
+from lino.core.gfks import gfk2lookup
 
 
 class Invoiceable(dd.Model):
@@ -51,7 +52,12 @@ class Invoiceable(dd.Model):
     class Meta:
         abstract = True
 
-    invoice = dd.ForeignKey('sales.VatProductInvoice', blank=True, null=True)
+    # invoice = dd.ForeignKey('sales.VatProductInvoice', blank=True, null=True)
+
+    def get_invoicings(self, **kwargs):
+        InvoiceItem = rt.modules.sales.InvoiceItem
+        kwargs.update(gfk2lookup(InvoiceItem.invoiceable, self))
+        return InvoiceItem.objects.filter(**kwargs)
 
     def get_invoiceable_product(self):
         """To be implemented by subclasses.  Return the product to put into

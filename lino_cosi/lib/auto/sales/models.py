@@ -93,14 +93,16 @@ def get_invoiceables_for(partner, max_date=None):
     """Yield a list of invoiceables for the given partner,
     one for each invoice line to generate.
 
+
     """
     if settings.SITE.site_config.site_company:
         if partner.id == settings.SITE.site_config.site_company.id:
             return
-    dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
+    # dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
     for m in rt.models_by_base(Invoiceable):
         qs = m.get_invoiceables_for_partner(partner, max_date)
         if qs is None:
+            # dd.logger.info('20160210 qs is None')
             continue
         # flt = m.get_partner_filter(partner)
         # qs = m.objects.filter(flt)
@@ -142,7 +144,7 @@ class CreateInvoice(dd.Action):
 
     """
     icon_name = 'money'
-    sort_index = 50
+    sort_index = 52
     label = _("Create invoice")
 
     def get_partners(self, ar):
@@ -189,7 +191,7 @@ class VatProductInvoice(VatProductInvoice):
 
     #~ fill_invoice = FillInvoice()
 
-    def before_state_change(self, ar, old, new):
+    def unused_before_state_change(self, ar, old, new):
         if new.name == 'registered':
             for i in self.items.filter(invoiceable_id__isnull=False):
                 if i.invoiceable.invoice != self:
@@ -222,6 +224,16 @@ class VatProductInvoice(VatProductInvoice):
 
 class InvoiceItem(InvoiceItem):  # 20130709
 
+    """
+    .. attribute:: invoiceable
+
+        A pointer to the database object which caused this invoice
+        item.  This database object must be an instance of
+        :class:`Invoiceable
+        <lino_cosi.lib.auto.sales.mixins.Invoiceable>`.
+
+    """
+
     invoiceable_label = _("Invoiceable")
 
     class Meta(InvoiceItem.Meta):  # 20130709
@@ -252,13 +264,13 @@ class ItemsByInvoice(ItemsByInvoice):  # 20130709
     column_names = "invoiceable product title description:20x1 discount unit_price qty total_incl total_base total_vat"
 
 
-
 class InvoicingsByInvoiceable(InvoiceItemsByProduct):  # 20130709
     label = _("Invoicings")
     #~ app_label = 'sales'
     master_key = 'invoiceable'
     editable = False
-    column_names = "voucher qty title description:20x1 discount unit_price total_incl total_base total_vat"
+    column_names = "voucher qty title description:20x1 discount " \
+                   "unit_price total_incl total_base total_vat"
 
 
 class CreateAllInvoices(CachedPrintAction):
@@ -389,7 +401,10 @@ class InvoicesToCreate(dd.VirtualTable):
     @dd.displayfield(_("Actions"))
     def action_buttons(self, obj, ar):
         # must override because the action is on obj.partner, not on obj
-        return obj.partner.show_invoiceables.as_button(ar)
+        if ar is None:
+            return ''
+        return ar.instance_action_button(obj.partner.show_invoiceables)
+        # return obj.partner.show_invoiceables.as_button(ar)
         #~ return obj.partner.create_invoice.as_button(ar)
 
 
@@ -398,7 +413,7 @@ class InvoiceablesByPartner(dd.VirtualTable):
 
     """
     icon_name = 'basket'
-    sort_index = 50
+    sort_index = 51
     label = _("Invoices to create")
     #~ label = _("Invoiceables")
     help_text = _("List of invoiceable items for this partner")
