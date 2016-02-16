@@ -108,7 +108,7 @@ criteria.
         qs = PeriodEvents.active.add_filter(qs, date)
         if qs.count() == 1:
             return qs[0]
-        rt.show(VatRules)
+        # rt.show(VatRules)
         msg = _("Found {num} VAT rules for %{context}!)").format(
             num=qs.count(), context=dict(
                 vat_regime=vat_regime, vat_class=vat_class,
