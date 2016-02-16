@@ -222,6 +222,16 @@ class VatProductInvoice(VatProductInvoice):
 
 class InvoiceItem(InvoiceItem):  # 20130709
 
+    """
+    .. attribute:: invoiceable
+
+        A pointer to the database object which caused this invoice
+        item.  This database object must be an instance of
+        :class:`Invoiceable
+        <lino_cosi.lib.auto.sales.mixins.Invoiceable>`.
+
+    """
+
     invoiceable_label = _("Invoiceable")
 
     class Meta(InvoiceItem.Meta):  # 20130709
