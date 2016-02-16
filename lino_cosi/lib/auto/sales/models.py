@@ -132,6 +132,7 @@ def create_invoice_for(obj, ar):
         am = ii.get_invoiceable_amount()
         if am is not None:
             i.set_amount(ar, am)
+        ii.setup_invoice_item(i)
         i.full_clean()
         i.save()
     invoice.compute_totals()
@@ -252,10 +253,11 @@ class InvoiceItem(InvoiceItem):  # 20130709
         'invoiceable_type', 'invoiceable_id',
         verbose_name=invoiceable_label)
 
-    #~ def product_changed(self,ar):
-        #~ super(InvoiceItem,self).product_changed(ar)
-        #~ if self.invoiceable:
-            #~ self.title = self.invoiceable.get_invoiceable_title()
+    def full_clean(self):
+        if self.invoiceable and not self.title:
+            self.title = self.invoiceable.get_invoiceable_title()
+            self.invoiceable.setup_invoice_item(self)
+        super(InvoiceItem, self).full_clean()
 
 
 class ItemsByInvoice(ItemsByInvoice):  # 20130709
