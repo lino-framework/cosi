@@ -101,4 +101,5 @@ class Invoiceable(dd.Model):
         """
         raise NotImplementedError()
 
-
+    def setup_invoice_item(self, item):
+        pass
