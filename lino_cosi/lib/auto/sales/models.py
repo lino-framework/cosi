@@ -191,7 +191,7 @@ class VatProductInvoice(VatProductInvoice):
 
     #~ fill_invoice = FillInvoice()
 
-    def before_state_change(self, ar, old, new):
+    def unused_before_state_change(self, ar, old, new):
         if new.name == 'registered':
             for i in self.items.filter(invoiceable_id__isnull=False):
                 if i.invoiceable.invoice != self:
