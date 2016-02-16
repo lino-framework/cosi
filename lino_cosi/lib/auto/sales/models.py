@@ -264,13 +264,13 @@ class ItemsByInvoice(ItemsByInvoice):  # 20130709
     column_names = "invoiceable product title description:20x1 discount unit_price qty total_incl total_base total_vat"
 
 
-
 class InvoicingsByInvoiceable(InvoiceItemsByProduct):  # 20130709
     label = _("Invoicings")
     #~ app_label = 'sales'
     master_key = 'invoiceable'
     editable = False
-    column_names = "voucher qty title description:20x1 discount unit_price total_incl total_base total_vat"
+    column_names = "voucher qty title description:20x1 discount " \
+                   "unit_price total_incl total_base total_vat"
 
 
 class CreateAllInvoices(CachedPrintAction):
@@ -401,7 +401,10 @@ class InvoicesToCreate(dd.VirtualTable):
     @dd.displayfield(_("Actions"))
     def action_buttons(self, obj, ar):
         # must override because the action is on obj.partner, not on obj
-        return obj.partner.show_invoiceables.as_button(ar)
+        if ar is None:
+            return ''
+        return ar.instance_action_button(obj.partner.show_invoiceables)
+        # return obj.partner.show_invoiceables.as_button(ar)
         #~ return obj.partner.create_invoice.as_button(ar)
 
 
