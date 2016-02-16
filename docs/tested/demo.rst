@@ -16,15 +16,14 @@ Tested code snippets on the demo database
     >>> from lino.api.doctest import *
     >>> ses = rt.login('robin')
 
-We can now refer to every installed app via it's `app_label`.
-For example here is how we can verify things in the demo database 
-using the Django API:
+The demo database contains 69 persons and 22 companies.
 
 >>> contacts.Person.objects.count()
 69
 >>> contacts.Company.objects.count()
 22
-
+>>> contacts.Partner.objects.count()
+91
 
 The test database
 -----------------
@@ -56,7 +55,7 @@ The test database
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, name, country, zip_code, type, parent
 - courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, tariff, enrolments_until
-- courses.Enrolment : id, user, printed_by, invoice, course_area, course, pupil, request_date, state, amount, places, option, remark, confirmation_details
+- courses.Enrolment : id, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
 - courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, tariff, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
@@ -126,7 +125,7 @@ The test database
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                28        0
- courses.Enrolment           courses.Enrolments             14        0
+ courses.Enrolment           courses.Enrolments             12        0
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 2         0

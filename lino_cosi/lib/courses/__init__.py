@@ -50,7 +50,7 @@ class Plugin(ad.Plugin):
     teacher_model = 'contacts.Person'
     pupil_model = 'contacts.Person'
 
-    needs_plugins = ['lino.modlib.cal', 'lino_cosi.lib.auto.sales']
+    needs_plugins = ['lino.modlib.cal']
 
     def day_and_month(self, d):
         if d is None:

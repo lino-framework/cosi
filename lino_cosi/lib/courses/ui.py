@@ -314,8 +314,8 @@ class Enrolments(dd.Table):
     detail_layout = """
     request_date user
     course pupil
-    remark amount workflow_buttons
-    confirmation_details sales.InvoicingsByInvoiceable
+    remark workflow_buttons
+    confirmation_details
     """
 
     @classmethod
@@ -361,14 +361,6 @@ class Enrolments(dd.Table):
             yield unicode(ar.param_values.author)
 
 
-if dd.is_installed('products'):
-
-    class EnrolmentsByOption(Enrolments):
-        master_key = 'option'
-        column_names = 'course pupil remark amount request_date *'
-        order_by = ['request_date']
-    
-
 class ConfirmAllEnrolments(dd.Action):
     label = _("Confirm all")
     select_rows = False
@@ -394,7 +386,7 @@ class PendingRequestedEnrolments(Enrolments):
     label = _("Pending requested enrolments")
     auto_fit_column_widths = True
     params_panel_hidden = True
-    column_names = 'request_date course pupil remark user amount workflow_buttons'
+    column_names = 'request_date course pupil remark user workflow_buttons'
     hidden_columns = 'id state'
 
     # confirm_all = ConfirmAllEnrolments()
@@ -423,7 +415,7 @@ class EnrolmentsByPupil(Enrolments):
     params_panel_hidden = True
     required_roles = dd.required()
     master_key = "pupil"
-    column_names = 'request_date course user:10 remark amount:10 workflow_buttons *'
+    column_names = 'request_date course user:10 remark workflow_buttons *'
     auto_fit_column_widths = True
     _course_area = None  # CourseAreas.default
 
@@ -457,8 +449,7 @@ class EnrolmentsByCourse(Enrolments):
     params_panel_hidden = True
     required_roles = dd.required()
     master_key = "course"
-    column_names = 'request_date pupil_info option \
-    remark amount:10 workflow_buttons *'
+    column_names = 'request_date pupil_info option remark workflow_buttons *'
     auto_fit_column_widths = True
     # cell_edit = False
 

@@ -58,8 +58,6 @@ from lino.modlib.cal.choicelists import Recurrencies
 from .choicelists import EnrolmentStates, CourseStates
 
 cal = dd.resolve_app('cal')
-sales = dd.resolve_app('sales')
-# contacts = dd.resolve_app('contacts')
 
 try:
     teacher_model = dd.plugins.courses.teacher_model
@@ -516,12 +514,6 @@ if False:
 # ENROLMENT
 
 
-class CreateInvoiceForEnrolment(sales.CreateInvoice):
-
-    def get_partners(self, ar):
-        return [o.pupil for o in ar.selected_rows]
-
-
 class ConfirmedSubmitInsert(dd.SubmitInsert):
     def run_from_ui(self, ar, **kw):
         obj = ar.create_instance_from_request()
@@ -532,7 +524,7 @@ class ConfirmedSubmitInsert(dd.SubmitInsert):
         ar.set_response(close_window=True)
 
 
-class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
+class Enrolment(UserAuthored, Certifiable):
     """An **enrolment** is when a given pupil plans to participate in a
     given course.
     """
@@ -555,7 +547,6 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         _("Date of request"), default=dd.today)
     state = EnrolmentStates.field(
         default=EnrolmentStates.requested.as_callable)
-    amount = dd.PriceField(_("Participation fee"), blank=True, null=True)
     places = models.PositiveIntegerField(
         pgettext("in a course", "Places"),
         help_text=("number of participants"),
@@ -570,7 +561,6 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         # format="html"
     )
 
-    create_invoice = CreateInvoiceForEnrolment()
     submit_insert = ConfirmedSubmitInsert()
 
     @dd.chooser()
@@ -639,12 +629,7 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
         if not self.course_area:
             if self.course and self.course.line:
                 self.course_area = self.course.line.course_area
-        if self.amount is None:
-            self.compute_amount()
         super(Enrolment, self).full_clean(*args, **kwargs)
-
-    # def save(self, *args, **kw):
-    #     super(Enrolment, self).save(*args, **kw)
 
     def get_print_templates(self, bm, action):
         return [self.state.name + bm.template_ext]
@@ -654,45 +639,6 @@ class Enrolment(UserAuthored, sales.Invoiceable, Certifiable):
 
     def get_print_language(self):
         return self.pupil.language
-
-    @classmethod
-    def get_invoiceables_for_partner(cls, partner, max_date=None):
-        if isinstance(partner, rt.modules.courses.Pupil):
-            q1 = models.Q(pupil__invoice_recipient__isnull=True, pupil=partner)
-            q2 = models.Q(pupil__invoice_recipient=partner)
-            return cls.objects.filter(models.Q(q1 | q2, invoice__isnull=True))
-
-    @classmethod
-    def unsued_get_partner_filter(cls, partner):
-        q1 = models.Q(pupil__invoice_recipient__isnull=True, pupil=partner)
-        q2 = models.Q(pupil__invoice_recipient=partner)
-        return models.Q(q1 | q2, invoice__isnull=True)
-
-    def pupil_changed(self, ar):
-        self.compute_amount()
-
-    def compute_amount(self):
-        #~ if self.course is None:
-            #~ return
-        tariff = self.get_invoiceable_product()
-        # When `products` is not installed, then tariff may be None
-        # because it is a DummyField.
-        self.amount = getattr(tariff, 'sales_price', ZERO)
-
-    def get_invoiceable_amount(self):
-        return self.amount
-
-    def get_invoiceable_product(self):
-        #~ if self.course is not None:
-        if self.state.invoiceable:
-            return self.course.tariff or self.course.line.tariff
-
-    def get_invoiceable_title(self):
-        #~ if self.course is not None:
-        return self.course
-
-    def get_invoiceable_qty(self):
-        return self.places
 
     def get_body_template(self):
         """Overrides :meth:`lino.core.model.Model.get_body_template`."""
