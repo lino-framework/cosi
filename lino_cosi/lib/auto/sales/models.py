@@ -97,10 +97,11 @@ def get_invoiceables_for(partner, max_date=None):
     if settings.SITE.site_config.site_company:
         if partner.id == settings.SITE.site_config.site_company.id:
             return
-    dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
+    # dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
     for m in rt.models_by_base(Invoiceable):
         qs = m.get_invoiceables_for_partner(partner, max_date)
         if qs is None:
+            # dd.logger.info('20160210 qs is None')
             continue
         # flt = m.get_partner_filter(partner)
         # qs = m.objects.filter(flt)
@@ -142,7 +143,7 @@ class CreateInvoice(dd.Action):
 
     """
     icon_name = 'money'
-    sort_index = 50
+    sort_index = 52
     label = _("Create invoice")
 
     def get_partners(self, ar):
@@ -408,7 +409,7 @@ class InvoiceablesByPartner(dd.VirtualTable):
 
     """
     icon_name = 'basket'
-    sort_index = 50
+    sort_index = 51
     label = _("Invoices to create")
     #~ label = _("Invoiceables")
     help_text = _("List of invoiceable items for this partner")

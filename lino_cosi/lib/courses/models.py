@@ -206,9 +206,9 @@ class Line(ExcerptTitle, Duplicable):
 
     @dd.chooser()
     def tariff_choices(cls, fees_cat):
-        if not fees_cat:
-            return []
         Product = rt.modules.products.Product
+        if not fees_cat:
+            return Product.objects.none()
         return Product.objects.filter(cat=fees_cat)
 
     @dd.chooser(simple_values=True)
@@ -433,17 +433,17 @@ class Course(Reservation, Duplicable):
 
     @dd.requestfield(_("Requested"))
     def requested(self, ar):
-        return EnrolmentsByCourse.request(
+        return rt.modules.courses.EnrolmentsByCourse.request(
             self, param_values=dict(state=EnrolmentStates.requested))
 
     @dd.requestfield(_("Confirmed"))
     def confirmed(self, ar):
-        return EnrolmentsByCourse.request(
+        return rt.modules.courses.EnrolmentsByCourse.request(
             self, param_values=dict(state=EnrolmentStates.confirmed))
 
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
-        return EnrolmentsByCourse.request(self)
+        return rt.modules.courses.EnrolmentsByCourse.request(self)
 
 
 # customize fields coming from mixins to override their inherited
@@ -572,7 +572,7 @@ class Enrolment(UserAuthored, Certifiable):
         qs = rt.modules.courses.Course.objects.filter(flt)
         if course_area:
             qs = qs.filter(line__course_area=course_area)
-        dd.logger.info("20160206 %s", qs.query)
+        # dd.logger.info("20160206 %s", qs.query)
         return qs
 
     @dd.chooser()

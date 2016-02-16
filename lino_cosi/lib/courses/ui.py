@@ -517,6 +517,7 @@ class SuggestedCoursesByPupil(ActiveCourses):
         # if not ct:
         #     return ''
         # free = course.get_free_places()
+        EnrolmentsByPupil = rt.modules.courses.EnrolmentsByPupil
         sar = ar.spawn_request(
             actor=EnrolmentsByPupil, master_instance=mi, known_values=kv)
         if sar.get_total_count() == 0:
