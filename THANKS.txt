@@ -1,0 +1,10 @@
+Thanks to
+=========
+
+Here is a list of other publications who are at least partially being
+distributed with Lino Così.
+
+- The file :mod:`lino_voga.lib.b2c.camt` is based on AGPL-licensed 
+  code by Therp BV <http://therp.nl>.
+
+

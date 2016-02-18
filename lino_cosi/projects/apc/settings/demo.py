@@ -23,3 +23,6 @@ SITE = Site(globals())
 
 # SITE.plugins.ledger.configure(start_year=2014)
 # print "20151217 b", hash(SITE.plugins.ledger)
+
+DEBUG = True
+

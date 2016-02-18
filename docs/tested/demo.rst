@@ -76,7 +76,7 @@ The test database
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
-- products.Product : id, ref, name, description, cat, vat_class, sales_account, sales_price, purchases_account
+- products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
 - sales.InvoicingMode : id, build_method, template, name, price, advance_days
@@ -146,7 +146,7 @@ The test database
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
- products.Product            products.Products              9         9
+ products.Product            products.Products              8         9
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
  sales.InvoicingMode         sales.InvoicingModes           6         0
