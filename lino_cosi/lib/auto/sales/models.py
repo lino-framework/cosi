@@ -111,37 +111,38 @@ def get_invoiceables_for(partner, max_date=None):
                 yield obj
 
 
-def create_invoice_for(obj, ar):
+def create_invoice_for(partner, ar):
     """Create an invoice for the given partner.
     """
-    invoiceables = list(get_invoiceables_for(obj))
-    if len(invoiceables) == 0:
-        raise Warning(_("No invoiceables found for %s.") % obj)
-    M = VatProductInvoice
+    InvoiceItem = rt.modules.sales.InvoiceItem
+    M = rt.modules.sales.VatProductInvoice
     jnl = M.get_journals()[0]
-    invoice = M(partner=obj, journal=jnl,
+    invoice = M(partner=partner, journal=jnl,
                 voucher_date=settings.SITE.today(),
                 entry_date=settings.SITE.today())
+    items = []
+    for ii in get_invoiceables_for(partner):
+        for i in ii.get_wanted_items(ar, invoice, InvoiceItem):
+            items.append(i)
+
+    if len(items) == 0:
+        ar.info(_("No items found for %s.") % partner)
+        return
+
     invoice.save()
-    for ii in invoiceables:
-        i = InvoiceItem(voucher=invoice, invoiceable=ii,
-                        product=ii.get_invoiceable_product(),
-                        title=ii.get_invoiceable_title(),
-                        qty=ii.get_invoiceable_qty())
-        #~ i.product_changed(ar)
-        am = ii.get_invoiceable_amount()
-        if am is not None:
-            i.set_amount(ar, am)
-        ii.setup_invoice_item(i)
+    for i in items:
+        i.voucher = invoice
         i.full_clean()
         i.save()
+
     invoice.compute_totals()
+    invoice.full_clean()
     invoice.save()
     return invoice
 
 
 class CreateInvoice(dd.Action):
-    """Create invoice from invoiceables for this partner.
+    """Base class for actions which generate invoice(s) from invoiceables.
 
     """
     icon_name = 'money'
@@ -159,7 +160,8 @@ class CreateInvoice(dd.Action):
             def ok(ar2):
                 for obj in partners:
                     invoice = create_invoice_for(obj, ar)
-                    rv.append(invoice)
+                    if invoice:
+                        rv.append(invoice)
                 ar2.success(_("%d invoices have been created.") % len(rv))
                 return rv
             msg = _("This will create %d invoices.") % len(partners)
@@ -169,7 +171,10 @@ class CreateInvoice(dd.Action):
         if len(partners) == 1:
             obj = partners[0]
             invoice = create_invoice_for(obj, ar)
-            ar.goto_instance(invoice, **kw)
+            if invoice:
+                ar.goto_instance(invoice, **kw)
+            else:
+                ar.error("No invoice was created.")
 
         return
 
@@ -277,7 +282,7 @@ class InvoicingsByInvoiceable(InvoiceItemsByProduct):  # 20130709
 
 class CreateAllInvoices(CachedPrintAction):
     """Create and print the invoice for each selected row, making these
-rows disappear from this table
+    rows disappear from this table
 
     """
     #~ icon_name = 'money'
