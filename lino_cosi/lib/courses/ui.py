@@ -449,7 +449,8 @@ class EnrolmentsByCourse(Enrolments):
     params_panel_hidden = True
     required_roles = dd.required()
     master_key = "course"
-    column_names = 'request_date pupil_info option remark workflow_buttons *'
+    column_names = 'request_date pupil_info places option ' \
+                   'remark workflow_buttons *'
     auto_fit_column_widths = True
     # cell_edit = False
 
