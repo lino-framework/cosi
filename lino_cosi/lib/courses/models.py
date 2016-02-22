@@ -270,11 +270,6 @@ class Course(Reservation, Duplicable):
     name = models.CharField(max_length=100,
                             blank=True,
                             verbose_name=_("Name"))
-    fee = dd.ForeignKey('products.Product',
-                        blank=True, null=True,
-                        verbose_name=_("Participation fee"),
-                        related_name='courses_by_fee')
-
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
 
@@ -290,7 +285,6 @@ class Course(Reservation, Duplicable):
         yield 'teacher'
         yield 'name'
         yield 'enrolments_until'
-        yield 'fee'
 
     def __unicode__(self):
         if self.name:
@@ -301,13 +295,6 @@ class Course(Reservation, Duplicable):
             self.line,
             dd.dtos(self.start_date),
             self.room)
-
-    @dd.chooser()
-    def fee_choices(cls, line):
-        Product = rt.modules.products.Product
-        if not line or not line.fees_cat:
-            return Product.objects.none()
-        return Product.objects.filter(cat=line.fees_cat)
 
     def update_cal_from(self, ar):
         """Note: if recurrency is per_weekday, actual start may be
