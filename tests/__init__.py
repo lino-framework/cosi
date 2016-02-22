@@ -32,28 +32,31 @@ class DocsTests(BaseTestCase):
     #     return self.run_docs_doctests('tested/cosi.rst')
 
     def test_accounting(self):
-        self.run_simple_doctests('docs/tested/accounting.rst')
+        self.run_simple_doctests('docs/specs/accounting.rst')
 
     def test_packages(self):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
     def test_est(self):
-        self.run_simple_doctests('docs/tested/est.rst')
+        self.run_simple_doctests('docs/specs/est.rst')
 
     def test_sales(self):
-        self.run_simple_doctests('docs/tested/sales.rst')
+        self.run_simple_doctests('docs/specs/sales.rst')
 
     def test_bel_de(self):
-        self.run_simple_doctests('docs/tested/bel_de.rst')
+        self.run_simple_doctests('docs/specs/bel_de.rst')
 
     def test_demo(self):
-        self.run_simple_doctests('docs/tested/demo.rst')
+        self.run_simple_doctests('docs/specs/demo.rst')
 
     def test_ledger(self):
-        self.run_simple_doctests('docs/tested/ledger.rst')
+        self.run_simple_doctests('docs/specs/ledger.rst')
 
     def test_general(self):
-        return self.run_simple_doctests('docs/tested/general.rst')
+        return self.run_simple_doctests('docs/specs/general.rst')
+
+    def test_contacts(self):
+        return self.run_simple_doctests('docs/specs/contacts.rst')
 
 
 class DemoTests(TestCase):

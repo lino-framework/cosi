@@ -13,7 +13,7 @@ General
     >>> lino.startup('lino_cosi.projects.apc.settings.doctests')
     >>> from lino.api.doctest import *
 
-User profiles
+The main menu
 -------------
 
 Rolf is the local system administrator, he has a complete menu:
