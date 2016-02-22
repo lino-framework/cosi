@@ -170,11 +170,11 @@ class Line(ExcerptTitle, Duplicable):
             "The type of calendar events to be generated. "
             "If this is empty, no calendar events will be generated."))
 
-    tariff = dd.ForeignKey(
+    fee = dd.ForeignKey(
         'products.Product',
         blank=True, null=True,
         verbose_name=_("Participation fee"),
-        related_name='lines_by_tariff')
+        related_name='lines_by_fee')
 
     guest_role = dd.ForeignKey(
         "cal.GuestRole", blank=True, null=True,
@@ -205,7 +205,7 @@ class Line(ExcerptTitle, Duplicable):
         return super(Line, self).__unicode__()
 
     @dd.chooser()
-    def tariff_choices(cls, fees_cat):
+    def fee_choices(cls, fees_cat):
         Product = rt.modules.products.Product
         if not fees_cat:
             return Product.objects.none()
@@ -270,10 +270,10 @@ class Course(Reservation, Duplicable):
     name = models.CharField(max_length=100,
                             blank=True,
                             verbose_name=_("Name"))
-    tariff = dd.ForeignKey('products.Product',
-                           blank=True, null=True,
-                           verbose_name=_("Participation fee"),
-                           related_name='courses_by_tariff')
+    fee = dd.ForeignKey('products.Product',
+                        blank=True, null=True,
+                        verbose_name=_("Participation fee"),
+                        related_name='courses_by_fee')
 
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
@@ -290,7 +290,7 @@ class Course(Reservation, Duplicable):
         yield 'teacher'
         yield 'name'
         yield 'enrolments_until'
-        yield 'tariff'
+        yield 'fee'
 
     def __unicode__(self):
         if self.name:
@@ -303,10 +303,10 @@ class Course(Reservation, Duplicable):
             self.room)
 
     @dd.chooser()
-    def tariff_choices(cls, line):
-        if not line or not line.fees_cat:
-            return []
+    def fee_choices(cls, line):
         Product = rt.modules.products.Product
+        if not line or not line.fees_cat:
+            return Product.objects.none()
         return Product.objects.filter(cat=line.fees_cat)
 
     def update_cal_from(self, ar):
@@ -551,8 +551,10 @@ class Enrolment(UserAuthored, Certifiable):
         pgettext("in a course", "Places"),
         help_text=("number of participants"),
         default=1)
+
     option = dd.ForeignKey(
         'products.Product', verbose_name=_("Option"),
+        related_name='enrolments_by_option',
         blank=True, null=True)
 
     remark = models.CharField(_("Remark"), max_length=200, blank=True)
@@ -576,13 +578,6 @@ class Enrolment(UserAuthored, Certifiable):
         return qs
 
     @dd.chooser()
-    def option_choices(cls, course):
-        if not course.line or not course.line.options_cat:
-            return []
-        Product = rt.modules.products.Product
-        return Product.objects.filter(cat=course.line.options_cat)
-
-    @dd.chooser()
     def pupil_choices(cls, course):
         Pupil = dd.resolve_model(pupil_model)
         return Pupil.objects.all()
@@ -602,6 +597,13 @@ class Enrolment(UserAuthored, Certifiable):
         p.full_clean()
         p.save()
         return p
+
+    @dd.chooser()
+    def option_choices(cls, course):
+        if not course.line or not course.line.options_cat:
+            return []
+        Product = rt.modules.products.Product
+        return Product.objects.filter(cat=course.line.options_cat)
 
     def get_confirm_veto(self, ar):
         """Called from :class:`ConfirmEnrolment

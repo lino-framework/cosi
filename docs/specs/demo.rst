@@ -54,9 +54,9 @@ The test database
 - contenttypes.ContentType : id, app_label, model
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, parent, name, country, zip_code, type
-- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, tariff, enrolments_until
+- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, fee, enrolments_until
 - courses.Enrolment : id, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
-- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, tariff, guest_role, options_cat, fees_cat, body_template
+- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
