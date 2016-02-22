@@ -48,6 +48,8 @@ class Site(Site):
 
     user_profiles_module = 'lino_cosi.lib.cosi.roles'
 
+    default_build_method = 'wkhtmltopdf'
+
     # textfield_format = 'html'
 
     def get_installed_apps(self):
@@ -57,16 +59,16 @@ class Site(Site):
         yield 'lino.modlib.users'
         yield 'lino.modlib.countries'
         yield 'lino_cosi.lib.contacts'
-        #~ yield 'lino.modlib.households'
-        yield 'lino.modlib.products'
+        #~ yield 'lino_xl.lib.households'
+        yield 'lino_xl.lib.products'
         yield 'lino_cosi.lib.accounts'
         yield 'lino_cosi.lib.sepa'
 
-        yield 'lino.modlib.excerpts'
+        yield 'lino_xl.lib.excerpts'
 
-        # yield 'lino.modlib.outbox'
+        # yield 'lino_xl.lib.outbox'
         # yield 'lino.modlib.uploads'
-        # yield 'lino.modlib.appypod'
+        yield 'lino_xl.lib.appypod'
         yield 'lino.modlib.export_excel'
         yield 'lino.modlib.tinymce'
         yield 'lino.modlib.wkhtmltopdf'
@@ -80,13 +82,13 @@ class Site(Site):
         yield 'lino_cosi.lib.finan'
         yield 'lino_cosi.lib.sales'  # automatically added by courses
         #~ 'lino.modlib.journals',
-        #~ 'lino.modlib.projects',
-        #~ yield 'lino.modlib.blogs'
+        #~ 'lino_xl.lib.projects',
+        #~ yield 'lino_xl.lib.blogs'
         #~ yield 'lino.modlib.tickets'
         #~ 'lino.modlib.links',
-        #~ 'lino.modlib.thirds',
-        #~ yield 'lino.modlib.postings'
-        # yield 'lino.modlib.pages'
+        #~ 'lino_xl.lib.thirds',
+        #~ yield 'lino_xl.lib.postings'
+        # yield 'lino_xl.lib.pages'
         # yield 'lino_cosi.lib.cosi'
 
     def setup_plugins(self):

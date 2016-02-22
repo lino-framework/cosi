@@ -49,11 +49,11 @@ from lino import mixins
 
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
-from lino.modlib.excerpts.mixins import Certifiable
-from lino.modlib.excerpts.mixins import ExcerptTitle
+from lino_xl.lib.excerpts.mixins import Certifiable
+from lino_xl.lib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
-from lino.modlib.cal.mixins import Reservation
-from lino.modlib.cal.choicelists import Recurrencies
+from lino_xl.lib.cal.mixins import Reservation
+from lino_xl.lib.cal.choicelists import Recurrencies
 
 from .choicelists import EnrolmentStates, CourseStates
 
@@ -137,14 +137,14 @@ class Line(ExcerptTitle, Duplicable):
         The text to print as title in enrolments.
 
         See also
-        :attr:`lino.modlib.excerpts.mixins.ExcerptTitle.excerpt_title`.
+        :attr:`lino_xl.lib.excerpts.mixins.ExcerptTitle.excerpt_title`.
 
     .. attribute:: body_template
 
         The body template to use when printing a course of this
         series.  Leave empty to use the site's default (defined by
         `body_template` on the
-        :class:`lino.modlib.excerpts.models.ExcerptType` for
+        :class:`lino_xl.lib.excerpts.models.ExcerptType` for
         :class:`Course`)
 
     """
@@ -382,7 +382,7 @@ class Course(Reservation, Duplicable):
         Sets room and start_time for automatic events.
         This is a usage example for
         :meth:`EventGenerator.before_auto_event_save
-        <lino.modlib.cal.models.EventGenerator.before_auto_event_save>`.
+        <lino_xl.lib.cal.models.EventGenerator.before_auto_event_save>`.
         """
         #~ logger.info("20131008 before_auto_event_save")
         assert not settings.SITE.loading_from_dump

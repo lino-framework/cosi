@@ -33,7 +33,7 @@ from lino.api import dd, rt
 from lino.core import actions
 from lino import mixins
 
-from lino.modlib.excerpts.mixins import Certifiable
+from lino_xl.lib.excerpts.mixins import Certifiable
 
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
