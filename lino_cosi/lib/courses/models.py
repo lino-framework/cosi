@@ -49,11 +49,11 @@ from lino import mixins
 
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
-from lino.modlib.excerpts.mixins import Certifiable
-from lino.modlib.excerpts.mixins import ExcerptTitle
+from lino_xl.lib.excerpts.mixins import Certifiable
+from lino_xl.lib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
-from lino.modlib.cal.mixins import Reservation
-from lino.modlib.cal.choicelists import Recurrencies
+from lino_xl.lib.cal.mixins import Reservation
+from lino_xl.lib.cal.choicelists import Recurrencies
 
 from .choicelists import EnrolmentStates, CourseStates
 
@@ -137,14 +137,14 @@ class Line(ExcerptTitle, Duplicable):
         The text to print as title in enrolments.
 
         See also
-        :attr:`lino.modlib.excerpts.mixins.ExcerptTitle.excerpt_title`.
+        :attr:`lino_xl.lib.excerpts.mixins.ExcerptTitle.excerpt_title`.
 
     .. attribute:: body_template
 
         The body template to use when printing a course of this
         series.  Leave empty to use the site's default (defined by
         `body_template` on the
-        :class:`lino.modlib.excerpts.models.ExcerptType` for
+        :class:`lino_xl.lib.excerpts.models.ExcerptType` for
         :class:`Course`)
 
     """
@@ -170,11 +170,11 @@ class Line(ExcerptTitle, Duplicable):
             "The type of calendar events to be generated. "
             "If this is empty, no calendar events will be generated."))
 
-    tariff = dd.ForeignKey(
+    fee = dd.ForeignKey(
         'products.Product',
         blank=True, null=True,
         verbose_name=_("Participation fee"),
-        related_name='lines_by_tariff')
+        related_name='lines_by_fee')
 
     guest_role = dd.ForeignKey(
         "cal.GuestRole", blank=True, null=True,
@@ -205,7 +205,7 @@ class Line(ExcerptTitle, Duplicable):
         return super(Line, self).__unicode__()
 
     @dd.chooser()
-    def tariff_choices(cls, fees_cat):
+    def fee_choices(cls, fees_cat):
         Product = rt.modules.products.Product
         if not fees_cat:
             return Product.objects.none()
@@ -270,11 +270,6 @@ class Course(Reservation, Duplicable):
     name = models.CharField(max_length=100,
                             blank=True,
                             verbose_name=_("Name"))
-    tariff = dd.ForeignKey('products.Product',
-                           blank=True, null=True,
-                           verbose_name=_("Participation fee"),
-                           related_name='courses_by_tariff')
-
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
 
@@ -290,7 +285,6 @@ class Course(Reservation, Duplicable):
         yield 'teacher'
         yield 'name'
         yield 'enrolments_until'
-        yield 'tariff'
 
     def __unicode__(self):
         if self.name:
@@ -301,13 +295,6 @@ class Course(Reservation, Duplicable):
             self.line,
             dd.dtos(self.start_date),
             self.room)
-
-    @dd.chooser()
-    def tariff_choices(cls, line):
-        if not line or not line.fees_cat:
-            return []
-        Product = rt.modules.products.Product
-        return Product.objects.filter(cat=line.fees_cat)
 
     def update_cal_from(self, ar):
         """Note: if recurrency is per_weekday, actual start may be
@@ -382,7 +369,7 @@ class Course(Reservation, Duplicable):
         Sets room and start_time for automatic events.
         This is a usage example for
         :meth:`EventGenerator.before_auto_event_save
-        <lino.modlib.cal.models.EventGenerator.before_auto_event_save>`.
+        <lino_xl.lib.cal.models.EventGenerator.before_auto_event_save>`.
         """
         #~ logger.info("20131008 before_auto_event_save")
         assert not settings.SITE.loading_from_dump
@@ -551,8 +538,10 @@ class Enrolment(UserAuthored, Certifiable):
         pgettext("in a course", "Places"),
         help_text=("number of participants"),
         default=1)
+
     option = dd.ForeignKey(
         'products.Product', verbose_name=_("Option"),
+        related_name='enrolments_by_option',
         blank=True, null=True)
 
     remark = models.CharField(_("Remark"), max_length=200, blank=True)
@@ -576,13 +565,6 @@ class Enrolment(UserAuthored, Certifiable):
         return qs
 
     @dd.chooser()
-    def option_choices(cls, course):
-        if not course.line or not course.line.options_cat:
-            return []
-        Product = rt.modules.products.Product
-        return Product.objects.filter(cat=course.line.options_cat)
-
-    @dd.chooser()
     def pupil_choices(cls, course):
         Pupil = dd.resolve_model(pupil_model)
         return Pupil.objects.all()
@@ -602,6 +584,13 @@ class Enrolment(UserAuthored, Certifiable):
         p.full_clean()
         p.save()
         return p
+
+    @dd.chooser()
+    def option_choices(cls, course):
+        if not course.line or not course.line.options_cat:
+            return []
+        Product = rt.modules.products.Product
+        return Product.objects.filter(cat=course.line.options_cat)
 
     def get_confirm_veto(self, ar):
         """Called from :class:`ConfirmEnrolment

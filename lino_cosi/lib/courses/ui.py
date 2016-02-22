@@ -94,7 +94,7 @@ class Lines(dd.Table):
     order_by = ['ref', 'name']
     detail_layout = """
     id name ref
-    #course_area topic fees_cat tariff options_cat body_template
+    #course_area topic fees_cat fee options_cat body_template
     event_type guest_role every_unit every
     description
     excerpt_title

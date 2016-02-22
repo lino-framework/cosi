@@ -37,7 +37,7 @@ from lino.utils.restify import restify
 
 from lino.utils.xmlgen.html import E
 
-from lino.modlib.excerpts.mixins import Certifiable
+from lino_xl.lib.excerpts.mixins import Certifiable
 
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument

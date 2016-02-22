@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -16,12 +16,10 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-#from __future__ import unicode_literals
-
 SETUP_INFO = dict(
     name='lino-cosi',
     version='0.0.2',  # released 20151028
-    install_requires=['lino', 'django-iban', 'xlwt', 'lxml'],
+    install_requires=['lino_xl', 'django-iban', 'xlwt', 'lxml'],
     tests_require=['beautifulsoup4',
                    'commondata', 'commondata.ee', 'commondata.be'],
     test_suite='tests',

@@ -54,9 +54,9 @@ The test database
 - contenttypes.ContentType : id, app_label, model
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, parent, name, country, zip_code, type
-- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, tariff, enrolments_until
+- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until
 - courses.Enrolment : id, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
-- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, tariff, guest_role, options_cat, fees_cat, body_template
+- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
@@ -97,7 +97,7 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-32 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, appypod, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, cal, courses, vatless.
+32 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, cal, courses, vatless.
 61 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
@@ -124,7 +124,7 @@ The test database
  contenttypes.ContentType    gfks.ContentTypes              3         62
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
- courses.Course              courses.Courses                28        0
+ courses.Course              courses.Courses                27        0
  courses.Enrolment           courses.Enrolments             12        0
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0

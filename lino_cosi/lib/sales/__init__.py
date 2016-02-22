@@ -42,7 +42,7 @@ class Plugin(ad.Plugin):
 
     verbose_name = _("Sales")
 
-    needs_plugins = ['lino.modlib.products', 'lino_cosi.lib.vat']
+    needs_plugins = ['lino_xl.lib.products', 'lino_cosi.lib.vat']
 
     def setup_explorer_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
