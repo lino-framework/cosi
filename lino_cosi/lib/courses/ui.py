@@ -469,7 +469,7 @@ class EnrolmentsByCourse(Enrolments):
         elems += join_elems(
             list(self.pupil.address_location_lines()),
             sep=', ')
-        return E.div(*elems)
+        return E.p(*elems)
 
 
 # class EventsByCourse(cal.Events):
