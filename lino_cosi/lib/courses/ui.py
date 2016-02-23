@@ -142,6 +142,7 @@ class CourseDetail(dd.FormLayout):
     general = dd.Panel("""
     line teacher start_date end_date start_time end_time
     enrolments_until room #slot workflow_buttons id:8 user
+    name
     description
     """, label=_("General"))
     events = dd.Panel("""
@@ -257,7 +258,7 @@ class CoursesBySlot(Courses):
 
 class DraftCourses(Courses):
     label = _("Draft courses")
-    column_names = 'info teacher room description *'
+    column_names = 'info teacher room *'
     hide_sums = True
 
     @classmethod
@@ -272,7 +273,7 @@ class DraftCourses(Courses):
 class ActiveCourses(Courses):
 
     label = _("Active courses")
-    column_names = 'info enrolments free_places teacher room description *'
+    column_names = 'info enrolments:8 free_places teacher room *'
     hide_sums = True
 
     @classmethod

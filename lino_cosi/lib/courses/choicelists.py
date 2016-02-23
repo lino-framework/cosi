@@ -36,10 +36,11 @@ from lino.api import dd
 
 class CourseStates(dd.Workflow):
     required_roles = dd.required(dd.SiteAdmin)
+    invoiceable = models.BooleanField(_("invoiceable"), default=True)
 
 add = CourseStates.add_item
-add('10', _("Draft"), 'draft', editable=True)
-add('20', _("Registered"), 'registered', editable=False)
+add('10', _("Draft"), 'draft', editable=True, invoiceable=False)
+add('20', _("Registered"), 'registered', editable=False, invoiceable=True)
 # add('30', _("Started"), 'started', editable=False)
 # add('40', _("Ended"), 'ended', editable=False)
 # add('50', _("Cancelled"), 'cancelled', editable=True)

@@ -178,7 +178,11 @@ class Line(ExcerptTitle, Duplicable):
 
     guest_role = dd.ForeignKey(
         "cal.GuestRole", blank=True, null=True,
-        help_text=_("Default guest role for particpants of events."))
+        verbose_name=_("Manage presences as"),
+        help_text=_(
+            "The default guest role for particpants of events for "
+            "courses in this series. "
+            "Leave empty if you don't want any presence management."))
 
     options_cat = dd.ForeignKey(
         'products.ProductCat',
@@ -257,7 +261,7 @@ class Course(Reservation, Duplicable):
     description = dd.BabelTextField(_("Description"), blank=True)
     remark = models.TextField(_("Remark"), blank=True)
 
-    quick_search_fields = 'line__name line__topic__name'
+    quick_search_fields = 'name line__name line__topic__name'
 
     state = CourseStates.field(
         default=CourseStates.draft.as_callable)
@@ -267,9 +271,7 @@ class Course(Reservation, Duplicable):
         help_text=("Maximal number of participants"),
         blank=True, null=True)
 
-    name = models.CharField(max_length=100,
-                            blank=True,
-                            verbose_name=_("Name"))
+    name = models.CharField(_("Designation"), max_length=100, blank=True)
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
 
