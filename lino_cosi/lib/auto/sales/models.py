@@ -99,14 +99,10 @@ def get_invoiceables_for(partner, max_date=None):
         if partner.id == settings.SITE.site_config.site_company.id:
             return
     # dd.logger.info('20160210 get_invoiceables_for (%s,%s)', partner, max_date)
+    if max_date is None:
+        max_date = dd.today()
     for m in rt.models_by_base(Invoiceable):
-        qs = m.get_invoiceables_for_partner(partner, max_date)
-        if qs is None:
-            # dd.logger.info('20160210 qs is None')
-            continue
-        # flt = m.get_partner_filter(partner)
-        # qs = m.objects.filter(flt)
-        for obj in qs.order_by(m.invoiceable_date_field):
+        for obj in m.get_invoiceables_for_partner(partner, max_date):
             if obj.get_invoiceable_product() is not None:
                 yield obj
 

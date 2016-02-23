@@ -142,6 +142,7 @@ class CourseDetail(dd.FormLayout):
     general = dd.Panel("""
     line teacher start_date end_date start_time end_time
     enrolments_until room #slot workflow_buttons id:8 user
+    name
     description
     """, label=_("General"))
     events = dd.Panel("""
@@ -186,10 +187,20 @@ class Courses(dd.Table):
 
     params_layout = """topic line teacher user state active:10"""
 
-    simple_param_fields = 'line teacher state user'.split()
+    # simple_parameters = 'line teacher state user'.split()
+
+    @classmethod
+    def get_simple_parameters(cls):
+        s = super(Courses, cls).get_simple_parameters()
+        s.add('line')
+        s.add('teacher')
+        s.add('state')
+        s.add('user')
+        return s
 
     @classmethod
     def get_request_queryset(self, ar):
+        # dd.logger.info("20160223 %s", self)
         qs = super(Courses, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
@@ -203,7 +214,7 @@ class Courses(dd.Table):
             qs = qs.filter(flt)
         elif ar.param_values.active == dd.YesNo.no:
             qs = qs.exclude(flt)
-        # logger.info("20140820 %s", dd.today())
+        # dd.logger.info("20160223 %s", qs.query)
         return qs
 
     @classmethod
@@ -213,10 +224,10 @@ class Courses(dd.Table):
 
         if ar.param_values.topic:
             yield unicode(ar.param_values.topic)
-        for n in self.simple_param_fields:
-            v = ar.param_values.get(n)
-            if v:
-                yield unicode(v)
+        # for n in self.simple_param_fields:
+        #     v = ar.param_values.get(n)
+        #     if v:
+        #         yield unicode(v)
 
 
 class AllCourses(Courses):
@@ -257,7 +268,7 @@ class CoursesBySlot(Courses):
 
 class DraftCourses(Courses):
     label = _("Draft courses")
-    column_names = 'info teacher room description *'
+    column_names = 'info teacher room *'
     hide_sums = True
 
     @classmethod
@@ -272,7 +283,7 @@ class DraftCourses(Courses):
 class ActiveCourses(Courses):
 
     label = _("Active courses")
-    column_names = 'info enrolments free_places teacher room description *'
+    column_names = 'info enrolments:8 free_places teacher room *'
     hide_sums = True
 
     @classmethod
@@ -469,7 +480,7 @@ class EnrolmentsByCourse(Enrolments):
         elems += join_elems(
             list(self.pupil.address_location_lines()),
             sep=', ')
-        return E.div(*elems)
+        return E.p(*elems)
 
 
 # class EventsByCourse(cal.Events):

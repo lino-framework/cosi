@@ -1,7 +1,8 @@
 .. _cosi.specs.contacts:
 
-General
-=======
+========
+Contacts
+========
 
 ..  to test only this document:
 
@@ -17,7 +18,7 @@ Quick search
 ============
 
 When doing a quick search in a list of partners, Lino searches only
-the :attr:`name<lino.modlib.models.Partner.name>` field.
+the :attr:`name<lino.modlib.contacts.models.Partner.name>` field.
 
 >>> rt.show(contacts.Partners, quick_search="berg")
 ==================== ======== =====
@@ -29,8 +30,8 @@ the :attr:`name<lino.modlib.models.Partner.name>` field.
 <BLANKLINE>
 
 Without that restriction, a user who enters "berg" in the quick search
-field would also get e.g. the following partners (whose address
-contains the query string):
+field would also get e.g. the following partners (because their
+address contains the query string):
 
 >>> rt.show(contacts.Partners, column_names="name street",
 ...     filter=Q(street__icontains="berg"))
@@ -47,8 +48,8 @@ contains the query string):
 <BLANKLINE>
 
 Implementation note: this is because we use the
-:attr:`quick_search_fields <lino.core.Model.quick_search_fields>`
-attribute on the model.
+:attr:`quick_search_fields
+<lino.core.model.Model.quick_search_fields>` attribute on the model.
 
 >>> contacts.Partner.quick_search_fields
 frozenset(['name'])
@@ -85,3 +86,25 @@ key *contains* the sequence *12*.
 
 >>> rt.show(contacts.Partners, quick_search="12")
 No data to display
+
+
+This behaviour is the same for all subclasses of Partner, e.g. for
+persons and for organizations.
+
+
+>>> rt.show(contacts.Persons, quick_search="berg")
+=================== ============================= ======== ======= ===== ===== ==========
+ Name                Address                       E-Mail   Phone   GSM   ID    Language
+------------------- ----------------------------- -------- ------- ----- ----- ----------
+ Mr Hans Altenberg   Aachener Straße, 4700 Eupen                          114
+=================== ============================= ======== ======= ===== ===== ==========
+<BLANKLINE>
+
+>>> rt.show(contacts.Companies, quick_search="berg")
+==================== ============================== ======== ======= ===== ===== ==========
+ Name                 Address                        E-Mail   Phone   GSM   ID    Language
+-------------------- ------------------------------ -------- ------- ----- ----- ----------
+ Garage Mergelsberg   Kasinostraße 13, 4720 Kelmis                          104
+==================== ============================== ======== ======= ===== ===== ==========
+<BLANKLINE>
+

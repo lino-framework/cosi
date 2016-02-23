@@ -178,7 +178,11 @@ class Line(ExcerptTitle, Duplicable):
 
     guest_role = dd.ForeignKey(
         "cal.GuestRole", blank=True, null=True,
-        help_text=_("Default guest role for particpants of events."))
+        verbose_name=_("Manage presences as"),
+        help_text=_(
+            "The default guest role for particpants of events for "
+            "courses in this series. "
+            "Leave empty if you don't want any presence management."))
 
     options_cat = dd.ForeignKey(
         'products.ProductCat',
@@ -257,19 +261,17 @@ class Course(Reservation, Duplicable):
     description = dd.BabelTextField(_("Description"), blank=True)
     remark = models.TextField(_("Remark"), blank=True)
 
-    quick_search_fields = 'line__name line__topic__name'
+    quick_search_fields = 'name line__name line__topic__name'
 
     state = CourseStates.field(
         default=CourseStates.draft.as_callable)
 
     max_places = models.PositiveIntegerField(
-        pgettext("in a course", "Places"),
+        pgettext("in a course", "Available places"),
         help_text=("Maximal number of participants"),
         blank=True, null=True)
 
-    name = models.CharField(max_length=100,
-                            blank=True,
-                            verbose_name=_("Name"))
+    name = models.CharField(_("Designation"), max_length=100, blank=True)
     enrolments_until = models.DateField(
         _("Enrolments until"), blank=True, null=True)
 
@@ -406,7 +408,7 @@ class Course(Reservation, Duplicable):
             dd.plugins.courses.day_and_month(e.start_date)
             for e in self.events_by_course.order_by('start_date')])
 
-    @dd.displayfield(_("Available places"), max_length=5)
+    @dd.displayfield(_("Free places"), max_length=5)
     def free_places(self, ar=None):
         if not self.max_places:
             return _("Unlimited")
@@ -535,8 +537,8 @@ class Enrolment(UserAuthored, Certifiable):
     state = EnrolmentStates.field(
         default=EnrolmentStates.requested.as_callable)
     places = models.PositiveIntegerField(
-        pgettext("in a course", "Places"),
-        help_text=("number of participants"),
+        pgettext("in a course", "Places used"),
+        help_text=("The number of participants in this enrolment."),
         default=1)
 
     option = dd.ForeignKey(

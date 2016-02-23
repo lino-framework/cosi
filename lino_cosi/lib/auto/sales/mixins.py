@@ -105,9 +105,9 @@ class Invoiceable(dd.Model):
         raise NotImplementedError()
 
     @classmethod
-    def get_invoiceables_for_partner(cls, partner, max_date=None):
-        """Return a queryset of invoiceables (of this class) for the given partner,
-        one for each invoice line to generate.
+    def get_invoiceables_for_partner(cls, partner, max_date):
+        """Yield a sequence of invoiceables (of this class) for the given
+        partner.
 
         """
         raise NotImplementedError()
