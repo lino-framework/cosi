@@ -263,7 +263,7 @@ class Course(Reservation, Duplicable):
         default=CourseStates.draft.as_callable)
 
     max_places = models.PositiveIntegerField(
-        pgettext("in a course", "Places"),
+        pgettext("in a course", "Available places"),
         help_text=("Maximal number of participants"),
         blank=True, null=True)
 
@@ -406,7 +406,7 @@ class Course(Reservation, Duplicable):
             dd.plugins.courses.day_and_month(e.start_date)
             for e in self.events_by_course.order_by('start_date')])
 
-    @dd.displayfield(_("Available places"), max_length=5)
+    @dd.displayfield(_("Free places"), max_length=5)
     def free_places(self, ar=None):
         if not self.max_places:
             return _("Unlimited")
@@ -535,8 +535,8 @@ class Enrolment(UserAuthored, Certifiable):
     state = EnrolmentStates.field(
         default=EnrolmentStates.requested.as_callable)
     places = models.PositiveIntegerField(
-        pgettext("in a course", "Places"),
-        help_text=("number of participants"),
+        pgettext("in a course", "Places used"),
+        help_text=("The number of participants in this enrolment."),
         default=1)
 
     option = dd.ForeignKey(

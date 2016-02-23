@@ -1,13 +1,13 @@
-# lino.modlib.system messages
-# Copyright (C) 2010 Luc Saffre
-# This file is distributed under the same license as the Lino package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# Dutch translations for lino-cosi.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the lino-cosi project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version:  lino.modlib.systen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-27 16:11+0200\n"
+"POT-Creation-Date: 2016-02-23 03:44+0200\n"
 "PO-Revision-Date: 2014-02-05 09:34+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.1.1\n"
+"Generated-By: Babel 2.2.0\n"
 
 #: lino_cosi/lib/accounts/__init__.py:40
 msgid "Accounting"
@@ -119,129 +119,129 @@ msgstr "Bearbeiten"
 msgid "Credit"
 msgstr "Bearbeiten"
 
-#: lino_cosi/lib/auto/sales/models.py:64
+#: lino_cosi/lib/auto/sales/models.py:66
 msgid "Invoicing Mode"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:65
+#: lino_cosi/lib/auto/sales/models.py:67
 msgid "Invoicing Modes"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:68
+#: lino_cosi/lib/auto/sales/models.py:70
 msgid "Additional fee charged when using this invoicing mode."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:78
+#: lino_cosi/lib/auto/sales/models.py:80
 msgid ""
 "How many days in advance invoices should be posted so that the customer "
 "has a chance to pay them in time."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:160
+#: lino_cosi/lib/auto/sales/models.py:129
 #, python-format
-msgid "No invoiceables found for %s."
+msgid "No items found for %s."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:189
+#: lino_cosi/lib/auto/sales/models.py:150
 msgid "Create invoice"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:203
+#: lino_cosi/lib/auto/sales/models.py:165
 #, fuzzy, python-format
 msgid "%d invoices have been created."
 msgstr "%s wurde erstellt."
 
-#: lino_cosi/lib/auto/sales/models.py:205
+#: lino_cosi/lib/auto/sales/models.py:167
 #, python-format
 msgid "This will create %d invoices."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:206
-#: lino_cosi/lib/auto/sales/models.py:336 lino_cosi/lib/courses/models.py:1012
+#: lino_cosi/lib/auto/sales/models.py:168
+#: lino_cosi/lib/auto/sales/models.py:312 lino_cosi/lib/courses/ui.py:381
 #: lino_cosi/lib/courses/workflows.py:46
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
-#: lino_cosi/lib/auto/sales/models.py:221
+#: lino_cosi/lib/auto/sales/models.py:186
 msgid "Create invoice from invoiceables for this partner"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:268
-#: lino_cosi/lib/auto/sales/models.py:471
+#: lino_cosi/lib/auto/sales/models.py:243
+#: lino_cosi/lib/auto/sales/models.py:450
 msgid "Invoiceable"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:271
+#: lino_cosi/lib/auto/sales/models.py:246
 msgid "Voucher item"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:272
+#: lino_cosi/lib/auto/sales/models.py:247
 msgid "Voucher items"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:277
+#: lino_cosi/lib/auto/sales/models.py:252
 msgid "(type)"
 msgstr "(Modell)"
 
-#: lino_cosi/lib/auto/sales/models.py:281
+#: lino_cosi/lib/auto/sales/models.py:256
 msgid "(object)"
 msgstr "(Objekt)"
 
-#: lino_cosi/lib/auto/sales/models.py:300
+#: lino_cosi/lib/auto/sales/models.py:275
 msgid "Invoicings"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:315
+#: lino_cosi/lib/auto/sales/models.py:291
 msgid ""
 "Create and print the invoice for each selected row, making these rows "
 "disappear from this table"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:334
+#: lino_cosi/lib/auto/sales/models.py:310
 #, python-format
 msgid "This will create and print %d invoice(s)."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:349
-#: lino_cosi/lib/auto/sales/models.py:445
+#: lino_cosi/lib/auto/sales/models.py:325
+#: lino_cosi/lib/auto/sales/models.py:424
 msgid "Invoices to create"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:351
+#: lino_cosi/lib/auto/sales/models.py:327
 msgid "Table of all partners who should receive an invoice."
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:409
+#: lino_cosi/lib/auto/sales/models.py:385
 #, fuzzy
 msgid "First date"
 msgstr "Erste Seite"
 
-#: lino_cosi/lib/auto/sales/models.py:413
+#: lino_cosi/lib/auto/sales/models.py:389
 #, fuzzy
 msgid "Last date"
 msgstr "Erste Seite"
 
-#: lino_cosi/lib/auto/sales/models.py:417 lino_cosi/lib/b2c/models.py:394
+#: lino_cosi/lib/auto/sales/models.py:393 lino_cosi/lib/b2c/models.py:394
 #: lino_cosi/lib/finan/mixins.py:130 lino_cosi/lib/vatless/models.py:57
 #: lino_cosi/lib/vatless/models.py:124
 msgid "Amount"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:425
+#: lino_cosi/lib/auto/sales/models.py:401
 msgid "Invoiceables"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:432 lino_cosi/lib/courses/models.py:1140
+#: lino_cosi/lib/auto/sales/models.py:408 lino_cosi/lib/courses/ui.py:509
 #: lino_cosi/lib/ledger/ui.py:582
 #, fuzzy
 msgid "Actions"
 msgstr "Omschrijving"
 
-#: lino_cosi/lib/auto/sales/models.py:447
+#: lino_cosi/lib/auto/sales/models.py:426
 msgid "List of invoiceable items for this partner"
 msgstr ""
 
-#: lino_cosi/lib/auto/sales/models.py:467
+#: lino_cosi/lib/auto/sales/models.py:446
 #, fuzzy
 msgid "Date"
 msgstr "Zustand"
@@ -1249,9 +1249,9 @@ msgstr "Thema"
 msgid "BkTxCd"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/models.py:555
+#: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/ui.py:146
 #: lino_cosi/lib/finan/models.py:229 lino_cosi/lib/finan/models.py:241
-#: lino_cosi/lib/finan/models.py:248 lino_cosi/lib/sales/models.py:219
+#: lino_cosi/lib/finan/models.py:248 lino_cosi/lib/sales/models.py:220
 #: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:84
 msgid "General"
@@ -1277,8 +1277,8 @@ msgstr "Benutzer"
 msgid "Administrator"
 msgstr ""
 
-#: lino_cosi/lib/courses/__init__.py:50 lino_cosi/lib/courses/models.py:82
-#: lino_cosi/lib/courses/models.py:315
+#: lino_cosi/lib/courses/__init__.py:49 lino_cosi/lib/courses/models.py:79
+#: lino_cosi/lib/courses/models.py:246
 msgid "Courses"
 msgstr ""
 
@@ -1306,12 +1306,12 @@ msgstr ""
 msgid "Uses a place"
 msgstr ""
 
-#: lino_cosi/lib/courses/choicelists.py:58 lino_cosi/lib/courses/models.py:502
+#: lino_cosi/lib/courses/choicelists.py:58 lino_cosi/lib/courses/models.py:421
 #, fuzzy
 msgid "Requested"
 msgstr "Erstellt"
 
-#: lino_cosi/lib/courses/choicelists.py:59 lino_cosi/lib/courses/models.py:507
+#: lino_cosi/lib/courses/choicelists.py:59 lino_cosi/lib/courses/models.py:426
 #, fuzzy
 msgid "Confirmed"
 msgstr "Bestätigung"
@@ -1321,262 +1321,265 @@ msgstr "Bestätigung"
 msgid "Cancelled"
 msgstr "Abbrechen"
 
-#: lino_cosi/lib/courses/models.py:79
+#: lino_cosi/lib/courses/models.py:76
 #, fuzzy
 msgid "Course area"
 msgstr "Thema"
 
-#: lino_cosi/lib/courses/models.py:80
+#: lino_cosi/lib/courses/models.py:77
 #, fuzzy
 msgid "Course areas"
 msgstr "Benutzerprofil"
 
-#: lino_cosi/lib/courses/models.py:92
+#: lino_cosi/lib/courses/models.py:89
 msgid "Start Time"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:95
+#: lino_cosi/lib/courses/models.py:92
 #, fuzzy
 msgid "End Time"
 msgstr "Druckdatum"
 
-#: lino_cosi/lib/courses/models.py:104
+#: lino_cosi/lib/courses/models.py:102
 msgid "Timetable Slot"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:105
+#: lino_cosi/lib/courses/models.py:103
 msgid "Timetable Slots"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:109 lino_cosi/lib/courses/models.py:341
+#: lino_cosi/lib/courses/models.py:107 lino_cosi/lib/courses/models.py:272
 msgid "Name"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:132
+#: lino_cosi/lib/courses/models.py:117
 msgid "Topic"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:133
+#: lino_cosi/lib/courses/models.py:118
 msgid "Topics"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:178
+#: lino_cosi/lib/courses/models.py:153
 #, fuzzy
 msgctxt "singular form"
 msgid "Course series"
 msgstr "Benutzerprofil"
 
-#: lino_cosi/lib/courses/models.py:179
+#: lino_cosi/lib/courses/models.py:154
 #, fuzzy
 msgctxt "plural form"
 msgid "Course series"
 msgstr "Benutzerprofil"
 
-#: lino_cosi/lib/courses/models.py:181
+#: lino_cosi/lib/courses/models.py:156
 msgid "Reference"
 msgstr "Referenz"
 
-#: lino_cosi/lib/courses/models.py:184 lino_cosi/lib/courses/models.py:326
+#: lino_cosi/lib/courses/models.py:159 lino_cosi/lib/courses/models.py:257
 #: lino_cosi/lib/ledger/ui.py:409 lino_cosi/lib/ledger/ui.py:741
 #: lino_cosi/lib/ledger/ui.py:789 lino_cosi/lib/ledger/ui.py:810
 #: lino_cosi/lib/ledger/ui.py:854 lino_cosi/lib/ledger/ui.py:899
-#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:282
-#: lino_cosi/lib/sales/models.py:371 lino_cosi/lib/sepa/mixins.py:57
-#: lino_cosi/lib/vat/models.py:153 lino_cosi/lib/vatless/models.py:123
+#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:283
+#: lino_cosi/lib/sales/models.py:373 lino_cosi/lib/sepa/mixins.py:57
+#: lino_cosi/lib/vat/models.py:155 lino_cosi/lib/vatless/models.py:123
 msgid "Description"
 msgstr "Omschrijving"
 
-#: lino_cosi/lib/courses/models.py:187
+#: lino_cosi/lib/courses/models.py:162
 msgid "Recurrency"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:190
+#: lino_cosi/lib/courses/models.py:165
 msgid "Repeat every"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:194
+#: lino_cosi/lib/courses/models.py:169
 msgid ""
 "The type of calendar events to be generated. If this is empty, no "
 "calendar events will be generated."
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:201 lino_cosi/lib/courses/models.py:344
-#: lino_cosi/lib/courses/models.py:770
+#: lino_cosi/lib/courses/models.py:176
 #, fuzzy
 msgid "Participation fee"
 msgstr "Bestätigung"
 
-#: lino_cosi/lib/courses/models.py:206
+#: lino_cosi/lib/courses/models.py:181
 msgid "Default guest role for particpants of events."
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:210
+#: lino_cosi/lib/courses/models.py:185
 msgid "Options category"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:216
+#: lino_cosi/lib/courses/models.py:191
 msgid "Fees category"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:222
+#: lino_cosi/lib/courses/models.py:197
 #, fuzzy
 msgid "Body template"
 msgstr "Vorlage"
 
-#: lino_cosi/lib/courses/models.py:273
-msgid "Shows events of courses of this teacher"
-msgstr ""
-
-#: lino_cosi/lib/courses/models.py:314
+#: lino_cosi/lib/courses/models.py:245
 #, fuzzy
 msgid "Course"
 msgstr "Erstellt"
 
-#: lino_cosi/lib/courses/models.py:321
+#: lino_cosi/lib/courses/models.py:252
 msgid "Instructor"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:327 lino_cosi/lib/courses/models.py:779
+#: lino_cosi/lib/courses/models.py:258 lino_cosi/lib/courses/models.py:547
 #: lino_cosi/lib/finan/mixins.py:132 lino_cosi/lib/sepa/models.py:72
 msgid "Remark"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:335 lino_cosi/lib/courses/models.py:772
-#, fuzzy
+#: lino_cosi/lib/courses/models.py:266
 msgctxt "in a course"
-msgid "Places"
-msgstr "Uploads"
+msgid "Available places"
+msgstr ""
 
-#: lino_cosi/lib/courses/models.py:348
+#: lino_cosi/lib/courses/models.py:274
 #, fuzzy
 msgid "Enrolments until"
 msgstr "Drucken"
 
-#: lino_cosi/lib/courses/models.py:476
+#: lino_cosi/lib/courses/models.py:392
 msgid "Info"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:484 lino_cosi/lib/courses/models.py:560
+#: lino_cosi/lib/courses/models.py:403 lino_cosi/lib/courses/ui.py:151
 #, fuzzy
 msgid "Events"
 msgstr "Empfänger"
 
-#: lino_cosi/lib/courses/models.py:490
-msgid "Available places"
+#: lino_cosi/lib/courses/models.py:409
+msgid "Free places"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:493
+#: lino_cosi/lib/courses/models.py:412
 msgid "Unlimited"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:512 lino_cosi/lib/courses/models.py:758
-#: lino_cosi/lib/courses/models.py:1063
+#: lino_cosi/lib/courses/models.py:431 lino_cosi/lib/courses/models.py:525
+#: lino_cosi/lib/courses/ui.py:432
 msgid "Enrolments"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:666
-msgid "Draft courses"
-msgstr ""
-
-#: lino_cosi/lib/courses/models.py:681
-msgid "Active courses"
-msgstr ""
-
-#: lino_cosi/lib/courses/models.py:699
+#: lino_cosi/lib/courses/models.py:471
 #, fuzzy
 msgid "Enrolment option"
 msgstr "Thema"
 
-#: lino_cosi/lib/courses/models.py:700
+#: lino_cosi/lib/courses/models.py:472
 #, fuzzy
 msgid "Enrolment options"
 msgstr "Thema"
 
-#: lino_cosi/lib/courses/models.py:705
+#: lino_cosi/lib/courses/models.py:477
 msgid "Price"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:757
+#: lino_cosi/lib/courses/models.py:524
 msgid "Enrolment"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:767
+#: lino_cosi/lib/courses/models.py:534
 msgid "Date of request"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:776
+#: lino_cosi/lib/courses/models.py:538
+msgctxt "in a course"
+msgid "Places used"
+msgstr ""
+
+#: lino_cosi/lib/courses/models.py:543
 #, fuzzy
 msgid "Option"
 msgstr "Omschrijving"
 
-#: lino_cosi/lib/courses/models.py:781
+#: lino_cosi/lib/courses/models.py:549
 #, fuzzy
 msgid "Confirmation details"
 msgstr "Bestätigung"
 
-#: lino_cosi/lib/courses/models.py:839
+#: lino_cosi/lib/courses/models.py:607
 #, python-format
 msgid "No places left in %s"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:919
+#: lino_cosi/lib/courses/ui.py:116
+msgid "Shows events of courses of this teacher"
+msgstr ""
+
+#: lino_cosi/lib/courses/ui.py:259
+msgid "Draft courses"
+msgstr ""
+
+#: lino_cosi/lib/courses/ui.py:274
+msgid "Active courses"
+msgstr ""
+
+#: lino_cosi/lib/courses/ui.py:296
 #, fuzzy
 msgid "Course state"
 msgstr "Thema"
 
-#: lino_cosi/lib/courses/models.py:921
+#: lino_cosi/lib/courses/ui.py:298
 msgid "Participants only"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:922
+#: lino_cosi/lib/courses/ui.py:299
 msgid ""
 "Hide cancelled enrolments. Ignored if you specify an explicit enrolment "
 "state."
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:978
+#: lino_cosi/lib/courses/ui.py:355
 #, fuzzy
 msgid "Also "
 msgstr "als"
 
-#: lino_cosi/lib/courses/models.py:996
+#: lino_cosi/lib/courses/ui.py:365
 #, fuzzy
 msgid "Confirm all"
 msgstr "Bestätigung"
 
-#: lino_cosi/lib/courses/models.py:1010
+#: lino_cosi/lib/courses/ui.py:379
 #, python-format
 msgid "This will confirm all %d enrolments in this list."
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:1017
+#: lino_cosi/lib/courses/ui.py:386
 msgid "Pending requested enrolments"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:1033
+#: lino_cosi/lib/courses/ui.py:402
 msgid "Pending confirmed enrolments"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:1095
+#: lino_cosi/lib/courses/ui.py:464
 #, fuzzy
 msgid "Participant"
 msgstr "Bestätigung"
 
-#: lino_cosi/lib/courses/models.py:1124
+#: lino_cosi/lib/courses/ui.py:493
 msgid "Suggested courses"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:1129
+#: lino_cosi/lib/courses/ui.py:498
 #, fuzzy, python-format
 msgid "%(details)s for %(master)s"
 msgstr "%(details)s von %(master)s"
 
-#: lino_cosi/lib/courses/models.py:1155
+#: lino_cosi/lib/courses/ui.py:525
 #, fuzzy
 msgid "Enrol"
 msgstr "Allgemein"
 
-#: lino_cosi/lib/courses/models.py:1160
+#: lino_cosi/lib/courses/ui.py:530
 msgid "Show enrolment"
 msgstr ""
 
@@ -1833,7 +1836,7 @@ msgid "Payment Order items"
 msgstr ""
 
 #: lino_cosi/lib/finan/models.py:234 lino_cosi/lib/ledger/__init__.py:41
-#: lino_cosi/lib/sales/models.py:229 lino_cosi/lib/vat/ui.py:70
+#: lino_cosi/lib/sales/models.py:230 lino_cosi/lib/vat/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:75
 #, fuzzy
 msgid "Ledger"
@@ -2271,15 +2274,15 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:283
+#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:284
 msgid "Discount"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:208
+#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:209
 msgid "Totals"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:214
+#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:215
 #, fuzzy
 msgid "Header"
 msgstr "Geschlecht"
@@ -2317,26 +2320,26 @@ msgstr ""
 msgid "Subject line"
 msgstr "Thema"
 
-#: lino_cosi/lib/sales/models.py:164 lino_cosi/lib/vat/models.py:144
+#: lino_cosi/lib/sales/models.py:165 lino_cosi/lib/vat/models.py:146
 #: lino_cosi/lib/vatless/models.py:54
 msgid "Invoice"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:165 lino_cosi/lib/vat/models.py:145
+#: lino_cosi/lib/sales/models.py:166 lino_cosi/lib/vat/models.py:147
 #: lino_cosi/lib/vatless/models.py:55
 msgid "Invoices"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:224
+#: lino_cosi/lib/sales/models.py:225
 msgid "More"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:337
+#: lino_cosi/lib/sales/models.py:339
 #, fuzzy
 msgid "Heading"
 msgstr "Änderung"
 
-#: lino_cosi/lib/sales/models.py:417
+#: lino_cosi/lib/sales/models.py:419
 #, python-format
 msgid "Going to sign %d documents as user %s. Are you sure?"
 msgstr ""
@@ -2482,15 +2485,15 @@ msgstr ""
 msgid "Editable amount"
 msgstr ""
 
-#: lino_cosi/lib/vat/models.py:112
+#: lino_cosi/lib/vat/models.py:114
 msgid "Found {num} VAT rules for %{context}!)"
 msgstr ""
 
-#: lino_cosi/lib/vat/models.py:179
+#: lino_cosi/lib/vat/models.py:181
 msgid "The default VAT regime for         sales and purchases of this partner."
 msgstr ""
 
-#: lino_cosi/lib/vat/models.py:185
+#: lino_cosi/lib/vat/models.py:187
 msgid "VAT id"
 msgstr ""
 
@@ -7229,5 +7232,15 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Account Charts"
+#~ msgstr ""
+
+#~ msgid "No invoiceables found for %s."
+#~ msgstr ""
+
+#~ msgctxt "in a course"
+#~ msgid "Places"
+#~ msgstr "Uploads"
+
+#~ msgid "Available places"
 #~ msgstr ""
 
