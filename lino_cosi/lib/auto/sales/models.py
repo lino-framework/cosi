@@ -65,24 +65,24 @@ class InvoicingMode(PrintableType, BabelNamed):
     class Meta:
         verbose_name = _("Invoicing Mode")
         verbose_name_plural = _("Invoicing Modes")
-    #~ id = models.CharField(max_length=3, primary_key=True)
-    #~ journal = journals.JournalRef()
+    # id = models.CharField(max_length=3, primary_key=True)
+    # journal = journals.JournalRef()
     price = dd.PriceField(blank=True, null=True, help_text=_("""\
 Additional fee charged when using this invoicing mode."""))
-    #~ channel = Channel.field(help_text="""
-        #~ Method used to send the invoice.""")
-    #~ channel = models.CharField(max_length=1,
-                #~ choices=CHANNEL_CHOICES,help_text="""
-    #~ Method used to send the invoice.
-                #~ """)
+    # channel = Channel.field(help_text="""
+        # Method used to send the invoice.""")
+    # channel = models.CharField(max_length=1,
+                # choices=CHANNEL_CHOICES,help_text="""
+    # Method used to send the invoice.
+                # """)
     advance_days = models.IntegerField(
         default=0,
         help_text=_("How many days in advance invoices should be "
                     "posted so that the customer has a chance to "
                     "pay them in time."""))
 
-    #~ def __unicode__(self):
-        #~ return unicode(dd.babelattr(self,'name'))
+    # def __unicode__(self):
+        # return unicode(dd.babelattr(self,'name'))
 
 
 class InvoicingModes(dd.Table):
@@ -185,13 +185,13 @@ class CreateInvoiceForPartner(CreateInvoice):
         return ar.selected_rows
 
 
-#~ dd.inject_action('contacts.Partner','create_invoice',CreateInvoiceForPartner())
+# dd.inject_action('contacts.Partner','create_invoice',CreateInvoiceForPartner())
 contacts.Partner.create_invoice = CreateInvoiceForPartner()
 
 
 class VatProductInvoice(VatProductInvoice):
 
-    #~ fill_invoice = FillInvoice()
+    # fill_invoice = FillInvoice()
 
     def unused_before_state_change(self, ar, old, new):
         if new.name == 'registered':
@@ -199,7 +199,7 @@ class VatProductInvoice(VatProductInvoice):
                 if i.invoiceable.invoice != self:
                     i.invoiceable.invoice = self
                     i.invoiceable.save()
-                    #~ logger.info("20130711 %s now invoiced",i.invoiceable)
+                    # logger.info("20130711 %s now invoiced",i.invoiceable)
         elif new.name == 'draft':
             for i in self.items.filter(invoiceable_id__isnull=False):
                 if i.invoiceable.invoice != self:
@@ -207,17 +207,17 @@ class VatProductInvoice(VatProductInvoice):
                         "Oops: i.invoiceable.invoice != self in %s", self)
                 i.invoiceable.invoice = None
                 i.invoiceable.save()
-            #~ self.deregister_voucher(ar)
+            # self.deregister_voucher(ar)
         super(VatProductInvoice, self).before_state_change(ar, old, new)
 
     def get_invoiceables(self, model):
         lst = []
         for i in self.items.all():
             if isinstance(i.invoiceable, model):
-                if not i.invoiceable in lst:
+                if i.invoiceable not in lst:
                     lst.append(i.invoiceable)
-            #~ else:
-                #~ print 20130910, i.invoiceable.__class__
+            # else:
+                # print 20130910, i.invoiceable.__class__
         return lst
 
     def get_build_method(self):
@@ -269,11 +269,11 @@ class ItemsByInvoice(ItemsByInvoice):  # 20130709
 
 class InvoicingsByInvoiceable(InvoiceItemsByProduct):  # 20130709
     label = _("Invoicings")
-    #~ app_label = 'sales'
+    # app_label = 'sales'
     master_key = 'invoiceable'
     editable = False
-    column_names = "voucher qty title description:20x1 discount " \
-                   "unit_price total_incl total_base total_vat"
+    column_names = "voucher qty title description:20x1 #discount " \
+                   "unit_price total_incl #total_base #total_vat *"
 
 
 class CreateAllInvoices(CachedPrintAction):
@@ -281,28 +281,28 @@ class CreateAllInvoices(CachedPrintAction):
     rows disappear from this table
 
     """
-    #~ icon_name = 'money'
+    # icon_name = 'money'
 
-    #~ label = _("Create invoices")
+    # label = _("Create invoices")
     help_text = _(
         "Create and print the invoice for each selected row, making these rows disappear from this table")
 
     def run_from_ui(self, ar, **kw):
-        #~ obj = ar.selected_rows[0]
-        #~ assert obj is None
+        # obj = ar.selected_rows[0]
+        # assert obj is None
         def ok(ar2):
             invoices = []
             for row in ar.selected_rows:
                 partner = rt.modules.contacts.Partner.objects.get(pk=row.pk)
                 invoice = create_invoice_for(partner, ar)
                 invoices.append(invoice)
-            #~ for obj in ar:
-                #~ invoice = create_invoice_for(obj.partner,ar)
-                #~ invoices.append(invoice)
+            # for obj in ar:
+                # invoice = create_invoice_for(obj.partner,ar)
+                # invoices.append(invoice)
             mf = self.print_multiple(ar, invoices)
             ar2.success(open_url=mf.url, refresh_all=True)
 
-        #~ msg = _("This will create and print %d invoices.") % ar.get_total_count()
+        # msg = _("This will create and print %d invoices.") % ar.get_total_count()
         msg = _("This will create and print %d invoice(s).") % len(
             ar.selected_rows)
         return ar.confirm(ok, msg, _("Are you sure?"))
@@ -370,7 +370,7 @@ class InvoicesToCreate(dd.VirtualTable):
 
     @classmethod
     def get_pk_field(self):
-        #~ print 20130831,repr(contacts.Partner._meta.pk)
+        # print 20130831,repr(contacts.Partner._meta.pk)
         return rt.modules.contacts.Partner._meta.pk
 
     @classmethod
@@ -408,7 +408,7 @@ class InvoicesToCreate(dd.VirtualTable):
             return ''
         return ar.instance_action_button(obj.partner.show_invoiceables)
         # return obj.partner.show_invoiceables.as_button(ar)
-        #~ return obj.partner.create_invoice.as_button(ar)
+        # return obj.partner.create_invoice.as_button(ar)
 
 
 class InvoiceablesByPartner(dd.VirtualTable):
@@ -418,10 +418,10 @@ class InvoiceablesByPartner(dd.VirtualTable):
     icon_name = 'basket'
     sort_index = 51
     label = _("Invoices to create")
-    #~ label = _("Invoiceables")
+    # label = _("Invoiceables")
     help_text = _("List of invoiceable items for this partner")
 
-    #~ app_label = 'sales'
+    # app_label = 'sales'
     master = 'contacts.Partner'
     column_names = 'date info'
 

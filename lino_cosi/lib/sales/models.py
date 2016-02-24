@@ -78,11 +78,11 @@ dd.inject_field(
                   verbose_name=_("Invoicing address"),
                   blank=True, null=True))
 
-#~ class Channel(ChoiceList):
-    #~ label = _("Channel")
-#~ add = Channel.add_item
-#~ add('P',_("Paper"))
-#~ add('E',_("E-mail"))
+# class Channel(ChoiceList):
+    # label = _("Channel")
+# add = Channel.add_item
+# add('P',_("Paper"))
+# add('E',_("E-mail"))
 
 
 # class InvoiceStates(dd.Workflow):
@@ -105,7 +105,7 @@ dd.inject_field(
 #         _("Register"), states='draft', icon_name='accept')
 #     InvoiceStates.draft.add_transition(
 #         _("Deregister"), states="registered", icon_name='pencil')
-#     #~ InvoiceStates.submitted.add_transition(_("Submit"),states="registered")
+#     # InvoiceStates.submitted.add_transition(_("Submit"),states="registered")
 
 class SalesDocument(VatDocument, Certifiable):
     """Common base class for `orders.Order` and :class:`VatProductInvoice`.
@@ -139,8 +139,8 @@ class SalesDocument(VatDocument, Certifiable):
         if product is not None:
             if not isinstance(product, Product):
                 product = Product.objects.get(pk=product)
-            #~ if qty is None:
-                #~ qty = Duration(1)
+            # if qty is None:
+                # qty = Duration(1)
         kw['product'] = product
 
         kw['qty'] = qty
@@ -178,12 +178,12 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         # ledger.LedgerDocumentMixin.before_save(self)
         super(VatProductInvoice, self).full_clean(*args, **kw)
 
-    #~ def before_state_change(self,ar,old,new):
-        #~ if new.name == 'registered':
-            #~ self.compute_totals()
-        #~ elif new.name == 'draft':
-            #~ pass
-        #~ super(VatProductInvoice,self).before_state_change(ar,old,new)
+    # def before_state_change(self,ar,old,new):
+        # if new.name == 'registered':
+            # self.compute_totals()
+        # elif new.name == 'draft':
+            # pass
+        # super(VatProductInvoice,self).before_state_change(ar,old,new)
 
     @classmethod
     def get_registrable_fields(cls, site):
@@ -195,7 +195,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         yield 'voucher_date'
         yield 'entry_date'
         yield 'user'
-        #~ yield 'item_vat'
+        # yield 'item_vat'
 
 
 class InvoiceDetail(dd.FormLayout):
@@ -287,7 +287,7 @@ class ProductDocItem(QtyVatItemBase):
         if self.product is None:
             return tt.get_base_account()
         return tt.get_product_base_account(self.product)
-        #~ return self.voucher.journal.chart.get_account_by_ref(ref)
+        # return self.voucher.journal.chart.get_account_by_ref(ref)
 
     def discount_changed(self, ar):
         if not self.product:
@@ -298,7 +298,7 @@ class ProductDocItem(QtyVatItemBase):
 
         if catalog_price is None:
             return
-        #~ assert self.vat_class == self.product.vat_class
+        # assert self.vat_class == self.product.vat_class
         rule = self.get_vat_rule()
         if rule is None:
             return
@@ -401,7 +401,7 @@ class InvoiceItemsByProduct(InvoiceItems):
     column_names = "voucher voucher__partner qty title \
 description:20x1 discount unit_price total_incl total_base total_vat"
     editable = False
-    #~ auto_fit_column_widths = True
+    # auto_fit_column_widths = True
 
 
 class SignAction(actions.Action):
@@ -424,25 +424,25 @@ class SignAction(actions.Action):
 class DocumentsToSign(Invoices):
     use_as_default_table = False
     filter = dict(user__isnull=True)
-    #~ can_add = perms.never
+    # can_add = perms.never
     column_names = "number:4 order voucher_date " \
         "partner:10 " \
         "subject:10 total_incl total_base total_vat "
-    #~ actions = Invoices.actions + [ SignAction() ]
+    # actions = Invoices.actions + [ SignAction() ]
 
 
 class InvoicesByPartner(Invoices):
-    #~ model = 'sales.VatProductInvoice'
+    # model = 'sales.VatProductInvoice'
     order_by = ["-voucher_date", '-id']
     master_key = 'partner'
     column_names = "voucher_date total_incl total_base total_vat *"
 
 
-#~ class SalesByPerson(SalesDocuments):
-    #~ column_names = "journal:4 number:4 date:8 " \
-                   #~ "total_incl total_base total_vat *"
-    #~ order_by = ["date"]
-    #~ master_key = 'person'
+# class SalesByPerson(SalesDocuments):
+    # column_names = "journal:4 number:4 date:8 " \
+                   # "total_incl total_base total_vat *"
+    # order_by = ["date"]
+    # master_key = 'person'
 
 
 @dd.receiver(dd.pre_analyze)
@@ -450,30 +450,30 @@ def add_voucher_type(sender, **kw):
     VoucherTypes.add_item('sales.VatProductInvoice', InvoicesByJournal)
 
 
-#~ def customize_siteconfig():
-    #~ """
-    #~ Injects application-specific fields to :class:`SiteConfig <lino.models.SiteConfig>`.
-    #~ """
+# def customize_siteconfig():
+    # """
+    # Injects application-specific fields to :class:`SiteConfig <lino.models.SiteConfig>`.
+    # """
 
-    #~ from lino.models import SiteConfig
-    #~ dd.inject_field(SiteConfig,
-        #~ 'sales_base_account',
-        #~ models.ForeignKey('accounts.Account',
-            #~ blank=True,null=True,
-            #~ verbose_name=_("Account for base amounts in sales invoices"),
-            #~ related_name='sales_base_account'))
-    #~ dd.inject_field(SiteConfig,
-        #~ 'sales_vat_account',
-        #~ models.ForeignKey('accounts.Account',
-            #~ blank=True,null=True,
-            #~ verbose_name=_("Account for VAT in sales invoices"),
-            #~ related_name='sales_vat_account'))
-    #~ dd.inject_field(SiteConfig,
-        #~ 'customers_account',
-        #~ models.ForeignKey('accounts.Account',
-            #~ blank=True,null=True,
-            #~ verbose_name=_("The account which represents the debts of our customers"),
-            #~ related_name='customers_account'))
+    # from lino.models import SiteConfig
+    # dd.inject_field(SiteConfig,
+        # 'sales_base_account',
+        # models.ForeignKey('accounts.Account',
+            # blank=True,null=True,
+            # verbose_name=_("Account for base amounts in sales invoices"),
+            # related_name='sales_base_account'))
+    # dd.inject_field(SiteConfig,
+        # 'sales_vat_account',
+        # models.ForeignKey('accounts.Account',
+            # blank=True,null=True,
+            # verbose_name=_("Account for VAT in sales invoices"),
+            # related_name='sales_vat_account'))
+    # dd.inject_field(SiteConfig,
+        # 'customers_account',
+        # models.ForeignKey('accounts.Account',
+            # blank=True,null=True,
+            # verbose_name=_("The account which represents the debts of our customers"),
+            # related_name='customers_account'))
 
 
 class ProductDetailMixin(dd.DetailLayout):
