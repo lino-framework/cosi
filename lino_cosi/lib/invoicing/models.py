@@ -104,7 +104,7 @@ class Plan(UserAuthored):
         if ar is None:
             return ''
         elems = []
-        elems.add(ar.instance_action_button(self.toggle_selections))
+        elems.append(ar.instance_action_button(self.toggle_selections))
         elems = join_elems(*elems, sep=", ")
         return E.p(*elems)
         # return obj.partner.show_invoiceables.as_button(ar)
