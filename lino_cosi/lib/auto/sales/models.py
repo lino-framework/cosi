@@ -185,10 +185,6 @@ class CreateInvoiceForPartner(CreateInvoice):
         return ar.selected_rows
 
 
-# dd.inject_action('contacts.Partner','create_invoice',CreateInvoiceForPartner())
-contacts.Partner.create_invoice = CreateInvoiceForPartner()
-
-
 class VatProductInvoice(VatProductInvoice):
 
     # fill_invoice = FillInvoice()
@@ -321,8 +317,8 @@ class InvoicesToCreate(dd.VirtualTable):
     label = _("Invoices to create")
     cell_edit = False
     help_text = _("Table of all partners who should receive an invoice.")
-    issue_invoice = CreateInvoice()
     column_names = "first_date last_date partner amount action_buttons"
+    issue_invoice = CreateInvoice()
     create_all_invoices = CreateAllInvoices()
 
     @classmethod
@@ -447,6 +443,9 @@ class InvoiceablesByPartner(dd.VirtualTable):
     def info(self, row, ar):
         return ar.obj2html(row[1])
 
+
+# dd.inject_action('contacts.Partner','create_invoice',CreateInvoiceForPartner())
+contacts.Partner.create_invoice = CreateInvoiceForPartner()
 contacts.Partner.show_invoiceables = dd.ShowSlaveTable(InvoiceablesByPartner)
 
 
