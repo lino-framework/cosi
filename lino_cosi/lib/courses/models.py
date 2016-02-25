@@ -150,9 +150,10 @@ class Line(ExcerptTitle, Duplicable):
     """
     class Meta:
         app_label = 'courses'
+        abstract = dd.is_abstract_model(__name__, 'Line')
         verbose_name = pgettext("singular form", "Course series")
         verbose_name_plural = pgettext("plural form", 'Course series')
-        abstract = dd.is_abstract_model(__name__, 'Line')
+
     ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
     course_area = CourseAreas.field(blank=True)
     topic = models.ForeignKey(Topic, blank=True, null=True)
