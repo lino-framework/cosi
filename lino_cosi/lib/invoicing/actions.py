@@ -32,6 +32,7 @@ class StartInvoicing(dd.Action):
     sort_index = 52
     label = _("Create invoices")
     select_rows = False
+    http_method = 'POST'
 
     def run_from_ui(self, ar, **kw):
         jnl = ar.master_instance
