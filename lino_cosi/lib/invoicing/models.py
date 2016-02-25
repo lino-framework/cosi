@@ -100,11 +100,11 @@ class Plan(UserAuthored):
     #     InvoiceItem = rt.modules.sales.InvoiceItem
 
     @dd.displayfield(_("Actions"))
-    def action_buttons(self, obj, ar):
+    def action_buttons(self, ar):
         if ar is None:
             return ''
         elems = []
-        elems.add(ar.instance_action_button(obj.toggle_selections))
+        elems.add(ar.instance_action_button(self.toggle_selections))
         elems = join_elems(*elems, sep=", ")
         return E.p(*elems)
         # return obj.partner.show_invoiceables.as_button(ar)
