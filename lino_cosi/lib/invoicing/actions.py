@@ -31,6 +31,7 @@ class StartInvoicing(dd.Action):
     icon_name = 'basket'
     sort_index = 52
     label = _("Create invoices")
+    select_rows = False
 
     def run_from_ui(self, ar, **kw):
         jnl = ar.master_instance
