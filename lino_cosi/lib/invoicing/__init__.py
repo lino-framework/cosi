@@ -24,6 +24,7 @@
 
     models
     mixins
+    actions
 
 """
 
@@ -38,4 +39,9 @@ class Plugin(Plugin):
     voucher_model = 'sales.VatProductInvoice'
     item_model = 'sales.InvoiceItem'
     invoiceable_label = _("Invoiceable")
+
+    def get_voucher_type(self):
+        from lino.core.utils import resolve_model
+        model = resolve_model(self.voucher_model)
+        return self.site.modules.ledger.VoucherTypes.get_for_model(model)
 
