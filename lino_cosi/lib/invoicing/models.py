@@ -152,7 +152,8 @@ class Item(dd.Model):
     number_of_invoiceables = models.IntegerField(_("Number"), default=0)
     selected = models.BooleanField(_("Selected"), default=True)
     invoice = models.ForeignKey(
-        dd.plugins.invoicing.voucher_model, null=True, blank=True)
+        dd.plugins.invoicing.voucher_model, null=True, blank=True,
+        on_delete=models.SET_NULL)
 
     def create_invoice(self,  ar):
         ITEM_MODEL = dd.resolve_model(dd.plugins.invoicing.item_model)
@@ -202,7 +203,7 @@ class Items(dd.Table):
 class ItemsByPlan(Items):
     verbose_name_plural = _("Suggestions")
     master_key = 'plan'
-    column_names = "selected partner first_date amount invoice"
+    column_names = "selected partner number_of_invoiceables amount invoice *"
 
 
 class InvoicingsByInvoiceable(dd.Table):
