@@ -38,6 +38,7 @@ Plugins
     tim2lino
     sepa
     b2c
+    invoicing
 
 Differentiator packages
 =======================

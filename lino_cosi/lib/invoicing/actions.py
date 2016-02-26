@@ -27,25 +27,74 @@ from __future__ import unicode_literals
 from lino.api import dd, rt, _
 
 
-class StartInvoicing(dd.Action):
+class StartInvoicingBase(dd.Action):
+    """Base for :class:`StartInvoicingForJournal`,
+    :class:`StartInvoicingForPartner`.
+
+    """
     icon_name = 'basket'
     sort_index = 52
     label = _("Create invoices")
+
+    def get_master(self, ar):
+        raise NotImplementedError()
+
+    def run_from_ui(self, ar, **kw):
+        Plan = rt.modules.invoicing.Plan
+
+        k, v = self.get_master(ar)
+        try:
+            plan = Plan.objects.get(user=ar.get_user())
+            if getattr(plan, k) != v:
+                plan.items.all().delete()
+                setattr(plan, k, v)
+        except Plan.DoesNotExist:
+            plan = Plan(user=ar.get_user(), **{k: v})
+        plan.save()
+        ar.goto_instance(plan)
+
+
+class StartInvoicingForJournal(StartInvoicingBase):
+    """Start an invoicing plan for this journal.
+
+    This is installed onto the VouchersByJournal table of the
+    VoucherType for the configured
+    :attr:`voucher_model<lino_cosi.lib.invoicing.Plugin.voucher_model>`
+    as `start_invoicing`.
+
+    """
     select_rows = False
     http_method = 'POST'
 
-    def run_from_ui(self, ar, **kw):
+    def get_master(self, ar):
         jnl = ar.master_instance
         assert isinstance(jnl, rt.modules.ledger.Journal)
-        Plan = rt.modules.invoicing.Plan
-        # Item = rt.modules.invoicing.Item
-        plan, created = Plan.objects.get_or_create(
-            user=ar.get_user(), journal=jnl)
-        if created:
-            plan.save()
-        # else:
-        #     plan.items.delete()
-        ar.goto_instance(plan)
+        return 'journal', jnl
+
+
+class StartInvoicingForPartner(StartInvoicingBase):
+    """Start an invoicing plan for this partner.
+
+    This is installed onto the :class:`contacts.Partner
+    <lino.modlib.contacts.models.Partner>` model as `start_invoicing`.
+
+    """
+
+    def get_master(self, ar):
+        partner = ar.selected_rows[0]
+        assert isinstance(partner, rt.modules.contacts.Partner)
+        return 'partner', partner
+
+    # def run_from_ui(self, ar, **kw):
+    #     Plan = rt.modules.invoicing.Plan
+    #     try:
+    #         plan = Plan.objects.get(user=ar.get_user())
+    #         if plan.partner != partner:
+    #             plan.items.all().delete()
+    #     except Plan.DoesNotExist:
+    #         plan = Plan(user=ar.get_user(), partner=partner)
+    #         plan.save()
+    #     ar.goto_instance(plan)
 
 
 class UpdatePlan(dd.Action):
@@ -55,6 +104,7 @@ class UpdatePlan(dd.Action):
 
     def run_from_ui(self, ar, **kw):
         plan = ar.selected_rows[0]
+        plan.items.all().delete()
         plan.fill_plan(ar)
         ar.success(refresh=True)
 
@@ -73,7 +123,9 @@ class ExecutePlan(dd.Action):
 
 
 class ToggleSelection(dd.Action):
+    """Invert selection status for all suggestions."""
     label = _("Toggle selections")
+    help_text = _("Invert selection status for all suggestions.")
 
     def run_from_ui(self, ar, **kw):
         plan = ar.selected_rows[0]

@@ -20,6 +20,9 @@
 """Extends :mod:`lino_cosi.lib.sales` to add functionality for
 automatically generating invoices.
 
+**Deprecated** : this module is no longer used. Use
+:mod:`lino_cosi.lib.invoicing` instead
+
 .. autosummary::
     :toctree:
 

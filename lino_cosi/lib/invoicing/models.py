@@ -30,27 +30,41 @@ from django.db import models
 
 from django.utils.translation import string_concat
 
-from lino.utils.xmlgen.html import E, join_elems
+# from lino.utils.xmlgen.html import E, join_elems
 from lino.modlib.gfks.fields import GenericForeignKeyIdField
 from lino.core.gfks import GenericForeignKey, ContentType
 
 from lino.modlib.users.mixins import UserAuthored
 
-from lino_cosi.lib.ledger.choicelists import VoucherTypes
+# from lino_cosi.lib.ledger.choicelists import VoucherTypes
 
 from lino.api import dd, rt, _
 from .mixins import Invoiceable
-from .actions import StartInvoicing, UpdatePlan, ExecutePlan, ToggleSelection
+from .actions import (UpdatePlan, ExecutePlan, ToggleSelection,
+                      StartInvoicingForJournal, StartInvoicingForPartner)
 
 
 class Plan(UserAuthored):
+    """An **invoicing plan** is a rather temporary database object which
+    represents the plan of a given user to have Lino generate a series
+    of invoices.
 
+    .. attribute:: user
+    .. attribute:: journal
+    .. attribute:: max_date
+    .. attribute:: today
+    .. attribute:: partner
+
+    .. attribute:: update_plan
+    .. attribute:: execute_plan
+
+    """
     class Meta:
         app_label = 'invoicing'
         verbose_name = _("Invoicing plan")
         verbose_name_plural = _("Invoicing plans")
 
-    journal = models.ForeignKey('ledger.Journal')
+    journal = models.ForeignKey('ledger.Journal', blank=True, null=True)
     max_date = models.DateField(
         _("Invoiceables until"), default=dd.today)
     today = models.DateField(
@@ -59,6 +73,11 @@ class Plan(UserAuthored):
 
     update_plan = UpdatePlan()
     execute_plan = ExecutePlan()
+
+    @dd.chooser()
+    def journal_choices(cls):
+        vt = dd.plugins.invoicing.get_voucher_type()
+        return rt.modules.ledger.Journal.objects.filter(voucher_type=vt)
 
     def get_invoiceables_for_plan(self, partner=None):
         for m in rt.models_by_base(Invoiceable):
@@ -72,7 +91,6 @@ class Plan(UserAuthored):
 
 
         """
-        self.items.all().delete()
         Item = rt.modules.invoicing.Item
         collected = dict()
         for obj in self.get_invoiceables_for_plan():
@@ -99,16 +117,16 @@ class Plan(UserAuthored):
     #     """
     #     InvoiceItem = rt.modules.sales.InvoiceItem
 
-    @dd.displayfield(_("Actions"))
-    def action_buttons(self, ar):
-        if ar is None:
-            return ''
-        elems = []
-        elems.append(ar.instance_action_button(self.toggle_selections))
-        elems = join_elems(*elems, sep=", ")
-        return E.p(*elems)
-        # return obj.partner.show_invoiceables.as_button(ar)
-        # return obj.partner.create_invoice.as_button(ar)
+    # @dd.displayfield(_("Actions"))
+    # def action_buttons(self, ar):
+    #     if ar is None:
+    #         return ''
+    #     elems = []
+    #     elems.append(ar.instance_action_button(self.toggle_selections))
+    #     elems = join_elems(*elems, sep=", ")
+    #     return E.p(*elems)
+    #     # return obj.partner.show_invoiceables.as_button(ar)
+    #     # return obj.partner.create_invoice.as_button(ar)
 
     toggle_selections = ToggleSelection()
 
@@ -119,7 +137,8 @@ class Plan(UserAuthored):
 
 
 class Item(dd.Model):
-    
+    """The items of an invoicing plan are called **suggestions**.
+    """
     class Meta:
         app_label = 'invoicing'
         verbose_name = _("Invoicing suggestion")
@@ -216,14 +235,16 @@ dd.inject_field(
         verbose_name=invoiceable_label))
 
 
+# def get_invoicing_voucher_type():
+#     voucher_model = dd.resolve_model(dd.plugins.invoicing.voucher_model)
+#     vt = VoucherTypes.get_for_model(voucher_model)
+
+
 @dd.receiver(dd.pre_analyze)
 def install_start_action(sender=None, **kwargs):
+    vt = dd.plugins.invoicing.get_voucher_type()
+    # vt = get_invoicing_voucher_type()
+    vt.table_class.start_invoicing = StartInvoicingForJournal()
 
-    # ITEM_MODEL = dd.resolve_model(dd.plugins.invoicing.item_model)
-    VOUCHER_MODEL = dd.resolve_model(dd.plugins.invoicing.voucher_model)
-    # VOUCHER_MODEL = ITEM_MODEL._meta.get_field('voucher').rel.to
-
-    vt = VoucherTypes.get_for_model(VOUCHER_MODEL)
-    vt.table_class.start_invoicing = StartInvoicing()
-    # for m in rt.models_by_base(Invoiceable):
-    #     dd.inject_field(m, )
+    rt.modules.contacts.Partner.start_invoicing = StartInvoicingForPartner()
+    
