@@ -33,20 +33,11 @@ Plugins
     vat
     vatless
     finan
-    declarations
     courses
     tim2lino
     sepa
     b2c
     invoicing
-
-Differentiator packages
-=======================
-
-.. autosummary::
-   :toctree:
-
-    auto
 
 Not yet used
 ============

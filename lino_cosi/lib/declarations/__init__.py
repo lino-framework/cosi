@@ -15,6 +15,7 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
+raise Exception("Deprecated since 20160229")
 
 from lino import ad
 

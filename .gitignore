@@ -20,3 +20,4 @@ docs/api/lino_cosi.*
 
 sihtnumbrid.csv
 .idea
+.coverage

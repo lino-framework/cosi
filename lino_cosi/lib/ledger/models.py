@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -33,18 +33,21 @@ from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from atelier.utils import last_day_of_month
+
 from lino.api import dd, rt, _
 from lino import mixins
 from lino.utils import mti
-
+from lino.mixins.periods import DatePeriod
 from lino.modlib.users.mixins import UserAuthored
+
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.choicelists import AccountTypes
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 
 from .utils import get_due_movements, check_clearings
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
-                          JournalGroups, TradeTypes)
+                          PeriodStates, JournalGroups, TradeTypes)
 from .mixins import ProjectRelated, VoucherNumber, JournalRef
 from .mixins import FKMATCH
 from .ui import *
@@ -132,7 +135,7 @@ class Journal(mixins.BabelNamed,
 
     def get_voucher(self, year=None, number=None, **kw):
         cl = self.get_doc_model()
-        kw.update(journal=self, year=year, number=number)
+        kw.update(journal=self, accounting_period__year=year, number=number)
         return cl.objects.get(**kw)
 
     def create_voucher(self, **kw):
@@ -166,8 +169,10 @@ class Journal(mixins.BabelNamed,
     def get_next_number(self, voucher):
         # ~ self.save() # 20131005 why was this?
         cl = self.get_doc_model()
-        d = cl.objects.filter(journal=self, year=voucher.year).aggregate(
-            models.Max('number'))
+        d = cl.objects.filter(
+            journal=self,
+            accounting_period__year=voucher.accounting_period.year).aggregate(
+                models.Max('number'))
         number = d['number__max']
         #~ logger.info("20121206 get_next_number %r",number)
         if number is None:
@@ -235,6 +240,61 @@ class Journal(mixins.BabelNamed,
         return cls.get_template_choices(build_method, template_groups)
 
 
+class AccountingPeriod(DatePeriod, mixins.Referrable):
+    """An **accounting period** is the smallest time slice to be observed
+    (declare) in accounting reports. Usually it corresponds to one
+    *month*. Except for some small companies which declare per
+    quarter.  For each period it must be possible to specify the exact
+    dates during which it is allowed to register vouchers into this
+    period, and also its "state": whether it is "closed" or not.
+
+    .. attribute:: start_date
+    .. attribute:: end_date
+    .. attribute:: state
+    .. attribute:: year
+    .. attribute:: ref
+    
+
+    """
+    class Meta:
+        app_label = 'ledger'
+        verbose_name = _("Accounting period")
+        verbose_name_plural = _("Accounting periods")
+
+    state = PeriodStates.field(default=PeriodStates.open.as_callable())
+    year = FiscalYears.field(blank=True)
+
+    @classmethod
+    def get_for_date(cls, entry_date):
+        fkw = dict(start_date__lte=entry_date, end_date__gte=entry_date)
+        return rt.modules.ledger.AccountingPeriod.objects.filter(**fkw)
+
+    @classmethod
+    def get_ref_for_date(cls, entry_date):
+        return "{y}-{m}".format(m=entry_date.month, y=entry_date.year)
+
+    @classmethod
+    def get_default_for_date(cls, d):
+        ref = cls.get_ref_for_date(d)
+        obj = rt.modules.ledger.AccountingPeriod.get_by_ref(ref, None)
+        if obj is None:
+            values = dict(start_date=d.replace(day=1))
+            values.update(end_date=last_day_of_month(d))
+            values.update(ref=ref)
+            obj = AccountingPeriod(**values)
+            obj.full_clean()
+            obj.save()
+        return obj
+
+    def full_clean(self, *args, **kwargs):
+        if not self.year:
+            self.year = FiscalYears.from_date(self.start_date)
+        super(AccountingPeriod, self).full_clean(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.ref
+
+    
 class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
               
     """A convention on how an invoice should be paid.
@@ -255,8 +315,7 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
             "%s is not a date" % date1
         d = date1 + relativedelta(months=self.months, days=self.days)
         if self.end_of_month:
-            d = datetime.date(d.year, d.month + 1, 1)
-            d = relativedelta(d, days=-1)
+            d = last_day_of_month(d)
         return d
 
 
@@ -309,10 +368,11 @@ class Voucher(UserAuthored, mixins.Registrable):
         verbose_name = _("Voucher")
         verbose_name_plural = _("Vouchers")
 
+    journal = JournalRef()
     voucher_date = models.DateField(_("Voucher date"), default=dd.today)
     entry_date = models.DateField(_("Entry date"), default=dd.today)
-    journal = JournalRef()
-    year = FiscalYears.field(blank=True)
+    accounting_period = models.ForeignKey(
+        'ledger.AccountingPeriod', blank=True)
     number = VoucherNumber(blank=True, null=True)
     narration = models.CharField(_("Narration"), max_length=200, blank=True)
     state = VoucherStates.field(
@@ -324,6 +384,12 @@ class Voucher(UserAuthored, mixins.Registrable):
         #~ doctype = get_doctype(cls)
         #~ jnl = Journal(doctype=doctype,id=id,**kw)
         #~ return jnl
+
+    def full_clean(self, *args, **kwargs):
+        if not self.accounting_period_id:
+            self.accounting_period = AccountingPeriod.get_default_for_date(
+                self.entry_date)
+        super(Voucher, self).full_clean(*args, **kwargs)
 
     def get_due_date(self):
         return self.voucher_date
@@ -341,6 +407,10 @@ class Voucher(UserAuthored, mixins.Registrable):
         vt = VoucherTypes.get_for_model(cls)
         #~ doctype = get_doctype(cls)
         return Journal.objects.filter(voucher_type=vt).order_by('seqno')
+
+    @dd.chooser()
+    def accounting_period_choices(cls, entry_date):
+        return rt.modules.ledger.AccountingPeriod.get_for_date(entry_date)
 
     @dd.chooser()
     def journal_choices(cls):
@@ -403,7 +473,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         Delete any existing movements and re-create them
         """
         # dd.logger.info("20151211 cosi.Voucher.register_voucher()")
-        self.year = FiscalYears.from_date(self.entry_date)
+        # self.year = FiscalYears.from_date(self.entry_date)
         if self.number is None:
             self.number = self.journal.get_next_number(self)
         assert self.number is not None

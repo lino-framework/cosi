@@ -134,7 +134,7 @@ class DocsSite(Site):
         yield 'lino_cosi.lib.courses'  # needed for Sphinx autosummary
         yield 'lino_cosi.lib.vatless'
 
-    def get_apps_modifiers(self, **kw):
-        kw = super(DocsSite, self).get_apps_modifiers(**kw)
-        kw.update(sales='lino_cosi.lib.auto.sales')
-        return kw
+    # def get_apps_modifiers(self, **kw):
+    #     kw = super(DocsSite, self).get_apps_modifiers(**kw)
+    #     kw.update(sales='lino_cosi.lib.auto.sales')
+    #     return kw
