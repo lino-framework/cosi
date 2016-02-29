@@ -141,7 +141,7 @@ The test database
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
  invoicing.Item              invoicing.Items                9         0
- invoicing.Plan              invoicing.Plans                6         0
+ invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       6         5
  ledger.Journal              ledger.Journals                14        6
  ledger.MatchRule            ledger.MatchRules              3         10

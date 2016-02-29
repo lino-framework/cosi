@@ -85,6 +85,29 @@ class Plan(UserAuthored):
                 if obj.get_invoiceable_product() is not None:
                     yield obj
 
+    @classmethod
+    def start_plan(cls, user, k, v):
+        """Start an invoicing plan for the given user on the database object
+        defined by `k` and `v`. Where `k` is the name of the plan's
+        field (e.g. `'partner'` or `'journal'`) and `v` is the value
+        for that field.
+
+        This will either create a new plan, or check whether the
+        currently existing plan for this user was for the same
+        database object. If it was for another object, then clear all
+        items.
+
+        """
+        try:
+            plan = cls.objects.get(user=user)
+            if getattr(plan, k) != v:
+                plan.items.all().delete()
+                setattr(plan, k, v)
+        except cls.DoesNotExist:
+            plan = cls(user=user, **{k: v})
+        plan.save()
+        return plan
+
     def fill_plan(self, ar):
         """Yield a list of invoiceables for the given partner,
         one for each invoice line to generate.
@@ -172,6 +195,7 @@ class Item(dd.Model):
             ar.info(_("No invoiceables found for %s.") % self)
             return
 
+        invoice.full_clean()
         invoice.save()
 
         for i in items:
