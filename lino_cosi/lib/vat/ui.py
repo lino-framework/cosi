@@ -65,7 +65,7 @@ class InvoiceDetail(dd.FormLayout):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    journal year number narration
+    journal accounting_period number narration
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 

@@ -110,6 +110,7 @@ class Plugin(ad.Plugin):
         mg = site.plugins.accounts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('ledger.Journals')
+        m.add_action('ledger.AccountingPeriods')
         m.add_action('ledger.PaymentTerms')
 
     def setup_explorer_menu(self, site, profile, m):

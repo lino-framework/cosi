@@ -334,6 +334,14 @@ class VoucherState(dd.State):
     """
 
 
+class PeriodStates(dd.Workflow):
+    pass
+
+add = PeriodStates.add_item
+add('10', _("Open"), 'open')
+add('20', _("Closed"), 'closed')
+
+
 class VoucherStates(dd.Workflow):
     """The list of possible states for a voucher."""
 

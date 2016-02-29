@@ -70,7 +70,7 @@ class InvoiceDetail(dd.FormLayout):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    entry_date journal year number match state
+    entry_date journal accounting_period number match state
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 

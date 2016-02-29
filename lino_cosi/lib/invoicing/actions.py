@@ -40,17 +40,8 @@ class StartInvoicingBase(dd.Action):
         raise NotImplementedError()
 
     def run_from_ui(self, ar, **kw):
-        Plan = rt.modules.invoicing.Plan
-
         k, v = self.get_master(ar)
-        try:
-            plan = Plan.objects.get(user=ar.get_user())
-            if getattr(plan, k) != v:
-                plan.items.all().delete()
-                setattr(plan, k, v)
-        except Plan.DoesNotExist:
-            plan = Plan(user=ar.get_user(), **{k: v})
-        plan.save()
+        plan = rt.modules.invoicing.Plan.start_plan(ar.get_user(), k, v)
         ar.goto_instance(plan)
 
 

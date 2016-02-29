@@ -36,7 +36,7 @@ Rolf is the local system administrator, he has a complete menu:
   - System : Site-Parameter, Hilfetexte, Benutzer
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
-  - Buchhaltung : Kontengruppen, Konten, Journale, Zahlungsbedingungen
+  - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
   - Büro : Upload-Arten, Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln
 - Explorer :

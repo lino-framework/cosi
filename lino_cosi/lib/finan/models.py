@@ -229,7 +229,7 @@ class JournalEntryDetail(dd.FormLayout):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    id journal year number
+    id journal accounting_period number
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 
@@ -277,7 +277,7 @@ class FinancialVouchers(dd.Table):
         qs = super(FinancialVouchers, cls).get_request_queryset(ar)
         if not isinstance(qs, list):
             if ar.param_values.pyear:
-                qs = qs.filter(year=ar.param_values.pyear)
+                qs = qs.filter(accounting_period__year=ar.param_values.pyear)
             if ar.param_values.pjournal:
                 qs = qs.filter(journal=ar.param_values.pjournal)
         return qs

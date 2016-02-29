@@ -116,6 +116,13 @@ class ByJournal(dd.Table):
             trade_type=trade_type, voucher_type=vt, **kw)
 
 
+class AccountingPeriods(dd.Table):
+    required_roles = dd.login_required(LedgerStaff)
+    model = 'ledger.AccountingPeriod'
+    order_by = ["start_date", "year"]
+    column_names = "start_date end_date year state *"
+
+
 class PaymentTerms(dd.Table):
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.PaymentTerm'
@@ -143,7 +150,7 @@ class Vouchers(dd.Table):
         if not isinstance(qs, list):
             pv = ar.param_values
             if pv.year:
-                qs = qs.filter(year=pv.year)
+                qs = qs.filter(accounting_period__year=pv.year)
             if pv.journal:
                 qs = qs.filter(journal=pv.journal)
         return qs
@@ -711,8 +718,9 @@ class Movements(dd.Table):
         #     qs = qs.filter(partner=ar.param_values.partner)
         # if ar.param_values.paccount:
         #     qs = qs.filter(account=ar.param_values.paccount)
-        # if ar.param_values.pyear:
-        #     qs = qs.filter(voucher__year=ar.param_values.pyear)
+        if ar.param_values.year:
+            qs = qs.filter(
+                voucher__accounting_period__year=ar.param_values.year)
         if ar.param_values.journal:
             qs = qs.filter(voucher__journal=pv.journal)
         return qs
@@ -722,7 +730,7 @@ class Movements(dd.Table):
         p = super(Movements, cls).get_simple_parameters()
         p.add('partner')
         # p.add('journal')
-        p.add('year')
+        # p.add('year')
         p.add('account')
         return p
 

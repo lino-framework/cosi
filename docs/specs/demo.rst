@@ -61,26 +61,28 @@ The test database
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
 - excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
-- finan.BankStatement : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr, balance1, balance2
+- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.JournalEntry : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr
+- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.PaymentOrder : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr, total, execution_date
+- finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
 - gfks.HelpText : id, content_type, field, help_text
+- invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
+- invoicing.Plan : id, user, journal, max_date, today, partner
+- ledger.AccountingPeriod : id, ref, start_date, end_date, state, year
 - ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
-- ledger.Voucher : id, user, voucher_date, entry_date, journal, year, number, narration, state
+- ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
 - products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
-- sales.InvoicingMode : id, build_method, template, name, price, advance_days
-- sales.VatProductInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
+- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -89,16 +91,16 @@ The test database
 - users.Authority : id, user, authorized
 - users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
-- vat.VatAccountInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
+- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
-- vatless.AccountInvoice : id, user, voucher_date, entry_date, journal, year, number, narration, state, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
+- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
 - vatless.InvoiceItem : id, seqno, account, voucher, title, amount
 <BLANKLINE>
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-32 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, cal, courses, vatless.
-61 models:
+33 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
+63 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -121,7 +123,7 @@ The test database
  contacts.Person             contacts.Persons               29        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             2         5
- contenttypes.ContentType    gfks.ContentTypes              3         62
+ contenttypes.ContentType    gfks.ContentTypes              3         64
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                27        0
@@ -138,6 +140,9 @@ The test database
  finan.PaymentOrder          finan.PaymentOrders            12        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
+ invoicing.Item              invoicing.Items                9         0
+ invoicing.Plan              invoicing.Plans                6         1
+ ledger.AccountingPeriod     ledger.AccountingPeriods       6         5
  ledger.Journal              ledger.Journals                14        6
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         208
@@ -149,7 +154,6 @@ The test database
  products.Product            products.Products              8         9
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
- sales.InvoicingMode         sales.InvoicingModes           6         0
  sales.VatProductInvoice     sales.Invoices                 25        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             16        1
