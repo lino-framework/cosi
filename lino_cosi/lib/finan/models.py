@@ -229,7 +229,7 @@ class JournalEntryDetail(dd.FormLayout):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    id journal accounting_period number
+    journal accounting_period number id
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 
@@ -356,6 +356,7 @@ class ItemsByBankStatement(ItemsByVoucher):
 
 
 class ItemsByPaymentOrder(ItemsByVoucher):
+    label = _("Content")
     model = 'finan.PaymentOrderItem'
     column_names = "seqno partner workflow_buttons bank_account match "\
                    "amount remark *"
