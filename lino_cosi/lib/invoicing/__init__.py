@@ -25,6 +25,7 @@
     models
     mixins
     actions
+    fixtures.demo2
 
 """
 

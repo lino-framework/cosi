@@ -1,4 +1,4 @@
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -42,10 +42,24 @@ class FinancialVoucher(ledger.Voucher):
     :class:`JournalEntry`,
     :class:`PaymentOrder` and
     :class:`BankStatement`.
+
+    .. attribute:: item_account
+
+        The default value to use when
+        :attr:`FinancialVoucherItem.account` of an item is empty.
+
+    .. attribute:: item_remark
+
+        The default value to use when
+        :attr:`FinancialVoucherItem.remark` of an item is empty.
+
     """
 
     class Meta:
         abstract = True
+
+    item_account = dd.ForeignKey('accounts.Account', blank=True, null=True)
+    item_remark = models.CharField(_("Remark"), max_length=200, blank=True)
 
     # def after_state_change(self, ar, old, new):
     #     super(FinancialVoucher, self).after_state_change(ar, old, new)
@@ -82,7 +96,8 @@ class FinancialVoucher(ledger.Voucher):
             kw = dict(partner=i.partner)
             kw.update(match=i.match or i.get_default_match())
             b = self.create_movement(
-                i.account, i.project, i.dc, i.amount, **kw)
+                i.account or self.item_account,
+                i.project, i.dc, i.amount, **kw)
             mvts.append(b)
 
         return amount, mvts
@@ -96,6 +111,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
     .. attribute:: account
 
         The general account to be used in the primary booking.
+        If this is empty, use :attr:`item_account` of the voucher.
 
     .. attribute:: partner
 
@@ -182,8 +198,9 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
                 ar.confirm(ok, E.tostring(html))
                 return
             if self.account_id is None:
-                raise ValidationError(
-                    _("Could not determine the general account"))
+                if self.voucher.item_account_id is None:
+                    raise ValidationError(
+                        _("Could not determine the general account"))
         # print self.partner_id
         if self.partner_id is None:
             raise ValidationError(
@@ -196,7 +213,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         """
         # if not match.balance:
         #     raise Exception("20151117")
-        if match.trade_type is not None:
+        if match.trade_type:
             self.account = match.trade_type.get_partner_account()
         if self.account_id is None:
             self.account = match.account
@@ -204,31 +221,6 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.amount = - match.balance
         self.match = match.match
         self.project = match.project
-
-    def unused_set_grouper(self, suggestions):
-        # not tested
-        Grouper = rt.modules.finan.Grouper
-        GrouperItem = rt.modules.finan.GrouperItem
-        fkw = dict(partner=self.partner)
-        fkw.update(state__in=VoucherStates.get_editable_states())
-        try:
-            Grouper.objects.get(**fkw)
-        except Grouper.DoesNotExist:
-            pass
-        else:
-            msg = _("There is already an open grouper for {0}")
-            raise Warning(msg.format(self.partner))
-        jnl = self.voucher.journal.grouper_journal
-        grouper = jnl.create_voucher()
-        for match in suggestions:
-            gi = GrouperItem(voucher=grouper)
-            gi.fill_suggestion(match)
-            gi.full_clean()
-            gi.save()
-        grouper.register_voucher()
-        grouper.full_clean()
-        grouper.save()
-        self.match = grouper
 
     def full_clean(self, *args, **kwargs):
         if self.dc is None:

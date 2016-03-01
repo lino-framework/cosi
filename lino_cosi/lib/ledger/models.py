@@ -263,15 +263,44 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
 
     state = PeriodStates.field(default=PeriodStates.open.as_callable())
     year = FiscalYears.field(blank=True)
+    remark = models.CharField(_("Remark"), max_length=250, blank=True)
 
     @classmethod
-    def get_for_date(cls, entry_date):
+    def get_available_periods(cls, entry_date):
+        """Return a queryset of peruiods available for booking."""
         fkw = dict(start_date__lte=entry_date, end_date__gte=entry_date)
         return rt.modules.ledger.AccountingPeriod.objects.filter(**fkw)
 
     @classmethod
-    def get_ref_for_date(cls, entry_date):
-        return "{y}-{m}".format(m=entry_date.month, y=entry_date.year)
+    def get_ref_for_date(cls, d):
+        """Return a text to be used as :attr:`ref` for a new period.
+
+        Alternative implementation for usage on a site with movements
+        before year 2000::
+
+            @classmethod
+            def get_ref_for_date(cls, d):
+                if d.year < 2000:
+                    y = str(d.year - 1900)
+                elif d.year < 2010:
+                    y = "A" + str(d.year - 2000)
+                elif d.year < 2020:
+                    y = "B" + str(d.year - 2010)
+                elif d.year < 2030:
+                    y = "C" + str(d.year - 2020)
+                return y + "{:0>2}".format(d.month)
+
+        """
+        return cls.date_to_period_tpl.format(d)
+
+    date_to_period_tpl = "{0.year}-{0.month:0>2}"
+    """The template used for building the :attr:`ref` of an
+    :class:`AccountingPeriod`.
+
+    `Format String Syntax
+    <https://docs.python.org/2/library/string.html#formatstrings>`_
+
+    """
 
     @classmethod
     def get_default_for_date(cls, d):
@@ -293,6 +322,8 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
 
     def __unicode__(self):
         return self.ref
+
+AccountingPeriod.set_widget_options('ref', width=6)
 
     
 class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
@@ -405,12 +436,12 @@ class Voucher(UserAuthored, mixins.Registrable):
     @classmethod
     def get_journals(cls):
         vt = VoucherTypes.get_for_model(cls)
-        #~ doctype = get_doctype(cls)
         return Journal.objects.filter(voucher_type=vt).order_by('seqno')
 
     @dd.chooser()
     def accounting_period_choices(cls, entry_date):
-        return rt.modules.ledger.AccountingPeriod.get_for_date(entry_date)
+        return rt.modules.ledger.AccountingPeriod.get_available_periods(
+            entry_date)
 
     @dd.chooser()
     def journal_choices(cls):

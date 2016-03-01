@@ -119,8 +119,8 @@ class ByJournal(dd.Table):
 class AccountingPeriods(dd.Table):
     required_roles = dd.login_required(LedgerStaff)
     model = 'ledger.AccountingPeriod'
-    order_by = ["start_date", "year"]
-    column_names = "start_date end_date year state *"
+    order_by = ["ref", "start_date", "year"]
+    column_names = "ref start_date end_date year state remark *"
 
 
 class PaymentTerms(dd.Table):
