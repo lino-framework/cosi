@@ -156,3 +156,72 @@ Partner 149 has 2 open sales invoices:
 
 
 
+
+Accounting periods
+==================
+
+Each ledger movement happens in a given **accounting period**.  
+An accounting period usually corresponds to a month of the calendar.
+Accounting periods are automatically created the first time they are
+needed by some operation.
+
+
+>>> rt.show(ledger.AccountingPeriods)
+=========== ============ ========== ============= ======= ========
+ Reference   Start date   End date   Fiscal Year   State   Remark
+----------- ------------ ---------- ------------- ------- --------
+ 2015-01     1/1/15       1/31/15    2015          Open
+ 2015-02     2/1/15       2/28/15    2015          Open
+ 2015-03     3/1/15       3/31/15    2015          Open
+ 2015-04     4/1/15       4/30/15    2015          Open
+ 2015-05     5/1/15       5/31/15    2015          Open
+=========== ============ ========== ============= ======= ========
+<BLANKLINE>
+
+The *reference* of a new accounting period is computed by applying the
+voucher's entry date to the template defined in the
+:attr:`date_to_period_tpl
+<lino_cosi.lib.ledger.models.AccountingPeriod.get_for_date>` setting.  
+The default implementation leads to the following references:
+
+>>> print(ledger.AccountingPeriod.get_ref_for_date(i2d(19940202)))
+1994-02
+>>> print(ledger.AccountingPeriod.get_ref_for_date(i2d(20150228)))
+2015-02
+>>> print(ledger.AccountingPeriod.get_ref_for_date(i2d(20150401)))
+2015-04
+
+You may manually create other accounting periods. For example
+
+- `2015-00` might stand for a fictive "opening" period before January
+  2015 and after December 2014.
+
+- `2015-13` might stand for January 2016 in a company which is
+  changing their fiscal year from "January-December" to "July-June".
+
+
+Fiscal years
+============
+
+Each ledger movement happens in a given **fiscal year**.  
+Lino has a table with **fiscal years**.
+
+In a default configuration this table is automatically generated and
+contains one fiscal year per calendar year, starting from `start_year
+<lino_cosi.lib.ledger.Plugin.start_year>` and ending 5 years from
+today.
+
+>>> dd.plugins.ledger.start_year
+2015
+
+>>> rt.show(ledger.FiscalYears)
+======= ====== ======
+ value   name   text
+------- ------ ------
+ 15             2015
+ 16             2016
+ 17             2017
+ 18             2018
+ 19             2019
+======= ====== ======
+<BLANKLINE>

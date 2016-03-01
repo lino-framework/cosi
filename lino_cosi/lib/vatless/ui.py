@@ -63,23 +63,24 @@ class InvoiceDetail(dd.FormLayout):
     main = "general ledger"
 
     general = dd.Panel("""
-    id voucher_date user workflow_buttons
+    journal number voucher_date entry_date accounting_period workflow_buttons
     partner payment_term due_date bank_account
     your_ref narration amount
     ItemsByInvoice
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    entry_date journal accounting_period number match state
+    match state user id
     ledger.MovementsByVoucher
     """, label=_("Ledger"))
 
 
 class ProjectInvoiceDetail(InvoiceDetail):
     general = dd.Panel("""
-    id voucher_date project user workflow_buttons:20
-    partner payment_term due_date bank_account
-    your_ref narration amount
+    journal number voucher_date entry_date accounting_period workflow_buttons
+    project narration
+    partner your_ref
+    payment_term due_date bank_account amount
     ItemsByProjectInvoice
     """, label=_("General"))
 
