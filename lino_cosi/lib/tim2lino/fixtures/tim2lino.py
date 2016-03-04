@@ -41,7 +41,6 @@ Don't import vouchers before 2002. TODO: make this
 configurable
 """
 
-import os
 import datetime
 from decimal import Decimal
 # from lino.utils.quantities import Duration
@@ -52,7 +51,6 @@ from dateutil import parser as dateparser
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
-from lino.utils import dbfreader
 from lino.utils import dblogger
 from lino.utils import dpy
 
@@ -65,6 +63,7 @@ from lino.core.utils import is_valid_email
 from lino_cosi.lib.ledger.utils import myround
 from lino_cosi.lib.ledger.choicelists import JournalGroups
 # from lino_cosi.lib.ledger.fixtures.std import payment_terms
+from lino_cosi.lib.tim2lino.utils import TimLoader
 
 from lino.api import dd, rt
 
@@ -73,7 +72,8 @@ Country = dd.resolve_model('countries.Country')
 Place = dd.resolve_model('countries.Place')
 Person = dd.resolve_model("contacts.Person")
 Company = dd.resolve_model("contacts.Company")
-Account = dd.resolve_model('accounts.Account')
+# Account = dd.resolve_model('accounts.Account')
+Account = rt.modules.accounts.Account
 Group = dd.resolve_model('accounts.Group')
 Journal = dd.resolve_model('ledger.Journal')
 Movement = dd.resolve_model('ledger.Movement')
@@ -98,13 +98,6 @@ if True:
 
 VatRule = rt.modules.vat.VatRule
 
-def dbfmemo(s):
-    s = s.replace('\r\n', '\n')
-    s = s.replace(u'\xec\n', '')
-    # s = s.replace(u'\r\nì',' ')
-    if u'ì' in s:
-        raise Exception("20121121 %r" % s)
-    return s.strip()
 
 # def convert_username(name):
     # return name.lower()
@@ -271,57 +264,12 @@ def try_full_clean(i):
         return
 
 
-class TimLoader(object):
-
-    LEN_IDGEN = 6
-
-    archived_tables = set()
-    archive_name = None
-    codepage = 'cp850'
-    # codepage = 'cp437'
-    # etat_registered = "C"¹
-    etat_registered = "¹"
+class TimLoader(TimLoader):
 
     sales_gen2art = dict()
     """A dict which maps a `GEN->IdGen` to a product instance or id.
     
     """
-
-    def __init__(self, dbpath):
-        self.dbpath = dbpath
-        self.VENDICT = dict()
-        self.FINDICT = dict()
-        self.GROUPS = dict()
-        self.languages = dd.resolve_languages(
-            dd.plugins.tim2lino.languages)
-        self.must_register = []
-        self.must_match = {}
-
-    def get_user(self, idusr=None):
-        return self.ROOT
-
-    def par_class(self, row):
-        # wer eine nationalregisternummer hat ist eine Person, selbst wenn er
-        # auch eine MwSt-Nummer hat.
-        if True:  # must convert them manually
-            return Company
-        prt = row.idprt
-        if prt == 'O':
-            return Company
-        elif prt == 'L':
-            return List
-        elif prt == 'P':
-            return Person
-        elif prt == 'F':
-            return Household
-        # dblogger.warning("Unhandled PAR->IdPrt %r",prt)
-
-    def dc2lino(self, dc):
-        if dc == "D":
-            return accounts.DEBIT
-        elif dc == "C":
-            return accounts.CREDIT
-        raise Exception("Invalid D/C value %r" % dc)
 
     def get_customer(self, pk):
         pk = pk.strip()
@@ -397,54 +345,6 @@ class TimLoader(object):
         # if s == 'NL': return 'NL'
         # raise Exception("Unknown short country code %r" % s)
 
-    def load_dbf(self, tableName, row2obj=None):
-        if row2obj is None:
-            row2obj = getattr(self, 'load_' + tableName[-3:].lower())
-        fn = self.dbpath
-        if self.archive_name is not None:
-            if tableName in self.archived_tables:
-                fn = os.path.join(fn, self.archive_name)
-        fn = os.path.join(fn, tableName)
-        fn += dd.plugins.tim2lino.dbf_table_ext
-        if dd.plugins.tim2lino.use_dbf_py:
-            dblogger.info("Loading %s...", fn)
-            import dbf  # http://pypi.python.org/pypi/dbf/
-            # table = dbf.Table(fn)
-            table = dbf.Table(fn, codepage=self.codepage)
-            # table.use_deleted = False
-            table.open()
-            # print table.structure()
-            dblogger.info("Loading %d records from %s (%s)...",
-                          len(table), fn, table.codepage)
-            for record in table:
-                if not dbf.is_deleted(record):
-                    try:
-                        yield row2obj(record)
-                    except Exception as e:
-                        dblogger.warning(
-                            "Failed to load record %s from %s : %s",
-                            record, tableName, e)
-
-                    # i = row2obj(record)
-                    # if i is not None:
-                    #     yield settings.TIM2LINO_LOCAL(tableName, i)
-            table.close()
-        else:
-            f = dbfreader.DBFFile(fn, codepage="cp850")
-            dblogger.info("Loading %d records from %s...", len(f), fn)
-            f.open()
-            for dbfrow in f:
-                try:
-                    i = row2obj(dbfrow)
-                    if i is not None:
-                        yield settings.TIM2LINO_LOCAL(tableName, i)
-                except Exception as e:
-                    dblogger.warning("Failed to load record %s : %s",
-                                     dbfrow, e)
-            f.close()
-
-        self.after_load(tableName)
-
     def load_gen2group(self, row, **kw):
         idgen = row.idgen.strip()
         if not idgen:
@@ -486,46 +386,12 @@ class TimLoader(object):
                 # names = [n.strip() for n in names]
                 # kw.update(name=names[0])
             # names2kw(kw,row.libell1,row.libell2,row.libell3,row.libell4)
-            obj = accounts.Account(**kw)
+            obj = Account(**kw)
             # if idgen == "612410":
                 # raise Exception(20131116)
             # dblogger.info("20131116 %s",dd.obj2str(obj))
             # dblogger.info("20131116 ACCOUNT %s ",obj)
             yield obj
-
-    def load_jnl(self, row, **kw):
-        vcl = None
-        kw.update(ref=row.idjnl.strip(), name=row.libell)
-        kw.update(dc=self.dc2lino(row.dc))
-        kw.update(auto_check_clearings=False)
-
-        if row.alias == 'VEN':
-            if row.idctr == 'V':
-                kw.update(trade_type=vat.TradeTypes.sales)
-                kw.update(journal_group=JournalGroups.sales)
-                vcl = sales.VatProductInvoice
-            elif row.idctr == 'E':
-                kw.update(trade_type=vat.TradeTypes.purchases)
-                vcl = vat.VatAccountInvoice
-                kw.update(journal_group=JournalGroups.purchases)
-            else:
-                raise Exception("Invalid JNL->IdCtr '{0}'".format(row.idctr))
-        elif row.alias == 'FIN':
-            idgen = row.idgen.strip()
-            kw.update(journal_group=JournalGroups.financial)
-            if idgen:
-                kw.update(account=rt.modules.accounts.Account.get_by_ref(idgen))
-                if idgen.startswith('58'):
-                    kw.update(trade_type=vat.TradeTypes.purchases)
-                    vcl = finan.PaymentOrder
-                elif idgen.startswith('5'):
-                    vcl = finan.BankStatement
-            else:
-                vcl = finan.JournalEntry
-        if vcl is None:
-            raise Exception("Journal not recognized: %s" % row.idjnl)
-
-        return vcl.create_journal(**kw)
 
     def load_fin(self, row, **kw):
         jnl, year, number = row2jnl(row)
@@ -584,7 +450,7 @@ class TimLoader(object):
                 kw.update(
                     account=vat.TradeTypes.clearings.get_partner_account())
             else:
-                a = accounts.Account.objects.get(ref=row.idcpt.strip())
+                a = Account.objects.get(ref=row.idcpt.strip())
                 kw.update(account=a)
             kw.update(amount=mton(row.mont, ZERO))
             kw.update(dc=self.dc2lino(row.dc))
@@ -830,7 +696,7 @@ class TimLoader(object):
             self.store(
                 kw,
                 language=language,
-                remarks=dbfmemo(row.get('memo', '')),
+                remarks=self.dbfmemo(row.get('memo', '')),
             )
 
             isocode = self.short2iso(row.pays.strip())
@@ -921,8 +787,8 @@ class TimLoader(object):
 
         kw.update(ref=row.seq.strip())
         # kw.update(user=self.get_user(None))
-        desc = dbfmemo(row.abstract).strip() + '\n\n' + dbfmemo(row.body)
-        # kw.update(summary=dbfmemo(row.abstract))
+        desc = self.dbfmemo(row.abstract).strip() + '\n\n' + self.dbfmemo(row.body)
+        # kw.update(summary=self.dbfmemo(row.abstract))
         kw.update(description=desc)
         return tickets.Project(**kw)
 
@@ -933,7 +799,7 @@ class TimLoader(object):
             kw.update(project_id=int(row.idprj))
             # kw.update(partner_id=PRJPAR.get(int(row.idprj),None))
         kw.update(summary=row.short.strip())
-        kw.update(description=dbfmemo(row.memo))
+        kw.update(description=self.dbfmemo(row.memo))
         kw.update(state=ticket_state(row.idpns))
         kw.update(closed=row.closed)
         kw.update(created=row['date'])
@@ -995,7 +861,7 @@ class TimLoader(object):
         yield obj
         if row.memo.strip():
             kw = dict(owner=obj)
-            kw.update(body=dbfmemo(row.memo))
+            kw.update(body=self.dbfmemo(row.memo))
             kw.update(user=obj.user)
             kw.update(date=obj.start_date)
             yield rt.modules.notes.Note(**kw)
@@ -1019,49 +885,21 @@ class TimLoader(object):
         kw.setdefault('name', idart)
         return products.Product(**kw)
 
-    def decode_string(self, v):
-        return v
-        # return v.decode(self.codepage)
+    def create_users(self):
 
-    def babel2kw(self, tim_fld, lino_fld, row, kw):
-        if dd.plugins.tim2lino.use_dbf_py:
-            import dbf
-            ex = dbf.FieldMissingError
-        else:
-            ex = Exception
-        for i, lng in enumerate(self.languages):
-            try:
-                v = getattr(row, tim_fld + str(i + 1), '').strip()
-                if v:
-                    v = self.decode_string(v)
-                    kw[lino_fld + lng.suffix] = v
-                    if lino_fld not in kw:
-                        kw[lino_fld] = v
-            except ex as e:
-                pass
-                dblogger.info("Ignoring %s", e)
+        self.ROOT = users.User(
+            username='tim', profile=users.UserProfiles.admin)
+        self.ROOT.set_password("1234")
+        yield self.ROOT
 
-    def after_load(self, tableName):
-        for tableName2, func in dd.plugins.tim2lino.load_listeners:
-            if tableName2 == tableName:
-                func(self)
-
-    def after_gen_load(self):
-        sc = dict()
-        for k, v in dd.plugins.tim2lino.siteconfig_accounts.items():
-            sc[k] = rt.modules.accounts.Account.get_by_ref(v)
-        settings.SITE.site_config.update(**sc)
-        # func = dd.plugins.tim2lino.setup_tim2lino
-        # if func:
-        #     func(self)
+    def get_user(self, idusr=None):
+        return self.ROOT
 
     def objects(tim):
 
         self = tim
-
-        self.ROOT = users.User(username='tim', profile='900')
-        self.ROOT.set_password("1234")
-        yield self.ROOT
+        
+        yield self.create_users()
 
         # settings.SITE.loading_from_dump = True
 

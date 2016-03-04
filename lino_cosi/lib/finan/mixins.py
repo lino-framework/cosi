@@ -59,7 +59,8 @@ class FinancialVoucher(ledger.Voucher):
         abstract = True
 
     item_account = dd.ForeignKey('accounts.Account', blank=True, null=True)
-    item_remark = models.CharField(_("Remark"), max_length=200, blank=True)
+    item_remark = models.CharField(
+        _("External reference"), max_length=200, blank=True)
 
     # def after_state_change(self, ar, old, new):
     #     super(FinancialVoucher, self).after_state_change(ar, old, new)
@@ -71,10 +72,11 @@ class FinancialVoucher(ledger.Voucher):
         #     raise Exception("20151117")
         if obj.project:
             kwargs.update(project=obj.project)
+        if obj.partner:
+            kwargs.update(partner=obj.partner)
         i = self.add_voucher_item(
             obj.account, dc=not obj.dc,
-            amount=obj.balance, partner=obj.partner,
-            match=obj.match, **kwargs)
+            amount=obj.balance, match=obj.match, **kwargs)
         if i.amount < 0:
             i.amount = - i.amount
             i.dc = not i.dc
@@ -93,7 +95,7 @@ class FinancialVoucher(ledger.Voucher):
             else:
                 amount -= i.amount
             # kw = dict(seqno=i.seqno, partner=i.partner)
-            kw = dict(partner=i.partner)
+            kw = dict(partner=i.get_partner())
             kw.update(match=i.match or i.get_default_match())
             b = self.create_movement(
                 i.account or self.item_account,
@@ -113,9 +115,18 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         The general account to be used in the primary booking.
         If this is empty, use :attr:`item_account` of the voucher.
 
+    .. attribute:: project
+
+        The client related to this transaction.
+
     .. attribute:: partner
 
         The partner account to be used in the primary booking.
+    
+        In Lino Welfare this field is optional and used only for
+        transactions whose *recipient* is different from the *client*.
+        When empty, Lino will book to the **client**
+        (i.e. :attr:`project`).
 
     .. attribute:: amount
 
@@ -127,6 +138,10 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         The direction of the primary booking to create.
 
     .. attribute:: remark
+
+        External reference. The description of this transation
+        as seen by the external partner.
+
     .. attribute:: seqno
 
     .. attribute:: match
@@ -145,7 +160,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     amount = dd.PriceField(_("Amount"), default=ZERO)
     dc = DebitOrCreditField()
-    remark = models.CharField(_("Remark"), max_length=200, blank=True)
+    remark = models.CharField(
+        _("External reference"), max_length=200, blank=True)
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
@@ -202,9 +218,12 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
                     raise ValidationError(
                         _("Could not determine the general account"))
         # print self.partner_id
-        if self.partner_id is None:
-            raise ValidationError(
-                _("Could not determine the partner account"))
+        # if self.partner_id is None:
+        #     raise ValidationError(
+        #         _("Could not determine the partner account"))
+
+    def get_partner(self):
+        return self.partner or self.project
 
     def fill_suggestion(self, match):
         """Fill the fields of this item from the given suggestion (a

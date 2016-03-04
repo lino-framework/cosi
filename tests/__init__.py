@@ -58,6 +58,9 @@ class DocsTests(BaseTestCase):
     def test_contacts(self):
         return self.run_simple_doctests('docs/specs/contacts.rst')
 
+    def test_tim2lino(self):
+        return self.run_simple_doctests('docs/specs/tim2lino.rst')
+
 
 class DemoTests(TestCase):
 

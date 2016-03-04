@@ -54,12 +54,12 @@ class Payable(PartnerRelated):
     your_ref = models.CharField(
         _("Your reference"), max_length=200, blank=True)
     due_date = models.DateField(_("Due date"), blank=True, null=True)
-    title = models.CharField(_("Description"), max_length=200, blank=True)
+    # title = models.CharField(_("Description"), max_length=200, blank=True)
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     def full_clean(self):
         if self.bank_account:
-            if self.bank_account.partner != self.partner:
+            if self.bank_account.partner != self.get_partner():
                 raise ValidationError(_("Partners mismatch"))
         else:
             self.partner_changed(None)
@@ -79,12 +79,12 @@ class Payable(PartnerRelated):
         yield 'bank_account'
 
     def partner_changed(self, ar):
-        self.bank_account = None
-        if self.partner:
-            qs = rt.modules.sepa.Account.objects.filter(
-                partner=self.partner, primary=True)
-            if qs.count() == 1:
-                self.bank_account = qs[0]
+        qs = rt.modules.sepa.Account.objects.filter(
+            partner=self.get_partner(), primary=True)
+        if qs.count() == 1:
+            self.bank_account = qs[0]
+        else:
+            self.bank_account = None
         
     def get_due_date(self):
         return self.due_date or self.voucher_date
@@ -117,6 +117,6 @@ class Payable(PartnerRelated):
             for prj, amount in counter_sums.items():
                 yield self.create_movement(
                     acc, prj, self.journal.dc, amount,
-                    partner=self.partner,
+                    partner=self.get_partner(),
                     match=self.match or self.get_default_match())
 

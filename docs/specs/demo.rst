@@ -61,16 +61,16 @@ The test database
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
 - excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
-- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, balance1, balance2
+- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr
+- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, total, execution_date
+- finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
 - gfks.HelpText : id, content_type, field, help_text
 - invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
 - invoicing.Plan : id, user, journal, max_date, today, partner
-- ledger.AccountingPeriod : id, ref, start_date, end_date, state, year
+- ledger.AccountingPeriod : id, ref, start_date, end_date, state, year, remark
 - ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
@@ -82,7 +82,7 @@ The test database
 - products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
-- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account, printed_by, language, subject, intro
+- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, bank_account, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -91,9 +91,9 @@ The test database
 - users.Authority : id, user, authorized
 - users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
-- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, title, bank_account
+- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, bank_account
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
-- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, your_ref, due_date, title, bank_account, amount
+- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, your_ref, due_date, bank_account, amount
 - vatless.InvoiceItem : id, seqno, account, voucher, title, amount
 <BLANKLINE>
 
@@ -133,16 +133,16 @@ The test database
  courses.Topic               courses.Topics                 2         0
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        3
- finan.BankStatement         finan.BankStatements           12        4
+ finan.BankStatement         finan.BankStatements           14        4
  finan.BankStatementItem     finan.BankStatementItemTable   10        18
- finan.JournalEntry          finan.FinancialVouchers        10        0
+ finan.JournalEntry          finan.FinancialVouchers        12        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            12        4
+ finan.PaymentOrder          finan.PaymentOrders            14        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
  invoicing.Item              invoicing.Items                9         0
  invoicing.Plan              invoicing.Plans                6         1
- ledger.AccountingPeriod     ledger.AccountingPeriods       6         5
+ ledger.AccountingPeriod     ledger.AccountingPeriods       7         5
  ledger.Journal              ledger.Journals                14        6
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         208
@@ -154,7 +154,7 @@ The test database
  products.Product            products.Products              8         9
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
- sales.VatProductInvoice     sales.Invoices                 25        24
+ sales.VatProductInvoice     sales.Invoices                 24        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             16        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
@@ -163,13 +163,12 @@ The test database
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    15        1
  vat.InvoiceItem             vat.InvoiceItemTable           9         40
- vat.VatAccountInvoice       vat.Invoices                   21        25
+ vat.VatAccountInvoice       vat.Invoices                   20        25
  vat.VatRule                 vat.VatRules                   9         11
- vatless.AccountInvoice      vatless.Invoices               18        0
+ vatless.AccountInvoice      vatless.Invoices               17        0
  vatless.InvoiceItem         vatless.InvoiceItems           6         0
 =========================== ============================== ========= =======
 <BLANKLINE>
-
 
 
 Person #115 is not a Partner
