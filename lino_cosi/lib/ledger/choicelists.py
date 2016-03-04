@@ -108,7 +108,32 @@ for y in range(dd.plugins.ledger.start_year, dd.today().year + 5):
 
 
 class VoucherType(dd.Choice):
+    """Base class for all items of :class:`VoucherTypes`.
+    
+    The **voucher type** --in a simplified approach-- defines the
+    database model used to store vouchers of this type
+    (:attr:`model`).
 
+    But it can be more complex: actually the voucher type is defined
+    by its :attr:`table_class`, i.e. application developers can define
+    more than one *voucher type* per model by providing alternative
+    tables (views) for it.
+
+    Every Lino Cosi application has its own global list of voucher
+    types defined in the :class:`VoucherTypes` choicelist.
+
+    .. attribute:: model
+
+        The database model used to store vouchers of this type.
+        A subclass of :class:`lino_cosi.lib.ledger.models.Voucher``.
+
+    .. attribute:: table_class
+
+        Must be a table on :attr:`model` and with `master_key` set to
+        the
+        :attr:`journal<lino_cosi.lib.ledger.models.Voucher.journal>`.
+
+    """
     def __init__(self, model, table_class):
         self.table_class = table_class
         model = dd.resolve_model(model)
@@ -122,6 +147,13 @@ class VoucherType(dd.Choice):
         name = None
         super(VoucherType, self).__init__(value, text, name)
 
+    def get_items_model(self):
+        """Returns the class object of the model used for storing items of
+        vouchers of this type.
+
+        """
+        return self.model.items.rel.related_model
+
     def get_journals(self):
         """Return a list of the :class:`Journal` objects that work on this
         voucher type.
@@ -131,8 +163,12 @@ class VoucherType(dd.Choice):
 
 
 class VoucherTypes(dd.ChoiceList):
-    """A list of the available voucher types (i.e. the database models
-    subclasses of ledger.Voucher`).
+    """A list of the available voucher types. Items are instances of
+    :class:VoucherType`.
+
+    The :attr:`Journal.voucher_type
+    <lino_cosi.lib.ledger.models.Journal.voucher_type>` field points
+    to an item of this.
 
     """
 

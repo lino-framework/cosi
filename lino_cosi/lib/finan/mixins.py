@@ -59,7 +59,8 @@ class FinancialVoucher(ledger.Voucher):
         abstract = True
 
     item_account = dd.ForeignKey('accounts.Account', blank=True, null=True)
-    item_remark = models.CharField(_("Remark"), max_length=200, blank=True)
+    item_remark = models.CharField(
+        _("External reference"), max_length=200, blank=True)
 
     # def after_state_change(self, ar, old, new):
     #     super(FinancialVoucher, self).after_state_change(ar, old, new)
@@ -127,6 +128,10 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         The direction of the primary booking to create.
 
     .. attribute:: remark
+
+        External reference. The description of this transation
+        as seen by the external partner.
+
     .. attribute:: seqno
 
     .. attribute:: match
@@ -145,7 +150,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     amount = dd.PriceField(_("Amount"), default=ZERO)
     dc = DebitOrCreditField()
-    remark = models.CharField(_("Remark"), max_length=200, blank=True)
+    remark = models.CharField(
+        _("External reference"), max_length=200, blank=True)
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
