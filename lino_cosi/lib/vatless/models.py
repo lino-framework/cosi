@@ -79,6 +79,9 @@ class AccountInvoice(Payable, Voucher, Matching, ProjectRelated):
             fields |= self._total_fields
         return fields
 
+    def get_partner(self):
+        return self.partner or self.project
+
     def compute_totals(self):
         if self.pk is None:
             return
