@@ -95,29 +95,27 @@ class FiscalYears(dd.ChoiceList):
     # ~ preferred_width = 4 # would be 2 otherwise
 
     @classmethod
-    def from_int(cls, year):
+    def year2value(cls, year):
         if dd.plugins.ledger.fix_y2k:
             if year < 2000:
-                k = str(year)[-2:]
+                return str(year)[-2:]
             elif year < 2010:
-                k = "A" + str(year)[-1]
+                return "A" + str(year)[-1]
             elif year < 2020:
-                k = "B" + str(year)[-1]
+                return "B" + str(year)[-1]
             elif year < 2030:
-                k = "C" + str(year)[-1]
+                return "C" + str(year)[-1]
             else:
                 raise Exception(20160304)
-        else:
-            k = str(year)[2:]
-        return cls.get_by_value(k)
+        return str(year)[2:]
+
+    @classmethod
+    def from_int(cls, year):
+        return cls.get_by_value(cls.year2value(year))
 
     @classmethod
     def from_date(cls, date):
         return cls.from_int(date.year)
-
-for y in range(dd.plugins.ledger.start_year, dd.today().year + 5):
-    s = str(y)
-    FiscalYears.add_item(s[2:], s)
 
 
 class VoucherType(dd.Choice):

@@ -88,6 +88,9 @@ class Plugin(ad.Plugin):
             if self.start_year > site.the_demo_date.year:
                 raise Exception(
                     "plugins.ledger.start_year is after the_demo_date")
+        FiscalYears = site.modules.ledger.FiscalYears
+        for y in range(self.start_year, site.today().year + 5):
+            FiscalYears.add_item(FiscalYears.year2value(y), str(y))
 
     def setup_main_menu(self, site, profile, m):
         if not self.intrusive_menu:
