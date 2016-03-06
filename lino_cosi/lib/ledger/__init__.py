@@ -32,6 +32,8 @@
 
 from __future__ import unicode_literals
 
+import datetime
+
 from lino.api import ad, _
 
 
@@ -89,7 +91,8 @@ class Plugin(ad.Plugin):
                 raise Exception(
                     "plugins.ledger.start_year is after the_demo_date")
         FiscalYears = site.modules.ledger.FiscalYears
-        for y in range(self.start_year, site.today().year + 5):
+        today = site.the_demo_date or datetime.date.today()
+        for y in range(self.start_year, today.year + 5):
             FiscalYears.add_item(FiscalYears.year2value(y), str(y))
 
     def setup_main_menu(self, site, profile, m):

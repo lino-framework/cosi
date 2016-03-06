@@ -93,6 +93,7 @@ class FiscalYears(dd.ChoiceList):
     verbose_name = _("Fiscal Year")
     verbose_name_plural = _("Fiscal Years")
     # ~ preferred_width = 4 # would be 2 otherwise
+    max_length = 8
 
     @classmethod
     def year2value(cls, year):
