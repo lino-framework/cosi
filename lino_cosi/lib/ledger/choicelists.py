@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -96,7 +96,20 @@ class FiscalYears(dd.ChoiceList):
 
     @classmethod
     def from_int(cls, year):
-        return cls.get_by_value(str(year)[2:])
+        if dd.plugins.ledger.fix_y2k:
+            if year < 2000:
+                k = str(year)[-2:]
+            elif year < 2010:
+                k = "A" + str(year)[-1]
+            elif year < 2020:
+                k = "B" + str(year)[-1]
+            elif year < 2030:
+                k = "C" + str(year)[-1]
+            else:
+                raise Exception(20160304)
+        else:
+            k = str(year)[2:]
+        return cls.get_by_value(k)
 
     @classmethod
     def from_date(cls, date):

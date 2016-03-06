@@ -78,6 +78,11 @@ class Plugin(ad.Plugin):
 
     """
 
+    fix_y2k = False
+    """Whether to use a Y2K compatible representation for fiscal years.
+
+    """
+
     def on_site_startup(self, site):
         if site.the_demo_date is not None:
             if self.start_year > site.the_demo_date.year:
