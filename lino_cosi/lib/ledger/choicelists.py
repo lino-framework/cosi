@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -93,18 +93,30 @@ class FiscalYears(dd.ChoiceList):
     verbose_name = _("Fiscal Year")
     verbose_name_plural = _("Fiscal Years")
     # ~ preferred_width = 4 # would be 2 otherwise
+    max_length = 8
+
+    @classmethod
+    def year2value(cls, year):
+        if dd.plugins.ledger.fix_y2k:
+            if year < 2000:
+                return str(year)[-2:]
+            elif year < 2010:
+                return "A" + str(year)[-1]
+            elif year < 2020:
+                return "B" + str(year)[-1]
+            elif year < 2030:
+                return "C" + str(year)[-1]
+            else:
+                raise Exception(20160304)
+        return str(year)[2:]
 
     @classmethod
     def from_int(cls, year):
-        return cls.get_by_value(str(year)[2:])
+        return cls.get_by_value(cls.year2value(year))
 
     @classmethod
     def from_date(cls, date):
         return cls.from_int(date.year)
-
-for y in range(dd.plugins.ledger.start_year, dd.today().year + 5):
-    s = str(y)
-    FiscalYears.add_item(s[2:], s)
 
 
 class VoucherType(dd.Choice):

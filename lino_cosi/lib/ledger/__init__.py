@@ -32,6 +32,8 @@
 
 from __future__ import unicode_literals
 
+import datetime
+
 from lino.api import ad, _
 
 
@@ -78,11 +80,20 @@ class Plugin(ad.Plugin):
 
     """
 
+    fix_y2k = False
+    """Whether to use a Y2K compatible representation for fiscal years.
+
+    """
+
     def on_site_startup(self, site):
         if site.the_demo_date is not None:
             if self.start_year > site.the_demo_date.year:
                 raise Exception(
                     "plugins.ledger.start_year is after the_demo_date")
+        FiscalYears = site.modules.ledger.FiscalYears
+        today = site.the_demo_date or datetime.date.today()
+        for y in range(self.start_year, today.year + 5):
+            FiscalYears.add_item(FiscalYears.year2value(y), str(y))
 
     def setup_main_menu(self, site, profile, m):
         if not self.intrusive_menu:

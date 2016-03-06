@@ -291,9 +291,12 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
                 return y + "{:0>2}".format(d.month)
 
         """
-        return cls.date_to_period_tpl.format(d)
+        if dd.plugins.ledger.fix_y2k:
+            return FiscalYears.from_int(d.year).value \
+                + "{:0>2}".format(d.month)
 
-    date_to_period_tpl = "{0.year}-{0.month:0>2}"
+        return "{0.year}-{0.month:0>2}".format(d)
+
     """The template used for building the :attr:`ref` of an
     :class:`AccountingPeriod`.
 

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -28,8 +28,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 from lino.api import dd, rt, _
-
 from lino.utils import SumCollector
+from lino.modlib.plausibility.choicelists import Checker
+
 from lino_cosi.lib.ledger.mixins import PartnerRelated
 
 
@@ -59,8 +60,12 @@ class Payable(PartnerRelated):
 
     def full_clean(self):
         if self.bank_account:
-            if self.bank_account.partner != self.get_partner():
-                raise ValidationError(_("Partners mismatch"))
+            if False:  # converted to Checker for cpas2lino
+                if self.bank_account.partner != self.get_partner():
+                    raise ValidationError(
+                        "Bank account owner ({0}) differs "
+                        "from partner ({1})".format(
+                            self.bank_account.partner, self.get_partner()))
         else:
             self.partner_changed(None)
 
@@ -120,3 +125,34 @@ class Payable(PartnerRelated):
                     partner=self.get_partner(),
                     match=self.match or self.get_default_match())
 
+
+class PayableChecker(Checker):
+    """Checks for the following plausibility problems:
+
+    - :message:`Unique address is not marked primary.` --
+      if there is exactly one :class:`Address` object which just fails to
+      be marked as primary, mark it as primary and return it.
+
+    - :message:`Non-empty address fields, but no address record.`
+      -- if there is no :class:`Address` object, and if the
+      :class:`Partner` has some non-empty address field, create an
+      address record from these, using `AddressTypes.official` as
+      type.
+
+    """
+    verbose_name = _("Check for partner mismatches in bank accounts")
+    model = Payable
+    messages = dict(
+        partners_differ=_(
+            "Bank account owner ({0}) differs from partner ({1})"),
+    )
+    
+    def get_plausibility_problems(self, obj, fix=False):
+
+        if obj.bank_account:
+            if obj.bank_account.partner != obj.get_partner():
+
+                yield (False, self.messages['partners_differ'].format(
+                    obj.bank_account.partner, obj.get_partner()))
+
+PayableChecker.activate()
