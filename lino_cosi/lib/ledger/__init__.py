@@ -133,5 +133,6 @@ class Plugin(ad.Plugin):
         m.add_action('ledger.AllMovements')
         m.add_action('ledger.FiscalYears')
         m.add_action('ledger.TradeTypes')
+        m.add_action('ledger.JournalGroups')
 
 

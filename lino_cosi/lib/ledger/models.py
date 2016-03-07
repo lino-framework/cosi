@@ -463,13 +463,13 @@ class Voucher(UserAuthored, mixins.Registrable):
         return Journal(trade_type=trade_type, voucher_type=vt, **kw)
 
     def __unicode__(self):
-        return "%s#%s" % (self.journal.ref, self.id)
-        #~ if self.number is None:
-            # ~ return "%s #%s (not registered)" % (
-                #~ unicode(self.journal.voucher_type.model._meta.verbose_name),self.id)
-        #~ if self.journal.ref:
-            # ~ return "%s#%s" % (self.journal.ref,self.number)
-        # ~ return "#%s (%s %s)" % (self.number,self.journal,self.year)
+        if self.number is None:
+            return "{0}#{1}".format(self.journal.ref, self.id)
+        return "{0}{1} ({2})".format(self.journal.ref, self.number,
+                                     self.accounting_period)
+        # if self.journal.ref:
+        #     return "%s %s" % (self.journal.ref,self.number)
+        # return "#%s (%s %s)" % (self.number,self.journal,self.year)
 
     def get_default_match(self):
         return "%s#%s" % (self.journal.ref, self.id)
