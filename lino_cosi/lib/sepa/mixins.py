@@ -34,6 +34,55 @@ from lino.modlib.plausibility.choicelists import Checker
 from lino_cosi.lib.ledger.mixins import PartnerRelated
 
 
+class BankAccount(dd.Model):
+    """
+    Adds a field :attr:`bank_account` and its chooser.
+    """
+    class Meta:
+        abstract = True
+
+    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+
+    def full_clean(self):
+        if self.bank_account:
+            if False:  # converted to Checker for cpas2lino
+                if self.bank_account.partner != self.get_partner():
+                    raise ValidationError(
+                        "Bank account owner ({0}) differs "
+                        "from partner ({1})".format(
+                            self.bank_account.partner, self.get_partner()))
+        else:
+            self.partner_changed(None)
+
+        super(BankAccount, self).full_clean()
+
+    @classmethod
+    def get_registrable_fields(cls, site):
+        for f in super(BankAccount, cls).get_registrable_fields(site):
+            yield f
+        yield 'bank_account'
+
+    def partner_changed(self, ar):
+        qs = rt.modules.sepa.Account.objects.filter(
+            partner=self.get_partner(), primary=True)
+        if qs.count() == 1:
+            self.bank_account = qs[0]
+        else:
+            self.bank_account = None
+        
+    @dd.chooser()
+    def bank_account_choices(cls, partner):
+        return rt.modules.sepa.Account.objects.filter(
+            partner=partner).order_by('iban')
+
+    def get_bank_account(self):
+        """Implements
+        :meth:`Voucher.get_bank_account<lino_cosi.lib.ledger.models.Voucher.get_bank_account>`.
+
+        """
+        return self.bank_account
+
+
 class Payable(PartnerRelated):
     """Model mixin for database objects that are considered *payable
     transactions*. To be combined with some mixin which defines a
@@ -56,19 +105,8 @@ class Payable(PartnerRelated):
         _("Your reference"), max_length=200, blank=True)
     due_date = models.DateField(_("Due date"), blank=True, null=True)
     # title = models.CharField(_("Description"), max_length=200, blank=True)
-    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     def full_clean(self):
-        if self.bank_account:
-            if False:  # converted to Checker for cpas2lino
-                if self.bank_account.partner != self.get_partner():
-                    raise ValidationError(
-                        "Bank account owner ({0}) differs "
-                        "from partner ({1})".format(
-                            self.bank_account.partner, self.get_partner()))
-        else:
-            self.partner_changed(None)
-
         if not self.due_date:
             if self.payment_term is not None:
                 self.due_date = self.payment_term.get_due_date(
@@ -81,26 +119,9 @@ class Payable(PartnerRelated):
         for f in super(Payable, cls).get_registrable_fields(site):
             yield f
         yield 'your_ref'
-        yield 'bank_account'
 
-    def partner_changed(self, ar):
-        qs = rt.modules.sepa.Account.objects.filter(
-            partner=self.get_partner(), primary=True)
-        if qs.count() == 1:
-            self.bank_account = qs[0]
-        else:
-            self.bank_account = None
-        
     def get_due_date(self):
         return self.due_date or self.voucher_date
-
-    def get_bank_account(self):
-        return self.bank_account
-
-    @dd.chooser()
-    def bank_account_choices(cls, partner):
-        return rt.modules.sepa.Account.objects.filter(
-            partner=partner).order_by('iban')
 
     def get_payable_sums_dict(self):
         raise NotImplemented()
@@ -126,22 +147,14 @@ class Payable(PartnerRelated):
                     match=self.match or self.get_default_match())
 
 
-class PayableChecker(Checker):
+class BankAccountChecker(Checker):
     """Checks for the following plausibility problems:
 
-    - :message:`Unique address is not marked primary.` --
-      if there is exactly one :class:`Address` object which just fails to
-      be marked as primary, mark it as primary and return it.
-
-    - :message:`Non-empty address fields, but no address record.`
-      -- if there is no :class:`Address` object, and if the
-      :class:`Partner` has some non-empty address field, create an
-      address record from these, using `AddressTypes.official` as
-      type.
+    - :message:`Bank account owner ({0}) differs from partner ({1})` --
 
     """
     verbose_name = _("Check for partner mismatches in bank accounts")
-    model = Payable
+    model = BankAccount
     messages = dict(
         partners_differ=_(
             "Bank account owner ({0}) differs from partner ({1})"),
@@ -155,4 +168,4 @@ class PayableChecker(Checker):
                 yield (False, self.messages['partners_differ'].format(
                     obj.bank_account.partner, obj.get_partner()))
 
-PayableChecker.activate()
+BankAccountChecker.activate()

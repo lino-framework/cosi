@@ -24,8 +24,8 @@ Sales
 >>> res = test_client.get(url, REMOTE_USER='robin')
 >>> # res.content
 >>> r = check_json_result(res, "navinfo data disable_delete id title")
->>> r['title']
-u'Sales invoices (SLS) \xbb SLS#40'
+>>> print(r['title'])
+Sales invoices (SLS) » SLS20 (2015-05)
 
 
 IllegalText: The <text:section> element does not allow text
@@ -40,7 +40,7 @@ because we must clear the cache).
 
 >> obj = rt.modules.sales.VatProductInvoice.objects.all()[0]
 >> obj
-VatProductInvoice #1 (u'SLS#1')
+VatProductInvoice #1 ('SLS#1')
 >> from lino.modlib.appypod.appy_renderer import AppyRenderer
 >> tplfile = rt.find_config_file('sales/VatProductInvoice/Default.odt')
 >> context = dict()

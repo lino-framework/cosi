@@ -75,7 +75,8 @@ paid too much.
 
 >>> jnl = ledger.Journal.objects.get(ref="PMO")
 >>> jnl
-Journal #4 (u'Payment Orders (PMO)')
+Journal #4 ('Payment Orders (PMO)')
+
 >>> rt.show(ledger.MatchRulesByJournal, jnl)
 ==================
  Account
@@ -89,7 +90,7 @@ Or a sales invoice can be used to clear another sales invoice.
 
 >>> jnl = ledger.Journal.objects.get(ref="SLS")
 >>> jnl
-Journal #1 (u'Sales invoices (SLS)')
+Journal #1 ('Sales invoices (SLS)')
 >>> rt.show(ledger.MatchRulesByJournal, jnl)
 ==================
  Account
@@ -145,13 +146,13 @@ Partner 149 has 2 open sales invoices:
 >>> obj = contacts.Partner.objects.get(pk=149)
 >>> ses.show(ledger.DebtsByPartner, obj)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ============== ========== ==========
- Due date             Balance        Debts      Payments
--------------------- -------------- ---------- ----------
- 5/10/15              535,00         *SLS#43*
- 5/11/15              3 319,78       *SLS#44*
+==================== ============== =================== ==========
+ Due date             Balance        Debts               Payments
+-------------------- -------------- ------------------- ----------
+ 5/10/15              535,00         *SLS23 (2015-05)*
+ 5/11/15              3 319,78       *SLS24 (2015-05)*
  **Total (2 rows)**   **3 854,78**
-==================== ============== ========== ==========
+==================== ============== =================== ==========
 <BLANKLINE>
 
 

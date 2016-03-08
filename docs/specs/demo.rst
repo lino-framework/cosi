@@ -66,7 +66,7 @@ The test database
 - finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
 - finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, total, execution_date
-- finan.PaymentOrderItem : id, seqno, match, amount, dc, remark, account, partner, voucher, bank_account
+- finan.PaymentOrderItem : id, seqno, match, bank_account, amount, dc, remark, account, partner, voucher
 - gfks.HelpText : id, content_type, field, help_text
 - invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
 - invoicing.Plan : id, user, journal, max_date, today, partner
@@ -82,7 +82,7 @@ The test database
 - products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
-- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, bank_account, printed_by, language, subject, intro
+- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -91,9 +91,9 @@ The test database
 - users.Authority : id, user, authorized
 - users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
-- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, bank_account
+- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
-- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, your_ref, due_date, bank_account, amount
+- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, bank_account, your_ref, due_date, amount
 - vatless.InvoiceItem : id, seqno, account, voucher, title, amount
 <BLANKLINE>
 
@@ -154,7 +154,7 @@ The test database
  products.Product            products.Products              8         9
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
- sales.VatProductInvoice     sales.Invoices                 24        24
+ sales.VatProductInvoice     sales.Invoices                 23        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             16        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
@@ -163,7 +163,7 @@ The test database
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    15        1
  vat.InvoiceItem             vat.InvoiceItemTable           9         40
- vat.VatAccountInvoice       vat.Invoices                   20        25
+ vat.VatAccountInvoice       vat.Invoices                   19        25
  vat.VatRule                 vat.VatRules                   9         11
  vatless.AccountInvoice      vatless.Invoices               17        0
  vatless.InvoiceItem         vatless.InvoiceItems           6         0
