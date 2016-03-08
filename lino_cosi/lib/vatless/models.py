@@ -39,7 +39,7 @@ from lino.utils import SumCollector
 from lino_cosi.lib.ledger.mixins import (
     ProjectRelated,  # PartnerRelated,
     AccountVoucherItem, Matching)
-from lino_cosi.lib.sepa.mixins import Payable
+from lino_cosi.lib.sepa.mixins import Payable, BankAccount
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 
@@ -48,7 +48,7 @@ TradeTypes.purchases.update(
     partner_account_field_label=_("Suppliers account"))
 
 
-class AccountInvoice(Payable, Voucher, Matching, ProjectRelated):
+class AccountInvoice(Payable, BankAccount, Voucher, Matching, ProjectRelated):
 
     class Meta:
         verbose_name = _("Invoice")

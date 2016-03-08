@@ -146,15 +146,16 @@ class VoucherType(dd.Choice):
         :attr:`journal<lino_cosi.lib.ledger.models.Voucher.journal>`.
 
     """
-    def __init__(self, model, table_class):
+    def __init__(self, model, table_class, text=None):
         self.table_class = table_class
         model = dd.resolve_model(model)
         self.model = model
         # value = dd.full_model_name(model)
         value = str(table_class)
-        # text = model._meta.verbose_name + ' (%s)' % dd.full_model_name(model)
-        # text = model._meta.verbose_name + ' (%s.%s)' % (
-        text = string_concat(model._meta.verbose_name, " (", value, ")")
+        if text is None:
+            # text = model._meta.verbose_name + ' (%s)' % dd.full_model_name(model)
+            # text = model._meta.verbose_name + ' (%s.%s)' % (
+            text = string_concat(model._meta.verbose_name, " (", value, ")")
         #     model.__module__, model.__name__)
         name = None
         super(VoucherType, self).__init__(value, text, name)
@@ -209,9 +210,9 @@ class VoucherTypes(dd.ChoiceList):
             if issubclass(o.table_class, table_class):
                 return o
 
-    @classmethod
-    def add_item(cls, model, table_class):
-        return cls.add_item_instance(VoucherType(model, table_class))
+    # @classmethod
+    # def add_item(cls, *args, **kwargs):
+    #     return cls.add_item_instance(VoucherType(*args, **kwargs))
 
 
 class TradeType(dd.Choice):

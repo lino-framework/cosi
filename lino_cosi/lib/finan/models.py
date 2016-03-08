@@ -30,6 +30,7 @@ from lino_cosi.lib.ledger.fields import DcAmountField
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_cosi.lib.ledger.mixins import ProjectRelated
+from lino_cosi.lib.sepa.mixins import BankAccount
 
 from lino.api import dd, rt, _
 
@@ -202,7 +203,7 @@ class BankStatementItem(FinancialVoucherItem):
     credit = DcAmountField(CREDIT, _("Expense"))
 
 
-class PaymentOrderItem(FinancialVoucherItem):
+class PaymentOrderItem(FinancialVoucherItem, BankAccount):
     """An item of a :class:`PaymentOrder`."""
     class Meta:
         app_label = 'finan'
@@ -210,7 +211,7 @@ class PaymentOrderItem(FinancialVoucherItem):
         verbose_name_plural = _("Payment Order items")
 
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
-    bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+    # bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     # def full_clean(self, *args, **kwargs):
         

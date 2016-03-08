@@ -294,7 +294,7 @@ class Course(Reservation, Duplicable):
             return self.name
         if self.room is None:
             return "%s (%s)" % (self.line, dd.dtos(self.start_date))
-        return u"%s (%s %s)" % (
+        return "%s (%s %s)" % (
             self.line,
             dd.dtos(self.start_date),
             self.room)
