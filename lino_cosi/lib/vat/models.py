@@ -54,6 +54,7 @@ TradeTypes.purchases.update(
     partner_account_field_label=_("Suppliers account"))
 
 
+@dd.python_2_unicode_compatible
 class VatRule(Sequenced, DatePeriod):
     """A rule which defines how VAT is to be handled for a given invoice
     item.
@@ -120,7 +121,7 @@ criteria.
         # raise Warning(msg)
         return None
 
-    def __unicode__(self):
+    def __str__(self):
         kw = dict(
             vat_regime=self.vat_regime,
             vat_class=self.vat_class,

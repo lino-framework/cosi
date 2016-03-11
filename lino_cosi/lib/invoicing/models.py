@@ -44,6 +44,7 @@ from .actions import (UpdatePlan, ExecutePlan, ToggleSelection,
                       StartInvoicingForJournal, StartInvoicingForPartner)
 
 
+@dd.python_2_unicode_compatible
 class Plan(UserAuthored):
     """An **invoicing plan** is a rather temporary database object which
     represents the plan of a given user to have Lino generate a series
@@ -153,7 +154,7 @@ class Plan(UserAuthored):
 
     toggle_selections = ToggleSelection()
 
-    def __unicode__(self):
+    def __str__(self):
         # return "{0} {1}".format(self._meta.verbose_name, self.user)
         # return self._meta.verbose_name
         return unicode(self.user)

@@ -233,6 +233,7 @@ class ImportStatements(dd.Action):
 dd.inject_action('system.SiteConfig', import_b2c=ImportStatements())
 
 
+@dd.python_2_unicode_compatible
 class Account(dd.Model):
     """A bank account related to a given :class:`Partner
     <lino.modlib.models.contacts.Partner>`.
@@ -271,7 +272,7 @@ class Account(dd.Model):
         _("Owner name"), max_length=70, blank=True)
     last_transaction = models.DateField(_('Last transaction'), null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.iban
 
     @dd.displayfield(_("Partners"))
@@ -288,6 +289,7 @@ class Account(dd.Model):
 PRIMARY_FIELDS = dd.fields_list(Account, 'iban bic')
 
 
+@dd.python_2_unicode_compatible
 class Statement(dd.Model):
     """A bank statement.
 
@@ -310,7 +312,7 @@ class Statement(dd.Model):
         verbose_name = _("Statement")
         verbose_name_plural = _("Statements")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.statement_number
 
     account = dd.ForeignKey('b2c.Account')

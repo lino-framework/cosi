@@ -67,6 +67,7 @@ class Groups(dd.Table):
     """
 
 
+@dd.python_2_unicode_compatible
 class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
     """An **account** is an item of an account chart used to collect
     ledger transactions or other accountable items.
@@ -131,7 +132,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
             self.type = self.group.account_type
         super(Account, self).full_clean(*args, **kw)
 
-    def __unicode__(self):
+    def __str__(self):
         return "(%(ref)s) %(title)s" % dict(
             ref=self.ref,
             title=settings.SITE.babelattr(self, 'name'))
