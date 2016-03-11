@@ -36,6 +36,7 @@ from .roles import SepaUser, SepaStaff
 from lino.modlib.contacts.roles import ContactsUser
 
 
+@dd.python_2_unicode_compatible
 class Account(dd.Model):
     """A bank account related to a given :class:`Partner
     <lino.modlib.models.contacts.Partner>`.
@@ -81,7 +82,7 @@ class Account(dd.Model):
 
     allow_cascaded_delete = ['partner']
 
-    def __unicode__(self):
+    def __str__(self):
         return IBAN_FORMFIELD.prepare_value(self.iban)
         # if self.remark:
         #     return "{0} ({1})".format(self.iban, self.remark)

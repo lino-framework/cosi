@@ -53,6 +53,7 @@ from .mixins import FKMATCH
 from .ui import *
 
 
+@dd.python_2_unicode_compatible
 class Journal(mixins.BabelNamed,
               mixins.Sequenced,
               mixins.Referrable,
@@ -179,8 +180,8 @@ class Journal(mixins.BabelNamed,
             return 1
         return number + 1
 
-    def __unicode__(self):
-        s = super(Journal, self).__unicode__()
+    def __str__(self):
+        s = super(Journal, self).__str__()
         if self.ref:
             s += " (%s)" % self.ref
             #~ return '%s (%s)' % (d.BabelNamed.__unicode__(self),self.ref or self.id)
@@ -240,6 +241,7 @@ class Journal(mixins.BabelNamed,
         return cls.get_template_choices(build_method, template_groups)
 
 
+@dd.python_2_unicode_compatible
 class AccountingPeriod(DatePeriod, mixins.Referrable):
     """An **accounting period** is the smallest time slice to be observed
     (declare) in accounting reports. Usually it corresponds to one
@@ -323,7 +325,7 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
             self.year = FiscalYears.from_date(self.start_date)
         super(AccountingPeriod, self).full_clean(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.ref
 
 AccountingPeriod.set_widget_options('ref', width=6)
@@ -353,6 +355,7 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
         return d
 
 
+@dd.python_2_unicode_compatible
 class Voucher(UserAuthored, mixins.Registrable):
     """A Voucher is a document that represents a monetary transaction.
 
@@ -462,7 +465,7 @@ class Voucher(UserAuthored, mixins.Registrable):
             kw.update(account=account)
         return Journal(trade_type=trade_type, voucher_type=vt, **kw)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.number is None:
             return "{0}#{1}".format(self.journal.ref, self.id)
         return "{0}{1} ({2})".format(self.journal.ref, self.number,
@@ -638,6 +641,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         # raise NotImplementedError()
 
 
+@dd.python_2_unicode_compatible
 class Movement(ProjectRelated):
     """Represents an accounting movement in the ledger.
 
@@ -795,7 +799,7 @@ class Movement(ProjectRelated):
         return self.voucher.movement_set.order_by('seqno')
         #~ return self.__class__.objects.filter().order_by('seqno')
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
 
 Movement.set_widget_options('voucher_link', width=12)

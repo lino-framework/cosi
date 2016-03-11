@@ -92,6 +92,7 @@ class StartEndTime(dd.Model):
         verbose_name=_("End Time"))
 
 
+@dd.python_2_unicode_compatible
 class Slot(mixins.Sequenced, StartEndTime):
 
     """
@@ -106,7 +107,7 @@ class Slot(mixins.Sequenced, StartEndTime):
                             blank=True,
                             verbose_name=_("Name"))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name or "%s-%s" % (self.start_time, self.end_time)
 
 
@@ -118,6 +119,7 @@ class Topic(mixins.BabelNamed, mixins.Printable, Duplicable):
         verbose_name_plural = _('Topics')
 
 
+@dd.python_2_unicode_compatible
 class Line(ExcerptTitle, Duplicable):
     """A **line** (or **series**) of courses groups courses into a
     configurable list of categories.
@@ -204,10 +206,10 @@ class Line(ExcerptTitle, Duplicable):
         "printing a course of this series. "
         "Leave empty to use the site's default.")
 
-    def __unicode__(self):
+    def __str__(self):
         if self.ref:
             return self.ref
-        return super(Line, self).__unicode__()
+        return super(Line, self).__str__()
 
     @dd.chooser()
     def fee_choices(cls, fees_cat):
@@ -224,6 +226,7 @@ class Line(ExcerptTitle, Duplicable):
             'excerpts')
 
 
+@dd.python_2_unicode_compatible
 class Course(Reservation, Duplicable):
     """A Course is a group of pupils that regularily meet with a given
     teacher in a given room to speak about a given subject.
@@ -289,7 +292,7 @@ class Course(Reservation, Duplicable):
         yield 'name'
         yield 'enrolments_until'
 
-    def __unicode__(self):
+    def __str__(self):
         if self.name:
             return self.name
         if self.room is None:
@@ -514,6 +517,7 @@ class ConfirmedSubmitInsert(dd.SubmitInsert):
         ar.set_response(close_window=True)
 
 
+@dd.python_2_unicode_compatible
 class Enrolment(UserAuthored, Certifiable):
     """An **enrolment** is when a given pupil plans to participate in a
     given course.
@@ -626,7 +630,7 @@ class Enrolment(UserAuthored, Certifiable):
     def get_print_templates(self, bm, action):
         return [self.state.name + bm.template_ext]
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s / %s" % (self.course, self.pupil)
 
     def get_print_language(self):
