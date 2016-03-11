@@ -181,7 +181,8 @@ class Journal(mixins.BabelNamed,
         return number + 1
 
     def __str__(self):
-        s = super(Journal, self).__str__()
+        # s = super(Journal, self).__str__()
+        s = dd.babelattr(self, 'name')
         if self.ref:
             s += " (%s)" % self.ref
             #~ return '%s (%s)' % (d.BabelNamed.__unicode__(self),self.ref or self.id)
