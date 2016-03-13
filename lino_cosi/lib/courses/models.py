@@ -209,7 +209,9 @@ class Line(ExcerptTitle, Duplicable):
     def __str__(self):
         if self.ref:
             return self.ref
-        return super(Line, self).__str__()
+        # return super(Line, self).__str__()
+        return dd.babelattr(self, 'name')  # or unicode(self)
+        # return "{0} #{1}".format(self._meta.verbose_name, self.pk)
 
     @dd.chooser()
     def fee_choices(cls, fees_cat):
@@ -296,10 +298,12 @@ class Course(Reservation, Duplicable):
         if self.name:
             return self.name
         if self.room is None:
-            return "%s (%s)" % (self.line, dd.dtos(self.start_date))
+            return "%s (%s)" % (self.line, dd.fds(self.start_date))
+        str(self.line)
+        str(self.room)
         return "%s (%s %s)" % (
             self.line,
-            dd.dtos(self.start_date),
+            dd.fds(self.start_date),
             self.room)
 
     def update_cal_from(self, ar):
