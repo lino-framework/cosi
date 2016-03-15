@@ -39,6 +39,7 @@ from lino.modlib.users.mixins import UserAuthored
 # from lino_cosi.lib.ledger.choicelists import VoucherTypes
 
 from lino.api import dd, rt, _
+from lino_cosi.lib.ledger.roles import LedgerStaff
 from .mixins import Invoiceable
 from .actions import (UpdatePlan, ExecutePlan, ToggleSelection,
                       StartInvoicingForJournal, StartInvoicingForPartner)
@@ -132,7 +133,8 @@ class Plan(UserAuthored):
                 item.last_date = idate
             else:
                 item.last_date = max(idate, item.last_date)
-            item.amount += obj.amount
+            if obj.amount:
+                item.amount += obj.amount
             item.number_of_invoiceables += 1
             item.save()
 
@@ -219,6 +221,10 @@ class Plans(dd.Table):
     detail_layout = """user journal max_date partner
     invoicing.ItemsByPlan
     """
+
+
+class AllPlans(Plans):
+    required_roles = dd.login_required(LedgerStaff)
 
 
 class Items(dd.Table):
