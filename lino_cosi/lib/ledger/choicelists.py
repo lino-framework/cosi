@@ -63,6 +63,7 @@ class JournalGroups(dd.ChoiceList):
     """
     verbose_name = _("Journal group")
     verbose_name_plural = _("Journal groups")
+    required_roles = dd.login_required(LedgerStaff)
 
 add = JournalGroups.add_item
 add('10', _("Sales"), 'sales')
