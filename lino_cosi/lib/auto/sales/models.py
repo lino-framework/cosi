@@ -251,7 +251,7 @@ class InvoiceItem(InvoiceItem):  # 20130709
         verbose_name=invoiceable_label)
 
     def full_clean(self):
-        if self.invoiceable and not self.title:
+        if self.invoiceable_id and not self.title:
             self.title = self.invoiceable.get_invoiceable_title()
             self.invoiceable.setup_invoice_item(self)
         super(InvoiceItem, self).full_clean()
