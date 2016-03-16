@@ -152,6 +152,10 @@ class InvoiceItem(AccountVoucherItem, VatItemBase):
     """An item of an account invoice.
 
     """
+    class Meta:
+        verbose_name = _("Account invoice item")
+        verbose_name_plural = _("Account invoice items")
+
     voucher = dd.ForeignKey('vat.VatAccountInvoice', related_name='items')
     title = models.CharField(_("Description"), max_length=200, blank=True)
 

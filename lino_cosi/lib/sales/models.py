@@ -162,8 +162,8 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
     class Meta:
         app_label = 'sales'
         abstract = dd.is_abstract_model(__name__, 'VatProductInvoice')
-        verbose_name = _("Invoice")
-        verbose_name_plural = _("Invoices")
+        verbose_name = _("Product invoice")
+        verbose_name_plural = _("Product invoices")
 
     quick_search_fields = "partner__name subject"
 
@@ -333,6 +333,8 @@ class InvoiceItem(ProductDocItem, SequencedVoucherItem):
     class Meta:
         app_label = 'sales'
         abstract = dd.is_abstract_model(__name__, 'InvoiceItem')
+        verbose_name = _("Product invoice item")
+        verbose_name_plural = _("Product invoice items")
 
     voucher = models.ForeignKey(
         'sales.VatProductInvoice', related_name='items')
@@ -348,6 +350,7 @@ class InvoiceItems(dd.Table):
     auto_fit_column_widths = True
     column_names = "product title discount unit_price qty total_incl *"
     # hidden_columns = "seqno description total_base total_vat"
+
     detail_layout = dd.DetailLayout("""
     seqno product discount
     unit_price qty total_base total_vat total_incl
