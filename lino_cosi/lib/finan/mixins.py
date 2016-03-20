@@ -211,7 +211,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
                 html = E.div(
                     E.p("Cool", E.b(str(len(suggestions)), "suggestions")))
-                ar.confirm(ok, E.tostring(html))
+                if ar:
+                    ar.confirm(ok, E.tostring(html))
                 return
             if self.account_id is None:
                 if self.voucher.item_account_id is None:
