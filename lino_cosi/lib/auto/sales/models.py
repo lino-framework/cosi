@@ -45,8 +45,9 @@ from lino.api import dd, rt
 from lino.utils import AttrDict
 from lino.utils.xmlgen.html import E
 
-from lino.mixins.printable import BuildMethods, CachedPrintAction
-from lino.mixins import PrintableType, BabelNamed
+from lino.modlib.printing.mixins import BuildMethods, CachedPrintAction
+from lino.modlib.printing.mixins import PrintableType
+from lino.mixins import BabelNamed
 
 from lino.core import dbtables
 
