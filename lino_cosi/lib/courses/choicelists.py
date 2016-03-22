@@ -40,10 +40,10 @@ class CourseStates(dd.Workflow):
 
 add = CourseStates.add_item
 add('10', _("Draft"), 'draft', editable=True, invoiceable=False)
-add('20', _("Registered"), 'registered', editable=False, invoiceable=True)
-# add('30', _("Started"), 'started', editable=False)
-# add('40', _("Ended"), 'ended', editable=False)
-# add('50', _("Cancelled"), 'cancelled', editable=True)
+# add('20', _("Registered"), 'registered', editable=False, invoiceable=True)
+add('20', _("Active"), 'active', editable=False, invoiceable=True)
+add('30', _("Inactive"), 'inactive', editable=False, invoiceable=False)
+add('40', _("Closed"), 'closed', editable=False, invoiceable=False)
 
 # #~ ACTIVE_COURSE_STATES = set((CourseStates.published,CourseStates.started))
 # ACTIVE_COURSE_STATES = set((CourseStates.registered, CourseStates.started))

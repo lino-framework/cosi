@@ -182,10 +182,10 @@ class Courses(dd.Table):
             settings.SITE.user_model,
             blank=True, null=True),
         state=CourseStates.field(blank=True),
-        active=dd.YesNo.field(blank=True),
+        can_enroll=dd.YesNo.field(blank=True),
     )
 
-    params_layout = """topic line teacher user state active:10"""
+    params_layout = """topic line teacher user state can_enroll:10"""
 
     # simple_parameters = 'line teacher state user'.split()
 
@@ -210,9 +210,9 @@ class Courses(dd.Table):
 
         flt = Q(enrolments_until__isnull=True)
         flt |= Q(enrolments_until__gte=dd.today())
-        if ar.param_values.active == dd.YesNo.yes:
+        if ar.param_values.can_enroll == dd.YesNo.yes:
             qs = qs.filter(flt)
-        elif ar.param_values.active == dd.YesNo.no:
+        elif ar.param_values.can_enroll == dd.YesNo.no:
             qs = qs.exclude(flt)
         # dd.logger.info("20160223 %s", qs.query)
         return qs
@@ -251,7 +251,7 @@ class CoursesByTopic(Courses):
     master = 'courses.Topic'
     order_by = ['-start_date']
     column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
-    params_layout = """line teacher user state active:10"""
+    params_layout = """line teacher user state can_enroll:10"""
 
     @classmethod
     def get_request_queryset(self, ar):
@@ -276,7 +276,7 @@ class DraftCourses(Courses):
         kw = super(Courses, self).param_defaults(ar, **kw)
         kw.update(state=CourseStates.draft)
         kw.update(user=ar.get_user())
-        # kw.update(active=dd.YesNo.yes)
+        # kw.update(can_enroll=dd.YesNo.yes)
         return kw
 
 
@@ -289,8 +289,34 @@ class ActiveCourses(Courses):
     @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(Courses, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.registered)
-        kw.update(active=dd.YesNo.yes)
+        kw.update(state=CourseStates.active)
+        kw.update(can_enroll=dd.YesNo.yes)
+        return kw
+
+
+class InactiveCourses(Courses):
+
+    label = _("Inactive courses")
+    column_names = 'info enrolments:8 free_places teacher room *'
+    hide_sums = True
+
+    @classmethod
+    def param_defaults(self, ar, **kw):
+        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw.update(state=CourseStates.inactive)
+        return kw
+
+
+class ClosedCourses(Courses):
+
+    label = _("Closed courses")
+    column_names = 'info enrolments:8 teacher room *'
+    hide_sums = True
+
+    @classmethod
+    def param_defaults(self, ar, **kw):
+        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw.update(state=CourseStates.closed)
         return kw
 
 
@@ -507,7 +533,7 @@ class SuggestedCoursesByPupil(ActiveCourses):
     hide_sums = True
     master = pupil_model
     details_of_master_template = _("%(details)s for %(master)s")
-    params_layout = 'topic line teacher active'
+    params_layout = 'topic line teacher can_enroll'
 
     @classmethod
     def get_request_queryset(self, ar):
