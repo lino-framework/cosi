@@ -40,6 +40,7 @@ from lino import mixins
 from lino.utils import mti
 from lino.mixins.periods import DatePeriod
 from lino.modlib.users.mixins import UserAuthored
+from lino.modlib.printing.mixins import PrintableType
 
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.choicelists import AccountTypes
@@ -57,7 +58,7 @@ from .ui import *
 class Journal(mixins.BabelNamed,
               mixins.Sequenced,
               mixins.Referrable,
-              mixins.PrintableType):
+              PrintableType):
     """A sequence of numbered vouchers.
 
     **Fields:**

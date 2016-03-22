@@ -52,6 +52,7 @@ from lino.mixins.duplicable import Duplicable
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_xl.lib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
+from lino.modlib.printing.mixins import Printable
 from lino_xl.lib.cal.mixins import Reservation
 from lino_xl.lib.cal.choicelists import Recurrencies
 
@@ -111,7 +112,7 @@ class Slot(mixins.Sequenced, StartEndTime):
         return self.name or "%s-%s" % (self.start_time, self.end_time)
 
 
-class Topic(mixins.BabelNamed, mixins.Printable, Duplicable):
+class Topic(mixins.BabelNamed, Printable, Duplicable):
 
     class Meta:
         app_label = 'courses'

@@ -60,7 +60,7 @@ The test database
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
-- excerpts.ExcerptType : id, build_method, template, name, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
+- excerpts.ExcerptType : id, name, build_method, template, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
 - finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
 - finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark
@@ -71,7 +71,7 @@ The test database
 - invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
 - invoicing.Plan : id, user, journal, max_date, today, partner
 - ledger.AccountingPeriod : id, ref, start_date, end_date, state, year, remark
-- ledger.Journal : id, ref, build_method, template, seqno, name, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
+- ledger.Journal : id, ref, seqno, name, build_method, template, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, satisfied
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month

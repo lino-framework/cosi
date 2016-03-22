@@ -41,3 +41,9 @@ class Plugin(Plugin):
     def setup_main_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('sales.InvoicesToCreate')
+
+        raise DeprecationWarning(
+            "This module is no longer used. "
+            "Use `lino_cosi.lib.invoicing` instead")
+
+
