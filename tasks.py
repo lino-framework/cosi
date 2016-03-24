@@ -1,16 +1,7 @@
-from atelier.tasks import *
-env.setup_from_tasks(globals(), 'lino_cosi')
-env.add_demo_project('lino_cosi.projects.std.settings.demo')
-env.add_demo_project('lino_cosi.projects.ylle.settings.demo')
-env.add_demo_project('lino_cosi.projects.apc.settings.demo')
-env.add_demo_project('lino_cosi.projects.pierre.settings.demo')
+# from atelier.invlib import add_demo_project
+from atelier.tasks import ns, setup_from_tasks
 
-env.languages = "en de fr et nl es".split()
+setup_from_tasks(globals(), "lino_cosi")
 
-# env.tolerate_sphinx_warnings = True
+ns.configure(dict(languages="en de fr et nl es".split()))
 
-env.revision_control_system = 'git'
-
-env.cleanable_files = ['docs/api/lino_cosi.*']
-
-env.locale_dir = 'lino_cosi/lib/cosi/locale'
