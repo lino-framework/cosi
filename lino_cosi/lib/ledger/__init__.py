@@ -105,7 +105,7 @@ class Plugin(ad.Plugin):
         for grp in JournalGroups.objects():
             subm = m.add_menu(grp.name, grp.text)
             for jnl in Journal.objects.filter(
-                    journal_group=grp).order_by('ref'):
+                    journal_group=grp).order_by('seqno'):
                 subm.add_action(jnl.voucher_type.table_class,
                                 label=unicode(jnl),
                                 params=dict(master_instance=jnl))
