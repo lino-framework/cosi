@@ -258,7 +258,7 @@ class CoursesByTopic(Courses):
         Course = rt.modules.courses.Course
         topic = ar.master_instance
         if topic is None:
-            return Course.objects.null()
+            return Course.objects.none()
         return Course.objects.filter(line__topic=topic)
 
 

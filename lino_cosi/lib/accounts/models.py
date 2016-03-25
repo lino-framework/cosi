@@ -80,8 +80,9 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
     .. attribute:: group
 
-        The *account group* to which this account belongs.  This must
-        point to an instance of :class:`Group`.
+        The *account group* to which this account belongs.  Points to
+        an instance of :class:`Group`.  If this field is empty, the
+        account won't appear in certain reports.
     
     .. attribute:: seqno
 
@@ -117,7 +118,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
         verbose_name_plural = _("Accounts")
         ordering = ['ref']
 
-    group = models.ForeignKey('accounts.Group')
+    group = models.ForeignKey('accounts.Group', blank=True, null=True)
     type = AccountTypes.field()  # blank=True)
     needs_partner = models.BooleanField(_("Needs partner"), default=False)
     clearable = models.BooleanField(_("Clearable"), default=False)
