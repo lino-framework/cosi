@@ -515,7 +515,9 @@ class Voucher(UserAuthored, mixins.Registrable):
         # self.year = FiscalYears.from_date(self.entry_date)
         if self.number is None:
             self.number = self.journal.get_next_number(self)
-        assert self.number is not None
+            if self.number is None:
+                raise Warning(
+                    "No voucher number available in {0}".format(self.journal))
         # dd.logger.info("20151211 movement_set.all().delete()")
 
         def doit(partners):

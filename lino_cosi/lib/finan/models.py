@@ -114,7 +114,7 @@ class PaymentOrder(FinancialVoucher):
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
-            raise Exception("No account in %s" % self.journal)
+            raise Warning("No account in %s" % self.journal)
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
