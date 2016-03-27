@@ -85,6 +85,13 @@ class Plugin(ad.Plugin):
 
     """
 
+    force_cleared_until = None
+    """Force all movements on vouchers with entry_date until the given
+    date to be *cleared*.  This is useful e.g. when you want to keep
+    legacy invoices in your database but not their payments.
+
+    """
+
     def on_site_startup(self, site):
         if site.the_demo_date is not None:
             if self.start_year > site.the_demo_date.year:

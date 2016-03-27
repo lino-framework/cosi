@@ -114,7 +114,7 @@ class PaymentOrder(FinancialVoucher):
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
-            raise Exception("No account in %s" % self.journal)
+            raise Warning("No account in %s" % self.journal)
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
@@ -494,7 +494,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     def get_data_rows(cls, ar, **flt):
         #~ partner = ar.master_instance
         #~ if partner is None: return []
-        flt.update(satisfied=False)
+        flt.update(cleared=False)
         # flt.update(account__clearable=True)
         return super(SuggestionsByVoucher, cls).get_data_rows(ar, **flt)
 

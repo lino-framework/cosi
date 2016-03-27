@@ -123,10 +123,10 @@ class DueMovement(object):
 
     def collect(self, mvt):
         """Add the given movement to the list of movements that are being
-        satisfied by this DueMovement.
+        cleared by this DueMovement.
 
         """
-        if mvt.satisfied:
+        if mvt.cleared:
             self.has_satisfied_movement = True
         else:
             self.has_unsatisfied_movement = True
@@ -163,19 +163,19 @@ class DueMovement(object):
             
     def unused_check_clearings(self):
         """Check whether involved movements are cleared or not, and update
-        their :attr:`satisfied` field accordingly.
+        their :attr:`cleared` field accordingly.
 
         """
-        satisfied = self.balance == ZERO
-        if satisfied:
+        cleared = self.balance == ZERO
+        if cleared:
             if not self.has_unsatisfied_movement:
                 return
         else:
             if not self.has_satisfied_movement:
                 return
         for m in self.debts + self.payments:
-            if m.satisfied != satisfied:
-                m.satisfied = satisfied
+            if m.cleared != cleared:
+                m.cleared = cleared
                 m.save()
 
 
@@ -234,7 +234,7 @@ def get_due_movements(dc, **flt):
 
 def check_clearings(partner, matches=[]):
     """Check whether involved movements are cleared or not, and update
-    their :attr:`satisfied` field accordingly.
+    their :attr:`cleared` field accordingly.
 
     """
     qs = rt.modules.ledger.Movement.objects.filter(
@@ -252,5 +252,5 @@ def check_clearings(partner, matches=[]):
     for k, balance in sums.items():
         match, account = k
         sat = (balance == ZERO)
-        qs.filter(account=account, match=match).update(satisfied=sat)
+        qs.filter(account=account, match=match).update(cleared=sat)
 
