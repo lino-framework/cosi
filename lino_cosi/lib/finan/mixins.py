@@ -192,7 +192,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
         """
         if self.partner:
-            flt = dict(partner=self.partner, satisfied=False)
+            flt = dict(partner=self.partner, cleared=False)
             if self.match:
                 flt.update(match=self.match)
             suggestions = list(ledger.get_due_movements(

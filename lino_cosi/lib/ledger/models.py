@@ -390,10 +390,11 @@ class Voucher(UserAuthored, mixins.Registrable):
         The date on the voucher, i.e. when this voucher has been
         issued by its emitter.
 
-    .. attribute:: year
+    .. attribute:: accounting_period
 
-        The fiscal year to which this entry is to be assigned to. This
-        may differ from the year given by :attr:`entry_date`.
+        The accounting period and fiscal year to which this entry is
+        to be assigned to. The default value is determined from
+        :attr:`entry_date`.
 
     .. attribute:: narration
 
@@ -525,9 +526,12 @@ class Voucher(UserAuthored, mixins.Registrable):
             # dd.logger.info("20151211 gonna call get_wanted_movements()")
             movements = list(self.get_wanted_movements())
             # dd.logger.info("20151211 gonna save %d movements", len(movements))
+            fcu = dd.plugins.ledger.force_cleared_until
             for m in movements:
                 seqno += 1
                 m.seqno = seqno
+                if fcu and self.entry_date <= fcu:
+                    m.cleared = True
                 m.full_clean()
                 m.save()
                 if m.partner:
@@ -577,9 +581,9 @@ class Voucher(UserAuthored, mixins.Registrable):
         kw['voucher'] = self
         kw['account'] = account
         if account.clearable:
-            kw.update(satisfied=False)
+            kw.update(cleared=False)
         else:
-            kw.update(satisfied=True)
+            kw.update(cleared=True)
 
         if dd.plugins.ledger.project_model:
             kw['project'] = project
@@ -674,7 +678,7 @@ class Movement(ProjectRelated):
         Pointer to the :class:`Movement` that is being cleared by this
         movement.
 
-    .. attribute:: satisfied
+    .. attribute:: cleared
 
         Whether
 
@@ -730,15 +734,15 @@ class Movement(ProjectRelated):
 
     # match = MatchField(blank=True, null=True)
 
-    satisfied = models.BooleanField(_("Satisfied"), default=False)
-    # TODO: rename "satisfied" to "cleared"?
+    cleared = models.BooleanField(_("Cleared"), default=False)
+    # 20160327: rename "satisfied" to "cleared"
 
     @dd.chooser(simple_values=not FKMATCH)
     def match_choices(cls, partner, account):
         #~ DC = voucher.journal.dc
         #~ choices = []
         qs = cls.objects.filter(
-            partner=partner, account=account, satisfied=False)
+            partner=partner, account=account, cleared=False)
         qs = qs.order_by('voucher__entry_date')
         #~ qs = qs.distinct('match')
         if FKMATCH:
@@ -811,7 +815,7 @@ Movement.set_widget_options('voucher_link', width=12)
 
 class MatchRule(dd.Model):
     """A **match rule** specifies that a movement into given account can
-be cleared using a given journal.
+    be cleared using a given journal.
 
     """
     # allow_cascaded_delete = ['account', 'journal']

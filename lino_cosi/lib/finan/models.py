@@ -494,7 +494,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     def get_data_rows(cls, ar, **flt):
         #~ partner = ar.master_instance
         #~ if partner is None: return []
-        flt.update(satisfied=False)
+        flt.update(cleared=False)
         # flt.update(account__clearable=True)
         return super(SuggestionsByVoucher, cls).get_data_rows(ar, **flt)
 

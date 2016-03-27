@@ -174,7 +174,7 @@ class Matching(dd.Model):
         matchable_accounts = rt.modules.accounts.Account.objects.filter(
             matchrule__journal=journal)
         fkw = dict(account__in=matchable_accounts)
-        fkw.update(satisfied=False)
+        fkw.update(cleared=False)
         if partner:
             fkw.update(partner=partner)
         qs = rt.modules.ledger.Movement.objects.filter(**fkw)

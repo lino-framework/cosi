@@ -300,7 +300,7 @@ class DebtsByAccount(ExpectedMovements):
             return []
         if not account.clearable:
             return []
-        flt.update(satisfied=False, account=account)
+        flt.update(cleared=False, account=account)
         # ignore trade_type to avoid overriding account
         ar.param_values.trade_type = None
         return super(DebtsByAccount, cls).get_data_rows(ar, **flt)
@@ -330,7 +330,7 @@ class DebtsByPartner(ExpectedMovements):
         partner = ar.master_instance
         if partner is None:
             return []
-        flt.update(satisfied=False, partner=partner)
+        flt.update(cleared=False, partner=partner)
         return super(DebtsByPartner, cls).get_data_rows(ar, **flt)
 
 dd.inject_action('contacts.Partner', due=dd.ShowSlaveTable(DebtsByPartner))
@@ -691,7 +691,7 @@ class Movements(dd.Table):
     model = 'ledger.Movement'
     required_roles = dd.login_required(LedgerUser)
     column_names = 'voucher__entry_date voucher_link description \
-    debit credit match_link satisfied *'
+    debit credit match_link cleared *'
 
     editable = False
     parameters = mixins.ObservedPeriod(
@@ -710,9 +710,9 @@ class Movements(dd.Table):
 
         pv = ar.param_values
         if pv.cleared == dd.YesNo.yes:
-            qs = qs.filter(satisfied=True)
+            qs = qs.filter(cleared=True)
         elif pv.cleared == dd.YesNo.no:
-            qs = qs.filter(satisfied=False)
+            qs = qs.filter(cleared=False)
 
         # if ar.param_values.partner:
         #     qs = qs.filter(partner=ar.param_values.partner)
@@ -772,7 +772,7 @@ class AllMovements(Movements):
 
 class MovementsByVoucher(Movements):
     master_key = 'voucher'
-    column_names = 'seqno project partner account debit credit match_link satisfied'
+    column_names = 'seqno project partner account debit credit match_link cleared'
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 
@@ -886,7 +886,7 @@ class MovementsByMatch(Movements):
 
     """
     column_names = 'voucher__entry_date voucher_link description '\
-                   'debit credit satisfied *'
+                   'debit credit cleared *'
     master = basestring  # 'ledger.Matching'
     order_by = ['-voucher__entry_date']
     variable_row_height = True
