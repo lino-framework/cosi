@@ -203,7 +203,7 @@ class BankStatementItem(FinancialVoucherItem):
     credit = DcAmountField(CREDIT, _("Expense"))
 
 
-class PaymentOrderItem(FinancialVoucherItem, BankAccount):
+class PaymentOrderItem(BankAccount, FinancialVoucherItem):
     """An item of a :class:`PaymentOrder`."""
     class Meta:
         app_label = 'finan'
@@ -212,6 +212,10 @@ class PaymentOrderItem(FinancialVoucherItem, BankAccount):
 
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
     # bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+
+    # def partner_changed(self, ar):
+    #     FinancialVoucherItem.partner_changed(self, ar)
+    #     BankAccount.partner_changed(self, ar)
 
     # def full_clean(self, *args, **kwargs):
         

@@ -105,6 +105,11 @@ class PartnerRelated(dd.Model):
         return self.partner
     recipient = property(get_recipient)
 
+    def partner_changed(self, ar):
+        # does nothing but we need it so that BankAccount can call
+        # super().parnter_changes()
+        pass
+
     @classmethod
     def get_registrable_fields(cls, site):
         for f in super(PartnerRelated, cls).get_registrable_fields(site):

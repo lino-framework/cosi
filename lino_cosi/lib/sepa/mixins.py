@@ -44,14 +44,7 @@ class BankAccount(dd.Model):
     bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
 
     def full_clean(self):
-        if self.bank_account:
-            if False:  # converted to Checker for cpas2lino
-                if self.bank_account.partner != self.get_partner():
-                    raise ValidationError(
-                        "Bank account owner ({0}) differs "
-                        "from partner ({1})".format(
-                            self.bank_account.partner, self.get_partner()))
-        else:
+        if not self.bank_account:
             self.partner_changed(None)
 
         super(BankAccount, self).full_clean()
@@ -63,15 +56,24 @@ class BankAccount(dd.Model):
         yield 'bank_account'
 
     def partner_changed(self, ar):
-        qs = rt.modules.sepa.Account.objects.filter(
-            partner=self.get_partner(), primary=True)
+        # dd.logger.info("20160329 BankAccount.partner_changed")
+        Account = rt.modules.sepa.Account
+        qs = Account.objects.filter(partner=self.get_partner(), primary=True)
         if qs.count() == 1:
             self.bank_account = qs[0]
         else:
-            self.bank_account = None
+            qs = Account.objects.filter(partner=self.get_partner())
+            if qs.count() == 1:
+                self.bank_account = qs[0]
+            else:
+                self.bank_account = None
+        super(BankAccount, self).partner_changed(ar)
         
     @dd.chooser()
-    def bank_account_choices(cls, partner):
+    def bank_account_choices(cls, partner, project):
+        # dd.logger.info(
+        #     "20160329 bank_account_choices %s, %s", partner, project)
+        partner = partner or project
         return rt.modules.sepa.Account.objects.filter(
             partner=partner).order_by('iban')
 

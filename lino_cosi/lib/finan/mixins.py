@@ -191,6 +191,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         :attr:`partner`.
 
         """
+        # dd.logger.info("20160329 FinancialMixin.partner_changed")
         if self.partner:
             flt = dict(partner=self.partner, cleared=False)
             if self.match:
