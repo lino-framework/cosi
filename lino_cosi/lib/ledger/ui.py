@@ -699,9 +699,9 @@ class Movements(dd.Table):
         partner=models.ForeignKey('contacts.Partner', blank=True, null=True),
         account=models.ForeignKey('accounts.Account', blank=True, null=True),
         journal=JournalRef(blank=True),
-        cleared=dd.YesNo.field(_("Show cleared movements"), blank=True))
+        uncleared=dd.YesNo.field(_("Show uncleared movements"), blank=True))
     params_layout = """
-    start_date end_date cleared
+    start_date end_date uncleared
     journal year partner account"""
 
     @classmethod
@@ -709,10 +709,10 @@ class Movements(dd.Table):
         qs = super(Movements, cls).get_request_queryset(ar)
 
         pv = ar.param_values
-        if pv.cleared == dd.YesNo.yes:
-            qs = qs.filter(cleared=True)
-        elif pv.cleared == dd.YesNo.no:
+        if pv.uncleared == dd.YesNo.yes:
             qs = qs.filter(cleared=False)
+        elif pv.uncleared == dd.YesNo.no:
+            qs = qs.filter(cleared=True)
 
         # if ar.param_values.partner:
         #     qs = qs.filter(partner=ar.param_values.partner)
@@ -741,10 +741,10 @@ class Movements(dd.Table):
         pv = ar.param_values
         if pv.journal is not None:
             yield pv.journal.ref
-        if pv.cleared == dd.YesNo.yes:
+        if pv.uncleared == dd.YesNo.yes:
+            yield unicode(_("only uncleared"))
+        elif pv.uncleared == dd.YesNo.no:
             yield unicode(_("only cleared"))
-        elif pv.cleared == dd.YesNo.no:
-            yield unicode(_("only open"))
 
     @dd.displayfield(_("Description"))
     def description(cls, self, ar):
@@ -786,7 +786,7 @@ class MovementsByPartner(Movements):
     @classmethod
     def param_defaults(cls, ar, **kw):
         kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
-        kw.update(cleared=dd.YesNo.no)
+        kw.update(uncleared=dd.YesNo.yes)
         kw.update(year='')
         return kw
 
@@ -855,7 +855,7 @@ class MovementsByAccount(Movements):
     def param_defaults(cls, ar, **kw):
         kw = super(MovementsByAccount, cls).param_defaults(ar, **kw)
         if ar.master_instance is not None and ar.master_instance.clearable:
-            kw.update(cleared=dd.YesNo.no)
+            kw.update(uncleared=dd.YesNo.yes)
             kw.update(year='')
         return kw
 
