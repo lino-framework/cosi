@@ -375,28 +375,24 @@ class ItemsByInvoicePrint(ItemsByInvoice):
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
-        if settings.SITE.textfield_format == 'html':
-            if self.description:
-                elems = [E.p(E.b(self.title))]
+        if self.description:
+            elems = [E.p(E.b(self.title))]
+            if self.description.startswith("<"):
                 # desc = E.raw('<div>%s</div>' % self.description)
                 desc = E.raw(self.description)
-                elems.extend(desc)
-                return E.div(*elems)
-            return E.span(self.title)
-        elif settings.SITE.textfield_format == 'plain':
-            if self.description:
-                elems = [E.p(E.b(self.title))]
+            else:
                 # desc = E.raw('<div>%s</div>' % self.description)
                 html = restify(ar.parse_memo(self.description))
                 desc = E.raw(html)
-                elems.extend(desc)
-                return E.div(*elems)
+            elems.extend(desc)
+            return E.div(*elems)
+        else:
             return E.span(self.title)
                 
         # experimental
-        if self.description:
-            return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
-        return "<p>{0}</p>".format(self.title)
+        # if self.description:
+        #     return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
+        # return "<p>{0}</p>".format(self.title)
 
 
 class InvoiceItemsByProduct(InvoiceItems):
