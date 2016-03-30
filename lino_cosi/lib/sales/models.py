@@ -383,10 +383,13 @@ class ItemsByInvoicePrint(ItemsByInvoice):
             else:
                 # desc = E.raw('<div>%s</div>' % self.description)
                 html = restify(ar.parse_memo(self.description))
+                # dd.logger.info("20160330b restified --> %s", html)
                 desc = E.raw(html)
+                # dd.logger.info(
+                #     "20160330c parsed --> %s", E.tostring(desc))
             elems.extend(desc)
             e = E.div(*elems)
-            dd.logger.info("20160330 %s", E.tostring(e))
+            # dd.logger.info("20160330 %s", E.tostring(e))
             return e
         else:
             return E.span(self.title)
