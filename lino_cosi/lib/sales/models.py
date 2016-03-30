@@ -385,7 +385,9 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                 html = restify(ar.parse_memo(self.description))
                 desc = E.raw(html)
             elems.extend(desc)
-            return E.div(*elems)
+            e = E.div(*elems)
+            dd.logger.info("20160330 %s", E.tostring(e))
+            return e
         else:
             return E.span(self.title)
                 
