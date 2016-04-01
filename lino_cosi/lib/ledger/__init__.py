@@ -26,6 +26,7 @@
     choicelists
     roles
     mixins
+    fields
     models
 
 """
@@ -99,7 +100,7 @@ class Plugin(ad.Plugin):
                     "plugins.ledger.start_year is after the_demo_date")
         FiscalYears = site.modules.ledger.FiscalYears
         today = site.the_demo_date or datetime.date.today()
-        for y in range(self.start_year, today.year + 5):
+        for y in range(self.start_year, today.year + 6):
             FiscalYears.add_item(FiscalYears.year2value(y), str(y))
 
     def setup_main_menu(self, site, profile, m):
