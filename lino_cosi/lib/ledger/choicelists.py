@@ -120,6 +120,15 @@ class FiscalYears(dd.ChoiceList):
         return cls.from_int(date.year)
 
 
+class PeriodStates(dd.Workflow):
+    """The list of possible states of an accounting period."""
+    pass
+
+add = PeriodStates.add_item
+add('10', _("Open"), 'open')
+add('20', _("Closed"), 'closed')
+
+
 class VoucherType(dd.Choice):
     """Base class for all items of :class:`VoucherTypes`.
     
@@ -384,16 +393,23 @@ class VoucherState(dd.State):
     """
 
 
-class PeriodStates(dd.Workflow):
-    pass
-
-add = PeriodStates.add_item
-add('10', _("Open"), 'open')
-add('20', _("Closed"), 'closed')
-
-
 class VoucherStates(dd.Workflow):
-    """The list of possible states for a voucher."""
+    """:class:`lino_cosi.lib.ledger.VoucherStates` defines the list of
+possible states of a voucher.
+
+In a default configuration, vouchers can be "draft", "registered" or
+"signed".
+
+*Draft* vouchers can be modified but are not yet visible as movements
+in the ledger. *Registered* vouchers cannot be modified, but are
+visible as movements in the ledger.
+
+The *Signed* state is similar to *registered*, but cannot usually be
+deregistered anymore. This state is not visible in the default
+configuration. In order to make it usable, you must define a custom
+workflow for :class:`lino_cosi.lib.ledger.VoucherStates`.
+
+    """
 
     item_class = VoucherState
 
@@ -404,7 +420,7 @@ class VoucherStates(dd.Workflow):
 add = VoucherStates.add_item
 add('10', _("Draft"), 'draft', editable=True)
 add('20', _("Registered"), 'registered')
-add('30', _("Fixed"), 'fixed')
+add('30', _("Signed"), 'signed')
 
 
 @dd.receiver(dd.pre_analyze)
