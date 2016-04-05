@@ -467,7 +467,8 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     """
 
     label = _("Suggestions")
-    column_names = 'partner project match account due_date debts payments balance *'
+    # column_names = 'partner project match account due_date debts payments balance *'
+    column_names = 'info match due_date debts payments balance *'
     window_size = ('90%', 20)  # (width, height)
 
     editable = False
@@ -512,7 +513,8 @@ class SuggestionsByPaymentOrder(SuggestionsByVoucher):
     "A :class:`SuggestionsByVoucher` table for a :class:`PaymentOrder`."
 
     master = 'finan.PaymentOrder'
-    column_names = 'partner match account due_date debts payments balance bank_account *'
+    # column_names = 'partner match account due_date debts payments balance bank_account *'
+    column_names = 'info match due_date debts payments balance *'
 
     @classmethod
     def param_defaults(cls, ar, **kw):
