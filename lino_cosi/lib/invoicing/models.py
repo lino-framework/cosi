@@ -182,13 +182,15 @@ class Item(dd.Model):
         on_delete=models.SET_NULL)
 
     def create_invoice(self,  ar):
+        """Create the invoice corresponding to this item of the plan.
+        """
         ITEM_MODEL = dd.resolve_model(dd.plugins.invoicing.item_model)
         VOUCHER_MODEL = ITEM_MODEL._meta.get_field('voucher').rel.to
         # M = rt.modules.sales.VatProductInvoice
         M = VOUCHER_MODEL
         invoice = M(partner=self.partner, journal=self.plan.journal,
-                    voucher_date=dd.today(),
-                    entry_date=dd.today())
+                    voucher_date=self.plan.today,
+                    entry_date=self.plan.today)
         items = []
         for ii in self.plan.get_invoiceables_for_plan(self.partner):
             for i in ii.get_wanted_items(ar, invoice, ITEM_MODEL):
@@ -218,7 +220,7 @@ class Item(dd.Model):
 
 class Plans(dd.Table):
     model = "invoicing.Plan"
-    detail_layout = """user journal max_date partner
+    detail_layout = """user journal max_date today partner
     invoicing.ItemsByPlan
     """
 
