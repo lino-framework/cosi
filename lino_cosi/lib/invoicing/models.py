@@ -34,7 +34,7 @@ from django.utils.translation import string_concat
 from lino.modlib.gfks.fields import GenericForeignKeyIdField
 from lino.core.gfks import GenericForeignKey, ContentType
 
-from lino.modlib.users.mixins import UserAuthored
+from lino.modlib.users.mixins import UserAuthored, My
 
 # from lino_cosi.lib.ledger.choicelists import VoucherTypes
 
@@ -42,7 +42,8 @@ from lino.api import dd, rt, _
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from .mixins import Invoiceable
 from .actions import (UpdatePlan, ExecutePlan, ToggleSelection,
-                      StartInvoicingForJournal, StartInvoicingForPartner)
+                      StartInvoicing, StartInvoicingForJournal,
+                      StartInvoicingForPartner)
 
 
 @dd.python_2_unicode_compatible
@@ -75,6 +76,7 @@ class Plan(UserAuthored):
 
     update_plan = UpdatePlan()
     execute_plan = ExecutePlan()
+    start_invoicing = StartInvoicing()
 
     @dd.chooser()
     def journal_choices(cls):
@@ -88,11 +90,11 @@ class Plan(UserAuthored):
                     yield obj
 
     @classmethod
-    def start_plan(cls, user, k, v):
+    def start_plan(cls, user, **options):
         """Start an invoicing plan for the given user on the database object
-        defined by `k` and `v`. Where `k` is the name of the plan's
-        field (e.g. `'partner'` or `'journal'`) and `v` is the value
-        for that field.
+        defined by `k` and `v`. Where `k` is the name of the field
+        used to select the plan (e.g. `'partner'` or `'journal'`) and
+        `v` is the value for that field.
 
         This will either create a new plan, or check whether the
         currently existing plan for this user was for the same
@@ -102,11 +104,15 @@ class Plan(UserAuthored):
         """
         try:
             plan = cls.objects.get(user=user)
-            if getattr(plan, k) != v:
+            changed = False
+            for k, v in options.items():
+                if getattr(plan, k) != v:
+                    changed = True
+                    setattr(plan, k, v)
+            if changed:
                 plan.items.all().delete()
-                setattr(plan, k, v)
         except cls.DoesNotExist:
-            plan = cls(user=user, **{k: v})
+            plan = cls(user=user, **options)
         plan.save()
         return plan
 
@@ -223,6 +229,10 @@ class Plans(dd.Table):
     detail_layout = """user journal max_date today partner
     invoicing.ItemsByPlan
     """
+
+
+class MyPlans(My, Plans):
+    required_roles = dd.login_required(LedgerStaff)
 
 
 class AllPlans(Plans):
