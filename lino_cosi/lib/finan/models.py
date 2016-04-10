@@ -42,7 +42,7 @@ ledger = dd.resolve_app('ledger')
 
 def warn_jnl_account(jnl):
     fld = jnl._meta.get_field('account')
-    raise Warning(_("Field {0} in journal {0} is empty!").format(
+    raise Warning(_("Field '{0}' in journal '{0}' is empty!").format(
         fld.verbose_name, jnl))
 
 

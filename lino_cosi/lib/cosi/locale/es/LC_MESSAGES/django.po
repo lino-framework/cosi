@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino 1.6.14\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-04-10 00:50+0300\n"
+"POT-Creation-Date: 2016-04-10 22:21+0200\n"
 "PO-Revision-Date: 2014-06-06 11:29+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: es\n"
@@ -103,12 +103,12 @@ msgstr ""
 msgid "Clearable"
 msgstr ""
 
-#: lino_cosi/lib/accounts/utils.py:34 lino_cosi/lib/finan/models.py:190
+#: lino_cosi/lib/accounts/utils.py:34 lino_cosi/lib/finan/models.py:196
 #: lino_cosi/lib/ledger/models.py:762 lino_cosi/lib/ledger/ui.py:444
 msgid "Debit"
 msgstr ""
 
-#: lino_cosi/lib/accounts/utils.py:35 lino_cosi/lib/finan/models.py:191
+#: lino_cosi/lib/accounts/utils.py:35 lino_cosi/lib/finan/models.py:197
 #: lino_cosi/lib/ledger/models.py:769 lino_cosi/lib/ledger/ui.py:448
 msgid "Credit"
 msgstr ""
@@ -1190,7 +1190,7 @@ msgstr ""
 msgid "TxCd issuer"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:412 lino_cosi/lib/finan/models.py:111
+#: lino_cosi/lib/b2c/models.py:412 lino_cosi/lib/finan/models.py:117
 msgid "Execution date"
 msgstr ""
 
@@ -1215,8 +1215,8 @@ msgid "BkTxCd"
 msgstr ""
 
 #: lino_cosi/lib/contacts/models.py:32 lino_cosi/lib/courses/ui.py:147
-#: lino_cosi/lib/finan/models.py:234 lino_cosi/lib/finan/models.py:246
-#: lino_cosi/lib/finan/models.py:253 lino_cosi/lib/sales/models.py:220
+#: lino_cosi/lib/finan/models.py:240 lino_cosi/lib/finan/models.py:252
+#: lino_cosi/lib/finan/models.py:259 lino_cosi/lib/sales/models.py:220
 #: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:85
 msgid "General"
@@ -1718,95 +1718,99 @@ msgstr ""
 msgid "Could not determine the general account"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:87
+#: lino_cosi/lib/finan/models.py:45
+msgid "Field '{0}' in journal '{0}' is empty!"
+msgstr ""
+
+#: lino_cosi/lib/finan/models.py:93
 msgid "Journal Entry"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:88
+#: lino_cosi/lib/finan/models.py:94
 msgid "Journal Entries"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:106
+#: lino_cosi/lib/finan/models.py:112
 msgid "Payment Order"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:107
+#: lino_cosi/lib/finan/models.py:113
 #: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:212
 msgid "Payment Orders"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:109
+#: lino_cosi/lib/finan/models.py:115
 msgid "Total"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:146
+#: lino_cosi/lib/finan/models.py:152
 msgid "Bank Statement"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:147
+#: lino_cosi/lib/finan/models.py:153
 msgid "Bank Statements"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:149
+#: lino_cosi/lib/finan/models.py:155
 msgid "Old balance"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:150
+#: lino_cosi/lib/finan/models.py:156
 msgid "New balance"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:186
+#: lino_cosi/lib/finan/models.py:192
 msgid "Journal Entry item"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:187
+#: lino_cosi/lib/finan/models.py:193
 msgid "Journal Entry items"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:198
+#: lino_cosi/lib/finan/models.py:204
 msgid "Bank Statement item"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:199
+#: lino_cosi/lib/finan/models.py:205
 msgid "Bank Statement items"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:202
+#: lino_cosi/lib/finan/models.py:208
 msgid "Income"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:203
+#: lino_cosi/lib/finan/models.py:209
 msgid "Expense"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:210
+#: lino_cosi/lib/finan/models.py:216
 msgid "Payment Order item"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:211
+#: lino_cosi/lib/finan/models.py:217
 msgid "Payment Order items"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:239 lino_cosi/lib/ledger/__init__.py:44
+#: lino_cosi/lib/finan/models.py:245 lino_cosi/lib/ledger/__init__.py:44
 #: lino_cosi/lib/sales/models.py:230 lino_cosi/lib/vat/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:75
 msgid "Ledger"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:364
+#: lino_cosi/lib/finan/models.py:370
 msgid "Content"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:383
+#: lino_cosi/lib/finan/models.py:389
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:403 lino_cosi/lib/finan/models.py:446
+#: lino_cosi/lib/finan/models.py:409 lino_cosi/lib/finan/models.py:452
 #, python-format
 msgid "%d items have been added to %s."
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:469 lino_cosi/lib/invoicing/models.py:247
+#: lino_cosi/lib/finan/models.py:475 lino_cosi/lib/invoicing/models.py:247
 msgid "Suggestions"
 msgstr ""
 
