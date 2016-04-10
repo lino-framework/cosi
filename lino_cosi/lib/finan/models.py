@@ -171,7 +171,7 @@ class BankStatement(FinancialVoucher):
         # dd.logger.info("20151211 cosi.BankStatement.get_wanted_movements()")
         a = self.journal.account
         if not a:
-            raise Exception("No account in %s" % self.journal)
+            raise Warning("No account in %s" % self.journal)
         amount, movements = self.get_finan_movements()
         self.balance2 = self.balance1 + amount
         for m in movements:
