@@ -18,7 +18,7 @@
 """
 Database models for `lino_cosi.lib.finan`.
 """
-
+from __future__ import unicode_literals
 
 import logging
 logger = logging.getLogger(__name__)
@@ -38,6 +38,12 @@ from .mixins import FinancialVoucher, FinancialVoucherItem
 
 
 ledger = dd.resolve_app('ledger')
+
+
+def warn_jnl_account(jnl):
+    fld = jnl._meta.get_field('account')
+    raise Warning(_("Field {0} in journal {0} is empty!").format(
+        fld.verbose_name, jnl))
 
 
 class ShowSuggestions(dd.Action):
@@ -114,9 +120,7 @@ class PaymentOrder(FinancialVoucher):
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
-            raise Warning("Journal {0} has no {1}".format(
-                self.journal,
-                ledger.Journal._meta.get_field('account').verbose_name))
+            warn_jnl_account(self.journal)
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
@@ -173,9 +177,7 @@ class BankStatement(FinancialVoucher):
         # dd.logger.info("20151211 cosi.BankStatement.get_wanted_movements()")
         a = self.journal.account
         if not a:
-            raise Warning("Journal {0} has no {1}".format(
-                self.journal,
-                ledger.Journal._meta.get_field('account').verbose_name))
+            warn_jnl_account(self.journal)
         amount, movements = self.get_finan_movements()
         self.balance2 = self.balance1 + amount
         for m in movements:
