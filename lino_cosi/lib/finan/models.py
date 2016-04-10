@@ -114,7 +114,9 @@ class PaymentOrder(FinancialVoucher):
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
-            raise Warning("No account in %s" % self.journal)
+            raise Warning("Journal {0} has no {1}".format(
+                self.journal,
+                ledger.Journal._meta.get_field('account').verbose_name))
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
@@ -171,7 +173,9 @@ class BankStatement(FinancialVoucher):
         # dd.logger.info("20151211 cosi.BankStatement.get_wanted_movements()")
         a = self.journal.account
         if not a:
-            raise Warning("No account in %s" % self.journal)
+            raise Warning("Journal {0} has no {1}".format(
+                self.journal,
+                ledger.Journal._meta.get_field('account').verbose_name))
         amount, movements = self.get_finan_movements()
         self.balance2 = self.balance1 + amount
         for m in movements:
