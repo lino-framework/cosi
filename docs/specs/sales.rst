@@ -25,7 +25,7 @@ Sales
 >>> # res.content
 >>> r = check_json_result(res, "navinfo data disable_delete id title")
 >>> print(r['title'])
-Sales invoices (SLS) » SLS20 (2015-05)
+Sales invoices (SLS) » SLS 20
 
 
 IllegalText: The <text:section> element does not allow text

@@ -42,6 +42,8 @@ from lino.mixins.periods import DatePeriod
 from lino.modlib.users.mixins import UserAuthored
 from lino.modlib.printing.mixins import PrintableType
 
+from lino_xl.lib.excerpts.mixins import Certifiable
+
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.choicelists import AccountTypes
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
@@ -75,6 +77,12 @@ class Journal(mixins.BabelNamed,
     .. attribute:: journal_group
 
         Pointer to an item of :class:`JournalGroups`.
+
+    .. attribute:: yearly_numbering
+
+        Whether the
+        :attr:`number<lino_cosi.lib.ledger.models.Voucher.number>` of
+        vouchers should restart at 1 every year.
 
     .. attribute:: force_sequence
 
@@ -117,6 +125,12 @@ class Journal(mixins.BabelNamed,
     printed_name = dd.BabelCharField(
         _("Printed document designation"), max_length=100, blank=True)
     dc = DebitOrCreditField(_("Primary booking direction"))
+    yearly_numbering = models.BooleanField(
+        _("Yearly numbering"), default=False)
+    # invert_due_dc = models.BooleanField(
+    #     _("Invert booking direction"),
+    #     help_text=_("Whether to invert booking direction of due movement."),
+    #     default=True)
 
     # @dd.chooser()
     # def account_choices(cls, chart):
@@ -171,10 +185,11 @@ class Journal(mixins.BabelNamed,
     def get_next_number(self, voucher):
         # ~ self.save() # 20131005 why was this?
         cl = self.get_doc_model()
-        d = cl.objects.filter(
-            journal=self,
-            accounting_period__year=voucher.accounting_period.year).aggregate(
-                models.Max('number'))
+        flt = dict()
+        if self.yearly_numbering:
+            flt.update(accounting_period__year=voucher.accounting_period.year)
+        d = cl.objects.filter(journal=self, **flt).aggregate(
+            models.Max('number'))
         number = d['number__max']
         #~ logger.info("20121206 get_next_number %r",number)
         if number is None:
@@ -358,7 +373,7 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
 
 
 @dd.python_2_unicode_compatible
-class Voucher(UserAuthored, mixins.Registrable):
+class Voucher(UserAuthored, mixins.Registrable, Certifiable):
     """A Voucher is a document that represents a monetary transaction.
 
     It is *not* abstract so that :class:`Movement` can have a ForeignKey
@@ -400,6 +415,9 @@ class Voucher(UserAuthored, mixins.Registrable):
 
         A short explanation which ascertains the subject matter of
         this journal entry.
+
+    .. attribute:: printed
+        See :attr:`lino_xl.lib.excerpts.mixins.Certifiable.printed`
 
     """
 
@@ -471,8 +489,10 @@ class Voucher(UserAuthored, mixins.Registrable):
     def __str__(self):
         if self.number is None:
             return "{0}#{1}".format(self.journal.ref, self.id)
-        return "{0}{1} ({2})".format(self.journal.ref, self.number,
-                                     self.accounting_period)
+        if self.journal.yearly_numbering:
+            return "{0} {1} ({2})".format(self.journal.ref, self.number,
+                                          self.accounting_period.year)
+        return "{0} {1}".format(self.journal.ref, self.number)
         # if self.journal.ref:
         #     return "%s %s" % (self.journal.ref,self.number)
         # return "#%s (%s %s)" % (self.number,self.journal,self.year)

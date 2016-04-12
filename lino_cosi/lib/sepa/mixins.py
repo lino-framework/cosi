@@ -134,7 +134,7 @@ class Payable(PartnerRelated):
         counter_sums = SumCollector()
         for k, amount in item_sums.items():
             acc, prj = k
-            yield self.create_movement(acc, None, not self.journal.dc, amount)
+            yield self.create_movement(acc, prj, not self.journal.dc, amount)
             counter_sums.collect(prj, amount)
 
         acc = self.get_trade_type().get_partner_account()

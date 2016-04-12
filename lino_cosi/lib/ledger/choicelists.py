@@ -177,6 +177,15 @@ class VoucherType(dd.Choice):
         """
         return self.model.items.rel.related_model
 
+    def get_items_table(self):
+        lh = self.table_class.detail_layout.get_layout_handle(
+            settings.SITE.kernel.default_ui)
+        from lino.modlib.extjs.elems import GridElement
+        for e in lh.walk():
+            print(repr(e), e.__class__)
+            if isinstance(e, GridElement):
+                return e
+
     def get_journals(self):
         """Return a list of the :class:`Journal` objects that work on this
         voucher type.

@@ -74,8 +74,13 @@ class FinancialVoucher(ledger.Voucher):
             kwargs.update(project=obj.project)
         if obj.partner:
             kwargs.update(partner=obj.partner)
+        dc = not obj.dc
+        # if self.journal.invert_due_dc:
+        #     dc = not obj.dc
+        # else:
+        #     dc = obj.dc
         i = self.add_voucher_item(
-            obj.account, dc=not obj.dc,
+            obj.account, dc=dc,
             amount=obj.balance, match=obj.match, **kwargs)
         if i.amount < 0:
             i.amount = - i.amount
@@ -245,7 +250,11 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     def full_clean(self, *args, **kwargs):
         if self.dc is None:
-            self.dc = self.voucher.journal.dc
+            self.dc = not self.voucher.journal.dc
+            # if self.account is None:
+            #     self.dc = self.voucher.journal.dc
+            # else:
+            #     self.dc = self.account.normal_dc
         if self.amount < 0:
             self.amount = - self.amount
             self.dc = not self.dc

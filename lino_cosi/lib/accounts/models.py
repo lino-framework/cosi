@@ -122,6 +122,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
     type = AccountTypes.field()  # blank=True)
     needs_partner = models.BooleanField(_("Needs partner"), default=False)
     clearable = models.BooleanField(_("Clearable"), default=False)
+    # normal_dc = DebitOrCreditField(_("Normal booking direction"))
 
     def full_clean(self, *args, **kw):
         if self.group_id is not None:
@@ -131,6 +132,8 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
             if not self.name:
                 self.name = self.group.name
             self.type = self.group.account_type
+        # if self.normal_dc is None:
+        #     self.normal_dc = self.type.dc
         super(Account, self).full_clean(*args, **kw)
 
     def __str__(self):
@@ -151,7 +154,7 @@ class Accounts(dd.Table):
     detail_layout = """
     ref group type id
     name
-    needs_partner clearable
+    #normal_dc needs_partner clearable
     ledger.MovementsByAccount
     """
 

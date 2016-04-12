@@ -155,14 +155,14 @@ Partner 149 has 2 open sales invoices:
 
 >>> obj = contacts.Partner.objects.get(pk=149)
 >>> ses.show(ledger.DebtsByPartner, obj)
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ============== =================== ==========
- Due date             Balance        Debts               Payments
--------------------- -------------- ------------------- ----------
- 5/10/15              535,00         *SLS23 (2015-05)*
- 5/11/15              3 319,78       *SLS24 (2015-05)*
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+==================== ============== ========== ==========
+ Due date             Balance        Debts      Payments
+-------------------- -------------- ---------- ----------
+ 5/10/15              535,00         *SLS 23*
+ 5/11/15              3 319,78       *SLS 24*
  **Total (2 rows)**   **3 854,78**
-==================== ============== =================== ==========
+==================== ============== ========== ==========
 <BLANKLINE>
 
 

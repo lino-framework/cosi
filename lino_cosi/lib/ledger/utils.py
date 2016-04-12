@@ -239,12 +239,18 @@ def check_clearings(partner, matches=[]):
     """
     qs = rt.modules.ledger.Movement.objects.filter(
         partner=partner, account__clearable=True).order_by('match')
+    qs = qs.select_related('voucher', 'voucher__journal')
     if len(matches):
         qs = qs.filter(match__in=matches)
     sums = SumCollector()
     for mvt in qs:
         k = (mvt.match, mvt.account)
-        if mvt.dc == DEBIT:
+        mvt_dc = mvt.dc
+        # if mvt.voucher.journal.invert_due_dc:
+        #     mvt_dc = mvt.dc
+        # else:
+        #     mvt_dc = not mvt.dc
+        if mvt_dc == DEBIT:
             sums.collect(k, mvt.amount)
         else:
             sums.collect(k, - mvt.amount)

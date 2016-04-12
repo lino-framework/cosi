@@ -36,22 +36,22 @@ The database structure
  countries.Country           countries.Countries            6         8
  countries.Place             countries.Places               8         78
  excerpts.Excerpt            excerpts.Excerpts              11        0
- excerpts.ExcerptType        excerpts.ExcerptTypes          17        2
- finan.BankStatement         finan.BankStatements           14        14
+ excerpts.ExcerptType        excerpts.ExcerptTypes          17        7
+ finan.BankStatement         finan.BankStatements           15        14
  finan.BankStatementItem     finan.BankStatementItemTable   10        66
- finan.JournalEntry          finan.FinancialVouchers        12        0
+ finan.JournalEntry          finan.FinancialVouchers        13        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            14        14
+ finan.PaymentOrder          finan.PaymentOrders            15        14
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        70
  gfks.HelpText               gfks.HelpTexts                 4         2
  invoicing.Item              invoicing.Items                9         0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         15
- ledger.Journal              ledger.Journals                18        6
+ ledger.Journal              ledger.Journals                19        6
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         650
  ledger.PaymentTerm          ledger.PaymentTerms            8         7
- ledger.Voucher              ledger.Vouchers                9         175
+ ledger.Voucher              ledger.Vouchers                10        175
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
@@ -67,7 +67,7 @@ The database structure
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    13        3
  vat.InvoiceItem             vat.InvoiceItemTable           9         120
- vat.VatAccountInvoice       vat.Invoices                   19        75
+ vat.VatAccountInvoice       vat.Invoices                   20        75
  vat.VatRule                 vat.VatRules                   9         11
 =========================== ============================== ========= =======
 <BLANKLINE>
@@ -89,6 +89,7 @@ Rolf is the local system administrator, he has a complete menu:
   - Verkauf : Verkaufsrechnungen (SLS)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG)
+  - Rechnungen erstellen
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Berichte :
   - System : Broken GFKs
@@ -106,9 +107,8 @@ Rolf is the local system administrator, he has a complete menu:
   - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten, Journalgruppen
   - SEPA : Bankkonten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
-  - MwSt. : MwSt.-Regimes, MwSt.-Klassen
+  - MwSt. : MwSt.-Regimes, MwSt.-Klassen, Produktrechnungen, Produktrechnungszeilen, Fakturationspläne
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
-  - Verkauf : Product invoice items, Invoicing plans
 - Site : Info
 
 

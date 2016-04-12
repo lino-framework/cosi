@@ -54,7 +54,7 @@ from lino.utils import join_elems
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 
 from .utils import Balance, DueMovement, get_due_movements
-from .choicelists import TradeTypes, FiscalYears, VoucherTypes
+from .choicelists import TradeTypes, FiscalYears, VoucherTypes, JournalGroups
 from .choicelists import VoucherStates
 from .mixins import JournalRef
 from .roles import AccountingReader, LedgerUser, LedgerStaff
@@ -65,7 +65,7 @@ class JournalDetail(dd.DetailLayout):
     name ref:5
     trade_type seqno id voucher_type:10 journal_group:10
     account build_method template
-    dc force_sequence auto_check_clearings
+    dc force_sequence #invert_due_dc yearly_numbering auto_check_clearings
     printed_name
     MatchRulesByJournal
     """
@@ -195,11 +195,14 @@ class ExpectedMovements(dd.VirtualTable):
     parameters = dd.ParameterPanel(
         date_until=models.DateField(_("Date until"), blank=True, null=True),
         trade_type=TradeTypes.field(blank=True),
-        for_journal=dd.ForeignKey('ledger.Journal', blank=True),
+        from_journal=dd.ForeignKey('ledger.Journal', blank=True),
+        for_journal=dd.ForeignKey(
+            'ledger.Journal', blank=True, verbose_name=_("Clearable by")),
         partner=dd.ForeignKey('contacts.Partner', blank=True),
         project=dd.ForeignKey(dd.plugins.ledger.project_model, blank=True),
     )
-    params_layout = "trade_type date_until for_journal project partner"
+    params_layout = "trade_type date_until from_journal " \
+                    "for_journal project partner"
 
     @classmethod
     def get_dc(cls, ar=None):
@@ -224,6 +227,8 @@ class ExpectedMovements(dd.VirtualTable):
             accounts = rt.modules.accounts.Account.objects.filter(
                 matchrule__journal=pv.for_journal).distinct()
             flt.update(account__in=accounts)
+        if pv.from_journal is not None:
+            flt.update(journal=pv.from_journal)
         return get_due_movements(cls.get_dc(ar), **flt)
 
     @classmethod
@@ -712,13 +717,16 @@ class Movements(dd.Table):
     editable = False
     parameters = mixins.ObservedPeriod(
         year=FiscalYears.field(blank=True),
-        partner=models.ForeignKey('contacts.Partner', blank=True, null=True),
-        account=models.ForeignKey('accounts.Account', blank=True, null=True),
+        journal_group=JournalGroups.field(blank=True),
+        partner=dd.ForeignKey('contacts.Partner', blank=True, null=True),
+        project=dd.ForeignKey(
+            dd.plugins.ledger.project_model, blank=True, null=True),
+        account=dd.ForeignKey('accounts.Account', blank=True, null=True),
         journal=JournalRef(blank=True),
         cleared=dd.YesNo.field(_("Show cleared movements"), blank=True))
     params_layout = """
     start_date end_date cleared
-    journal year partner account"""
+    journal_group journal year project partner account"""
 
     @classmethod
     def get_request_queryset(cls, ar):
@@ -734,10 +742,11 @@ class Movements(dd.Table):
         #     qs = qs.filter(partner=ar.param_values.partner)
         # if ar.param_values.paccount:
         #     qs = qs.filter(account=ar.param_values.paccount)
-        if ar.param_values.year:
-            qs = qs.filter(
-                voucher__accounting_period__year=ar.param_values.year)
-        if ar.param_values.journal:
+        if pv.year:
+            qs = qs.filter(voucher__accounting_period__year=pv.year)
+        if pv.journal_group:
+            qs = qs.filter(voucher__journal__journal_group=pv.journal_group)
+        if pv.journal:
             qs = qs.filter(voucher__journal=pv.journal)
         return qs
 
@@ -745,7 +754,8 @@ class Movements(dd.Table):
     def get_simple_parameters(cls):
         p = super(Movements, cls).get_simple_parameters()
         p.add('partner')
-        # p.add('journal')
+        p.add('project')
+        # p.add('journal_group')
         # p.add('year')
         p.add('account')
         return p
@@ -757,6 +767,10 @@ class Movements(dd.Table):
         pv = ar.param_values
         if pv.journal is not None:
             yield pv.journal.ref
+        if pv.journal_group is not None:
+            yield unicode(pv.journal_group)
+        if pv.year is not None:
+            yield unicode(pv.year)
         if pv.cleared == dd.YesNo.no:
             yield unicode(_("only uncleared"))
         elif pv.cleared == dd.YesNo.yes:

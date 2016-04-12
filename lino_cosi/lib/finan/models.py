@@ -117,6 +117,9 @@ class PaymentOrder(FinancialVoucher):
         _("Execution date"), blank=True, null=True)
 
     def get_wanted_movements(self):
+        """
+        The generated movements 
+        """
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
@@ -419,14 +422,19 @@ class FillSuggestionsToVoucherItem(FillSuggestionsToVoucher):
 
     """
     def run_from_ui(self, ar, **kw):
+        # compare add_item_from_due
         i = ar.master_instance
         voucher = i.voucher
         obj = ar.selected_rows[0]
         # i is the voucher item from which the suggestion table had
         # been called. obj is the first selected DueMovement object
-        print 20151217, ar.selected_rows, obj
+        # print 20151217, ar.selected_rows, obj
         i.account = obj.account
         i.dc = not obj.dc
+        # if voucher.journal.invert_due_dc:
+        #     i.dc = not obj.dc
+        # else:
+        #     i.dc = obj.dc
         i.amount = obj.balance
         i.partner = obj.partner
         i.match = obj.match
