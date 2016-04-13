@@ -24,6 +24,8 @@
 
 from __future__ import unicode_literals
 
+from builtins import str
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -829,6 +831,9 @@ class Movement(ProjectRelated):
 
     def __str__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
+
+    def get_match(self):
+        return self.match or str(self.voucher)
 
 Movement.set_widget_options('voucher_link', width=12)
 
