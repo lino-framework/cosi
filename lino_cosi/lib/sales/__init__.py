@@ -16,19 +16,8 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Adds functionality and database models for issuing product
-invoices.
+"""Adds functionality for handling :ref:`cosi.specs.sales`.
 
-The internal name "sales" is actually irritating, you might generate
-product invoices for other trade types as well.
-
-This module is used by :mod:`lino_cosi.lib.invoicing` which adds
-automatic generation of such product invoices.
-
-This module needs :mod:`lino_cosi.lib.vat` (and not
-:mod:`lino_cosi.lib.vatless`) even when the site owner is not subject
-to VAT. You can hide the VAT fields and define a VAT rate of 0 for
-everything.
 
 .. autosummary::
     :toctree:

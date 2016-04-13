@@ -237,6 +237,37 @@ class VoucherTypes(dd.ChoiceList):
 class TradeType(dd.Choice):
     """Base class for the choices of :class:`TradeTypes`.
 
+    .. attribute:: dc
+
+        The default booking direction.
+
+    .. attribute:: price_field
+
+        The name and label of the `price` field to be defined on the
+        :class:`Product <lino.modlib.products.models.Product>`
+        database model.
+
+        With Lino Così you can define one price field per trade type.
+
+    .. attribute:: partner_account_field
+
+        The name and label of the :guilabel:`Partner account` field to
+        be defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
+
+    .. attribute:: base_account_field
+
+        The name and label of the :guilabel:`Base account` field to
+        be defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
+
+
+    .. attribute:: vat_account_field
+
+        The name and label of the :guilabel:`VAT account` field to be
+        defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
+
     """
     price_field_name = None
     price_field_label = None
@@ -301,10 +332,11 @@ class TradeType(dd.Choice):
 
 
 class TradeTypes(dd.ChoiceList):
-    """A choicelist with the **trade types** defined for this application.
+    """A choicelist with the *trade types* defined for this application.
 
-    The trade type is one of the basic properties of every accountable
-    operation where are partner is involved.
+    The **trade type** is one of the basic properties of every ledger
+    operation which involves an external partner.  Every partner
+    movement belongs to one and only one trade type.
 
     The default configuration defines the following trade types:
 
@@ -353,7 +385,11 @@ TradeTypes.add_item('C', _("Clearings"), 'clearings', dc=DEBIT)
 
 
 @dd.receiver(dd.pre_analyze)
-def inject_vat_fields(sender, **kw):
+def inject_tradetype_fields(sender, **kw):
+    """This defines certain database fields related to your
+    :class:`TradeTypes`.
+
+    """
     for tt in TradeTypes.items():
         if tt.partner_account_field_name is not None:
             dd.inject_field(

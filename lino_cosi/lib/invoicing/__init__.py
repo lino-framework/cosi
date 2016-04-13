@@ -17,7 +17,10 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Add functionality for automatically generating invoices.
+"""Adds functionality and database models for **invoicing**,
+i.e. automatically generating invoices from data in the database.
+
+See :ref:`cosi.specs.invoicing` for a functional specification.
 
 .. autosummary::
     :toctree:

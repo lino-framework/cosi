@@ -54,6 +54,33 @@ Basic truths of accounting
 =========== =============================== ============ ================================ ===========================
 <BLANKLINE>
 
+
+Trade types
+===========
+
+This plugin introduces the concept of **trade types**.
+
+The default list of trade types is:
+
+>>> rt.show(ledger.TradeTypes)
+======= =========== ===========
+ value   name        text
+------- ----------- -----------
+ S       sales       Sales
+ P       purchases   Purchases
+ W       wages       Wages
+ C       clearings   Clearings
+======= =========== ===========
+<BLANKLINE>
+
+Your application might have a different list.  You can see the
+actually configured list for your site via :menuselection:`Explorer
+--> Accounting --> Trade types`.
+
+See :class:`lino_cosi.lib.ledger.choicelists.TradeTypes` for technical
+details.
+
+
 Match rules
 ===========
 

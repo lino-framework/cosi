@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for `lino_cosi.lib.sales`.
+"""Database models for the :ref:`cosi.specs.sales` plugin.
 
 """
 
@@ -26,19 +26,13 @@ from __future__ import unicode_literals
 from decimal import Decimal
 
 from django.db import models
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from lino.api import dd, rt
-
 from lino.core import actions
-
 from lino.utils.restify import restify
-
 from lino.utils.xmlgen.html import E
-
 from lino_xl.lib.excerpts.mixins import Certifiable
-
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
 from lino_cosi.lib.vat.mixins import get_default_vat_regime, myround
@@ -48,9 +42,6 @@ from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.ui import PartnerVouchers, ByJournal
-
-
-# ledger = dd.resolve_app('ledger', strict=True)
 
 
 TradeTypes.sales.update(
