@@ -198,7 +198,7 @@ class ExpectedMovements(dd.VirtualTable):
         from_journal=dd.ForeignKey('ledger.Journal', blank=True),
         for_journal=dd.ForeignKey(
             'ledger.Journal', blank=True, verbose_name=_("Clearable by")),
-        account=dd.ForeignKey('ledger.Account', blank=True),
+        account=dd.ForeignKey('accounts.Account', blank=True),
         partner=dd.ForeignKey('contacts.Partner', blank=True),
         project=dd.ForeignKey(dd.plugins.ledger.project_model, blank=True),
     )
