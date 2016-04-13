@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@
 
 """
 
+from builtins import str
 from decimal import Decimal, ROUND_HALF_UP
 from lino.api import rt, dd
 
@@ -90,7 +91,7 @@ class DueMovement(object):
     """
     def __init__(self, dc, mvt):
         self.dc = dc
-        self.match = mvt.match
+        self.match = mvt.match or str(mvt.voucher)
         self.partner = mvt.partner
         self.account = mvt.account
         self.project = mvt.project

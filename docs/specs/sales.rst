@@ -29,18 +29,19 @@ Lino Così implements product invoices in the
 for historical reasons, you might generate product invoices for other
 trade types as well.
 
-The :mod:`lino_cosi.lib.sales` plugin needs (and automatically
-installs) the :mod:`lino_xl.lib.products` plugin.
+The plugin --of course-- needs and automatically installs the
+:mod:`lino_xl.lib.products` plugin.
 
 It also needs and installs :mod:`lino_cosi.lib.vat` (and not
-:mod:`lino_cosi.lib.vatless`) even when the site owner is not subject
-to VAT. You can hide the VAT fields and define a VAT rate of 0 for
-everything.
+:mod:`lino_cosi.lib.vatless`).  Which means that if you want product
+invoices, you cannot *not* also install the VAT framework.  If the
+site owner is not subject to VAT, you can hide the VAT fields and
+define a VAT rate of 0 for everything.
 
 >>> dd.plugins.sales.needs_plugins
 ['lino_xl.lib.products', 'lino_cosi.lib.vat']
 
-This module is needed and extended by :mod:`lino_cosi.lib.invoicing`
+This plugin is needed and extended by :mod:`lino_cosi.lib.invoicing`
 which adds automatic generation of such product invoices.
 
 >>> dd.plugins.invoicing.needs_plugins
@@ -50,9 +51,11 @@ which adds automatic generation of such product invoices.
 Trade types
 ===========
 
-The plugin defines some additional database fields to be installed by
-:func:`inject_tradetype_fields
-<lino_cosi.lib.ledger.choicelists.inject_tradetype_fields>`
+The plugin updates your trade types and defines some additional
+database fields to be installed by :func:`inject_tradetype_fields
+<lino_cosi.lib.ledger.choicelists.inject_tradetype_fields>`.
+
+For example the sales price of a product:
 
 >>> print(ledger.TradeTypes.sales.price_field_name)
 sales_price
@@ -68,9 +71,9 @@ Sales price
 The invoicing address of a partner
 ==================================
 
-The plugin injects a field :attr:`invoice_recipient
+The plugin also injects a field :attr:`invoice_recipient
 <lino.modlib.contacts.models.Partner.invoice_recipient>` to the
-:class:`contacts.Partner <lino.modlib.contacts.models.Partner>` model
+:class:`contacts.Partner <lino.modlib.contacts.models.Partner>` model:
 
 .. attribute:: lino.modlib.contacts.models.Partner.invoice_recipient
 

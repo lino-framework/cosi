@@ -198,11 +198,12 @@ class ExpectedMovements(dd.VirtualTable):
         from_journal=dd.ForeignKey('ledger.Journal', blank=True),
         for_journal=dd.ForeignKey(
             'ledger.Journal', blank=True, verbose_name=_("Clearable by")),
+        account=dd.ForeignKey('ledger.Account', blank=True),
         partner=dd.ForeignKey('contacts.Partner', blank=True),
         project=dd.ForeignKey(dd.plugins.ledger.project_model, blank=True),
     )
     params_layout = "trade_type date_until from_journal " \
-                    "for_journal project partner"
+                    "for_journal project partner account"
 
     @classmethod
     def get_dc(cls, ar=None):
@@ -219,6 +220,8 @@ class ExpectedMovements(dd.VirtualTable):
             flt.update(account=pv.trade_type.get_partner_account())
         if pv.partner:
             flt.update(partner=pv.partner)
+        if pv.account:
+            flt.update(account=pv.account)
         if pv.project:
             flt.update(project=pv.project)
         if pv.date_until is not None:
