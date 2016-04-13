@@ -124,7 +124,7 @@ class DueMovement(object):
 
     def collect_all(self):
         flt = dict(
-            partner=self.partner, account=self.account, match=self.get_match())
+            partner=self.partner, account=self.account, match=self.match)
         for mvt in rt.modules.ledger.Movement.objects.filter(**flt):
             self.collect(mvt)
             
