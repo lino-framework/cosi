@@ -44,10 +44,17 @@ class Plugin(Plugin):
     item_model = 'sales.InvoiceItem'
     invoiceable_label = _("Invoiceable")
 
-    def get_voucher_type(self):
+    def on_site_startup(self, site):
         from lino.core.utils import resolve_model
-        model = resolve_model(self.voucher_model)
-        return self.site.modules.ledger.VoucherTypes.get_for_model(model)
+        self.voucher_model = resolve_model(self.voucher_model)
+        self.item_model = resolve_model(self.item_model)
+        
+    def get_voucher_type(self):
+        # from lino.core.utils import resolve_model
+        # model = resolve_model(self.voucher_model)
+        # return self.site.modules.ledger.VoucherTypes.get_for_model(model)
+        return self.site.modules.ledger.VoucherTypes.get_for_model(
+            self.voucher_model)
 
     def setup_main_menu(config, site, profile, m):
         mg = site.plugins.accounts

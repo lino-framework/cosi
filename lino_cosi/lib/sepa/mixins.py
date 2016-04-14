@@ -132,9 +132,12 @@ class Payable(PartnerRelated):
         item_sums = self.get_payable_sums_dict()
         # logger.info("20120901 get_wanted_movements %s", sums_dict)
         counter_sums = SumCollector()
+        partner = self.get_partner()
         for k, amount in item_sums.items():
             acc, prj = k
-            yield self.create_movement(acc, prj, not self.journal.dc, amount)
+            yield self.create_movement(
+                acc, prj, not self.journal.dc, amount,
+                partner=partner if acc.needs_partner else None)  # 20160413
             counter_sums.collect(prj, amount)
 
         acc = self.get_trade_type().get_partner_account()
@@ -145,7 +148,7 @@ class Payable(PartnerRelated):
             for prj, amount in counter_sums.items():
                 yield self.create_movement(
                     acc, prj, self.journal.dc, amount,
-                    partner=self.get_partner(),
+                    partner=partner if acc.needs_partner else None,
                     match=self.match or self.get_default_match())
 
 

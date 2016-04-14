@@ -367,7 +367,7 @@ class ItemsByInvoicePrint(ItemsByInvoice):
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
         if self.description:
-            elems = [E.p(E.b(self.title))]
+            elems = [E.p(E.b(self.title), E.br())]
             if self.description.startswith("<"):
                 # desc = E.raw('<div>%s</div>' % self.description)
                 desc = E.raw(self.description)
@@ -376,8 +376,10 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                 html = restify(ar.parse_memo(self.description))
                 # dd.logger.info("20160330b restified --> %s", html)
                 desc = E.raw(html)
-                # dd.logger.info(
-                #     "20160330c parsed --> %s", E.tostring(desc))
+                if desc.tag == 'body':
+                    desc = list(desc)  # .children
+            # dd.logger.info(
+            #     "20160330c parsed --> %s", E.tostring(desc))
             elems.extend(desc)
             e = E.div(*elems)
             # dd.logger.info("20160330 %s", E.tostring(e))
@@ -430,7 +432,8 @@ class InvoicesByPartner(Invoices):
     # model = 'sales.VatProductInvoice'
     order_by = ["-voucher_date", '-id']
     master_key = 'partner'
-    column_names = "voucher_date total_incl total_base total_vat *"
+    column_names = "voucher_date journal__ref number total_incl "\
+                   "workflow_buttons *"
 
 
 # class SalesByPerson(SalesDocuments):

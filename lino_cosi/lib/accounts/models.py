@@ -107,8 +107,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
         detailed (i.e. one for every item) or not (i.e. a single
         contra entry per voucher, without project nor partner).
 
-        This option is currently not used otherwise, e.g. Lino does
-        not verify this for manually entered transactions.
+        
 
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length

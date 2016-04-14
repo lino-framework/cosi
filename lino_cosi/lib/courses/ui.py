@@ -509,6 +509,13 @@ class EnrolmentsByCourse(Enrolments):
         return E.p(*elems)
 
 
+class EnrolmentsByOption(Enrolments):
+    label = _("Enrolments using this option")
+    master_key = 'option'
+    column_names = 'course pupil remark amount request_date *'
+    order_by = ['request_date']
+    
+
 # class EventsByCourse(cal.Events):
 #     required = dd.required(user_groups='office')
 #     master_key = 'course'

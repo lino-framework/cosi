@@ -55,14 +55,15 @@ class Invoiceable(dd.Model):
     # invoice = dd.ForeignKey('sales.VatProductInvoice', blank=True, null=True)
 
     def get_invoicings(self, **kwargs):
-        InvoiceItem = rt.modules.sales.InvoiceItem
-        kwargs.update(gfk2lookup(InvoiceItem.invoiceable, self))
-        return InvoiceItem.objects.filter(**kwargs)
+        item_model = dd.plugins.invoicing.item_model
+        # item_model = rt.modules.sales.InvoiceItem
+        kwargs.update(gfk2lookup(item_model.invoiceable, self))
+        return item_model.objects.filter(**kwargs)
 
     def get_wanted_items(self, ar, invoice, item_model):
         i = item_model(voucher=invoice, invoiceable=self,
                        product=self.get_invoiceable_product(),
-                       title=self.get_invoiceable_title(),
+                       title=self.get_invoiceable_title(invoice),
                        qty=self.get_invoiceable_qty())
         am = self.get_invoiceable_amount()
         if am is not None:
@@ -84,7 +85,7 @@ class Invoiceable(dd.Model):
         """
         return None
 
-    def get_invoiceable_title(self):
+    def get_invoiceable_title(self, invoice):
         """Return the title to put into the invoice item.  May be overridden
         by subclasses.
 
