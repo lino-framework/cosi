@@ -501,8 +501,7 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def __str__(self):
         if self.number is None:
-            return "{0}#{1}".format(
-                dd.full_model_name(self.journal.ref), self.id)
+            return "{0}#{1}".format(self.journal.ref, self.id)
         if self.journal.yearly_numbering:
             return "{0} {1}/{2}".format(self.journal.ref, self.number,
                                         self.accounting_period.year)
