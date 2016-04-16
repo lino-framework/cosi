@@ -36,18 +36,18 @@ The database structure
  countries.Country           countries.Countries            6         8
  countries.Place             countries.Places               8         78
  excerpts.Excerpt            excerpts.Excerpts              11        0
- excerpts.ExcerptType        excerpts.ExcerptTypes          17        2
- finan.BankStatement         finan.BankStatements           14        14
+ excerpts.ExcerptType        excerpts.ExcerptTypes          17        5
+ finan.BankStatement         finan.BankStatements           15        14
  finan.BankStatementItem     finan.BankStatementItemTable   10        66
- finan.JournalEntry          finan.FinancialVouchers        12        0
+ finan.JournalEntry          finan.FinancialVouchers        13        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
- finan.PaymentOrder          finan.PaymentOrders            14        14
+ finan.PaymentOrder          finan.PaymentOrders            15        14
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        70
  gfks.HelpText               gfks.HelpTexts                 4         2
  invoicing.Item              invoicing.Items                9         0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         15
- ledger.Journal              ledger.Journals                18        6
+ ledger.Journal              ledger.Journals                19        6
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         650
  ledger.PaymentTerm          ledger.PaymentTerms            8         7
@@ -89,6 +89,7 @@ Rolf is the local system administrator, he has a complete menu:
   - Verkauf : Verkaufsrechnungen (SLS)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG)
+  - Rechnungen erstellen
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Berichte :
   - System : Broken GFKs
@@ -106,9 +107,8 @@ Rolf is the local system administrator, he has a complete menu:
   - Buchhaltung : Befriedigungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten, Journalgruppen
   - SEPA : Bankkonten
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
-  - MwSt. : MwSt.-Regimes, MwSt.-Klassen
+  - MwSt. : MwSt.-Regimes, MwSt.-Klassen, Produktrechnungen, Produktrechnungszeilen, Fakturationspläne
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
-  - Verkauf : Product invoice items, Invoicing plans
 - Site : Info
 
 

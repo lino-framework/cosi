@@ -23,10 +23,12 @@ Model mixins for :mod:`lino_cosi.lib.finan`.
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from lino_xl.lib.excerpts.mixins import Certifiable
+
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.fields import DebitOrCreditField
 from lino_cosi.lib.ledger.mixins import VoucherItem, SequencedVoucherItem
-from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching, FKMATCH
+from lino_cosi.lib.ledger.mixins import ProjectRelated, Matching
 from lino.utils.xmlgen.html import E
 
 from lino.api import dd, rt, _
@@ -36,7 +38,7 @@ from lino_cosi.lib.ledger.choicelists import VoucherStates
 ledger = dd.resolve_app('ledger')
 
 
-class FinancialVoucher(ledger.Voucher):
+class FinancialVoucher(ledger.Voucher, Certifiable):
     """Base class for all financial vouchers:
     :class:`Grouper`,
     :class:`JournalEntry`,
@@ -52,6 +54,9 @@ class FinancialVoucher(ledger.Voucher):
 
         The default value to use when
         :attr:`FinancialVoucherItem.remark` of an item is empty.
+
+    .. attribute:: printed
+        See :attr:`lino_xl.lib.excerpts.mixins.Certifiable.printed`
 
     """
 
@@ -74,8 +79,13 @@ class FinancialVoucher(ledger.Voucher):
             kwargs.update(project=obj.project)
         if obj.partner:
             kwargs.update(partner=obj.partner)
+        dc = not obj.dc
+        # if self.journal.invert_due_dc:
+        #     dc = not obj.dc
+        # else:
+        #     dc = obj.dc
         i = self.add_voucher_item(
-            obj.account, dc=not obj.dc,
+            obj.account, dc=dc,
             amount=obj.balance, match=obj.match, **kwargs)
         if i.amount < 0:
             i.amount = - i.amount
@@ -146,11 +156,11 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     .. attribute:: match
 
-        (if FKMATCH) The voucher that caused this voucher item.  For
+        An arbitrary string used to group several movements.
+
+        A reference to the voucher that caused this voucher entry.  For
         example the :attr:`match` of the payment of an invoice points
         to that invoice.
-
-        An arbitrary string used to group several movements.
 
     """
     class Meta:
@@ -165,11 +175,15 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
     account = dd.ForeignKey('accounts.Account', blank=True, null=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
-    @dd.chooser(simple_values=not FKMATCH)
+    @dd.chooser(simple_values=True)
     def match_choices(cls, voucher, partner):
         return cls.get_match_choices(voucher.journal, partner)
 
     def get_default_match(self):
+        """The string to use as `match` when no explicit match is specified on
+        this voucher.
+
+        """
         return "%s#%s:%s" % (
             self.voucher.journal.ref, self.voucher.id, self.seqno)
         # return str(self.date)
@@ -191,6 +205,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         :attr:`partner`.
 
         """
+        # dd.logger.info("20160329 FinancialMixin.partner_changed")
         if self.partner:
             flt = dict(partner=self.partner, cleared=False)
             if self.match:
@@ -244,7 +259,11 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
     def full_clean(self, *args, **kwargs):
         if self.dc is None:
-            self.dc = self.voucher.journal.dc
+            self.dc = not self.voucher.journal.dc
+            # if self.account is None:
+            #     self.dc = self.voucher.journal.dc
+            # else:
+            #     self.dc = self.account.normal_dc
         if self.amount < 0:
             self.amount = - self.amount
             self.dc = not self.dc

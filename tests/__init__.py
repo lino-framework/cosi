@@ -43,6 +43,9 @@ class DocsTests(BaseTestCase):
     def test_sales(self):
         self.run_simple_doctests('docs/specs/sales.rst')
 
+    def test_invoicing(self):
+        self.run_simple_doctests('docs/specs/invoicing.rst')
+
     def test_bel_de(self):
         self.run_simple_doctests('docs/specs/bel_de.rst')
 

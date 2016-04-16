@@ -17,7 +17,10 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Add functionality for automatically generating invoices.
+"""Adds functionality and database models for **invoicing**,
+i.e. automatically generating invoices from data in the database.
+
+See :ref:`cosi.specs.invoicing` for a functional specification.
 
 .. autosummary::
     :toctree:
@@ -41,12 +44,25 @@ class Plugin(Plugin):
     item_model = 'sales.InvoiceItem'
     invoiceable_label = _("Invoiceable")
 
-    def get_voucher_type(self):
+    def on_site_startup(self, site):
         from lino.core.utils import resolve_model
-        model = resolve_model(self.voucher_model)
-        return self.site.modules.ledger.VoucherTypes.get_for_model(model)
+        self.voucher_model = resolve_model(self.voucher_model)
+        self.item_model = resolve_model(self.item_model)
+        
+    def get_voucher_type(self):
+        # from lino.core.utils import resolve_model
+        # model = resolve_model(self.voucher_model)
+        # return self.site.modules.ledger.VoucherTypes.get_for_model(model)
+        return self.site.modules.ledger.VoucherTypes.get_for_model(
+            self.voucher_model)
+
+    def setup_main_menu(config, site, profile, m):
+        mg = site.plugins.accounts
+        m = m.add_menu(mg.app_label, mg.verbose_name)
+        # m.add_action('invoicing.MyPlans')
+        m.add_action('invoicing.Plan', action='start_invoicing')
 
     def setup_explorer_menu(self, site, profile, m):
-        mg = site.plugins.sales
+        mg = site.plugins.vat
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('invoicing.AllPlans')

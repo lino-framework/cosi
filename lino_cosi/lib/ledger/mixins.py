@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ from lino.api import dd, rt, _
 from lino.mixins import Sequenced
 
 
-FKMATCH = False
+# FKMATCH = False
 
 
 class ProjectRelated(dd.Model):
@@ -48,13 +48,10 @@ class ProjectRelated(dd.Model):
     class Meta:
         abstract = True
 
-    if dd.plugins.ledger.project_model:
-        project = models.ForeignKey(
-            dd.plugins.ledger.project_model,
-            blank=True, null=True,
-            related_name="%(app_label)s_%(class)s_set_by_project")
-    else:
-        project = dd.DummyField()
+    project = dd.ForeignKey(
+        dd.plugins.ledger.project_model,
+        blank=True, null=True,
+        related_name="%(app_label)s_%(class)s_set_by_project")
 
     @classmethod
     def get_registrable_fields(cls, site):
@@ -105,6 +102,11 @@ class PartnerRelated(dd.Model):
         return self.partner
     recipient = property(get_recipient)
 
+    def partner_changed(self, ar):
+        # does nothing but we need it so that BankAccount can call
+        # super().parnter_changes()
+        pass
+
     @classmethod
     def get_registrable_fields(cls, site):
         for f in super(PartnerRelated, cls).get_registrable_fields(site):
@@ -152,20 +154,9 @@ class Matching(dd.Model):
     class Meta:
         abstract = True
 
-    if FKMATCH:
-
-        match = dd.ForeignKey(
-            'ledger.Movement',
-            help_text=_("The movement to be matched."),
-            verbose_name=_("Match"),
-            related_name="%(app_label)s_%(class)s_set_by_match",
-            blank=True, null=True)
-
-    else:
-
-        match = dd.CharField(
-            _("Match"), max_length=20, blank=True,
-            help_text=_("The movement to be matched."))
+    match = dd.CharField(
+        _("Match"), max_length=20, blank=True,
+        help_text=_("The movement to be matched."))
 
     @classmethod
     def get_match_choices(cls, journal, partner):
@@ -180,11 +171,9 @@ class Matching(dd.Model):
         qs = rt.modules.ledger.Movement.objects.filter(**fkw)
         qs = qs.order_by('voucher__entry_date')
         # qs = qs.distinct('match')
-        if FKMATCH:
-            return qs
         return qs.values_list('match', flat=True)
 
-    @dd.chooser(simple_values=not FKMATCH)
+    @dd.chooser(simple_values=True)
     def match_choices(cls, journal, partner):
         # todo: move this to implementing classes?
         return cls.get_match_choices(journal, partner)

@@ -37,7 +37,7 @@ def objects():
         return
     ses = rt.login(users[0].username)
     Plan = rt.modules.invoicing.Plan
-    plan = Plan.start_plan(ses.get_user(), 'journal', jnl_list[0])
+    plan = Plan.start_plan(ses.get_user(), journal=jnl_list[0])
     yield plan
     plan.fill_plan(ses)
     for i in plan.items.all()[:9]:

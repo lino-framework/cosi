@@ -18,7 +18,7 @@
 """
 Database models for `lino_cosi.lib.finan`.
 """
-
+from __future__ import unicode_literals
 
 import logging
 logger = logging.getLogger(__name__)
@@ -38,6 +38,12 @@ from .mixins import FinancialVoucher, FinancialVoucherItem
 
 
 ledger = dd.resolve_app('ledger')
+
+
+def warn_jnl_account(jnl):
+    fld = jnl._meta.get_field('account')
+    raise Warning(_("Field '{0}' in journal '{0}' is empty!").format(
+        fld.verbose_name, jnl))
 
 
 class ShowSuggestions(dd.Action):
@@ -111,10 +117,13 @@ class PaymentOrder(FinancialVoucher):
         _("Execution date"), blank=True, null=True)
 
     def get_wanted_movements(self):
+        """
+        The generated movements 
+        """
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
         if not acc:
-            raise Warning("No account in %s" % self.journal)
+            warn_jnl_account(self.journal)
         amount, movements = self.get_finan_movements()
         self.total = - amount
         for m in movements:
@@ -171,7 +180,7 @@ class BankStatement(FinancialVoucher):
         # dd.logger.info("20151211 cosi.BankStatement.get_wanted_movements()")
         a = self.journal.account
         if not a:
-            raise Exception("No account in %s" % self.journal)
+            warn_jnl_account(self.journal)
         amount, movements = self.get_finan_movements()
         self.balance2 = self.balance1 + amount
         for m in movements:
@@ -203,7 +212,7 @@ class BankStatementItem(FinancialVoucherItem):
     credit = DcAmountField(CREDIT, _("Expense"))
 
 
-class PaymentOrderItem(FinancialVoucherItem, BankAccount):
+class PaymentOrderItem(BankAccount, FinancialVoucherItem):
     """An item of a :class:`PaymentOrder`."""
     class Meta:
         app_label = 'finan'
@@ -212,6 +221,10 @@ class PaymentOrderItem(FinancialVoucherItem, BankAccount):
 
     voucher = dd.ForeignKey('finan.PaymentOrder', related_name='items')
     # bank_account = dd.ForeignKey('sepa.Account', blank=True, null=True)
+
+    # def partner_changed(self, ar):
+    #     FinancialVoucherItem.partner_changed(self, ar)
+    #     BankAccount.partner_changed(self, ar)
 
     # def full_clean(self, *args, **kwargs):
         
@@ -409,14 +422,19 @@ class FillSuggestionsToVoucherItem(FillSuggestionsToVoucher):
 
     """
     def run_from_ui(self, ar, **kw):
+        # compare add_item_from_due
         i = ar.master_instance
         voucher = i.voucher
         obj = ar.selected_rows[0]
         # i is the voucher item from which the suggestion table had
         # been called. obj is the first selected DueMovement object
-        print 20151217, ar.selected_rows, obj
+        # print 20151217, ar.selected_rows, obj
         i.account = obj.account
         i.dc = not obj.dc
+        # if voucher.journal.invert_due_dc:
+        #     i.dc = not obj.dc
+        # else:
+        #     i.dc = obj.dc
         i.amount = obj.balance
         i.partner = obj.partner
         i.match = obj.match
@@ -463,7 +481,8 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
     """
 
     label = _("Suggestions")
-    column_names = 'partner project match account due_date debts payments balance *'
+    # column_names = 'partner project match account due_date debts payments balance *'
+    column_names = 'info match due_date debts payments balance *'
     window_size = ('90%', 20)  # (width, height)
 
     editable = False
@@ -508,7 +527,8 @@ class SuggestionsByPaymentOrder(SuggestionsByVoucher):
     "A :class:`SuggestionsByVoucher` table for a :class:`PaymentOrder`."
 
     master = 'finan.PaymentOrder'
-    column_names = 'partner match account due_date debts payments balance bank_account *'
+    # column_names = 'partner match account due_date debts payments balance bank_account *'
+    column_names = 'info match due_date debts payments balance *'
 
     @classmethod
     def param_defaults(cls, ar, **kw):

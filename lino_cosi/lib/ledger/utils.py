@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@
 
 """
 
+from builtins import str
 from decimal import Decimal, ROUND_HALF_UP
 from lino.api import rt, dd
 
@@ -90,7 +91,7 @@ class DueMovement(object):
     """
     def __init__(self, dc, mvt):
         self.dc = dc
-        self.match = mvt.match
+        self.match = mvt.get_match()
         self.partner = mvt.partner
         self.account = mvt.account
         self.project = mvt.project
@@ -121,6 +122,12 @@ class DueMovement(object):
         return "{0} {1} {2}".format(
             dd.obj2str(self.partner), self.match, self.balance)
 
+    def collect_all(self):
+        flt = dict(
+            partner=self.partner, account=self.account, match=self.match)
+        for mvt in rt.modules.ledger.Movement.objects.filter(**flt):
+            self.collect(mvt)
+            
     def collect(self, mvt):
         """Add the given movement to the list of movements that are being
         cleared by this DueMovement.
@@ -155,12 +162,6 @@ class DueMovement(object):
             self.payments.append(mvt)
             self.balance -= mvt.amount
 
-    def collect_all(self):
-        flt = dict(
-            partner=self.partner, account=self.account, match=self.match)
-        for mvt in rt.modules.ledger.Movement.objects.filter(**flt):
-            self.collect(mvt)
-            
     def unused_check_clearings(self):
         """Check whether involved movements are cleared or not, and update
         their :attr:`cleared` field accordingly.
@@ -217,7 +218,7 @@ def get_due_movements(dc, **flt):
     matches_by_account = dict()
     matches = []
     for mvt in qs:
-        k = (mvt.account, mvt.partner, mvt.project, mvt.match)
+        k = (mvt.account, mvt.partner, mvt.project, mvt.get_match())
         dm = matches_by_account.get(k)
         if dm is None:
             dm = DueMovement(dc, mvt)
@@ -239,12 +240,18 @@ def check_clearings(partner, matches=[]):
     """
     qs = rt.modules.ledger.Movement.objects.filter(
         partner=partner, account__clearable=True).order_by('match')
+    qs = qs.select_related('voucher', 'voucher__journal')
     if len(matches):
         qs = qs.filter(match__in=matches)
     sums = SumCollector()
     for mvt in qs:
-        k = (mvt.match, mvt.account)
-        if mvt.dc == DEBIT:
+        k = (mvt.get_match(), mvt.account)
+        mvt_dc = mvt.dc
+        # if mvt.voucher.journal.invert_due_dc:
+        #     mvt_dc = mvt.dc
+        # else:
+        #     mvt_dc = not mvt.dc
+        if mvt_dc == DEBIT:
             sums.collect(k, mvt.amount)
         else:
             sums.collect(k, - mvt.amount)

@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for `lino_cosi.lib.sales`.
+"""Database models for the :ref:`cosi.specs.sales` plugin.
 
 """
 
@@ -26,19 +26,13 @@ from __future__ import unicode_literals
 from decimal import Decimal
 
 from django.db import models
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from lino.api import dd, rt
-
 from lino.core import actions
-
 from lino.utils.restify import restify
-
 from lino.utils.xmlgen.html import E
-
 from lino_xl.lib.excerpts.mixins import Certifiable
-
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
 from lino_cosi.lib.vat.mixins import get_default_vat_regime, myround
@@ -48,9 +42,6 @@ from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.ui import PartnerVouchers, ByJournal
-
-
-# ledger = dd.resolve_app('ledger', strict=True)
 
 
 TradeTypes.sales.update(
@@ -375,28 +366,31 @@ class ItemsByInvoicePrint(ItemsByInvoice):
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
-        if settings.SITE.textfield_format == 'html':
-            if self.description:
-                elems = [E.p(E.b(self.title))]
+        if self.description:
+            elems = [E.p(E.b(self.title), E.br())]
+            if self.description.startswith("<"):
                 # desc = E.raw('<div>%s</div>' % self.description)
                 desc = E.raw(self.description)
-                elems.extend(desc)
-                return E.div(*elems)
-            return E.span(self.title)
-        elif settings.SITE.textfield_format == 'plain':
-            if self.description:
-                elems = [E.p(E.b(self.title))]
+            else:
                 # desc = E.raw('<div>%s</div>' % self.description)
                 html = restify(ar.parse_memo(self.description))
+                # dd.logger.info("20160330b restified --> %s", html)
                 desc = E.raw(html)
-                elems.extend(desc)
-                return E.div(*elems)
+                if desc.tag == 'body':
+                    desc = list(desc)  # .children
+            # dd.logger.info(
+            #     "20160330c parsed --> %s", E.tostring(desc))
+            elems.extend(desc)
+            e = E.div(*elems)
+            # dd.logger.info("20160330 %s", E.tostring(e))
+            return e
+        else:
             return E.span(self.title)
                 
         # experimental
-        if self.description:
-            return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
-        return "<p>{0}</p>".format(self.title)
+        # if self.description:
+        #     return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
+        # return "<p>{0}</p>".format(self.title)
 
 
 class InvoiceItemsByProduct(InvoiceItems):
@@ -438,7 +432,8 @@ class InvoicesByPartner(Invoices):
     # model = 'sales.VatProductInvoice'
     order_by = ["-voucher_date", '-id']
     master_key = 'partner'
-    column_names = "voucher_date total_incl total_base total_vat *"
+    column_names = "voucher_date journal__ref number total_incl "\
+                   "workflow_buttons *"
 
 
 # class SalesByPerson(SalesDocuments):

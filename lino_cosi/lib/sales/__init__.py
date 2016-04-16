@@ -1,4 +1,4 @@
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -16,15 +16,8 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Functionality for writing sales invoices.
+"""Adds functionality for handling :ref:`cosi.specs.sales`.
 
-This module is extended by :mod:`lino_cosi.lib.auto.sales` which adds
-common definitions for automatic generation of invoices.
-
-When writing sales invoices it is recommended to also use
-:mod:`lino_cosi.lib.vat` (and not :mod:`lino_cosi.lib.vatless`) even
-when the site owner is not subject to VAT. You can hide the VAT fields
-and define a VAT rate of 0 for everything.
 
 .. autosummary::
     :toctree:
@@ -40,10 +33,13 @@ from django.utils.translation import ugettext_lazy as _
 class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
 
-    verbose_name = _("Sales")
+    verbose_name = _("Product invoices")
 
     needs_plugins = ['lino_xl.lib.products', 'lino_cosi.lib.vat']
 
     def setup_explorer_menu(self, site, profile, m):
-        m = m.add_menu(self.app_label, self.verbose_name)
+        mg = site.plugins.vat
+        m = m.add_menu(mg.app_label, mg.verbose_name)
+        # m = m.add_menu(self.app_label, self.verbose_name)
+        m.add_action('sales.Invoices')
         m.add_action('sales.InvoiceItems')

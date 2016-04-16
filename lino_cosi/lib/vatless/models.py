@@ -48,7 +48,7 @@ TradeTypes.purchases.update(
     partner_account_field_label=_("Suppliers account"))
 
 
-class AccountInvoice(Payable, BankAccount, Voucher, Matching, ProjectRelated):
+class AccountInvoice(BankAccount, Payable, Voucher, Matching, ProjectRelated):
 
     class Meta:
         verbose_name = _("Invoice")

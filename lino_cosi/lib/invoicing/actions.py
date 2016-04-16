@@ -27,7 +27,7 @@ from __future__ import unicode_literals
 from lino.api import dd, rt, _
 
 
-class StartInvoicingBase(dd.Action):
+class StartInvoicing(dd.Action):
     """Base for :class:`StartInvoicingForJournal`,
     :class:`StartInvoicingForPartner`.
 
@@ -35,17 +35,19 @@ class StartInvoicingBase(dd.Action):
     icon_name = 'basket'
     sort_index = 52
     label = _("Create invoices")
+    select_rows = False
+    http_method = 'POST'
 
-    def get_master(self, ar):
-        raise NotImplementedError()
+    def get_options(self, ar):
+        return {}
 
     def run_from_ui(self, ar, **kw):
-        k, v = self.get_master(ar)
-        plan = rt.modules.invoicing.Plan.start_plan(ar.get_user(), k, v)
+        options = self.get_options(ar)
+        plan = rt.modules.invoicing.Plan.start_plan(ar.get_user(), **options)
         ar.goto_instance(plan)
 
 
-class StartInvoicingForJournal(StartInvoicingBase):
+class StartInvoicingForJournal(StartInvoicing):
     """Start an invoicing plan for this journal.
 
     This is installed onto the VouchersByJournal table of the
@@ -54,38 +56,26 @@ class StartInvoicingForJournal(StartInvoicingBase):
     as `start_invoicing`.
 
     """
-    select_rows = False
-    http_method = 'POST'
 
-    def get_master(self, ar):
+    def get_options(self, ar):
         jnl = ar.master_instance
         assert isinstance(jnl, rt.modules.ledger.Journal)
-        return 'journal', jnl
+        return dict(journal=jnl)
 
 
-class StartInvoicingForPartner(StartInvoicingBase):
+class StartInvoicingForPartner(StartInvoicing):
     """Start an invoicing plan for this partner.
 
     This is installed onto the :class:`contacts.Partner
     <lino.modlib.contacts.models.Partner>` model as `start_invoicing`.
 
     """
+    select_rows = True
 
-    def get_master(self, ar):
+    def get_options(self, ar):
         partner = ar.selected_rows[0]
         assert isinstance(partner, rt.modules.contacts.Partner)
-        return 'partner', partner
-
-    # def run_from_ui(self, ar, **kw):
-    #     Plan = rt.modules.invoicing.Plan
-    #     try:
-    #         plan = Plan.objects.get(user=ar.get_user())
-    #         if plan.partner != partner:
-    #             plan.items.all().delete()
-    #     except Plan.DoesNotExist:
-    #         plan = Plan(user=ar.get_user(), partner=partner)
-    #         plan.save()
-    #     ar.goto_instance(plan)
+        return dict(partner=partner)
 
 
 class UpdatePlan(dd.Action):

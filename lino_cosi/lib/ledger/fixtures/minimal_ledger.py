@@ -102,7 +102,7 @@ def objects():
 
     obj = Account(CUSTOMERS_ACCOUNT, 'assets',
                   "Clients", "Kunden",
-                  "Customers", "Kliendid", clearable=True)
+                  "Customers", "Kliendid", clearable=True, needs_partner=True)
     yield obj
     if sales:
         settings.SITE.site_config.update(clients_account=obj)
@@ -110,7 +110,7 @@ def objects():
     obj = Account(SUPPLIERS_ACCOUNT, 'liabilities',
                   "Fournisseurs",
                   "Lieferanten", "Suppliers", "Hankijad",
-                  clearable=True)
+                  clearable=True, needs_partner=True)
     yield obj
     if vat:
         settings.SITE.site_config.update(suppliers_account=obj)

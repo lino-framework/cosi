@@ -107,8 +107,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
         detailed (i.e. one for every item) or not (i.e. a single
         contra entry per voucher, without project nor partner).
 
-        This option is currently not used otherwise, e.g. Lino does
-        not verify this for manually entered transactions.
+        
 
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length
@@ -122,6 +121,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
     type = AccountTypes.field()  # blank=True)
     needs_partner = models.BooleanField(_("Needs partner"), default=False)
     clearable = models.BooleanField(_("Clearable"), default=False)
+    # normal_dc = DebitOrCreditField(_("Normal booking direction"))
 
     def full_clean(self, *args, **kw):
         if self.group_id is not None:
@@ -131,6 +131,8 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
             if not self.name:
                 self.name = self.group.name
             self.type = self.group.account_type
+        # if self.normal_dc is None:
+        #     self.normal_dc = self.type.dc
         super(Account, self).full_clean(*args, **kw)
 
     def __str__(self):
@@ -151,7 +153,7 @@ class Accounts(dd.Table):
     detail_layout = """
     ref group type id
     name
-    needs_partner clearable
+    #normal_dc needs_partner clearable
     ledger.MovementsByAccount
     """
 

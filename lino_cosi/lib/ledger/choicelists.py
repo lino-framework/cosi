@@ -120,6 +120,15 @@ class FiscalYears(dd.ChoiceList):
         return cls.from_int(date.year)
 
 
+class PeriodStates(dd.Workflow):
+    """The list of possible states of an accounting period."""
+    pass
+
+add = PeriodStates.add_item
+add('10', _("Open"), 'open')
+add('20', _("Closed"), 'closed')
+
+
 class VoucherType(dd.Choice):
     """Base class for all items of :class:`VoucherTypes`.
     
@@ -167,6 +176,15 @@ class VoucherType(dd.Choice):
 
         """
         return self.model.items.rel.related_model
+
+    def get_items_table(self):
+        lh = self.table_class.detail_layout.get_layout_handle(
+            settings.SITE.kernel.default_ui)
+        from lino.modlib.extjs.elems import GridElement
+        for e in lh.walk():
+            print(repr(e), e.__class__)
+            if isinstance(e, GridElement):
+                return e
 
     def get_journals(self):
         """Return a list of the :class:`Journal` objects that work on this
@@ -218,6 +236,37 @@ class VoucherTypes(dd.ChoiceList):
 
 class TradeType(dd.Choice):
     """Base class for the choices of :class:`TradeTypes`.
+
+    .. attribute:: dc
+
+        The default booking direction.
+
+    .. attribute:: price_field
+
+        The name and label of the `price` field to be defined on the
+        :class:`Product <lino.modlib.products.models.Product>`
+        database model.
+
+        With Lino Così you can define one price field per trade type.
+
+    .. attribute:: partner_account_field
+
+        The name and label of the :guilabel:`Partner account` field to
+        be defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
+
+    .. attribute:: base_account_field
+
+        The name and label of the :guilabel:`Base account` field to
+        be defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
+
+
+    .. attribute:: vat_account_field
+
+        The name and label of the :guilabel:`VAT account` field to be
+        defined for this trade type on the :class:`SiteConfig
+        <lino.modlib.system.models.SiteConfig>` database model.
 
     """
     price_field_name = None
@@ -283,10 +332,11 @@ class TradeType(dd.Choice):
 
 
 class TradeTypes(dd.ChoiceList):
-    """A choicelist with the **trade types** defined for this application.
+    """A choicelist with the *trade types* defined for this application.
 
-    The trade type is one of the basic properties of every accountable
-    operation where are partner is involved.
+    The **trade type** is one of the basic properties of every ledger
+    operation which involves an external partner.  Every partner
+    movement belongs to one and only one trade type.
 
     The default configuration defines the following trade types:
 
@@ -335,7 +385,11 @@ TradeTypes.add_item('C', _("Clearings"), 'clearings', dc=DEBIT)
 
 
 @dd.receiver(dd.pre_analyze)
-def inject_vat_fields(sender, **kw):
+def inject_tradetype_fields(sender, **kw):
+    """This defines certain database fields related to your
+    :class:`TradeTypes`.
+
+    """
     for tt in TradeTypes.items():
         if tt.partner_account_field_name is not None:
             dd.inject_field(
@@ -384,16 +438,23 @@ class VoucherState(dd.State):
     """
 
 
-class PeriodStates(dd.Workflow):
-    pass
-
-add = PeriodStates.add_item
-add('10', _("Open"), 'open')
-add('20', _("Closed"), 'closed')
-
-
 class VoucherStates(dd.Workflow):
-    """The list of possible states for a voucher."""
+    """:class:`lino_cosi.lib.ledger.VoucherStates` defines the list of
+possible states of a voucher.
+
+In a default configuration, vouchers can be "draft", "registered" or
+"signed".
+
+*Draft* vouchers can be modified but are not yet visible as movements
+in the ledger. *Registered* vouchers cannot be modified, but are
+visible as movements in the ledger.
+
+The *Signed* state is similar to *registered*, but cannot usually be
+deregistered anymore. This state is not visible in the default
+configuration. In order to make it usable, you must define a custom
+workflow for :class:`lino_cosi.lib.ledger.VoucherStates`.
+
+    """
 
     item_class = VoucherState
 
@@ -404,7 +465,7 @@ class VoucherStates(dd.Workflow):
 add = VoucherStates.add_item
 add('10', _("Draft"), 'draft', editable=True)
 add('20', _("Registered"), 'registered')
-add('30', _("Fixed"), 'fixed')
+add('30', _("Signed"), 'signed')
 
 
 @dd.receiver(dd.pre_analyze)

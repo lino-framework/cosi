@@ -4,6 +4,20 @@
 Introduction to accounting
 ==========================
 
+.. how to test this document:
+
+    $ python setup.py test -s tests.DocsTests.test_accounting
+
+    Doctest initialization:
+
+    >>> import lino
+    >>> lino.startup('lino_cosi.projects.std.settings.doctests')
+    >>> from lino.api.doctest import *
+    >>> from lino_cosi.lib.accounts.models import *
+
+
+
+
 This chapter explains some basic truths about accounting as seen by a
 Lino application developer.
 
@@ -16,19 +30,6 @@ Lino application developer.
     ideas. This is why an operating system is easier to design.  
     
     -- Tao of programming
-
-
-.. how to test this document:
-
-    $ python setup.py test -s tests.DocsTests.test_accounting
-
-    Doctest initialization:
-
-    >>> from __future__ import print_function
-    >>> import lino
-    >>> lino.startup('lino_cosi.projects.std.settings.doctests')
-    >>> from lino.api.doctest import *
-    >>> from lino_cosi.lib.accounts.models import *
 
 
 Debit and Credit
@@ -46,17 +47,34 @@ False
 Account types
 -------------
 
-Lino has a hard-coded list of "account types", including the
-"top-level accounts".
+Lino has a hard-coded list of **account types** or "top-level
+accounts".
 
-Accounting Equation:
+>>> rt.show(ledger.AccountTypes)
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+======= =============== =============== ======== ==========
+ value   name            text            D/C      Sheet
+------- --------------- --------------- -------- ----------
+ A       assets          Assets          Debit    Balance
+ L       liabilities     Liabilities     Credit   Balance
+ I       incomes         Incomes         Credit   Earnings
+ E       expenses        Expenses        Debit    Earnings
+ C       capital         Capital         Credit   Balance
+ B       bank_accounts   Bank accounts   Debit    Balance
+======= =============== =============== ======== ==========
+<BLANKLINE>
+
+
+The basic `Accounting Equation
+<https://en.wikipedia.org/wiki/Accounting_equation>`_ states:
 
   Assets = Liabilities + Capital
  
-Expanded accounting equation:
+And the expanded accounting equation is:
 
     Assets + Expenses = Liabilities + Equity + Revenue
     
+
 Accounts on the left side of the equation (Assets and Expenses) are
 normally DEBITed and have DEBIT balances.  That's what the :attr:`dc
 <AccountType.dc>` attribute means:
@@ -148,25 +166,6 @@ Income and Expenses are listed in the Profit & Loss statement.
 
 >>> print CashFlow.account_types()
 []
-
-
-As a summary here once more this hard-coded table of basic account
-types:
-
->>> from lino.api import rt
->>> rt.show('accounts.AccountTypes')
-==================== =============== =============== ======== ==========
- value                name            text            D/C      Sheet
--------------------- --------------- --------------- -------- ----------
- A                    assets          Assets          Debit    Balance
- L                    liabilities     Liabilities     Credit   Balance
- I                    incomes         Incomes         Credit   Earnings
- E                    expenses        Expenses        Debit    Earnings
- C                    capital         Capital         Credit   Balance
- B                    bank_accounts   Bank accounts   Debit    Balance
- **Total (6 rows)**                                   **3**
-==================== =============== =============== ======== ==========
-<BLANKLINE>
 
 
 

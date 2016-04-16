@@ -1,10 +1,9 @@
+.. _cosi.specs.ledger:
 .. _cosi.tested.ledger:
 
-=======
-Ledger
-=======
-
-This document introduces some basic features of accounting.
+===================================================
+The :mod:`lino_cosi.lib.ledger` plugin (Accounting)
+===================================================
 
 .. to test only this document:
 
@@ -12,37 +11,75 @@ This document introduces some basic features of accounting.
     
     doctest init:
 
-    >>> from __future__ import print_function 
-    >>> from __future__ import unicode_literals
-    >>> import lino
-    >>> lino.startup('lino_cosi.projects.std.settings.demo')
+    >>> from lino import startup
+    >>> startup('lino_cosi.projects.std.settings.demo')
     >>> from lino.api.doctest import *
     >>> ses = rt.login("robin")
     >>> translation.activate('en')
+
+This document describes some basic features of "general accounting"
+implemented by the :mod:`lino_cosi.lib.ledger` plugin.
+
+This document is based on the following specifications:
+
+- :ref:`cosi.specs.accounting`
+
+
+
+.. contents::
+   :depth: 1
+   :local:
 
 
 Basic truths of accounting
 ==========================
 
-- A purchases invoice credits the partner.
-- A sales invoice debits the partner.
-- The payment of a purchases invoice debits  the partner.
-- The payment of a sales invoice credits the partner.
+- A purchase invoice credits the partner account.
+- A sales invoice debits the partner account.
+- The payment of a purchases invoice debits the partner account.
+- The payment of a sales invoice credits the partner account.
 
->>> ses.show(ledger.Journals, column_names="ref name trade_type account dc")
+>>> ses.show(ledger.Journals,
+...     column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-==================== =============================== ============ ================================ ===========================
- Reference            Designation                     Trade type   Account                          Primary booking direction
--------------------- ------------------------------- ------------ -------------------------------- ---------------------------
- SLS                  Sales invoices                  Sales                                         Credit
- PRC                  Purchase invoices               Purchases                                     Debit
- BNK                  Bestbank                        Purchases    (5500) Bestbank                  Debit
- PMO                  Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
- CSH                  Cash                                         (5700) Cash                      Debit
- MSG                  Miscellaneous Journal Entries                (5700) Cash                      Debit
- **Total (6 rows)**                                                                                 **5**
-==================== =============================== ============ ================================ ===========================
+=========== =============================== ============ ================================ ===========================
+ Reference   Designation                     Trade type   Account                          Primary booking direction
+----------- ------------------------------- ------------ -------------------------------- ---------------------------
+ SLS         Sales invoices                  Sales                                         Credit
+ PRC         Purchase invoices               Purchases                                     Debit
+ BNK         Bestbank                        Purchases    (5500) Bestbank                  Debit
+ PMO         Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
+ CSH         Cash                                         (5700) Cash                      Debit
+ MSG         Miscellaneous Journal Entries                (5700) Cash                      Debit
+=========== =============================== ============ ================================ ===========================
 <BLANKLINE>
+
+
+Trade types
+===========
+
+This plugin introduces the concept of **trade types**.
+
+The default list of trade types is:
+
+>>> rt.show(ledger.TradeTypes)
+======= =========== ===========
+ value   name        text
+------- ----------- -----------
+ S       sales       Sales
+ P       purchases   Purchases
+ W       wages       Wages
+ C       clearings   Clearings
+======= =========== ===========
+<BLANKLINE>
+
+Your application might have a different list.  You can see the
+actually configured list for your site via :menuselection:`Explorer
+--> Accounting --> Trade types`.
+
+See :class:`lino_cosi.lib.ledger.choicelists.TradeTypes` for technical
+details.
+
 
 Match rules
 ===========
@@ -145,17 +182,48 @@ Partner 149 has 2 open sales invoices:
 
 >>> obj = contacts.Partner.objects.get(pk=149)
 >>> ses.show(ledger.DebtsByPartner, obj)
-... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ============== =================== ==========
- Due date             Balance        Debts               Payments
--------------------- -------------- ------------------- ----------
- 5/10/15              535,00         *SLS23 (2015-05)*
- 5/11/15              3 319,78       *SLS24 (2015-05)*
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+==================== ============== ========== ==========
+ Due date             Balance        Debts      Payments
+-------------------- -------------- ---------- ----------
+ 5/10/15              535,00         *SLS 23*
+ 5/11/15              3 319,78       *SLS 24*
  **Total (2 rows)**   **3 854,78**
-==================== ============== =================== ==========
+==================== ============== ========== ==========
 <BLANKLINE>
 
 
+
+Fiscal years
+============
+
+Each ledger movement happens in a given **fiscal year**.  Lino has a
+table with **fiscal years**.
+
+In a default configuration there is one fiscal year for each calendar
+year between :attr:`start_year
+<lino_cosi.lib.ledger.Plugin.start_year>` and ":func:`today
+<lino.core.site.Site.today>` plus 5 years".
+
+>>> dd.plugins.ledger.start_year
+2015
+
+>>> dd.today().year + 5
+2020
+
+>>> rt.show(ledger.FiscalYears)
+... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
+======= ====== ======
+ value   name   text
+------- ------ ------
+ 15             2015
+ 16             2016
+ 17             2017
+ 18             2018
+ 19             2019
+ 20             2020
+======= ====== ======
+<BLANKLINE>
 
 
 Accounting periods
@@ -201,28 +269,4 @@ You may manually create other accounting periods. For example
   changing their fiscal year from "January-December" to "July-June".
 
 
-Fiscal years
-============
 
-Each ledger movement happens in a given **fiscal year**.  
-Lino has a table with **fiscal years**.
-
-In a default configuration this table is automatically generated and
-contains one fiscal year per calendar year, starting from `start_year
-<lino_cosi.lib.ledger.Plugin.start_year>` and ending 5 years from
-today.
-
->>> dd.plugins.ledger.start_year
-2015
-
->>> rt.show(ledger.FiscalYears)
-======= ====== ======
- value   name   text
-------- ------ ------
- 15             2015
- 16             2016
- 17             2017
- 18             2018
- 19             2019
-======= ====== ======
-<BLANKLINE>

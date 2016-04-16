@@ -24,6 +24,8 @@
 
 from __future__ import unicode_literals
 
+from builtins import str
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -50,7 +52,7 @@ from .utils import get_due_movements, check_clearings
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
                           PeriodStates, JournalGroups, TradeTypes)
 from .mixins import ProjectRelated, VoucherNumber, JournalRef
-from .mixins import FKMATCH
+# from .mixins import FKMATCH
 from .ui import *
 
 
@@ -75,6 +77,12 @@ class Journal(mixins.BabelNamed,
     .. attribute:: journal_group
 
         Pointer to an item of :class:`JournalGroups`.
+
+    .. attribute:: yearly_numbering
+
+        Whether the
+        :attr:`number<lino_cosi.lib.ledger.models.Voucher.number>` of
+        vouchers should restart at 1 every year.
 
     .. attribute:: force_sequence
 
@@ -117,6 +125,12 @@ class Journal(mixins.BabelNamed,
     printed_name = dd.BabelCharField(
         _("Printed document designation"), max_length=100, blank=True)
     dc = DebitOrCreditField(_("Primary booking direction"))
+    yearly_numbering = models.BooleanField(
+        _("Yearly numbering"), default=False)
+    # invert_due_dc = models.BooleanField(
+    #     _("Invert booking direction"),
+    #     help_text=_("Whether to invert booking direction of due movement."),
+    #     default=True)
 
     # @dd.chooser()
     # def account_choices(cls, chart):
@@ -171,10 +185,11 @@ class Journal(mixins.BabelNamed,
     def get_next_number(self, voucher):
         # ~ self.save() # 20131005 why was this?
         cl = self.get_doc_model()
-        d = cl.objects.filter(
-            journal=self,
-            accounting_period__year=voucher.accounting_period.year).aggregate(
-                models.Max('number'))
+        flt = dict()
+        if self.yearly_numbering:
+            flt.update(accounting_period__year=voucher.accounting_period.year)
+        d = cl.objects.filter(journal=self, **flt).aggregate(
+            models.Max('number'))
         number = d['number__max']
         #~ logger.info("20121206 get_next_number %r",number)
         if number is None:
@@ -380,6 +395,13 @@ class Voucher(UserAuthored, mixins.Registrable):
 
         The sequence number of this voucher in the :attr:`journal`.
 
+        The voucher number is automatically assigned when the voucher
+        is saved for the first time.  The voucher number depends on
+        whether :attr:`yearly_numbering` is enabled or not.
+
+        There might be surprising numbering if two users create
+        vouchers in a same journal at the same time.
+
     .. attribute:: entry_date
 
         The date of the journal entry, i.e. when this voucher has been
@@ -429,7 +451,16 @@ class Voucher(UserAuthored, mixins.Registrable):
         if not self.accounting_period_id:
             self.accounting_period = AccountingPeriod.get_default_for_date(
                 self.entry_date)
+        if self.number is None:
+            self.number = self.journal.get_next_number(self)
         super(Voucher, self).full_clean(*args, **kwargs)
+
+    def accounting_period_changed(self, ar):
+        """If user changes the :attr:`accounting_period`, then the `number`
+        might need to change.
+
+        """
+        self.number = self.journal.get_next_number(self)
 
     def get_due_date(self):
         return self.voucher_date
@@ -470,19 +501,23 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def __str__(self):
         if self.number is None:
-            return "{0}#{1}".format(self.journal.ref, self.id)
-        return "{0}{1} ({2})".format(self.journal.ref, self.number,
-                                     self.accounting_period)
+            return "{0}#{1}".format(
+                dd.full_model_name(self.journal.ref), self.id)
+        if self.journal.yearly_numbering:
+            return "{0} {1}/{2}".format(self.journal.ref, self.number,
+                                        self.accounting_period.year)
+        return "{0} {1}".format(self.journal.ref, self.number)
         # if self.journal.ref:
         #     return "%s %s" % (self.journal.ref,self.number)
         # return "#%s (%s %s)" % (self.number,self.journal,self.year)
 
     def get_default_match(self):
-        return "%s#%s" % (self.journal.ref, self.id)
+        return str(self)
+        # return "%s#%s" % (self.journal.ref, self.id)
         # return "%s%s" % (self.id, self.journal.ref)
 
-    def get_voucher_match(self):
-        return "{0}#{1}".format(self.journal.ref, self.number)
+    # def get_voucher_match(self):
+    #     return str(self)  # "{0}{1}".format(self.journal.ref, self.number)
         
     def set_workflow_state(self, ar, state_field, newstate):
         """"""
@@ -514,11 +549,6 @@ class Voucher(UserAuthored, mixins.Registrable):
         """
         # dd.logger.info("20151211 cosi.Voucher.register_voucher()")
         # self.year = FiscalYears.from_date(self.entry_date)
-        if self.number is None:
-            self.number = self.journal.get_next_number(self)
-            if self.number is None:
-                raise Warning(
-                    "No voucher number available in {0}".format(self.journal))
         # dd.logger.info("20151211 movement_set.all().delete()")
 
         def doit(partners):
@@ -720,24 +750,14 @@ class Movement(ProjectRelated):
     amount = dd.PriceField(default=0)
     dc = DebitOrCreditField()
 
-    if FKMATCH:
-
-        match = models.ForeignKey(
-            'ledger.Movement', verbose_name=_("Match"),
-            help_text=_("The movement matched by this one."),
-            related_name="%(app_label)s_%(class)s_set_by_match",
-            blank=True, null=True)
-
-    else:
-
-        match = models.CharField(_("Match"), blank=True, max_length=20)
+    match = models.CharField(_("Match"), blank=True, max_length=20)
 
     # match = MatchField(blank=True, null=True)
 
     cleared = models.BooleanField(_("Cleared"), default=False)
     # 20160327: rename "satisfied" to "cleared"
 
-    @dd.chooser(simple_values=not FKMATCH)
+    @dd.chooser(simple_values=True)
     def match_choices(cls, partner, account):
         #~ DC = voucher.journal.dc
         #~ choices = []
@@ -745,8 +765,6 @@ class Movement(ProjectRelated):
             partner=partner, account=account, cleared=False)
         qs = qs.order_by('voucher__entry_date')
         #~ qs = qs.distinct('match')
-        if FKMATCH:
-            return qs
         return qs.values_list('match', flat=True)
 
     #~ def full_clean(self,*args,**kw):
@@ -809,6 +827,9 @@ class Movement(ProjectRelated):
 
     def __str__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
+
+    def get_match(self):
+        return self.match or str(self.voucher)
 
 Movement.set_widget_options('voucher_link', width=12)
 

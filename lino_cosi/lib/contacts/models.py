@@ -1,4 +1,4 @@
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ from lino_cosi.lib.vat.mixins import PartnerDetailMixin
 
 class PartnerDetail(PartnerDetail, PartnerDetailMixin):
     
-    main = "general ledger"
+    main = "general ledger sepa.AccountsByPartner"
 
     general = dd.Panel("""
     address_box:60 contact_box:30 overview
