@@ -204,12 +204,6 @@ def objects():
     yield vat.VatAccountInvoice.create_journal(**kw)
 
     if finan:
-        kw.update(journal_group=JournalGroups.financial)
-        kw.update(dd.str2kw('name', _("Bestbank")))
-        kw.update(account=BESTBANK_ACCOUNT, ref="BNK")
-        kw.update(dc=DEBIT)
-        yield finan.BankStatement.create_journal(**kw)
-
         kw.update(dd.str2kw('name', _("Payment Orders")))
         # kw.update(dd.babel_values(
         #     'name', de="Zahlungsaufträge", fr="Ordres de paiement",
@@ -222,6 +216,7 @@ def objects():
         yield finan.PaymentOrder.create_journal(**kw)
 
         kw.update(trade_type='')
+        kw.update(dc=DEBIT)
         kw.update(account=CASH_ACCOUNT, ref="CSH")
         kw.update(dd.str2kw('name', _("Cash")))
         # kw = dd.babel_values(
@@ -230,12 +225,19 @@ def objects():
         #     et="Kassa")
         yield finan.BankStatement.create_journal(**kw)
 
+        kw.update(journal_group=JournalGroups.financial)
+        kw.update(dd.str2kw('name', _("Bestbank")))
+        kw.update(account=BESTBANK_ACCOUNT, ref="BNK")
+        kw.update(dc=DEBIT)
+        yield finan.BankStatement.create_journal(**kw)
+
         kw.update(dd.str2kw('name', _("Miscellaneous Journal Entries")))
         # kw = dd.babel_values(
         #     'name', en="Miscellaneous Journal Entries",
         #     de="Diverse Buchungen", fr="Opérations diverses",
         #     et="Muud operatsioonid")
-        kw.update(account=CASH_ACCOUNT, ref="MSG", dc=DEBIT)
+        kw.update(account=CASH_ACCOUNT, ref="MSG")
+        kw.update(dc=DEBIT)
         yield finan.JournalEntry.create_journal(**kw)
 
     if declarations:
