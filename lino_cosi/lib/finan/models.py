@@ -282,7 +282,7 @@ class FinancialVouchers(dd.Table):
     model = 'finan.JournalEntry'
     required_roles = dd.login_required(LedgerUser)
     params_panel_hidden = True
-    order_by = ["voucher_date", "id"]
+    order_by = ["id", "voucher_date"]
     parameters = dict(
         pyear=ledger.FiscalYears.field(blank=True),
         #~ ppartner=models.ForeignKey('contacts.Partner',blank=True,null=True),
@@ -310,13 +310,13 @@ class FinancialVouchers(dd.Table):
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
-    column_names = "voucher_date id number state user *"
+    column_names = "number voucher_date state user *"
 
 
 class PaymentOrders(FinancialVouchers):
     """The table of all :class:`PaymentOrder` vouchers."""
     model = 'finan.PaymentOrder'
-    column_names = "voucher_date narration total execution_date id number state *"
+    column_names = "number voucher_date narration total execution_date state *"
     detail_layout = PaymentOrderDetail()
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
 
@@ -324,12 +324,11 @@ class PaymentOrders(FinancialVouchers):
 class BankStatements(FinancialVouchers):
     """The table of all :class:`BankStatement` vouchers."""
     model = 'finan.BankStatement'
-    column_names = "voucher_date id number balance1 balance2 state user *"
+    column_names = "number voucher_date balance1 balance2 state user *"
     detail_layout = BankStatementDetail()
     insert_layout = """
     voucher_date
     balance1
-    #balance2
     """
     suggestions_table = 'finan.SuggestionsByBankStatement'
 

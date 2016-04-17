@@ -96,7 +96,7 @@ class VatRule(Sequenced, DatePeriod):
     @classmethod
     def get_vat_rule(cls, vat_regime, vat_class, country, date):
         """Return the one and only VatRule object to be applied for the given
-criteria.
+        criteria.
 
         """
         qs = cls.objects.order_by('seqno')

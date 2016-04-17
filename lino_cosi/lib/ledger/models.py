@@ -849,8 +849,8 @@ class Movement(ProjectRelated):
     def __str__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
 
-    def get_match(self):
-        return self.match or str(self.voucher)
+    # def get_match(self):
+    #     return self.match or str(self.voucher)
 
 Movement.set_widget_options('voucher_link', width=12)
 
