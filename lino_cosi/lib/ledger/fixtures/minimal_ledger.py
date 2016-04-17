@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 from django.conf import settings
 from lino.api import dd, rt, _
-from lino_cosi.lib.accounts.utils import DEBIT
+from lino_cosi.lib.accounts.utils import DEBIT, CREDIT
 
 accounts = dd.resolve_app('accounts')
 vat = dd.resolve_app('vat')
@@ -183,7 +183,7 @@ def objects():
     if sales:
         settings.SITE.site_config.update(sales_account=obj)
 
-    ## JOURNALS
+    # JOURNALS
 
     kw = dict(journal_group=JournalGroups.sales)
     if sales:
@@ -207,6 +207,7 @@ def objects():
         kw.update(journal_group=JournalGroups.financial)
         kw.update(dd.str2kw('name', _("Bestbank")))
         kw.update(account=BESTBANK_ACCOUNT, ref="BNK")
+        kw.update(dc=DEBIT)
         yield finan.BankStatement.create_journal(**kw)
 
         kw.update(dd.str2kw('name', _("Payment Orders")))
@@ -217,6 +218,7 @@ def objects():
             trade_type='purchases',
             account=PO_BESTBANK_ACCOUNT,
             ref="PMO")
+        kw.update(dc=CREDIT)
         yield finan.PaymentOrder.create_journal(**kw)
 
         kw.update(trade_type='')

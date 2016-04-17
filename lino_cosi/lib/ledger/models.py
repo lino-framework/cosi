@@ -90,6 +90,28 @@ class Journal(mixins.BabelNamed,
     .. attribute:: printed_name
     .. attribute:: dc
 
+        The primary booking direction.
+
+        In a journal of *sales invoices* this should be *Debit*
+        (checked), because a positive invoice total should be
+        *debited* from the customer's account.
+
+        In a journal of *purchase invoices* this should be *Credit*
+        (not checked), because a positive invoice total should be
+        *credited* from the supplier's account.
+
+        In a journal of *bank statements* this should be *Debit*
+        (checked), because a positive balance change should be
+        *debited* from the bank's general account.
+
+        In a journal of *payment orders* this should be *Credit* (not
+        checked), because a positive total means an "expense" and
+        should be *credited* from the journal's general account.
+
+        In all financial vouchers, the amount of every item increases
+        the total if its direction is opposite of the primary
+        direction.
+
     .. attribute:: auto_check_clearings
 
         Whether to automatically check and update the 'cleared' status

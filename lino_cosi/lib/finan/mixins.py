@@ -101,9 +101,9 @@ class FinancialVoucher(ledger.Voucher, Certifiable):
         mvts = []
         for i in self.items.all():
             if i.dc == self.journal.dc:
-                amount += i.amount
-            else:
                 amount -= i.amount
+            else:
+                amount += i.amount
             # kw = dict(seqno=i.seqno, partner=i.partner)
             kw = dict(partner=i.get_partner())
             kw.update(match=i.match or i.get_default_match())

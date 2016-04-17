@@ -117,8 +117,11 @@ class PaymentOrder(FinancialVoucher):
         _("Execution date"), blank=True, null=True)
 
     def get_wanted_movements(self):
-        """
-        The generated movements 
+        """Implements
+        :meth:`lino_cosi.lib.ledger.models.Voucher.get_wanted_movements`.
+
+        The generated movements
+
         """
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
@@ -148,6 +151,14 @@ class BankStatement(FinancialVoucher):
     reports all transactions which occured on a given account during a
     given period.
 
+    .. attribute:: balance1
+
+        The old (or start) balance.
+
+    .. attribute:: balance2
+
+        The new (or end) balance.
+
     """
     class Meta:
         app_label = 'finan'
@@ -156,7 +167,7 @@ class BankStatement(FinancialVoucher):
         verbose_name_plural = _("Bank Statements")
 
     balance1 = dd.PriceField(_("Old balance"), default=ZERO)
-    balance2 = dd.PriceField(_("New balance"), default=ZERO)
+    balance2 = dd.PriceField(_("New balance"), default=ZERO, blank=True)
 
     def get_previous_voucher(self):
         if not self.journal_id:
@@ -185,7 +196,7 @@ class BankStatement(FinancialVoucher):
         self.balance2 = self.balance1 + amount
         for m in movements:
             yield m
-        yield self.create_movement(a, None, not self.journal.dc, amount)
+        yield self.create_movement(a, None, self.journal.dc, amount)
 
 
 class JournalEntryItem(FinancialVoucherItem):
@@ -318,7 +329,7 @@ class BankStatements(FinancialVouchers):
     insert_layout = """
     voucher_date
     balance1
-    balance2
+    #balance2
     """
     suggestions_table = 'finan.SuggestionsByBankStatement'
 
