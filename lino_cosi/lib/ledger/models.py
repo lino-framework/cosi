@@ -607,7 +607,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
 
     def deregister_voucher(self, ar):
-        self.number = None
+        # self.number = None
 
         def doit(partners):
             pass
