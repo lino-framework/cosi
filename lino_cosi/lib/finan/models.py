@@ -118,7 +118,8 @@ class PaymentOrder(FinancialVoucher):
 
     def get_wanted_movements(self):
         """Implements
-        :meth:`lino_cosi.lib.ledger.models.Voucher.get_wanted_movements`.
+        :meth:`lino_cosi.lib.ledger.models.Voucher.get_wanted_movements`
+        for payment orders.
 
         The generated movements
 
@@ -133,10 +134,10 @@ class PaymentOrder(FinancialVoucher):
             yield m
             if acc.needs_partner:
                 yield self.create_movement(
-                    acc, m.project, m.dc, -m.amount,
+                    acc, m.project, not m.dc, m.amount,
                     partner=m.partner, match=m.match or m.get_default_match())
         if not acc.needs_partner:
-            yield self.create_movement(acc, None, self.journal.dc, -amount)
+            yield self.create_movement(acc, None, not self.journal.dc, amount)
 
     def add_item_from_due(self, obj, **kwargs):
         # if obj.bank_account is None:
@@ -508,7 +509,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
         voucher = ar.master_instance
         if voucher is None:
             return None
-        return voucher.journal.dc
+        return - voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):
@@ -568,7 +569,7 @@ class SuggestionsByVoucherItem(SuggestionsByVoucher):
         item = ar.master_instance
         if item is None:
             return None
-        return item.voucher.journal.dc
+        return - item.voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):

@@ -549,13 +549,15 @@ class Voucher(UserAuthored, mixins.Registrable):
                 self.deregister_voucher(ar2)
             super(Voucher, self).set_workflow_state(ar2, state_field, newstate)
 
-        if newstate.name == 'registered':
-            ar.confirm(
-                doit,
-                _("Are you sure you want to register "
-                  "voucher {0}?").format(self))
-        else:
-            doit(ar)
+        doit(ar)
+
+        # if newstate.name == 'registered':
+        #     ar.confirm(
+        #         doit,
+        #         _("Are you sure you want to register "
+        #           "voucher {0}?").format(self))
+        # else:
+        #     doit(ar)
 
     # def before_state_change(self, ar, old, new):
     #     if new.name == 'registered':
