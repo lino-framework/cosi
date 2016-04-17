@@ -223,7 +223,8 @@ class InvoiceDetail(dd.FormLayout):
 
 class Invoices(SalesDocuments):
     model = 'sales.VatProductInvoice'
-    order_by = ["-id"]
+    # order_by = ["-id"]
+    order_by = ["journal", "number"]
     column_names = "id voucher_date partner total_incl user *"
     detail_layout = InvoiceDetail()
     insert_layout = dd.FormLayout("""
@@ -250,9 +251,10 @@ class InvoicesByJournal(Invoices, ByJournal):
     :class:`VatProductInvoice`)
 
     """
+    order_by = ["-number"]
     params_panel_hidden = True
     params_layout = "partner year state"
-    column_names = "id voucher_date due_date " \
+    column_names = "number voucher_date due_date " \
         "partner " \
         "total_incl order subject:10 " \
         "total_base total_vat user *"

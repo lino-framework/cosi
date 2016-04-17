@@ -91,7 +91,8 @@ class DueMovement(object):
     """
     def __init__(self, dc, mvt):
         self.dc = dc
-        self.match = mvt.get_match()
+        # self.match = mvt.get_match()
+        self.match = mvt.match
         self.partner = mvt.partner
         self.account = mvt.account
         self.project = mvt.project
@@ -218,7 +219,8 @@ def get_due_movements(dc, **flt):
     matches_by_account = dict()
     matches = []
     for mvt in qs:
-        k = (mvt.account, mvt.partner, mvt.project, mvt.get_match())
+        k = (mvt.account, mvt.partner, mvt.project, mvt.match)
+        # k = (mvt.account, mvt.partner, mvt.project, mvt.get_match())
         dm = matches_by_account.get(k)
         if dm is None:
             dm = DueMovement(dc, mvt)
@@ -245,7 +247,8 @@ def check_clearings(partner, matches=[]):
         qs = qs.filter(match__in=matches)
     sums = SumCollector()
     for mvt in qs:
-        k = (mvt.get_match(), mvt.account)
+        # k = (mvt.get_match(), mvt.account)
+        k = (mvt.match, mvt.account)
         mvt_dc = mvt.dc
         # if mvt.voucher.journal.invert_due_dc:
         #     mvt_dc = mvt.dc

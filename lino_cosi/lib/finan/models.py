@@ -117,8 +117,12 @@ class PaymentOrder(FinancialVoucher):
         _("Execution date"), blank=True, null=True)
 
     def get_wanted_movements(self):
-        """
-        The generated movements 
+        """Implements
+        :meth:`lino_cosi.lib.ledger.models.Voucher.get_wanted_movements`
+        for payment orders.
+
+        The generated movements
+
         """
         # dd.logger.info("20151211 cosi.PaymentOrder.get_wanted_movements()")
         acc = self.journal.account
@@ -130,10 +134,10 @@ class PaymentOrder(FinancialVoucher):
             yield m
             if acc.needs_partner:
                 yield self.create_movement(
-                    acc, m.project, m.dc, -m.amount,
+                    acc, m.project, not m.dc, m.amount,
                     partner=m.partner, match=m.match or m.get_default_match())
         if not acc.needs_partner:
-            yield self.create_movement(acc, None, self.journal.dc, -amount)
+            yield self.create_movement(acc, None, not self.journal.dc, amount)
 
     def add_item_from_due(self, obj, **kwargs):
         # if obj.bank_account is None:
@@ -148,6 +152,14 @@ class BankStatement(FinancialVoucher):
     reports all transactions which occured on a given account during a
     given period.
 
+    .. attribute:: balance1
+
+        The old (or start) balance.
+
+    .. attribute:: balance2
+
+        The new (or end) balance.
+
     """
     class Meta:
         app_label = 'finan'
@@ -156,7 +168,7 @@ class BankStatement(FinancialVoucher):
         verbose_name_plural = _("Bank Statements")
 
     balance1 = dd.PriceField(_("Old balance"), default=ZERO)
-    balance2 = dd.PriceField(_("New balance"), default=ZERO)
+    balance2 = dd.PriceField(_("New balance"), default=ZERO, blank=True)
 
     def get_previous_voucher(self):
         if not self.journal_id:
@@ -185,7 +197,7 @@ class BankStatement(FinancialVoucher):
         self.balance2 = self.balance1 + amount
         for m in movements:
             yield m
-        yield self.create_movement(a, None, not self.journal.dc, amount)
+        yield self.create_movement(a, None, self.journal.dc, amount)
 
 
 class JournalEntryItem(FinancialVoucherItem):
@@ -271,7 +283,7 @@ class FinancialVouchers(dd.Table):
     model = 'finan.JournalEntry'
     required_roles = dd.login_required(LedgerUser)
     params_panel_hidden = True
-    order_by = ["voucher_date", "id"]
+    order_by = ["id", "voucher_date"]
     parameters = dict(
         pyear=ledger.FiscalYears.field(blank=True),
         #~ ppartner=models.ForeignKey('contacts.Partner',blank=True,null=True),
@@ -299,13 +311,13 @@ class FinancialVouchers(dd.Table):
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
-    column_names = "voucher_date id number state user *"
+    column_names = "number voucher_date state user *"
 
 
 class PaymentOrders(FinancialVouchers):
     """The table of all :class:`PaymentOrder` vouchers."""
     model = 'finan.PaymentOrder'
-    column_names = "voucher_date narration total execution_date id number state *"
+    column_names = "number voucher_date narration total execution_date state *"
     detail_layout = PaymentOrderDetail()
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
 
@@ -313,12 +325,11 @@ class PaymentOrders(FinancialVouchers):
 class BankStatements(FinancialVouchers):
     """The table of all :class:`BankStatement` vouchers."""
     model = 'finan.BankStatement'
-    column_names = "voucher_date id number balance1 balance2 state user *"
+    column_names = "number voucher_date balance1 balance2 state user *"
     detail_layout = BankStatementDetail()
     insert_layout = """
     voucher_date
     balance1
-    balance2
     """
     suggestions_table = 'finan.SuggestionsByBankStatement'
 
@@ -498,7 +509,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
         voucher = ar.master_instance
         if voucher is None:
             return None
-        return voucher.journal.dc
+        return - voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):
@@ -558,7 +569,7 @@ class SuggestionsByVoucherItem(SuggestionsByVoucher):
         item = ar.master_instance
         if item is None:
             return None
-        return item.voucher.journal.dc
+        return - item.voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):

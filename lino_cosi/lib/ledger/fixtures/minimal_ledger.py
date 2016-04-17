@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 from django.conf import settings
 from lino.api import dd, rt, _
-from lino_cosi.lib.accounts.utils import DEBIT
+from lino_cosi.lib.accounts.utils import DEBIT, CREDIT
 
 accounts = dd.resolve_app('accounts')
 vat = dd.resolve_app('vat')
@@ -183,7 +183,7 @@ def objects():
     if sales:
         settings.SITE.site_config.update(sales_account=obj)
 
-    ## JOURNALS
+    # JOURNALS
 
     kw = dict(journal_group=JournalGroups.sales)
     if sales:
@@ -196,19 +196,17 @@ def objects():
     #                   en="Sales invoices",
     #                   et="Müügiarved")
     kw.update(trade_type='sales', ref="SLS")
+    kw.update(dc=DEBIT)
     yield MODEL.create_journal(**kw)
 
     kw.update(journal_group=JournalGroups.purchases)
     kw.update(trade_type='purchases', ref="PRC")
     kw.update(dd.str2kw('name', _("Purchase invoices")))
+    kw.update(dc=CREDIT)
     yield vat.VatAccountInvoice.create_journal(**kw)
 
     if finan:
         kw.update(journal_group=JournalGroups.financial)
-        kw.update(dd.str2kw('name', _("Bestbank")))
-        kw.update(account=BESTBANK_ACCOUNT, ref="BNK")
-        yield finan.BankStatement.create_journal(**kw)
-
         kw.update(dd.str2kw('name', _("Payment Orders")))
         # kw.update(dd.babel_values(
         #     'name', de="Zahlungsaufträge", fr="Ordres de paiement",
@@ -217,9 +215,12 @@ def objects():
             trade_type='purchases',
             account=PO_BESTBANK_ACCOUNT,
             ref="PMO")
+        kw.update(dc=CREDIT)
         yield finan.PaymentOrder.create_journal(**kw)
 
+        kw.update(journal_group=JournalGroups.financial)
         kw.update(trade_type='')
+        kw.update(dc=DEBIT)
         kw.update(account=CASH_ACCOUNT, ref="CSH")
         kw.update(dd.str2kw('name', _("Cash")))
         # kw = dd.babel_values(
@@ -228,12 +229,20 @@ def objects():
         #     et="Kassa")
         yield finan.BankStatement.create_journal(**kw)
 
+        kw.update(journal_group=JournalGroups.financial)
+        kw.update(dd.str2kw('name', _("Bestbank")))
+        kw.update(account=BESTBANK_ACCOUNT, ref="BNK")
+        kw.update(dc=DEBIT)
+        yield finan.BankStatement.create_journal(**kw)
+
+        kw.update(journal_group=JournalGroups.financial)
         kw.update(dd.str2kw('name', _("Miscellaneous Journal Entries")))
         # kw = dd.babel_values(
         #     'name', en="Miscellaneous Journal Entries",
         #     de="Diverse Buchungen", fr="Opérations diverses",
         #     et="Muud operatsioonid")
-        kw.update(account=CASH_ACCOUNT, ref="MSG", dc=DEBIT)
+        kw.update(account=CASH_ACCOUNT, ref="MSC")
+        kw.update(dc=DEBIT)
         yield finan.JournalEntry.create_journal(**kw)
 
     if declarations:

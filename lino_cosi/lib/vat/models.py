@@ -1,4 +1,4 @@
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -96,7 +96,7 @@ class VatRule(Sequenced, DatePeriod):
     @classmethod
     def get_vat_rule(cls, vat_regime, vat_class, country, date):
         """Return the one and only VatRule object to be applied for the given
-criteria.
+        criteria.
 
         """
         qs = cls.objects.order_by('seqno')

@@ -90,6 +90,28 @@ class Journal(mixins.BabelNamed,
     .. attribute:: printed_name
     .. attribute:: dc
 
+        The primary booking direction.
+
+        In a journal of *sales invoices* this should be *Debit*
+        (checked), because a positive invoice total should be
+        *debited* from the customer's account.
+
+        In a journal of *purchase invoices* this should be *Credit*
+        (not checked), because a positive invoice total should be
+        *credited* from the supplier's account.
+
+        In a journal of *bank statements* this should be *Debit*
+        (checked), because a positive balance change should be
+        *debited* from the bank's general account.
+
+        In a journal of *payment orders* this should be *Credit* (not
+        checked), because a positive total means an "expense" and
+        should be *credited* from the journal's general account.
+
+        In all financial vouchers, the amount of every item increases
+        the total if its direction is opposite of the primary
+        direction.
+
     .. attribute:: auto_check_clearings
 
         Whether to automatically check and update the 'cleared' status
@@ -501,8 +523,7 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def __str__(self):
         if self.number is None:
-            return "{0}#{1}".format(
-                dd.full_model_name(self.journal.ref), self.id)
+            return "{0}#{1}".format(self.journal.ref, self.id)
         if self.journal.yearly_numbering:
             return "{0} {1}/{2}".format(self.journal.ref, self.number,
                                         self.accounting_period.year)
@@ -528,13 +549,15 @@ class Voucher(UserAuthored, mixins.Registrable):
                 self.deregister_voucher(ar2)
             super(Voucher, self).set_workflow_state(ar2, state_field, newstate)
 
-        if newstate.name == 'registered':
-            ar.confirm(
-                doit,
-                _("Are you sure you want to register "
-                  "voucher {0}?").format(self))
-        else:
-            doit(ar)
+        doit(ar)
+
+        # if newstate.name == 'registered':
+        #     ar.confirm(
+        #         doit,
+        #         _("Are you sure you want to register "
+        #           "voucher {0}?").format(self))
+        # else:
+        #     doit(ar)
 
     # def before_state_change(self, ar, old, new):
     #     if new.name == 'registered':
@@ -554,7 +577,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         def doit(partners):
             seqno = 0
             # dd.logger.info("20151211 gonna call get_wanted_movements()")
-            movements = list(self.get_wanted_movements())
+            movements = self.get_wanted_movements()
             # dd.logger.info("20151211 gonna save %d movements", len(movements))
             fcu = dd.plugins.ledger.force_cleared_until
             for m in movements:
@@ -584,7 +607,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
 
     def deregister_voucher(self, ar):
-        self.number = None
+        # self.number = None
 
         def doit(partners):
             pass
@@ -828,8 +851,8 @@ class Movement(ProjectRelated):
     def __str__(self):
         return "%s.%d" % (unicode(self.voucher), self.seqno)
 
-    def get_match(self):
-        return self.match or str(self.voucher)
+    # def get_match(self):
+    #     return self.match or str(self.voucher)
 
 Movement.set_widget_options('voucher_link', width=12)
 
