@@ -196,14 +196,17 @@ def objects():
     #                   en="Sales invoices",
     #                   et="Müügiarved")
     kw.update(trade_type='sales', ref="SLS")
+    kw.update(dc=DEBIT)
     yield MODEL.create_journal(**kw)
 
     kw.update(journal_group=JournalGroups.purchases)
     kw.update(trade_type='purchases', ref="PRC")
     kw.update(dd.str2kw('name', _("Purchase invoices")))
+    kw.update(dc=CREDIT)
     yield vat.VatAccountInvoice.create_journal(**kw)
 
     if finan:
+        kw.update(journal_group=JournalGroups.financial)
         kw.update(dd.str2kw('name', _("Payment Orders")))
         # kw.update(dd.babel_values(
         #     'name', de="Zahlungsaufträge", fr="Ordres de paiement",
@@ -215,6 +218,7 @@ def objects():
         kw.update(dc=CREDIT)
         yield finan.PaymentOrder.create_journal(**kw)
 
+        kw.update(journal_group=JournalGroups.financial)
         kw.update(trade_type='')
         kw.update(dc=DEBIT)
         kw.update(account=CASH_ACCOUNT, ref="CSH")
@@ -231,12 +235,13 @@ def objects():
         kw.update(dc=DEBIT)
         yield finan.BankStatement.create_journal(**kw)
 
+        kw.update(journal_group=JournalGroups.financial)
         kw.update(dd.str2kw('name', _("Miscellaneous Journal Entries")))
         # kw = dd.babel_values(
         #     'name', en="Miscellaneous Journal Entries",
         #     de="Diverse Buchungen", fr="Opérations diverses",
         #     et="Muud operatsioonid")
-        kw.update(account=CASH_ACCOUNT, ref="MSG")
+        kw.update(account=CASH_ACCOUNT, ref="MSC")
         kw.update(dc=DEBIT)
         yield finan.JournalEntry.create_journal(**kw)
 

@@ -577,7 +577,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         def doit(partners):
             seqno = 0
             # dd.logger.info("20151211 gonna call get_wanted_movements()")
-            movements = list(self.get_wanted_movements())
+            movements = self.get_wanted_movements()
             # dd.logger.info("20151211 gonna save %d movements", len(movements))
             fcu = dd.plugins.ledger.force_cleared_until
             for m in movements:
