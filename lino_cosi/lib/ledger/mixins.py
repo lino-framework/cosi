@@ -269,7 +269,7 @@ def JournalRef(**kw):
     return dd.ForeignKey('ledger.Journal', **kw)
 
 
-def VoucherNumber(**kw):
-    return models.IntegerField(**kw)
+def VoucherNumber(*args, **kwargs):
+    return models.IntegerField(*args, **kwargs)
 
 

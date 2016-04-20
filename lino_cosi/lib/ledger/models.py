@@ -457,7 +457,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     entry_date = models.DateField(_("Entry date"), default=dd.today)
     accounting_period = models.ForeignKey(
         'ledger.AccountingPeriod', blank=True)
-    number = VoucherNumber(blank=True, null=True)
+    number = VoucherNumber(_("No."), blank=True, null=True)
     narration = models.CharField(_("Narration"), max_length=200, blank=True)
     state = VoucherStates.field(
         default=VoucherStates.draft.as_callable)
