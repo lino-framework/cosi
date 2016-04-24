@@ -519,7 +519,7 @@ class EnrolmentsByOption(Enrolments):
 # class EventsByCourse(cal.Events):
 #     required = dd.required(user_groups='office')
 #     master_key = 'course'
-#     column_names = 'when_text:20 linked_date summary workflow_buttons *'
+#     column_names = 'when_text:20 when_html summary workflow_buttons *'
 #     auto_fit_column_widths = True
 
 
