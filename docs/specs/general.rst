@@ -88,7 +88,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Buchhaltung :
   - Verkauf : Verkaufsrechnungen (SLS)
   - Einkauf : Einkaufsrechnungen (PRC)
-  - Finanzjournale : Bestbank (BNK), Zahlungsaufträge (PMO), Kasse (CSH), Diverse Buchungen (MSG)
+  - Finanzjournale : Zahlungsaufträge (PMO), Kasse (CSH), Bestbank (BNK), Diverse Buchungen (MSC)
   - Rechnungen erstellen
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
 - Berichte :
