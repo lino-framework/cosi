@@ -75,8 +75,8 @@ will do the following AJAX call to get its data:
 >>> res.status_code
 200
 >>> r = json.loads(res.content)
->>> r.keys()
-[u'count', u'rows', u'success', u'no_data_text', u'title', u'param_values']
+>>> print(json.dumps(sorted(r.keys())))
+["count", "no_data_text", "param_values", "rows", "success", "title"]
 >>> len(r['rows'])
 26
 

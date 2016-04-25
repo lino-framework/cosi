@@ -61,11 +61,11 @@ The test database
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
 - excerpts.ExcerptType : id, name, build_method, template, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
-- finan.BankStatement : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, balance1, balance2
+- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, balance1, balance2
 - finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.JournalEntry : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark
+- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark
 - finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.PaymentOrder : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, item_account, item_remark, total, execution_date
+- finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, bank_account, amount, dc, remark, account, partner, voucher
 - gfks.HelpText : id, content_type, field, help_text
 - invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
@@ -75,14 +75,14 @@ The test database
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
-- ledger.Voucher : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state
+- ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
 - products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
-- sales.VatProductInvoice : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, language, subject, intro
+- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, printed_by, language, subject, intro
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -91,15 +91,15 @@ The test database
 - users.Authority : id, user, authorized
 - users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
-- vat.VatAccountInvoice : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date
+- vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
-- vatless.AccountInvoice : id, user, printed_by, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, bank_account, your_ref, due_date, amount
+- vatless.AccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, bank_account, your_ref, due_date, amount
 - vatless.InvoiceItem : id, seqno, account, voucher, title, amount
 <BLANKLINE>
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-33 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
+34 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, xl, cal, courses, vatless.
 63 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
@@ -132,7 +132,7 @@ The test database
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 2         0
  excerpts.Excerpt            excerpts.Excerpts              11        0
- excerpts.ExcerptType        excerpts.ExcerptTypes          15        9
+ excerpts.ExcerptType        excerpts.ExcerptTypes          15        6
  finan.BankStatement         finan.BankStatements           15        4
  finan.BankStatementItem     finan.BankStatementItemTable   10        18
  finan.JournalEntry          finan.FinancialVouchers        13        0
@@ -147,7 +147,7 @@ The test database
  ledger.MatchRule            ledger.MatchRules              3         10
  ledger.Movement             ledger.Movements               9         208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
- ledger.Voucher              ledger.Vouchers                10        57
+ ledger.Voucher              ledger.Vouchers                9         57
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
@@ -163,9 +163,9 @@ The test database
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    15        1
  vat.InvoiceItem             vat.InvoiceItemTable           9         40
- vat.VatAccountInvoice       vat.Invoices                   20        25
+ vat.VatAccountInvoice       vat.Invoices                   19        25
  vat.VatRule                 vat.VatRules                   9         11
- vatless.AccountInvoice      vatless.Invoices               18        0
+ vatless.AccountInvoice      vatless.Invoices               17        0
  vatless.InvoiceItem         vatless.InvoiceItems           6         0
 =========================== ============================== ========= =======
 <BLANKLINE>

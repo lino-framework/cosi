@@ -45,12 +45,12 @@ Basic truths of accounting
 =========== =============================== ============ ================================ ===========================
  Reference   Designation                     Trade type   Account                          Primary booking direction
 ----------- ------------------------------- ------------ -------------------------------- ---------------------------
- SLS         Sales invoices                  Sales                                         Credit
- PRC         Purchase invoices               Purchases                                     Debit
- BNK         Bestbank                        Purchases    (5500) Bestbank                  Debit
- PMO         Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Debit
+ SLS         Sales invoices                  Sales                                         Debit
+ PRC         Purchase invoices               Purchases                                     Credit
+ PMO         Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Credit
  CSH         Cash                                         (5700) Cash                      Debit
- MSG         Miscellaneous Journal Entries                (5700) Cash                      Debit
+ BNK         Bestbank                                     (5500) Bestbank                  Debit
+ MSC         Miscellaneous Journal Entries                (5700) Cash                      Debit
 =========== =============================== ============ ================================ ===========================
 <BLANKLINE>
 
@@ -94,14 +94,14 @@ A **match rule** specifies that a movement into given account can be
 ---- ------------------ -------------------------------------
  1    (4000) Customers   Sales invoices (SLS)
  2    (4400) Suppliers   Purchase invoices (PRC)
- 3    (4000) Customers   Bestbank (BNK)
- 4    (4400) Suppliers   Bestbank (BNK)
- 5    (4000) Customers   Payment Orders (PMO)
- 6    (4400) Suppliers   Payment Orders (PMO)
- 7    (4000) Customers   Cash (CSH)
- 8    (4400) Suppliers   Cash (CSH)
- 9    (4000) Customers   Miscellaneous Journal Entries (MSG)
- 10   (4400) Suppliers   Miscellaneous Journal Entries (MSG)
+ 3    (4000) Customers   Payment Orders (PMO)
+ 4    (4400) Suppliers   Payment Orders (PMO)
+ 5    (4000) Customers   Cash (CSH)
+ 6    (4400) Suppliers   Cash (CSH)
+ 7    (4000) Customers   Bestbank (BNK)
+ 8    (4400) Suppliers   Bestbank (BNK)
+ 9    (4000) Customers   Miscellaneous Journal Entries (MSC)
+ 10   (4400) Suppliers   Miscellaneous Journal Entries (MSC)
 ==== ================== =====================================
 <BLANKLINE>
 
@@ -112,7 +112,7 @@ paid too much.
 
 >>> jnl = ledger.Journal.objects.get(ref="PMO")
 >>> jnl
-Journal #4 ('Payment Orders (PMO)')
+Journal #3 ('Payment Orders (PMO)')
 
 >>> rt.show(ledger.MatchRulesByJournal, jnl)
 ==================
