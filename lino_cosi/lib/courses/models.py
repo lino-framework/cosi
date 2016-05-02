@@ -49,6 +49,7 @@ from lino import mixins
 
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
+from lino.mixins.periods import DatePeriod
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_xl.lib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
@@ -248,6 +249,11 @@ class Course(Reservation, Duplicable):
 
     .. attribute:: enrolments_until
 
+    .. attribute:: max_places
+
+        Available places. The maximum number of participants to allow
+        in this course.
+
     """
 
     class Meta:
@@ -275,7 +281,7 @@ class Course(Reservation, Duplicable):
 
     max_places = models.PositiveIntegerField(
         pgettext("in a course", "Available places"),
-        help_text=("Maximal number of participants"),
+        help_text=("Maximum number of participants"),
         blank=True, null=True)
 
     name = models.CharField(_("Designation"), max_length=100, blank=True)
@@ -346,10 +352,18 @@ class Course(Reservation, Duplicable):
                     partner=obj.pupil,
                     role=gr)
 
-    def get_free_places(self):
-        used_states = EnrolmentStates.filter(uses_a_place=True)
+    def get_free_places(self, rng=None):
         Enrolment = rt.modules.courses.Enrolment
+        PeriodEvents = rt.modules.system.PeriodEvents
+        # from lino.mixins.periods import DatePeriodValue
+        # if today is None:
+        #     today = dd.today()
+        used_states = EnrolmentStates.filter(uses_a_place=True)
         qs = Enrolment.objects.filter(course=self, state__in=used_states)
+        if rng is None:
+            rng = dd.today()
+        qs = PeriodEvents.active.add_filter(qs, rng)
+        # logger.info("20160502 %s", qs.query)
         res = qs.aggregate(models.Sum('places'))
         # logger.info("20140819 %s", res)
         used_places = res['places__sum'] or 0
@@ -523,7 +537,7 @@ class ConfirmedSubmitInsert(dd.SubmitInsert):
 
 
 @dd.python_2_unicode_compatible
-class Enrolment(UserAuthored, Certifiable):
+class Enrolment(UserAuthored, Certifiable, DatePeriod):
     """An **enrolment** is when a given pupil plans to participate in a
     given course.
     """
@@ -614,7 +628,7 @@ class Enrolment(UserAuthored, Certifiable):
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
-        free = self.course.get_free_places()
+        free = self.course.get_free_places(self)
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")

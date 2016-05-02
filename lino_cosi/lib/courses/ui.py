@@ -349,7 +349,7 @@ class Enrolments(dd.Table):
     remark
     """
     detail_layout = """
-    request_date user
+    request_date user start_date end_date
     course pupil
     remark workflow_buttons
     confirmation_details
