@@ -254,12 +254,17 @@ class CoursesByTopic(Courses):
     params_layout = """line teacher user state can_enroll:10"""
 
     @classmethod
-    def get_request_queryset(self, ar):
-        Course = rt.modules.courses.Course
-        topic = ar.master_instance
-        if topic is None:
-            return Course.objects.none()
-        return Course.objects.filter(line__topic=topic)
+    def get_filter_kw(self, ar, **kw):
+        kw.update(line__topic=ar.master_instance)
+        return kw
+
+    # @classmethod
+    # def get_request_queryset(self, ar):
+    #     Course = rt.modules.courses.Course
+    #     topic = ar.master_instance
+    #     if topic is None:
+    #         return Course.objects.none()
+    #     return Course.objects.filter(line__topic=topic)
 
 
 class CoursesBySlot(Courses):
