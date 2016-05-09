@@ -75,7 +75,6 @@ dd.inject_field(
     dd.ForeignKey('sales.PaperType', null=True, blank=True))
 
 
-
 # class Channels(dd.ChoiceList):
 #     label = _("Channel")
 # add = Channels.add_item
@@ -84,11 +83,15 @@ dd.inject_field(
 
 
 class PaperType(BabelNamed):
-    """The channel of a sales document specifies how the document is being
-    transferred to the recipient.  Possible values include "E-Mail"
-    and "Paper".
+    """Which paper (document template) to use when printing an invoice.
+
+    First use case is to differentiate between invoices to get printed
+    either on a company letterpaper for expedition via paper mail or
+    into an email-friendly pdf file.
 
     """
+
+    templates_group = 'sales/VatProductInvoice'
 
     class Meta:
         app_label = 'sales'
