@@ -306,8 +306,8 @@ class Course(Reservation, Duplicable):
             return self.name
         if self.room is None:
             return "%s (%s)" % (self.line, dd.fds(self.start_date))
-        str(self.line)
-        str(self.room)
+        # Note that we cannot use super() with
+        # python_2_unicode_compatible
         return "%s (%s %s)" % (
             self.line,
             dd.fds(self.start_date),

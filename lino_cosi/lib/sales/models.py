@@ -32,6 +32,8 @@ from lino.api import dd, rt
 from lino.core import actions
 from lino.utils.restify import restify
 from lino.utils.xmlgen.html import E
+from lino.utils.mldbc.mixins import BabelNamed
+
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
@@ -63,17 +65,49 @@ TradeTypes.clearings.update(
     partner_account_field_label=_("Clearings account"))
 
 dd.inject_field(
-    'contacts.Partner',
-    'invoice_recipient',
+    'contacts.Partner', 'invoice_recipient',
     dd.ForeignKey('contacts.Partner',
                   verbose_name=_("Invoicing address"),
                   blank=True, null=True))
 
-# class Channel(ChoiceList):
-    # label = _("Channel")
-# add = Channel.add_item
-# add('P',_("Paper"))
-# add('E',_("E-mail"))
+dd.inject_field(
+    'contacts.Partner', 'paper_type',
+    dd.ForeignKey('sales.PaperType', null=True, blank=True))
+
+
+
+# class Channels(dd.ChoiceList):
+#     label = _("Channel")
+# add = Channels.add_item
+# add('P', _("Paper"), 'paper')
+# add('E', _("E-mail"), 'email')
+
+
+class PaperType(BabelNamed):
+    """The channel of a sales document specifies how the document is being
+    transferred to the recipient.  Possible values include "E-Mail"
+    and "Paper".
+
+    """
+
+    class Meta:
+        app_label = 'sales'
+        abstract = dd.is_abstract_model(__name__, 'PaperType')
+        verbose_name = _("Paper type")
+        verbose_name_plural = _("Paper types")
+
+    template = models.CharField(_("Template"), max_length=200, blank=True)
+
+    @dd.chooser(simple_values=True)
+    def template_choices(cls):
+        bm = rt.modules.printing.BuildMethods.get_system_default()
+        return rt.find_template_config_files(
+            bm.template_ext, cls.templates_group)
+
+
+class PaperTypes(dd.Table):
+    model = 'sales.PaperType'
+    column_names = 'name template *'
 
 
 # class InvoiceStates(dd.Workflow):
@@ -115,6 +149,9 @@ class SalesDocument(VatDocument, Certifiable):
 
     subject = models.CharField(_("Subject line"), max_length=200, blank=True)
     intro = models.TextField("Introductive Text", blank=True)
+    
+    paper_type = dd.ForeignKey('sales.PaperType', null=True, blank=True)
+    # channel = Channels.field(default=Channels.paper.as_callable())
 
     def get_printable_type(self):
         return self.journal
@@ -137,6 +174,15 @@ class SalesDocument(VatDocument, Certifiable):
         kw['qty'] = qty
         return super(SalesDocument, self).add_voucher_item(**kw)
 
+    def get_excerpt_templates(self, bm):
+        """Overrides
+        :meth:`lino_xl.lib.excerpts.mixins.Certifiable.get_excerpt_templates`.
+
+        """
+        pt = self.paper_type or self.partner.paper_type
+        if pt and pt.template:
+            return [pt.template]
+
 
 class SalesDocuments(PartnerVouchers):
     pass
@@ -158,7 +204,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
 
     quick_search_fields = "partner__name subject"
 
-    order = dd.ForeignKey('orders.Order', blank=True, null=True)
+    # order = dd.ForeignKey('orders.Order', blank=True, null=True)
 
     def full_clean(self, *args, **kw):
         if self.due_date is None:
@@ -181,7 +227,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         for f in super(VatProductInvoice, cls).get_registrable_fields(site):
             yield f
         yield 'due_date'
-        yield 'order'
+        # yield 'order'
 
         yield 'voucher_date'
         yield 'entry_date'
@@ -201,8 +247,8 @@ class InvoiceDetail(dd.FormLayout):
 
     invoice_header = dd.Panel("""
     voucher_date partner vat_regime
-    order subject your_ref
-    payment_term due_date:20 printed
+    #order subject your_ref
+    payment_term due_date:20 paper_type printed
     """, label=_("Header"))  # sales_remark
 
     general = dd.Panel("""
@@ -256,7 +302,7 @@ class InvoicesByJournal(Invoices, ByJournal):
     params_layout = "partner year state"
     column_names = "number voucher_date due_date " \
         "partner " \
-        "total_incl order subject:10 " \
+        "total_incl #order subject:10 " \
         "total_base total_vat user *"
 
 
@@ -424,7 +470,7 @@ class DocumentsToSign(Invoices):
     use_as_default_table = False
     filter = dict(user__isnull=True)
     # can_add = perms.never
-    column_names = "number:4 order voucher_date " \
+    column_names = "number:4 #order voucher_date " \
         "partner:10 " \
         "subject:10 total_incl total_base total_vat "
     # actions = Invoices.actions + [ SignAction() ]
@@ -484,7 +530,7 @@ class ProductDetailMixin(dd.DetailLayout):
 
 class PartnerDetailMixin(dd.DetailLayout):
     sales = dd.Panel("""
-    invoice_recipient vat_regime payment_term
+    invoice_recipient vat_regime payment_term paper_type
     sales.InvoicesByPartner
     """, label=dd.plugins.sales.verbose_name)
 

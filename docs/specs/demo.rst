@@ -55,7 +55,7 @@ The test database
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, parent, name, country, zip_code, type
 - courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until
-- courses.Enrolment : id, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
+- courses.Enrolment : id, start_date, end_date, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
 - courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
@@ -99,7 +99,7 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-34 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, xl, cal, courses, vatless.
+34 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
 63 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
@@ -127,7 +127,7 @@ The test database
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                27        0
- courses.Enrolment           courses.Enrolments             12        0
+ courses.Enrolment           courses.Enrolments             14        0
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 2         0

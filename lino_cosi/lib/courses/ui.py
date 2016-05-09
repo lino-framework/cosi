@@ -248,9 +248,14 @@ class CoursesByLine(Courses):
 
 
 class CoursesByTopic(Courses):
+    """Shows the courses of a given topic.
+
+    """
+    
     master = 'courses.Topic'
     order_by = ['-start_date']
-    column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
+    column_names = "start_date:8 line:20 room:10 " \
+                   "weekdays_text:10 times_text:10"
     params_layout = """line teacher user state can_enroll:10"""
 
     @classmethod
