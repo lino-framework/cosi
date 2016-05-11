@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for the :ref:`cosi.specs.sales` plugin.
+"""Database models for `lino_cosi.lib.sales`.
 
 """
 
@@ -141,9 +141,18 @@ class SalesDocument(VatDocument, Certifiable):
     Subclasses must either add themselves a `date` field (as does
     Order) or inherit it from Voucher (as does VatProductInvoice)
 
+
     """
 
     auto_compute_totals = True
+
+    print_items_table = None
+    """Which table (column layout) to use in the printed document.
+
+    :class:`ItemsByInvoicePrint`
+    :class:`ItemsByInvoicePrintNoQtyColumn`
+
+    """
 
     class Meta:
         abstract = True
@@ -160,7 +169,8 @@ class SalesDocument(VatDocument, Certifiable):
         return self.journal
 
     def get_print_language(self):
-        return self.language
+        return self.language or self.partner.language or \
+            dd.get_default_language()
 
     def get_trade_type(self):
         return TradeTypes.sales
@@ -236,6 +246,16 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         yield 'entry_date'
         yield 'user'
         # yield 'item_vat'
+
+    def get_print_items(self, ar):
+        """
+        For usage in an appy template::
+
+            do text
+            from table(obj.get_print_items(ar))
+
+        """
+        return self.print_items_table.request(self)
 
 
 class InvoiceDetail(dd.FormLayout):
@@ -414,6 +434,7 @@ class ItemsByInvoice(InvoiceItems):
 
 class ItemsByInvoicePrint(ItemsByInvoice):
     column_names = "description_print unit_price qty total_incl"
+    include_qty_in_description = False
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
@@ -432,16 +453,29 @@ class ItemsByInvoicePrint(ItemsByInvoice):
             # dd.logger.info(
             #     "20160330c parsed --> %s", E.tostring(desc))
             elems.extend(desc)
-            e = E.div(*elems)
-            # dd.logger.info("20160330 %s", E.tostring(e))
-            return e
         else:
-            return E.span(self.title)
+            elems = [E.b(self.title)]
+            # return E.span(self.title)
+        # dd.logger.info("20160511a %s", cls)
+        if cls.include_qty_in_description:
+            if self.qty != 1:
+                elems += [
+                    " ",
+                    _("({qty}*{unit_price}/{unit})").format(
+                        qty=self.quantity,
+                        unit=self.product.delivery_unit,
+                        unit_price=self.unit_price)]
+        e = E.div(*elems)
+        # dd.logger.info("20160511 %s", E.tostring(e))
+        return e
                 
-        # experimental
-        # if self.description:
-        #     return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
-        # return "<p>{0}</p>".format(self.title)
+
+class ItemsByInvoicePrintNoQtyColumn(ItemsByInvoicePrint):
+    column_names = "description_print total_incl"
+    include_qty_in_description = True
+
+
+VatProductInvoice.print_items_table = ItemsByInvoicePrint
 
 
 class InvoiceItemsByProduct(InvoiceItems):
@@ -497,32 +531,6 @@ class InvoicesByPartner(Invoices):
 @dd.receiver(dd.pre_analyze)
 def add_voucher_type(sender, **kw):
     VoucherTypes.add_item('sales.VatProductInvoice', InvoicesByJournal)
-
-
-# def customize_siteconfig():
-    # """
-    # Injects application-specific fields to :class:`SiteConfig <lino.models.SiteConfig>`.
-    # """
-
-    # from lino.models import SiteConfig
-    # dd.inject_field(SiteConfig,
-        # 'sales_base_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("Account for base amounts in sales invoices"),
-            # related_name='sales_base_account'))
-    # dd.inject_field(SiteConfig,
-        # 'sales_vat_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("Account for VAT in sales invoices"),
-            # related_name='sales_vat_account'))
-    # dd.inject_field(SiteConfig,
-        # 'customers_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("The account which represents the debts of our customers"),
-            # related_name='customers_account'))
 
 
 class ProductDetailMixin(dd.DetailLayout):

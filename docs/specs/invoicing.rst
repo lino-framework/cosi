@@ -31,3 +31,15 @@ generating invoices from data in the database.
    :local:
 
 
+Manually editing automatically generated invoices
+=================================================
+
+Resetting title and description of a generated invoice item
+===========================================================
+
+When the user sets `title` of an automatically generated invoice
+item to an empty string, then Lino restores the default value for
+both title and description
+
+
+

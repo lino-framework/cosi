@@ -42,6 +42,14 @@ class Plugin(Plugin):
 
     voucher_model = 'sales.VatProductInvoice'
     item_model = 'sales.InvoiceItem'
+    """The database model into which invoiceable objects should create
+    invoice items.  Default value refers to
+    :class:`sales.InvoiceItem <lino_cosi.lib.sales.models.InvoiceItem>`.
+
+    This model will have an injected GFK field `invoiceable`.
+
+    """
+
     invoiceable_label = _("Invoiceable")
 
     def on_site_startup(self, site):

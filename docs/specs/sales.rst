@@ -128,3 +128,14 @@ VatProductInvoice #1 ('SLS#1')
 Traceback (most recent call last):
 ...
 IllegalText: The <text:section> element does not allow text
+
+
+The language of an invoice
+==========================
+
+The language of an invoice not necessary that of the user who enters
+the invoice. It is either the partner's :attr:`language
+<lino.modlib.contacts.models.Partner.language>` or (if this is empty)
+the Site's :meth:`get_default_language
+<lino.core.site.Site.get_default_language>`.
+

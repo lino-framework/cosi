@@ -73,8 +73,6 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib',
     'lino_cosi.lib.cosi',
     'lino_cosi.lib.accounts',
-    'lino_cosi.lib.auto',
-    'lino_cosi.lib.auto.sales',
     'lino_cosi.lib.declarations',
     'lino_cosi.lib.finan',
     'lino_cosi.lib.finan.fixtures',

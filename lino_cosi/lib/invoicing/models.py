@@ -29,6 +29,7 @@ ZERO = Decimal()
 from django.db import models
 
 from django.utils.translation import string_concat
+from django.utils import translation
 
 # from lino.utils.xmlgen.html import E, join_elems
 from lino.modlib.gfks.fields import GenericForeignKeyIdField
@@ -197,10 +198,12 @@ class Item(dd.Model):
         invoice = M(partner=self.partner, journal=self.plan.journal,
                     voucher_date=self.plan.today,
                     entry_date=self.plan.today)
+        lng = invoice.get_print_language()
         items = []
-        for ii in self.plan.get_invoiceables_for_plan(self.partner):
-            for i in ii.get_wanted_items(ar, invoice, ITEM_MODEL):
-                items.append(i)
+        with translation.override(lng):
+            for ii in self.plan.get_invoiceables_for_plan(self.partner):
+                for i in ii.get_wanted_items(ar, invoice, ITEM_MODEL):
+                    items.append(i)
 
         if len(items) == 0:
             ar.info(_("No invoiceables found for %s.") % self)
@@ -277,6 +280,22 @@ dd.inject_field(
     'invoiceable', GenericForeignKey(
         'invoiceable_type', 'invoiceable_id',
         verbose_name=invoiceable_label))
+
+
+@dd.receiver(dd.pre_save, sender=dd.plugins.invoicing.item_model)
+def item_pre_save_handler(sender=None, instance=None, **kwargs):
+    """When the user sets `title` of an automatically generated invoice
+    item to an empty string, then Lino restores the default value for
+    both title and description
+
+    """
+    self = instance
+    if self.invoiceable_id and not self.title:
+        lng = self.voucher.get_print_language()
+        # lng = self.voucher.partner.language or dd.get_default_language()
+        with translation.override(lng):
+            self.title = self.invoiceable.get_invoiceable_title(self.voucher)
+            self.invoiceable.setup_invoice_item(self)
 
 
 # def get_invoicing_voucher_type():
