@@ -354,7 +354,7 @@ class Course(Reservation, Duplicable):
                     partner=obj.pupil,
                     role=gr)
 
-    def get_free_places(self, rng=None):
+    def get_free_places(self, today=None):
         Enrolment = rt.modules.courses.Enrolment
         PeriodEvents = rt.modules.system.PeriodEvents
         # from lino.mixins.periods import DatePeriodValue
@@ -362,8 +362,7 @@ class Course(Reservation, Duplicable):
         #     today = dd.today()
         used_states = EnrolmentStates.filter(uses_a_place=True)
         qs = Enrolment.objects.filter(course=self, state__in=used_states)
-        if rng is None:
-            rng = DatePeriodValue(dd.today(), None)
+        rng = DatePeriodValue(today or dd.today(), None)
         qs = PeriodEvents.active.add_filter(qs, rng)
         # logger.info("20160502 %s", qs.query)
         res = qs.aggregate(models.Sum('places'))
@@ -443,7 +442,8 @@ class Course(Reservation, Duplicable):
     def events_by_course(self):
         ct = rt.modules.contenttypes.ContentType.objects.get_for_model(
             self.__class__)
-        return rt.modules.cal.Event.objects.filter(owner_type=ct, owner_id=self.id)
+        return rt.modules.cal.Event.objects.filter(
+            owner_type=ct, owner_id=self.id)
 
     @dd.requestfield(_("Requested"))
     def requested(self, ar):
@@ -458,6 +458,19 @@ class Course(Reservation, Duplicable):
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
         return rt.modules.courses.EnrolmentsByCourse.request(self)
+
+    @dd.virtualfield(dd.HtmlBox(_("Presences")))
+    def presences_box(self, ar):
+        # not finished
+        if ar is None:
+            return ''
+        pv = ar.param_values
+        # if not pv.start_date or not pv.end_date:
+        #     return ''
+        events = self.events_by_course.order_by('start_date')
+        events = rt.modules.system.PeriodEvents.started.add_filter(events, pv)
+        return "TODO: copy logic from presence_sheet.wk.html"
+
 
 
 # customize fields coming from mixins to override their inherited
@@ -486,43 +499,6 @@ if FILL_EVENT_GUESTS:
             return
         for e in course.enrolment_set.all():
             cal.Guest(partner=e.pupil, event=event).save()
-
-
-if False:
-
-    class Option(mixins.BabelNamed):
-
-        class Meta:
-            app_label = 'courses'
-            abstract = dd.is_abstract_model(__name__, 'Option')
-            verbose_name = _("Enrolment option")
-            verbose_name_plural = _('Enrolment options')
-
-        course = dd.ForeignKey('courses.Course')
-
-        price = dd.ForeignKey('products.Product',
-                              verbose_name=_("Price"),
-                              null=True, blank=True)
-
-    class Options(dd.Table):
-        model = 'courses.Option'
-        required_roles = dd.required(dd.SiteStaff)
-        stay_in_grid = True
-        column_names = 'name price *'
-        auto_fit_column_widths = True
-        insert_layout = """
-        name
-        price
-        """
-        detail_layout = """
-        name
-        id course price
-        EnrolmentsByOption
-        """
-
-    class OptionsByCourse(Options):
-        master_key = 'course'
-        required_roles = dd.required()
 
 
 # ENROLMENT
