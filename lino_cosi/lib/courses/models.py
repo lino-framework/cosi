@@ -57,6 +57,8 @@ from lino.modlib.printing.mixins import Printable
 from lino_xl.lib.cal.mixins import Reservation
 from lino_xl.lib.cal.choicelists import Recurrencies
 
+from lino.mixins.periods import DatePeriodValue
+
 from .choicelists import EnrolmentStates, CourseStates
 
 cal = dd.resolve_app('cal')
@@ -361,7 +363,7 @@ class Course(Reservation, Duplicable):
         used_states = EnrolmentStates.filter(uses_a_place=True)
         qs = Enrolment.objects.filter(course=self, state__in=used_states)
         if rng is None:
-            rng = dd.today()
+            rng = DatePeriodValue(dd.today(), None)
         qs = PeriodEvents.active.add_filter(qs, rng)
         # logger.info("20160502 %s", qs.query)
         res = qs.aggregate(models.Sum('places'))
