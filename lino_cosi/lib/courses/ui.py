@@ -217,13 +217,14 @@ class Courses(dd.Table):
             qs = qs.filter(flt)
         elif pv.can_enroll == dd.YesNo.no:
             qs = qs.exclude(flt)
-        if pv.start_date:
-            # dd.logger.info("20160512 start_date is %r", pv.start_date)
-            qs = PeriodEvents.started.add_filter(qs, pv)
-            # qs = qs.filter(start_date__gte=pv.start_date)
-        if pv.end_date:
-            qs = PeriodEvents.active.add_filter(qs, pv)
-            # qs = qs.filter(end_date__lte=pv.end_date)
+        qs = PeriodEvents.active.add_filter(qs, pv)
+        # if pv.start_date:
+        #     # dd.logger.info("20160512 start_date is %r", pv.start_date)
+        #     qs = PeriodEvents.started.add_filter(qs, pv)
+        #     # qs = qs.filter(start_date__gte=pv.start_date)
+        # if pv.end_date:
+        #     qs = PeriodEvents.ended.add_filter(qs, pv)
+        #     # qs = qs.filter(end_date__lte=pv.end_date)
         # dd.logger.info("20160512 %s", qs.query)
         return qs
 
