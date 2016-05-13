@@ -65,15 +65,16 @@ class Plan(UserAuthored):
     """
     class Meta:
         app_label = 'invoicing'
+        abstract = dd.is_abstract_model(__name__, 'Plan')
         verbose_name = _("Invoicing plan")
         verbose_name_plural = _("Invoicing plans")
 
-    journal = models.ForeignKey('ledger.Journal', blank=True, null=True)
+    journal = dd.ForeignKey('ledger.Journal', blank=True, null=True)
     max_date = models.DateField(
         _("Invoiceables until"), default=dd.today)
     today = models.DateField(
         _("Invoicing date"), default=dd.today)
-    partner = models.ForeignKey('contacts.Partner', blank=True, null=True)
+    partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
     update_plan = UpdatePlan()
     execute_plan = ExecutePlan()
@@ -118,7 +119,7 @@ class Plan(UserAuthored):
         return plan
 
     def fill_plan(self, ar):
-        """Yield a list of invoiceables for the given partner,
+        """Yield a list of invoiceables for the given plan,
         one for each invoice line to generate.
 
 
@@ -174,6 +175,7 @@ class Item(dd.Model):
     """
     class Meta:
         app_label = 'invoicing'
+        abstract = dd.is_abstract_model(__name__, 'Item')
         verbose_name = _("Invoicing suggestion")
         verbose_name_plural = _("Invoicing suggestions")
 
@@ -223,6 +225,7 @@ class Item(dd.Model):
         invoice.compute_totals()
         invoice.full_clean()
         invoice.save()
+        invoice.register(ar)
 
         return invoice
 
@@ -311,3 +314,4 @@ def install_start_action(sender=None, **kwargs):
 
     rt.modules.contacts.Partner.start_invoicing = StartInvoicingForPartner()
     
+
