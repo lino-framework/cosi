@@ -49,12 +49,15 @@ from lino import mixins
 
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
+from lino.mixins.periods import DatePeriod
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_xl.lib.excerpts.mixins import ExcerptTitle
 from lino.modlib.users.mixins import UserAuthored
 from lino.modlib.printing.mixins import Printable
 from lino_xl.lib.cal.mixins import Reservation
 from lino_xl.lib.cal.choicelists import Recurrencies
+
+from lino.mixins.periods import DatePeriodValue
 
 from .choicelists import EnrolmentStates, CourseStates
 
@@ -248,6 +251,11 @@ class Course(Reservation, Duplicable):
 
     .. attribute:: enrolments_until
 
+    .. attribute:: max_places
+
+        Available places. The maximum number of participants to allow
+        in this course.
+
     """
 
     class Meta:
@@ -275,7 +283,7 @@ class Course(Reservation, Duplicable):
 
     max_places = models.PositiveIntegerField(
         pgettext("in a course", "Available places"),
-        help_text=("Maximal number of participants"),
+        help_text=("Maximum number of participants"),
         blank=True, null=True)
 
     name = models.CharField(_("Designation"), max_length=100, blank=True)
@@ -300,8 +308,8 @@ class Course(Reservation, Duplicable):
             return self.name
         if self.room is None:
             return "%s (%s)" % (self.line, dd.fds(self.start_date))
-        str(self.line)
-        str(self.room)
+        # Note that we cannot use super() with
+        # python_2_unicode_compatible
         return "%s (%s %s)" % (
             self.line,
             dd.fds(self.start_date),
@@ -346,10 +354,17 @@ class Course(Reservation, Duplicable):
                     partner=obj.pupil,
                     role=gr)
 
-    def get_free_places(self):
-        used_states = EnrolmentStates.filter(uses_a_place=True)
+    def get_free_places(self, today=None):
         Enrolment = rt.modules.courses.Enrolment
+        PeriodEvents = rt.modules.system.PeriodEvents
+        # from lino.mixins.periods import DatePeriodValue
+        # if today is None:
+        #     today = dd.today()
+        used_states = EnrolmentStates.filter(uses_a_place=True)
         qs = Enrolment.objects.filter(course=self, state__in=used_states)
+        rng = DatePeriodValue(today or dd.today(), None)
+        qs = PeriodEvents.active.add_filter(qs, rng)
+        # logger.info("20160502 %s", qs.query)
         res = qs.aggregate(models.Sum('places'))
         # logger.info("20140819 %s", res)
         used_places = res['places__sum'] or 0
@@ -427,7 +442,8 @@ class Course(Reservation, Duplicable):
     def events_by_course(self):
         ct = rt.modules.contenttypes.ContentType.objects.get_for_model(
             self.__class__)
-        return rt.modules.cal.Event.objects.filter(owner_type=ct, owner_id=self.id)
+        return rt.modules.cal.Event.objects.filter(
+            owner_type=ct, owner_id=self.id)
 
     @dd.requestfield(_("Requested"))
     def requested(self, ar):
@@ -442,6 +458,19 @@ class Course(Reservation, Duplicable):
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
         return rt.modules.courses.EnrolmentsByCourse.request(self)
+
+    @dd.virtualfield(dd.HtmlBox(_("Presences")))
+    def presences_box(self, ar):
+        # not finished
+        if ar is None:
+            return ''
+        pv = ar.param_values
+        # if not pv.start_date or not pv.end_date:
+        #     return ''
+        events = self.events_by_course.order_by('start_date')
+        events = rt.modules.system.PeriodEvents.started.add_filter(events, pv)
+        return "TODO: copy logic from presence_sheet.wk.html"
+
 
 
 # customize fields coming from mixins to override their inherited
@@ -472,43 +501,6 @@ if FILL_EVENT_GUESTS:
             cal.Guest(partner=e.pupil, event=event).save()
 
 
-if False:
-
-    class Option(mixins.BabelNamed):
-
-        class Meta:
-            app_label = 'courses'
-            abstract = dd.is_abstract_model(__name__, 'Option')
-            verbose_name = _("Enrolment option")
-            verbose_name_plural = _('Enrolment options')
-
-        course = dd.ForeignKey('courses.Course')
-
-        price = dd.ForeignKey('products.Product',
-                              verbose_name=_("Price"),
-                              null=True, blank=True)
-
-    class Options(dd.Table):
-        model = 'courses.Option'
-        required_roles = dd.required(dd.SiteStaff)
-        stay_in_grid = True
-        column_names = 'name price *'
-        auto_fit_column_widths = True
-        insert_layout = """
-        name
-        price
-        """
-        detail_layout = """
-        name
-        id course price
-        EnrolmentsByOption
-        """
-
-    class OptionsByCourse(Options):
-        master_key = 'course'
-        required_roles = dd.required()
-
-
 # ENROLMENT
 
 
@@ -523,7 +515,7 @@ class ConfirmedSubmitInsert(dd.SubmitInsert):
 
 
 @dd.python_2_unicode_compatible
-class Enrolment(UserAuthored, Certifiable):
+class Enrolment(UserAuthored, Certifiable, DatePeriod):
     """An **enrolment** is when a given pupil plans to participate in a
     given course.
     """
@@ -614,7 +606,7 @@ class Enrolment(UserAuthored, Certifiable):
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
-        free = self.course.get_free_places()
+        free = self.course.get_free_places(self)
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")

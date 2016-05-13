@@ -19,8 +19,6 @@
 
 """Choicelists for `lino_cosi.lib.ledger`.
 
-.. autosummary::
-
 """
 
 from django.conf import settings

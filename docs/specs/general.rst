@@ -19,20 +19,20 @@ The database structure
 >>> from lino.utils.diag import analyzer
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-30 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing.
-45 models:
+31 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing.
+46 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
  accounts.Account            accounts.Accounts              14        12
  accounts.Group              accounts.Groups                6         7
- contacts.Company            contacts.Companies             26        22
+ contacts.Company            contacts.Companies             27        22
  contacts.CompanyType        contacts.CompanyTypes          7         14
- contacts.Partner            contacts.Partners              22        91
- contacts.Person             contacts.Persons               29        69
+ contacts.Partner            contacts.Partners              23        91
+ contacts.Person             contacts.Persons               30        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             4         5
- contenttypes.ContentType    gfks.ContentTypes              3         46
+ contenttypes.ContentType    gfks.ContentTypes              3         47
  countries.Country           countries.Countries            6         8
  countries.Place             countries.Places               8         78
  excerpts.Excerpt            excerpts.Excerpts              11        0
@@ -55,10 +55,11 @@ The database structure
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
- products.Product            products.Products              12        9
+ products.Product            products.Products              13        9
  products.ProductCat         products.ProductCats           5         2
  sales.InvoiceItem           sales.InvoiceItems             15        144
- sales.VatProductInvoice     sales.Invoices                 23        72
+ sales.PaperType             sales.PaperTypes               5         2
+ sales.VatProductInvoice     sales.Invoices                 24        72
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             13        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
@@ -100,7 +101,7 @@ Rolf is the local system administrator, he has a complete menu:
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
   - Büro : Upload-Arten, Auszugsarten, Meine Einfügetexte
-  - MwSt. : MwSt-Regeln
+  - MwSt. : MwSt-Regeln, Papierarten
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerprofile
   - Kontakte : Kontaktpersonen

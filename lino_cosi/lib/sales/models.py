@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for the :ref:`cosi.specs.sales` plugin.
+"""Database models for `lino_cosi.lib.sales`.
 
 """
 
@@ -32,6 +32,8 @@ from lino.api import dd, rt
 from lino.core import actions
 from lino.utils.restify import restify
 from lino.utils.xmlgen.html import E
+from lino.utils.mldbc.mixins import BabelNamed
+
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
 from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
@@ -63,17 +65,52 @@ TradeTypes.clearings.update(
     partner_account_field_label=_("Clearings account"))
 
 dd.inject_field(
-    'contacts.Partner',
-    'invoice_recipient',
+    'contacts.Partner', 'invoice_recipient',
     dd.ForeignKey('contacts.Partner',
                   verbose_name=_("Invoicing address"),
                   blank=True, null=True))
 
-# class Channel(ChoiceList):
-    # label = _("Channel")
-# add = Channel.add_item
-# add('P',_("Paper"))
-# add('E',_("E-mail"))
+dd.inject_field(
+    'contacts.Partner', 'paper_type',
+    dd.ForeignKey('sales.PaperType', null=True, blank=True))
+
+
+# class Channels(dd.ChoiceList):
+#     label = _("Channel")
+# add = Channels.add_item
+# add('P', _("Paper"), 'paper')
+# add('E', _("E-mail"), 'email')
+
+
+class PaperType(BabelNamed):
+    """Which paper (document template) to use when printing an invoice.
+
+    First use case is to differentiate between invoices to get printed
+    either on a company letterpaper for expedition via paper mail or
+    into an email-friendly pdf file.
+
+    """
+
+    templates_group = 'sales/VatProductInvoice'
+
+    class Meta:
+        app_label = 'sales'
+        abstract = dd.is_abstract_model(__name__, 'PaperType')
+        verbose_name = _("Paper type")
+        verbose_name_plural = _("Paper types")
+
+    template = models.CharField(_("Template"), max_length=200, blank=True)
+
+    @dd.chooser(simple_values=True)
+    def template_choices(cls):
+        bm = rt.modules.printing.BuildMethods.get_system_default()
+        return rt.find_template_config_files(
+            bm.template_ext, cls.templates_group)
+
+
+class PaperTypes(dd.Table):
+    model = 'sales.PaperType'
+    column_names = 'name template *'
 
 
 # class InvoiceStates(dd.Workflow):
@@ -104,9 +141,18 @@ class SalesDocument(VatDocument, Certifiable):
     Subclasses must either add themselves a `date` field (as does
     Order) or inherit it from Voucher (as does VatProductInvoice)
 
+
     """
 
     auto_compute_totals = True
+
+    print_items_table = None
+    """Which table (column layout) to use in the printed document.
+
+    :class:`ItemsByInvoicePrint`
+    :class:`ItemsByInvoicePrintNoQtyColumn`
+
+    """
 
     class Meta:
         abstract = True
@@ -115,12 +161,16 @@ class SalesDocument(VatDocument, Certifiable):
 
     subject = models.CharField(_("Subject line"), max_length=200, blank=True)
     intro = models.TextField("Introductive Text", blank=True)
+    
+    paper_type = dd.ForeignKey('sales.PaperType', null=True, blank=True)
+    # channel = Channels.field(default=Channels.paper.as_callable())
 
     def get_printable_type(self):
         return self.journal
 
     def get_print_language(self):
-        return self.language
+        return self.language or self.partner.language or \
+            dd.get_default_language()
 
     def get_trade_type(self):
         return TradeTypes.sales
@@ -136,6 +186,15 @@ class SalesDocument(VatDocument, Certifiable):
 
         kw['qty'] = qty
         return super(SalesDocument, self).add_voucher_item(**kw)
+
+    def get_excerpt_templates(self, bm):
+        """Overrides
+        :meth:`lino_xl.lib.excerpts.mixins.Certifiable.get_excerpt_templates`.
+
+        """
+        pt = self.paper_type or self.partner.paper_type
+        if pt and pt.template:
+            return [pt.template]
 
 
 class SalesDocuments(PartnerVouchers):
@@ -158,7 +217,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
 
     quick_search_fields = "partner__name subject"
 
-    order = dd.ForeignKey('orders.Order', blank=True, null=True)
+    # order = dd.ForeignKey('orders.Order', blank=True, null=True)
 
     def full_clean(self, *args, **kw):
         if self.due_date is None:
@@ -181,12 +240,22 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         for f in super(VatProductInvoice, cls).get_registrable_fields(site):
             yield f
         yield 'due_date'
-        yield 'order'
+        # yield 'order'
 
         yield 'voucher_date'
         yield 'entry_date'
         yield 'user'
         # yield 'item_vat'
+
+    def get_print_items(self, ar):
+        """
+        For usage in an appy template::
+
+            do text
+            from table(obj.get_print_items(ar))
+
+        """
+        return self.print_items_table.request(self)
 
 
 class InvoiceDetail(dd.FormLayout):
@@ -201,8 +270,8 @@ class InvoiceDetail(dd.FormLayout):
 
     invoice_header = dd.Panel("""
     voucher_date partner vat_regime
-    order subject your_ref
-    payment_term due_date:20 printed
+    #order subject your_ref
+    payment_term due_date:20 paper_type printed
     """, label=_("Header"))  # sales_remark
 
     general = dd.Panel("""
@@ -256,7 +325,7 @@ class InvoicesByJournal(Invoices, ByJournal):
     params_layout = "partner year state"
     column_names = "number voucher_date due_date " \
         "partner " \
-        "total_incl order subject:10 " \
+        "total_incl #order subject:10 " \
         "total_base total_vat user *"
 
 
@@ -365,6 +434,7 @@ class ItemsByInvoice(InvoiceItems):
 
 class ItemsByInvoicePrint(ItemsByInvoice):
     column_names = "description_print unit_price qty total_incl"
+    include_qty_in_description = False
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
@@ -383,16 +453,29 @@ class ItemsByInvoicePrint(ItemsByInvoice):
             # dd.logger.info(
             #     "20160330c parsed --> %s", E.tostring(desc))
             elems.extend(desc)
-            e = E.div(*elems)
-            # dd.logger.info("20160330 %s", E.tostring(e))
-            return e
         else:
-            return E.span(self.title)
+            elems = [E.b(self.title)]
+            # return E.span(self.title)
+        # dd.logger.info("20160511a %s", cls)
+        if cls.include_qty_in_description:
+            if self.qty != 1:
+                elems += [
+                    " ",
+                    _("({qty}*{unit_price}/{unit})").format(
+                        qty=self.quantity,
+                        unit=self.product.delivery_unit,
+                        unit_price=self.unit_price)]
+        e = E.div(*elems)
+        # dd.logger.info("20160511 %s", E.tostring(e))
+        return e
                 
-        # experimental
-        # if self.description:
-        #     return "<p><b>{0}</b></p>{1}".format(self.title, self.description)
-        # return "<p>{0}</p>".format(self.title)
+
+class ItemsByInvoicePrintNoQtyColumn(ItemsByInvoicePrint):
+    column_names = "description_print total_incl"
+    include_qty_in_description = True
+
+
+VatProductInvoice.print_items_table = ItemsByInvoicePrint
 
 
 class InvoiceItemsByProduct(InvoiceItems):
@@ -424,7 +507,7 @@ class DocumentsToSign(Invoices):
     use_as_default_table = False
     filter = dict(user__isnull=True)
     # can_add = perms.never
-    column_names = "number:4 order voucher_date " \
+    column_names = "number:4 #order voucher_date " \
         "partner:10 " \
         "subject:10 total_incl total_base total_vat "
     # actions = Invoices.actions + [ SignAction() ]
@@ -450,32 +533,6 @@ def add_voucher_type(sender, **kw):
     VoucherTypes.add_item('sales.VatProductInvoice', InvoicesByJournal)
 
 
-# def customize_siteconfig():
-    # """
-    # Injects application-specific fields to :class:`SiteConfig <lino.models.SiteConfig>`.
-    # """
-
-    # from lino.models import SiteConfig
-    # dd.inject_field(SiteConfig,
-        # 'sales_base_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("Account for base amounts in sales invoices"),
-            # related_name='sales_base_account'))
-    # dd.inject_field(SiteConfig,
-        # 'sales_vat_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("Account for VAT in sales invoices"),
-            # related_name='sales_vat_account'))
-    # dd.inject_field(SiteConfig,
-        # 'customers_account',
-        # models.ForeignKey('accounts.Account',
-            # blank=True,null=True,
-            # verbose_name=_("The account which represents the debts of our customers"),
-            # related_name='customers_account'))
-
-
 class ProductDetailMixin(dd.DetailLayout):
     sales = dd.Panel("""
     sales.InvoiceItemsByProduct
@@ -484,7 +541,7 @@ class ProductDetailMixin(dd.DetailLayout):
 
 class PartnerDetailMixin(dd.DetailLayout):
     sales = dd.Panel("""
-    invoice_recipient vat_regime payment_term
+    invoice_recipient vat_regime payment_term paper_type
     sales.InvoicesByPartner
     """, label=dd.plugins.sales.verbose_name)
 

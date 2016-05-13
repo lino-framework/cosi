@@ -48,6 +48,8 @@ from lino import mixins
 from lino.utils import join_elems
 from lino.utils.xmlgen.html import E
 
+from lino.modlib.system.choicelists import PeriodEvents
+
 from .choicelists import EnrolmentStates, CourseStates
 
 cal = dd.resolve_app('cal')
@@ -185,7 +187,8 @@ class Courses(dd.Table):
         can_enroll=dd.YesNo.field(blank=True),
     )
 
-    params_layout = """topic line teacher user state can_enroll:10"""
+    params_layout = """topic line teacher state can_enroll:10 \
+    start_date end_date"""
 
     # simple_parameters = 'line teacher state user'.split()
 
@@ -204,17 +207,25 @@ class Courses(dd.Table):
         qs = super(Courses, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
-
-        if ar.param_values.topic:
-            qs = qs.filter(line__topic=ar.param_values.topic)
+        pv = ar.param_values
+        if pv.topic:
+            qs = qs.filter(line__topic=pv.topic)
 
         flt = Q(enrolments_until__isnull=True)
         flt |= Q(enrolments_until__gte=dd.today())
-        if ar.param_values.can_enroll == dd.YesNo.yes:
+        if pv.can_enroll == dd.YesNo.yes:
             qs = qs.filter(flt)
-        elif ar.param_values.can_enroll == dd.YesNo.no:
+        elif pv.can_enroll == dd.YesNo.no:
             qs = qs.exclude(flt)
-        # dd.logger.info("20160223 %s", qs.query)
+        qs = PeriodEvents.active.add_filter(qs, pv)
+        # if pv.start_date:
+        #     # dd.logger.info("20160512 start_date is %r", pv.start_date)
+        #     qs = PeriodEvents.started.add_filter(qs, pv)
+        #     # qs = qs.filter(start_date__gte=pv.start_date)
+        # if pv.end_date:
+        #     qs = PeriodEvents.ended.add_filter(qs, pv)
+        #     # qs = qs.filter(end_date__lte=pv.end_date)
+        # dd.logger.info("20160512 %s", qs.query)
         return qs
 
     @classmethod
@@ -248,18 +259,28 @@ class CoursesByLine(Courses):
 
 
 class CoursesByTopic(Courses):
+    """Shows the courses of a given topic.
+
+    """
+    
     master = 'courses.Topic'
     order_by = ['-start_date']
-    column_names = "start_date:8 line:20 room:10 weekdays_text:10 times_text:10"
+    column_names = "start_date:8 line:20 room:10 " \
+                   "weekdays_text:10 times_text:10"
     params_layout = """line teacher user state can_enroll:10"""
 
     @classmethod
-    def get_request_queryset(self, ar):
-        Course = rt.modules.courses.Course
-        topic = ar.master_instance
-        if topic is None:
-            return Course.objects.none()
-        return Course.objects.filter(line__topic=topic)
+    def get_filter_kw(self, ar, **kw):
+        kw.update(line__topic=ar.master_instance)
+        return kw
+
+    # @classmethod
+    # def get_request_queryset(self, ar):
+    #     Course = rt.modules.courses.Course
+    #     topic = ar.master_instance
+    #     if topic is None:
+    #         return Course.objects.none()
+    #     return Course.objects.filter(line__topic=topic)
 
 
 class CoursesBySlot(Courses):
@@ -349,7 +370,7 @@ class Enrolments(dd.Table):
     remark
     """
     detail_layout = """
-    request_date user
+    request_date user start_date end_date
     course pupil
     remark workflow_buttons
     confirmation_details

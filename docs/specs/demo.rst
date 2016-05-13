@@ -45,17 +45,17 @@ The test database
 - cal.Room : id, name
 - cal.Subscription : id, user, calendar, is_hidden
 - cal.Task : id, modified, created, user, owner_type, owner_id, start_date, start_time, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
-- contacts.Company : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, partner_ptr, prefix, type, vat_id
+- contacts.Company : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
 - contacts.CompanyType : id, name, abbr
-- contacts.Partner : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient
-- contacts.Person : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
+- contacts.Partner : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, paper_type
+- contacts.Person : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, language, email, url, phone, gsm, fax, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
 - contacts.Role : id, type, person, company
 - contacts.RoleType : id, name
 - contenttypes.ContentType : id, app_label, model
 - countries.Country : name, isocode, short_code, iso3
 - countries.Place : id, parent, name, country, zip_code, type
 - courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until
-- courses.Enrolment : id, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
+- courses.Enrolment : id, start_date, end_date, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
 - courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
@@ -79,10 +79,11 @@ The test database
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
 - outbox.Recipient : id, mail, partner, type, address, name
-- products.Product : id, name, description, cat, vat_class, sales_account, sales_price, purchases_account
+- products.Product : id, name, description, cat, delivery_unit, vat_class, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
-- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, printed_by, language, subject, intro
+- sales.PaperType : id, name, template
+- sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, printed_by, language, subject, intro, paper_type
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
@@ -99,8 +100,8 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-34 apps: lino_startup, staticfiles, about, extjs, jinja, bootstrap3, printing, system, contenttypes, gfks, users, office, countries, contacts, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, xl, cal, courses, vatless.
-63 models:
+34 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
+64 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -117,17 +118,17 @@ The test database
  cal.Room                    cal.Rooms                      2         0
  cal.Subscription            cal.Subscriptions              4         0
  cal.Task                    cal.Tasks                      17        0
- contacts.Company            contacts.Companies             26        22
+ contacts.Company            contacts.Companies             27        22
  contacts.CompanyType        contacts.CompanyTypes          3         16
- contacts.Partner            contacts.Partners              22        91
- contacts.Person             contacts.Persons               29        69
+ contacts.Partner            contacts.Partners              23        91
+ contacts.Person             contacts.Persons               30        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             2         5
- contenttypes.ContentType    gfks.ContentTypes              3         64
+ contenttypes.ContentType    gfks.ContentTypes              3         65
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
  courses.Course              courses.Courses                27        0
- courses.Enrolment           courses.Enrolments             12        0
+ courses.Enrolment           courses.Enrolments             14        0
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 2         0
@@ -151,10 +152,11 @@ The test database
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0
  outbox.Recipient            outbox.Recipients              6         0
- products.Product            products.Products              8         9
+ products.Product            products.Products              9         9
  products.ProductCat         products.ProductCats           3         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
- sales.VatProductInvoice     sales.Invoices                 23        24
+ sales.PaperType             sales.PaperTypes               3         2
+ sales.VatProductInvoice     sales.Invoices                 24        24
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             16        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2

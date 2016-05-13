@@ -854,6 +854,37 @@ class Movement(ProjectRelated):
     # def get_match(self):
     #     return self.match or str(self.voucher)
 
+    @classmethod
+    def balance_info(cls, dc, **kwargs):
+        qs = cls.objects.filter(**kwargs)
+        qs = qs.order_by('voucher__voucher_date')
+        bal = ZERO
+        s = ''
+        for mvt in qs:
+            amount = mvt.amount
+            if mvt.dc == dc:
+                amount = - amount
+            bal += amount
+            s += str(amount)
+            s += " ({0} {1}) ".format(
+                mvt.voucher,
+                dd.fds(mvt.voucher.voucher_date))
+        return s + "= " + str(bal)
+
+        if False:
+            mvts = []
+            for dm in get_due_movements(CREDIT, partner=self.pupil):
+                s = dm.match
+                s += " [{0}]".format(day_and_month(dm.due_date))
+                s += " ("
+                s += ', '.join([str(i.voucher) for i in dm.debts])
+                if len(dm.payments):
+                    s += " - "
+                    s += ', '.join([str(i.voucher) for i in dm.payments])
+                s += "): {0}".format(dm.balance)
+                mvts.append(s)
+            return '\n'.join(mvts)
+            
 Movement.set_widget_options('voucher_link', width=12)
 
 

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2016 Luc Saffre
+# Copyright 2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -17,33 +17,22 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Extends :mod:`lino_cosi.lib.sales` to add functionality for
-automatically generating invoices.
-
-**Deprecated** : this module is no longer used. Use
-:mod:`lino_cosi.lib.invoicing` instead
-
-.. autosummary::
-    :toctree:
-
-    models
-    mixins
+"""
 
 """
 
-from lino_cosi.lib.sales import Plugin
+from __future__ import unicode_literals
+
+from lino.api import dd, rt, _
 
 
-class Plugin(Plugin):
+def objects():
 
-    extends_models = ['VatProductInvoice',  'InvoiceItem']
-
-    def setup_main_menu(self, site, profile, m):
-        m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('sales.InvoicesToCreate')
-
-        raise DeprecationWarning(
-            "This module is no longer used. "
-            "Use `lino_cosi.lib.invoicing` instead")
-
-
+    PaperType = rt.modules.sales.PaperType
+    bm = rt.modules.printing.BuildMethods.get_system_default()
+    yield PaperType(
+        template="DefaultLetter" + bm.template_ext,
+        **dd.str2kw('name', _("Letter paper")))
+    yield PaperType(
+        template="DefaultBlank" + bm.template_ext,
+        **dd.str2kw('name', _("Blank paper")))
