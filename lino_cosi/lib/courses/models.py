@@ -606,7 +606,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
-        free = self.course.get_free_places(self)
+        free = self.course.get_free_places(self.request_date)
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")
