@@ -511,6 +511,7 @@ class EnrolmentsByCourse(Enrolments):
                    'remark workflow_buttons *'
     auto_fit_column_widths = True
     # cell_edit = False
+    quick_search_fields = "pupil__name"
 
     insert_layout = """
     pupil
