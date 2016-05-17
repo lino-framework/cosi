@@ -531,6 +531,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
 
     course_area = CourseAreas.field(blank=True)
 
+    quick_search_fields = "pupil__name"
+
     #~ teacher = models.ForeignKey(Teacher)
     course = dd.ForeignKey('courses.Course')
     pupil = dd.ForeignKey(pupil_model)
