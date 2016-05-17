@@ -447,17 +447,26 @@ class Course(Reservation, Duplicable):
 
     @dd.requestfield(_("Requested"))
     def requested(self, ar):
+        pv = dict(start_date=dd.today())
+        pv.update(state=EnrolmentStates.requested)
         return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=dict(state=EnrolmentStates.requested))
+            self, param_values=pv)
 
     @dd.requestfield(_("Confirmed"))
     def confirmed(self, ar):
+        pv = dict(start_date=dd.today())
+        pv.update(state=EnrolmentStates.confirmed)
         return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=dict(state=EnrolmentStates.confirmed))
+            self, param_values=pv)
 
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
-        return rt.modules.courses.EnrolmentsByCourse.request(self)
+        return self.get_enrolments(start_date=dd.today())
+
+    def get_enrolments(self, **pv):
+        # pv = dict(start_date=sd, end_date=dd.today())
+        return rt.modules.courses.EnrolmentsByCourse.request(
+            self, param_values=pv)
 
     @dd.virtualfield(dd.HtmlBox(_("Presences")))
     def presences_box(self, ar):
@@ -642,5 +651,14 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
     def get_excerpt_title(self):
         return self.course.line.get_excerpt_title()
 
+    @dd.virtualfield(dd.HtmlBox(_("Participant")))
+    def pupil_info(self, ar):
+        elems = [ar.obj2html(self.pupil,
+                             self.pupil.get_full_name(nominative=True))]
+        elems += [', ']
+        elems += join_elems(
+            list(self.pupil.address_location_lines()),
+            sep=', ')
+        return E.p(*elems)
 
 from .ui import *

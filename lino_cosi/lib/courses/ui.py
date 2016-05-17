@@ -381,24 +381,28 @@ class Enrolments(dd.Table):
         qs = super(Enrolments, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
-        if ar.param_values.author is not None:
-            qs = qs.filter(user=ar.param_values.author)
+        pv = ar.param_values
+        if pv.author is not None:
+            qs = qs.filter(user=pv.author)
 
-        if ar.param_values.state:
-            qs = qs.filter(state=ar.param_values.state)
+        if pv.state:
+            qs = qs.filter(state=pv.state)
         else:
-            if ar.param_values.participants_only:
+            if pv.participants_only:
                 qs = qs.exclude(state=EnrolmentStates.cancelled)
 
-        if ar.param_values.course_state:
-            qs = qs.filter(course__state=ar.param_values.course_state)
+        if pv.course_state:
+            qs = qs.filter(course__state=pv.course_state)
 
-        if ar.param_values.start_date is None or ar.param_values.end_date is None:
-            period = None
-        else:
-            period = (ar.param_values.start_date, ar.param_values.end_date)
-        if period is not None:
-            qs = qs.filter(dd.inrange_filter('request_date', period))
+        if pv.start_date or pv.end_date:
+            qs = PeriodEvents.active.add_filter(qs, pv)
+
+        # if pv.start_date is None or pv.end_date is None:
+        #     period = None
+        # else:
+        #     period = (pv.start_date, pv.end_date)
+        # if period is not None:
+        #     qs = qs.filter(dd.inrange_filter('request_date', period))
 
         return qs
 
@@ -507,7 +511,7 @@ class EnrolmentsByCourse(Enrolments):
     params_panel_hidden = True
     required_roles = dd.required()
     master_key = "course"
-    column_names = 'request_date pupil_info places option ' \
+    column_names = 'request_date pupil places option ' \
                    'remark workflow_buttons *'
     auto_fit_column_widths = True
     # cell_edit = False
@@ -518,16 +522,6 @@ class EnrolmentsByCourse(Enrolments):
     remark
     request_date user
     """
-
-    @dd.virtualfield(dd.HtmlBox(_("Participant")))
-    def pupil_info(cls, self, ar):
-        elems = [ar.obj2html(self.pupil,
-                             self.pupil.get_full_name(nominative=True))]
-        elems += [', ']
-        elems += join_elems(
-            list(self.pupil.address_location_lines()),
-            sep=', ')
-        return E.p(*elems)
 
 
 class EnrolmentsByOption(Enrolments):
