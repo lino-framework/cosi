@@ -653,6 +653,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
 
     @dd.virtualfield(dd.HtmlBox(_("Participant")))
     def pupil_info(self, ar):
+        if ar is None:
+            return ''
         elems = [ar.obj2html(self.pupil,
                              self.pupil.get_full_name(nominative=True))]
         elems += [', ']
