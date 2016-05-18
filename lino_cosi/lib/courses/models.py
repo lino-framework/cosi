@@ -447,17 +447,26 @@ class Course(Reservation, Duplicable):
 
     @dd.requestfield(_("Requested"))
     def requested(self, ar):
+        pv = dict(start_date=dd.today())
+        pv.update(state=EnrolmentStates.requested)
         return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=dict(state=EnrolmentStates.requested))
+            self, param_values=pv)
 
     @dd.requestfield(_("Confirmed"))
     def confirmed(self, ar):
+        pv = dict(start_date=dd.today())
+        pv.update(state=EnrolmentStates.confirmed)
         return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=dict(state=EnrolmentStates.confirmed))
+            self, param_values=pv)
 
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
-        return rt.modules.courses.EnrolmentsByCourse.request(self)
+        return self.get_enrolments(start_date=dd.today())
+
+    def get_enrolments(self, **pv):
+        # pv = dict(start_date=sd, end_date=dd.today())
+        return rt.modules.courses.EnrolmentsByCourse.request(
+            self, param_values=pv)
 
     @dd.virtualfield(dd.HtmlBox(_("Presences")))
     def presences_box(self, ar):
@@ -530,6 +539,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         unique_together = ('course', 'pupil')
 
     course_area = CourseAreas.field(blank=True)
+
+    quick_search_fields = "pupil__name"
 
     #~ teacher = models.ForeignKey(Teacher)
     course = dd.ForeignKey('courses.Course')
@@ -606,7 +617,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         """
         if self.course.max_places is None:
             return  # no veto. unlimited places.
-        free = self.course.get_free_places(self)
+        free = self.course.get_free_places(self.request_date)
         if free <= 0:
             return _("No places left in %s") % self.course
         #~ return _("Confirmation not implemented")
@@ -640,5 +651,16 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
     def get_excerpt_title(self):
         return self.course.line.get_excerpt_title()
 
+    @dd.virtualfield(dd.HtmlBox(_("Participant")))
+    def pupil_info(self, ar):
+        if ar is None:
+            return ''
+        elems = [ar.obj2html(self.pupil,
+                             self.pupil.get_full_name(nominative=True))]
+        elems += [', ']
+        elems += join_elems(
+            list(self.pupil.address_location_lines()),
+            sep=', ')
+        return E.p(*elems)
 
 from .ui import *
