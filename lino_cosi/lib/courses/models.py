@@ -527,6 +527,23 @@ class ConfirmedSubmitInsert(dd.SubmitInsert):
 class Enrolment(UserAuthored, Certifiable, DatePeriod):
     """An **enrolment** is when a given pupil plans to participate in a
     given course.
+
+    .. attribute:: course_area
+    .. attribute:: course
+    .. attribute:: pupil
+    .. attribute:: request_date
+    .. attribute:: start_date
+    .. attribute:: end_date
+    .. attribute:: state
+    .. attribute:: places
+    .. attribute:: option
+    .. attribute:: remark
+    .. attribute:: confirmation_details
+    .. attribute:: pupil_info
+
+        Virtual HtmlBox field showing the name and address of the
+        participant.
+
     """
     invoiceable_date_field = 'request_date'
     workflow_state_field = 'state'
