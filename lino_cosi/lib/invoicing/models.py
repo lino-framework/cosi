@@ -199,6 +199,7 @@ class Item(dd.Model):
         M = VOUCHER_MODEL
         invoice = M(partner=self.partner, journal=self.plan.journal,
                     voucher_date=self.plan.today,
+                    user=ar.get_user(),
                     entry_date=self.plan.today)
         lng = invoice.get_print_language()
         items = []
