@@ -136,6 +136,8 @@ class EventsByTeacher(cal.Events):
 
 
 class CourseDetail(dd.FormLayout):
+    """The detail layout of a :class:`Course`.
+    """
     # start = "start_date start_time"
     # end = "end_date end_time"
     # freq = "every every_unit"

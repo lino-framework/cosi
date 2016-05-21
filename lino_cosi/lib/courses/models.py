@@ -57,7 +57,7 @@ from lino.modlib.printing.mixins import Printable
 from lino_xl.lib.cal.mixins import Reservation
 from lino_xl.lib.cal.choicelists import Recurrencies
 
-from lino.mixins.periods import DatePeriodValue
+from lino.utils.dates import DatePeriodValue
 
 from .choicelists import EnrolmentStates, CourseStates
 
@@ -357,9 +357,6 @@ class Course(Reservation, Duplicable):
     def get_free_places(self, today=None):
         Enrolment = rt.modules.courses.Enrolment
         PeriodEvents = rt.modules.system.PeriodEvents
-        # from lino.mixins.periods import DatePeriodValue
-        # if today is None:
-        #     today = dd.today()
         used_states = EnrolmentStates.filter(uses_a_place=True)
         qs = Enrolment.objects.filter(course=self, state__in=used_states)
         rng = DatePeriodValue(today or dd.today(), None)
