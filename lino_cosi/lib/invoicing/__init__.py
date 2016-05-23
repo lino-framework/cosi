@@ -55,7 +55,7 @@ class Plugin(Plugin):
 
     """
 
-    invoiceable_label = _("Invoiceable")
+    invoiceable_label = _("Invoiced object")
 
     def on_site_startup(self, site):
         from lino.core.utils import resolve_model
