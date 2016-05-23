@@ -36,6 +36,11 @@ from lino.api.ad import Plugin, _
 
 
 class Plugin(Plugin):
+    """
+
+    .. attribute:: voucher_model
+
+    """
 
     # needs_plugins = ['lino_cosi.lib.ledger']
     needs_plugins = ['lino_cosi.lib.sales']
