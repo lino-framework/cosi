@@ -19,8 +19,6 @@
 """
 Choicelists for `lino_cosi.lib.vat`.
 
-.. autosummary::
-
 """
 
 from __future__ import unicode_literals
@@ -36,6 +34,15 @@ class VatClasses(dd.ChoiceList):
     does not contain the actual rate because this still varies
     depending on your country, the time and type of the operation, and
     possibly other factors.
+
+    Default classes are:
+
+    .. attribute:: exempt
+
+    .. attribute:: reduced
+
+    .. attribute:: normal
+
 
     """
     verbose_name = _("VAT Class")
