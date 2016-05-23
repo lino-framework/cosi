@@ -334,6 +334,10 @@ class ProductDocItem(QtyVatItemBase):
 
     .. attribute:: product
     .. attribute:: description
+
+       A multi-line rich text to be printed in the resulting printable
+       document.
+
     .. attribute:: discount
 
     """

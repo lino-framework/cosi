@@ -23,8 +23,8 @@ Install the project code
 - Check whether everything worked well::
 
     $ cd ~/repositories/cosi
-    $ fab initdb
-    $ fab test
+    $ inv initdb
+    $ inv test
 
 
 Create a local project
