@@ -1,4 +1,4 @@
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -21,32 +21,33 @@ European countries.
 
 """
 
-# from lino.utils.instantiator import Instantiator
-from lino.api import rt
+from lino.api import dd, rt
 
 
 def objects():
-    Country = rt.modules.countries.Country
-    # VatRule = rt.modules.vat.VatRule
-    vat = rt.modules.vat
+    Country = rt.models.countries.Country
+    # VatRule = rt.models.vat.VatRule
+    vat = rt.models.vat
 
     def rule(vat_class, country_id, vat_regime, rate):
         if country_id is None:
             country = None
         else:
-            try:
-                country = Country.objects.get(pk=country_id)
-            except Country.DoesNotExist:
-                raise Exception("No country {0}".format(country_id))
+            my = dd.plugins.countries.get_my_country()
+            if my.pk == country_id:
+                country = None
+            else:
+                try:
+                    country = Country.objects.get(pk=country_id)
+                except Country.DoesNotExist:
+                    raise Exception("No country {0}".format(country_id))
         return vat.VatRule(
             country=country,
             vat_class=vat.VatClasses.get_by_name(vat_class),
             # trade_type=vat.TradeTypes.get_by_name(trade_type),
             vat_regime=vat.VatRegimes.get_by_name(vat_regime),
             rate=rate)
-    # rule = Instantiator(
-    #     'vat.VatRule', 'vat_class country trade_type vat_regime rate')
-    yield rule('exempt', None, None, 0)
+    # yield rule('exempt', None, None, 0)
     yield rule('reduced', 'BE', None, '0.07')
     yield rule('normal', 'BE', None, '0.21')
     yield rule('normal', 'EE', None, '0.20')

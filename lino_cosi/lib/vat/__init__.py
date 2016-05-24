@@ -41,6 +41,7 @@ much sense).
     utils
     choicelists
     mixins
+    fixtures.novat
     fixtures.euvatrates
 
 """

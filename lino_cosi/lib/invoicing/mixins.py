@@ -34,12 +34,22 @@ ZERO = Decimal()
 from lino.api import dd, rt
 from lino.core.gfks import gfk2lookup
 
+from django.contrib.contenttypes.fields import GenericRelation
+
 
 class Invoiceable(dd.Model):
     """Mixin for things that are "invoiceable", i.e. for which a customer
     is going to receive an invoice.
 
     .. attribute:: invoice
+
+    .. attribute:: invoicings
+
+        A simple `GenericRelation
+        <https://docs.djangoproject.com/ja/1.9/ref/contrib/contenttypes/#reverse-generic-relations>`_
+        to all invoice items pointing to this enrolment.
+
+        This is preferred over :meth:`get_invoicings`.
 
     """
 
@@ -54,7 +64,18 @@ class Invoiceable(dd.Model):
 
     # invoice = dd.ForeignKey('sales.VatProductInvoice', blank=True, null=True)
 
+    invoicings = GenericRelation(
+        dd.plugins.invoicing.item_model,
+        content_type_field='invoiceable_type',
+        object_id_field='invoiceable_id')
+
     def get_invoicings(self, **kwargs):
+        """Get a queryset with the invoicings which point to this enrolment.
+
+        This is deprecated. Preferred way is to use
+        :attr:`invoicings`.
+
+        """
         item_model = dd.plugins.invoicing.item_model
         # item_model = rt.modules.sales.InvoiceItem
         kwargs.update(gfk2lookup(item_model.invoiceable, self))

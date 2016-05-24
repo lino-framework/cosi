@@ -36,6 +36,11 @@ from lino.api.ad import Plugin, _
 
 
 class Plugin(Plugin):
+    """
+
+    .. attribute:: voucher_model
+
+    """
 
     # needs_plugins = ['lino_cosi.lib.ledger']
     needs_plugins = ['lino_cosi.lib.sales']
@@ -50,7 +55,7 @@ class Plugin(Plugin):
 
     """
 
-    invoiceable_label = _("Invoiceable")
+    invoiceable_label = _("Invoiced object")
 
     def on_site_startup(self, site):
         from lino.core.utils import resolve_model
