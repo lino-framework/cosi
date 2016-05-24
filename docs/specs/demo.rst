@@ -25,6 +25,12 @@ The demo database contains 69 persons and 22 companies.
 >>> contacts.Partner.objects.count()
 91
 
+
+>>> print(' '.join(settings.SITE.demo_fixtures))
+std few_countries euvatrates few_languages furniture minimal_ledger demo demo_bookings demo2
+
+
+
 The test database
 -----------------
 

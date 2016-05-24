@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
@@ -59,6 +60,7 @@ class PartnerDetailMixin(dd.DetailLayout):
     else:
         ledger = dd.DummyPanel()
 
+
 def get_default_vat_regime():
     return dd.plugins.vat.default_vat_regime
 
@@ -91,7 +93,7 @@ class VatTotal(dd.Model):
     class Meta:
         abstract = True
 
-    #~ price = dd.PriceField(_("Total"),blank=True,null=True)
+    # price = dd.PriceField(_("Total"),blank=True,null=True)
     total_incl = dd.PriceField(_("Total incl. VAT"), blank=True, null=True)
     total_base = dd.PriceField(_("Total excl. VAT"), blank=True, null=True)
     total_vat = dd.PriceField(_("VAT"), blank=True, null=True)
@@ -127,7 +129,8 @@ class VatTotal(dd.Model):
         pass
 
     def get_vat_rule(self):
-        """Called when user edits a total field in the document header when
+        """Return the VAT rule for this voucher or voucher item. Called when
+        user edits a total field in the document header when
         `auto_compute_totals` is False.
 
         """
@@ -191,7 +194,7 @@ class VatTotal(dd.Model):
             self.reset_totals(ar)
             if self.total_incl is None:
                 return
-        #~ assert not isinstance(self.total_incl,basestring)
+        # assert not isinstance(self.total_incl,basestring)
         rule = self.get_vat_rule()
         if rule is None:
             self.total_base = None
@@ -328,7 +331,7 @@ class VatItemBase(VoucherItem, VatTotal):
         return dd.plugins.vat.get_vat_class(tt, self)
 
     def vat_class_changed(self, ar):
-        #~ logger.info("20121204 vat_class_changed")
+        # logger.info("20121204 vat_class_changed")
         if self.voucher.vat_regime.item_vat:
             self.total_incl_changed(ar)
         else:
@@ -338,20 +341,42 @@ class VatItemBase(VoucherItem, VatTotal):
         raise NotImplementedError
 
     def get_vat_rule(self):
+        """Return the `VatRule` which applies for this item.
+
+        This basically calls the class method
+        :meth:`VatRule.get_vat_rule
+        <lino_cosi.lib.vat.models.VatRule.get_vat_rule>` with
+        appropriate arguments.
+
+        When selling certain products ("automated digital services")
+        in the EU, you have to pay VAT in the buyer's country at that
+        country's VAT rate.  See e.g.  `How can I comply with VAT
+        obligations?
+        <https://ec.europa.eu/growth/tools-databases/dem/watify/selling-online/how-can-i-comply-vat-obligations>`_.
+        TODO: Add a new attribute `VatClass.buyers_country` or a
+        checkbox `Product.buyers_country` or some other way to specify
+        this.
+
+        """
+
         if self.vat_class is None:
             tt = self.voucher.get_trade_type()
             self.vat_class = self.get_vat_class(tt)
+
+        if False:
+            country = self.voucher.partner.country or \
+                dd.plugins.countries.get_my_country()
+        else:
+            country = dd.plugins.countries.get_my_country()
         rule = rt.modules.vat.VatRule.get_vat_rule(
-            self.voucher.vat_regime, self.vat_class,
-            self.voucher.partner.country or
-            dd.plugins.countries.get_my_country(),
+            self.voucher.vat_regime, self.vat_class, country,
             self.voucher.voucher_date)
         return rule
 
-    #~ def save(self,*args,**kw):
-        #~ super(VatItemBase,self).save(*args,**kw)
-        #~ self.voucher.full_clean()
-        #~ self.voucher.save()
+    # def save(self,*args,**kw):
+        # super(VatItemBase,self).save(*args,**kw)
+        # self.voucher.full_clean()
+        # self.voucher.save()
 
     def set_amount(self, ar, amount):
         self.voucher.fill_defaults()
@@ -374,7 +399,7 @@ class VatItemBase(VoucherItem, VatTotal):
             total = Decimal()
             for item in self.voucher.items.exclude(id=self.id):
                 total += item.total_incl
-            #~ if total != self.voucher.total_incl:
+            # if total != self.voucher.total_incl:
             self.total_incl = self.voucher.total_incl - total
             self.total_incl_changed(ar)
 
@@ -422,12 +447,12 @@ class QtyVatItemBase(VatItemBase):
 
     def reset_totals(self, ar):
         super(QtyVatItemBase, self).reset_totals(ar)
-        #~ if not self.voucher.auto_compute_totals:
-            #~ if self.qty:
-                #~ if self.voucher.item_vat:
-                    #~ self.unit_price = self.total_incl / self.qty
-                #~ else:
-                    #~ self.unit_price = self.total_base / self.qty
+        # if not self.voucher.auto_compute_totals:
+        #     if self.qty:
+        #         if self.voucher.item_vat:
+        #             self.unit_price = self.total_incl / self.qty
+        #         else:
+        #             self.unit_price = self.total_base / self.qty
 
         if self.unit_price is not None and self.qty is not None:
             self.set_amount(ar, myround(self.unit_price * self.qty))
