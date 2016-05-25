@@ -9,11 +9,10 @@ Description
 
 
 
-**Lino Così** is a `Lino <http://www.lino-framework.org>`_ application
-to make accounting simple.  It is targeted to small but possibly
-expanding enterprises or organisations who want more than an
-off-the-shelf product.  With Lino Così you will finally **perceive it
-as a joy** to
+**Lino Così** is a free web application to make accounting simple.  It
+is targeted to small and expanding enterprises or organisations who
+want more than an off-the-shelf product.  With Lino Così you will
+finally **perceive it as a joy** to
 
 - manage your contacts, your catalog of products and your account
   chart
@@ -29,9 +28,11 @@ sophisticated applications** like `Lino Welfare
 <http://welfare.lino-framework.org>`__ or `Lino Voga
 <http://voga.lino-framework.org>`__.
 
-Current maintainer and recommended service provider is `Rumma & Ko
-<http://www.saffre-rumma.net/about>`_.
+- For *introductions* and *commercial information* about Lino Voga
+  please see `www.saffre-rumma.net
+  <http://www.saffre-rumma.net/cosi/>`__.
 
+- The central project homepage is http://cosi.lino-framework.org
 
 
 
