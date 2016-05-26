@@ -206,37 +206,28 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
         """
         # dd.logger.info("20160329 FinancialMixin.partner_changed")
-        if self.partner:
-            flt = dict(partner=self.partner, cleared=False)
-            if self.match:
-                flt.update(match=self.match)
-            suggestions = list(ledger.get_due_movements(
-                self.voucher.journal.dc, **flt))
+        if not self.partner:
+            return
+        flt = dict(partner=self.partner, cleared=False)
+        if self.match:
+            flt.update(match=self.match)
+        suggestions = list(ledger.get_due_movements(
+            self.voucher.journal.dc, **flt))
 
-            if len(suggestions) == 0:
-                pass
-            elif len(suggestions) == 1:
-                self.fill_suggestion(suggestions[0])
-            else:
-                def ok(ar2):
-                    # self.fill_suggestion(suggestions[0])
-                    # self.set_grouper(suggestions)
-                    ar2.error(_("Oops, not implemented."))
-                    return
-
-                html = E.div(
-                    E.p("Cool", E.b(str(len(suggestions)), "suggestions")))
-                if ar:
-                    ar.confirm(ok, E.tostring(html))
+        if len(suggestions) == 0:
+            pass
+        elif len(suggestions) == 1:
+            self.fill_suggestion(suggestions[0])
+        elif ar:
+            def ok(ar2):
+                # self.fill_suggestion(suggestions[0])
+                # self.set_grouper(suggestions)
+                ar2.error(_("Oops, not implemented."))
                 return
-            # if self.account_id is None:
-            #     if self.voucher.item_account_id is None:
-            #         raise ValidationError(
-            #             _("Could not determine the general account"))
-        # print self.partner_id
-        # if self.partner_id is None:
-        #     raise ValidationError(
-        #         _("Could not determine the partner account"))
+
+            html = E.div(
+                E.p("Cool!", E.b(str(len(suggestions)), " suggestions!")))
+            ar.confirm(ok, E.tostring(html))
 
     def account_changed(self, ar):
         if not self.account:

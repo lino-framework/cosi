@@ -231,7 +231,7 @@ class ExpectedMovements(dd.VirtualTable):
                 matchrule__journal=pv.for_journal).distinct()
             flt.update(account__in=accounts)
         if pv.from_journal is not None:
-            flt.update(journal=pv.from_journal)
+            flt.update(voucher__journal=pv.from_journal)
         return get_due_movements(cls.get_dc(ar), **flt)
 
     @classmethod
