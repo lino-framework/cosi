@@ -226,7 +226,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
                 return
 
             html = E.div(
-                E.p("Cool!", E.b(str(len(suggestions)), " suggestions!")))
+                E.p("Cool! ", E.b(str(len(suggestions)), " suggestions!")))
             ar.confirm(ok, E.tostring(html))
 
     def account_changed(self, ar):
