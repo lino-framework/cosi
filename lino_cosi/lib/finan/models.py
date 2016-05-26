@@ -461,6 +461,7 @@ class FillSuggestionsToVoucherItem(FillSuggestionsToVoucher):
             i = voucher.add_item_from_due(obj, seqno=seqno)
             if i is not None:
                 # dd.logger.info("20151117 gonna full_clean %s", obj2str(i))
+                i.on_create(ar)
                 i.full_clean()
                 # dd.logger.info("20151117 gonna save %s", obj2str(i))
                 i.save()
