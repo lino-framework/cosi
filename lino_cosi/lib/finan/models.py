@@ -569,7 +569,7 @@ class SuggestionsByVoucherItem(SuggestionsByVoucher):
         item = ar.master_instance
         if item is None:
             return None
-        return - item.voucher.journal.dc
+        return not item.voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):

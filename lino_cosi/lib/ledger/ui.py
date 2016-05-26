@@ -253,16 +253,16 @@ class ExpectedMovements(dd.VirtualTable):
     def info(self, row, ar):
         elems = []
         if row.project:
-            elems += [ar.obj2html(row.project)]
+            elems.append(ar.obj2html(row.project))
         if row.partner:
-            elems += [E.br(), ar.obj2html(row.partner)]
+            elems.append(ar.obj2html(row.partner))
         if row.bank_account:
-            elems += [E.br(), ar.obj2html(row.bank_account)]
+            elems.append(ar.obj2html(row.bank_account))
         if row.account:
-            elems += [E.br(), ar.obj2html(row.account)]
+            elems.append(ar.obj2html(row.account))
         # return E.span(*join_elems(elems, ' / '))
-        # return E.span(*join_elems(elems, E.br))
-        return E.span(*elems)
+        return E.span(*join_elems(elems, E.br))
+        # return E.span(*elems)
 
     @dd.displayfield(_("Match"))
     def match(self, row, ar):

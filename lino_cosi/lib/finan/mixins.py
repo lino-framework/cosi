@@ -219,15 +219,23 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         elif len(suggestions) == 1:
             self.fill_suggestion(suggestions[0])
         elif ar:
-            def ok(ar2):
-                # self.fill_suggestion(suggestions[0])
-                # self.set_grouper(suggestions)
-                ar2.error(_("Oops, not implemented."))
-                return
+            self.match = _("{} suggestions").format(len(suggestions))
+            # def ok(ar2):
+            #     # self.fill_suggestion(suggestions[0])
+            #     # self.set_grouper(suggestions)
+            #     ar2.error(_("Oops, not implemented."))
+            #     return
 
-            html = E.div(
-                E.p("Cool! ", E.b(str(len(suggestions)), " suggestions!")))
-            ar.confirm(ok, E.tostring(html))
+            # elems = ["Cool! ", E.b(str(self.partner)),
+            #          " has ", E.b(str(len(suggestions))),
+            #          " suggestions! Click "]
+            # ba = ar.actor.get_action_by_name('suggest')
+            # elems.append(ar.action_button(ba, self))
+            # elems.append(".")
+            # html = E.p(*elems)
+            # # dd.logger.info("20160526 %s", E.tostring(html))
+            # ar.success(E.tostring(html), alert=True)
+            # # ar.confirm(ok, E.tostring(html))
 
     def account_changed(self, ar):
         if not self.account:
