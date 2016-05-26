@@ -32,7 +32,7 @@ from lino import mixins
 from lino_cosi.lib.ledger.roles import LedgerStaff
 
 from .choicelists import *
-from .utils import DEBIT, CREDIT, DCLABELS
+from .utils import DEBIT, CREDIT, DCLABELS, ZERO
 
 
 class Group(mixins.BabelNamed):
@@ -95,9 +95,9 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
     .. attribute:: type
 
-        The *account type* of this account.  This must
-        point to an item of
-        :class:`lino_cosi.lib.accounts.choicelists.AccountTypes`.
+        The *account type* of this account.  This points to an item of
+        :class:`AccountTypes
+        <lino_cosi.lib.accounts.choicelists.AccountTypes>`.
     
     .. attribute:: needs_partner
 
@@ -107,7 +107,11 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
         detailed (i.e. one for every item) or not (i.e. a single
         contra entry per voucher, without project nor partner).
 
-        
+    .. attribute:: default_amount
+
+        The default amount to book in bank statements or journal
+        entries when this account has been selected manually. The
+        default booking direction is that of the :attr:`type`.
 
     """
     ref_max_length = settings.SITE.plugins.accounts.ref_length
@@ -121,7 +125,9 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
     type = AccountTypes.field()  # blank=True)
     needs_partner = models.BooleanField(_("Needs partner"), default=False)
     clearable = models.BooleanField(_("Clearable"), default=False)
-    # normal_dc = DebitOrCreditField(_("Normal booking direction"))
+    # default_dc = DebitOrCreditField(_("Default booking direction"))
+    default_amount = dd.PriceField(
+        _("Default amount"), blank=True, null=True)
 
     def full_clean(self, *args, **kw):
         if self.group_id is not None:
@@ -131,8 +137,9 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
             if not self.name:
                 self.name = self.group.name
             self.type = self.group.account_type
-        # if self.normal_dc is None:
-        #     self.normal_dc = self.type.dc
+
+        # if self.default_dc is None:
+        #     self.default_dc = self.type.dc
         super(Account, self).full_clean(*args, **kw)
 
     def __str__(self):
@@ -153,7 +160,7 @@ class Accounts(dd.Table):
     detail_layout = """
     ref group type id
     name
-    #normal_dc needs_partner clearable
+    needs_partner:30 clearable:30 default_amount:10 #default_dc
     ledger.MovementsByAccount
     """
 

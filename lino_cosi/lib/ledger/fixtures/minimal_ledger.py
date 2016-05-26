@@ -68,6 +68,8 @@ PO_BESTBANK_ACCOUNT = pcmnref('bestbankpo', '5810')
 
 SALES_ACCOUNT = pcmnref('sales', '7000')
 
+MEMBERSHIP_FEE_ACCOUNT = pcmnref('membership_fee', '7310')
+
 current_group = None
 
 
@@ -179,6 +181,10 @@ def objects():
     obj = Account(SALES_ACCOUNT, 'incomes',
                   "Ventes", "Verkäufe", "Sales", "Müük",
                   sales_allowed=True)
+    obj = Account(MEMBERSHIP_FEE_ACCOUNT, 'incomes',
+                  "Cotisation", "Mitgliedsbeitrag",
+                  "Membership fee", "Liikmemaks",
+                  sales_allowed=True, default_amount=15)
     yield obj
     if sales:
         settings.SITE.site_config.update(sales_account=obj)

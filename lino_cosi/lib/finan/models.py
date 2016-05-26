@@ -34,7 +34,9 @@ from lino_cosi.lib.sepa.mixins import BankAccount
 
 from lino.api import dd, rt, _
 
-from .mixins import FinancialVoucher, FinancialVoucherItem
+from .mixins import (FinancialVoucher, FinancialVoucherItem,
+                     DatedFinancialVoucher, DatedFinancialVoucherItem)
+
 
 
 ledger = dd.resolve_app('ledger')
@@ -83,7 +85,7 @@ class ShowSuggestions(dd.Action):
         ar.set_response(eval_js=js)
 
 
-class JournalEntry(FinancialVoucher, ProjectRelated):
+class JournalEntry(DatedFinancialVoucher, ProjectRelated):
     """This is the model for "journal entries" ("operations diverses").
 
     """
@@ -147,7 +149,7 @@ class PaymentOrder(FinancialVoucher):
         return i
 
 
-class BankStatement(FinancialVoucher):
+class BankStatement(DatedFinancialVoucher):
     """A **bank statement** is a document issued by the bank, which
     reports all transactions which occured on a given account during a
     given period.
@@ -200,26 +202,24 @@ class BankStatement(FinancialVoucher):
         yield self.create_movement(a, None, self.journal.dc, amount)
 
 
-class JournalEntryItem(FinancialVoucherItem):
+class JournalEntryItem(DatedFinancialVoucherItem):
     """An item of a :class:`JournalEntry`."""
     class Meta:
         app_label = 'finan'
         verbose_name = _("Journal Entry item")
         verbose_name_plural = _("Journal Entry items")
     voucher = dd.ForeignKey('finan.JournalEntry', related_name='items')
-    date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Debit"))
     credit = DcAmountField(CREDIT, _("Credit"))
 
 
-class BankStatementItem(FinancialVoucherItem):
+class BankStatementItem(DatedFinancialVoucherItem):
     """An item of a :class:`BankStatement`."""
     class Meta:
         app_label = 'finan'
         verbose_name = _("Bank Statement item")
         verbose_name_plural = _("Bank Statement items")
     voucher = dd.ForeignKey('finan.BankStatement', related_name='items')
-    date = models.DateField(blank=True, null=True)
     debit = DcAmountField(DEBIT, _("Income"))
     credit = DcAmountField(CREDIT, _("Expense"))
 
