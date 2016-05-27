@@ -560,6 +560,11 @@ class SuggestionsByBankStatement(SuggestionsByVoucher):
 
 
 class SuggestionsByVoucherItem(SuggestionsByVoucher):
+    """Displays the payment suggestions for a voucher item, with a button
+    to fill them into the current item (creating additional items if
+    more than one suggestion was selected).
+
+    """
 
     do_fill = FillSuggestionsToVoucherItem()
 
