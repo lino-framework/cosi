@@ -782,20 +782,11 @@ class Movement(ProjectRelated):
 
     @dd.chooser(simple_values=True)
     def match_choices(cls, partner, account):
-        #~ DC = voucher.journal.dc
-        #~ choices = []
         qs = cls.objects.filter(
             partner=partner, account=account, cleared=False)
         qs = qs.order_by('voucher__entry_date')
-        #~ qs = qs.distinct('match')
         return qs.values_list('match', flat=True)
 
-    #~ def full_clean(self,*args,**kw):
-        #~ if not self.match:
-            #~ self.match = self.voucher.get_default_match()
-        #~ super(Matching,self).full_clean(*args,**kw)
-    #~ def get_default_match(self):
-        #~ return unicode(self.voucher)
     def select_text(self):
         v = self.voucher.get_mti_leaf()
         return "%s (%s)" % (v, v.entry_date)
@@ -803,7 +794,6 @@ class Movement(ProjectRelated):
     @dd.virtualfield(dd.PriceField(_("Debit")))
     def debit(self, ar):
         if self.dc:
-            #~ return ZERO
             return None
         return self.amount
 
@@ -811,14 +801,12 @@ class Movement(ProjectRelated):
     def credit(self, ar):
         if self.dc:
             return self.amount
-        #~ return ZERO
         return None
 
     @dd.displayfield(_("Voucher"))
     def voucher_link(self, ar):
         if ar is None:
             return ''
-        #~ return self.voucher.get_mti_leaf().obj2html(ar)
         return ar.obj2html(self.voucher.get_mti_leaf())
 
     @dd.displayfield(_("Voucher partner"))

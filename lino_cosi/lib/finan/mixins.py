@@ -168,7 +168,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         verbose_name = _("Item")
         verbose_name_plural = _("Items")
 
-    amount = dd.PriceField(_("Amount"), default=ZERO)
+    amount = dd.PriceField(_("Amount"), default=ZERO, null=False)
     dc = DebitOrCreditField()
     remark = models.CharField(
         _("External reference"), max_length=200, blank=True)
@@ -206,38 +206,44 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
         """
         # dd.logger.info("20160329 FinancialMixin.partner_changed")
-        if self.partner:
-            flt = dict(partner=self.partner, cleared=False)
-            if self.match:
-                flt.update(match=self.match)
-            suggestions = list(ledger.get_due_movements(
-                self.voucher.journal.dc, **flt))
+        if not self.partner:
+            return
+        flt = dict(partner=self.partner, cleared=False)
+        if self.match:
+            flt.update(match=self.match)
+        suggestions = list(ledger.get_due_movements(
+            self.voucher.journal.dc, **flt))
 
-            if len(suggestions) == 0:
-                pass
-            elif len(suggestions) == 1:
-                self.fill_suggestion(suggestions[0])
-            else:
-                def ok(ar2):
-                    # self.fill_suggestion(suggestions[0])
-                    # self.set_grouper(suggestions)
-                    ar2.error(_("Oops, not implemented."))
-                    return
+        if len(suggestions) == 0:
+            pass
+        elif len(suggestions) == 1:
+            self.fill_suggestion(suggestions[0])
+        elif ar:
+            self.match = _("{} suggestions").format(len(suggestions))
+            # def ok(ar2):
+            #     # self.fill_suggestion(suggestions[0])
+            #     # self.set_grouper(suggestions)
+            #     ar2.error(_("Oops, not implemented."))
+            #     return
 
-                html = E.div(
-                    E.p("Cool", E.b(str(len(suggestions)), "suggestions")))
-                if ar:
-                    ar.confirm(ok, E.tostring(html))
-                return
-            if self.account_id is None:
-                if self.voucher.item_account_id is None:
-                    raise ValidationError(
-                        _("Could not determine the general account"))
-        # print self.partner_id
-        # if self.partner_id is None:
-        #     raise ValidationError(
-        #         _("Could not determine the partner account"))
+            # elems = ["Cool! ", E.b(str(self.partner)),
+            #          " has ", E.b(str(len(suggestions))),
+            #          " suggestions! Click "]
+            # ba = ar.actor.get_action_by_name('suggest')
+            # elems.append(ar.action_button(ba, self))
+            # elems.append(".")
+            # html = E.p(*elems)
+            # # dd.logger.info("20160526 %s", E.tostring(html))
+            # ar.success(E.tostring(html), alert=True)
+            # # ar.confirm(ok, E.tostring(html))
 
+    def account_changed(self, ar):
+        if not self.account:
+            return
+        if self.account.default_amount:
+            self.amount = self.account.default_amount
+            self.dc = not self.account.type.dc
+        
     def get_partner(self):
         return self.partner or self.project
 
@@ -258,16 +264,57 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.project = match.project
 
     def full_clean(self, *args, **kwargs):
+        # if self.amount is None:
+        #     if self.account and self.account.default_amount:
+        #         self.amount = self.account.default_amount
+        #         self.dc = self.account.type.dc
+        #     else:
+        #         self.amount = ZERO
         if self.dc is None:
-            self.dc = not self.voucher.journal.dc
-            # if self.account is None:
-            #     self.dc = self.voucher.journal.dc
-            # else:
-            #     self.dc = self.account.normal_dc
+            # self.dc = not self.voucher.journal.dc
+            if self.account is None:
+                self.dc = not self.voucher.journal.dc
+            else:
+                self.dc = not self.account.type.dc
+
         if self.amount < 0:
             self.amount = - self.amount
             self.dc = not self.dc
         # dd.logger.info("20151117 FinancialVoucherItem.full_clean a %s", self.amount)
         super(FinancialVoucherItem, self).full_clean(*args, **kwargs)
         # dd.logger.info("20151117 FinancialVoucherItem.full_clean b %s", self.amount)
+
+
+class DatedFinancialVoucher(FinancialVoucher):
+    class Meta:
+        app_label = 'finan'
+        abstract = True
+    last_item_date = models.DateField(blank=True, null=True)
+
+
+class DatedFinancialVoucherItem(FinancialVoucherItem):
+    """A :class:`FinancialVoucherItem` with an additional :attr:`date`
+    field.
+
+    """
+    class Meta:
+        app_label = 'finan'
+        abstract = True
+
+    date = models.DateField(blank=True, null=True)
+
+    def on_create(self, ar):
+        super(DatedFinancialVoucherItem, self).on_create(ar)
+        if self.voucher.last_item_date:
+            self.date = self.voucher.last_item_date
+        else:
+            self.date = dd.today()
+
+    def date_changed(self, ar):
+        obj = self.voucher
+        if obj.last_item_date != self.date:
+            obj.last_item_date = self.date
+            obj.full_clean()
+            obj.save()
+
 

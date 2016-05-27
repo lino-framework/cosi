@@ -517,6 +517,7 @@ class EnrolmentsByCourse(Enrolments):
                    'remark workflow_buttons *'
     auto_fit_column_widths = True
     # cell_edit = False
+    slave_grid_format = 'html'
 
     insert_layout = """
     pupil

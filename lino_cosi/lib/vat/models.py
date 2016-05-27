@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
@@ -33,15 +34,13 @@ from lino.modlib.system.choicelists import PeriodEvents
 
 from lino.api import dd, rt, _
 
-from lino.utils.xmlgen.html import E
-
 from .utils import ZERO
 from .choicelists import VatClasses, VatRegimes
 from .mixins import VatDocument, VatItemBase
 
 from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.mixins import Matching, AccountVoucherItem
-from lino_cosi.lib.sepa.mixins import Payable, BankAccount
+from lino_cosi.lib.sepa.mixins import Payable
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 
 
@@ -95,7 +94,7 @@ class VatRule(Sequenced, DatePeriod):
 
     @classmethod
     def get_vat_rule(cls, vat_regime, vat_class, country, date):
-        """Return the one and only VatRule object to be applied for the given
+        """Return the first VatRule object to be applied for the given
         criteria.
 
         """
@@ -109,7 +108,7 @@ class VatRule(Sequenced, DatePeriod):
                 # Q(vat_regime='') | Q(vat_regime=vat_regime))
                 Q(vat_regime__in=('', vat_regime)))
         qs = PeriodEvents.active.add_filter(qs, date)
-        if qs.count() == 1:
+        if qs.count() > 0:
             return qs[0]
         # rt.show(VatRules)
         msg = _("Found {num} VAT rules for %{context}!)").format(
@@ -169,13 +168,13 @@ if False:
 
     def set_default_item_vat(sender, instance=None, **kwargs):
         instance.item_vat = settings.SITE.get_item_vat(instance)
-        #~ print("20130902 set_default_item_vat", instance)
+        # print("20130902 set_default_item_vat", instance)
 
     @dd.receiver(dd.post_analyze)
     def on_post_analyze(sender, **kw):
         for m in rt.models_by_base(VatDocument):
             dd.post_init.connect(set_default_item_vat, sender=m)
-            #~ print('20130902 on_post_analyze installed receiver for',m)
+            # print('20130902 on_post_analyze installed receiver for',m)
 
 
 dd.inject_field(

@@ -33,29 +33,31 @@ def objects():
         if country_id is None:
             country = None
         else:
-            my = dd.plugins.countries.get_my_country()
-            if my.pk == country_id:
-                country = None
-            else:
-                try:
-                    country = Country.objects.get(pk=country_id)
-                except Country.DoesNotExist:
-                    raise Exception("No country {0}".format(country_id))
+            try:
+                country = Country.objects.get(pk=country_id)
+            except Country.DoesNotExist:
+                raise Exception("No country {0}".format(country_id))
         return vat.VatRule(
             country=country,
             vat_class=vat.VatClasses.get_by_name(vat_class),
             # trade_type=vat.TradeTypes.get_by_name(trade_type),
             vat_regime=vat.VatRegimes.get_by_name(vat_regime),
             rate=rate)
-    # yield rule('exempt', None, None, 0)
-    yield rule('reduced', 'BE', None, '0.07')
+
+    yield rule('exempt', None, None, 0)
+
     yield rule('normal', 'BE', None, '0.21')
+    yield rule('reduced', 'BE', None, '0.07')
+
     yield rule('normal', 'EE', None, '0.20')
     yield rule('reduced', 'EE', None, '0.09')
+
     yield rule('normal', 'NL', None, '0.21')
     yield rule('reduced', 'NL', None, '0.06')
+
     yield rule('normal', 'DE', None, '0.19')
     yield rule('reduced', 'DE', None, '0.07')
+
     yield rule('normal', 'FR', None, '0.20')
     yield rule('reduced', 'FR', None, '0.10')
     # in FR there are more VAT classes, we currently don't support them
