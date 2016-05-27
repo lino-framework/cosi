@@ -24,7 +24,7 @@ The database structure
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
- accounts.Account            accounts.Accounts              14        12
+ accounts.Account            accounts.Accounts              15        12
  accounts.Group              accounts.Groups                6         7
  contacts.Company            contacts.Companies             27        22
  contacts.CompanyType        contacts.CompanyTypes          7         14
@@ -37,9 +37,9 @@ The database structure
  countries.Place             countries.Places               8         78
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          17        5
- finan.BankStatement         finan.BankStatements           15        14
+ finan.BankStatement         finan.BankStatements           16        14
  finan.BankStatementItem     finan.BankStatementItemTable   10        66
- finan.JournalEntry          finan.FinancialVouchers        13        0
+ finan.JournalEntry          finan.FinancialVouchers        14        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
  finan.PaymentOrder          finan.PaymentOrders            15        14
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        70
