@@ -716,6 +716,7 @@ class Movements(dd.Table):
     required_roles = dd.login_required(LedgerUser)
     column_names = 'voucher__entry_date voucher_link description \
     debit credit match_link cleared *'
+    sum_text_column = 2
 
     editable = False
     parameters = mixins.ObservedPeriod(
@@ -752,6 +753,12 @@ class Movements(dd.Table):
         if pv.journal:
             qs = qs.filter(voucher__journal=pv.journal)
         return qs
+
+    @classmethod
+    def get_sum_text(self, ar, sums):
+        bal = sums['debit'] - sums['credit']
+        return _("Balance {1} ({0} movements)").format(
+            ar.get_total_count(), bal)
 
     @classmethod
     def get_simple_parameters(cls):
@@ -806,6 +813,7 @@ class AllMovements(Movements):
 class MovementsByVoucher(Movements):
     master_key = 'voucher'
     column_names = 'seqno project partner account debit credit match_link cleared'
+    sum_text_column = 3
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 

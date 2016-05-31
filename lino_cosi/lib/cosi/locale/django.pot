@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-cosi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-05-26 23:50+0300\n"
+"POT-Creation-Date: 2016-05-31 16:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1226,9 +1226,9 @@ msgid "Reference"
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:166 lino_cosi/lib/courses/models.py:276
-#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:782
-#: lino_cosi/lib/ledger/ui.py:830 lino_cosi/lib/ledger/ui.py:851
-#: lino_cosi/lib/ledger/ui.py:895 lino_cosi/lib/ledger/ui.py:940
+#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:789
+#: lino_cosi/lib/ledger/ui.py:838 lino_cosi/lib/ledger/ui.py:859
+#: lino_cosi/lib/ledger/ui.py:903 lino_cosi/lib/ledger/ui.py:948
 #: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:349
 #: lino_cosi/lib/sales/models.py:443 lino_cosi/lib/vat/models.py:159
 #: lino_cosi/lib/vatless/models.py:126
@@ -1599,7 +1599,7 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
-#: lino_cosi/lib/finan/mixins.py:222
+#: lino_cosi/lib/finan/mixins.py:226
 msgid "{} suggestions"
 msgstr ""
 
@@ -1690,12 +1690,12 @@ msgstr ""
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:471
+#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:472
 #, python-format
 msgid "%d items have been added to %s."
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:494 lino_cosi/lib/invoicing/models.py:254
+#: lino_cosi/lib/finan/models.py:495 lino_cosi/lib/invoicing/models.py:254
 msgid "Suggestions"
 msgstr ""
 
@@ -2111,23 +2111,27 @@ msgstr ""
 msgid "Overview of the financial activity during a given period."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:729
+#: lino_cosi/lib/ledger/ui.py:730
 msgid "Show cleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:778
+#: lino_cosi/lib/ledger/ui.py:760
+msgid "Balance {1} ({0} movements)"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:785
 msgid "only uncleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:780
+#: lino_cosi/lib/ledger/ui.py:787
 msgid "only cleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:828
+#: lino_cosi/lib/ledger/ui.py:836
 msgid "No uncleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:927
+#: lino_cosi/lib/ledger/ui.py:935
 #, python-format
 msgid "%(details)s matching '%(master)s'"
 msgstr ""

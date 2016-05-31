@@ -517,7 +517,8 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
         kw = super(SuggestionsByVoucher, cls).param_defaults(ar, **kw)
         voucher = ar.master_instance
         kw.update(for_journal=voucher.journal)
-        kw.update(date_until=voucher.voucher_date)
+        if not dd.plugins.finan.suggest_future_vouchers:
+            kw.update(date_until=voucher.voucher_date)
         # kw.update(trade_type=vat.TradeTypes.purchases)
         return kw
 

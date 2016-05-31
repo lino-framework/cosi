@@ -209,6 +209,10 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         if not self.partner:
             return
         flt = dict(partner=self.partner, cleared=False)
+
+        if not dd.plugins.finan.suggest_future_vouchers:
+            flt.update(voucher__entry_date__lte=self.voucher.voucher_date)
+
         if self.match:
             flt.update(match=self.match)
         suggestions = list(ledger.get_due_movements(

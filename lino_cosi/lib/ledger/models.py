@@ -309,6 +309,8 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
     @classmethod
     def get_available_periods(cls, entry_date):
         """Return a queryset of peruiods available for booking."""
+        if entry_date is None:  # added 20160531
+            entry_date = dd.today()
         fkw = dict(start_date__lte=entry_date, end_date__gte=entry_date)
         return rt.modules.ledger.AccountingPeriod.objects.filter(**fkw)
 
@@ -630,7 +632,8 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def create_movement(self, account, project, dc, amount, **kw):
         # dd.logger.info("20151211 ledger.create_movement()")
-        assert isinstance(account, rt.modules.accounts.Account)
+        if not isinstance(account, rt.modules.accounts.Account):
+            raise Warning("{} is not an Account object".format(account))
         kw['voucher'] = self
         kw['account'] = account
         if account.clearable:

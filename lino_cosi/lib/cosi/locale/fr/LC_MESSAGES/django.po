@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-05-26 23:50+0300\n"
-"PO-Revision-Date: 2015-12-01 07:31+0300\n"
+"POT-Creation-Date: 2016-05-31 16:01+0300\n"
+"PO-Revision-Date: 2016-05-31 16:06+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: fr\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.2.0\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: lino_cosi/lib/accounts/__init__.py:40
 msgid "Accounting"
@@ -45,7 +46,7 @@ msgstr "Actifs"
 
 #: lino_cosi/lib/accounts/choicelists.py:126
 msgid "Liabilities"
-msgstr "Obligations"
+msgstr "Passifs"
 
 #: lino_cosi/lib/accounts/choicelists.py:134
 msgid "Capital"
@@ -78,7 +79,7 @@ msgstr "Fiche eID"
 
 #: lino_cosi/lib/accounts/fields.py:54
 msgid "Debit (checked) or Credit (not checked)"
-msgstr ""
+msgstr "Débit (☑) ou Crédit (☐)"
 
 #: lino_cosi/lib/accounts/models.py:41
 msgid "Account Group"
@@ -108,7 +109,7 @@ msgstr "Effacer la cache"
 
 #: lino_cosi/lib/accounts/models.py:130
 msgid "Default amount"
-msgstr ""
+msgstr "Montant par défaut"
 
 #: lino_cosi/lib/accounts/utils.py:34 lino_cosi/lib/finan/models.py:212
 #: lino_cosi/lib/ledger/models.py:794 lino_cosi/lib/ledger/ui.py:452
@@ -272,8 +273,8 @@ msgstr "Provisoirement impayé"
 
 #: lino_cosi/lib/b2c/febelfin.py:104
 msgid ""
-"First credit of cheques, vouchers, luncheon vouchers, postal orders, "
-"credit under usual reserve"
+"First credit of cheques, vouchers, luncheon vouchers, postal orders, credit "
+"under usual reserve"
 msgstr ""
 "Premier crédit de chèques, bons, chèques repas, assignations postales, "
 "crédit sbf "
@@ -564,20 +565,19 @@ msgstr "Général"
 
 #: lino_cosi/lib/b2c/febelfin.py:205
 msgid ""
-"Payment of coupons from a deposit or settlement of coupons delivered over"
-" the counter - credit under usual reserve"
+"Payment of coupons from a deposit or settlement of coupons delivered over "
+"the counter - credit under usual reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:207
 msgid ""
-"Repayable securities from a deposit or delivered at the counter -- credit"
-" under usual reserve"
+"Repayable securities from a deposit or delivered at the counter -- credit "
+"under usual reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:209
 msgid ""
-"Interim interest on subscription When reimbursed separately to the "
-"subscriber"
+"Interim interest on subscription When reimbursed separately to the subscriber"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:211
@@ -1273,9 +1273,9 @@ msgid "Reference"
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:166 lino_cosi/lib/courses/models.py:276
-#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:782
-#: lino_cosi/lib/ledger/ui.py:830 lino_cosi/lib/ledger/ui.py:851
-#: lino_cosi/lib/ledger/ui.py:895 lino_cosi/lib/ledger/ui.py:940
+#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:789
+#: lino_cosi/lib/ledger/ui.py:838 lino_cosi/lib/ledger/ui.py:859
+#: lino_cosi/lib/ledger/ui.py:903 lino_cosi/lib/ledger/ui.py:948
 #: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:349
 #: lino_cosi/lib/sales/models.py:443 lino_cosi/lib/vat/models.py:159
 #: lino_cosi/lib/vatless/models.py:126
@@ -1293,8 +1293,8 @@ msgstr "Répéter"
 
 #: lino_cosi/lib/courses/models.py:176
 msgid ""
-"The type of calendar events to be generated. If this is empty, no "
-"calendar events will be generated."
+"The type of calendar events to be generated. If this is empty, no calendar "
+"events will be generated."
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:183
@@ -1308,8 +1308,8 @@ msgstr ""
 
 #: lino_cosi/lib/courses/models.py:189
 msgid ""
-"The default guest role for particpants of events for courses in this "
-"series. Leave empty if you don't want any presence management."
+"The default guest role for particpants of events for courses in this series. "
+"Leave empty if you don't want any presence management."
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:196
@@ -1674,7 +1674,7 @@ msgstr "Site"
 msgid "Items"
 msgstr "minutes"
 
-#: lino_cosi/lib/finan/mixins.py:222
+#: lino_cosi/lib/finan/mixins.py:226
 #, fuzzy
 msgid "{} suggestions"
 msgstr "secondes"
@@ -1774,12 +1774,12 @@ msgstr ""
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:471
+#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:472
 #, fuzzy, python-format
 msgid "%d items have been added to %s."
 msgstr "Enregistrement %s a été mis à jour."
 
-#: lino_cosi/lib/finan/models.py:494 lino_cosi/lib/invoicing/models.py:254
+#: lino_cosi/lib/finan/models.py:495 lino_cosi/lib/invoicing/models.py:254
 #, fuzzy
 msgid "Suggestions"
 msgstr "secondes"
@@ -1795,13 +1795,13 @@ msgid "Create invoices"
 msgstr "Factures vente"
 
 #: lino_cosi/lib/invoicing/actions.py:83
-msgid "Build a new list of suggestions. This will remove all current suggestions"
+msgid ""
+"Build a new list of suggestions. This will remove all current suggestions"
 msgstr ""
 
 #: lino_cosi/lib/invoicing/actions.py:96
 msgid ""
-"Execute this invoicing plan. Create an invoice for each selected "
-"suggestion."
+"Execute this invoicing plan. Create an invoice for each selected suggestion."
 msgstr ""
 
 #: lino_cosi/lib/invoicing/actions.py:108
@@ -2229,23 +2229,27 @@ msgstr ""
 msgid "Overview of the financial activity during a given period."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:729
+#: lino_cosi/lib/ledger/ui.py:730
 msgid "Show cleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:778
+#: lino_cosi/lib/ledger/ui.py:760
+msgid "Balance {1} ({0} movements)"
+msgstr ""
+
+#: lino_cosi/lib/ledger/ui.py:785
 msgid "only uncleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:780
+#: lino_cosi/lib/ledger/ui.py:787
 msgid "only cleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:828
+#: lino_cosi/lib/ledger/ui.py:836
 msgid "No uncleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:927
+#: lino_cosi/lib/ledger/ui.py:935
 #, fuzzy, python-format
 msgid "%(details)s matching '%(master)s'"
 msgstr "%(details)s de %(master)s"
@@ -2437,8 +2441,8 @@ msgstr "Primaire"
 
 #: lino_cosi/lib/sepa/models.py:78
 msgid ""
-"Enabling this field will automatically disable any previous primary "
-"account and update the partner's IBAN and BIC"
+"Enabling this field will automatically disable any previous primary account "
+"and update the partner's IBAN and BIC"
 msgstr ""
 
 #: lino_cosi/lib/tim2lino/__init__.py:38
@@ -2481,8 +2485,8 @@ msgstr "Régime de travail"
 
 #: lino_cosi/lib/vat/choicelists.py:73
 msgid ""
-"Determines how the VAT is being handled,         i.e. whether and how it "
-"is to be paid."
+"Determines how the VAT is being handled,         i.e. whether and how it is "
+"to be paid."
 msgstr ""
 
 #: lino_cosi/lib/vat/choicelists.py:78
@@ -2632,15 +2636,6 @@ msgstr ""
 #~ msgid "Client Accounts Balances"
 #~ msgstr "Compte Ventes"
 
-#~ msgid "List of partners (usually clients)     who are in debt towards us."
-#~ msgstr ""
-
-#~ msgid "List of partners (usually suppliers)     who are giving credit to us."
-#~ msgstr ""
-
-#~ msgid "Create voucher in journal "
-#~ msgstr ""
-
 #~ msgid "Account Chart"
 #~ msgstr "Plan comptable"
 
@@ -2650,21 +2645,11 @@ msgstr ""
 #~ msgid "Default"
 #~ msgstr "valeur par défault"
 
-#~ msgid "No invoiceables found for %s."
-#~ msgstr ""
-
-#~ msgctxt "in a course"
 #~ msgid "Places"
 #~ msgstr "Places"
 
 #~ msgid "Default guest role for particpants of events."
 #~ msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
-
-#~ msgid "Could not determine the partner account"
-#~ msgstr ""
-
-#~ msgid "There is already an open grouper for {0}"
-#~ msgstr ""
 
 #~ msgid "Partners mismatch"
 #~ msgstr "Partenaires"
@@ -2675,75 +2660,8 @@ msgstr ""
 #~ msgid "Satisfied"
 #~ msgstr "Communiqué"
 
-#~ msgid "only open"
-#~ msgstr ""
-
-#~ msgid "Are you sure you want to register voucher {0}?"
-#~ msgstr ""
-
-#~ msgid "The movement matched by this one."
-#~ msgstr ""
-
-#~ msgid "Invoicing Mode"
-#~ msgstr ""
-
-#~ msgid "Invoicing Modes"
-#~ msgstr ""
-
-#~ msgid "Additional fee charged when using this invoicing mode."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "How many days in advance invoices "
-#~ "should be posted so that the "
-#~ "customer has a chance to pay them"
-#~ " in time."
-#~ msgstr ""
-
-#~ msgid "No items found for %s."
-#~ msgstr ""
-
-#~ msgid "Create invoice"
-#~ msgstr ""
-
 #~ msgid "%d invoices have been created."
 #~ msgstr "%s a été créé"
-
-#~ msgid "This will create %d invoices."
-#~ msgstr ""
-
-#~ msgid "Create invoice from invoiceables for this partner"
-#~ msgstr ""
-
-#~ msgid "Invoiceable"
-#~ msgstr ""
-
-#~ msgid "Voucher item"
-#~ msgstr ""
-
-#~ msgid "Voucher items"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Create and print the invoice for "
-#~ "each selected row, making these rows "
-#~ "disappear from this table"
-#~ msgstr ""
-
-#~ msgid "This will create and print %d invoice(s)."
-#~ msgstr ""
-
-#~ msgid "Invoices to create"
-#~ msgstr ""
-
-#~ msgid "Table of all partners who should receive an invoice."
-#~ msgstr ""
-
-#~ msgid "Invoiceables"
-#~ msgstr ""
-
-#~ msgid "List of invoiceable items for this partner"
-#~ msgstr ""
 
 #~ msgid "Date"
 #~ msgstr "Site"
@@ -2753,13 +2671,3 @@ msgstr ""
 
 #~ msgid "Enrolment options"
 #~ msgstr "Titre de noblesse"
-
-#~ msgid "Price"
-#~ msgstr ""
-
-#~ msgid "Oops, not implemented."
-#~ msgstr ""
-
-#~ msgid "Could not determine the general account"
-#~ msgstr ""
-
