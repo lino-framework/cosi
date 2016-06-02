@@ -800,7 +800,7 @@ class Movement(ProjectRelated):
     cleared = models.BooleanField(_("Cleared"), default=False)
     # 20160327: rename "satisfied" to "cleared"
 
-    value_date = models.DateField(_("Value date"), null=True)
+    value_date = models.DateField(_("Value date"), null=True, blank=True)
 
     @dd.chooser(simple_values=True)
     def match_choices(cls, partner, account):
