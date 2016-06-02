@@ -989,7 +989,7 @@ class VoucherChecker(Checker):
                     return
                     
         if wanted:
-            for missing in wm.values():
+            for missing in wanted.values():
                 yield (False, self.messages['missing'].format(missing))
                 return
 
