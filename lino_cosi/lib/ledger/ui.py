@@ -225,7 +225,7 @@ class ExpectedMovements(dd.VirtualTable):
         if pv.project:
             flt.update(project=pv.project)
         if pv.date_until is not None:
-            flt.update(voucher__entry_date__lte=pv.date_until)
+            flt.update(value_date__lte=pv.date_until)
         if pv.for_journal is not None:
             accounts = rt.modules.accounts.Account.objects.filter(
                 matchrule__journal=pv.for_journal).distinct()
@@ -419,18 +419,18 @@ class AccountsBalance(dd.VirtualTable):
             flt = self.rowmvtfilter(row)
             row.old = Balance(
                 mvtsum(
-                    voucher__entry_date__lt=mi.start_date,
+                    value_date__lt=mi.start_date,
                     dc=DEBIT, **flt),
                 mvtsum(
-                    voucher__entry_date__lt=mi.start_date,
+                    value_date__lt=mi.start_date,
                     dc=CREDIT, **flt))
             row.during_d = mvtsum(
-                voucher__entry_date__gte=mi.start_date,
-                voucher__entry_date__lte=mi.end_date,
+                value_date__gte=mi.start_date,
+                value_date__lte=mi.end_date,
                 dc=DEBIT, **flt)
             row.during_c = mvtsum(
-                voucher__entry_date__gte=mi.start_date,
-                voucher__entry_date__lte=mi.end_date,
+                value_date__gte=mi.start_date,
+                value_date__lte=mi.end_date,
                 dc=CREDIT, **flt)
             if row.old.d or row.old.c or row.during_d or row.during_c:
                 row.new = Balance(row.old.d + row.during_d,
@@ -570,7 +570,7 @@ class DebtorsCreditors(dd.VirtualTable):
             for dm in get_due_movements(
                     self.d_or_c,
                     partner=row,
-                    voucher__entry_date__lte=end_date):
+                    value_date__lte=end_date):
                 row._balance += dm.balance
                 if dm.due_date is not None:
                     if row._due_date is None or row._due_date > dm.due_date:
@@ -714,7 +714,7 @@ class Movements(dd.Table):
     
     model = 'ledger.Movement'
     required_roles = dd.login_required(LedgerUser)
-    column_names = 'voucher__entry_date voucher_link description \
+    column_names = 'value_date voucher_link description \
     debit credit match_link cleared *'
     sum_text_column = 2
 
@@ -820,7 +820,7 @@ class MovementsByVoucher(Movements):
 
 class MovementsByPartner(Movements):
     master_key = 'partner'
-    order_by = ['-voucher__entry_date']
+    order_by = ['-value_date']
     slave_grid_format = "html"
     # auto_fit_column_widths = True
 
@@ -888,7 +888,7 @@ class MovementsByAccount(Movements):
 
     """
     master_key = 'account'
-    order_by = ['-voucher__entry_date']
+    order_by = ['-value_date']
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 
@@ -926,10 +926,10 @@ class MovementsByMatch(Movements):
     master is a simple string.
 
     """
-    column_names = 'voucher__entry_date voucher_link description '\
+    column_names = 'value_date voucher_link description '\
                    'debit credit cleared *'
     master = basestring  # 'ledger.Matching'
-    order_by = ['-voucher__entry_date']
+    order_by = ['-value_date']
     variable_row_height = True
 
     details_of_master_template = _("%(details)s matching '%(master)s'")

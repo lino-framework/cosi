@@ -96,9 +96,19 @@ class FinancialVoucher(ledger.Voucher, Certifiable):
         raise NotImplemented()
 
     def get_finan_movements(self):
+        """Yield the movements to be booked for this finanical voucher.
+
+        This method is expected to return a tuple ``(amount,
+        movements_and_items)``, where `amount` is the total amount and
+        `movements_and_items` is a sequence of tuples ``(mvt, item)``
+        where `mvt` is a :class:`Movement` object to be saved and
+        `item` it the (existing) voucher item which caused this
+        movement.
+
+        """
         # dd.logger.info("20151211 get_finan_movements()")
         amount = ZERO
-        mvts = []
+        movements_and_items = []
         for i in self.items.all():
             if i.dc == self.journal.dc:
                 amount += i.amount
@@ -108,11 +118,11 @@ class FinancialVoucher(ledger.Voucher, Certifiable):
             kw = dict(partner=i.get_partner())
             kw.update(match=i.match or i.get_default_match())
             b = self.create_movement(
-                i.account or self.item_account,
+                i, i.account or self.item_account,
                 i.project, i.dc, i.amount, **kw)
-            mvts.append(b)
+            movements_and_items.append((b, i))
 
-        return amount, mvts
+        return amount, movements_and_items
 
 
 class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
@@ -211,7 +221,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         flt = dict(partner=self.partner, cleared=False)
 
         if not dd.plugins.finan.suggest_future_vouchers:
-            flt.update(voucher__entry_date__lte=self.voucher.voucher_date)
+            flt.update(value_date__lte=self.voucher.voucher_date)
 
         if self.match:
             flt.update(match=self.match)
@@ -290,15 +300,28 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
 
 
 class DatedFinancialVoucher(FinancialVoucher):
+    """A :class:`FinancialVoucher` whose items have a :attr:`date` field.
+    """
     class Meta:
         app_label = 'finan'
         abstract = True
     last_item_date = models.DateField(blank=True, null=True)
 
+    def create_movement(self, item, *args, **kwargs):
+        mvt = super(DatedFinancialVoucher, self).create_movement(
+            item, *args, **kwargs)
+        if item is not None and item.date:
+            mvt.value_date = item.date
+        return mvt
+
 
 class DatedFinancialVoucherItem(FinancialVoucherItem):
     """A :class:`FinancialVoucherItem` with an additional :attr:`date`
     field.
+
+    .. attribute:: date
+
+        The value date of this item.
 
     """
     class Meta:

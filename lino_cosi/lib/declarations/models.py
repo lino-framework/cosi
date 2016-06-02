@@ -195,7 +195,7 @@ class Declaration(ledger.Voucher):
                 for mvt in ledger.Movement.objects.filter(
                     voucher__journal=jnl,
                     voucher__year=self.year,
-                    voucher__entry_date__month=month,
+                    value_date__month=month,
                     voucher__declared_in__isnull=True
                 ):
 

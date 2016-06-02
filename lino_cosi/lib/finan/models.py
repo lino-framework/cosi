@@ -97,10 +97,10 @@ class JournalEntry(DatedFinancialVoucher, ProjectRelated):
 
     def get_wanted_movements(self):
         # dd.logger.info("20151211 FinancialVoucher.get_wanted_movements()")
-        amount, movements = self.get_finan_movements()
+        amount, movements_and_items = self.get_finan_movements()
         if amount:
             raise Exception("Missing amount %s in movements" % amount)
-        return movements
+        return movements_and_items
 
 
 class PaymentOrder(FinancialVoucher):
@@ -130,16 +130,17 @@ class PaymentOrder(FinancialVoucher):
         acc = self.journal.account
         if not acc:
             warn_jnl_account(self.journal)
-        amount, movements = self.get_finan_movements()
+        amount, movements_and_items = self.get_finan_movements()
         self.total = - amount
-        for m in movements:
+        for m, i in movements_and_items:
             yield m
             if acc.needs_partner:
                 yield self.create_movement(
-                    acc, m.project, not m.dc, m.amount,
+                    i, acc, m.project, not m.dc, m.amount,
                     partner=m.partner, match=m.match or m.get_default_match())
         if not acc.needs_partner:
-            yield self.create_movement(acc, None, not self.journal.dc, amount)
+            yield self.create_movement(
+                None, acc, None, not self.journal.dc, amount)
 
     def add_item_from_due(self, obj, **kwargs):
         # if obj.bank_account is None:
@@ -195,11 +196,11 @@ class BankStatement(DatedFinancialVoucher):
         a = self.journal.account
         if not a:
             warn_jnl_account(self.journal)
-        amount, movements = self.get_finan_movements()
+        amount, movements_and_items = self.get_finan_movements()
         self.balance2 = self.balance1 + amount
-        for m in movements:
+        for m, i in movements_and_items:
             yield m
-        yield self.create_movement(a, None, self.journal.dc, amount)
+        yield self.create_movement(None, a, None, self.journal.dc, amount)
 
 
 class JournalEntryItem(DatedFinancialVoucherItem):

@@ -49,7 +49,7 @@ The database structure
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         15
  ledger.Journal              ledger.Journals                19        6
  ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               9         650
+ ledger.Movement             ledger.Movements               10        650
  ledger.PaymentTerm          ledger.PaymentTerms            8         7
  ledger.Voucher              ledger.Vouchers                9         175
  outbox.Attachment           outbox.Attachments             4         0

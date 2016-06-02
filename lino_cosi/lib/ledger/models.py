@@ -43,6 +43,7 @@ from lino.utils import mti
 from lino.mixins.periods import DatePeriod
 from lino.modlib.users.mixins import UserAuthored
 from lino.modlib.printing.mixins import PrintableType
+from lino.modlib.plausibility.choicelists import Checker
 
 from lino_cosi.lib.accounts.utils import DEBIT, CREDIT, ZERO
 from lino_cosi.lib.accounts.choicelists import AccountTypes
@@ -568,7 +569,7 @@ class Voucher(UserAuthored, mixins.Registrable):
     #         self.deregister_voucher(ar)
     #     super(Voucher, self).before_state_change(ar, old, new)
 
-    def register_voucher(self, ar):
+    def register_voucher(self, ar, do_clear=True):
         """
         Delete any existing movements and re-create them
         """
@@ -592,30 +593,29 @@ class Voucher(UserAuthored, mixins.Registrable):
                 if m.partner:
                     partners.add(m.partner)
 
-        self.do_and_clear(doit)
+        self.do_and_clear(doit, do_clear)
 
-    def do_and_clear(self, doit):
+    def deregister_voucher(self, ar, do_clear=True):
+
+        def doit(partners):
+            pass
+        self.do_and_clear(doit, do_clear)
+
+    def do_and_clear(self, doit, do_clear):
         existing_mvts = self.movement_set.all()
         partners = set()
-        if self.journal.auto_check_clearings:
+        if not self.journal.auto_check_clearings:
+            do_clear = False
+        if do_clear:
             for m in existing_mvts.filter(partner__isnull=False):
                 partners.add(m.partner)
         existing_mvts.delete()
         doit(partners)
-        if self.journal.auto_check_clearings:
+        if do_clear:
             for p in partners:
                 check_clearings(p)
         
         # dd.logger.info("20151211 Done cosi.Voucher.register_voucher()")
-
-    def deregister_voucher(self, ar):
-        # self.number = None
-
-        def doit(partners):
-            pass
-        self.do_and_clear(doit)
-
-        # self.movement_set.all().delete()
 
     def disable_delete(self, ar=None):
         msg = self.journal.disable_voucher_delete(self)
@@ -630,12 +630,21 @@ class Voucher(UserAuthored, mixins.Registrable):
         """
         raise NotImplementedError()
 
-    def create_movement(self, account, project, dc, amount, **kw):
+    def create_movement(self, item, account, project, dc, amount, **kw):
+        """Create a movement for this voucher.  
+
+        The specified `item` may be `None` if this the movement is
+        caused by more than one item. It is used by
+        :class:`DatedFinancialVoucher
+        <lino_cosi.lib.finan.mixins.DatedFinancialVoucher>`.
+
+        """
         # dd.logger.info("20151211 ledger.create_movement()")
         if not isinstance(account, rt.modules.accounts.Account):
             raise Warning("{} is not an Account object".format(account))
         kw['voucher'] = self
         kw['account'] = account
+        kw['value_date'] = self.entry_date
         if account.clearable:
             kw.update(cleared=False)
         else:
@@ -708,6 +717,14 @@ class Voucher(UserAuthored, mixins.Registrable):
 @dd.python_2_unicode_compatible
 class Movement(ProjectRelated):
     """Represents an accounting movement in the ledger.
+
+    .. attribute:: value_date
+
+        The date at which this movement is to be entered into the
+        ledger.  This is usually the voucher's :attr:`entry_date
+        <lino_cosi.lib.ledger.models.Voucher.entry_date>`, except
+        e.g. for bank statements where each item can have its own
+        value date.
 
     .. attribute:: voucher
 
@@ -783,11 +800,13 @@ class Movement(ProjectRelated):
     cleared = models.BooleanField(_("Cleared"), default=False)
     # 20160327: rename "satisfied" to "cleared"
 
+    value_date = models.DateField(_("Value date"), null=True)
+
     @dd.chooser(simple_values=True)
     def match_choices(cls, partner, account):
         qs = cls.objects.filter(
             partner=partner, account=account, cleared=False)
-        qs = qs.order_by('voucher__entry_date')
+        qs = qs.order_by('value_date')
         return qs.values_list('match', flat=True)
 
     def select_text(self):
@@ -848,7 +867,7 @@ class Movement(ProjectRelated):
     @classmethod
     def balance_info(cls, dc, **kwargs):
         qs = cls.objects.filter(**kwargs)
-        qs = qs.order_by('voucher__voucher_date')
+        qs = qs.order_by('value_date')
         bal = ZERO
         s = ''
         for mvt in qs:
@@ -923,3 +942,56 @@ dd.inject_field(
         help_text=_("The default payment term for "
                     "sales invoices to this customer.")))
 
+
+class VoucherChecker(Checker):
+    "Check for wrong ledger movements"
+    verbose_name = _("Check integrity of ledger movements")
+    messages = dict(
+        missing=_("Missing movement {0}."),
+        unexpected=_("Unexpected movement {0}."),
+        diff=_("Movement {0} : {1} {2} != {3}."),
+    )
+
+    def get_checkable_models(self):
+        for m in rt.models_by_base(Voucher):
+            if m is not Voucher:
+                yield m
+
+    def get_plausibility_problems(self, obj, fix=False):
+        if obj.__class__ is rt.models.ledger.Voucher:
+            return
+
+        def m2k(obj):
+            return obj.seqno
+
+        wanted = dict()
+        seqno = 0
+        fcu = dd.plugins.ledger.force_cleared_until
+        for m in obj.get_wanted_movements():
+            seqno += 1
+            m.seqno = seqno
+            if fcu and obj.entry_date <= fcu:
+                m.cleared = True
+            m.full_clean()
+            wanted[m2k(m)] = m
+
+        for em in obj.movement_set.all():
+            wm = wanted.pop(m2k(em), None)
+            if wm is None:
+                yield (False, self.messages['unexpected'].format(em))
+                return
+            for k in ('partner_id', 'account_id', 'dc', 'amount'):
+                emv = getattr(em, k)
+                wmv = getattr(wm, k)
+                if emv != wmv:
+                    yield (False, self.messages['diff'].format(
+                        em, k, emv, wmv))
+                    return
+                    
+        if wanted:
+            for missing in wm.values():
+                yield (False, self.messages['missing'].format(missing))
+                return
+
+            
+VoucherChecker.activate()

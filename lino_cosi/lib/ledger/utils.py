@@ -215,7 +215,7 @@ def get_due_movements(dc, **flt):
     qs = rt.modules.ledger.Movement.objects.filter(**flt)
     qs = qs.filter(account__clearable=True)
     # qs = qs.exclude(match='')
-    qs = qs.order_by('voucher__voucher_date')
+    qs = qs.order_by('value_date')
     matches_by_account = dict()
     matches = []
     for mvt in qs:

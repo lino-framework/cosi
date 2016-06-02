@@ -79,7 +79,7 @@ The test database
 - ledger.AccountingPeriod : id, ref, start_date, end_date, state, year, remark
 - ledger.Journal : id, ref, seqno, name, build_method, template, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc, yearly_numbering
 - ledger.MatchRule : id, account, journal
-- ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared
+- ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared, value_date
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
 - ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
 - outbox.Attachment : id, owner_type, owner_id, mail
@@ -152,7 +152,7 @@ The test database
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         5
  ledger.Journal              ledger.Journals                15        6
  ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               9         208
+ ledger.Movement             ledger.Movements               10        208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
  ledger.Voucher              ledger.Vouchers                9         57
  outbox.Attachment           outbox.Attachments             4         0
