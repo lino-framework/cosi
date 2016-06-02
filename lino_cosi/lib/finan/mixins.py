@@ -194,8 +194,8 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         this voucher.
 
         """
-        return "%s#%s:%s" % (
-            self.voucher.journal.ref, self.voucher.id, self.seqno)
+        return "%s %s:%s" % (
+            self.voucher.journal.ref, self.voucher.number, self.seqno)
         # return str(self.date)
 
     def get_siblings(self):
