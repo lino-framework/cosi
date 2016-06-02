@@ -821,13 +821,14 @@ class MovementsByVoucher(Movements):
 class MovementsByPartner(Movements):
     master_key = 'partner'
     order_by = ['-value_date']
-    slave_grid_format = "html"
+    # slave_grid_format = "html"
+    slave_grid_format = "summary"
     # auto_fit_column_widths = True
 
     @classmethod
     def param_defaults(cls, ar, **kw):
         kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
-        kw.update(cleared=dd.YesNo.no)
+        # kw.update(cleared=dd.YesNo.no)
         kw.update(year='')
         return kw
 
@@ -850,6 +851,27 @@ class MovementsByPartner(Movements):
         if self.project:
             elems.append(ar.obj2html(self.project))
         return E.p(*join_elems(elems, " / "))
+
+    @classmethod
+    def get_slave_summary(cls, obj, ar):
+        """The :meth:`summary view <lino.core.actors.Actor.get_slave_summary>`
+        for this table.
+
+        """
+        elems = []
+        sar = ar.spawn(rt.models.ledger.Movements, param_values=dict(
+            cleared=dd.YesNo.no, partner=obj))
+        bal = ZERO
+        for mvt in sar:
+            if mvt.dc:
+                bal -= mvt.amount
+            else:
+                bal += mvt.amount
+        txt = _("{0} open movements ({1} {2})").format(
+            sar.get_total_count(), bal, dd.plugins.ledger.currency_symbol)
+
+        elems.append(ar.href_to_request(sar, txt))
+        return E.div(class_="htmlText", *elems)
 
 
 class MovementsByProject(MovementsByPartner):
