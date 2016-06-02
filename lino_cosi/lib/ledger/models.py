@@ -980,7 +980,7 @@ class VoucherChecker(Checker):
             if wm is None:
                 yield (False, self.messages['unexpected'].format(em))
                 return
-            for k in ('partner_id', 'account_id', 'dc', 'amount', 
+            for k in ('partner_id', 'account_id', 'dc', 'amount',
                       'value_date'):
                 emv = getattr(em, k)
                 wmv = getattr(wm, k)

@@ -72,12 +72,11 @@ def reregister_vouchers(username=None, args=[], simulate=False):
     puts(msg.format(count))
 
     if clear_afterwards:
-        msg = "Check clearings for all partners {0}".format(jnl)
+        msg = "Check clearings for all partners"
         puts(msg)
         qs = rt.models.contacts.Partner.objects.all()
         for obj in progress.bar(qs):
             check_clearings(obj)
-
 
 
 class Command(BaseCommand):
