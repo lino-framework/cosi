@@ -19,6 +19,8 @@
 
 """Database models for `lino_cosi.lib.ledger`.
 
+- Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
+
 
 """
 
@@ -33,7 +35,6 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.db import models
-from django.core.exceptions import ValidationError
 
 from atelier.utils import last_day_of_month
 

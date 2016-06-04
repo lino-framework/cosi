@@ -28,6 +28,7 @@
     mixins
     fields
     models
+    ui
     management.commands.reregister
 
 """

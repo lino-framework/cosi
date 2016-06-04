@@ -17,9 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for `lino_cosi.lib.ledger`.
-
-- Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
+"""User interface definitions for `lino_cosi.lib.ledger`.
 
 - :class:`DebtsByAccount` and :class:`DebtsByPartner` are two reports
   based on :class:`ExpectedMovements`
@@ -710,6 +708,7 @@ class Movements(dd.Table):
     :class:`MovementsByVoucher`,
     :class:`MovementsByAccount` and :class:`MovementsByPartner`.
 
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     """
     
     model = 'ledger.Movement'
@@ -806,11 +805,17 @@ class Movements(dd.Table):
 class AllMovements(Movements):
     """
     Displayed by :menuselection:`Explorer --> Accounting --> Movements`.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     """
     required_roles = dd.login_required(LedgerStaff)
 
 
 class MovementsByVoucher(Movements):
+    """Show the ledger movements of a voucher.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'voucher'
     column_names = 'seqno project partner account debit credit match_link cleared'
     sum_text_column = 3
@@ -819,6 +824,9 @@ class MovementsByVoucher(Movements):
 
 
 class MovementsByPartner(Movements):
+    """Show the ledger movements of a partner.
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'partner'
     order_by = ['-value_date']
     # slave_grid_format = "html"
@@ -875,8 +883,18 @@ class MovementsByPartner(Movements):
 
 
 class MovementsByProject(MovementsByPartner):
+    """Show the ledger movements of a project.
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'project'
     slave_grid_format = "html"
+
+    @classmethod
+    def param_defaults(cls, ar, **kw):
+        kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
+        kw.update(cleared=dd.YesNo.no)
+        kw.update(year='')
+        return kw
 
     @dd.displayfield(_("Description"))
     def description(cls, self, ar):
@@ -897,6 +915,8 @@ class MovementsByProject(MovementsByPartner):
 
 class MovementsByAccount(Movements):
     """Shows the movements done on a given general account.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     
     .. attribute:: description
 
