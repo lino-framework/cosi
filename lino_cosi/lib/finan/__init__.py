@@ -39,6 +39,8 @@ class Plugin(ad.Plugin):
 
     needs_plugins = ['lino_cosi.lib.ledger']
 
+    suggest_future_vouchers = False
+
     # def setup_main_menu(self, site, profile, m):
     #     m = m.add_menu(self.app_label, self.verbose_name)
     #     ledger = site.modules.ledger

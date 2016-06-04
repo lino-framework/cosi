@@ -38,7 +38,7 @@ The test database
 >>> from lino.utils.diag import analyzer
 >>> print analyzer.show_database_structure()
 ... #doctest: +NORMALIZE_WHITESPACE +REPORT_UDIFF
-- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, group, type, needs_partner, clearable
+- accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, group, type, needs_partner, clearable, default_amount
 - accounts.Group : id, name, ref, account_type
 - cal.Calendar : id, name, description, color
 - cal.Event : id, modified, created, build_time, build_method, user, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state, assigned_to
@@ -67,10 +67,10 @@ The test database
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
 - excerpts.ExcerptType : id, name, build_method, template, attach_to_email, email_template, certifying, remark, body_template, content_type, primary, backward_compat, print_recipient, print_directly, shortcut
-- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, balance1, balance2
-- finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
-- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark
-- finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, voucher, date
+- finan.BankStatement : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, last_item_date, balance1, balance2
+- finan.BankStatementItem : id, seqno, match, amount, dc, remark, account, partner, date, voucher
+- finan.JournalEntry : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, last_item_date
+- finan.JournalEntryItem : id, seqno, match, amount, dc, remark, account, partner, date, voucher
 - finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, bank_account, amount, dc, remark, account, partner, voucher
 - gfks.HelpText : id, content_type, field, help_text
@@ -79,7 +79,7 @@ The test database
 - ledger.AccountingPeriod : id, ref, start_date, end_date, state, year, remark
 - ledger.Journal : id, ref, seqno, name, build_method, template, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc, yearly_numbering
 - ledger.MatchRule : id, account, journal
-- ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared
+- ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared, value_date
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month
 - ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
 - outbox.Attachment : id, owner_type, owner_id, mail
@@ -111,7 +111,7 @@ The test database
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
- accounts.Account            accounts.Accounts              12        12
+ accounts.Account            accounts.Accounts              13        12
  accounts.Group              accounts.Groups                4         7
  cal.Calendar                cal.Calendars                  4         1
  cal.Event                   cal.OneEvent                   23        124
@@ -140,9 +140,9 @@ The test database
  courses.Topic               courses.Topics                 2         0
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        6
- finan.BankStatement         finan.BankStatements           15        4
+ finan.BankStatement         finan.BankStatements           16        4
  finan.BankStatementItem     finan.BankStatementItemTable   10        18
- finan.JournalEntry          finan.FinancialVouchers        13        0
+ finan.JournalEntry          finan.FinancialVouchers        14        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
  finan.PaymentOrder          finan.PaymentOrders            15        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
@@ -152,7 +152,7 @@ The test database
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         5
  ledger.Journal              ledger.Journals                15        6
  ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               9         208
+ ledger.Movement             ledger.Movements               10        208
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
  ledger.Voucher              ledger.Vouchers                9         57
  outbox.Attachment           outbox.Attachments             4         0

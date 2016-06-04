@@ -17,9 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for `lino_cosi.lib.ledger`.
-
-- Models :class:`Journal`, :class:`Voucher` and :class:`Movement`
+"""User interface definitions for `lino_cosi.lib.ledger`.
 
 - :class:`DebtsByAccount` and :class:`DebtsByPartner` are two reports
   based on :class:`ExpectedMovements`
@@ -225,7 +223,7 @@ class ExpectedMovements(dd.VirtualTable):
         if pv.project:
             flt.update(project=pv.project)
         if pv.date_until is not None:
-            flt.update(voucher__entry_date__lte=pv.date_until)
+            flt.update(value_date__lte=pv.date_until)
         if pv.for_journal is not None:
             accounts = rt.modules.accounts.Account.objects.filter(
                 matchrule__journal=pv.for_journal).distinct()
@@ -419,18 +417,18 @@ class AccountsBalance(dd.VirtualTable):
             flt = self.rowmvtfilter(row)
             row.old = Balance(
                 mvtsum(
-                    voucher__entry_date__lt=mi.start_date,
+                    value_date__lt=mi.start_date,
                     dc=DEBIT, **flt),
                 mvtsum(
-                    voucher__entry_date__lt=mi.start_date,
+                    value_date__lt=mi.start_date,
                     dc=CREDIT, **flt))
             row.during_d = mvtsum(
-                voucher__entry_date__gte=mi.start_date,
-                voucher__entry_date__lte=mi.end_date,
+                value_date__gte=mi.start_date,
+                value_date__lte=mi.end_date,
                 dc=DEBIT, **flt)
             row.during_c = mvtsum(
-                voucher__entry_date__gte=mi.start_date,
-                voucher__entry_date__lte=mi.end_date,
+                value_date__gte=mi.start_date,
+                value_date__lte=mi.end_date,
                 dc=CREDIT, **flt)
             if row.old.d or row.old.c or row.during_d or row.during_c:
                 row.new = Balance(row.old.d + row.during_d,
@@ -570,7 +568,7 @@ class DebtorsCreditors(dd.VirtualTable):
             for dm in get_due_movements(
                     self.d_or_c,
                     partner=row,
-                    voucher__entry_date__lte=end_date):
+                    value_date__lte=end_date):
                 row._balance += dm.balance
                 if dm.due_date is not None:
                     if row._due_date is None or row._due_date > dm.due_date:
@@ -710,12 +708,14 @@ class Movements(dd.Table):
     :class:`MovementsByVoucher`,
     :class:`MovementsByAccount` and :class:`MovementsByPartner`.
 
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     """
     
     model = 'ledger.Movement'
     required_roles = dd.login_required(LedgerUser)
-    column_names = 'voucher__entry_date voucher_link description \
+    column_names = 'value_date voucher_link description \
     debit credit match_link cleared *'
+    sum_text_column = 2
 
     editable = False
     parameters = mixins.ObservedPeriod(
@@ -752,6 +752,12 @@ class Movements(dd.Table):
         if pv.journal:
             qs = qs.filter(voucher__journal=pv.journal)
         return qs
+
+    @classmethod
+    def get_sum_text(self, ar, sums):
+        bal = sums['debit'] - sums['credit']
+        return _("Balance {1} ({0} movements)").format(
+            ar.get_total_count(), bal)
 
     @classmethod
     def get_simple_parameters(cls):
@@ -799,27 +805,38 @@ class Movements(dd.Table):
 class AllMovements(Movements):
     """
     Displayed by :menuselection:`Explorer --> Accounting --> Movements`.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     """
     required_roles = dd.login_required(LedgerStaff)
 
 
 class MovementsByVoucher(Movements):
+    """Show the ledger movements of a voucher.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'voucher'
     column_names = 'seqno project partner account debit credit match_link cleared'
+    sum_text_column = 3
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 
 
 class MovementsByPartner(Movements):
+    """Show the ledger movements of a partner.
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'partner'
-    order_by = ['-voucher__entry_date']
-    slave_grid_format = "html"
+    order_by = ['-value_date']
+    # slave_grid_format = "html"
+    slave_grid_format = "summary"
     # auto_fit_column_widths = True
 
     @classmethod
     def param_defaults(cls, ar, **kw):
         kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
-        kw.update(cleared=dd.YesNo.no)
+        # kw.update(cleared=dd.YesNo.no)
         kw.update(year='')
         return kw
 
@@ -843,10 +860,41 @@ class MovementsByPartner(Movements):
             elems.append(ar.obj2html(self.project))
         return E.p(*join_elems(elems, " / "))
 
+    @classmethod
+    def get_slave_summary(cls, obj, ar):
+        """The :meth:`summary view <lino.core.actors.Actor.get_slave_summary>`
+        for this table.
+
+        """
+        elems = []
+        sar = ar.spawn(rt.models.ledger.Movements, param_values=dict(
+            cleared=dd.YesNo.no, partner=obj))
+        bal = ZERO
+        for mvt in sar:
+            if mvt.dc:
+                bal -= mvt.amount
+            else:
+                bal += mvt.amount
+        txt = _("{0} open movements ({1} {2})").format(
+            sar.get_total_count(), bal, dd.plugins.ledger.currency_symbol)
+
+        elems.append(ar.href_to_request(sar, txt))
+        return E.div(class_="htmlText", *elems)
+
 
 class MovementsByProject(MovementsByPartner):
+    """Show the ledger movements of a project.
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
+    """
     master_key = 'project'
     slave_grid_format = "html"
+
+    @classmethod
+    def param_defaults(cls, ar, **kw):
+        kw = super(MovementsByPartner, cls).param_defaults(ar, **kw)
+        kw.update(cleared=dd.YesNo.no)
+        kw.update(year='')
+        return kw
 
     @dd.displayfield(_("Description"))
     def description(cls, self, ar):
@@ -867,6 +915,8 @@ class MovementsByProject(MovementsByPartner):
 
 class MovementsByAccount(Movements):
     """Shows the movements done on a given general account.
+
+    See also :class:`lino_cosi.lib.ledger.models.Movement`.
     
     .. attribute:: description
 
@@ -880,7 +930,7 @@ class MovementsByAccount(Movements):
 
     """
     master_key = 'account'
-    order_by = ['-voucher__entry_date']
+    order_by = ['-value_date']
     # auto_fit_column_widths = True
     slave_grid_format = "html"
 
@@ -918,10 +968,10 @@ class MovementsByMatch(Movements):
     master is a simple string.
 
     """
-    column_names = 'voucher__entry_date voucher_link description '\
+    column_names = 'value_date voucher_link description '\
                    'debit credit cleared *'
     master = basestring  # 'ledger.Matching'
-    order_by = ['-voucher__entry_date']
+    order_by = ['-value_date']
     variable_row_height = True
 
     details_of_master_template = _("%(details)s matching '%(master)s'")

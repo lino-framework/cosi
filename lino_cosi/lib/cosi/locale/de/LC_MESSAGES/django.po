@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-26 23:50+0300\n"
-"PO-Revision-Date: 2016-05-26 23:52+0300\n"
+"POT-Creation-Date: 2016-05-31 16:01+0300\n"
+"PO-Revision-Date: 2016-05-31 18:44+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -79,7 +79,7 @@ msgstr "eID-Inhalt"
 
 #: lino_cosi/lib/accounts/fields.py:54
 msgid "Debit (checked) or Credit (not checked)"
-msgstr "Debit (angekreuzt) oder Kredit (nicht angekreuzt)"
+msgstr "Debit (☑) oder Kredit (☐)"
 
 #: lino_cosi/lib/accounts/models.py:41
 msgid "Account Group"
@@ -103,7 +103,7 @@ msgstr "Braucht Partner"
 
 #: lino_cosi/lib/accounts/models.py:127
 msgid "Clearable"
-msgstr "Braucht Befriedigung"
+msgstr "Auszugleichen"
 
 #: lino_cosi/lib/accounts/models.py:130
 msgid "Default amount"
@@ -1248,9 +1248,9 @@ msgid "Reference"
 msgstr "Referenz"
 
 #: lino_cosi/lib/courses/models.py:166 lino_cosi/lib/courses/models.py:276
-#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:782
-#: lino_cosi/lib/ledger/ui.py:830 lino_cosi/lib/ledger/ui.py:851
-#: lino_cosi/lib/ledger/ui.py:895 lino_cosi/lib/ledger/ui.py:940
+#: lino_cosi/lib/ledger/ui.py:440 lino_cosi/lib/ledger/ui.py:789
+#: lino_cosi/lib/ledger/ui.py:838 lino_cosi/lib/ledger/ui.py:859
+#: lino_cosi/lib/ledger/ui.py:903 lino_cosi/lib/ledger/ui.py:948
 #: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:349
 #: lino_cosi/lib/sales/models.py:443 lino_cosi/lib/vat/models.py:159
 #: lino_cosi/lib/vatless/models.py:126
@@ -1629,7 +1629,7 @@ msgstr "Position"
 msgid "Items"
 msgstr "Positionen"
 
-#: lino_cosi/lib/finan/mixins.py:222
+#: lino_cosi/lib/finan/mixins.py:226
 msgid "{} suggestions"
 msgstr "{} Vorschläge"
 
@@ -1721,12 +1721,12 @@ msgstr "Inhalt"
 msgid "Fill"
 msgstr "Füllen"
 
-#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:471
+#: lino_cosi/lib/finan/models.py:423 lino_cosi/lib/finan/models.py:472
 #, fuzzy, python-format
 msgid "%d items have been added to %s."
 msgstr "%(num)d Erinnerungen für %(user)s wurden aktualisiert."
 
-#: lino_cosi/lib/finan/models.py:494 lino_cosi/lib/invoicing/models.py:254
+#: lino_cosi/lib/finan/models.py:495 lino_cosi/lib/invoicing/models.py:254
 msgid "Suggestions"
 msgstr "Vorschläge"
 
@@ -1914,7 +1914,7 @@ msgstr "Journale"
 
 #: lino_cosi/lib/ledger/models.py:140
 msgid "Check clearing"
-msgstr "Lettrierungen prüfen"
+msgstr "Ausgleichungen prüfen"
 
 #: lino_cosi/lib/ledger/models.py:141
 msgid ""
@@ -2006,7 +2006,7 @@ msgstr "Seq.-Nr."
 
 #: lino_cosi/lib/ledger/models.py:780
 msgid "Cleared"
-msgstr "Befriedigt"
+msgstr "Ausgeglichen"
 
 #: lino_cosi/lib/ledger/models.py:812
 msgid "Voucher partner"
@@ -2014,11 +2014,11 @@ msgstr "Partner"
 
 #: lino_cosi/lib/ledger/models.py:888
 msgid "Match rule"
-msgstr "Match-Regel"
+msgstr "Ausgleichungsregel"
 
 #: lino_cosi/lib/ledger/models.py:889
 msgid "Match rules"
-msgstr "Befriedigungsregeln"
+msgstr "Ausgleichungsregeln"
 
 #: lino_cosi/lib/ledger/models.py:920
 msgid "The default payment term for sales invoices to this customer."
@@ -2034,7 +2034,7 @@ msgstr "Datum bis"
 
 #: lino_cosi/lib/ledger/ui.py:200
 msgid "Clearable by"
-msgstr "Befriedigt durch"
+msgstr "Ausgleichbar durch"
 
 #: lino_cosi/lib/ledger/ui.py:273 lino_cosi/lib/ledger/ui.py:604
 #: lino_cosi/lib/sepa/mixins.py:108
@@ -2154,24 +2154,27 @@ msgstr "Tätigkeitsbericht"
 msgid "Overview of the financial activity during a given period."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:729
+#: lino_cosi/lib/ledger/ui.py:730
 msgid "Show cleared movements"
-msgstr "Lettrierte Bewegungen zeigen"
+msgstr "Ausgeglichene Bewegungen zeigen"
 
-#: lino_cosi/lib/ledger/ui.py:778
-#, fuzzy
+#: lino_cosi/lib/ledger/ui.py:760
+msgid "Balance {1} ({0} movements)"
+msgstr "Saldo {1} ({0} Bewegungen)"
+
+#: lino_cosi/lib/ledger/ui.py:785
 msgid "only uncleared"
-msgstr "nur lettrierte"
+msgstr "nur offene"
 
-#: lino_cosi/lib/ledger/ui.py:780
+#: lino_cosi/lib/ledger/ui.py:787
 msgid "only cleared"
-msgstr "nur lettrierte"
+msgstr "nur ausgeglichene"
 
-#: lino_cosi/lib/ledger/ui.py:828
+#: lino_cosi/lib/ledger/ui.py:836
 msgid "No uncleared movements"
 msgstr "Keine offenen Bewegungen"
 
-#: lino_cosi/lib/ledger/ui.py:927
+#: lino_cosi/lib/ledger/ui.py:935
 #, fuzzy, python-format
 msgid "%(details)s matching '%(master)s'"
 msgstr "%(details)s für %(master)s"
@@ -2271,7 +2274,7 @@ msgstr "Konto für Löhne und Gehälter"
 
 #: lino_cosi/lib/sales/models.py:65
 msgid "Clearings account"
-msgstr "Konto für Lettrierungen"
+msgstr "Konto für Ausgleichungen"
 
 #: lino_cosi/lib/sales/models.py:70
 msgid "Invoicing address"

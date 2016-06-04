@@ -169,7 +169,7 @@ class Matching(dd.Model):
         if partner:
             fkw.update(partner=partner)
         qs = rt.modules.ledger.Movement.objects.filter(**fkw)
-        qs = qs.order_by('voucher__entry_date')
+        qs = qs.order_by('value_date')
         # qs = qs.distinct('match')
         return qs.values_list('match', flat=True)
 

@@ -60,7 +60,7 @@ class StartInvoicingForJournal(StartInvoicing):
     def get_options(self, ar):
         jnl = ar.master_instance
         assert isinstance(jnl, rt.modules.ledger.Journal)
-        return dict(journal=jnl)
+        return dict(journal=jnl, partner=None)
 
 
 class StartInvoicingForPartner(StartInvoicing):
@@ -75,7 +75,7 @@ class StartInvoicingForPartner(StartInvoicing):
     def get_options(self, ar):
         partner = ar.selected_rows[0]
         assert isinstance(partner, rt.modules.contacts.Partner)
-        return dict(partner=partner)
+        return dict(partner=partner, journal=None)
 
 
 class UpdatePlan(dd.Action):

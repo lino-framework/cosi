@@ -93,7 +93,7 @@ class Plan(UserAuthored):
 
     @classmethod
     def start_plan(cls, user, **options):
-        """Start an invoicing plan for the given user on the database object
+        """Start an invoicing plan for the given `user` on the database object
         defined by `k` and `v`. Where `k` is the name of the field
         used to select the plan (e.g. `'partner'` or `'journal'`) and
         `v` is the value for that field.
