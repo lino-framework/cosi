@@ -201,10 +201,12 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
     def get_siblings(self):
         return self.voucher.items.all()
 
-    def match_changed(self, ar):
+    def unused_match_changed(self, ar):
         if self.match:
+            get_due_movements(not self.voucher.journal.dc)
             dc = not self.voucher.journal.dc
             m = ledger.DueMovement(dc, self)
+            dd.logger.info("20160604 %s %s", m.debts, m.payments)
             self.dc = dc
             self.amount = m.balance
             # if not m.balance:
@@ -277,6 +279,15 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.match = match.match
         self.project = match.project
 
+    def guess_amount(self):
+        self.account_changed(None)
+        if self.amount is not None:
+            return
+        self.match_changed(None)
+        if self.amount is not None:
+            return
+        self.amount = ZERO
+
     def full_clean(self, *args, **kwargs):
         # if self.amount is None:
         #     if self.account and self.account.default_amount:
@@ -290,8 +301,10 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
                 self.dc = not self.voucher.journal.dc
             else:
                 self.dc = not self.account.type.dc
-
-        if self.amount < 0:
+        if self.amount is None:
+            # amount can be None e.g. if user entered ''
+            self.guess_amount()
+        elif self.amount < 0:
             self.amount = - self.amount
             self.dc = not self.dc
         # dd.logger.info("20151117 FinancialVoucherItem.full_clean a %s", self.amount)
