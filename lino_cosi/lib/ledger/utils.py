@@ -134,6 +134,7 @@ class DueMovement(object):
         cleared by this DueMovement.
 
         """
+        dd.logger.info("20160604 collect %s", mvt)
         if mvt.cleared:
             self.has_satisfied_movement = True
         else:
