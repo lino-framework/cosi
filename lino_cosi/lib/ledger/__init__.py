@@ -45,7 +45,7 @@ class Plugin(ad.Plugin):
 
     verbose_name = _("Ledger")
 
-    needs_plugins = ['lino_cosi.lib.accounts']
+    needs_plugins = ['lino_cosi.lib.accounts', 'lino.modlib.weasyprint']
 
     currency_symbol = "€"
 

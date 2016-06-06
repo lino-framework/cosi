@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -20,6 +20,11 @@
 """
 
 .. xfile:: payment_reminder.body.html
+
+  Defines the body text of a payment reminder.
+
+.. xfile:: base.weasy.html
+.. xfile:: payment_reminder.weasy.html
 
   Defines the body text of a payment reminder.
 
@@ -53,8 +58,15 @@ def objects():
     ExcerptType = rt.modules.excerpts.ExcerptType
     ContentType = rt.modules.contenttypes.ContentType
 
+    # yield ExcerptType(
+    #     body_template="payment_reminder.body.html",
+    #     content_type=ContentType.objects.get_for_model(
+    #         dd.resolve_model('contacts.Partner')),
+    #     **dd.str2kw('name', _("Payment reminder")))
+
     yield ExcerptType(
-        body_template="payment_reminder.body.html",
+        template="payment_reminder.weasy.html",
+        build_method='weasy2pdf',
         content_type=ContentType.objects.get_for_model(
             dd.resolve_model('contacts.Partner')),
         **dd.str2kw('name', _("Payment reminder")))
