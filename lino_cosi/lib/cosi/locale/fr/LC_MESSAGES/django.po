@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-06 23:54+0300\n"
-"PO-Revision-Date: 2016-05-31 16:06+0300\n"
+"POT-Creation-Date: 2016-06-08 15:56+0300\n"
+"PO-Revision-Date: 2016-06-08 15:57+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: fr\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.2.0\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: lino_cosi/lib/accounts/__init__.py:40
 msgid "Accounting"
@@ -272,8 +273,8 @@ msgstr "Provisoirement impayé"
 
 #: lino_cosi/lib/b2c/febelfin.py:104
 msgid ""
-"First credit of cheques, vouchers, luncheon vouchers, postal orders, "
-"credit under usual reserve"
+"First credit of cheques, vouchers, luncheon vouchers, postal orders, credit "
+"under usual reserve"
 msgstr ""
 "Premier crédit de chèques, bons, chèques repas, assignations postales, "
 "crédit sbf "
@@ -564,20 +565,19 @@ msgstr "Général"
 
 #: lino_cosi/lib/b2c/febelfin.py:205
 msgid ""
-"Payment of coupons from a deposit or settlement of coupons delivered over"
-" the counter - credit under usual reserve"
+"Payment of coupons from a deposit or settlement of coupons delivered over "
+"the counter - credit under usual reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:207
 msgid ""
-"Repayable securities from a deposit or delivered at the counter -- credit"
-" under usual reserve"
+"Repayable securities from a deposit or delivered at the counter -- credit "
+"under usual reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:209
 msgid ""
-"Interim interest on subscription When reimbursed separately to the "
-"subscriber"
+"Interim interest on subscription When reimbursed separately to the subscriber"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:211
@@ -1284,9 +1284,8 @@ msgid "Description"
 msgstr "Description"
 
 #: lino_cosi/lib/courses/models.py:169
-#, fuzzy
 msgid "Recurrency"
-msgstr "Dates de récurrence"
+msgstr "Récurrence"
 
 #: lino_cosi/lib/courses/models.py:172
 msgid "Repeat every"
@@ -1294,8 +1293,8 @@ msgstr "Répéter"
 
 #: lino_cosi/lib/courses/models.py:176
 msgid ""
-"The type of calendar events to be generated. If this is empty, no "
-"calendar events will be generated."
+"The type of calendar events to be generated. If this is empty, no calendar "
+"events will be generated."
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:183
@@ -1309,8 +1308,8 @@ msgstr ""
 
 #: lino_cosi/lib/courses/models.py:189
 msgid ""
-"The default guest role for particpants of events for courses in this "
-"series. Leave empty if you don't want any presence management."
+"The default guest role for particpants of events for courses in this series. "
+"Leave empty if you don't want any presence management."
 msgstr ""
 
 #: lino_cosi/lib/courses/models.py:196
@@ -1342,7 +1341,6 @@ msgid "Remark"
 msgstr "Remarque"
 
 #: lino_cosi/lib/courses/models.py:285
-#, fuzzy
 msgctxt "in a course"
 msgid "Available places"
 msgstr "Places disponibles"
@@ -1796,21 +1794,25 @@ msgid "Create invoices"
 msgstr "Factures vente"
 
 #: lino_cosi/lib/invoicing/actions.py:83
-msgid "Build a new list of suggestions. This will remove all current suggestions"
+msgid ""
+"Build a new list of suggestions. This will remove all current suggestions"
 msgstr ""
 
 #: lino_cosi/lib/invoicing/actions.py:96
 msgid ""
-"Execute this invoicing plan. Create an invoice for each selected "
-"suggestion."
+"Execute this invoicing plan. Create an invoice for each selected suggestion."
 msgstr ""
 
-#: lino_cosi/lib/invoicing/actions.py:108
+#: lino_cosi/lib/invoicing/actions.py:102
+msgid "No journal specified"
+msgstr ""
+
+#: lino_cosi/lib/invoicing/actions.py:110
 #, fuzzy
 msgid "Toggle selections"
 msgstr "secondes"
 
-#: lino_cosi/lib/invoicing/actions.py:109
+#: lino_cosi/lib/invoicing/actions.py:111
 msgid "Invert selection status for all suggestions."
 msgstr ""
 
@@ -2462,8 +2464,8 @@ msgstr "Primaire"
 
 #: lino_cosi/lib/sepa/models.py:78
 msgid ""
-"Enabling this field will automatically disable any previous primary "
-"account and update the partner's IBAN and BIC"
+"Enabling this field will automatically disable any previous primary account "
+"and update the partner's IBAN and BIC"
 msgstr ""
 
 #: lino_cosi/lib/tim2lino/__init__.py:38
@@ -2506,8 +2508,8 @@ msgstr "Régime de travail"
 
 #: lino_cosi/lib/vat/choicelists.py:73
 msgid ""
-"Determines how the VAT is being handled,         i.e. whether and how it "
-"is to be paid."
+"Determines how the VAT is being handled,         i.e. whether and how it is "
+"to be paid."
 msgstr ""
 
 #: lino_cosi/lib/vat/choicelists.py:78
@@ -2692,4 +2694,3 @@ msgstr ""
 
 #~ msgid "Enrolment options"
 #~ msgstr "Titre de noblesse"
-

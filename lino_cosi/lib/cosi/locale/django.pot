@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-cosi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-06 23:54+0300\n"
+"POT-Creation-Date: 2016-06-08 15:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1718,11 +1718,15 @@ msgid ""
 "suggestion."
 msgstr ""
 
-#: lino_cosi/lib/invoicing/actions.py:108
+#: lino_cosi/lib/invoicing/actions.py:102
+msgid "No journal specified"
+msgstr ""
+
+#: lino_cosi/lib/invoicing/actions.py:110
 msgid "Toggle selections"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/actions.py:109
+#: lino_cosi/lib/invoicing/actions.py:111
 msgid "Invert selection status for all suggestions."
 msgstr ""
 
