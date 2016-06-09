@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -58,12 +58,18 @@ MORE_THAN_A_MONTH = datetime.timedelta(days=40)
 
 def objects():
 
-    Journal = rt.modules.ledger.Journal
-    Company = dd.resolve_model('contacts.Company')
-    Person = dd.resolve_model('contacts.Person')
-    Product = dd.resolve_model('products.Product')
+    Journal = rt.models.ledger.Journal
+    Company = rt.models.contacts.Company
+    Partner = rt.models.contacts.Partner
+    Person = rt.models.contacts.Person
+    Product = rt.models.products.Product
 
     USERS = Cycler(settings.SITE.user_model.objects.all())
+    # PAYMENT_TERMS = Cycler(rt.models.ledger.PaymentTerm.objects.all())
+
+    # for obj in Partner.objects.all():
+    #     obj.payment_term = PAYMENT_TERMS.pop()
+    #     yield obj
 
     if sales:
 
@@ -128,6 +134,7 @@ def objects():
                     user=USERS.pop(),
                     voucher_date=date + delta(days=5 + i),
                     entry_date=date + delta(days=5 + i + 1),
+                    # payment_term=PAYMENT_TERMS.pop(),
                 )
                     # date=date + delta(days=10 + DATE_DELTAS.pop()))
                 yield invoice
@@ -147,6 +154,7 @@ def objects():
             invoice = vat.VatAccountInvoice(
                 journal=JOURNAL_P, partner=story[0], user=USERS.pop(),
                 voucher_date=vd,
+                # payment_term=PAYMENT_TERMS.pop(),
                 entry_date=vd + delta(days=1))
             yield invoice
             for account, amount in story[1]:

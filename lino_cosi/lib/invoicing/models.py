@@ -194,9 +194,7 @@ class Item(dd.Model):
         """Create the invoice corresponding to this item of the plan.
         """
         ITEM_MODEL = dd.resolve_model(dd.plugins.invoicing.item_model)
-        VOUCHER_MODEL = ITEM_MODEL._meta.get_field('voucher').rel.to
-        # M = rt.modules.sales.VatProductInvoice
-        M = VOUCHER_MODEL
+        M = ITEM_MODEL._meta.get_field('voucher').rel.to
         invoice = M(partner=self.partner, journal=self.plan.journal,
                     voucher_date=self.plan.today,
                     user=ar.get_user(),

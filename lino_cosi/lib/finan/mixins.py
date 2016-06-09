@@ -206,7 +206,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
             get_due_movements(not self.voucher.journal.dc)
             dc = not self.voucher.journal.dc
             m = ledger.DueMovement(dc, self)
-            dd.logger.info("20160604 %s %s", m.debts, m.payments)
+            # dd.logger.info("20160604 %s %s", m.debts, m.payments)
             self.dc = dc
             self.amount = m.balance
             # if not m.balance:
@@ -283,7 +283,7 @@ class FinancialVoucherItem(VoucherItem, SequencedVoucherItem,
         self.account_changed(None)
         if self.amount is not None:
             return
-        self.match_changed(None)
+        self.partner_changed(None)
         if self.amount is not None:
             return
         self.amount = ZERO

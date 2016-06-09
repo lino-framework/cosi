@@ -511,7 +511,7 @@ class SuggestionsByVoucher(ledger.ExpectedMovements):
         voucher = ar.master_instance
         if voucher is None:
             return None
-        return - voucher.journal.dc
+        return not voucher.journal.dc
 
     @classmethod
     def param_defaults(cls, ar, **kw):

@@ -440,17 +440,32 @@ class VoucherStates(dd.Workflow):
     """:class:`lino_cosi.lib.ledger.VoucherStates` defines the list of
 possible states of a voucher.
 
-In a default configuration, vouchers can be "draft", "registered" or
-"signed".
+In a default configuration, vouchers can be :attr:`draft`,
+:attr:`registered`, :attr:`cancelled` or :attr:`signed`.
 
-*Draft* vouchers can be modified but are not yet visible as movements
-in the ledger. *Registered* vouchers cannot be modified, but are
-visible as movements in the ledger.
+.. attribute:: draft
 
-The *Signed* state is similar to *registered*, but cannot usually be
-deregistered anymore. This state is not visible in the default
-configuration. In order to make it usable, you must define a custom
-workflow for :class:`lino_cosi.lib.ledger.VoucherStates`.
+    *Draft* vouchers can be modified but are not yet visible as movements
+    in the ledger.
+
+.. attribute:: registered
+
+    *Registered* vouchers cannot be modified, but are visible as
+    movements in the ledger.
+
+.. attribute:: cancelled
+
+    *Cancelled* is similar to *Draft*, except that you cannot edit the
+    fields. This is used for invoices which have been sent, but the
+    customer signaled that they doen't agree. Instead of writing a
+    credit nota, you can decide to just cancel the invoice.
+
+.. attribute:: signed
+
+    The *Signed* state is similar to *registered*, but cannot usually be
+    deregistered anymore. This state is not visible in the default
+    configuration. In order to make it usable, you must define a custom
+    workflow for :class:`lino_cosi.lib.ledger.VoucherStates`.
 
     """
 
@@ -464,6 +479,7 @@ add = VoucherStates.add_item
 add('10', _("Draft"), 'draft', editable=True)
 add('20', _("Registered"), 'registered')
 add('30', _("Signed"), 'signed')
+add('40', _("Cancelled"), 'cancelled')
 
 
 @dd.receiver(dd.pre_analyze)
@@ -473,7 +489,7 @@ def setup_vat_workflow(sender=None, **kw):
             _("Register"), required_states='draft', icon_name='accept')
         VoucherStates.draft.add_transition(
             _("Deregister"), required_states="registered", icon_name='pencil')
-    else:
+    elif False:
         VoucherStates.registered.add_transition(
             # unichr(0x25c6),  # ◆
             _("Register"),
@@ -485,5 +501,22 @@ def setup_vat_workflow(sender=None, **kw):
             help_text=_("Deregister"),
             required_roles=dd.login_required(LedgerStaff),
             required_states="registered")
+    else:
+        VoucherStates.registered.add_transition(
+            # unichr(0x25c6),  # ◆
+            # _("Register"),
+            # help_text=_("Register"),
+            required_states='draft')
+        VoucherStates.draft.add_transition(
+            # unichr(0x25c7),  # ◇
+            # _("Deregister"),
+            # help_text=_("Deregister"),
+            required_roles=dd.login_required(LedgerStaff),
+            required_states="registered cancelled")
+        VoucherStates.cancelled.add_transition(
+            # unichr(0x25c6),  # ◆
+            # _("Cancel"),
+            # help_text=_("Cancel"),
+            required_states='draft')
 
 

@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 import datetime
 from dateutil.relativedelta import relativedelta as delta
 
+from decimal import Decimal
+
 from django.conf import settings
 from lino.utils import Cycler
 from lino.api import dd, rt
@@ -40,6 +42,20 @@ finan = dd.resolve_app('finan')
 
 REQUEST = settings.SITE.login()  # BaseRequest()
 MORE_THAN_A_MONTH = datetime.timedelta(days=40)
+
+# most payments are arriving as suggested, i.e. the customer pays the
+# full ammount. But there are exceptions: 5% discount taken at
+# payment, no payment a t all, partly payments of 70%, or (very
+# accidentally) 2% too much.
+
+PAYMENT_DIFFS = [None] * 4
+PAYMENT_DIFFS += [-0.05]
+PAYMENT_DIFFS += [None] * 3
+PAYMENT_DIFFS += [-1.00]
+PAYMENT_DIFFS += [None] * 2
+PAYMENT_DIFFS += [-0.30]
+PAYMENT_DIFFS += [0.02]
+PAYMENT_DIFFS = Cycler(PAYMENT_DIFFS)
 
 
 def objects(refs="PMO BNK"):
@@ -66,6 +82,16 @@ def objects(refs="PMO BNK"):
             ar = ba.request(master_instance=voucher)
             ar.selected_rows = list(suggestions)
             ar.run()
+            if ref == 'BNK':
+                for item in voucher.items.all():
+                    pd = PAYMENT_DIFFS.pop()
+                    if pd:
+                        pd = Decimal(pd)
+                        item.amount += item.amount * pd
+                        if item.amount:
+                            item.save()
+                        else:
+                            item.delete()
             if voucher.items.count() == 0:
                 voucher.delete()
             else:

@@ -494,6 +494,9 @@ class Voucher(UserAuthored, mixins.Registrable):
     def get_trade_type(self):
         return self.journal.trade_type
 
+    def get_printed_name(self):
+        return dd.babelattr(self.journal, 'printed_name')
+
     def get_partner(self):
         """Raturn the partner related to this voucher. Overridden by
         PartnerRelated vouchers."""
@@ -866,6 +869,16 @@ class Movement(ProjectRelated):
     #     return self.match or str(self.voucher)
 
     @classmethod
+    def get_balance(cls, dc, qs):
+        bal = ZERO
+        for mvt in qs:
+            if mvt.dc == dc:
+                bal += mvt.amount
+            else:
+                bal -= mvt.amount
+        return bal
+
+    @classmethod
     def balance_info(cls, dc, **kwargs):
         qs = cls.objects.filter(**kwargs)
         qs = qs.order_by('value_date')
@@ -874,14 +887,18 @@ class Movement(ProjectRelated):
         for mvt in qs:
             amount = mvt.amount
             if mvt.dc == dc:
-                amount = - amount
-            bal += amount
-            s += str(amount)
-            s += " ({0} {1}) ".format(
-                mvt.voucher,
-                dd.fds(mvt.voucher.voucher_date))
-        return s + "= " + str(bal)
-
+                bal -= amount
+                s += ' -' + str(amount)
+            else:
+                bal += amount
+                s += ' +' + str(amount)
+            s += " ({0}) ".format(mvt.voucher)
+            # s += " ({0} {1}) ".format(
+            #     mvt.voucher,
+            #     dd.fds(mvt.voucher.voucher_date))
+        if bal:
+            return s + "= " + str(bal)
+        return ''
         if False:
             mvts = []
             for dm in get_due_movements(CREDIT, partner=self.pupil):
