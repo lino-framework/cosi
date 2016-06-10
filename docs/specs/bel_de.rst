@@ -70,7 +70,7 @@ will do the following AJAX call to get its data:
 
 >>> url = '/api/sales/InvoicesByJournal'
 >>> url += "?start=0&limit=25&fmt=json&rp=ext-comp-1135"
->>> url += "&pv=1&pv=&pv=&mt=24&mk=1"
+>>> url += "&pv=1&pv=&pv=&pv=&mt=24&mk=1"
 >>> res = test_client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 >>> res.status_code
 200
