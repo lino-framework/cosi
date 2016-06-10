@@ -352,7 +352,7 @@ class InvoicesByJournal(Invoices, ByJournal):
     """
     order_by = ["-number"]
     params_panel_hidden = True
-    params_layout = "partner year state"
+    params_layout = "partner year state cleared"
     column_names = "number voucher_date due_date " \
         "partner " \
         "total_incl #order subject:10 " \
