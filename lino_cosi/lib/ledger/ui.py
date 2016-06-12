@@ -88,7 +88,7 @@ class Journals(dd.Table):
 
 class ByJournal(dd.Table):
     # order_by = ["-entry_date", '-id']
-    order_by = ["-accounting_period", "-number"]
+    order_by = ["-accounting_period__year", "-number"]
     master_key = 'journal'  # see django issue 10808
     # start_at_bottom = True
     required_roles = dd.required(LedgerUser)
