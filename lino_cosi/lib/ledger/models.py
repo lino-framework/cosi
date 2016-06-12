@@ -449,6 +449,9 @@ class Voucher(UserAuthored, mixins.Registrable):
         A short explanation which ascertains the subject matter of
         this journal entry.
 
+    .. attribute:: number_with_year
+
+
     """
 
     class Meta:
@@ -472,6 +475,38 @@ class Voucher(UserAuthored, mixins.Registrable):
         #~ doctype = get_doctype(cls)
         #~ jnl = Journal(doctype=doctype,id=id,**kw)
         #~ return jnl
+
+    @dd.displayfield(_("No."))
+    def number_with_year(self, ar):
+        return "{0}/{1}".format(self.number, self.accounting_period.year)
+
+    @classmethod
+    def quick_search_filter(model, search_text, prefix=''):
+        """Overrides :meth:`lino.core.model.Model.quick_search_filter`.
+
+        Examples:
+
+        123 -> voucher number 123 in current year
+
+        123/2014 -> voucher number 123 in 2014
+
+        """
+        # logger.info(
+        #     "20160612 Voucher.quick_search_filter(%s, %r, %r)",
+        #     model, search_text, prefix)
+        parts = search_text.split('/')
+        if len(parts) == 2:
+            kw = {
+                prefix + 'number': parts[0],
+                prefix + 'accounting_period__year': parts[1]}
+            return models.Q(**kw)
+        if search_text.isdigit() and not search_text.startswith('0'):
+            kw = {
+                prefix + 'number': int(search_text),
+                prefix + 'accounting_period__year':
+                FiscalYears.from_date(dd.today())}
+            return models.Q(**kw)
+        return super(Voucher, model).quick_search_filter(search_text, prefix)
 
     def full_clean(self, *args, **kwargs):
         if not self.accounting_period_id:
@@ -723,6 +758,8 @@ class Voucher(UserAuthored, mixins.Registrable):
         """
         return None
         # raise NotImplementedError()
+
+Voucher.set_widget_options('number_with_year', width=8)
 
 
 @dd.python_2_unicode_compatible

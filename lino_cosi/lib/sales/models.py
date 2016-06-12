@@ -350,13 +350,14 @@ class InvoicesByJournal(Invoices, ByJournal):
     :class:`VatProductInvoice`)
 
     """
+    quick_search_fields = "partner subject"
     order_by = ["-number"]
     params_panel_hidden = True
     params_layout = "partner year state cleared"
-    column_names = "number voucher_date due_date " \
+    column_names = "number_with_year voucher_date due_date " \
         "partner " \
-        "total_incl #order subject:10 " \
-        "total_base total_vat user *"
+        "total_incl subject:10 " \
+        "workflow_buttons *"
 
 
 class DueInvoices(Invoices):

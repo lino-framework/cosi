@@ -312,13 +312,15 @@ class FinancialVouchers(dd.Table):
 
 class JournalEntries(FinancialVouchers):
     suggestions_table = 'finan.SuggestionsByJournalEntry'
-    column_names = "number voucher_date state user *"
+    column_names = "number_with_year voucher_date "\
+                   "accounting_period workflow_buttons *"
 
 
 class PaymentOrders(FinancialVouchers):
     """The table of all :class:`PaymentOrder` vouchers."""
     model = 'finan.PaymentOrder'
-    column_names = "number voucher_date narration total execution_date state *"
+    column_names = "number voucher_date narration total execution_date "\
+                   "accounting_period workflow_buttons *"
     detail_layout = PaymentOrderDetail()
     suggestions_table = 'finan.SuggestionsByPaymentOrder'
 
@@ -326,7 +328,8 @@ class PaymentOrders(FinancialVouchers):
 class BankStatements(FinancialVouchers):
     """The table of all :class:`BankStatement` vouchers."""
     model = 'finan.BankStatement'
-    column_names = "number voucher_date balance1 balance2 state user *"
+    column_names = "number_with_year voucher_date balance1 balance2 " \
+                   "accounting_period workflow_buttons *"
     detail_layout = BankStatementDetail()
     insert_layout = """
     voucher_date
