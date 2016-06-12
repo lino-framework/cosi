@@ -19,17 +19,30 @@
 
 """Utilities for `lino_cosi.lib.ledger`
 
+
+.. data:: on_ledger_movement
+
+    Sent when a partner has had at least one change in a ledger movement.
+    
+    - `sender`   the database model
+    - `instance` the partner
+
+
+
 """
 
 from builtins import str
 from decimal import Decimal, ROUND_HALF_UP
+from django.dispatch import Signal, receiver
 from lino.api import rt, dd
 
 from lino.utils import SumCollector
-
 from lino_cosi.lib.accounts.utils import ZERO, DEBIT
 
+
 CENT = Decimal('.01')
+
+on_ledger_movement = Signal(['instance'])
 
 
 def myround(d):
@@ -265,3 +278,4 @@ def check_clearings(partner, matches=[]):
         sat = (balance == ZERO)
         qs.filter(account=account, match=match).update(cleared=sat)
 
+    on_ledger_movement.send(sender=partner.__class__, instance=partner)

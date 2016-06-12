@@ -605,7 +605,14 @@ class Voucher(UserAuthored, mixins.Registrable):
             pass
         self.do_and_clear(doit, do_clear)
 
-    def do_and_clear(self, doit, do_clear):
+    def do_and_clear(self, func, do_clear):
+        """Delete all movements of this voucher, then run the given callable
+        `func`, passing it a set with all partners who had at least
+        one movement in this voucher. The function is allowed to add
+        more partners to this set.  Then call `check_clearings` for
+        all these partners.
+
+        """
         existing_mvts = self.movement_set.all()
         partners = set()
         if not self.journal.auto_check_clearings:
@@ -614,7 +621,7 @@ class Voucher(UserAuthored, mixins.Registrable):
             for m in existing_mvts.filter(partner__isnull=False):
                 partners.add(m.partner)
         existing_mvts.delete()
-        doit(partners)
+        func(partners)
         if do_clear:
             for p in partners:
                 check_clearings(p)
@@ -635,7 +642,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         raise NotImplementedError()
 
     def create_movement(self, item, account, project, dc, amount, **kw):
-        """Create a movement for this voucher.  
+        """Create a movement for this voucher.
 
         The specified `item` may be `None` if this the movement is
         caused by more than one item. It is used by
