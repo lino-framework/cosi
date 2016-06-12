@@ -303,6 +303,7 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
         app_label = 'ledger'
         verbose_name = _("Accounting period")
         verbose_name_plural = _("Accounting periods")
+        ordering = ['ref']
 
     state = PeriodStates.field(default=PeriodStates.open.as_callable())
     year = FiscalYears.field(blank=True)
