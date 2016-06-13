@@ -87,8 +87,8 @@ class Journals(dd.Table):
 
 
 class ByJournal(dd.Table):
-    order_by = ["-entry_date", '-id']
-    # order_by = ["-number"]
+    # order_by = ["-entry_date", '-id']
+    order_by = ["-accounting_period__year", "-number"]
     master_key = 'journal'  # see django issue 10808
     # start_at_bottom = True
     required_roles = dd.required(LedgerUser)
@@ -359,6 +359,15 @@ dd.inject_action('contacts.Partner', due=dd.ShowSlaveTable(DebtsByPartner))
 
 
 class PartnerVouchers(Vouchers):
+    """Base class for tables of partner vouchers.
+
+    .. attribute:: cleared
+
+        - Yes : show only completely cleared vouchers.
+        - No : show only vouchers with at least one open partner movement.
+        - empty: don't care about movements.
+
+    """
     editable = True
 
     parameters = dict(
@@ -366,8 +375,9 @@ class PartnerVouchers(Vouchers):
             dd.plugins.ledger.project_model, blank=True, null=True),
         state=VoucherStates.field(blank=True),
         partner=dd.ForeignKey('contacts.Partner', blank=True, null=True),
+        cleared=dd.YesNo.field(_("Show cleared vouchers"), blank=True),
         **Vouchers.parameters)
-    params_layout = "partner project state journal year"
+    params_layout = "partner project state journal year cleared"
     params_panel_hidden = True
 
     @classmethod
@@ -375,6 +385,16 @@ class PartnerVouchers(Vouchers):
         s = super(PartnerVouchers, cls).get_simple_parameters()
         s |= set(['partner', 'state'])
         return s
+
+    @classmethod
+    def get_request_queryset(cls, ar):
+        qs = super(PartnerVouchers, cls).get_request_queryset(ar)
+        # movement_set__partner=models.F('partner'))
+        if ar.param_values.cleared == dd.YesNo.yes:
+            qs = qs.exclude(movement__cleared=False)
+        elif ar.param_values.cleared == dd.YesNo.no:
+            qs = qs.filter(movement__cleared=False)
+        return qs
 
 
 def mvtsum(**fkw):

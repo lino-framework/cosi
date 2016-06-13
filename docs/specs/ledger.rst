@@ -46,6 +46,7 @@ Basic truths of accounting
  Reference   Designation                     Trade type   Account                          Primary booking direction
 ----------- ------------------------------- ------------ -------------------------------- ---------------------------
  SLS         Sales invoices                  Sales                                         Debit
+ SLC         Sales credit notes              Sales                                         Credit
  PRC         Purchase invoices               Purchases                                     Credit
  PMO         Payment Orders                  Purchases    (5810) Payment Orders Bestbank   Credit
  CSH         Cash                                         (5700) Cash                      Debit
@@ -93,15 +94,16 @@ A **match rule** specifies that a movement into given account can be
  ID   Account            Journal
 ---- ------------------ -------------------------------------
  1    (4000) Customers   Sales invoices (SLS)
- 2    (4400) Suppliers   Purchase invoices (PRC)
- 3    (4000) Customers   Payment Orders (PMO)
- 4    (4400) Suppliers   Payment Orders (PMO)
- 5    (4000) Customers   Cash (CSH)
- 6    (4400) Suppliers   Cash (CSH)
- 7    (4000) Customers   Bestbank (BNK)
- 8    (4400) Suppliers   Bestbank (BNK)
- 9    (4000) Customers   Miscellaneous Journal Entries (MSC)
- 10   (4400) Suppliers   Miscellaneous Journal Entries (MSC)
+ 2    (4000) Customers   Sales credit notes (SLC)
+ 3    (4400) Suppliers   Purchase invoices (PRC)
+ 4    (4000) Customers   Payment Orders (PMO)
+ 5    (4400) Suppliers   Payment Orders (PMO)
+ 6    (4000) Customers   Cash (CSH)
+ 7    (4400) Suppliers   Cash (CSH)
+ 8    (4000) Customers   Bestbank (BNK)
+ 9    (4400) Suppliers   Bestbank (BNK)
+ 10   (4000) Customers   Miscellaneous Journal Entries (MSC)
+ 11   (4400) Suppliers   Miscellaneous Journal Entries (MSC)
 ==== ================== =====================================
 <BLANKLINE>
 
@@ -112,7 +114,7 @@ paid too much.
 
 >>> jnl = ledger.Journal.objects.get(ref="PMO")
 >>> jnl
-Journal #3 ('Payment Orders (PMO)')
+Journal #4 ('Payment Orders (PMO)')
 
 >>> rt.show(ledger.MatchRulesByJournal, jnl)
 ==================
@@ -148,16 +150,18 @@ pay that invoice).
 
 >>> ses.show(ledger.Debtors, column_names="partner partner_id balance")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE -REPORT_UDIFF
-==================== ========= ==============
+==================== ========= ===============
  Partner              ID        Balance
--------------------- --------- --------------
- Kaivers Karl         140       2 999,85
+-------------------- --------- ---------------
+ Johnen Johann        137       639,92
+ Groteclaes Gregory   131       47,59
+ Emonts Erich         149       3 854,78
  Lambertz Guido       141       2 039,82
  Malmendier Marc      145       679,81
+ Kaivers Karl         140       2 999,85
  Mießen Michael       147       280,00
- Emonts Erich         149       3 854,78
- **Total (5 rows)**   **722**   **9 854,26**
-==================== ========= ==============
+ **Total (7 rows)**   **990**   **10 541,77**
+==================== ========= ===============
 <BLANKLINE>
 
 
@@ -173,7 +177,10 @@ creditors are providers, i.e. partners who send us a purchase invoice
  AS Express Post      181       41,10
  AS Matsalu Veevärk   182       143,40
  Eesti Energia AS     183       5 045,18
- **Total (3 rows)**   **546**   **5 229,68**
+ Chantraine Marc      119       1 578,25
+ Engels Edgar         128       1 631,92
+ Evers Eberhart       126       195,93
+ **Total (6 rows)**   **919**   **8 635,78**
 ==================== ========= ==============
 <BLANKLINE>
 

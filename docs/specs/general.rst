@@ -19,7 +19,7 @@ The database structure
 >>> from lino.utils.diag import analyzer
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-31 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing.
+32 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, weasyprint, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing.
 46 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
@@ -38,7 +38,7 @@ The database structure
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          17        5
  finan.BankStatement         finan.BankStatements           16        14
- finan.BankStatementItem     finan.BankStatementItemTable   10        66
+ finan.BankStatementItem     finan.BankStatementItemTable   10        144
  finan.JournalEntry          finan.FinancialVouchers        14        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
  finan.PaymentOrder          finan.PaymentOrders            15        14
@@ -47,9 +47,9 @@ The database structure
  invoicing.Item              invoicing.Items                9         0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         15
- ledger.Journal              ledger.Journals                19        6
- ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               10        650
+ ledger.Journal              ledger.Journals                19        7
+ ledger.MatchRule            ledger.MatchRules              3         11
+ ledger.Movement             ledger.Movements               10        728
  ledger.PaymentTerm          ledger.PaymentTerms            8         7
  ledger.Voucher              ledger.Vouchers                9         175
  outbox.Attachment           outbox.Attachments             4         0
@@ -87,7 +87,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
 - Buchhaltung :
-  - Verkauf : Verkaufsrechnungen (SLS)
+  - Verkauf : Verkaufsrechnungen (SLS), Sales credit notes (SLC)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Zahlungsaufträge (PMO), Kasse (CSH), Bestbank (BNK), Diverse Buchungen (MSC)
   - Rechnungen erstellen
@@ -95,6 +95,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
+  - MwSt. : Due invoices
 - Konfigurierung :
   - System : Site-Parameter, Hilfetexte, Benutzer
   - Orte : Länder, Orte

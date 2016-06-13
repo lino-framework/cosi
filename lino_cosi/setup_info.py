@@ -94,6 +94,8 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.tim2lino.fixtures',
     'lino_cosi.lib.contacts',
     'lino_cosi.lib.contacts.fixtures',
+    'lino_cosi.lib.contacts.management',
+    'lino_cosi.lib.contacts.management.commands',
     'lino_cosi.lib.orders',
     'lino_cosi.lib.delivery',
     'lino_cosi.lib.vat',

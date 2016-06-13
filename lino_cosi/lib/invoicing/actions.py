@@ -98,6 +98,8 @@ class ExecutePlan(dd.Action):
 
     def run_from_ui(self, ar, **kw):
         plan = ar.selected_rows[0]
+        if plan.journal is None:
+            raise Warning(_("No journal specified"))
         for item in plan.items.filter(selected=True, invoice__isnull=True):
             item.create_invoice(ar)
         ar.success(refresh=True)

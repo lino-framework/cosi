@@ -303,6 +303,7 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
         app_label = 'ledger'
         verbose_name = _("Accounting period")
         verbose_name_plural = _("Accounting periods")
+        ordering = ['ref']
 
     state = PeriodStates.field(default=PeriodStates.open.as_callable())
     year = FiscalYears.field(blank=True)
@@ -449,6 +450,9 @@ class Voucher(UserAuthored, mixins.Registrable):
         A short explanation which ascertains the subject matter of
         this journal entry.
 
+    .. attribute:: number_with_year
+
+
     """
 
     class Meta:
@@ -473,6 +477,38 @@ class Voucher(UserAuthored, mixins.Registrable):
         #~ jnl = Journal(doctype=doctype,id=id,**kw)
         #~ return jnl
 
+    @dd.displayfield(_("No."))
+    def number_with_year(self, ar):
+        return "{0}/{1}".format(self.number, self.accounting_period.year)
+
+    @classmethod
+    def quick_search_filter(model, search_text, prefix=''):
+        """Overrides :meth:`lino.core.model.Model.quick_search_filter`.
+
+        Examples:
+
+        123 -> voucher number 123 in current year
+
+        123/2014 -> voucher number 123 in 2014
+
+        """
+        # logger.info(
+        #     "20160612 Voucher.quick_search_filter(%s, %r, %r)",
+        #     model, search_text, prefix)
+        parts = search_text.split('/')
+        if len(parts) == 2:
+            kw = {
+                prefix + 'number': parts[0],
+                prefix + 'accounting_period__year': parts[1]}
+            return models.Q(**kw)
+        if search_text.isdigit() and not search_text.startswith('0'):
+            kw = {
+                prefix + 'number': int(search_text),
+                prefix + 'accounting_period__year':
+                FiscalYears.from_date(dd.today())}
+            return models.Q(**kw)
+        return super(Voucher, model).quick_search_filter(search_text, prefix)
+
     def full_clean(self, *args, **kwargs):
         if not self.accounting_period_id:
             self.accounting_period = AccountingPeriod.get_default_for_date(
@@ -493,6 +529,9 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     def get_trade_type(self):
         return self.journal.trade_type
+
+    def get_printed_name(self):
+        return dd.babelattr(self.journal, 'printed_name')
 
     def get_partner(self):
         """Raturn the partner related to this voucher. Overridden by
@@ -602,7 +641,14 @@ class Voucher(UserAuthored, mixins.Registrable):
             pass
         self.do_and_clear(doit, do_clear)
 
-    def do_and_clear(self, doit, do_clear):
+    def do_and_clear(self, func, do_clear):
+        """Delete all movements of this voucher, then run the given callable
+        `func`, passing it a set with all partners who had at least
+        one movement in this voucher. The function is allowed to add
+        more partners to this set.  Then call `check_clearings` for
+        all these partners.
+
+        """
         existing_mvts = self.movement_set.all()
         partners = set()
         if not self.journal.auto_check_clearings:
@@ -611,7 +657,7 @@ class Voucher(UserAuthored, mixins.Registrable):
             for m in existing_mvts.filter(partner__isnull=False):
                 partners.add(m.partner)
         existing_mvts.delete()
-        doit(partners)
+        func(partners)
         if do_clear:
             for p in partners:
                 check_clearings(p)
@@ -632,7 +678,7 @@ class Voucher(UserAuthored, mixins.Registrable):
         raise NotImplementedError()
 
     def create_movement(self, item, account, project, dc, amount, **kw):
-        """Create a movement for this voucher.  
+        """Create a movement for this voucher.
 
         The specified `item` may be `None` if this the movement is
         caused by more than one item. It is used by
@@ -713,6 +759,8 @@ class Voucher(UserAuthored, mixins.Registrable):
         """
         return None
         # raise NotImplementedError()
+
+Voucher.set_widget_options('number_with_year', width=8)
 
 
 @dd.python_2_unicode_compatible
@@ -866,6 +914,16 @@ class Movement(ProjectRelated):
     #     return self.match or str(self.voucher)
 
     @classmethod
+    def get_balance(cls, dc, qs):
+        bal = ZERO
+        for mvt in qs:
+            if mvt.dc == dc:
+                bal += mvt.amount
+            else:
+                bal -= mvt.amount
+        return bal
+
+    @classmethod
     def balance_info(cls, dc, **kwargs):
         qs = cls.objects.filter(**kwargs)
         qs = qs.order_by('value_date')
@@ -874,14 +932,18 @@ class Movement(ProjectRelated):
         for mvt in qs:
             amount = mvt.amount
             if mvt.dc == dc:
-                amount = - amount
-            bal += amount
-            s += str(amount)
-            s += " ({0} {1}) ".format(
-                mvt.voucher,
-                dd.fds(mvt.voucher.voucher_date))
-        return s + "= " + str(bal)
-
+                bal -= amount
+                s += ' -' + str(amount)
+            else:
+                bal += amount
+                s += ' +' + str(amount)
+            s += " ({0}) ".format(mvt.voucher)
+            # s += " ({0} {1}) ".format(
+            #     mvt.voucher,
+            #     dd.fds(mvt.voucher.voucher_date))
+        if bal:
+            return s + "= " + str(bal)
+        return ''
         if False:
             mvts = []
             for dm in get_due_movements(CREDIT, partner=self.pupil):

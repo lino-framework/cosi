@@ -30,6 +30,9 @@
     models
     ui
     management.commands.reregister
+    fixtures.std
+    fixtures.demo
+    fixtures.demo_bookings
 
 """
 
@@ -45,7 +48,7 @@ class Plugin(ad.Plugin):
 
     verbose_name = _("Ledger")
 
-    needs_plugins = ['lino_cosi.lib.accounts']
+    needs_plugins = ['lino_cosi.lib.accounts', 'lino.modlib.weasyprint']
 
     currency_symbol = "€"
 

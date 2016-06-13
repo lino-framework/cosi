@@ -106,7 +106,7 @@ The test database
 
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-34 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
+35 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, countries, contacts, xl, products, cosi, accounts, weasyprint, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
 64 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
@@ -141,7 +141,7 @@ The test database
  excerpts.Excerpt            excerpts.Excerpts              11        0
  excerpts.ExcerptType        excerpts.ExcerptTypes          15        6
  finan.BankStatement         finan.BankStatements           16        4
- finan.BankStatementItem     finan.BankStatementItemTable   10        18
+ finan.BankStatementItem     finan.BankStatementItemTable   10        22
  finan.JournalEntry          finan.FinancialVouchers        14        0
  finan.JournalEntryItem      finan.JournalEntryItemTable    10        0
  finan.PaymentOrder          finan.PaymentOrders            15        4
@@ -150,9 +150,9 @@ The test database
  invoicing.Item              invoicing.Items                9         0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         5
- ledger.Journal              ledger.Journals                15        6
- ledger.MatchRule            ledger.MatchRules              3         10
- ledger.Movement             ledger.Movements               10        208
+ ledger.Journal              ledger.Journals                15        7
+ ledger.MatchRule            ledger.MatchRules              3         11
+ ledger.Movement             ledger.Movements               10        212
  ledger.PaymentTerm          ledger.PaymentTerms            6         7
  ledger.Voucher              ledger.Vouchers                9         57
  outbox.Attachment           outbox.Attachments             4         0

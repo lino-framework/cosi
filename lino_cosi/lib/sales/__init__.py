@@ -37,6 +37,11 @@ class Plugin(ad.Plugin):
 
     needs_plugins = ['lino_xl.lib.products', 'lino_cosi.lib.vat']
 
+    def setup_reports_menu(self, site, profile, m):
+        mg = site.plugins.vat
+        m = m.add_menu(mg.app_label, mg.verbose_name)
+        m.add_action('sales.DueInvoices')
+
     def setup_config_menu(self, site, profile, m):
         mg = site.plugins.vat
         m = m.add_menu(mg.app_label, mg.verbose_name)

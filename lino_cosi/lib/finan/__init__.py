@@ -40,6 +40,17 @@ class Plugin(ad.Plugin):
     needs_plugins = ['lino_cosi.lib.ledger']
 
     suggest_future_vouchers = False
+    """Whether to suggest vouchers whose due_date is in the future.
+
+    The default value is currently `False` because some demo fixtures
+    rely on this.  But in most cases this should probably be set to
+    `True`::
+
+        def setup_plugins(self):
+            self.plugins.finan.suggest_future_vouchers = True
+            super(Site, self).setup_plugins()
+
+    """
 
     # def setup_main_menu(self, site, profile, m):
     #     m = m.add_menu(self.app_label, self.verbose_name)

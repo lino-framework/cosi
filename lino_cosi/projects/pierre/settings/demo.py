@@ -10,3 +10,4 @@ class Site(Site):
     the_demo_date = datetime.date(2015, 03, 12)
 
 SITE = Site(globals())
+DEBUG = True

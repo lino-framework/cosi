@@ -196,13 +196,15 @@ def objects():
         MODEL = sales.VatProductInvoice
     else:
         MODEL = vat.VatAccountInvoice
+    kw.update(trade_type='sales')
+    kw.update(ref="SLS", dc=DEBIT)
+    kw.update(printed_name=_("Invoice"))
     kw.update(dd.str2kw('name', _("Sales invoices")))
-    # kw = dd.babel_values('name', de="Verkaufsrechnungen",
-    #                   fr="Factures vente",
-    #                   en="Sales invoices",
-    #                   et="Müügiarved")
-    kw.update(trade_type='sales', ref="SLS")
-    kw.update(dc=DEBIT)
+    yield MODEL.create_journal(**kw)
+
+    kw.update(ref="SLC", dc=CREDIT)
+    kw.update(dd.str2kw('name', _("Sales credit notes")))
+    kw.update(printed_name=_("Credit note"))
     yield MODEL.create_journal(**kw)
 
     kw.update(journal_group=JournalGroups.purchases)

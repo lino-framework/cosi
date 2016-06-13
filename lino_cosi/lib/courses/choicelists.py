@@ -50,6 +50,15 @@ add('40', _("Closed"), 'closed', editable=False, invoiceable=False)
 
 
 class EnrolmentStates(dd.Workflow):
+    """The list of possible states of an enrolment.
+
+    The default implementation has the following values:
+    
+    .. attribute:: requested
+    .. attribute:: confirmed
+    .. attribute:: cancelled
+
+    """
     verbose_name_plural = _("Enrolment states")
     required_roles = dd.required(dd.SiteAdmin)
     invoiceable = models.BooleanField(_("invoiceable"), default=True)

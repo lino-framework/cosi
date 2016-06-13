@@ -30,6 +30,7 @@ from django.core.exceptions import ValidationError
 from lino.api import dd, rt, _
 from lino.utils import SumCollector
 from lino.modlib.plausibility.choicelists import Checker
+from lino_cosi.lib.ledger.utils import DEBIT
 
 from lino_cosi.lib.ledger.mixins import PartnerRelated
 
@@ -94,7 +95,13 @@ class Payable(PartnerRelated):
     cause a payment.
 
     .. attribute:: your_ref
+
     .. attribute:: due_date
+
+    .. attribute:: payment_term
+
+        See :attr:`lino_cosi.lib.ledger.mixins.PartnerRelated.payment_term`
+
     .. attribute:: title
 
        A char field with a description for this transaction.
@@ -109,8 +116,10 @@ class Payable(PartnerRelated):
     # title = models.CharField(_("Description"), max_length=200, blank=True)
 
     def full_clean(self):
+        if self.payment_term is None:
+            self.payment_term = self.partner.payment_term
         if not self.due_date:
-            if self.payment_term is not None:
+            if self.payment_term:
                 self.due_date = self.payment_term.get_due_date(
                     self.voucher_date)
 

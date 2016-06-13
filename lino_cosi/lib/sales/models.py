@@ -208,6 +208,16 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
 
     Inherits from :class:`lino_cosi.lib.ledger.models.Voucher`.
 
+    .. attribute:: balance_before
+
+       The balance of previous payments or debts. On a printed
+       invoice, this amount should be mentioned and added to the
+       invoice's amount in order to get the total amount to pay.
+
+    .. attribute:: balance_to_pay
+
+       The balance of all movements matching this invoice.
+
     """
     class Meta:
         app_label = 'sales'
@@ -219,14 +229,14 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
 
     # order = dd.ForeignKey('orders.Order', blank=True, null=True)
 
-    def full_clean(self, *args, **kw):
-        if self.due_date is None:
-            if self.payment_term is not None:
-                self.due_date = self.payment_term.get_due_date(
-                    self.voucher_date)
-        # SalesDocument.before_save(self)
-        # ledger.LedgerDocumentMixin.before_save(self)
-        super(VatProductInvoice, self).full_clean(*args, **kw)
+    # def full_clean(self, *args, **kw):
+    #     if self.due_date is None:
+    #         if self.payment_term is not None:
+    #             self.due_date = self.payment_term.get_due_date(
+    #                 self.voucher_date)
+    #     # SalesDocument.before_save(self)
+    #     # ledger.LedgerDocumentMixin.before_save(self)
+    #     super(VatProductInvoice, self).full_clean(*args, **kw)
 
     # def before_state_change(self,ar,old,new):
         # if new.name == 'registered':
@@ -257,6 +267,26 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         """
         return self.print_items_table.request(self)
 
+    @dd.virtualfield(dd.PriceField(_("Balance to pay")))
+    def balance_to_pay(self, ar):
+        Movement = rt.models.ledger.Movement
+        qs = Movement.objects.filter(
+            partner=self.get_partner(),
+            cleared=False,
+            match=self.match or self.get_default_match())
+        return Movement.get_balance(not self.journal.dc, qs)
+
+    @dd.virtualfield(dd.PriceField(_("Balance before")))
+    def balance_before(self, ar):
+        """"""
+        Movement = rt.models.ledger.Movement
+        qs = Movement.objects.filter(
+            partner=self.get_partner(),
+            cleared=False,
+            value_date__lte=self.voucher_date)
+        qs = qs.exclude(voucher=self)
+        return Movement.get_balance(not self.journal.dc, qs)
+
 
 class InvoiceDetail(dd.FormLayout):
     main = "general more ledger"
@@ -270,7 +300,7 @@ class InvoiceDetail(dd.FormLayout):
 
     invoice_header = dd.Panel("""
     voucher_date partner vat_regime
-    #order subject your_ref
+    #order subject your_ref match
     payment_term due_date:20 paper_type printed
     """, label=_("Header"))  # sales_remark
 
@@ -320,13 +350,30 @@ class InvoicesByJournal(Invoices, ByJournal):
     :class:`VatProductInvoice`)
 
     """
+    quick_search_fields = "partner subject"
     order_by = ["-number"]
     params_panel_hidden = True
-    params_layout = "partner year state"
-    column_names = "number voucher_date due_date " \
+    params_layout = "partner year state cleared"
+    column_names = "number_with_year voucher_date due_date " \
         "partner " \
-        "total_incl #order subject:10 " \
-        "total_base total_vat user *"
+        "total_incl subject:10 " \
+        "workflow_buttons *"
+
+
+class DueInvoices(Invoices):
+    """Shows all due product invoices."""
+    label = _("Due invoices")
+    order_by = ["due_date"]
+
+    column_names = "due_date journal__ref number " \
+        "partner " \
+        "total_incl balance_before balance_to_pay *"
+
+    @classmethod
+    def param_defaults(cls, ar, **kw):
+        kw = super(DueInvoices, cls).param_defaults(ar, **kw)
+        kw.update(cleared=dd.YesNo.no)
+        return kw
 
 
 class ProductDocItem(QtyVatItemBase):
