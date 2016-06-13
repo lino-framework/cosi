@@ -63,7 +63,8 @@ class Journal(mixins.BabelNamed,
               mixins.Sequenced,
               mixins.Referrable,
               PrintableType):
-    """A sequence of numbered vouchers.
+    """The model used to store **journals**.
+    See :ref:`cosi.specs.ledger.journals`.
 
     **Fields:**
 
@@ -280,6 +281,11 @@ class Journal(mixins.BabelNamed,
         #~ print 20131006, voucher_type
         template_groups = [voucher_type.model.get_template_group()]
         return cls.get_template_choices(build_method, template_groups)
+
+
+#
+#
+#
 
 
 @dd.python_2_unicode_compatible

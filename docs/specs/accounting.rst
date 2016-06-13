@@ -1,8 +1,8 @@
 .. _cosi.specs.accounting:
 
-==========================
-Introduction to accounting
-==========================
+=======================
+Accounting in Lino Così
+=======================
 
 .. how to test this document:
 
@@ -14,8 +14,6 @@ Introduction to accounting
     >>> lino.startup('lino_cosi.projects.std.settings.doctests')
     >>> from lino.api.doctest import *
     >>> from lino_cosi.lib.accounts.models import *
-
-
 
 
 This chapter explains some basic truths about accounting as seen by a
@@ -47,8 +45,8 @@ False
 Account types
 -------------
 
-Lino has a hard-coded list of **account types** or "top-level
-accounts".
+Lino has a list of **account types** or "top-level accounts", defined
+in :class:`lino_cosi.lib.ledger.choicelists.AccountTypes`.
 
 >>> rt.show(ledger.AccountTypes)
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
@@ -172,7 +170,9 @@ Income and Expenses are listed in the Profit & Loss statement.
 TODO
 ----
 
-- The Belgian and French PCMN has 7+1 top-level accounts:
+- The Belgian and French `PCMN
+  <https://en.wikipedia.org/wiki/French_generally_accepted_accounting_principles>`__
+  has 7+1 top-level accounts:
 
     | CLASSE 0 : Droits & engagements hors bilan
     | CLASSE 1 : Fonds propres, provisions pour risques & charges et Dettes à plus d'un an
@@ -183,8 +183,8 @@ TODO
     | CLASSE 6 : Charges
     | CLASSE 7 : Produits
     
-
   explain the differences and how to solve this.
+  
   See also 
 
   - http://code.gnucash.org/docs/help/acct-types.html
