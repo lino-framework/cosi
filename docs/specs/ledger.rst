@@ -1,9 +1,9 @@
 .. _cosi.specs.ledger:
 .. _cosi.tested.ledger:
 
-===================================================
-The :mod:`lino_cosi.lib.ledger` plugin (Accounting)
-===================================================
+===========================
+General Ledger in Lino Così
+===========================
 
 .. to test only this document:
 
@@ -17,27 +17,64 @@ The :mod:`lino_cosi.lib.ledger` plugin (Accounting)
     >>> ses = rt.login("robin")
     >>> translation.activate('en')
 
-This document describes some basic features of "general accounting"
+This document describes the concepts of general accounting as
 implemented by the :mod:`lino_cosi.lib.ledger` plugin.
 
-This document is based on the following specifications:
+This document is based on the following other specification:
 
 - :ref:`cosi.specs.accounting`
 
-
+Table of contents:
 
 .. contents::
    :depth: 1
    :local:
 
 
-Basic truths of accounting
-==========================
+What is a ledger?
+=================
 
-- A purchase invoice credits the partner account.
-- A sales invoice debits the partner account.
-- The payment of a purchases invoice debits the partner account.
-- The payment of a sales invoice credits the partner account.
+A ledger is a book in which the monetary transactions of a business
+are posted in the form of debits and credits (from `1
+<http://www.thefreedictionary.com/ledger>`__).
+
+In Lino, the ledger is a central table of Movements_, owned by
+Vouchers_ which are grouped into Journals_.
+
+
+.. _cosi.specs.ledger.movements:
+
+Movements
+=========
+
+Movements are stored in the database using the :class:`ledger.Movement
+<lino_cosi.lib.ledger.models.Movement>` model.
+
+
+.. _cosi.specs.ledger.vouchers:
+
+Vouchers
+========
+
+A **voucher** is any document which serves as legal proof for a ledger
+transaction. Examples of vouchers include invoices, bank statements,
+or payment orders.
+
+Vouchers are stored in the database using the :class:`ledger.voucher
+<lino_cosi.lib.ledger.models.Voucher>` model. But note that the
+voucher model is not being used directly.
+
+
+.. _cosi.specs.ledger.journals:
+
+Journals
+========
+
+A **journal** is a named sequence of numbered *vouchers*.
+
+Journals are stored in the database using the :class:`ledger.Journal
+<lino_cosi.lib.ledger.models.Journal>` model.
+
 
 >>> ses.show(ledger.Journals,
 ...     column_names="ref name trade_type account dc")
@@ -54,6 +91,10 @@ Basic truths of accounting
  MSC         Miscellaneous Journal Entries                (5700) Cash                      Debit
 =========== =============================== ============ ================================ ===========================
 <BLANKLINE>
+
+
+
+
 
 
 Trade types
