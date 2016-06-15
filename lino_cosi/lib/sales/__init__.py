@@ -23,6 +23,8 @@
     :toctree:
 
     models
+    fixtures.std
+    fixtures.demo_bookings
 
 """
 

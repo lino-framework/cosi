@@ -183,13 +183,14 @@ class ExpectedMovements(dd.VirtualTable):
 
 
     """
+    row_height = 4
     required_roles = dd.required(AccountingReader)
     label = _("Debts")
     icon_name = 'book_link'
     #~ column_names = 'match due_date debts payments balance'
     column_names = 'due_date:15 balance debts payments'
     auto_fit_column_widths = True
-    variable_row_height = True
+    # variable_row_height = True
     parameters = dd.ParameterPanel(
         date_until=models.DateField(_("Date until"), blank=True, null=True),
         trade_type=TradeTypes.field(blank=True),
@@ -254,12 +255,13 @@ class ExpectedMovements(dd.VirtualTable):
             elems.append(ar.obj2html(row.project))
         if row.partner:
             elems.append(ar.obj2html(row.partner))
+            elems.append(row.partner.address)
         if row.bank_account:
             elems.append(ar.obj2html(row.bank_account))
         if row.account:
             elems.append(ar.obj2html(row.account))
-        # return E.span(*join_elems(elems, ' / '))
-        return E.span(*join_elems(elems, E.br))
+        return E.span(*join_elems(elems, ' / '))
+        # return E.span(*join_elems(elems, E.br))
         # return E.span(*elems)
 
     @dd.displayfield(_("Match"))
