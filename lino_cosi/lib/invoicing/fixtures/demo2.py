@@ -26,10 +26,10 @@ from lino.api import dd, rt
 
 
 def objects():
-    vt = dd.plugins.invoicing.get_voucher_type()
-    jnl_list = vt.get_journals()
-    if len(jnl_list) == 0:
-        return
+    # vt = dd.plugins.invoicing.get_voucher_type()
+    # jnl_list = vt.get_journals()
+    # if len(jnl_list) == 0:
+    #     return
     from lino_cosi.lib.ledger.roles import LedgerStaff
     accountants = LedgerStaff.get_user_profiles()
     users = rt.models.users.User.objects.filter(
@@ -43,8 +43,7 @@ def objects():
     # have something in our invoicing plan.
     today = datetime.date(dd.plugins.ledger.start_year, 1, 1)
     while today < dd.demo_date(-60):
-        plan = Plan.start_plan(
-            ses.get_user(), journal=jnl_list[0], today=today)
+        plan = Plan.start_plan(ses.get_user(), today=today)
         yield plan
         plan.fill_plan(ses)
         for i in plan.items.all()[:9]:

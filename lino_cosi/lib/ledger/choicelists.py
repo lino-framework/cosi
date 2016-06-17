@@ -184,12 +184,13 @@ class VoucherType(dd.Choice):
             if isinstance(e, GridElement):
                 return e
 
-    def get_journals(self):
+    def get_journals(self, **kwargs):
         """Return a list of the :class:`Journal` objects that work on this
         voucher type.
 
         """
-        return rt.modules.ledger.Journal.objects.filter(voucher_type=self)
+        kwargs.update(voucher_type=self)
+        return rt.modules.ledger.Journal.objects.filter(**kwargs)
 
 
 class VoucherTypes(dd.ChoiceList):

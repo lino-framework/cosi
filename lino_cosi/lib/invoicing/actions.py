@@ -32,6 +32,7 @@ class StartInvoicing(dd.Action):
     :class:`StartInvoicingForPartner`.
 
     """
+    show_in_bbar = False
     icon_name = 'basket'
     sort_index = 52
     label = _("Create invoices")
@@ -56,6 +57,7 @@ class StartInvoicingForJournal(StartInvoicing):
     as `start_invoicing`.
 
     """
+    show_in_bbar = True
 
     def get_options(self, ar):
         jnl = ar.master_instance
@@ -70,12 +72,13 @@ class StartInvoicingForPartner(StartInvoicing):
     <lino.modlib.contacts.models.Partner>` model as `start_invoicing`.
 
     """
+    show_in_bbar = True
     select_rows = True
 
     def get_options(self, ar):
         partner = ar.selected_rows[0]
         assert isinstance(partner, rt.modules.contacts.Partner)
-        return dict(partner=partner, journal=None)
+        return dict(partner=partner)
 
 
 class UpdatePlan(dd.Action):
@@ -98,9 +101,26 @@ class ExecutePlan(dd.Action):
 
     def run_from_ui(self, ar, **kw):
         plan = ar.selected_rows[0]
-        if plan.journal is None:
-            raise Warning(_("No journal specified"))
         for item in plan.items.filter(selected=True, invoice__isnull=True):
+            item.create_invoice(ar)
+        ar.success(refresh=True)
+
+
+class ExecuteItem(ExecutePlan):
+    show_in_workflow = True
+    show_in_bbar = False
+    
+    help_text = _("Create an invoice for this suggestion.")
+
+    def get_action_permission(self, ar, obj, state):
+        if obj.invoice_id:
+            return False
+        return super(ExecuteItem, self).get_action_permission(ar, obj, state)
+        
+    def run_from_ui(self, ar, **kw):
+        for item in ar.selected_rows:
+            if item.invoice_id:
+                raise Warning("Invoice was already generated")
             item.create_invoice(ar)
         ar.success(refresh=True)
 

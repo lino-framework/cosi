@@ -42,9 +42,10 @@ from lino.modlib.users.mixins import UserAuthored, My
 from lino.api import dd, rt, _
 from lino_cosi.lib.ledger.roles import LedgerStaff
 from .mixins import Invoiceable
-from .actions import (UpdatePlan, ExecutePlan, ToggleSelection,
-                      StartInvoicing, StartInvoicingForJournal,
-                      StartInvoicingForPartner)
+from .actions import (UpdatePlan, ToggleSelection, StartInvoicing,
+                      StartInvoicingForJournal,
+                      StartInvoicingForPartner, ExecutePlan,
+                      ExecuteItem)
 
 
 @dd.python_2_unicode_compatible
@@ -84,6 +85,13 @@ class Plan(UserAuthored):
     def journal_choices(cls):
         vt = dd.plugins.invoicing.get_voucher_type()
         return rt.modules.ledger.Journal.objects.filter(voucher_type=vt)
+
+    def full_clean(self):
+        if self.journal is None:
+            vt = dd.plugins.invoicing.get_voucher_type()
+            jnl_list = vt.get_journals()
+            if len(jnl_list):
+                self.journal = jnl_list[0]
 
     def get_invoiceables_for_plan(self, partner=None):
         for m in rt.models_by_base(Invoiceable):
@@ -143,6 +151,18 @@ class Plan(UserAuthored):
                 item.last_date = max(idate, item.last_date)
             if obj.amount:
                 item.amount += obj.amount
+            n = len(item.preview.splitlines())
+            if n <= ItemsByPlan.row_height:
+                if item.preview:
+                    item.preview += '<br>\n'
+                ctx = dict(
+                    title=obj.get_invoiceable_title(),
+                    amount=obj.amount,
+                    currency=dd.plugins.ledger.currency_symbol)
+                item.preview += "{title} ({amount} {currency})".format(
+                    **ctx)
+            elif n == ItemsByPlan.row_height + 1:
+                item.preview += '...'
             item.number_of_invoiceables += 1
             item.save()
 
@@ -172,6 +192,30 @@ class Plan(UserAuthored):
 
 class Item(dd.Model):
     """The items of an invoicing plan are called **suggestions**.
+
+    .. attribute:: plan
+    .. attribute:: partner
+    .. attribute:: preview
+    
+        A textual preview of the invoiceable items to be included in
+        the invoice.
+
+
+    .. attribute:: amount
+    .. attribute:: invoice
+
+        The invoice that has been generated. This field is empty for
+        new items. When an item has been executed, this field points
+        to the generated invoice.
+
+    .. attribute:: workflow_buttons
+
+    The following fields are maybe not important:
+
+    .. attribute:: first_date
+    .. attribute:: last_date
+    .. attribute:: number_of_invoiceables
+
     """
     class Meta:
         app_label = 'invoicing'
@@ -185,14 +229,21 @@ class Item(dd.Model):
     last_date = models.DateField(_("Last date"))
     amount = dd.PriceField(_("Amount"), default=ZERO)
     number_of_invoiceables = models.IntegerField(_("Number"), default=0)
+    preview = models.TextField(_("Preview"), blank=True)
     selected = models.BooleanField(_("Selected"), default=True)
     invoice = models.ForeignKey(
-        dd.plugins.invoicing.voucher_model, null=True, blank=True,
+        dd.plugins.invoicing.voucher_model,
+        verbose_name=_("Invoice"),
+        null=True, blank=True,
         on_delete=models.SET_NULL)
+
+    exec_item = ExecuteItem()
 
     def create_invoice(self,  ar):
         """Create the invoice corresponding to this item of the plan.
         """
+        if self.plan.journal is None:
+            raise Warning(_("No journal specified"))
         ITEM_MODEL = dd.resolve_model(dd.plugins.invoicing.item_model)
         M = ITEM_MODEL._meta.get_field('voucher').rel.to
         invoice = M(partner=self.partner, journal=self.plan.journal,
@@ -252,7 +303,8 @@ class Items(dd.Table):
 class ItemsByPlan(Items):
     verbose_name_plural = _("Suggestions")
     master_key = 'plan'
-    column_names = "selected partner number_of_invoiceables amount invoice *"
+    row_height = 2
+    column_names = "selected partner preview amount invoice workflow_buttons *"
 
 
 class InvoicingsByInvoiceable(dd.Table):
