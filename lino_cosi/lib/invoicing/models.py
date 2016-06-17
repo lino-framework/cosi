@@ -70,10 +70,10 @@ class Plan(UserAuthored):
         verbose_name_plural = _("Invoicing plans")
 
     journal = dd.ForeignKey('ledger.Journal', blank=True, null=True)
-    max_date = models.DateField(
-        _("Invoiceables until"), default=dd.today)
     today = models.DateField(
         _("Invoicing date"), default=dd.today)
+    max_date = models.DateField(
+        _("Invoiceables until"), null=True, blank=True)
     partner = dd.ForeignKey('contacts.Partner', blank=True, null=True)
 
     update_plan = UpdatePlan()
@@ -88,7 +88,7 @@ class Plan(UserAuthored):
     def get_invoiceables_for_plan(self, partner=None):
         for m in rt.models_by_base(Invoiceable):
             for obj in m.get_invoiceables_for_plan(self, partner):
-                if obj.get_invoiceable_product() is not None:
+                if obj.get_invoiceable_product(self) is not None:
                     yield obj
 
     @classmethod
@@ -203,7 +203,8 @@ class Item(dd.Model):
         items = []
         with translation.override(lng):
             for ii in self.plan.get_invoiceables_for_plan(self.partner):
-                for i in ii.get_wanted_items(ar, invoice, ITEM_MODEL):
+                for i in ii.get_wanted_items(
+                        ar, invoice, self.plan, ITEM_MODEL):
                     items.append(i)
 
         if len(items) == 0:
@@ -231,7 +232,7 @@ class Item(dd.Model):
 
 class Plans(dd.Table):
     model = "invoicing.Plan"
-    detail_layout = """user journal max_date today partner
+    detail_layout = """user journal today max_date partner
     invoicing.ItemsByPlan
     """
 

@@ -81,9 +81,12 @@ class Invoiceable(dd.Model):
         kwargs.update(gfk2lookup(item_model.invoiceable, self))
         return item_model.objects.filter(**kwargs)
 
-    def get_wanted_items(self, ar, invoice, item_model):
+    def get_wanted_items(self, ar, invoice, plan, item_model):
+        product = self.get_invoiceable_product(plan)
+        if not product:
+            return []
         i = item_model(voucher=invoice, invoiceable=self,
-                       product=self.get_invoiceable_product(),
+                       product=product,
                        title=self.get_invoiceable_title(invoice),
                        qty=self.get_invoiceable_qty())
         am = self.get_invoiceable_amount()
@@ -92,7 +95,7 @@ class Invoiceable(dd.Model):
         self.setup_invoice_item(i)
         return [i]
 
-    def get_invoiceable_product(self):
+    def get_invoiceable_product(self, plan):
         """To be implemented by subclasses.  Return the product to put into
         the invoice item.
 

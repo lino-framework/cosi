@@ -18,20 +18,15 @@
 
 
 """
-Creates fictive demo bookings:
+Creates fictive demo bookings with monthly purchases.
 
-- monthly purchases (causing costs)
-- monthly sales
-
-See also :mod:`lino_cosi.lib.finan.fixtures.demo_bookings`
+See also:
+- :mod:`lino_cosi.lib.finan.fixtures.demo_bookings`
+- :mod:`lino_cosi.lib.sales.fixtures.demo_bookings`
 
 """
 
 from __future__ import unicode_literals
-
-import logging
-logger = logging.getLogger(__name__)
-
 
 import datetime
 from dateutil.relativedelta import relativedelta as delta
@@ -45,11 +40,6 @@ from lino.api import dd, rt
 from lino_cosi.lib.vat.mixins import myround
 
 vat = dd.resolve_app('vat')
-sales = dd.resolve_app('sales')
-
-partner_model = settings.SITE.partners_app_label + '.Partner'
-
-current_group = None
 
 # from lino.core.requests import BaseRequest
 REQUEST = settings.SITE.login()  # BaseRequest()
@@ -60,38 +50,13 @@ def objects():
 
     Journal = rt.models.ledger.Journal
     Company = rt.models.contacts.Company
-    Partner = rt.models.contacts.Partner
-    Person = rt.models.contacts.Person
-    Product = rt.models.products.Product
 
     USERS = Cycler(settings.SITE.user_model.objects.all())
-    # PAYMENT_TERMS = Cycler(rt.models.ledger.PaymentTerm.objects.all())
 
-    # for obj in Partner.objects.all():
-    #     obj.payment_term = PAYMENT_TERMS.pop()
-    #     yield obj
-
-    if sales:
-
-        # yield Product(name="Foo", sales_price='399.90')
-        # yield Product(name="Bar", sales_price='599.90')
-        # yield Product(name="Baz", sales_price='990.00')
-        PRODUCTS = Cycler(Product.objects.order_by('id'))
-        JOURNAL_S = Journal.objects.get(ref="SLS")
-        CUSTOMERS = Cycler(Person.objects.filter(
-            gender=dd.Genders.male).order_by('id'))
-        assert Person.objects.count() > 0
-        ITEMCOUNT = Cycler(1, 2, 3)
-        QUANTITIES = Cycler(15, 10, 8, 4)
-        # SALES_PER_MONTH = Cycler(2, 1, 3, 2, 0)
-        SALES_PER_MONTH = Cycler(5, 4, 1, 8, 6)
-
-    # purchases:
     PROVIDERS = Cycler(Company.objects.filter(
         sepa_accounts__iban__isnull=False).order_by('id'))
 
     JOURNAL_P = Journal.objects.get(ref="PRC")
-    #~ assert JOURNAL_P.dc == accounts.CREDIT
     ACCOUNTS = Cycler(JOURNAL_P.get_allowed_accounts())
     AMOUNTS = Cycler([Decimal(x) for x in
                       "20 29.90 39.90 99.95 199.95 599.95 1599.99".split()])
@@ -119,35 +84,6 @@ def objects():
     # end_date = datetime.date(START_YEAR+1, 5, 1)
     # print(20151216, START_YEAR, settings.SITE.demo_date(), end_date - date)
     while date < end_date:
-
-        if sales:
-            partner = None
-            for i in range(SALES_PER_MONTH.pop()):
-                # Every fifth time there are two successive invoices
-                # to the same partner.
-                if partner is None or i % 5:
-                    partner = CUSTOMERS.pop()
-                #~ print __file__, date
-                invoice = sales.VatProductInvoice(
-                    journal=JOURNAL_S,
-                    partner=partner,
-                    user=USERS.pop(),
-                    voucher_date=date + delta(days=5 + i),
-                    entry_date=date + delta(days=5 + i + 1),
-                    # payment_term=PAYMENT_TERMS.pop(),
-                )
-                    # date=date + delta(days=10 + DATE_DELTAS.pop()))
-                yield invoice
-                for j in range(ITEMCOUNT.pop()):
-                    item = sales.InvoiceItem(
-                        voucher=invoice,
-                        product=PRODUCTS.pop(),
-                        qty=QUANTITIES.pop())
-                    item.product_changed(REQUEST)
-                    item.before_ui_save(REQUEST)
-                    yield item
-                invoice.register(REQUEST)
-                invoice.save()
 
         for story in PURCHASE_STORIES:
             vd = date + delta(days=DATE_DELTAS.pop())

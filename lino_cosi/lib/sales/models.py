@@ -479,6 +479,7 @@ class InvoiceItems(dd.Table):
 
 
 class ItemsByInvoice(InvoiceItems):
+    label = _("Content")
     master_key = 'voucher'
     order_by = ["seqno"]
 
