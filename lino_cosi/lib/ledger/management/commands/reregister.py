@@ -67,7 +67,7 @@ def reregister_vouchers(username=None, args=[], simulate=False):
             ses = BaseRequest(user=obj.user)
             obj.register_voucher(ses, not clear_afterwards)
             count += 1
-    
+
     msg = "{0} vouchers have been re-registered."
     puts(msg.format(count))
 
@@ -92,12 +92,10 @@ class Command(BaseCommand):
 
     """
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '-s', '--simulate', action='store_true', dest='simulate',
-            default=False,
-            help="Don't actually do it. Just simulate."),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('-s', '--simulate', action='store_true', dest='simulate',
+                            default=False,
+                            help="Don't actually do it. Just simulate."),
 
     def handle(self, *args, **options):
         reregister_vouchers(args=args, simulate=options['simulate'])
