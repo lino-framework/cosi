@@ -453,8 +453,9 @@ class ConfirmAllEnrolments(dd.Action):
 
 
 class PendingRequestedEnrolments(Enrolments):
-
+    "Show all requested enrolments."
     label = _("Pending requested enrolments")
+    required_roles = dd.required(dd.SiteStaff)
     auto_fit_column_widths = True
     params_panel_hidden = True
     column_names = 'request_date course pupil remark user workflow_buttons'
@@ -470,7 +471,9 @@ class PendingRequestedEnrolments(Enrolments):
 
 
 class PendingConfirmedEnrolments(Enrolments):
+    "Show all confirmed enrolments."
     label = _("Pending confirmed enrolments")
+    required_roles = dd.required(dd.SiteStaff)
     auto_fit_column_widths = True
     params_panel_hidden = True
 
