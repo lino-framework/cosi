@@ -16,7 +16,11 @@
 # License along with Lino Cosi.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-"""Creates an invoicing plan and executes the first ten items
+"""Creates montly invoicing plans and executes them.
+
+dd.plugins.ledger.start_year
+
+first ten items
 (i.e. generates ten invoices).
 
 """
@@ -46,7 +50,8 @@ def objects():
         plan = Plan.start_plan(ses.get_user(), today=today)
         yield plan
         plan.fill_plan(ses)
-        for i in plan.items.all()[:9]:
+        # for i in plan.items.all()[:9]:
+        for i in plan.items.all():
             obj = i.create_invoice(ses)
             assert obj is not None
             yield obj

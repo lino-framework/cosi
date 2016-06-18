@@ -77,11 +77,17 @@ def objects(refs="PMO BNK"):
                 user=USERS.pop(),
                 voucher_date=date + delta(days=offset))
             yield voucher
-            suggestions = sug_table.request(voucher)
+
+            # start action request for do_fill:
             ba = sug_table.get_action_by_name('do_fill')
             ar = ba.request(master_instance=voucher)
+            # select all rows:
+            suggestions = sug_table.request(voucher)
             ar.selected_rows = list(suggestions)
+            # run the action:
             ar.run()
+
+            # some items differ from what was suggested:
             if ref == 'BNK':
                 for item in voucher.items.all():
                     pd = PAYMENT_DIFFS.pop()
@@ -92,6 +98,8 @@ def objects(refs="PMO BNK"):
                             item.save()
                         else:
                             item.delete()
+            # if no items have been created (or if they have been
+            # deleted by PAYMENT_DIFFS), remove the empty voucher:
             if voucher.items.count() == 0:
                 voucher.delete()
             else:

@@ -28,7 +28,7 @@ See :ref:`cosi.specs.invoicing` for a functional specification.
     models
     mixins
     actions
-    fixtures.demo2
+    fixtures.demo_bookings
 
 """
 
