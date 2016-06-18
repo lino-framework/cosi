@@ -1,4 +1,4 @@
-# Copyright 2008-2015 Luc Saffre
+# Copyright 2008-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 
 """
 Adds functionality for managing financial stuff.
+See :doc:`/specs/finan`.
 
 .. autosummary::
    :toctree:
@@ -25,7 +26,7 @@ Adds functionality for managing financial stuff.
     models
     choicelists
     mixins
-    fixtures.demo_bookings
+    fixtures.payments
 
 """
 
@@ -44,11 +45,20 @@ class Plugin(ad.Plugin):
 
     The default value is currently `False` because some demo fixtures
     rely on this.  But in most cases this should probably be set to
-    `True`::
+    `True` because of course a customer can pay an invoice in advance.
+
+    You can specify this for your application::
 
         def setup_plugins(self):
             self.plugins.finan.suggest_future_vouchers = True
             super(Site, self).setup_plugins()
+
+    Or, as a local system administrator you can also simply set it
+    after your :data:`SITE` instantiation::
+
+        SITE = Site(globals())
+        ...
+        SITE.plugins.finan.suggest_future_vouchers = True
 
     """
 

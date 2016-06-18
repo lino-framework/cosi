@@ -589,7 +589,8 @@ class SuggestionsByVoucherItem(SuggestionsByVoucher):
         item = ar.master_instance
         voucher = item.voucher
         kw.update(for_journal=voucher.journal)
-        kw.update(date_until=voucher.voucher_date)
+        if not dd.plugins.finan.suggest_future_vouchers:
+            kw.update(date_until=voucher.voucher_date)
         kw.update(partner=item.partner)
         return kw
 

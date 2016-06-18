@@ -255,13 +255,13 @@ class ExpectedMovements(dd.VirtualTable):
             elems.append(ar.obj2html(row.project))
         if row.partner:
             elems.append(ar.obj2html(row.partner))
-            elems.append(row.partner.address)
+            # elems.append(row.partner.address)
         if row.bank_account:
             elems.append(ar.obj2html(row.bank_account))
         if row.account:
             elems.append(ar.obj2html(row.account))
-        return E.span(*join_elems(elems, ' / '))
-        # return E.span(*join_elems(elems, E.br))
+        # return E.span(*join_elems(elems, ' / '))
+        return E.span(*join_elems(elems, E.br))
         # return E.span(*elems)
 
     @dd.displayfield(_("Match"))

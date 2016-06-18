@@ -44,7 +44,7 @@ The database structure
  finan.PaymentOrder          finan.PaymentOrders            15        14
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        70
  gfks.HelpText               gfks.HelpTexts                 4         2
- invoicing.Item              invoicing.Items                9         0
+ invoicing.Item              invoicing.Items                10        0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         15
  ledger.Journal              ledger.Journals                19        7
