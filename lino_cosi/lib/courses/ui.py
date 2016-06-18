@@ -344,8 +344,8 @@ class ClosedCourses(Courses):
 
 
 class Enrolments(dd.Table):
+    """Base class for all enrolment tables."""
     # debug_permissions=20130531
-    required_roles = dd.required(dd.SiteStaff)
     model = 'courses.Enrolment'
     stay_in_grid = True
     parameters = mixins.ObservedPeriod(
@@ -425,6 +425,13 @@ class Enrolments(dd.Table):
             yield unicode(ar.param_values.author)
 
 
+class AllEnrolments(Enrolments):
+    """Show global list of all enrolments."""
+    required_roles = dd.required(dd.SiteStaff)
+    order_by = ['-id']
+    column_names = 'id request_date start_date end_date user course pupil *'
+
+
 class ConfirmAllEnrolments(dd.Action):
     label = _("Confirm all")
     select_rows = False
@@ -446,8 +453,9 @@ class ConfirmAllEnrolments(dd.Action):
 
 
 class PendingRequestedEnrolments(Enrolments):
-
+    "Show all requested enrolments."
     label = _("Pending requested enrolments")
+    required_roles = dd.required(dd.SiteStaff)
     auto_fit_column_widths = True
     params_panel_hidden = True
     column_names = 'request_date course pupil remark user workflow_buttons'
@@ -463,7 +471,9 @@ class PendingRequestedEnrolments(Enrolments):
 
 
 class PendingConfirmedEnrolments(Enrolments):
+    "Show all confirmed enrolments."
     label = _("Pending confirmed enrolments")
+    required_roles = dd.required(dd.SiteStaff)
     auto_fit_column_widths = True
     params_panel_hidden = True
 

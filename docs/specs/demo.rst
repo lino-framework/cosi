@@ -27,7 +27,7 @@ The demo database contains 69 persons and 22 companies.
 
 
 >>> print(' '.join(settings.SITE.demo_fixtures))
-std few_countries euvatrates few_languages furniture minimal_ledger demo demo_bookings demo2
+std few_countries euvatrates few_languages furniture minimal_ledger demo demo_bookings payments demo2
 
 
 
@@ -62,7 +62,7 @@ The test database
 - countries.Place : id, parent, name, country, zip_code, type
 - courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until
 - courses.Enrolment : id, start_date, end_date, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
-- courses.Line : id, name, excerpt_title, ref, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
+- courses.Line : id, ref, name, excerpt_title, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
@@ -74,8 +74,8 @@ The test database
 - finan.PaymentOrder : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, printed_by, item_account, item_remark, total, execution_date
 - finan.PaymentOrderItem : id, seqno, match, bank_account, amount, dc, remark, account, partner, voucher
 - gfks.HelpText : id, content_type, field, help_text
-- invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, selected, invoice
-- invoicing.Plan : id, user, journal, max_date, today, partner
+- invoicing.Item : id, plan, partner, first_date, last_date, amount, number_of_invoiceables, preview, selected, invoice
+- invoicing.Plan : id, user, journal, today, max_date, partner
 - ledger.AccountingPeriod : id, ref, start_date, end_date, state, year, remark
 - ledger.Journal : id, ref, seqno, name, build_method, template, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc, yearly_numbering
 - ledger.MatchRule : id, account, journal
@@ -147,7 +147,7 @@ The test database
  finan.PaymentOrder          finan.PaymentOrders            15        4
  finan.PaymentOrderItem      finan.PaymentOrderItemTable    10        20
  gfks.HelpText               gfks.HelpTexts                 4         2
- invoicing.Item              invoicing.Items                9         0
+ invoicing.Item              invoicing.Items                10        0
  invoicing.Plan              invoicing.Plans                6         1
  ledger.AccountingPeriod     ledger.AccountingPeriods       7         5
  ledger.Journal              ledger.Journals                15        7

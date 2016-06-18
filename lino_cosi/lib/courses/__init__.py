@@ -76,6 +76,6 @@ class Plugin(ad.Plugin):
     def setup_explorer_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.AllCourses')
-        m.add_action('courses.Enrolments')
+        m.add_action('courses.AllEnrolments')
         m.add_action('courses.EnrolmentStates')
 

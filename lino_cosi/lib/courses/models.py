@@ -47,6 +47,7 @@ from django.utils.translation import pgettext_lazy as pgettext
 from lino.api import dd, rt
 from lino import mixins
 
+from lino.mixins import Referrable
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
 from lino.mixins.periods import DatePeriod
@@ -124,7 +125,7 @@ class Topic(mixins.BabelNamed, Printable, Duplicable):
 
 
 @dd.python_2_unicode_compatible
-class Line(ExcerptTitle, Duplicable):
+class Line(Referrable, Duplicable, ExcerptTitle):
     """A **line** (or **series**) of courses groups courses into a
     configurable list of categories.
 
@@ -160,7 +161,7 @@ class Line(ExcerptTitle, Duplicable):
         verbose_name = pgettext("singular form", "Course series")
         verbose_name_plural = pgettext("plural form", 'Course series')
 
-    ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
+    # ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
     course_area = CourseAreas.field(blank=True)
     topic = models.ForeignKey(Topic, blank=True, null=True)
     description = dd.BabelTextField(_("Description"), blank=True)

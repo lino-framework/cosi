@@ -109,7 +109,7 @@ class Invoiceable(dd.Model):
         """
         return None
 
-    def get_invoiceable_title(self, invoice):
+    def get_invoiceable_title(self, invoice=None):
         """Return the title to put into the invoice item.  May be overridden
         by subclasses.
 
@@ -124,24 +124,6 @@ class Invoiceable(dd.Model):
 
     def get_invoiceable_date(self):
         return getattr(self, self.invoiceable_date_field)
-
-    @classmethod
-    def unused_get_partner_filter(cls, partner):
-        """
-        To be implemented by subclasses.
-        Return the filter to apply to :class:`lino.modlib.contacts.models.Partner` in
-        order to get the partner who must receive the invoice.
-
-        """
-        raise NotImplementedError()
-
-    # @classmethod
-    # def get_invoiceables_for_partner(cls, partner, max_date):
-    #     """Yield a sequence of invoiceables (of this class) for the given
-    #     partner.
-
-    #     """
-    #     raise NotImplementedError()
 
     @classmethod
     def get_invoiceables_for_plan(cls, plan, partner=None):
