@@ -95,7 +95,7 @@ Rolf is the local system administrator, he has a complete menu:
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
-  - MwSt. : Due invoices
+  - MwSt. : Offene Rechnungen
 - Konfigurierung :
   - System : Site-Parameter, Hilfetexte, Benutzer
   - Orte : Länder, Orte
