@@ -119,6 +119,10 @@ class Plan(UserAuthored):
                 if getattr(plan, k) != v:
                     changed = True
                     setattr(plan, k, v)
+            if 'today' not in options:
+                if plan.today != dd.today():
+                    plan.today = dd.today()
+                    changed = True
             if changed:
                 plan.items.all().delete()
         except cls.DoesNotExist:
