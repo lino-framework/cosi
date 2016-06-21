@@ -2,6 +2,9 @@ tolerate_sphinx_warnings: false
 blogref_url: http://luc.lino-framework.org
 revision_control_system: git
 locale_dir: lino_cosi/lib/cosi/locale
+help_texts_source: docs
+help_texts_module: lino_cosi.lib.cosi
+
 
 cleanable_files:
  - docs/api/lino_cosi.*
@@ -12,3 +15,4 @@ demo_projects:
     - lino_cosi.projects.apc.settings.demo
     - lino_cosi.projects.pierre.settings.demo
 
+help_text_tree: docs
