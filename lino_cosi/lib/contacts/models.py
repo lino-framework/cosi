@@ -17,11 +17,28 @@
 
 
 from lino.api import _
+from lino_cosi.lib.accounts.utils import DEBIT
 from lino.modlib.contacts.models import *
 
 from lino_cosi.lib.vat.mixins import PartnerDetailMixin
 
 
+# class Partner(Partner):
+
+#     class Meta(object):
+#         app_label = 'contacts'
+#         abstract = dd.is_abstract_model(__name__, 'Partner')
+
+#     @dd.virtualfield(dd.PriceField(_("Balance")))
+#     def partner_balance(self, ar):
+#         Movement = rt.models.ledger.Movement
+#         qs = Movement.objects.filter(
+#             partner=self,
+#             cleared=False)
+#         return Movement.get_balance(DEBIT, qs)
+
+
+# class PartnerDetail(PartnerDetail):
 class PartnerDetail(PartnerDetail, PartnerDetailMixin):
     
     main = "general ledger sepa.AccountsByPartner"
@@ -70,11 +87,20 @@ class CompanyDetail(PartnerDetail, CompanyDetail):
     name_box = "prefix:10 name type:30"
     
 
-@dd.receiver(dd.post_analyze)
-def my_details(sender, **kw):
-    contacts = sender.modules.contacts
-    contacts.Partners.set_detail_layout(PartnerDetail())
-    contacts.Companies.set_detail_layout(CompanyDetail())
-    contacts.Persons.set_detail_layout(PersonDetail())
+# Partners.detail_layout = PartnerDetail()
+# Companies.detail_layout = CompanyDetail()
+# Persons.detail_layout = PersonDetail()
+
+Partners.set_detail_layout(PartnerDetail())
+Companies.set_detail_layout(CompanyDetail())
+Persons.set_detail_layout(PersonDetail())
+
+
+# @dd.receiver(dd.post_analyze)
+# def my_details(sender, **kw):
+#     contacts = sender.modules.contacts
+#     contacts.Partners.set_detail_layout(contacts.PartnerDetail())
+#     contacts.Companies.set_detail_layout(contacts.CompanyDetail())
+#     contacts.Persons.set_detail_layout(contacts.PersonDetail())
 
 
