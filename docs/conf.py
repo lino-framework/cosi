@@ -168,4 +168,5 @@ extlinks.update({
 extlinks.update(
     ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
 
+from lino.sphinxcontrib.help_text_builder import setup
 

@@ -540,7 +540,7 @@ class EnrolmentsByCourse(Enrolments):
 class EnrolmentsByOption(Enrolments):
     label = _("Enrolments using this option")
     master_key = 'option'
-    column_names = 'course pupil remark amount request_date *'
+    column_names = 'course pupil remark request_date *'
     order_by = ['request_date']
     
 

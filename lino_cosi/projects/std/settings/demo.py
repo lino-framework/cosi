@@ -20,3 +20,4 @@ class Site(DocsSite):
         self.plugins.ledger.configure(start_year=2015)
 
 SITE = Site(globals())
+DEBUG = True

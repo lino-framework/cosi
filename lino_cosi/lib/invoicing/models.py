@@ -56,12 +56,20 @@ class Plan(UserAuthored):
 
     .. attribute:: user
     .. attribute:: journal
+
+        The journal where to create invoices.  When this field is
+        empty, you can fill the plan with suggestions but cannot
+        execute the plan.
+
     .. attribute:: max_date
     .. attribute:: today
     .. attribute:: partner
 
     .. attribute:: update_plan
     .. attribute:: execute_plan
+
+        Execute this plan, i.e. create an invoice for each selected
+        suggestion.
 
     """
     class Meta:
