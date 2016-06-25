@@ -1,4 +1,4 @@
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -28,3 +28,8 @@ Lino Cosi extension of :mod:`lino.modlib.contacts`
 """
 
 from lino.modlib.contacts import Plugin
+
+
+class Plugin(Plugin):
+
+    extends_models = ['Partner', 'Person', 'Company']
