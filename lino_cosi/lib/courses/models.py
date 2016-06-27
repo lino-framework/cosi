@@ -461,7 +461,7 @@ class Course(Reservation, Duplicable):
             return _("Unlimited")
         return str(self.get_free_places())
 
-    @dd.displayfield(_("Requested"))
+    @dd.virtualfield(models.IntegerField(_("Requested")))
     def requested(self, ar):
         return self.get_places_sum(state=EnrolmentStates.requested)
         # pv = dict(start_date=dd.today())
@@ -469,7 +469,7 @@ class Course(Reservation, Duplicable):
         # return rt.modules.courses.EnrolmentsByCourse.request(
         #     self, param_values=pv)
 
-    @dd.displayfield(_("Confirmed"))
+    @dd.virtualfield(models.IntegerField(_("Confirmed")))
     def confirmed(self, ar):
         return self.get_places_sum(state=EnrolmentStates.confirmed)
         # pv = dict(start_date=dd.today())
