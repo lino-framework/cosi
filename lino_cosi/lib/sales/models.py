@@ -523,8 +523,11 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                 
 
 class ItemsByInvoicePrintNoQtyColumn(ItemsByInvoicePrint):
+    """Default column layout to be used when printing an invoice.
+    """
     column_names = "description_print total_incl"
     include_qty_in_description = True
+    hide_sums = True
 
 
 VatProductInvoice.print_items_table = ItemsByInvoicePrint

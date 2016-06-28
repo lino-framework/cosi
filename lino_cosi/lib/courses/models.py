@@ -168,7 +168,7 @@ class Line(Referrable, Duplicable, ExcerptTitle):
 
     every_unit = Recurrencies.field(
         _("Recurrency"),
-        default=Recurrencies.per_weekday.as_callable,
+        default=Recurrencies.weekly.as_callable,
         blank=True)  # iCal:DURATION
     every = models.IntegerField(_("Repeat every"), default=1)
 
@@ -330,7 +330,7 @@ class Course(Reservation, Duplicable):
             self.room)
 
     def update_cal_from(self, ar):
-        """Note: if recurrency is per_weekday, actual start may be
+        """Note: if recurrency is weekly or per_weekday, actual start may be
         later than self.start_date
 
         """
