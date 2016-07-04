@@ -495,16 +495,20 @@ class ItemsByInvoicePrint(ItemsByInvoice):
             if self.description.startswith("<"):
                 # desc = E.raw('<div>%s</div>' % self.description)
                 desc = E.raw(self.description)
+                elems.append(desc)
             else:
                 # desc = E.raw('<div>%s</div>' % self.description)
                 html = restify(ar.parse_memo(self.description))
                 dd.logger.info("20160704b restified --> %s", html)
                 desc = E.raw(html)
                 if desc.tag == 'body':
+                    # happens if it contains more than one paragraph
                     desc = list(desc)  # .children
-            dd.logger.info(
-                "20160704c parsed --> %s", E.tostring(desc))
-            elems.extend(desc)
+                    elems.extend(desc)
+                else:
+                    elems.append(desc)
+                dd.logger.info(
+                    "20160704c parsed --> %s", E.tostring(desc))
         else:
             elems = [E.b(self.title)]
             # return E.span(self.title)
