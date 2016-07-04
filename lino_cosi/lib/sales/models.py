@@ -518,7 +518,7 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                         unit=self.product.delivery_unit,
                         unit_price=self.unit_price)]
         e = E.div(*elems)
-        # dd.logger.info("20160511 %s", E.tostring(e))
+        dd.logger.info("20160704d %s", E.tostring(e))
         return e
                 
 
