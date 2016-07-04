@@ -485,6 +485,13 @@ class ItemsByInvoice(InvoiceItems):
 
 
 class ItemsByInvoicePrint(ItemsByInvoice):
+    """The table used to render items in a printable document.
+
+    .. attribute:: description_print
+
+        TODO: write more about it.
+
+    """
     column_names = "description_print unit_price qty total_incl"
     include_qty_in_description = False
 
@@ -499,7 +506,7 @@ class ItemsByInvoicePrint(ItemsByInvoice):
             else:
                 # desc = E.raw('<div>%s</div>' % self.description)
                 html = restify(ar.parse_memo(self.description))
-                dd.logger.info("20160704b restified --> %s", html)
+                # dd.logger.info("20160704b restified --> %s", html)
                 desc = E.raw(html)
                 if desc.tag == 'body':
                     # happens if it contains more than one paragraph
@@ -507,8 +514,8 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                     elems.extend(desc)
                 else:
                     elems.append(desc)
-                dd.logger.info(
-                    "20160704c parsed --> %s", E.tostring(desc))
+                # dd.logger.info(
+                #     "20160704c parsed --> %s", E.tostring(desc))
         else:
             elems = [E.b(self.title)]
             # return E.span(self.title)
@@ -522,12 +529,12 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                         unit=self.product.delivery_unit,
                         unit_price=self.unit_price)]
         e = E.div(*elems)
-        dd.logger.info("20160704d %s", E.tostring(e))
+        # dd.logger.info("20160704d %s", E.tostring(e))
         return e
                 
 
 class ItemsByInvoicePrintNoQtyColumn(ItemsByInvoicePrint):
-    """Default column layout to be used when printing an invoice.
+    """Alternative column layout to be used when printing an invoice.
     """
     column_names = "description_print total_incl"
     include_qty_in_description = True
