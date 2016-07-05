@@ -30,7 +30,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from lino.api import dd, rt
 from lino.core import actions
-from lino.utils.restify import restify
 from lino.utils.xmlgen.html import E
 from lino.utils.mldbc.mixins import BabelNamed
 
@@ -483,6 +482,8 @@ class ItemsByInvoice(InvoiceItems):
     master_key = 'voucher'
     order_by = ["seqno"]
 
+from lino.modlib.notifier.utils import body_subject_to_elems
+
 
 class ItemsByInvoicePrint(ItemsByInvoice):
     """The table used to render items in a printable document.
@@ -497,28 +498,7 @@ class ItemsByInvoicePrint(ItemsByInvoice):
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
-        if self.description:
-            elems = [E.p(E.b(self.title), E.br())]
-            if self.description.startswith("<"):
-                # desc = E.raw('<div>%s</div>' % self.description)
-                desc = E.raw(self.description)
-                elems.append(desc)
-            else:
-                # desc = E.raw('<div>%s</div>' % self.description)
-                html = restify(ar.parse_memo(self.description))
-                # dd.logger.info("20160704b restified --> %s", html)
-                desc = E.raw(html)
-                if desc.tag == 'body':
-                    # happens if it contains more than one paragraph
-                    desc = list(desc)  # .children
-                    elems.extend(desc)
-                else:
-                    elems.append(desc)
-                # dd.logger.info(
-                #     "20160704c parsed --> %s", E.tostring(desc))
-        else:
-            elems = [E.b(self.title)]
-            # return E.span(self.title)
+        elems = body_subject_to_elems(ar, self.title, self.description)
         # dd.logger.info("20160511a %s", cls)
         if cls.include_qty_in_description:
             if self.qty != 1:
