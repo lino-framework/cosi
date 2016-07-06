@@ -482,7 +482,7 @@ class ItemsByInvoice(InvoiceItems):
     master_key = 'voucher'
     order_by = ["seqno"]
 
-from lino.modlib.notifier.utils import body_subject_to_elems
+from lino.modlib.notify.utils import body_subject_to_elems
 
 
 class ItemsByInvoicePrint(ItemsByInvoice):
