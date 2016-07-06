@@ -18,10 +18,10 @@
 
 from lino.api import _, rt
 from lino_cosi.lib.accounts.utils import DEBIT
-from lino.modlib.contacts.models import *
+from lino_xl.lib.contacts.models import *
 
 from lino_cosi.lib.vat.mixins import PartnerDetailMixin
-from lino.modlib.contacts.choicelists import PartnerEvents
+from lino_xl.lib.contacts.choicelists import PartnerEvents
 from lino.modlib.system.choicelists import ObservedEvent
 
 
@@ -40,7 +40,7 @@ PartnerEvents.add_item_instance(PartnerHasOpenMovements("has_open_movements"))
 
 
 class Partner(Partner):
-    """An version of :class:`lino.modlib.contacts.models.Partner` which
+    """An version of :class:`lino_xl.lib.contacts.models.Partner` which
     adds accounting fucntionality.
 
     """
@@ -55,7 +55,7 @@ class Partner(Partner):
 
 
 class Person(Person, Partner):
-    """An version of :class:`lino.modlib.contacts.models.Person` which
+    """An version of :class:`lino_xl.lib.contacts.models.Person` which
     adds accounting fucntionality.
 
     """
@@ -64,7 +64,7 @@ class Person(Person, Partner):
 
 
 class Company(Company, Partner):
-    """An version of :class:`lino.modlib.contacts.models.Company` which
+    """An version of :class:`lino_xl.lib.contacts.models.Company` which
     adds accounting fucntionality.
 
     """
