@@ -34,7 +34,7 @@ class Site(Site):
 
     def setup_plugins(self):
         super(Site, self).setup_plugins()
-        self.plugins.contacts.configure(hide_region=False)
+        self.plugins.countries.configure(hide_region=False)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
 

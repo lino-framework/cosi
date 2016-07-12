@@ -33,7 +33,7 @@ class Site(Site):
     minimal_ledger demo demo2'.split()
 
     def setup_plugins(self):
-        self.plugins.contacts.configure(hide_region=False)
+        self.plugins.countries.configure(hide_region=False)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
         super(Site, self).setup_plugins()
