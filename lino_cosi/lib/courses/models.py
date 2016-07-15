@@ -154,6 +154,12 @@ class Line(Referrable, Duplicable, ExcerptTitle):
         :class:`lino_xl.lib.excerpts.models.ExcerptType` for
         :class:`Course`)
 
+    .. attribute:: course_area
+
+        Pointer to :class:`CourseAreas`.  This is used only when an
+        application defines several variants of
+        :class:`EnrolmentsByPupil`.
+
     """
     class Meta:
         app_label = 'courses'
@@ -162,7 +168,8 @@ class Line(Referrable, Duplicable, ExcerptTitle):
         verbose_name_plural = pgettext("plural form", 'Course series')
 
     # ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
-    course_area = CourseAreas.field(blank=True)
+    course_area = CourseAreas.field(
+        default=CourseAreas.default.as_callable)
     topic = models.ForeignKey(Topic, blank=True, null=True)
     description = dd.BabelTextField(_("Description"), blank=True)
 
@@ -573,7 +580,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         verbose_name_plural = _('Enrolments')
         unique_together = ('course', 'pupil')
 
-    course_area = CourseAreas.field(blank=True)
+    course_area = CourseAreas.field(blank=True, editable=False)
 
     quick_search_fields = "pupil__name"
 
@@ -604,6 +611,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
 
     @dd.chooser()
     def course_choices(cls, course_area, request_date):
+        dd.logger.info("20160714 course_choices %s", course_area)
         if request_date is None:
             request_date = dd.today()
         flt = Q(enrolments_until__isnull=True)
@@ -611,7 +619,6 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         qs = rt.modules.courses.Course.objects.filter(flt)
         if course_area:
             qs = qs.filter(line__course_area=course_area)
-        # dd.logger.info("20160206 %s", qs.query)
         return qs
 
     @dd.chooser()
@@ -665,9 +672,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         return self.state.uses_a_place
 
     def full_clean(self, *args, **kwargs):
-        if not self.course_area:
-            if self.course and self.course.line:
-                self.course_area = self.course.line.course_area
+        if self.course and self.course.line:
+            self.course_area = self.course.line.course_area
         super(Enrolment, self).full_clean(*args, **kwargs)
 
     def get_print_templates(self, bm, action):
