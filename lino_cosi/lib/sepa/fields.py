@@ -30,6 +30,8 @@ from lino.api import dd
 
 from lino.utils.jsgen import js_code
 from lino.modlib.extjs.elems import CharFieldElement
+# from lino_extjs6.extjs6.elems import CharFieldElement
+# TODO: support ExtJS6
 
 IBAN_FORMFIELD = IBANFormField()
 
