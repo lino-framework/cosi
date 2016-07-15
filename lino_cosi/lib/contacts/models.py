@@ -16,26 +16,60 @@
 # <http://www.gnu.org/licenses/>.
 
 
-from lino.api import _
+from lino.api import _, rt
 from lino_cosi.lib.accounts.utils import DEBIT
-from lino.modlib.contacts.models import *
+from lino_xl.lib.contacts.models import *
 
 from lino_cosi.lib.vat.mixins import PartnerDetailMixin
+from lino_xl.lib.contacts.choicelists import PartnerEvents
+from lino.modlib.system.choicelists import ObservedEvent
 
 
-# class Partner(Partner):
+class PartnerHasOpenMovements(ObservedEvent):
+    text = _("Has open movements")
 
-#     class Meta(object):
-#         app_label = 'contacts'
-#         abstract = dd.is_abstract_model(__name__, 'Partner')
+    def add_filter(self, qs, pv):
+        qs = qs.filter(movement__cleared=False)
+        if pv.end_date:
+            qs = qs.filter(movement__value_date__lte=pv.end_date)
+        if pv.start_date:
+            qs = qs.filter(movement__value_date__gte=pv.start_date)
+        return qs.distinct()
 
-#     @dd.virtualfield(dd.PriceField(_("Balance")))
-#     def partner_balance(self, ar):
-#         Movement = rt.models.ledger.Movement
-#         qs = Movement.objects.filter(
-#             partner=self,
-#             cleared=False)
-#         return Movement.get_balance(DEBIT, qs)
+PartnerEvents.add_item_instance(PartnerHasOpenMovements("has_open_movements"))
+
+
+class Partner(Partner):
+    """An version of :class:`lino_xl.lib.contacts.models.Partner` which
+    adds accounting fucntionality.
+
+    """
+    class Meta(Partner.Meta):
+        abstract = dd.is_abstract_model(__name__, 'Partner')
+
+    @dd.virtualfield(dd.PriceField(_("Debit balance")))
+    def debit_balance(self, ar):
+        Movement = rt.models.ledger.Movement
+        qs = Movement.objects.filter(partner=self, cleared=False)
+        return Movement.get_balance(DEBIT, qs)
+
+
+class Person(Person, Partner):
+    """An version of :class:`lino_xl.lib.contacts.models.Person` which
+    adds accounting fucntionality.
+
+    """
+    class Meta(Person.Meta):
+        abstract = dd.is_abstract_model(__name__, 'Person')
+
+
+class Company(Company, Partner):
+    """An version of :class:`lino_xl.lib.contacts.models.Company` which
+    adds accounting fucntionality.
+
+    """
+    class Meta(Company.Meta):
+        abstract = dd.is_abstract_model(__name__, 'Company')
 
 
 # class PartnerDetail(PartnerDetail):

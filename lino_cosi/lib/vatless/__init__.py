@@ -23,7 +23,7 @@ VAT declaration).  Site operators subject to VAT are likely to use
 :mod:`lino_cosi.lib.vat` instead.
 
 Installing this plugin will automatically install
-:mod:`lino.modlib.countries` and :mod:`lino_cosi.lib.ledger`.
+:mod:`lino_xl.lib.countries` and :mod:`lino_cosi.lib.ledger`.
 
 
 .. autosummary::
@@ -44,7 +44,7 @@ class Plugin(ad.Plugin):
     """
     verbose_name = _("VAT-less invoicing")
 
-    needs_plugins = ['lino.modlib.countries', 'lino_cosi.lib.ledger']
+    needs_plugins = ['lino_xl.lib.countries', 'lino_cosi.lib.ledger']
 
     def setup_explorer_menu(self, site, profile, m):
         mg = site.plugins.accounts

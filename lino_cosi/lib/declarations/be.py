@@ -37,7 +37,7 @@ from lino import mixins
 #contacts = reports.get_app('contacts')
 #~ from lino.modlib.journals import models as journals
 #~ journals = reports.get_app('journals')
-#from lino.modlib.contacts import models as contacts
+#from lino_xl.lib.contacts import models as contacts
 #from lino.modlib.journals import models as journals
 from django.utils.translation import ugettext_lazy as _
 #~ from lino.modlib.accounts.utils import AccountTypes

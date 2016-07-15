@@ -26,7 +26,7 @@ This module is designed to work both *with* and *without*
 :mod:`lino_cosi.lib.declarations` installed.
 
 Installing this plugin will automatically install
-:mod:`lino.modlib.countries` :mod:`lino_cosi.lib.ledger`.
+:mod:`lino_xl.lib.countries` :mod:`lino_cosi.lib.ledger`.
 
 The modules :mod:`lino_cosi.lib.vatless` and :mod:`lino_cosi.lib.vat` can
 theoretically both be installed (though obviously this wouldn't make
@@ -56,7 +56,7 @@ class Plugin(ad.Plugin):
     """
     verbose_name = _("VAT")
 
-    needs_plugins = ['lino.modlib.countries', 'lino_cosi.lib.ledger']
+    needs_plugins = ['lino_xl.lib.countries', 'lino_cosi.lib.ledger']
 
     vat_quarterly = False
     """

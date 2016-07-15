@@ -30,7 +30,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from lino.api import dd, rt
 from lino.core import actions
-from lino.utils.restify import restify
 from lino.utils.xmlgen.html import E
 from lino.utils.mldbc.mixins import BabelNamed
 
@@ -483,31 +482,23 @@ class ItemsByInvoice(InvoiceItems):
     master_key = 'voucher'
     order_by = ["seqno"]
 
+from lino.modlib.notify.utils import body_subject_to_elems
+
 
 class ItemsByInvoicePrint(ItemsByInvoice):
+    """The table used to render items in a printable document.
+
+    .. attribute:: description_print
+
+        TODO: write more about it.
+
+    """
     column_names = "description_print unit_price qty total_incl"
     include_qty_in_description = False
 
     @dd.displayfield(_("Description"))
     def description_print(cls, self, ar):
-        if self.description:
-            elems = [E.p(E.b(self.title), E.br())]
-            if self.description.startswith("<"):
-                # desc = E.raw('<div>%s</div>' % self.description)
-                desc = E.raw(self.description)
-            else:
-                # desc = E.raw('<div>%s</div>' % self.description)
-                html = restify(ar.parse_memo(self.description))
-                # dd.logger.info("20160330b restified --> %s", html)
-                desc = E.raw(html)
-                if desc.tag == 'body':
-                    desc = list(desc)  # .children
-            # dd.logger.info(
-            #     "20160330c parsed --> %s", E.tostring(desc))
-            elems.extend(desc)
-        else:
-            elems = [E.b(self.title)]
-            # return E.span(self.title)
+        elems = body_subject_to_elems(ar, self.title, self.description)
         # dd.logger.info("20160511a %s", cls)
         if cls.include_qty_in_description:
             if self.qty != 1:
@@ -518,13 +509,16 @@ class ItemsByInvoicePrint(ItemsByInvoice):
                         unit=self.product.delivery_unit,
                         unit_price=self.unit_price)]
         e = E.div(*elems)
-        # dd.logger.info("20160511 %s", E.tostring(e))
+        # dd.logger.info("20160704d %s", E.tostring(e))
         return e
                 
 
 class ItemsByInvoicePrintNoQtyColumn(ItemsByInvoicePrint):
+    """Alternative column layout to be used when printing an invoice.
+    """
     column_names = "description_print total_incl"
     include_qty_in_description = True
+    hide_sums = True
 
 
 VatProductInvoice.print_items_table = ItemsByInvoicePrint

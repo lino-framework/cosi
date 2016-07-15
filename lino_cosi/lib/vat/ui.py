@@ -118,7 +118,7 @@ class ItemsByInvoice(dd.Table):
 
 class VouchersByPartner(dd.VirtualTable):
     """A :class:`lino.core.tables.VirtualTable` which shows all VatDocument
-    vouchers by :class:`lino.modlib.contacts.models.Partner`. It has a
+    vouchers by :class:`lino_xl.lib.contacts.models.Partner`. It has a
     customized slave summary.
 
     """

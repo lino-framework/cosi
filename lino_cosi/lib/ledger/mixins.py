@@ -70,7 +70,7 @@ class PartnerRelated(dd.Model):
     .. attribute:: partner
 
         The recipient of this document. A pointer to
-        :class:`lino.modlib.contacts.models.Partner`.
+        :class:`lino_xl.lib.contacts.models.Partner`.
 
     .. attribute:: payment_term
 

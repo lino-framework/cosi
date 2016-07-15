@@ -91,12 +91,12 @@ class Topics(dd.Table):
 
 class Lines(dd.Table):
     model = 'courses.Line'
-    column_names = ("ref name topic #course_area "
+    column_names = ("ref name topic course_area "
                     "event_type guest_role every_unit every *")
     order_by = ['ref', 'name']
     detail_layout = """
     id name ref
-    #course_area topic fees_cat fee options_cat body_template
+    course_area topic fees_cat fee options_cat body_template
     event_type guest_role every_unit every
     description
     excerpt_title
@@ -192,7 +192,23 @@ class Courses(dd.Table):
     params_layout = """topic line teacher state can_enroll:10 \
     start_date end_date"""
 
+    _course_area = None
+
     # simple_parameters = 'line teacher state user'.split()
+
+    @classmethod
+    def create_instance(self, ar, **kw):
+        # dd.logger.info("20160714 %s", kw)
+        obj = super(Courses, self).create_instance(ar, **kw)
+        if self._course_area is not None:
+            obj.course_area = self._course_area
+        return obj
+
+    @classmethod
+    def get_actor_label(self):
+        if self._course_area is not None:
+            return self._course_area.text
+        return super(Courses, self).get_actor_label()
 
     @classmethod
     def get_simple_parameters(cls):
@@ -209,6 +225,10 @@ class Courses(dd.Table):
         qs = super(Courses, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
+
+        if self._course_area is not None:
+            qs = qs.filter(line__course_area=self._course_area)
+
         pv = ar.param_values
         if pv.topic:
             qs = qs.filter(line__topic=pv.topic)
@@ -378,6 +398,27 @@ class Enrolments(dd.Table):
     confirmation_details
     """
 
+    _course_area = None
+
+    @classmethod
+    def get_known_values(self):
+        if self._course_area is not None:
+            return dict(course_area=self._course_area)
+        return dict()
+
+    @classmethod
+    def create_instance(self, ar, **kw):
+        if self._course_area is not None:
+            kw.update(course_area=self._course_area)
+        # dd.logger.info("20160714 %s", kw)
+        return super(EnrolmentsByPupil, self).create_instance(ar, **kw)
+
+    @classmethod
+    def get_actor_label(self):
+        if self._course_area is not None:
+            return self._course_area.text
+        return _("Enrolments")
+
     @classmethod
     def get_request_queryset(self, ar):
         qs = super(Enrolments, self).get_request_queryset(ar)
@@ -486,37 +527,26 @@ class PendingConfirmedEnrolments(Enrolments):
 
 
 class EnrolmentsByPupil(Enrolments):
+    """Show all enrolments of a given pupil."""
     params_panel_hidden = True
     required_roles = dd.required()
     master_key = "pupil"
     column_names = 'request_date course user:10 remark workflow_buttons *'
     auto_fit_column_widths = True
-    _course_area = None  # CourseAreas.default
 
-    @classmethod
-    def get_known_values(self):
-        if self._course_area is not None:
-            return dict(course_area=self._course_area)
-        return dict()
-
-    @classmethod
-    def get_actor_label(self):
-        if self._course_area is not None:
-            return self._course_area.text
-        return _("Enrolments")
+    insert_layout = """
+    course_area
+    course
+    places option
+    remark
+    request_date user
+    """
 
     @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(EnrolmentsByPupil, self).param_defaults(ar, **kw)
         kw.update(participants_only=False)
         return kw
-
-    insert_layout = """
-    course
-    places option
-    remark
-    request_date user
-    """
 
 
 class EnrolmentsByCourse(Enrolments):

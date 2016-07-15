@@ -59,11 +59,15 @@ class Plugin(ad.Plugin):
 
     def setup_main_menu(self, site, profile, main):
         m = main.add_menu(self.app_label, self.verbose_name)
-        m.add_action('courses.DraftCourses')
-        m.add_action('courses.ActiveCourses')
-        m.add_action('courses.InactiveCourses')
-        m.add_action('courses.ClosedCourses')
-        m.add_separator()
+        for ca in site.models.courses.CourseAreas.objects():
+            m.add_action(ca.courses_table)
+        # m.add_action('courses.BasicCourses')
+        # m.add_action('courses.JobCourses')
+        # m.add_action('courses.DraftCourses')
+        # m.add_action('courses.ActiveCourses')
+        # m.add_action('courses.InactiveCourses')
+        # m.add_action('courses.ClosedCourses')
+        # m.add_separator()
         m.add_action('courses.Lines')
         m.add_action('courses.PendingRequestedEnrolments')
         m.add_action('courses.PendingConfirmedEnrolments')

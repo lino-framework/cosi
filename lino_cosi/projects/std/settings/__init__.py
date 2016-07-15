@@ -57,7 +57,7 @@ class Site(Site):
         yield 'lino.modlib.gfks'
         # yield 'lino.modlib.system'
         yield 'lino.modlib.users'
-        yield 'lino.modlib.countries'
+        yield 'lino_xl.lib.countries'
         yield 'lino_cosi.lib.contacts'
         #~ yield 'lino_xl.lib.households'
         yield 'lino_xl.lib.products'
@@ -98,7 +98,7 @@ class Site(Site):
 
         """
         super(Site, self).setup_plugins()
-        self.plugins.contacts.configure(hide_region=True)
+        self.plugins.countries.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
 

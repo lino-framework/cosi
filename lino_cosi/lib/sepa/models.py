@@ -33,7 +33,7 @@ from lino.utils.format_date import fds
 from .fields import IBANField, BICField, IBAN_FORMFIELD
 from .utils import belgian_nban_to_iban_bic, iban2bic
 from .roles import SepaUser, SepaStaff
-from lino.modlib.contacts.roles import ContactsUser
+from lino_xl.lib.contacts.roles import ContactsUser
 
 
 @dd.python_2_unicode_compatible

@@ -69,7 +69,7 @@ class StartInvoicingForPartner(StartInvoicing):
     """Start an invoicing plan for this partner.
 
     This is installed onto the :class:`contacts.Partner
-    <lino.modlib.contacts.models.Partner>` model as `start_invoicing`.
+    <lino_xl.lib.contacts.models.Partner>` model as `start_invoicing`.
 
     """
     show_in_bbar = True

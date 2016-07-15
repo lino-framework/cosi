@@ -17,7 +17,7 @@
 
 
 """Adds models and tables for managing bank accounts for your
-partners.  It requires the :mod:`lino.modlib.contacts` plugin.
+partners.  It requires the :mod:`lino_xl.lib.contacts` plugin.
 
 The name ``sepa`` is actually irritating because this plugin won't do
 any SEPA transfer. Maybe rename it to ``iban``? OTOH it is needed by

@@ -60,7 +60,7 @@ from lino_xl.lib.cal.choicelists import Recurrencies
 
 from lino.utils.dates import DatePeriodValue
 
-from .choicelists import EnrolmentStates, CourseStates
+from .choicelists import EnrolmentStates, CourseStates, CourseAreas
 
 cal = dd.resolve_app('cal')
 
@@ -74,15 +74,6 @@ except AttributeError:
     pupil_model = 'foo.Bar'
 
 FILL_EVENT_GUESTS = False
-
-
-class CourseAreas(dd.ChoiceList):
-    preferred_width = 10
-    verbose_name = _("Course area")
-    verbose_name_plural = _("Course areas")
-add = CourseAreas.add_item
-add('C', _("Courses"), 'default')
-# add('J', _("Journeys"), 'journeys')
 
 
 class StartEndTime(dd.Model):
@@ -154,6 +145,12 @@ class Line(Referrable, Duplicable, ExcerptTitle):
         :class:`lino_xl.lib.excerpts.models.ExcerptType` for
         :class:`Course`)
 
+    .. attribute:: course_area
+
+        Pointer to :class:`CourseAreas`.  This is used only when an
+        application defines several variants of
+        :class:`EnrolmentsByPupil`.
+
     """
     class Meta:
         app_label = 'courses'
@@ -162,13 +159,14 @@ class Line(Referrable, Duplicable, ExcerptTitle):
         verbose_name_plural = pgettext("plural form", 'Course series')
 
     # ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
-    course_area = CourseAreas.field(blank=True)
+    course_area = CourseAreas.field(
+        default=CourseAreas.default.as_callable)
     topic = models.ForeignKey(Topic, blank=True, null=True)
     description = dd.BabelTextField(_("Description"), blank=True)
 
     every_unit = Recurrencies.field(
         _("Recurrency"),
-        default=Recurrencies.per_weekday.as_callable,
+        default=Recurrencies.weekly.as_callable,
         blank=True)  # iCal:DURATION
     every = models.IntegerField(_("Repeat every"), default=1)
 
@@ -212,10 +210,10 @@ class Line(Referrable, Duplicable, ExcerptTitle):
         "Leave empty to use the site's default.")
 
     def __str__(self):
+        name = dd.babelattr(self, 'name')
         if self.ref:
-            return self.ref
-        # return super(Line, self).__str__()
-        return dd.babelattr(self, 'name')  # or unicode(self)
+            return "{0} ({1})".format(self.ref, name)
+        return name
         # return "{0} #{1}".format(self._meta.verbose_name, self.pk)
 
     @dd.chooser()
@@ -256,6 +254,19 @@ class Course(Reservation, Duplicable):
 
         Available places. The maximum number of participants to allow
         in this course.
+
+    .. attribute:: free_places
+
+        Number of free places.
+
+    .. attribute:: requested
+
+        Number of requested places.
+
+    .. attribute:: confirmed
+
+        Number of confirmed places.
+
 
     """
 
@@ -317,7 +328,7 @@ class Course(Reservation, Duplicable):
             self.room)
 
     def update_cal_from(self, ar):
-        """Note: if recurrency is per_weekday, actual start may be
+        """Note: if recurrency is weekly or per_weekday, actual start may be
         later than self.start_date
 
         """
@@ -354,19 +365,6 @@ class Course(Reservation, Duplicable):
                     event=event,
                     partner=obj.pupil,
                     role=gr)
-
-    def get_free_places(self, today=None):
-        Enrolment = rt.modules.courses.Enrolment
-        PeriodEvents = rt.modules.system.PeriodEvents
-        used_states = EnrolmentStates.filter(uses_a_place=True)
-        qs = Enrolment.objects.filter(course=self, state__in=used_states)
-        rng = DatePeriodValue(today or dd.today(), None)
-        qs = PeriodEvents.active.add_filter(qs, rng)
-        # logger.info("20160502 %s", qs.query)
-        res = qs.aggregate(models.Sum('places'))
-        # logger.info("20140819 %s", res)
-        used_places = res['places__sum'] or 0
-        return self.max_places - used_places
 
     def full_clean(self, *args, **kw):
         if self.line_id is not None:
@@ -430,12 +428,6 @@ class Course(Reservation, Duplicable):
             dd.plugins.courses.day_and_month(e.start_date)
             for e in self.events_by_course.order_by('start_date')])
 
-    @dd.displayfield(_("Free places"), max_length=5)
-    def free_places(self, ar=None):
-        if not self.max_places:
-            return _("Unlimited")
-        return str(self.get_free_places())
-
     @property
     def events_by_course(self):
         ct = rt.modules.contenttypes.ContentType.objects.get_for_model(
@@ -443,19 +435,45 @@ class Course(Reservation, Duplicable):
         return rt.modules.cal.Event.objects.filter(
             owner_type=ct, owner_id=self.id)
 
-    @dd.requestfield(_("Requested"))
-    def requested(self, ar):
-        pv = dict(start_date=dd.today())
-        pv.update(state=EnrolmentStates.requested)
-        return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=pv)
+    def get_places_sum(self, today=None, **flt):
+        Enrolment = rt.modules.courses.Enrolment
+        PeriodEvents = rt.modules.system.PeriodEvents
+        qs = Enrolment.objects.filter(course=self, **flt)
+        rng = DatePeriodValue(today or dd.today(), None)
+        qs = PeriodEvents.active.add_filter(qs, rng)
+        # logger.info("20160502 %s", qs.query)
+        res = qs.aggregate(models.Sum('places'))
+        # logger.info("20140819 %s", res)
+        return res['places__sum'] or 0
 
-    @dd.requestfield(_("Confirmed"))
+    def get_free_places(self, today=None):
+        return self.max_places - self.get_used_places(today)
+
+    def get_used_places(self, today=None):
+        states = EnrolmentStates.filter(uses_a_place=True)
+        return self.get_places_sum(today, state__in=states)
+
+    @dd.displayfield(_("Free places"), max_length=5)
+    def free_places(self, ar=None):
+        if not self.max_places:
+            return _("Unlimited")
+        return str(self.get_free_places())
+
+    @dd.virtualfield(models.IntegerField(_("Requested")))
+    def requested(self, ar):
+        return self.get_places_sum(state=EnrolmentStates.requested)
+        # pv = dict(start_date=dd.today())
+        # pv.update(state=EnrolmentStates.requested)
+        # return rt.modules.courses.EnrolmentsByCourse.request(
+        #     self, param_values=pv)
+
+    @dd.virtualfield(models.IntegerField(_("Confirmed")))
     def confirmed(self, ar):
-        pv = dict(start_date=dd.today())
-        pv.update(state=EnrolmentStates.confirmed)
-        return rt.modules.courses.EnrolmentsByCourse.request(
-            self, param_values=pv)
+        return self.get_places_sum(state=EnrolmentStates.confirmed)
+        # pv = dict(start_date=dd.today())
+        # pv.update(state=EnrolmentStates.confirmed)
+        # return rt.modules.courses.EnrolmentsByCourse.request(
+        #     self, param_values=pv)
 
     @dd.requestfield(_("Enrolments"))
     def enrolments(self, ar):
@@ -553,7 +571,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         verbose_name_plural = _('Enrolments')
         unique_together = ('course', 'pupil')
 
-    course_area = CourseAreas.field(blank=True)
+    course_area = CourseAreas.field(blank=True, editable=False)
 
     quick_search_fields = "pupil__name"
 
@@ -584,6 +602,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
 
     @dd.chooser()
     def course_choices(cls, course_area, request_date):
+        dd.logger.info("20160714 course_choices %s", course_area)
         if request_date is None:
             request_date = dd.today()
         flt = Q(enrolments_until__isnull=True)
@@ -591,7 +610,6 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         qs = rt.modules.courses.Course.objects.filter(flt)
         if course_area:
             qs = qs.filter(line__course_area=course_area)
-        # dd.logger.info("20160206 %s", qs.query)
         return qs
 
     @dd.chooser()
@@ -645,9 +663,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
         return self.state.uses_a_place
 
     def full_clean(self, *args, **kwargs):
-        if not self.course_area:
-            if self.course and self.course.line:
-                self.course_area = self.course.line.course_area
+        if self.course and self.course.line:
+            self.course_area = self.course.line.course_area
         super(Enrolment, self).full_clean(*args, **kwargs)
 
     def get_print_templates(self, bm, action):

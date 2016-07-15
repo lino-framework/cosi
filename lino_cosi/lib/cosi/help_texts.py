@@ -285,12 +285,12 @@ PaymentOrderItem."""),
     'lino_cosi.lib.ledger.ui.MovementsByProject' : _("""Show the ledger movements of a project.
 See also lino_cosi.lib.ledger.models.Movement."""),
     'lino_cosi.lib.ledger.mixins.PartnerRelated.partner' : _("""The recipient of this document. A pointer to
-lino.modlib.contacts.models.Partner."""),
+lino_xl.lib.contacts.models.Partner."""),
     'lino_cosi.lib.invoicing.actions.StartInvoicingForJournal' : _("""Start an invoicing plan for this journal."""),
     'lino_cosi.lib.finan.models.PaymentOrders' : _("""The table of all PaymentOrder vouchers."""),
     'lino_cosi.lib.sepa.Plugin' : _("""See lino.core.plugin.Plugin."""),
     'lino_cosi.lib.vat.ui.VouchersByPartner' : _("""A lino.core.tables.VirtualTable which shows all VatDocument
-vouchers by lino.modlib.contacts.models.Partner. It has a
+vouchers by lino_xl.lib.contacts.models.Partner. It has a
 customized slave summary."""),
     'lino_cosi.lib.ledger.ui.ExpectedMovements' : _("""A virtual table of DueMovement rows, showing
 all "expected" "movements (payments)"."""),
@@ -483,7 +483,7 @@ number."""),
     'lino_cosi.lib.vat.models.VatRule.vat_regime' : _("""The regime for which this rule applies. Pointer to
 VatRegimes."""),
     'lino_cosi.lib.ledger.ui.MovementsByAccount.model' : _("""alias of Movement"""),
-    'lino.modlib.contacts.models.Partner.invoice_recipient' : _("""The recipient of invoices (invoicing address)."""),
+    'lino_xl.lib.contacts.models.Partner.invoice_recipient' : _("""The recipient of invoices (invoicing address)."""),
     'lino_cosi.lib.accounts.fields.DebitOrCreditField' : _("""A field that stores either DEBIT or CREDIT (see
 lino_cosi.lib.accounts.utils)."""),
     'lino_cosi.lib.ledger.fields.DcAmountField' : _("""An editable virtual PriceField to get and set both database fields
