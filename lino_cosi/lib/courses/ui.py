@@ -200,13 +200,13 @@ class Courses(dd.Table):
     def get_known_values(self):
         if self._course_area is not None:
             return dict(line__course_area=self._course_area)
-        return dict()
+        return super(Courses, self).get_known_values()
 
     @classmethod
     def get_actor_label(self):
         if self._course_area is not None:
             return self._course_area.text
-        return super(self, Courses).get_actor_label()
+        return super(Courses, self).get_actor_label()
 
     @classmethod
     def get_simple_parameters(cls):
