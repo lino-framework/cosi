@@ -197,10 +197,12 @@ class Courses(dd.Table):
     # simple_parameters = 'line teacher state user'.split()
 
     @classmethod
-    def get_known_values(self):
+    def create_instance(self, ar, **kw):
+        # dd.logger.info("20160714 %s", kw)
+        obj = super(Courses, self).create_instance(ar, **kw)
         if self._course_area is not None:
-            return dict(line__course_area=self._course_area)
-        return super(Courses, self).get_known_values()
+            obj.course_area = self._course_area
+        return obj
 
     @classmethod
     def get_actor_label(self):
@@ -223,6 +225,10 @@ class Courses(dd.Table):
         qs = super(Courses, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
+
+        if self._course_area is not None:
+            qs = qs.filter(line__course_area=self._course_area)
+
         pv = ar.param_values
         if pv.topic:
             qs = qs.filter(line__topic=pv.topic)
@@ -392,6 +398,27 @@ class Enrolments(dd.Table):
     confirmation_details
     """
 
+    _course_area = None
+
+    @classmethod
+    def get_known_values(self):
+        if self._course_area is not None:
+            return dict(course_area=self._course_area)
+        return dict()
+
+    @classmethod
+    def create_instance(self, ar, **kw):
+        if self._course_area is not None:
+            kw.update(course_area=self._course_area)
+        # dd.logger.info("20160714 %s", kw)
+        return super(EnrolmentsByPupil, self).create_instance(ar, **kw)
+
+    @classmethod
+    def get_actor_label(self):
+        if self._course_area is not None:
+            return self._course_area.text
+        return _("Enrolments")
+
     @classmethod
     def get_request_queryset(self, ar):
         qs = super(Enrolments, self).get_request_queryset(ar)
@@ -506,7 +533,6 @@ class EnrolmentsByPupil(Enrolments):
     master_key = "pupil"
     column_names = 'request_date course user:10 remark workflow_buttons *'
     auto_fit_column_widths = True
-    _course_area = None  # CourseAreas.default
 
     insert_layout = """
     course_area
@@ -517,30 +543,10 @@ class EnrolmentsByPupil(Enrolments):
     """
 
     @classmethod
-    def get_known_values(self):
-        if self._course_area is not None:
-            return dict(course_area=self._course_area)
-        return dict()
-
-    @classmethod
-    def create_instance(self, ar, **kw):
-        if self._course_area is not None:
-            kw.update(course_area=self._course_area)
-        # dd.logger.info("20160714 %s", kw)
-        return super(EnrolmentsByPupil, self).create_instance(ar, **kw)
-
-    @classmethod
-    def get_actor_label(self):
-        if self._course_area is not None:
-            return self._course_area.text
-        return _("Enrolments")
-
-    @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(EnrolmentsByPupil, self).param_defaults(ar, **kw)
         kw.update(participants_only=False)
         return kw
-
 
 
 class EnrolmentsByCourse(Enrolments):

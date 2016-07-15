@@ -60,7 +60,7 @@ from lino_xl.lib.cal.choicelists import Recurrencies
 
 from lino.utils.dates import DatePeriodValue
 
-from .choicelists import EnrolmentStates, CourseStates
+from .choicelists import EnrolmentStates, CourseStates, CourseAreas
 
 cal = dd.resolve_app('cal')
 
@@ -74,15 +74,6 @@ except AttributeError:
     pupil_model = 'foo.Bar'
 
 FILL_EVENT_GUESTS = False
-
-
-class CourseAreas(dd.ChoiceList):
-    preferred_width = 10
-    verbose_name = _("Course area")
-    verbose_name_plural = _("Course areas")
-add = CourseAreas.add_item
-add('C', _("Courses"), 'default')
-# add('J', _("Journeys"), 'journeys')
 
 
 class StartEndTime(dd.Model):

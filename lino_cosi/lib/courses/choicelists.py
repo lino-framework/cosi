@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2012-2015 Luc Saffre
+# Copyright 2012-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -73,5 +73,25 @@ add('30', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
 #~ add('50', _("Success"),'success')
 #~ add('60', _("Award"),'award')
 #~ add('90', _("Abandoned"),'abandoned')
+
+
+class CourseArea(dd.Choice):
+    def __init__(
+            self, value, text, name, courses_table='courses.Courses'):
+        self.courses_table = courses_table
+        super(CourseArea, self).__init__(value, text, name)
+
+
+class CourseAreas(dd.ChoiceList):
+    preferred_width = 10
+    # verbose_name = _("Course area")
+    # verbose_name_plural = _("Course areas")
+    verbose_name = _("Layout")
+    verbose_name_plural = _("Course layouts")
+    item_class = CourseArea
+
+add = CourseAreas.add_item
+add('C', _("Courses"), 'default')
+# add('J', _("Journeys"), 'journeys')
 
 
