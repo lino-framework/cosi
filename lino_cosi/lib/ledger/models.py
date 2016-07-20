@@ -371,11 +371,16 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
         return obj
 
     def full_clean(self, *args, **kwargs):
+        if self.start_date is None:
+            self.start_date = dd.today().replace(day=1)
         if not self.year:
             self.year = FiscalYears.from_date(self.start_date)
         super(AccountingPeriod, self).full_clean(*args, **kwargs)
 
     def __str__(self):
+        if not self.ref:
+            return dd.obj2str(self)
+            # "{0} {1} (#{0})".format(self.pk, self.year)
         return self.ref
 
 AccountingPeriod.set_widget_options('ref', width=6)

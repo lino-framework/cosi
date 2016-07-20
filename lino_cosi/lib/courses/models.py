@@ -117,7 +117,7 @@ class Topic(mixins.BabelNamed, Printable, Duplicable):
 
 @dd.python_2_unicode_compatible
 class Line(Referrable, Duplicable, ExcerptTitle):
-    """A **line** (or **series**) of courses groups courses into a
+    """An **activity line** (or **series**) groups courses into a
     configurable list of categories.
 
     We chose the word "line" instead of "series" because it has a
@@ -125,8 +125,8 @@ class Line(Referrable, Duplicable, ExcerptTitle):
 
     .. attribute:: name
 
-        The designation of this course series as seen by the user
-        e.g. when selecting the series of a course.
+        The designation of this activity line as seen by the user
+        e.g. when selecting the line.
 
         One field for every :attr:`language <lino.core.site.Site.language>`.
 
@@ -139,8 +139,8 @@ class Line(Referrable, Duplicable, ExcerptTitle):
 
     .. attribute:: body_template
 
-        The body template to use when printing a course of this
-        series.  Leave empty to use the site's default (defined by
+        The body template to use when printing an activity of this
+        line.  Leave empty to use the site's default (defined by
         `body_template` on the
         :class:`lino_xl.lib.excerpts.models.ExcerptType` for
         :class:`Course`)
@@ -155,12 +155,13 @@ class Line(Referrable, Duplicable, ExcerptTitle):
     class Meta:
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Line')
-        verbose_name = pgettext("singular form", "Course series")
-        verbose_name_plural = pgettext("plural form", 'Course series')
+        verbose_name = pgettext("singular form", "Activity line")
+        verbose_name_plural = pgettext("plural form", 'Activity lines')
 
     # ref = dd.NullCharField(_("Reference"), max_length=30, unique=True)
     course_area = CourseAreas.field(
         default=CourseAreas.default.as_callable)
+    # default=CourseAreas.get_lazy('default')
     topic = models.ForeignKey(Topic, blank=True, null=True)
     description = dd.BabelTextField(_("Description"), blank=True)
 
@@ -273,8 +274,8 @@ class Course(Reservation, Duplicable):
     class Meta:
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Course')
-        verbose_name = _("Course")
-        verbose_name_plural = _('Courses')
+        verbose_name = _("Activity")
+        verbose_name_plural = _('Activities')
 
     line = models.ForeignKey('courses.Line')
 

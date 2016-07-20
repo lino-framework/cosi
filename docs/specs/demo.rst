@@ -133,7 +133,7 @@ The test database
  contenttypes.ContentType    gfks.ContentTypes              3         65
  countries.Country           countries.Countries            4         8
  countries.Place             countries.Places               6         78
- courses.Course              courses.Courses                27        0
+ courses.Course              courses.Activities             27        0
  courses.Enrolment           courses.Enrolments             14        0
  courses.Line                courses.Lines                  15        0
  courses.Slot                courses.Slots                  5         0

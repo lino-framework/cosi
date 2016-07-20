@@ -42,7 +42,7 @@ from lino.utils.djangotest import RemoteAuthTestCase
 
 class QuickTest(RemoteAuthTestCase):
 
-    def test00(self):
+    def test01(self):
         """
         Initialization.
         """
@@ -189,3 +189,12 @@ class QuickTest(RemoteAuthTestCase):
         except PodError as e:
             pass
             #~ self.assertEqual(str(e), PodError: Extension of result file is "pdf".
+
+    def test02(self):
+        obj = ledger.AccountingPeriod()
+        obj.full_clean()
+        self.assertEqual(
+            str(obj),
+            'AccountingPeriod(start_date=2015-05-01,'
+            'state=<PeriodStates.open:10>,year=<FiscalYears:15>)')
+

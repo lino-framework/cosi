@@ -17,17 +17,19 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Adds functionality for managing courses.
+"""Adds functionality for managing activities.
 
-A **Course** is a series of scheduled calendar events where a
-given teacher teaches a given group of participants about a given
-topic.
+An **activity** is a series of scheduled calendar events where a given
+teacher teaches a given group of participants about a given topic.
 
-There is a configurable list of **topics**.
-Courses are grouped into **Lines** (meaning "series") of courses.
-A course line is a series of courses on a same **topic**.
+There is a configurable list of **topics**.  Activities are grouped
+into **activity lines** (meaning "series").  An activity line is a
+series of activities having a same **topic**.
 
-The participants of a course are stored as **Enrolments**.
+The participants of an activity are stored as **Enrolments**.
+
+The internal name "courses" of this plugin and the main model is for
+historic reasons.  
 
 
 .. autosummary::
@@ -46,7 +48,7 @@ from lino.api import ad, _
 
 class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
-    verbose_name = _("Courses")
+    verbose_name = _("Activities")
     teacher_model = 'contacts.Person'
     pupil_model = 'contacts.Person'
 
@@ -67,7 +69,7 @@ class Plugin(ad.Plugin):
         # m.add_action('courses.ActiveCourses')
         # m.add_action('courses.InactiveCourses')
         # m.add_action('courses.ClosedCourses')
-        # m.add_separator()
+        m.add_separator()
         m.add_action('courses.Lines')
         m.add_action('courses.PendingRequestedEnrolments')
         m.add_action('courses.PendingConfirmedEnrolments')
@@ -79,7 +81,7 @@ class Plugin(ad.Plugin):
 
     def setup_explorer_menu(self, site, profile, m):
         m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('courses.AllCourses')
+        m.add_action('courses.AllActivities')
         m.add_action('courses.AllEnrolments')
         m.add_action('courses.EnrolmentStates')
 
