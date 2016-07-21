@@ -901,7 +901,8 @@ class MovementsByPartner(Movements):
             sar.get_total_count(), bal, dd.plugins.ledger.currency_symbol)
 
         elems.append(ar.href_to_request(sar, txt))
-        return E.div(class_="htmlText", *elems)
+        return ar.html_text(E.div(*elems))
+        # return E.div(class_="htmlText", *elems)
 
 
 class MovementsByProject(MovementsByPartner):
