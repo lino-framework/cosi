@@ -50,7 +50,7 @@ from lino.utils.xmlgen.html import E
 
 from lino.modlib.system.choicelists import PeriodEvents
 
-from .choicelists import EnrolmentStates, CourseStates
+from .choicelists import EnrolmentStates, CourseStates, CourseAreas
 
 cal = dd.resolve_app('cal')
 
@@ -115,7 +115,7 @@ class LinesByTopic(Lines):
 
 
 class EventsByTeacher(cal.Events):
-    help_text = _("Shows events of courses of this teacher")
+    help_text = _("Shows events of activities led by this teacher")
     master = teacher_model
     column_names = 'when_text:20 owner room state'
     # column_names = 'when_text:20 course__line room state'
@@ -159,9 +159,11 @@ class CourseDetail(dd.FormLayout):
     # """, label=_("Enrolments"))
 
 
-class Courses(dd.Table):
-    """Base table for all courses.
+class Activities(dd.Table):
+    """Base table for all activities.
     """
+    _course_area = None
+
     model = 'courses.Course'
     detail_layout = CourseDetail()
     insert_layout = """
@@ -192,14 +194,12 @@ class Courses(dd.Table):
     params_layout = """topic line teacher state can_enroll:10 \
     start_date end_date"""
 
-    _course_area = None
-
     # simple_parameters = 'line teacher state user'.split()
 
     @classmethod
     def create_instance(self, ar, **kw):
         # dd.logger.info("20160714 %s", kw)
-        obj = super(Courses, self).create_instance(ar, **kw)
+        obj = super(Activities, self).create_instance(ar, **kw)
         if self._course_area is not None:
             obj.course_area = self._course_area
         return obj
@@ -208,11 +208,11 @@ class Courses(dd.Table):
     def get_actor_label(self):
         if self._course_area is not None:
             return self._course_area.text
-        return super(Courses, self).get_actor_label()
+        return super(Activities, self).get_actor_label()
 
     @classmethod
     def get_simple_parameters(cls):
-        s = super(Courses, cls).get_simple_parameters()
+        s = super(Activities, cls).get_simple_parameters()
         s.add('line')
         s.add('teacher')
         s.add('state')
@@ -222,7 +222,7 @@ class Courses(dd.Table):
     @classmethod
     def get_request_queryset(self, ar):
         # dd.logger.info("20160223 %s", self)
-        qs = super(Courses, self).get_request_queryset(ar)
+        qs = super(Activities, self).get_request_queryset(ar)
         if isinstance(qs, list):
             return qs
 
@@ -252,7 +252,7 @@ class Courses(dd.Table):
 
     @classmethod
     def get_title_tags(self, ar):
-        for t in super(Courses, self).get_title_tags(ar):
+        for t in super(Activities, self).get_title_tags(ar):
             yield t
 
         if ar.param_values.topic:
@@ -263,24 +263,28 @@ class Courses(dd.Table):
         #         yield unicode(v)
 
 
-class AllCourses(Courses):
-    pass
+class Courses(Activities):
+    _course_area = CourseAreas.default.as_callable()
 
 
-class CoursesByTeacher(Courses):
+class AllActivities(Activities):
+    _course_area = None
+
+
+class CoursesByTeacher(Activities):
     master_key = "teacher"
     column_names = "start_date start_time end_time line room *"
     order_by = ['-start_date']
 
 
-class CoursesByLine(Courses):
+class CoursesByLine(Activities):
     """Show the courses per course line."""
     master_key = "line"
     column_names = "info weekdays_text room times_text teacher *"
     order_by = ['room__name', '-start_date']
 
 
-class CoursesByTopic(Courses):
+class CoursesByTopic(Activities):
     """Shows the courses of a given topic.
 
     """
@@ -290,6 +294,9 @@ class CoursesByTopic(Courses):
     column_names = "start_date:8 line:20 room:10 " \
                    "weekdays_text:10 times_text:10"
     params_layout = """line teacher user state can_enroll:10"""
+
+    allow_create = False  # because we cannot set a line for a new
+                          # activity.
 
     @classmethod
     def get_filter_kw(self, ar, **kw):
@@ -305,39 +312,39 @@ class CoursesByTopic(Courses):
     #     return Course.objects.filter(line__topic=topic)
 
 
-class CoursesBySlot(Courses):
+class CoursesBySlot(Activities):
     master_key = "slot"
 
 
-class DraftCourses(Courses):
-    label = _("Draft courses")
+class DraftCourses(Activities):
+    label = _("Draft activities")
     column_names = 'info teacher room *'
     hide_sums = True
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw = super(DraftCourses, self).param_defaults(ar, **kw)
         kw.update(state=CourseStates.draft)
         kw.update(user=ar.get_user())
         # kw.update(can_enroll=dd.YesNo.yes)
         return kw
 
 
-class ActiveCourses(Courses):
+class ActiveCourses(Activities):
 
-    label = _("Active courses")
+    label = _("Current activities")
     column_names = 'info enrolments:8 free_places teacher room *'
     hide_sums = True
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw = super(ActiveCourses, self).param_defaults(ar, **kw)
         kw.update(state=CourseStates.active)
         kw.update(can_enroll=dd.YesNo.yes)
         return kw
 
 
-class InactiveCourses(Courses):
+class InactiveCourses(Activities):
 
     label = _("Inactive courses")
     column_names = 'info enrolments:8 free_places teacher room *'
@@ -345,12 +352,12 @@ class InactiveCourses(Courses):
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw = super(InactiveCourses, self).param_defaults(ar, **kw)
         kw.update(state=CourseStates.inactive)
         return kw
 
 
-class ClosedCourses(Courses):
+class ClosedCourses(Activities):
 
     label = _("Closed courses")
     column_names = 'info enrolments:8 teacher room *'
@@ -358,13 +365,16 @@ class ClosedCourses(Courses):
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw = super(ClosedCourses, self).param_defaults(ar, **kw)
         kw.update(state=CourseStates.closed)
         return kw
 
 
 class Enrolments(dd.Table):
     """Base class for all enrolment tables."""
+
+    _course_area = None
+
     # debug_permissions=20130531
     model = 'courses.Enrolment'
     stay_in_grid = True
@@ -398,8 +408,6 @@ class Enrolments(dd.Table):
     confirmation_details
     """
 
-    _course_area = None
-
     @classmethod
     def get_known_values(self):
         if self._course_area is not None:
@@ -411,13 +419,13 @@ class Enrolments(dd.Table):
         if self._course_area is not None:
             kw.update(course_area=self._course_area)
         # dd.logger.info("20160714 %s", kw)
-        return super(EnrolmentsByPupil, self).create_instance(ar, **kw)
+        return super(Enrolments, self).create_instance(ar, **kw)
 
     @classmethod
     def get_actor_label(self):
         if self._course_area is not None:
             return self._course_area.text
-        return _("Enrolments")
+        return super(Enrolments, self).get_actor_label()
 
     @classmethod
     def get_request_queryset(self, ar):
@@ -589,48 +597,5 @@ class EnrolmentsByOption(Enrolments):
 #         blank=True, null=True,
 #         help_text=_("Fill in only if this event is a session of a course."),
 #         related_name="events_by_course"))
-
-
-class SuggestedCoursesByPupil(ActiveCourses):
-    label = _("Suggested courses")
-    column_names = 'info enrolments free_places custom_actions *'
-    auto_fit_column_widths = True
-    hide_sums = True
-    master = pupil_model
-    details_of_master_template = _("%(details)s for %(master)s")
-    params_layout = 'topic line teacher can_enroll'
-
-    @classmethod
-    def get_request_queryset(self, ar):
-        qs = super(SuggestedCoursesByPupil, self).get_request_queryset(ar)
-        pupil = ar.master_instance
-        if pupil is not None:
-            qs = qs.exclude(enrolment__pupil=pupil)
-        return qs
-
-    @dd.displayfield(_("Actions"))
-    def custom_actions(self, course, ar, **kw):
-        mi = ar.master_instance
-        if mi is None:
-            return ''
-        kv = dict(course=course)
-        # kv.update(granting=self)
-        # at = self.aid_type
-        # ct = at.confirmation_type
-        # if not ct:
-        #     return ''
-        # free = course.get_free_places()
-        EnrolmentsByPupil = rt.modules.courses.EnrolmentsByPupil
-        sar = ar.spawn_request(
-            actor=EnrolmentsByPupil, master_instance=mi, known_values=kv)
-        if sar.get_total_count() == 0:
-            txt = _("Enrol")
-            iar = EnrolmentsByPupil.insert_action.request_from(sar)
-            btn = iar.ar2button(txt, icon_name=None)
-            # btn = sar.insert_button(txt, icon_name=None)
-        else:
-            txt = _("Show enrolment")
-            btn = ar.obj2html(sar.data_iterator[0])
-        return E.span(btn)  # E.p(...) until 20150128
 
 
