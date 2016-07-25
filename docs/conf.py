@@ -168,5 +168,10 @@ extlinks.update({
 extlinks.update(
     ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
 
-from lino.sphinxcontrib.help_text_builder import setup
+extensions += ['lino.sphinxcontrib.help_texts_extractor']
+help_texts_builder_targets = {
+    'lino_cosi.': 'lino_cosi.lib.cosi'
+}
+
+
 
