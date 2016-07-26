@@ -417,7 +417,6 @@ class Course(Reservation, Duplicable):
         if ar is None:
             return ''
         return ar.obj2html(self)
-        # return unicode(self)
 
     #~ @dd.displayfield(_("Where"))
     #~ def where_text(self,ar):
@@ -578,7 +577,8 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
 
     #~ teacher = models.ForeignKey(Teacher)
     course = dd.ForeignKey('courses.Course')
-    pupil = dd.ForeignKey(pupil_model)
+    pupil = dd.ForeignKey(
+        pupil_model, related_name="enrolments_by_pupil")
     request_date = models.DateField(
         _("Date of request"), default=dd.today)
     state = EnrolmentStates.field(
