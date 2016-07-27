@@ -47,6 +47,7 @@ from django.utils.translation import pgettext_lazy as pgettext
 from lino.api import dd, rt
 from lino import mixins
 
+from lino.utils.xmlgen.html import E, join_elems
 from lino.mixins import Referrable
 from lino.mixins.human import parse_name
 from lino.mixins.duplicable import Duplicable
@@ -228,7 +229,7 @@ class Line(Referrable, Duplicable, ExcerptTitle):
     def body_template_choices(cls):
         return dd.plugins.jinja.list_templates(
             '.body.html',
-            rt.modules.courses.Enrolment.get_template_group(),
+            rt.models.courses.Enrolment.get_template_group(),
             'excerpts')
 
 
@@ -350,7 +351,7 @@ class Course(Reservation, Duplicable):
         """Look up enrolments of this course and suggest them as guests."""
         # logger.info("20140314 suggest_guests")
         Guest = rt.modules.cal.Guest
-        Enrolment = rt.modules.courses.Enrolment
+        Enrolment = rt.models.courses.Enrolment
         if self.line is None:
             return
         gr = self.line.guest_role
@@ -436,7 +437,7 @@ class Course(Reservation, Duplicable):
             owner_type=ct, owner_id=self.id)
 
     def get_places_sum(self, today=None, **flt):
-        Enrolment = rt.modules.courses.Enrolment
+        Enrolment = rt.models.courses.Enrolment
         PeriodEvents = rt.modules.system.PeriodEvents
         qs = Enrolment.objects.filter(course=self, **flt)
         rng = DatePeriodValue(today or dd.today(), None)
@@ -464,7 +465,7 @@ class Course(Reservation, Duplicable):
         return self.get_places_sum(state=EnrolmentStates.requested)
         # pv = dict(start_date=dd.today())
         # pv.update(state=EnrolmentStates.requested)
-        # return rt.modules.courses.EnrolmentsByCourse.request(
+        # return rt.actors.courses.EnrolmentsByCourse.request(
         #     self, param_values=pv)
 
     @dd.virtualfield(models.IntegerField(_("Confirmed")))
@@ -472,7 +473,7 @@ class Course(Reservation, Duplicable):
         return self.get_places_sum(state=EnrolmentStates.confirmed)
         # pv = dict(start_date=dd.today())
         # pv.update(state=EnrolmentStates.confirmed)
-        # return rt.modules.courses.EnrolmentsByCourse.request(
+        # return rt.actors.courses.EnrolmentsByCourse.request(
         #     self, param_values=pv)
 
     @dd.requestfield(_("Enrolments"))
@@ -481,7 +482,7 @@ class Course(Reservation, Duplicable):
 
     def get_enrolments(self, **pv):
         # pv = dict(start_date=sd, end_date=dd.today())
-        return rt.modules.courses.EnrolmentsByCourse.request(
+        return rt.actors.courses.EnrolmentsByCourse.request(
             self, param_values=pv)
 
     @dd.virtualfield(dd.HtmlBox(_("Presences")))
@@ -608,7 +609,7 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
             request_date = dd.today()
         flt = Q(enrolments_until__isnull=True)
         flt |= Q(enrolments_until__gte=request_date)
-        qs = rt.modules.courses.Course.objects.filter(flt)
+        qs = rt.models.courses.Course.objects.filter(flt)
         if course_area:
             qs = qs.filter(line__course_area=course_area)
         return qs
@@ -696,4 +697,3 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
             sep=', ')
         return E.p(*elems)
 
-from .ui import *

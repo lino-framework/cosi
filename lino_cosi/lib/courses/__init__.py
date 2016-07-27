@@ -38,7 +38,7 @@ historic reasons.
    models
    choicelists
    workflows
-   ui
+   desktop
 
 """
 
