@@ -305,7 +305,7 @@ class CoursesByTopic(Activities):
 
     # @classmethod
     # def get_request_queryset(self, ar):
-    #     Course = rt.modules.courses.Course
+    #     Course = rt.models.courses.Course
     #     topic = ar.master_instance
     #     if topic is None:
     #         return Course.objects.none()

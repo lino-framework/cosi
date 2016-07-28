@@ -6,13 +6,11 @@ help_texts = {
     'lino_cosi.lib.finan.models.SuggestionsByBankStatement' : _("""A SuggestionsByVoucher table for a BankStatement."""),
     'lino_cosi.lib.ledger.choicelists.TradeTypes.sales' : _("""A sale transaction is when you write an invoice to a customer
 and then expect the customer to pay it."""),
-    'lino_cosi.lib.courses.ui.AllEnrolments' : _("""Show global list of all enrolments."""),
+    'lino_cosi.lib.ledger.models.PaymentTerm' : _("""A convention on how an invoice should be paid."""),
     'lino_cosi.lib.ledger.utils.Balance.c' : _("""The amount of this balance when it is crediting, otherwise zero."""),
-    'lino_cosi.lib.courses.ui.CoursesByLine.master' : _("""alias of Line"""),
     'lino_cosi.lib.ledger.utils.Balance.d' : _("""The amount of this balance when it is debiting, otherwise zero."""),
     'lino_cosi.lib.ledger.choicelists.JournalGroups.sales' : _("""For sales journals."""),
     'lino_cosi.lib.finan.models.SuggestionsByJournalEntry' : _("""A SuggestionsByVoucher table for a JournalEntry."""),
-    'lino_cosi.lib.ledger.models.PaymentTerm' : _("""A convention on how an invoice should be paid."""),
     'lino_cosi.lib.ledger.mixins.VoucherItem.voucher' : _("""Pointer to the voucher which contains this item.  Non
 nullable.  The voucher must be a subclass of
 ledger.Voucher.
@@ -20,6 +18,7 @@ The related_name must be 'items'."""),
     'lino_cosi.lib.vat.models.VatAccountInvoice' : _("""An invoice for which the user enters just the bare accounts and
 amounts (not products, quantities, discounts)."""),
     'lino_cosi.lib.sales.models.SalesDocument' : _("""Common base class for orders.Order and VatProductInvoice."""),
+    'lino_cosi.lib.courses.desktop.Enrolments.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.finan.models.SuggestionsByPaymentOrder.master' : _("""alias of PaymentOrder"""),
     'lino_cosi.lib.ledger.models.VoucherChecker' : _("""Check for wrong ledger movements"""),
     'lino_cosi.lib.b2c.models.Account' : _("""A bank account related to a given Partner."""),
@@ -27,7 +26,6 @@ amounts (not products, quantities, discounts)."""),
 mandatory pointer to a Journal instance."""),
     'lino_cosi.lib.ledger.models.MatchRule' : _("""A match rule specifies that a movement into given account can
 be cleared using a given journal."""),
-    'lino_cosi.lib.courses.ui.CoursesByTopic.master' : _("""alias of Topic"""),
     'lino_cosi.lib.b2c.models.Statement' : _("""A bank statement."""),
     'lino_cosi.lib.sepa.fields.UppercaseTextFieldElement' : _("""A CharFieldElement which accepts only upper-case characters."""),
     'lino_cosi.lib.ledger.ui.SupplierAccountsBalance' : _("""A PartnerAccountsBalance for the TradeType "purchases"."""),
@@ -43,13 +41,10 @@ DebtorsCreditors."""),
     'lino_cosi.lib.ledger.models.Journal.voucher_type' : _("""Pointer to an item of VoucherTypes."""),
     'lino_cosi.lib.vat.models.VatRule' : _("""A rule which defines how VAT is to be handled for a given invoice
 item."""),
-    'lino_cosi.lib.courses.ui.PendingConfirmedEnrolments.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.ui.PendingRequestedEnrolments.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.contacts.models.Company' : _("""An version of lino_xl.lib.contacts.models.Company which
 adds accounting fucntionality."""),
-    'lino_cosi.lib.finan.models.FillSuggestionsToVoucherItem' : _("""Fill the selected suggestions as items to the voucher. The first
-selected suggestion does not create a new item but replaces the
-item for which it was called."""),
+    'lino_cosi.lib.courses.desktop.Enrolments' : _("""Base class for all enrolment tables."""),
+    'lino_cosi.lib.courses.desktop.CoursesByTopic.master' : _("""alias of Topic"""),
     'lino_cosi.lib.ledger.choicelists.TradeType.price_field' : _("""The name and label of the price field to be defined on the
 Product
 database model."""),
@@ -70,7 +65,9 @@ points to some other movement which it "clears" at least partially."""),
     'lino_cosi.lib.sales.models.ItemsByInvoicePrint.model' : _("""alias of InvoiceItem"""),
     'lino_cosi.lib.sales.models.ItemsByInvoicePrintNoQtyColumn' : _("""Alternative column layout to be used when printing an invoice."""),
     'lino_cosi.lib.accounts.models.Account.needs_partner' : _("""Whether bookings to this account need a partner specified."""),
+    'lino_cosi.lib.courses.desktop.AllEnrolments' : _("""Show global list of all enrolments."""),
     'lino_cosi.lib.b2c.Plugin.import_statements_path' : _("""A path wildcard pointing to xml files which need to get imported."""),
+    'lino_cosi.lib.courses.desktop.Activities.model' : _("""alias of Course"""),
     'lino_cosi.lib.accounts.models.Account.default_amount' : _("""The default amount to book in bank statements or journal
 entries when this account has been selected manually. The
 default booking direction is that of the type."""),
@@ -144,7 +141,6 @@ lino.utils.dbfreader."""),
     'lino_cosi.lib.ledger.choicelists.FiscalYears' : _("""A list of the fiscal years available in this database."""),
     'lino_cosi.lib.vatless.ui.InvoicesByJournal.model' : _("""alias of AccountInvoice"""),
     'lino_cosi.lib.sepa.mixins.Payable.payment_term' : _("""See lino_cosi.lib.ledger.mixins.PartnerRelated.payment_term"""),
-    'lino_cosi.lib.courses.ui.AllEnrolments.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.ledger.ui.AccountsBalance' : _("""A virtual table, the base class for different reports that show a
 list of accounts with the following columns:"""),
     'lino_cosi.lib.ledger.models.Movement' : _("""Represents an accounting movement in the ledger."""),
@@ -155,14 +151,15 @@ list of accounts with the following columns:"""),
     'lino_cosi.lib.vat.mixins.VatTotal' : _("""Model mixin which defines the fields total_incl, total_base
 and total_vat.  Used for both the document header
 (VatDocument) and for each item (VatItemBase)."""),
-    'lino_cosi.lib.courses.ui.PendingRequestedEnrolments' : _("""Show all requested enrolments."""),
     'lino_cosi.lib.courses.models.Line.name' : _("""The designation of this activity line as seen by the user
 e.g. when selecting the line."""),
     'lino_cosi.lib.sales.models.InvoiceItem' : _("""An item of a sales invoice."""),
     'lino_cosi.lib.finan.mixins.DatedFinancialVoucher' : _("""A FinancialVoucher whose items have a date field."""),
+    'lino_cosi.lib.courses.desktop.CoursesByLine' : _("""Show the courses per course line."""),
     'lino_cosi.lib.finan.models.PaymentOrders.suggestions_table' : _("""alias of SuggestionsByPaymentOrder"""),
     'lino_cosi.lib.accounts.fields.DebitOrCreditField.lino_atomizer_class' : _("""alias of DebitOrCreditStoreField"""),
     'lino_cosi.lib.accounts.models.Account.seqno' : _("""The sequence number of this account within its group."""),
+    'lino_cosi.lib.courses.desktop.CoursesByTopic.model' : _("""alias of Course"""),
     'lino_cosi.lib.b2c.Plugin.delete_imported_xml_files' : _("""This attribute define whether, Cosi have to delete the SEPA file
 after it get imported."""),
     'lino_cosi.lib.vat.Plugin.default_vat_class' : _("""The default VAT class. If this is specified as a string, Lino will
@@ -172,7 +169,6 @@ resolve it at startup into an item of VatClasses."""),
 statement for this account. Clicking on this date will open
 the B2C account <lino_cosi.lib.b2c.models.Account> with same
 IBAN number."""),
-    'lino_cosi.lib.courses.ui.CoursesByTopic.model' : _("""alias of Course"""),
     'lino_cosi.lib.accounts.choicelists.AccountTypes' : _("""The global list of account types. See AccountType."""),
     'lino_cosi.lib.sales.models.VatProductInvoice.print_items_table' : _("""alias of ItemsByInvoicePrint"""),
     'lino_cosi.lib.accounts.models.Group' : _("""A group of accounts."""),
@@ -186,7 +182,7 @@ to his account."""),
 SalesDocument are to be transferred from us to our customer."""),
     'lino_cosi.lib.courses.models.Enrolment.pupil_info' : _("""Virtual HtmlBox field showing the name and address of the
 participant."""),
-    'lino_cosi.lib.courses.ui.EnrolmentsByPupil' : _("""Show all enrolments of a given pupil."""),
+    'lino_cosi.lib.accounts.choicelists.Earnings' : _("""https://en.wikipedia.org/wiki/Statement_of_comprehensive_income#Requirements_of_IFRS"""),
     'lino_cosi.lib.ledger.ui.DebtsByPartner.master' : _("""alias of Partner"""),
     'lino_cosi.lib.sales.models.VatProductInvoice' : _("""A sales invoice is a legal document which describes that something
 (the invoice items) has been sold to a given partner. The partner
@@ -197,7 +193,6 @@ can be either a private person or an organization."""),
     'lino_cosi.lib.ledger.choicelists.VoucherTypes' : _("""A list of the available voucher types. Items are instances of
 :class:VoucherType`."""),
     'lino_cosi.lib.delivery.Plugin' : _("""See lino.core.plugin.Plugin."""),
-    'lino_cosi.lib.courses.ui.CoursesByLine.model' : _("""alias of Course"""),
     'lino_cosi.lib.ledger.choicelists.TradeTypes.purchases' : _("""A purchase transaction is when you get an invoice from a
 provider who expects you to pay it."""),
     'lino_cosi.lib.finan.mixins.FinancialVoucherItem.account' : _("""The general account to be used in the primary booking.
@@ -236,6 +231,7 @@ It defines the account field and some related methods."""),
     'lino_cosi.lib.ledger.choicelists.VoucherType' : _("""Base class for all items of VoucherTypes."""),
     'lino_cosi.lib.ledger.choicelists.JournalGroups.wages' : _("""For wages journals."""),
     'lino_cosi.lib.ledger.ui.MovementsByPartner.model' : _("""alias of Movement"""),
+    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil' : _("""Show all enrolments of a given pupil."""),
     'lino_cosi.lib.accounts.models.Account.name' : _("""The multilingual designation of this account, as the users see
 it."""),
     'lino_cosi.lib.finan.models.BankStatements.model' : _("""alias of BankStatement"""),
@@ -269,6 +265,9 @@ automatically, i.e. the fields total_base,
 total_vat and total_incl are disabled.  This is
 set to True for lino_cosi.lib.sales.models.SalesDocument."""),
     'lino_cosi.lib.finan.models.BankStatements.suggestions_table' : _("""alias of SuggestionsByBankStatement"""),
+    'lino_cosi.lib.finan.models.FillSuggestionsToVoucherItem' : _("""Fill the selected suggestions as items to the voucher. The first
+selected suggestion does not create a new item but replaces the
+item for which it was called."""),
     'lino_cosi.lib.ledger.Plugin.force_cleared_until' : _("""Force all movements on vouchers with entry_date until the given
 date to be cleared.  This is useful e.g. when you want to keep
 legacy invoices in your database but not their payments."""),
@@ -280,9 +279,11 @@ JournalEntry,
 PaymentOrder and
 BankStatement."""),
     'lino_cosi.lib.ledger.ui.Movements.model' : _("""alias of Movement"""),
+    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil.master' : _("""alias of Person"""),
     'lino_cosi.projects.std.settings.DocsSite' : _("""A special variant used to build the docs."""),
     'lino_cosi.lib.sales.models.DueInvoices.model' : _("""alias of VatProductInvoice"""),
     'lino_cosi.lib.ledger.choicelists.VoucherStates.item_class' : _("""alias of VoucherState"""),
+    'lino_cosi.lib.courses.desktop.CoursesByTopic' : _("""Shows the courses of a given topic."""),
     'lino_cosi.lib.ledger.mixins.VoucherItem.title' : _("""The title of this voucher."""),
     'lino_cosi.lib.vat.choicelists.VatRegimes.item_class' : _("""alias of VatRegime"""),
     'lino_cosi.lib.vat.mixins.QtyVatItemBase' : _("""Model mixin for items of a VatTotal, adds unit_price and
@@ -302,6 +303,7 @@ vouchers by lino_xl.lib.contacts.models.Partner. It has a
 customized slave summary."""),
     'lino_cosi.lib.ledger.ui.ExpectedMovements' : _("""A virtual table of DueMovement rows, showing
 all "expected" "movements (payments)"."""),
+    'lino_cosi.lib.courses.desktop.PendingRequestedEnrolments.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.ledger.mixins.VoucherItem' : _("""Base class for items of a voucher."""),
     'lino_cosi.lib.vat.mixins.VatTotal.total_base' : _("""A lino.core.fields.PriceField which stores the total
 amount VAT excluded."""),
@@ -320,7 +322,7 @@ empty."""),
     'lino_cosi.lib.ledger.models.Movement.partner' : _("""Pointer to the partner involved in this movement. This may be
 blank."""),
     'lino_cosi.lib.ledger.models.Movement.seqno' : _("""Sequential number within a voucher."""),
-    'lino_cosi.lib.courses.ui.Enrolments.model' : _("""alias of Enrolment"""),
+    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.ledger.ui.Movements' : _("""The base table for all tables working on Movement.
 Defines filtering parameters and general behaviour."""),
     'lino_cosi.lib.accounts.models.Groups' : _("""The global table of all account groups."""),
@@ -349,7 +351,6 @@ to the generated invoice."""),
     'lino_cosi.lib.vatless.ui.InvoicesByJournal' : _("""Shows all simple invoices of a given journal (whose
 Journal.voucher_type must be
 lino_cosi.lib.sales.models.AccountInvoice)."""),
-    'lino_cosi.lib.courses.ui.CourseDetail' : _("""The detail layout of a Course."""),
     'lino_cosi.lib.sales.models.ItemsByInvoicePrint.master' : _("""alias of VatProductInvoice"""),
     'lino_cosi.lib.ledger.Plugin.fix_y2k' : _("""Whether to use a Y2K compatible representation for fiscal years."""),
     'lino_cosi.lib.vatless.Plugin' : _("""See lino.core.plugin.Plugin."""),
@@ -366,6 +367,7 @@ fact that you owe some wage to an employee) and later pay it
 amount VAT included."""),
     'lino_cosi.lib.vat.mixins.PartnerDetailMixin' : _("""Defines a panel ledger, to be added as a tab panel to your
 layout's main element."""),
+    'lino_cosi.lib.courses.desktop.PendingConfirmedEnrolments.model' : _("""alias of Enrolment"""),
     'lino_cosi.lib.courses.models.Line.body_template' : _("""The body template to use when printing an activity of this
 line.  Leave empty to use the site's default (defined by
 body_template on the
@@ -375,6 +377,7 @@ Course)"""),
 to fill them into the current item (creating additional items if
 more than one suggestion was selected)."""),
     'lino_cosi.lib.ledger.ui.MovementsByAccount' : _("""Shows the movements done on a given general account."""),
+    'lino_cosi.lib.courses.desktop.CourseDetail' : _("""The detail layout of a Course."""),
     'lino_cosi.lib.sales.models.InvoicesByJournal.master' : _("""alias of Journal"""),
     'lino_cosi.lib.ledger.ui.DebtsByAccount.master' : _("""alias of Account"""),
     'lino_cosi.lib.ledger.ui.MovementsByVoucher' : _("""Show the ledger movements of a voucher."""),
@@ -382,7 +385,6 @@ more than one suggestion was selected)."""),
     'lino_cosi.lib.courses.models.Course.requested' : _("""Number of requested places."""),
     'lino_cosi.lib.invoicing.mixins.Invoiceable.invoicings' : _("""A simple GenericRelation
 to all invoice items pointing to this enrolment."""),
-    'lino_cosi.lib.courses.ui.Activities.model' : _("""alias of Course"""),
     'lino_cosi.lib.ledger.models.Journal' : _("""The model used to store journals.
 See cosi.specs.ledger.journals."""),
     'lino_cosi.lib.finan.mixins.DatedFinancialVoucherItem.date' : _("""The value date of this item."""),
@@ -404,7 +406,6 @@ organisation."""),
     'lino_cosi.lib.tim2lino.Plugin.languages' : _("""The language distribution used in the database to import. Mandatory
 parameter. No default value."""),
     'lino_cosi.lib.sales.Plugin' : _("""See lino.core.plugin.Plugin."""),
-    'lino_cosi.lib.courses.ui.PendingConfirmedEnrolments' : _("""Show all confirmed enrolments."""),
     'lino_cosi.lib.ledger.utils.DueMovement.match' : _("""The common match string of these movments"""),
     'lino_cosi.lib.finan.models.BankStatement' : _("""A bank statement is a document issued by the bank, which
 reports all transactions which occured on a given account during a
@@ -472,7 +473,6 @@ stored as 0.20 (not 20)."""),
 FinancialVoucherItem.account of an item is empty."""),
     'lino_cosi.lib.vat.mixins.VatItemBase' : _("""Model mixin for items of a VatTotal."""),
     'lino_cosi.lib.ledger.utils.DueMovement' : _("""A volatile object representing a group of matching movements."""),
-    'lino_cosi.lib.courses.ui.CoursesByLine' : _("""Show the courses per course line."""),
     'lino_cosi.lib.finan.models.FillSuggestionsToVoucher' : _("""Fill selected suggestions from a SuggestionsByVoucher table into a
 financial voucher."""),
     'lino_cosi.lib.ledger.models.Movement.value_date' : _("""The date at which this movement is to be entered into the
@@ -483,7 +483,7 @@ value date."""),
 configurable list of categories."""),
     'lino_cosi.lib.finan.mixins.FinancialVoucher.item_remark' : _("""The default value to use when
 FinancialVoucherItem.remark of an item is empty."""),
-    'lino_cosi.lib.courses.ui.EnrolmentsByPupil.model' : _("""alias of Enrolment"""),
+    'lino_cosi.lib.courses.desktop.Activities' : _("""Base table for all activities."""),
     'lino_cosi.lib.accounts.models.Groups.model' : _("""alias of Group"""),
     'lino_cosi.lib.b2c.models.Account.account_name' : _("""Name of the account, as assigned by the account servicing
 institution, in agreement with the account owner in order to
@@ -511,6 +511,7 @@ models which also defines these two fields."""),
     'lino_cosi.lib.ledger.mixins.Matching.match' : _("""Pointer to the movement which is being cleared by
 this movement."""),
     'lino_cosi.lib.ledger.models.Movement.voucher_link' : _("""A virtual field which shows a link to the voucher."""),
+    'lino_cosi.lib.courses.desktop.CoursesByLine.master' : _("""alias of Line"""),
     'lino_cosi.lib.b2c.models.Transaction.txcd_issuer' : _("""The issuer or the txcd."""),
     'lino_cosi.lib.sales.models.ItemsByInvoicePrint' : _("""The table used to render items in a printable document."""),
     'lino_cosi.lib.ledger.choicelists.TradeType' : _("""Base class for the choices of TradeTypes."""),
@@ -529,7 +530,6 @@ to be assigned to. The default value is determined from
 entry_date."""),
     'lino_cosi.lib.ledger.choicelists.TradeTypes.item_class' : _("""alias of TradeType"""),
     'lino_cosi.lib.ledger.mixins.ProjectRelated' : _("""Model mixin for objects that are related to a project."""),
-    'lino_cosi.lib.courses.ui.Enrolments' : _("""Base class for all enrolment tables."""),
     'lino_cosi.lib.vat.ui.InvoicesByJournal.master' : _("""alias of Journal"""),
     'lino_cosi.lib.vat.ui.InvoiceDetail' : _("""The detail layout used by Invoices."""),
     'lino_cosi.lib.finan.mixins.DatedFinancialVoucherItem' : _("""A FinancialVoucherItem with an additional date
@@ -560,6 +560,8 @@ fill them into the current voucher."""),
     'lino_cosi.lib.sepa.roles.SepaUser' : _("""Can see imported statements and movements per partner."""),
     'lino_cosi.lib.ledger.choicelists.VoucherStates.draft' : _("""Draft vouchers can be modified but are not yet visible as movements
 in the ledger."""),
+    'lino_cosi.lib.courses.desktop.AllEnrolments.model' : _("""alias of Enrolment"""),
+    'lino_cosi.lib.courses.desktop.CoursesByLine.model' : _("""alias of Course"""),
     'lino_cosi.lib.ledger.choicelists.VoucherType.table_class' : _("""Must be a table on model and with master_key set to
 the
 journal."""),
@@ -574,8 +576,6 @@ ledger.MovementsByPartner."""),
     'lino_cosi.lib.ledger.ui.DebtorsCreditors.d_or_c' : _("""alias of NotImplementedError"""),
     'lino_cosi.lib.courses.models.Course' : _("""A Course is a group of pupils that regularily meet with a given
 teacher in a given room to speak about a given subject."""),
-    'lino_cosi.lib.courses.ui.EnrolmentsByPupil.master' : _("""alias of Person"""),
-    'lino_cosi.lib.courses.ui.Activities' : _("""Base table for all activities."""),
     'lino_cosi.lib.finan.models.PaymentOrder' : _("""A payment order is when a user instructs a bank to execute a
 series of outgoing transactions from a given bank account."""),
     'lino_cosi.lib.ledger.models.Movement.match_link' : _("""A virtual field which shows a clickable variant of the match
@@ -592,12 +592,10 @@ automatically, i.e. which have the field amount disabled."""),
     'lino_cosi.lib.ledger.ui.AllMovements' : _("""Displayed by Explorer ‣ Accounting ‣ Movements."""),
     'lino_cosi.lib.finan.models.SuggestionsByPaymentOrder' : _("""A SuggestionsByVoucher table for a PaymentOrder."""),
     'lino_cosi.projects.ylle.settings.Site' : _("""The base for all Estonian Lino Cosi Sites."""),
-    'lino_cosi.lib.accounts.choicelists.Earnings' : _("""https://en.wikipedia.org/wiki/Statement_of_comprehensive_income#Requirements_of_IFRS"""),
     'lino_cosi.lib.ledger.ui.DebtsByPartner' : _("""This is the table being printed in a Payment Reminder.  Usually
 this table has one row per sales invoice which is not fully paid.
 But several invoices ("debts") may be grouped by match.  If the
 partner has purchase invoices, these are deduced from the balance."""),
-    'lino_cosi.lib.courses.ui.CoursesByTopic' : _("""Shows the courses of a given topic."""),
     'lino_cosi.lib.ledger.ui.MovementsByVoucher.model' : _("""alias of Movement"""),
     'lino_cosi.lib.ledger.choicelists.VoucherState' : _("""Base class for items of VoucherStates."""),
     'lino_cosi.lib.ledger.models.Journal.journal_group' : _("""Pointer to an item of JournalGroups."""),
@@ -609,6 +607,8 @@ adds accounting fucntionality."""),
 included to a detail window on partner."""),
     'lino_cosi.lib.accounts.fields.DebitOrCreditStoreField' : _("""This is used as lino_atomizer_class for DebitOrCreditField."""),
     'lino_cosi.lib.vatless.ui.ItemsByInvoice.model' : _("""alias of InvoiceItem"""),
+    'lino_cosi.lib.courses.desktop.PendingRequestedEnrolments' : _("""Show all requested enrolments."""),
+    'lino_cosi.lib.courses.desktop.PendingConfirmedEnrolments' : _("""Show all confirmed enrolments."""),
     'lino_cosi.lib.ledger.choicelists.VoucherStates' : _("""lino_cosi.lib.ledger.VoucherStates defines the list of
 possible states of a voucher."""),
     'lino_cosi.lib.tim2lino.Plugin.dbf_table_ext' : _("""The file extension of TIM tables. Meaningful values are '.DBF' or
