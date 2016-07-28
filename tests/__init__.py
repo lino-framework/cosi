@@ -70,14 +70,9 @@ class DemoTests(TestCase):
     def test_std(self):
         self.run_django_manage_test('lino_cosi/projects/std')
 
-
-class DjangoTests(BaseTestCase):
-    """
-    $ python setup.py test -s tests.DemoTests.test_admin
-    """
-
-    def test_admin(self):
+    def test_apc(self):
         self.run_django_manage_test('lino_cosi/projects/apc')
+
+    def test_ylle(self):
         self.run_django_manage_test('lino_cosi/projects/ylle')
-        # self.run_django_manage_test('lino_cosi/projects/std/settings/start')
 
