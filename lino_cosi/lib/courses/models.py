@@ -329,6 +329,14 @@ class Course(Reservation, Duplicable):
             dd.fds(self.start_date),
             self.room)
 
+    def get_detail_action(self, ar):
+        if self.line_id:
+            area = self.line.course_area
+            if area:
+                table = rt.actors.resolve(area.courses_table)
+                return table.detail_action
+        return super(Course, self).get_detail_action(ar)
+            
     def update_cal_from(self, ar):
         """Note: if recurrency is weekly or per_weekday, actual start may be
         later than self.start_date
