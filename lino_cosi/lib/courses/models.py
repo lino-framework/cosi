@@ -330,6 +330,12 @@ class Course(Reservation, Duplicable):
             self.room)
 
     def get_detail_action(self, ar):
+        """Custom :meth:`get_detail_action
+        <lino.core.model.Model.get_detail_action>` because the
+        detail_layout to use depends on the course's line's
+        `course_area`.
+
+        """
         if self.line_id:
             area = self.line.course_area
             if area:
