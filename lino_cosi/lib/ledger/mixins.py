@@ -98,6 +98,21 @@ class PartnerRelated(dd.Model):
         """Overrides Voucher.get_partner"""
         return self.partner
 
+    def get_payment_term_html(self, ar):
+        """Used in :xfile:`sales/VatProductInvoice/trailer.html`.        
+        """
+        pt = self.payment_term
+        if not pt:
+            return ''
+        if not pt.printed_text or ar is None:
+            return "{} : {}".format(_("Payment terms"), str(pt))
+        context = ar.get_printable_context(obj=self)
+        env = dd.plugins.jinja.renderer.jinja_env
+        s = E.tostring(rich_text_to_elems(ar, s))
+        s = env.from_string(s).render(**context)
+        return s
+        
+
     def get_recipient(self):
         return self.partner
     recipient = property(get_recipient)

@@ -50,7 +50,7 @@ The database structure
  ledger.Journal              ledger.Journals                19        7
  ledger.MatchRule            ledger.MatchRules              3         11
  ledger.Movement             ledger.Movements               10        728
- ledger.PaymentTerm          ledger.PaymentTerms            8         7
+ ledger.PaymentTerm          ledger.PaymentTerms            9         8
  ledger.Voucher              ledger.Vouchers                9         175
  outbox.Attachment           outbox.Attachments             4         0
  outbox.Mail                 outbox.Mails                   8         0

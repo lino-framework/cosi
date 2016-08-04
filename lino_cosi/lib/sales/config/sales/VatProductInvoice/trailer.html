@@ -3,7 +3,7 @@
 <p class="Default">
 {{_("Date of payment")}} : {{fds(obj.due_date)}}
 <br/>
-{{_("Payment terms")}} : {{obj.payment_term}}
+{{obj.get_payment_term_html(ar)}}
 </p>
 {% endblock %}
 </div>

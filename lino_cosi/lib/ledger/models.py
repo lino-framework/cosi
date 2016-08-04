@@ -41,6 +41,7 @@ from atelier.utils import last_day_of_month
 from lino.api import dd, rt, _
 from lino import mixins
 from lino.utils import mti
+from lino.utils.xmlgen.html import E
 from lino.mixins.periods import DatePeriod
 from lino.modlib.users.mixins import UserAuthored
 from lino.modlib.printing.mixins import PrintableType
@@ -385,6 +386,7 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
 
 AccountingPeriod.set_widget_options('ref', width=6)
 
+from lino.modlib.notify.utils import rich_text_to_elems
     
 class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
               
@@ -400,6 +402,10 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
     days = models.IntegerField(_("Days"), default=0)
     months = models.IntegerField(_("Months"), default=0)
     end_of_month = models.BooleanField(_("End of month"), default=False)
+
+    printed_text = dd.RichTextField(
+        _("Printed text"), blank=True, format='plain')
+    
 
     def get_due_date(self, date1):
         assert isinstance(date1, datetime.date), \
