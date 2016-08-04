@@ -32,6 +32,7 @@ from lino.api import dd, rt
 from lino.core import actions
 from lino.utils.xmlgen.html import E
 from lino.utils.mldbc.mixins import BabelNamed
+from lino.modlib.notify.utils import body_subject_to_elems
 
 from lino_xl.lib.excerpts.mixins import Certifiable
 from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
@@ -65,9 +66,12 @@ TradeTypes.clearings.update(
 
 dd.inject_field(
     'contacts.Partner', 'invoice_recipient',
-    dd.ForeignKey('contacts.Partner',
-                  verbose_name=_("Invoicing address"),
-                  blank=True, null=True))
+    dd.ForeignKey(
+        'contacts.Partner',
+        verbose_name=_("Invoicing address"),
+        blank=True, null=True,
+        help_text=_("Redirect to another partner all invoices which "
+                    "should go to this partner.")))
 
 dd.inject_field(
     'contacts.Partner', 'paper_type',
@@ -482,7 +486,6 @@ class ItemsByInvoice(InvoiceItems):
     master_key = 'voucher'
     order_by = ["seqno"]
 
-from lino.modlib.notify.utils import body_subject_to_elems
 
 
 class ItemsByInvoicePrint(ItemsByInvoice):

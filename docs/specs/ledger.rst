@@ -194,13 +194,13 @@ pay that invoice).
 ==================== ========= ===============
  Partner              ID        Balance
 -------------------- --------- ---------------
- Johnen Johann        137       639,92
- Groteclaes Gregory   131       47,59
- Emonts Erich         149       3 854,78
- Lambertz Guido       141       2 039,82
- Malmendier Marc      145       679,81
  Kaivers Karl         140       2 999,85
+ Groteclaes Gregory   131       47,59
+ Lambertz Guido       141       2 039,82
+ Emonts Erich         149       3 854,78
  Mießen Michael       147       280,00
+ Johnen Johann        137       639,92
+ Malmendier Marc      145       679,81
  **Total (7 rows)**   **990**   **10 541,77**
 ==================== ========= ===============
 <BLANKLINE>
@@ -234,8 +234,8 @@ Partner 149 has 2 open sales invoices:
 ==================== ============== ========== ==========
  Due date             Balance        Debts      Payments
 -------------------- -------------- ---------- ----------
- 10/05/2015           535,00         *SLS 23*
- 11/05/2015           3 319,78       *SLS 24*
+ 17/05/2015           535,00         *SLS 23*
+ 18/05/2015           3 319,78       *SLS 24*
  **Total (2 rows)**   **3 854,78**
 ==================== ============== ========== ==========
 <BLANKLINE>
