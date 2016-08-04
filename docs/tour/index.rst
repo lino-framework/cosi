@@ -29,10 +29,10 @@ tables.
 Why do we need such a union table of partners? There is an important
 reason: an invoice (one of the important documents used in accounting)
 must have a *recipient*, and that recipient can be a private person
-for some invoices and an organization some other invoices. And (last
-but not least) in many accounting situations you are not interested
-whether it's a person or an organizations, it is just some business
-partner who owes you money.
+for some invoices and an organization for some other invoices. And
+(last but not least) in many accounting situations you are not
+interested whether it's a person or an organizations, it is just some
+business partner who owes you money.
 
 
 Products
