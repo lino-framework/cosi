@@ -27,7 +27,7 @@ The demo database contains 69 persons and 22 companies.
 
 
 >>> print(' '.join(settings.SITE.demo_fixtures))
-std few_countries euvatrates few_languages furniture minimal_ledger demo demo_bookings payments demo2
+std few_countries euvatrates furniture minimal_ledger demo demo_bookings payments demo2
 
 
 

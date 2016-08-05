@@ -40,7 +40,7 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    demo_fixtures = 'std few_countries euvatrates few_languages furniture \
+    demo_fixtures = 'std few_countries euvatrates furniture \
     minimal_ledger demo demo_bookings payments demo2'.split()
 
     # languages = 'en de fr'
