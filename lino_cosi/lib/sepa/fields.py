@@ -68,14 +68,18 @@ class UppercaseTextField(models.CharField, dd.CustomField):
         return str(value) if value else ''
 
 
-class BICField(with_metaclass(
-        models.SubfieldBase, iban_fields.BICField, UppercaseTextField)):
+class BICField(iban_fields.BICField, UppercaseTextField):
     """Database field used to store a BIC. """
 
+    def from_db_value(self, value, expression, connection, context):
+        return value
 
-class IBANField(with_metaclass(
-        models.SubfieldBase, iban_fields.IBANField, dd.CustomField)):
+
+class IBANField(iban_fields.IBANField, dd.CustomField):
     """Database field used to store an IBAN. """
+
+    def from_db_value(self, value, expression, connection, context):
+        return value
 
     def create_layout_elem(self, *args, **kw):
         return IBANFieldElement(*args, **kw)
