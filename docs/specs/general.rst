@@ -137,8 +137,7 @@ Robin is the system administrator, he has a complete menu:
 
 Romain gets the same menu in French:
   
->>> ses = rt.login('romain') 
->>> ses.show_menu()
+>>> rt.login('romain').show_menu()
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Contacts : Personnes, Organizations, Partenaires
 - Products : Products, Product Categories
@@ -177,8 +176,7 @@ Romain gets the same menu in French:
 
 Rolf gets the same menu in German:
   
->>> ses = rt.login('rolf') 
->>> ses.show_menu()
+>>> rt.login('rolf').ses.show_menu()
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
