@@ -591,7 +591,6 @@ automatically, i.e. which have the field amount disabled."""),
     'lino_cosi.lib.finan.models.PaymentOrders.model' : _("""alias of PaymentOrder"""),
     'lino_cosi.lib.ledger.ui.AllMovements' : _("""Displayed by Explorer ‣ Accounting ‣ Movements."""),
     'lino_cosi.lib.finan.models.SuggestionsByPaymentOrder' : _("""A SuggestionsByVoucher table for a PaymentOrder."""),
-    'lino_cosi.projects.ylle.settings.Site' : _("""The base for all Estonian Lino Cosi Sites."""),
     'lino_cosi.lib.ledger.ui.DebtsByPartner' : _("""This is the table being printed in a Payment Reminder.  Usually
 this table has one row per sales invoice which is not fully paid.
 But several invoices ("debts") may be grouped by match.  If the

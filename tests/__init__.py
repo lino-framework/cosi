@@ -26,6 +26,9 @@ class CodeTests(TestCase):
     def test_febelfin(self):
         self.run_simple_doctests('lino_cosi/lib/b2c/febelfin.py')
 
+    def test_packages(self):
+        self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
+
 
 class DocsTests(BaseTestCase):
     # def test_cosi(self):
@@ -34,20 +37,11 @@ class DocsTests(BaseTestCase):
     def test_accounting(self):
         self.run_simple_doctests('docs/specs/accounting.rst')
 
-    def test_packages(self):
-        self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
-
-    def test_est(self):
-        self.run_simple_doctests('docs/specs/est.rst')
-
     def test_sales(self):
         self.run_simple_doctests('docs/specs/sales.rst')
 
     def test_invoicing(self):
         self.run_simple_doctests('docs/specs/invoicing.rst')
-
-    def test_bel_de(self):
-        self.run_simple_doctests('docs/specs/bel_de.rst')
 
     def test_demo(self):
         self.run_simple_doctests('docs/specs/demo.rst')
@@ -69,10 +63,4 @@ class DemoTests(TestCase):
 
     def test_std(self):
         self.run_django_manage_test('lino_cosi/projects/std')
-
-    def test_apc(self):
-        self.run_django_manage_test('lino_cosi/projects/apc')
-
-    def test_ylle(self):
-        self.run_django_manage_test('lino_cosi/projects/ylle')
 

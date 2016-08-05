@@ -36,7 +36,7 @@ defined:
 
 >>> from django.utils import translation
 >>> from lino import startup
->>> startup('lino_cosi.projects.pierre.settings.demo')
+>>> startup('lino_cosi.projects.std.settings.demo')
 
 >>> with translation.override('en'):
 ...     print(code2desc('0103'))

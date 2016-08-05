@@ -10,6 +10,7 @@ class Site(DocsSite):
     is_demo_site = True
     # ignore_dates_after = datetime.date(2019, 05, 22)
     the_demo_date = datetime.date(2015, 05, 12)
+    languages = "en fr de"
 
     def setup_plugins(self):
         """
