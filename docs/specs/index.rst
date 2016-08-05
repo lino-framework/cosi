@@ -16,10 +16,8 @@ General stuff
   
     cosi  
     general    
-    bel_de
     demo
     contacts
-    est
     tim2lino
 
 Accounting stuff

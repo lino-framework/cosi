@@ -5,8 +5,5 @@ This package contains the four demo databases included with :ref:`cosi`.
    :toctree:
 
     std
-    apc
-    ylle
-    pierre
 
 """
