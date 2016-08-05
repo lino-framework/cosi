@@ -176,7 +176,7 @@ Romain gets the same menu in French:
 
 Rolf gets the same menu in German:
   
->>> rt.login('rolf').ses.show_menu()
+>>> rt.login('rolf').show_menu()
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
