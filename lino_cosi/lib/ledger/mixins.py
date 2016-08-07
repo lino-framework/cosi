@@ -30,6 +30,7 @@ from django.db import models
 from lino.api import dd, rt, _
 from lino.mixins import Sequenced
 from lino.utils.xmlgen.html import E
+from lino.modlib.notify.utils import rich_text_to_elems
 
 # FKMATCH = False
 
