@@ -109,7 +109,7 @@ class PartnerRelated(dd.Model):
             return "{} : {}".format(_("Payment terms"), str(pt))
         context = ar.get_printable_context(obj=self)
         env = dd.plugins.jinja.renderer.jinja_env
-        s = E.tostring(rich_text_to_elems(ar, pt.printed))
+        s = E.tostring(rich_text_to_elems(ar, pt.printed_text))
         s = env.from_string(s).render(**context)
         return s
         
