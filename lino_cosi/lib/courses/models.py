@@ -354,7 +354,7 @@ class Course(Reservation, Duplicable):
         #     return None
         return self.start_date
 
-    def update_cal_calendar(self):
+    def update_cal_event_type(self):
         return self.line.event_type
 
     def update_cal_summary(self, i):
