@@ -478,7 +478,7 @@ class AllEnrolments(Enrolments):
     """Show global list of all enrolments."""
     required_roles = dd.required(dd.SiteStaff)
     order_by = ['-id']
-    column_names = 'id request_date start_date end_date user course pupil *'
+    column_names = 'id request_date start_date end_date user course pupil pupil__birth_date pupil__age pupil__country pupil__city pupil__gender *'
 
 
 class ConfirmAllEnrolments(dd.Action):

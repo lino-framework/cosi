@@ -385,9 +385,7 @@ class AccountingPeriod(DatePeriod, mixins.Referrable):
         return self.ref
 
 AccountingPeriod.set_widget_options('ref', width=6)
-
-from lino.modlib.notify.utils import rich_text_to_elems
-    
+  
 class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
               
     """A convention on how an invoice should be paid.
