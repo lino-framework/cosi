@@ -57,6 +57,6 @@ Run directly from repository
   :mod:`lino_cosi.projects`
     
 - And to be honest, the above trick will probably work only if you
-  have set up your :ref:`lino.djangosite_local`.
+  have set up your :xfile:`djangosite_local.py`.
 
   
