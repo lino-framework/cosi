@@ -10,15 +10,22 @@ The final truth about what's going on is only
 `The Source Code <https://github.com/lsaffre/lino-cosi>`_.
 
 
-Version 0.0.1 (released :blogref:`20150922`)
+Version 0.0.3 (released :blogref:`20160819`)
 ============================================
 
-This is a first prototype.
+Lots of changes. This version is required when following the
+installation instructions of the Lino Developer's Guide.
 
 
 Version 0.0.2 (released :blogref:`20151028`)
 ============================================
 
 Quite some changes, but the main reason is to get it pass on drone.io.
+
+
+Version 0.0.1 (released :blogref:`20150922`)
+============================================
+
+This is a first prototype.
 
 
