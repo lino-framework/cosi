@@ -10,6 +10,12 @@ The final truth about what's going on is only
 `The Source Code <https://github.com/lsaffre/lino-cosi>`_.
 
 
+Version 0.0.4 (released :blogref:`20160820`)
+============================================
+
+Now with package data (`*.mo`, `*.js`, `*.html`, ...).
+
+
 Version 0.0.3 (released :blogref:`20160819`)
 ============================================
 

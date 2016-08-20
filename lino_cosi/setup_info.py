@@ -115,21 +115,28 @@ SETUP_INFO.update(message_extractors={
     ],
 })
 
-SETUP_INFO.update(package_data=dict())
+SETUP_INFO.update(
+    # package_data=dict(),
+    zip_safe=False,
+    include_package_data=True)
 
 
-def add_package_data(package, *patterns):
-    l = SETUP_INFO['package_data'].setdefault(package, [])
-    l.extend(patterns)
-    return l
+# def add_package_data(package, *patterns):
+#     l = SETUP_INFO['package_data'].setdefault(package, [])
+#     l.extend(patterns)
+#     return l
 
 
 # ~ add_package_data('lino_cosi',
 # ~ 'config/patrols/Patrol/*.odt',
 # ~ 'config/patrols/Overview/*.odt')
 
-l = add_package_data('lino_cosi.lib.cosi')
-for lng in 'de fr'.split():
-    l.append('lino_cosi/lib/cosi/locale/%s/LC_MESSAGES/*.mo' % lng)
+# l = add_package_data('lino_cosi.lib.cosi')
+# for lng in 'de fr'.split():
+#     l.append('lino_cosi/lib/cosi/locale/%s/LC_MESSAGES/*.mo' % lng)
 
-# print 20151208, SETUP_INFO['package_data']
+# l = add_package_data('lino_cosi.lib.sepa',
+#                      'lino_cosi/lib/sepa/config/iban/*')
+                     # 'config/iban/*')
+# print 20160820, SETUP_INFO['package_data']
+# raw_input()
