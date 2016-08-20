@@ -1,6 +1,6 @@
 global-include *.txt *.rst *.js *.css *.html \
   *.ico  \
-  *.xml \
+  *.csv *.xml \
   *.odt \
   *.mo
 prune docs
