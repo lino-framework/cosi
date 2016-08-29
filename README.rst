@@ -1,11 +1,8 @@
-==========================
-lino-cosi README
-==========================
+=========================
+The ``lino-cosi`` package
+=========================
 
-A Lino application to make accounting simple
 
-Description
------------
 
 
 
@@ -35,5 +32,3 @@ sophisticated applications** like `Lino Welfare
 - The central project homepage is http://cosi.lino-framework.org
 
 
-
-Read more on http://cosi.lino-framework.org
