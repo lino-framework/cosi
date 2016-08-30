@@ -330,23 +330,35 @@ class InvoicingsByInvoiceable(dd.Table):
 
 invoiceable_label = dd.plugins.invoicing.invoiceable_label
 
+
+
 dd.inject_field(
     dd.plugins.invoicing.item_model,
     'invoiceable_type', dd.ForeignKey(
         ContentType,
-        editable=False, blank=True, null=True,
+        blank=True, null=True,
         verbose_name=string_concat(invoiceable_label, ' ', _('(type)'))))
 dd.inject_field(
     dd.plugins.invoicing.item_model,
     'invoiceable_id', GenericForeignKeyIdField(
         'invoiceable_type',
-        editable=False, blank=True, null=True,
+        blank=True, null=True,
         verbose_name=string_concat(invoiceable_label, ' ', _('(object)'))))
 dd.inject_field(
     dd.plugins.invoicing.item_model,
     'invoiceable', GenericForeignKey(
         'invoiceable_type', 'invoiceable_id',
         verbose_name=invoiceable_label))
+
+# define a custom chooser because we want to see only invoiceable
+# models when manually selecting an invoiceable_type:
+@dd.chooser()
+def invoiceable_type_choices(cls):
+    return ContentType.objects.get_for_models(
+        *rt.models_by_base(Invoiceable)).values()
+dd.inject_action(
+    dd.plugins.invoicing.item_model,
+    invoiceable_type_choices=invoiceable_type_choices)
 
 
 @dd.receiver(dd.pre_save, sender=dd.plugins.invoicing.item_model)
