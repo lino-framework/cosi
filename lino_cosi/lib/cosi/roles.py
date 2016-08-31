@@ -26,11 +26,12 @@ from lino.api import _
 from lino.modlib.users.choicelists import UserProfiles
 from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
+from lino_xl.lib.contacts.roles import ContactsUser
 from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_cosi.lib.sepa.roles import SepaUser, SepaStaff
 
 
-class SiteUser(OfficeUser, LedgerUser, SepaUser):
+class SiteUser(ContactsUser, OfficeUser, LedgerUser, SepaUser):
     pass
 
 
