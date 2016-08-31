@@ -52,6 +52,8 @@ from lino.modlib.system.choicelists import PeriodEvents
 
 from .choicelists import EnrolmentStates, CourseStates, CourseAreas
 
+from .roles import CoursesUser
+
 cal = dd.resolve_app('cal')
 
 try:
@@ -91,6 +93,7 @@ class Topics(dd.Table):
 
 class Lines(dd.Table):
     model = 'courses.Line'
+    required_roles = dd.required(CoursesUser)
     column_names = ("ref name topic course_area "
                     "event_type guest_role every_unit every *")
     order_by = ['ref', 'name']
@@ -163,7 +166,7 @@ class Activities(dd.Table):
     """Base table for all activities.
     """
     _course_area = None
-
+    required_roles = dd.required(CoursesUser)
     model = 'courses.Course'
     detail_layout = CourseDetail()
     insert_layout = """
@@ -537,7 +540,7 @@ class PendingConfirmedEnrolments(Enrolments):
 class EnrolmentsByPupil(Enrolments):
     """Show all enrolments of a given pupil."""
     params_panel_hidden = True
-    required_roles = dd.required()
+    required_roles = dd.required(CoursesUser)
     master_key = "pupil"
     column_names = 'request_date course user:10 remark workflow_buttons *'
     auto_fit_column_widths = True
@@ -559,7 +562,7 @@ class EnrolmentsByPupil(Enrolments):
 
 class EnrolmentsByCourse(Enrolments):
     params_panel_hidden = True
-    required_roles = dd.required()
+    required_roles = dd.required(CoursesUser)
     master_key = "course"
     column_names = 'request_date pupil places option ' \
                    'remark workflow_buttons *'
