@@ -29,13 +29,16 @@ from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_xl.lib.contacts.roles import ContactsUser
 from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_cosi.lib.sepa.roles import SepaUser, SepaStaff
+from lino_cosi.lib.courses.roles import CoursesUser
 
 
-class SiteUser(ContactsUser, OfficeUser, LedgerUser, SepaUser):
+class SiteUser(CoursesUser, ContactsUser, OfficeUser, LedgerUser,
+               SepaUser):
     pass
 
 
-class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff, SepaStaff):
+class SiteAdmin(CoursesUser, SiteAdmin, OfficeStaff, LedgerStaff,
+                SepaStaff):
     pass
 
 UserProfiles.clear()
