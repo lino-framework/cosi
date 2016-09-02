@@ -128,7 +128,8 @@ class Invoiceable(dd.Model):
     @classmethod
     def get_invoiceables_for_plan(cls, plan, partner=None):
         """Yield a sequence of invoiceables (of this class) for the given
-        partner.
+        plan.  If a `partner` is given, use it as an additional filter
+        condition.
 
         """
         raise NotImplementedError()
