@@ -79,17 +79,17 @@ Journals are stored in the database using the :class:`ledger.Journal
 >>> ses.show(ledger.Journals,
 ...     column_names="ref name trade_type account dc")
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-=========== =============================== ===================== ==================== ============ ================================ ===========================
- Reference   Designation                     Designation (fr)      Designation (de)     Trade type   Account                          Primary booking direction
------------ ------------------------------- --------------------- -------------------- ------------ -------------------------------- ---------------------------
- SLS         Sales invoices                  Factures vente        Verkaufsrechnungen   Sales                                         Debit
- SLC         Sales credit notes              Sales credit notes    Sales credit notes   Sales                                         Credit
- PRC         Purchase invoices               Factures achat        Einkaufsrechnungen   Purchases                                     Credit
- PMO         Payment Orders                  Payment Orders        Zahlungsaufträge     Purchases    (5810) Payment Orders Bestbank   Credit
- CSH         Cash                            Caisse                Kasse                             (5700) Cash                      Debit
- BNK         Bestbank                        Bestbank              Bestbank                          (5500) Bestbank                  Debit
- MSC         Miscellaneous Journal Entries   Opérations diverses   Diverse Buchungen                 (5700) Cash                      Debit
-=========== =============================== ===================== ==================== ============ ================================ ===========================
+=========== =============================== ===================== ====================== ============ ================================ ===========================
+ Reference   Designation                     Designation (fr)      Designation (de)       Trade type   Account                          Primary booking direction
+----------- ------------------------------- --------------------- ---------------------- ------------ -------------------------------- ---------------------------
+ SLS         Sales invoices                  Factures vente        Verkaufsrechnungen     Sales                                         Debit
+ SLC         Sales credit notes              Sales credit notes    Gutschriften Verkauf   Sales                                         Credit
+ PRC         Purchase invoices               Factures achat        Einkaufsrechnungen     Purchases                                     Credit
+ PMO         Payment Orders                  Payment Orders        Zahlungsaufträge       Purchases    (5810) Payment Orders Bestbank   Credit
+ CSH         Cash                            Caisse                Kasse                               (5700) Cash                      Debit
+ BNK         Bestbank                        Bestbank              Bestbank                            (5500) Bestbank                  Debit
+ MSC         Miscellaneous Journal Entries   Opérations diverses   Diverse Buchungen                   (5700) Cash                      Debit
+=========== =============================== ===================== ====================== ============ ================================ ===========================
 <BLANKLINE>
 
 

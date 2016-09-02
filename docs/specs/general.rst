@@ -181,7 +181,7 @@ Rolf gets the same menu in German:
 - Kontakte : Personen, Organisationen, Partner
 - Produkte : Produkte, Produktkategorien
 - Buchhaltung :
-  - Verkauf : Verkaufsrechnungen (SLS), Sales credit notes (SLC)
+  - Verkauf : Verkaufsrechnungen (SLS), Gutschriften Verkauf (SLC)
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Zahlungsaufträge (PMO), Kasse (CSH), Bestbank (BNK), Diverse Buchungen (MSC)
   - Rechnungen erstellen
