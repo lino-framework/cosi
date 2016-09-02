@@ -29,7 +29,7 @@
 import os
 
 fn = os.path.join(os.path.dirname(__file__), 'setup_info.py')
-execfile(fn)
+exec(compile(open(fn, "rb").read(), fn, 'exec'))
 __version__ = SETUP_INFO['version']
 
 intersphinx_urls = dict(docs="http://cosi.lino-framework.org")
