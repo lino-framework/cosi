@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lino-cosi 0.0.3\n"
+"Project-Id-Version: lino-cosi 0.0.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-08-20 04:38+0300\n"
+"POT-Creation-Date: 2016-09-02 03:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1109,9 +1109,9 @@ msgstr ""
 msgid "Debit balance"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:83 lino_cosi/lib/courses/desktop.py:151
+#: lino_cosi/lib/contacts/models.py:83 lino_cosi/lib/courses/desktop.py:154
 #: lino_cosi/lib/finan/models.py:256 lino_cosi/lib/finan/models.py:268
-#: lino_cosi/lib/finan/models.py:275 lino_cosi/lib/sales/models.py:313
+#: lino_cosi/lib/finan/models.py:275 lino_cosi/lib/sales/models.py:329
 #: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:85
 msgid "General"
@@ -2833,15 +2833,15 @@ msgid ""
 ".FOX."
 msgstr ""
 
-#: lino_cosi/lib/cosi/roles.py:44 lino_cosi/lib/ledger/roles.py:51
+#: lino_cosi/lib/cosi/roles.py:48 lino_cosi/lib/ledger/roles.py:51
 msgid "Anonymous"
 msgstr ""
 
-#: lino_cosi/lib/cosi/roles.py:45 lino_cosi/lib/ledger/roles.py:52
+#: lino_cosi/lib/cosi/roles.py:49 lino_cosi/lib/ledger/roles.py:52
 msgid "User"
 msgstr ""
 
-#: lino_cosi/lib/cosi/roles.py:46 lino_cosi/lib/ledger/roles.py:53
+#: lino_cosi/lib/cosi/roles.py:50 lino_cosi/lib/ledger/roles.py:53
 msgid "Administrator"
 msgstr ""
 
@@ -2905,70 +2905,70 @@ msgstr ""
 msgid "Courses"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:118
+#: lino_cosi/lib/courses/desktop.py:121
 msgid "Shows events of activities led by this teacher"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:156 lino_cosi/lib/courses/models.py:440
+#: lino_cosi/lib/courses/desktop.py:159 lino_cosi/lib/courses/models.py:440
 msgid "Events"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:320
+#: lino_cosi/lib/courses/desktop.py:323
 msgid "Draft activities"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:335
+#: lino_cosi/lib/courses/desktop.py:338
 msgid "Current activities"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:349
+#: lino_cosi/lib/courses/desktop.py:352
 msgid "Inactive courses"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:362
+#: lino_cosi/lib/courses/desktop.py:365
 msgid "Closed courses"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:386
+#: lino_cosi/lib/courses/desktop.py:389
 msgid "Course state"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:388
+#: lino_cosi/lib/courses/desktop.py:391
 msgid "Participants only"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:389
+#: lino_cosi/lib/courses/desktop.py:392
 msgid ""
 "Hide cancelled enrolments. Ignored if you specify an explicit enrolment "
 "state."
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:468
+#: lino_cosi/lib/courses/desktop.py:471
 msgid "Also "
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:485
+#: lino_cosi/lib/courses/desktop.py:488
 msgid "Confirm all"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:499
+#: lino_cosi/lib/courses/desktop.py:502
 #, python-format
 msgid "This will confirm all %d enrolments in this list."
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:501 lino_cosi/lib/courses/workflows.py:46
+#: lino_cosi/lib/courses/desktop.py:504 lino_cosi/lib/courses/workflows.py:46
 msgid "Are you sure?"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:506
+#: lino_cosi/lib/courses/desktop.py:509
 msgid "Pending requested enrolments"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:524
+#: lino_cosi/lib/courses/desktop.py:527
 msgid "Pending confirmed enrolments"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:579
+#: lino_cosi/lib/courses/desktop.py:582
 msgid "Enrolments using this option"
 msgstr ""
 
@@ -3014,8 +3014,8 @@ msgstr ""
 #: lino_cosi/lib/ledger/ui.py:464 lino_cosi/lib/ledger/ui.py:814
 #: lino_cosi/lib/ledger/ui.py:873 lino_cosi/lib/ledger/ui.py:926
 #: lino_cosi/lib/ledger/ui.py:972 lino_cosi/lib/ledger/ui.py:1017
-#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:399
-#: lino_cosi/lib/sales/models.py:502 lino_cosi/lib/vat/models.py:159
+#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:415
+#: lino_cosi/lib/sales/models.py:518 lino_cosi/lib/vat/models.py:159
 #: lino_cosi/lib/vatless/models.py:126
 msgid "Description"
 msgstr ""
@@ -3373,12 +3373,12 @@ msgid "Payment Order items"
 msgstr ""
 
 #: lino_cosi/lib/finan/models.py:261 lino_cosi/lib/ledger/__init__.py:49
-#: lino_cosi/lib/sales/models.py:323 lino_cosi/lib/vat/ui.py:70
+#: lino_cosi/lib/sales/models.py:339 lino_cosi/lib/vat/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:75
 msgid "Ledger"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:388 lino_cosi/lib/sales/models.py:485
+#: lino_cosi/lib/finan/models.py:388 lino_cosi/lib/sales/models.py:501
 msgid "Content"
 msgstr ""
 
@@ -3484,11 +3484,11 @@ msgstr ""
 msgid "Invoicings"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:338
+#: lino_cosi/lib/invoicing/models.py:340
 msgid "(type)"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:344
+#: lino_cosi/lib/invoicing/models.py:346
 msgid "(object)"
 msgstr ""
 
@@ -3946,19 +3946,19 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:400
+#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:416
 msgid "Discount"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:302
+#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:318
 msgid "Totals"
 msgstr ""
 
-#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:308
+#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:324
 msgid "Header"
 msgstr ""
 
-#: lino_cosi/lib/sales/__init__.py:38 lino_cosi/lib/sales/models.py:229
+#: lino_cosi/lib/sales/__init__.py:38 lino_cosi/lib/sales/models.py:245
 msgid "Product invoices"
 msgstr ""
 
@@ -3986,67 +3986,71 @@ msgstr ""
 msgid "Clearings account"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:71
+#: lino_cosi/lib/sales/models.py:70
+msgid "Invoice senders"
+msgstr ""
+
+#: lino_cosi/lib/sales/models.py:81
 msgid "Invoicing address"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:73
+#: lino_cosi/lib/sales/models.py:83
 msgid "Redirect to another partner all invoices which should go to this partner."
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:102
+#: lino_cosi/lib/sales/models.py:118
 msgid "Paper type"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:103
+#: lino_cosi/lib/sales/models.py:119
 msgid "Paper types"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:105
+#: lino_cosi/lib/sales/models.py:121
 msgid "Template"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:165
+#: lino_cosi/lib/sales/models.py:181
 msgid "Subject line"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:228
+#: lino_cosi/lib/sales/models.py:244
 msgid "Product invoice"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:273
+#: lino_cosi/lib/sales/models.py:289
 msgid "Balance to pay"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:282
+#: lino_cosi/lib/sales/models.py:298
 msgid "Balance before"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:318
+#: lino_cosi/lib/sales/models.py:334
 msgid "More"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:368
+#: lino_cosi/lib/sales/models.py:384
 msgid "Due invoices"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:452
+#: lino_cosi/lib/sales/models.py:468
 msgid "Product invoice item"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:453
+#: lino_cosi/lib/sales/models.py:469
 msgid "Product invoice items"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:457
+#: lino_cosi/lib/sales/models.py:473
 msgid "Heading"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:510
+#: lino_cosi/lib/sales/models.py:526
 msgid "({qty}*{unit_price}/{unit})"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:550
+#: lino_cosi/lib/sales/models.py:566
 #, python-format
 msgid "Going to sign %d documents as user %s. Are you sure?"
 msgstr ""

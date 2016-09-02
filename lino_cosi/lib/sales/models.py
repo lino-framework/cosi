@@ -64,6 +64,16 @@ TradeTypes.clearings.update(
     partner_account_field_name='clearings_account',
     partner_account_field_label=_("Clearings account"))
 
+from lino_cosi.lib.contacts.models import Partners
+
+class PartnersByInvoiceRecipient(Partners):
+    label = _("Invoice senders")
+    master_key = 'invoice_recipient'
+    column_names = 'name id address_column *'
+    window_size = (50, 15)
+    params_panel_hidden = True
+    
+
 dd.inject_field(
     'contacts.Partner', 'invoice_recipient',
     dd.ForeignKey(
@@ -72,6 +82,12 @@ dd.inject_field(
         blank=True, null=True,
         help_text=_("Redirect to another partner all invoices which "
                     "should go to this partner.")))
+
+dd.inject_action(
+    'contacts.Partner',
+    show_invoice_partners=dd.ShowSlaveTable(
+        PartnersByInvoiceRecipient))
+
 
 dd.inject_field(
     'contacts.Partner', 'paper_type',
