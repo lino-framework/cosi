@@ -266,6 +266,9 @@ class Item(dd.Model):
         items = []
         with translation.override(lng):
             for ii in self.plan.get_invoiceables_for_plan(self.partner):
+                pt = ii.get_invoiceable_payment_term()
+                if pt:
+                    invoice.payment_term = pt
                 for i in ii.get_wanted_items(
                         ar, invoice, self.plan, ITEM_MODEL):
                     items.append(i)

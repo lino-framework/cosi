@@ -41,7 +41,7 @@ The test database
 - accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, group, type, needs_partner, clearable, default_amount, name_fr, name_de
 - accounts.Group : id, name, ref, account_type, name_fr, name_de
 - cal.Calendar : id, name, description, color, name_fr, name_de
-- cal.Event : id, modified, created, build_time, build_method, user, assigned_to, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state  
+- cal.Event : id, modified, created, build_time, build_method, user, assigned_to, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state
 - cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting, event_label_fr, event_label_de, name_fr, name_de
 - cal.Guest : id, event, partner, role, state, remark
 - cal.GuestRole : id, name, name_fr, name_de
@@ -80,7 +80,7 @@ The test database
 - ledger.Journal : id, ref, seqno, name, build_method, template, trade_type, voucher_type, journal_group, auto_check_clearings, force_sequence, account, printed_name, dc, yearly_numbering, printed_name_fr, printed_name_de, name_fr, name_de
 - ledger.MatchRule : id, account, journal
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared, value_date
-- ledger.PaymentTerm : id, ref, name, days, months, end_of_month, printed_text, name_fr, name_de
+- ledger.PaymentTerm : id, ref, name, days, months, end_of_month, printed_text, printed_text_fr, printed_text_de, name_fr, name_de
 - ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
 - outbox.Attachment : id, owner_type, owner_id, mail
 - outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
