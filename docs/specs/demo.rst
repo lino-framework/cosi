@@ -91,7 +91,7 @@ The test database
 - sales.PaperType : id, name, template, name_fr, name_de
 - sales.VatProductInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date, printed_by, language, subject, intro, paper_type
 - sepa.Account : id, partner, iban, bic, remark, primary
-- system.SiteConfig : id, default_build_method, simulate_today, next_partner_id, site_company, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
+- system.SiteConfig : id, default_build_method, simulate_today, site_company, next_partner_id, default_event_type, site_calendar, max_auto_events, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
 - uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
 - uploads.UploadType : id, name, upload_area, max_number, wanted, shortcut, name_fr, name_de
