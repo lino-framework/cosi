@@ -126,10 +126,11 @@ class PaymentTerms(dd.Table):
     model = 'ledger.PaymentTerm'
     order_by = ["ref"]
     column_names = "ref name months days end_of_month *"
-    detail_layout = dd.DetailLayout("""
-    ref name months days end_of_month
+    detail_layout = """
+    ref months days end_of_month
+    name
     printed_text
-    """, window_size=(80, 10))
+    """
 
 
 class Vouchers(dd.Table):

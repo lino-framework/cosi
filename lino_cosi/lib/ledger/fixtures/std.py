@@ -52,9 +52,10 @@ def payment_terms():
     yield PT(_("Payment 60 days after invoice date"), "60", days=60)
     yield PT(_("Payment 90 days after invoice date"), "90", days=90)
     yield PT(_("Payment end of month"), "EOM", end_of_month=True)
-    prt = """Prepayment <b>30%</b> ({{obj.total_incl*30*100}}) due 
-    {{fds(obj.due_date)}}, remaining 
-    {{obj.total_incl - obj.total_incl*30/100}}
+    prt = """Prepayment <b>30%</b> 
+    ({{(obj.total_incl*30)/100}} {{obj.currency}})
+    due on <b>{{fds(obj.due_date)}}</b>, remaining 
+    {{obj.total_incl - (obj.total_incl*30)/100}} {{obj.currency}}
     due 10 days before delivery.
     """
     yield PT(_("Prepayment 30%"), "P30", days=30, printed_text=prt)

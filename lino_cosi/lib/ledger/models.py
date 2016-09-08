@@ -390,6 +390,47 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
               
     """A convention on how an invoice should be paid.
 
+    The following fields define the default value for `due_date`:
+
+    .. attribute:: days
+
+        Number of days to add to :attr:`voucher_date`.
+
+    .. attribute:: months
+
+        Number of months to add to :attr:`voucher_date`.
+
+    .. attribute:: end_of_month
+
+        Whether to move :attr:`voucher_date` to the end of month.
+
+    .. attribute:: printed_text
+
+        Used in :xfile:`sales/VatProductInvoice/trailer.html` as
+        follows::
+
+            {% if obj.payment_term.printed_text %}
+            {{parse(obj.payment_term.printed_text)}}
+            {% else %}
+            {{_("Payment terms")}} : {{obj.payment_term}}
+            {% endif %}
+
+    The :attr:`printed_text` field is important when using
+    **prepayments** or other more complex payment terms.  Lino uses a
+    rather simple approach to handle prepayment invoices: only the
+    global amount and the final due date is stored in the database,
+    all intermediate amounts and due dates are just generated in the
+    printable document. You just define one :class:`PaymentTerm
+    <lino_cosi.lib.ledger.models.PaymentTerm>` row for each prepayment
+    formula and configure your :attr:`printed_text` field. For
+    example::
+
+        Prepayment <b>30%</b> 
+        ({{(obj.total_incl*30)/100}} {{obj.currency}})
+        due on <b>{{fds(obj.due_date)}}</b>, remaining 
+        {{obj.total_incl - (obj.total_incl*30)/100}} {{obj.currency}}
+        due 10 days before delivery.
+
     """
 
     class Meta:
@@ -401,7 +442,7 @@ class PaymentTerm(mixins.BabelNamed, mixins.Referrable):
     months = models.IntegerField(_("Months"), default=0)
     end_of_month = models.BooleanField(_("End of month"), default=False)
 
-    printed_text = dd.RichTextField(
+    printed_text = dd.BabelTextField(
         _("Printed text"), blank=True, format='plain')
     
 
@@ -491,6 +532,13 @@ class Voucher(UserAuthored, mixins.Registrable):
         #~ doctype = get_doctype(cls)
         #~ jnl = Journal(doctype=doctype,id=id,**kw)
         #~ return jnl
+
+    @property
+    def currency(self):
+        """This is currently used only in some print templates.
+
+        """
+        return dd.plugins.ledger.currency_symbol
 
     @dd.displayfield(_("No."))
     def number_with_year(self, ar):
