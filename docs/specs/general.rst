@@ -124,7 +124,7 @@ Robin is the system administrator, he has a complete menu:
   - Calendar : Calendars, Rooms, Priorities, Recurrent event rules, Guest Roles, Calendar Event Types, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorer :
-  - System : content types, Authorities, User Profiles
+  - System : content types, Authorities, User types
   - Contacts : Contact Persons
   - Accounting : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
   - SEPA : Bank accounts
@@ -163,7 +163,7 @@ Romain gets the same menu in French:
   - Calendrier : Calendriers, Locaux, Priorités, Recurrent event rules, Rôles de participants, Types d'entrée calendrier, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorateur :
-  - Système : types de contenu, Procurations, Profils d'utilisateur
+  - Système : types de contenu, Procurations, Types d'utilisateur
   - Contacts : Personnes de contact
   - Comptabilité : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
   - SEPA : Comptes en banque
@@ -202,7 +202,7 @@ Rolf gets the same menu in German:
   - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Externe Kalender
   - Activities : Themen, Timetable Slots
 - Explorer :
-  - System : Datenbankmodelle, Vollmachten, Benutzerprofile
+  - System : Datenbankmodelle, Vollmachten, Benutzerarten
   - Kontakte : Kontaktpersonen
   - Buchhaltung : Ausgleichungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten, Journalgruppen, Rechnungen
   - SEPA : Bankkonten
