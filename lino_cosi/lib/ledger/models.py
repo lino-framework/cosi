@@ -24,7 +24,7 @@
 
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 from builtins import str
 
@@ -1048,7 +1048,7 @@ class MatchRule(dd.Model):
         if journal:
             fkw = {journal.trade_type.name + '_allowed': True}
             return rt.modules.accounts.Account.objects.filter(**fkw)
-        print "20151221 journal is None"
+        print("20151221 journal is None")
         return []
 
 
