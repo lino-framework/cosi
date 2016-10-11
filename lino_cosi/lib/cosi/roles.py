@@ -18,12 +18,12 @@
 
 
 """Defines a default set of user roles and fills
-:class:`lino.modlib.users.choicelists.UserProfiles`.
+:class:`lino.modlib.users.choicelists.UserTypes`.
 
 """
 
 from lino.api import _
-from lino.modlib.users.choicelists import UserProfiles
+from lino.modlib.users.choicelists import UserTypes
 from lino.core.roles import UserRole, SiteAdmin
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_xl.lib.contacts.roles import ContactsUser
@@ -41,9 +41,9 @@ class SiteAdmin(CoursesUser, SiteAdmin, OfficeStaff, LedgerStaff,
                 SepaStaff):
     pass
 
-UserProfiles.clear()
+UserTypes.clear()
 
-add = UserProfiles.add_item
+add = UserTypes.add_item
 
 add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
 add('100', _("User"),           SiteUser)

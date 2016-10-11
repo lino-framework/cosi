@@ -888,7 +888,7 @@ class TimLoader(TimLoader):
     def create_users(self):
 
         self.ROOT = users.User(
-            username='tim', profile=users.UserProfiles.admin)
+            username='tim', profile=users.UserTypes.admin)
         self.ROOT.set_password("1234")
         yield self.ROOT
 

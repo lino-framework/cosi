@@ -52,7 +52,7 @@ class DDHTests(RemoteAuthTestCase):
     maxDiff = None
 
     def test01(self):
-        from lino.modlib.users.choicelists import UserProfiles
+        from lino.modlib.users.choicelists import UserTypes
         User = rt.modules.users.User
         Partner = rt.modules.contacts.Partner
         Person = rt.modules.contacts.Person
@@ -65,7 +65,7 @@ class DDHTests(RemoteAuthTestCase):
         JournalGroups = rt.modules.ledger.JournalGroups
 
         u = User(username='robin',
-                 profile=UserProfiles.admin,
+                 profile=UserTypes.admin,
                  language="en")
         u.save()
 
