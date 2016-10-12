@@ -46,7 +46,7 @@ class Site(Site):
     # languages = 'en de fr'
     languages = 'en'
 
-    user_profiles_module = 'lino_cosi.lib.cosi.roles'
+    user_types_module = 'lino_cosi.lib.cosi.roles'
 
     default_build_method = 'wkhtmltopdf'
 

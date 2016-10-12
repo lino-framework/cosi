@@ -29,7 +29,7 @@ import os
 from django.db import models
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.utils import translation
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from lino.api import dd, _, rt
 from lino.utils.xmlgen.html import E
 from lino.utils import join_elems
@@ -450,7 +450,7 @@ class Transaction(dd.Model):
             # until we get a list of German translations, users in
             # Eupen prefer FR over EN
             with translation.override('fr'):
-                return force_unicode(code2desc(self.txcd[:4]))
+                return force_text(code2desc(self.txcd[:4]))
         return "{0}:{1}".format(self.txcd_issuer, self.txcd)
         
 from .ui import *
