@@ -125,6 +125,9 @@ class Invoiceable(dd.Model):
     def get_invoiceable_payment_term(self):
         return None
 
+    def get_invoiceable_paper_type(self):
+        return None
+
     def get_invoiceable_date(self):
         return getattr(self, self.invoiceable_date_field)
 
