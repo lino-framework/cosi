@@ -269,6 +269,9 @@ class Item(dd.Model):
                 pt = ii.get_invoiceable_payment_term()
                 if pt:
                     invoice.payment_term = pt
+                pt = ii.get_invoiceable_paper_type()
+                if pt:
+                    invoice.paper_type = pt
                 for i in ii.get_wanted_items(
                         ar, invoice, self.plan, ITEM_MODEL):
                     items.append(i)
