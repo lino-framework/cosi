@@ -566,6 +566,9 @@ class Enrolment(UserAuthored, Certifiable, DatePeriod):
     .. attribute:: start_date
     .. attribute:: end_date
     .. attribute:: state
+
+        One of :class:`lino_cosi.lib.courses.choicelists.EnrolmentStates`.
+
     .. attribute:: places
     .. attribute:: option
     .. attribute:: remark
