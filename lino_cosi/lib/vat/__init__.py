@@ -48,7 +48,7 @@ much sense).
 
 from django.utils.translation import ugettext_lazy as _
 from lino.api import ad
-
+import six
 
 class Plugin(ad.Plugin):
     """See :class:`lino.core.plugin.Plugin`.
@@ -88,10 +88,10 @@ invoice item. Return value must be an item of
 
     def on_site_startup(self, site):
         vat = site.modules.vat
-        if isinstance(self.default_vat_regime, basestring):
+        if isinstance(self.default_vat_regime, six.string_types):
             self.default_vat_regime = vat.VatRegimes.get_by_name(
                 self.default_vat_regime)
-        if isinstance(self.default_vat_class, basestring):
+        if isinstance(self.default_vat_class, six.string_types):
             self.default_vat_class = vat.VatClasses.get_by_name(
                 self.default_vat_class)
 
