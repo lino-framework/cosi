@@ -19,6 +19,7 @@
 Database models for `lino_cosi.lib.finan`.
 """
 from __future__ import unicode_literals
+import six
 
 import logging
 logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ class ShowSuggestions(dd.Action):
         if actor.suggestions_table is None:
             # logger.info("%s has no suggestions_table", actor)
             return  # don't attach
-        if isinstance(actor.suggestions_table, basestring):
+        if isinstance(actor.suggestions_table, six.string_types):
             T = rt.modules.resolve(actor.suggestions_table)
             if T is None:
                 raise Exception("No table named %s" % actor.suggestions_table)

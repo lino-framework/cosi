@@ -25,6 +25,7 @@
 """
 
 from __future__ import unicode_literals, print_function
+import six
 
 from builtins import str
 
@@ -619,9 +620,9 @@ class Voucher(UserAuthored, mixins.Registrable):
     @classmethod
     def create_journal(cls, trade_type=None, account=None, **kw):
         vt = VoucherTypes.get_for_model(cls)
-        if isinstance(trade_type, basestring):
+        if isinstance(trade_type, six.string_types):
             trade_type = TradeTypes.get_by_name(trade_type)
-        if isinstance(account, basestring):
+        if isinstance(account, six.string_types):
             account = rt.modules.accounts.Account.get_by_ref(account)
         if account is not None:
             kw.update(account=account)
@@ -801,12 +802,12 @@ class Voucher(UserAuthored, mixins.Registrable):
     #~ def add_voucher_item(self,account=None,**kw):
         #~ if account is not None:
             #~ if not isinstance(account,accounts.Account):
-            #~ if isinstance(account,basestring):
+            #~ if isinstance(account,six.string_types):
                 #~ account = self.journal.chart.get_account_by_ref(account)
             #~ kw['account'] = account
     def add_voucher_item(self, account=None, **kw):
         if account is not None:
-            if isinstance(account, basestring):
+            if isinstance(account, six.string_types):
                 account = rt.modules.accounts.Account.get_by_ref(account)
             kw['account'] = account
         kw.update(voucher=self)

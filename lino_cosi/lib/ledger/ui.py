@@ -37,6 +37,7 @@
 """
 
 from __future__ import unicode_literals
+import six
 
 import logging
 logger = logging.getLogger(__name__)
@@ -104,9 +105,9 @@ class ByJournal(dd.Table):
     @classmethod
     def create_journal(cls, trade_type=None, account=None, **kw):
         vt = VoucherTypes.get_for_table(cls)
-        if isinstance(trade_type, basestring):
+        if isinstance(trade_type, six.string_types):
             trade_type = TradeTypes.get_by_name(trade_type)
-        if isinstance(account, basestring):
+        if isinstance(account, six.string_types):
             account = rt.modules.accounts.Account.get_by_ref(account)
         if account is not None:
             kw.update(account=account)
@@ -998,7 +999,7 @@ class MovementsByMatch(Movements):
     """
     column_names = 'value_date voucher_link description '\
                    'debit credit cleared *'
-    master = basestring  # 'ledger.Matching'
+    master = six.text_type  # 'ledger.Matching'
     order_by = ['-value_date']
     variable_row_height = True
 
