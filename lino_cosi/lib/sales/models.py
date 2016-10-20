@@ -44,6 +44,7 @@ from lino_cosi.lib.ledger.models import Voucher
 from lino_cosi.lib.ledger.choicelists import TradeTypes
 from lino_cosi.lib.ledger.choicelists import VoucherTypes
 from lino_cosi.lib.ledger.ui import PartnerVouchers, ByJournal
+from lino.mixins.bleached import Bleached
 
 
 TradeTypes.sales.update(
@@ -394,8 +395,7 @@ class DueInvoices(Invoices):
         kw.update(cleared=dd.YesNo.no)
         return kw
 
-
-class ProductDocItem(QtyVatItemBase):
+class ProductDocItem(QtyVatItemBase, Bleached):
     """Mixin for voucher items which potentially refer to a product.
 
     .. attribute:: product
@@ -409,6 +409,8 @@ class ProductDocItem(QtyVatItemBase):
     """
     class Meta:
         abstract = True
+
+    bleached_fields = ['description']
 
     product = models.ForeignKey('products.Product', blank=True, null=True)
     description = dd.RichTextField(
