@@ -41,16 +41,16 @@ The test database
 - accounts.Account : id, ref, seqno, name, sales_allowed, purchases_allowed, wages_allowed, clearings_allowed, group, type, needs_partner, clearable, default_amount, name_fr, name_de
 - accounts.Group : id, name, ref, account_type, name_fr, name_de
 - cal.Calendar : id, name, description, color, name_fr, name_de
-- cal.Event : id, modified, created, build_time, build_method, user, assigned_to, owner_type, owner_id, start_date, start_time, end_date, end_time, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state
+- cal.Event : id, modified, created, start_date, start_time, end_date, end_time, build_time, build_method, user, assigned_to, owner_type, owner_id, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state
 - cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting, event_label_fr, event_label_de, name_fr, name_de
 - cal.Guest : id, event, partner, role, state, remark
 - cal.GuestRole : id, name, name_fr, name_de
 - cal.Priority : id, name, ref, name_fr, name_de
-- cal.RecurrentEvent : id, name, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, event_type, description, name_fr, name_de
+- cal.RecurrentEvent : id, start_date, start_time, end_date, end_time, name, user, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, event_type, description, name_fr, name_de
 - cal.RemoteCalendar : id, seqno, type, url_template, username, password, readonly
 - cal.Room : id, name, name_fr, name_de
 - cal.Subscription : id, user, calendar, is_hidden
-- cal.Task : id, modified, created, user, owner_type, owner_id, start_date, start_time, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
+- cal.Task : id, modified, created, start_date, start_time, user, owner_type, owner_id, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
 - contacts.Company : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, url, phone, gsm, fax, name, language, email, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
 - contacts.CompanyType : id, name, abbr, abbr_fr, abbr_de, name_fr, name_de
 - contacts.Partner : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, url, phone, gsm, fax, name, language, email, remarks, payment_term, vat_regime, invoice_recipient, paper_type
@@ -60,7 +60,7 @@ The test database
 - contenttypes.ContentType : id, app_label, model
 - countries.Country : name, isocode, short_code, iso3, name_fr, name_de
 - countries.Place : id, parent, name, country, zip_code, type, name_fr, name_de
-- courses.Course : id, user, start_date, start_time, end_date, end_time, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until, description_fr, description_de
+- courses.Course : id, start_date, start_time, end_date, end_time, user, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until, description_fr, description_de
 - courses.Enrolment : id, start_date, end_date, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
 - courses.Line : id, ref, name, excerpt_title, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template, description_fr, description_de, name_fr, name_de, excerpt_title_fr, excerpt_title_de
 - courses.Slot : id, seqno, start_time, end_time, name

@@ -30,6 +30,7 @@ from lino.api import dd
 
 from lino.utils.jsgen import js_code
 from lino.modlib.extjs.elems import CharFieldElement
+import six
 # from lino_extjs6.extjs6.elems import CharFieldElement
 # TODO: support ExtJS6
 
@@ -60,7 +61,7 @@ class UppercaseTextField(models.CharField, dd.CustomField):
         return UppercaseTextFieldElement(*args, **kw)
 
     def to_python(self, value):
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             return value.upper()
         return value
 
@@ -85,7 +86,7 @@ class IBANField(iban_fields.IBANField, dd.CustomField):
         return IBANFieldElement(*args, **kw)
 
     def to_python(self, value):
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             return value.upper().replace(' ', '')
         return value
 

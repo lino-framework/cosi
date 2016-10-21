@@ -29,6 +29,7 @@ from __future__ import unicode_literals
 from lino.utils.instantiator import Instantiator
 from lino.api import rt
 
+
 Company = Instantiator('contacts.Company', 'name url').build
 Account = Instantiator('sepa.Account', 'partner bic iban remark').build
 
