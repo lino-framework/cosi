@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2009-2015 Luc Saffre
+# Copyright 2009-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """
 
 Import legacy data from TIM (including households, ...).
-An extension of :mod:`tim2lino <lino_cosi.lib.tim2lino.fitxtures.tim2lino>`.
+An extension of :mod:`timloader <lino_cosi.lib.tim2lino.timloader>`.
 
 
 """
@@ -32,7 +32,7 @@ from django.conf import settings
 from lino.utils import mti
 from lino.api import dd, rt
 
-from .tim2lino import TimLoader
+from .timloader1 import TimLoader
 
 Person = dd.resolve_model("contacts.Person")
 Company = dd.resolve_model("contacts.Company")
@@ -46,8 +46,24 @@ Member = dd.resolve_model('lists.Member')
 households_Member = dd.resolve_model('households.Member')
 Account = dd.resolve_model('accounts.Account')
 
+tickets = dd.resolve_app('tickets')
+clocking = dd.resolve_app('clocking')
 
-class MyTimLoader(TimLoader):
+def ticket_state(idpns):
+    if idpns == ' ':
+        return tickets.TicketStates.new
+    if idpns == 'A':
+        return tickets.TicketStates.waiting
+    if idpns == 'C':
+        return tickets.TicketStates.fixed
+    if idpns == 'X':
+        return tickets.TicketStates.cancelled
+    return tickets.TicketStates.new
+    # return None  # 20120829 tickets.TicketStates.blank_item
+
+
+
+class TimLoader(TimLoader):
 
     archived_tables = set('GEN ART VEN VNL JNL FIN FNL'.split())
     archive_name = 'rumma'
@@ -103,7 +119,7 @@ class MyTimLoader(TimLoader):
 
         self.sales_gen2art['617010'] = self.PROD_617010
 
-        yield super(MyTimLoader, self).objects()
+        yield super(TimLoader, self).objects()
 
         yield self.load_dbf('PLS')
         yield self.load_dbf('MBR')
@@ -113,13 +129,13 @@ class MyTimLoader(TimLoader):
             yield self.load_dbf('DLS')
 
     def after_gen_load(self):
-        super(MyTimLoader, self).after_gen_load()
+        super(TimLoader, self).after_gen_load()
         self.PROD_617010.sales_account = Account.objects.get(
             ref='617010')
         self.PROD_617010.save()
 
     def load_par(self, row):
-        for obj in super(MyTimLoader, self).load_par(row):
+        for obj in super(TimLoader, self).load_par(row):
             if isinstance(obj, Partner):
                 obj.isikukood = row['regkood'].strip()
                 obj.created = row['datcrea']
@@ -194,9 +210,58 @@ class MyTimLoader(TimLoader):
         kw.update(partner=p1)
         return Member(**kw)
 
+    def load_dls(self, row, **kw):
+        if not row.iddls.strip():
+            return
+        if not row.idpin.strip():
+            return
+        try:
+            ticket = tickets.Ticket.objects.get(pk=int(row.idpin))
+        except tickets.Ticket.DoesNotExist:
+            return
+        pk = int(row.iddls)
+        kw.update(id=pk)
+        kw.update(ticket=ticket)
+        # if row.idprj.strip():
+        #     kw.update(project_id=int(row.idprj))
+            # kw.update(partner_id=PRJPAR.get(int(row.idprj),None))
+        # if row.idpar.strip():
+        #     kw.update(partner_id=self.par_pk(row.idpar))
+        kw.update(summary=row.nb.strip())
+        kw.update(start_date=row.date)
+        kw.update(user=self.get_user(row.idusr))
 
-def objects():
-    settings.SITE.startup()
-    tim = MyTimLoader(settings.SITE.legacy_data_path)
-    for obj in tim.objects():
+        def set_time(kw, fldname, v):
+            v = v.strip()
+            if not v:
+                return
+            if v == '24:00':
+                v = '0:00'
+            kw[fldname] = v
+
+        set_time(kw, 'start_time', row.von)
+        set_time(kw, 'end_time', row.bis)
+        set_time(kw, 'break_time', row.pause)
+        # kw.update(start_time=row.von.strip())
+        # kw.update(end_time=row.bis.strip())
+        # kw.update(break_time=row.pause.strip())
+        # kw.update(is_private=tim2bool(row.isprivat))
+        obj = clocking.Session(**kw)
+        # if row.idpar.strip():
+            # partner_id = self.par_pk(row.idpar)
+            # if obj.project and obj.project.partner \
+                # and obj.project.partner.id == partner_id:
+                # pass
+            # elif obj.ticket and obj.ticket.partner \
+                # and obj.ticket.partner.id == partner_id:
+                # pass
+            # else:
+                # ~ dblogger.warning("Lost DLS->IdPar of DLS#%d" % pk)
         yield obj
+        if row.memo.strip():
+            kw = dict(owner=obj)
+            kw.update(body=self.dbfmemo(row.memo))
+            kw.update(user=obj.user)
+            kw.update(date=obj.start_date)
+            yield rt.modules.notes.Note(**kw)
+
