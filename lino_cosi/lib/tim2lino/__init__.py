@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Add functionality to importing lecacy data from a TIM database.
+"""Add functionality for importing lecacy data from a TIM database.
 
 .. autosummary::
     :toctree:
@@ -50,11 +50,15 @@ class Plugin(ad.Plugin):
     :mod:`lino.utils.dbfreader`.
 
     `True` means to use Ethan Furman's `dbf
-    <http://pypi.python.org/pypi/dbf/>`_ package to read the file,
-    This package is not automatically installed with :mod:`lino_cosi`.
+    <http://pypi.python.org/pypi/dbf/>`_ package to read the file.
 
     Set it to `True` when reading data from a TIM with FOXPRO DBE,
     leave it at `False` when reading DBFNTX files.
+
+    When this is True, you must run "pip install enum34 dbf" (note
+    enum34, not enum) and then you must manually patch
+    :file:`site-packages/dbf/ver_2.py` to support file names ending
+    with '.FOX'.
 
     """
 
@@ -65,6 +69,8 @@ class Plugin(ad.Plugin):
 
     """
 
+    timloader_module = 'lino_cosi.lib.tim2lino.timloader1'
+    
     load_listeners = []
 
     siteconfig_accounts = dict(

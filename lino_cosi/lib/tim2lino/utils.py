@@ -21,6 +21,7 @@
 
 import traceback
 import os
+from clint.textui import puts, progress
 from django.conf import settings
 from lino.api import dd, rt
 from lino.utils import dbfreader
@@ -46,6 +47,65 @@ class TimLoader(object):
             languages or dd.plugins.tim2lino.languages)
         self.must_register = []
         self.must_match = {}
+        self.duplicate_zip_codes = dict()
+
+    def finalize(self):
+        if len(self.duplicate_zip_codes):
+            for country, codes in self.duplicate_zip_codes.items():
+                dd.logger.warning(
+                    "%d duplicate zip codes in %s : %s",
+                    len(codes), country, ', '.join(codes))
+            
+        ses = rt.login(self.ROOT.username)
+
+        Journal = rt.models.ledger.Journal
+        dd.logger.info("Register %d vouchers", len(self.must_register))
+        failures = 0
+        for doc in progress.bar(self.must_register):
+            # puts("Registering {0}".format(doc))
+            try:
+                doc.register(ses)
+            except Exception as e:
+                dd.logger.warning("Failed to register %s : %s ", doc, e)
+                failures += 1
+                if failures > 100:
+                    dd.logger.warning("Abandoned after 100 failures.")
+                    break
+
+        # Given a string `ms` of type 'VKR940095', locate the corresponding
+        # movement.
+        dd.logger.info("Resolving %d matches", len(self.must_match))
+        for ms, lst in self.must_match.items():
+            for (voucher, matching) in lst:
+                if matching.pk is None:
+                    dd.logger.warning("Ignored match %s in %s (pk is None)" % (
+                        ms, matching))
+                    continue
+                idjnl, iddoc = ms[:3], ms[3:]
+                try:
+                    year, num = year_num(iddoc)
+                except ValueError as e:
+                    dd.logger.warning("Ignored match %s in %s (%s)" % (
+                        ms, matching, e))
+                try:
+                    jnl = Journal.objects.get(ref=idjnl)
+                except Journal.DoesNotExist:
+                    dd.logger.warning("Ignored match %s in %s (invalid JNL)" % (
+                        ms, matching))
+                    continue
+                qs = Movement.objects.filter(
+                    voucher__journal=jnl, voucher__number=num,
+                    voucher__year=year, partner__isnull=False)
+                if qs.count() == 0:
+                    dd.logger.warning("Ignored match %s in %s (no movement)" % (
+                        ms, matching))
+                    continue
+                matching.match = qs[0]
+                matching.save()
+                voucher.deregister(ses)
+                voucher.register(ses)
+                
+        
 
     def par_class(self, row):
         # wer eine nationalregisternummer hat ist eine Person, selbst wenn er
@@ -61,7 +121,7 @@ class TimLoader(object):
             return rt.modules.contacts.Person
         elif prt == 'F':
             return rt.modules.households.Household
-        # dblogger.warning("Unhandled PAR->IdPrt %r",prt)
+        # dd.logger.warning("Unhandled PAR->IdPrt %r",prt)
 
     def dc2lino(self, dc):
         if dc == "D":

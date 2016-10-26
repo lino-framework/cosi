@@ -119,6 +119,7 @@ in this course."""),
     'lino_cosi.lib.courses.models.Course.confirmed' : _("""Number of confirmed places."""),
     'lino_cosi.lib.courses.models.Enrolment' : _("""An enrolment is when a given pupil plans to participate in a
 given course."""),
+    'lino_cosi.lib.courses.models.Enrolment.state' : _("""One of lino_cosi.lib.courses.choicelists.EnrolmentStates."""),
     'lino_cosi.lib.courses.models.Enrolment.pupil_info' : _("""Virtual HtmlBox field showing the name and address of the
 participant."""),
     'lino_cosi.lib.courses.workflows.ConfirmEnrolment' : _("""Confirm this enrolment. Sets the state to confirmed after
@@ -447,7 +448,7 @@ following items:"""),
     'lino_cosi.lib.ledger.ui.MovementsByAccount.master' : _("""alias of Account"""),
     'lino_cosi.lib.ledger.ui.MovementsByAccount.model' : _("""alias of Movement"""),
     'lino_cosi.lib.ledger.ui.MovementsByMatch' : _("""Show all movements having a given match."""),
-    'lino_cosi.lib.ledger.ui.MovementsByMatch.master' : _("""alias of basestring"""),
+    'lino_cosi.lib.ledger.ui.MovementsByMatch.master' : _("""alias of unicode"""),
     'lino_cosi.lib.ledger.ui.MovementsByMatch.model' : _("""alias of Movement"""),
     'lino_cosi.lib.ledger.utils.Balance' : _("""Light-weight object to represent a balance, i.e. an amount together
 with its booking direction (debit or credit)."""),
