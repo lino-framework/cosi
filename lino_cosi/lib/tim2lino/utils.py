@@ -23,6 +23,7 @@ import traceback
 import os
 from clint.textui import puts, progress
 from django.conf import settings
+from atelier.utils import AttrDict
 from lino.api import dd, rt
 from lino.utils import dbfreader
 
@@ -255,6 +256,20 @@ class TimLoader(object):
                     # if i is not None:
                     #     yield settings.TIM2LINO_LOCAL(tableName, i)
             table.close()
+        elif dd.plugins.tim2lino.use_dbfread:
+            dd.logger.info("Loading readonly %s...", fn)
+            from dbfread import DBF
+            dbf = DBF(fn)
+            for record in dbf:
+                d = { f.name.lower() : record[f.name] for f in dbf.fields}
+                d = AttrDict(d)
+                try:
+                    yield row2obj(d)
+                except Exception as e:
+                    dd.logger.warning(
+                        "Failed to load record %s from %s : %s",
+                        record, tableName, e)
+
         else:
             f = dbfreader.DBFFile(fn, codepage="cp850")
             dd.logger.info("Loading %d records from %s...", len(f), fn)

@@ -45,12 +45,21 @@ class Plugin(ad.Plugin):
 
     """
 
-    use_dbf_py = False
-    """The default value `False` means to use
-    :mod:`lino.utils.dbfreader`.
+    use_dbfread = False
+    """
+    Whether to use Ole Martin Bjorndalen's `dbfread
+    <https://github.com/olemb/dbfread>`_ package to read the file.
 
-    `True` means to use Ethan Furman's `dbf
+    When this is True, you must run "pip install dbfread".
+    """
+
+    use_dbf_py = False
+    """
+    Whether to use Ethan Furman's `dbf
     <http://pypi.python.org/pypi/dbf/>`_ package to read the file.
+
+    If both this and :attr:`use_dbfread` are `False`, then 
+    :mod:`lino.utils.dbfreader` is used.
 
     Set it to `True` when reading data from a TIM with FOXPRO DBE,
     leave it at `False` when reading DBFNTX files.

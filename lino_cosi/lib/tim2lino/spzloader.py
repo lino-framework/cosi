@@ -208,7 +208,7 @@ class TimLoader(TimLoader):
         u = self.get_user(idusr)
         if u is None:
             dd.logger.warning(
-                "Cannot import session %s because there is no user %d",
+                "Cannot import session %s because there is no user %s",
                 pk, idusr)
             return
         

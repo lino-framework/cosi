@@ -636,9 +636,6 @@ class TimLoader(TimLoader):
         if email and is_valid_email(email):
             self.store(kw, email=email)
 
-        if 'datcrea' in row:
-            self.store(kw, created=row.get('datcrea', None))
-
         if 'idreg' in row:
             self.store(kw, vat_regime=vat_regime(row.idreg.strip()))
         cl = self.par_class(row)
@@ -680,6 +677,11 @@ class TimLoader(TimLoader):
                     row.idpar, row.idprt))
             return
         if cl is not List:
+            if 'datcrea' in row:
+                created = row.get('datcrea', None)
+                if created:
+                    kw.update(created=created)
+
             language = isolang(row['langue'])
             
             if settings.SITE.get_language_info(language):
@@ -687,7 +689,7 @@ class TimLoader(TimLoader):
 
             if 'memo' in row:
                 self.store(
-                    kw, remarks=self.dbfmemo(row.get('memo', '')))
+                    kw, remarks=self.dbfmemo(row.get('memo') or ''))
 
             isocode = self.short2iso(row.pays.strip())
             if isocode:
