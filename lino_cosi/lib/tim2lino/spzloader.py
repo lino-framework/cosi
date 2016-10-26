@@ -63,6 +63,10 @@ class TimLoader(TimLoader):
     # has_projects = False
     # languages = 'de fr'
     
+    def __init__(self, *args, **kwargs):
+        super(TimLoader, self).__init__(*args, **kwargs)
+        self.imported_sessions = set([])
+        
     def par_pk(self, pk):
         if pk.startswith('E'):
             return 1000000 + int(pk[1:])
@@ -205,6 +209,12 @@ class TimLoader(TimLoader):
         elif pk.startswith('S'):
             team = self.stvith
             pk = int(pk[1:]) + 1000000
+
+        if pk in self.imported_sessions:
+            dd.logger.warning(
+                "Cannot import duplicate session %s", pk)
+            return
+        self.imported_sessions.add(pk)
         u = self.get_user(idusr)
         if u is None:
             dd.logger.warning(
