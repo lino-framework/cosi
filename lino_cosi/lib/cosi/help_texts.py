@@ -518,8 +518,8 @@ included to a detail window on partner."""),
     'lino_cosi.lib.tim2lino.Plugin' : _("""See lino.core.plugin.Plugin."""),
     'lino_cosi.lib.tim2lino.Plugin.languages' : _("""The language distribution used in the database to import. Mandatory
 parameter. No default value."""),
-    'lino_cosi.lib.tim2lino.Plugin.use_dbf_py' : _("""The default value False means to use
-lino.utils.dbfreader."""),
+    'lino_cosi.lib.tim2lino.Plugin.use_dbfread' : _("""Whether to use Ole Martin Bjorndalen's dbfread package to read the file."""),
+    'lino_cosi.lib.tim2lino.Plugin.use_dbf_py' : _("""Whether to use Ethan Furman's dbf package to read the file."""),
     'lino_cosi.lib.tim2lino.Plugin.dbf_table_ext' : _("""The file extension of TIM tables. Meaningful values are '.DBF' or
 .FOX."""),
     'lino_cosi.lib.vat.Plugin' : _("""See lino.core.plugin.Plugin."""),
