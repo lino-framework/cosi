@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from lino.api import dd, _, rt
-from lino.core.utils import ChangeWatcher
+from lino.core.diff import ChangeWatcher
 
 from lino.utils.format_date import fds
 
