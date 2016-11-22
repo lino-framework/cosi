@@ -108,7 +108,7 @@ Robin is the system administrator, he has a complete menu:
   - Financial : Payment Orders (PMO), Cash (CSH), Bestbank (BNK), Miscellaneous Journal Entries (MSC)
   - Create invoices
 - Office : My Uploads, My Outbox, My Excerpts
-- Calendar : My appointments, Overdue appointments, My tasks, My guests, My presences
+- Calendar : My appointments, Overdue appointments, Unconfirmed appointments, My tasks, My guests, My presences
 - Activities : Courses, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
 - Reports :
   - System : Broken GFKs
@@ -147,7 +147,7 @@ Romain gets the same menu in French:
   - Financial : Payment Orders (PMO), Caisse (CSH), Bestbank (BNK), Opérations diverses (MSC)
   - Create invoices
 - Office : Mes Fichiers téléchargés, Mon courrier sortant, Mes Extraits
-- Calendrier : Mes rendez-vous, Rendez-vous dépassés, Mes tâches, Mes visiteurs, Mes présences
+- Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences
 - Activities : Cours, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
   - Système : Broken GFKs
@@ -186,7 +186,7 @@ Rolf gets the same menu in German:
   - Finanzjournale : Zahlungsaufträge (PMO), Kasse (CSH), Bestbank (BNK), Diverse Buchungen (MSC)
   - Rechnungen erstellen
 - Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
-- Kalender : Meine Termine, Überfällige Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten
+- Kalender : Meine Termine, Überfällige Termine, Unbestätigte Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten
 - Activities : Kurse, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
 - Berichte :
   - System : Broken GFKs

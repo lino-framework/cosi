@@ -149,7 +149,7 @@ class QuickTest(RemoteAuthTestCase):
         # print('\n'+s)
         self.assertEqual(s, """\
 =========== ====== ============= ======== =======================
- Partner     Role   Workflow      Remark   Event
+ Partner     Role   Actions       Remark   Event
 ----------- ------ ------------- -------- -----------------------
  Doe Johny          **Invited**            Event #1 (12.05.2015)
 =========== ====== ============= ======== =======================
