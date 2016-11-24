@@ -23,7 +23,7 @@ Install the project code
 - Check whether everything worked well::
 
     $ cd ~/repositories/cosi
-    $ inv initdb
+    $ inv prep
     $ inv test
 
 
