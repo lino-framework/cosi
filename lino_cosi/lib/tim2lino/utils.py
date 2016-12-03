@@ -218,7 +218,8 @@ class TimLoader(object):
         kw.update(ref=row.idjnl.strip(), name=row.libell)
         kw.update(dc=self.dc2lino(row.dc))
         # kw.update(seqno=self.seq2lino(row.seq.strip()))
-        kw.update(seqno=row.recno())
+        kw.update(seqno=int(row.seq.strip()))
+        # kw.update(seqno=row.recno())
         kw.update(auto_check_clearings=False)
         vcl, kw = self.load_jnl_alias(row, **kw)
         if vcl is not None:
