@@ -114,7 +114,7 @@ class TimLoader(TimLoader):
 
     def get_user(self, idusr=None):
         try:
-            return User.objects.get(username=idusr)
+            return User.objects.get(username=idusr.strip().lower())
         except User.DoesNotExist:
             return None
 
