@@ -49,12 +49,8 @@ User = rt.models.users.User
 UserTypes = rt.models.users.UserTypes
 Partner = rt.models.contacts.Partner
 
+from lino.utils.instantiator import create
 
-def create(model, **kwargs):
-    obj = model(**kwargs)
-    obj.full_clean()
-    obj.save()
-    return obj
 
 class TimLoader(TimLoader):
 
@@ -123,7 +119,7 @@ class TimLoader(TimLoader):
             return None
 
     def load_usr(self, row, **kw):
-        kw.update(username=row.userid.strip())
+        kw.update(username=row.userid.strip().lower())
         kw.update(first_name=row.name.strip())
         abtlg = row.abtlg.strip()
         if abtlg == 'E':
@@ -131,7 +127,9 @@ class TimLoader(TimLoader):
         elif abtlg == 'S':
             kw.update(team=self.stvith)
         kw.update(profile=UserTypes.admin)
-        return User(**kw)
+        o = User(**kw)
+        o.set_password("1234")
+        return o
 
     def load_mbr(self, row, **kw):
 
