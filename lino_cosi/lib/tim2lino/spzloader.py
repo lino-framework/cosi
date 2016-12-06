@@ -69,16 +69,16 @@ class TimLoader(TimLoader):
         self.imported_sessions = set([])
         
         plptypes = dict()
-        plptypes['01'] = (Person, LinkTypes.parent)
+        plptypes['01'] = LinkTypes.parent
         plptypes['01R'] = None
-        plptypes['02'] = (Person, LinkTypes.uncle)
+        plptypes['02'] = LinkTypes.uncle
         plptypes['02R'] = None
-        plptypes['03'] = (Person, LinkTypes.stepparent)
+        plptypes['03'] = LinkTypes.stepparent
         plptypes['03R'] = None
-        plptypes['04'] = (Person, LinkTypes.grandparent)
+        plptypes['04'] = LinkTypes.grandparent
         plptypes['04R'] = None
-        plptypes['10'] = (Person, LinkTypes.spouse)
-        plptypes['11'] = (Person, LinkTypes.friend)
+        plptypes['10'] = LinkTypes.spouse
+        plptypes['11'] = LinkTypes.friend
         self.linktypes = plptypes
         
     def par_pk(self, pk):
