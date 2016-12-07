@@ -39,8 +39,7 @@ Role = dd.resolve_model("contacts.Role")
 Household = dd.resolve_model('households.Household')
 Product = dd.resolve_model('products.Product')
 List = dd.resolve_model('lists.List')
-Member = dd.resolve_model('lists.Member')
-households_Member = dd.resolve_model('households.Member')
+
 Account = dd.resolve_model('accounts.Account')
 
 clocking = dd.resolve_app('clocking')
@@ -48,6 +47,12 @@ clocking = dd.resolve_app('clocking')
 User = rt.models.users.User
 UserTypes = rt.models.users.UserTypes
 Partner = rt.models.contacts.Partner
+
+lists_Member = rt.models.lists.Member
+households_Member = rt.models.households.Member
+Link = rt.models.humanlinks.Link
+LinkTypes = rt.models.humanlinks.LinkTypes
+households_MemberRoles = rt.models.households.MemberRoles
 
 from lino.utils.instantiator import create
 
@@ -62,6 +67,19 @@ class TimLoader(TimLoader):
     def __init__(self, *args, **kwargs):
         super(TimLoader, self).__init__(*args, **kwargs)
         self.imported_sessions = set([])
+        
+        plptypes = dict()
+        plptypes['01'] = LinkTypes.parent
+        plptypes['01R'] = None
+        plptypes['02'] = LinkTypes.uncle
+        plptypes['02R'] = None
+        plptypes['03'] = LinkTypes.stepparent
+        plptypes['03R'] = None
+        plptypes['04'] = LinkTypes.grandparent
+        plptypes['04R'] = None
+        plptypes['10'] = LinkTypes.spouse
+        plptypes['11'] = LinkTypes.friend
+        self.linktypes = plptypes
         
     def par_pk(self, pk):
         if pk.startswith('E'):
@@ -131,68 +149,84 @@ class TimLoader(TimLoader):
         o.set_password("1234")
         return o
 
-    def load_mbr(self, row, **kw):
-
-        p1 = self.get_customer(row.idpar)
-        if p1 is None:
-            dd.logger.debug(
-                "Failed to load MBR %s : "
-                "No idpar", row)
-            return
-        p2 = self.get_customer(row.idpar2)
-
-        if p2 is not None:
-            contact_role = self.contact_roles.get(row.idpls.strip())
-            if contact_role is not None:
-                kw = dict()
-                p = mti.get_child(p1, Company)
-                if p is None:
-                    dd.logger.debug(
-                        "Failed to load MBR %s : "
-                        "idpar is not a company", row)
-                    return
-                kw.update(company=p)
-                p = mti.get_child(p2, Person)
-                if p is None:
-                    dd.logger.debug(
-                        "Failed to load MBR %s : "
-                        "idpar2 is not a person", row)
-                    return
-                kw.update(person=p)
-                kw.update(type=contact_role)
-                return Role(**kw)
-
-            role = self.household_roles.get(row.idpls.strip())
-            if role is not None:
-                household = mti.get_child(p1, Household)
-                if household is None:
-                    dd.logger.debug(
-                        "Failed to load MBR %s : "
-                        "idpar is not a household", row)
-                    return
-                person = mti.get_child(p2, Person)
-                if person is None:
-                    dd.logger.debug(
-                        "Failed to load MBR %s : idpar2 is not a person", row)
-                    return
-                return households_Member(
-                    household=household,
-                    person=person,
-                    role=role)
-            dd.logger.debug(
-                "Failed to load MBR %s : idpar2 is not empty", row)
-            return
-
+    def get_partner(self, model, idpar):
+        pk = self.par_pk(idpar.strip())
         try:
-            lst = List.objects.get(ref=row.idpls.strip())
-        except List.DoesNotExist:
-            dd.logger.debug(
-                "Failed to load MBR %s : unknown idpls", row)
+            return model.objects.get(pk=pk)
+        except model.DoesNotExist:
+            return None
+    
+    def load_plp(self, row, **kw):
+
+        plptype = row.type.strip()
+        if plptype.endswith("-"):
             return
-        kw.update(list=lst)
-        kw.update(remark=row.remarq)
-        kw.update(partner=p1)
-        return Member(**kw)
+        if plptype[0] in "01":
+            if not plptype in self.linktypes:
+                dd.logger.warning(
+                    "Ignored PLP %s : Invalid type %s", row, plptype)
+                return
+            linktype = self.linktypes.get(plptype)
+            if linktype is None:
+                # silently ignore reverse PLPType
+                return
+            
+            p1 = self.get_partner(Person, row.idpar1)
+            if p1 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar1", row)
+                return
+            p2 = self.get_partner(Person, row.idpar2)
+            if p2 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar2", row)
+                return
+            return Link(parent=p1, child=p2, type=linktype)
+        
+        elif plptype == "80":
+            p1 = self.get_partner(List, row.idpar1)
+            if p1 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar1", row)
+                return
+            p2 = self.get_partner(Person, row.idpar2)
+            if p2 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar2", row)
+                return
+            return lists_Member(list=p1, partner=p2)
+
+        elif plptype[0] in "78":
+            p1 = self.get_partner(Household, row.idpar1)
+            if p1 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar1", row)
+                return
+            p2 = self.get_partner(Person, row.idpar2)
+            if p2 is None:
+                dd.logger.debug(
+                    "Ignored PLP %s : Invalid idpar2", row)
+                return
+            if plptype == "81":
+                role = households_MemberRoles.spouse
+            elif plptype == "82":
+                role = households_MemberRoles.child
+            elif plptype == "83":
+                role = households_MemberRoles.partner
+            elif plptype == "84":
+                role = households_MemberRoles.other
+            elif plptype == "71":  # Onkel/Tante
+                role = households_MemberRoles.relative
+            elif plptype == "72":  # Nichte/Neffe
+                role = households_MemberRoles.relative
+            else:
+                role = households_MemberRoles.relative
+            return households_Member(household=p1, person=p2, role=role)
+        elif plptype == "81-":
+            return
+        dd.logger.debug(
+            "Ignored PLP %s : invalid plptype", row)
+
 
     def load_dls(self, row, **kw):
         if not row.iddls.strip():
@@ -293,46 +327,10 @@ class TimLoader(TimLoader):
         
         yield self.load_dbf('USR')
         
-        MemberRoles = rt.modules.households.MemberRoles
-
-        self.household_roles = {
-            'VATER': MemberRoles.head,
-            'MUTTER': MemberRoles.spouse,
-            'KIND': MemberRoles.child,
-            'K': MemberRoles.child,
-        }
-
-        self.contact_roles = cr = {}
-        cr.update(DIR=RoleType.objects.get(pk=2))
-        cr.update(A=RoleType.objects.get(pk=3))
-        cr.update(SYSADM=RoleType.objects.get(pk=4))
-
-        obj = RoleType(name="TIM user")
-        yield obj
-        cr.update(TIM=obj)
-        obj = RoleType(name="Lino user")
-        yield obj
-        cr.update(LINO=obj)
-        obj = RoleType(name="Board member")
-        yield obj
-        cr.update(VMKN=obj)
-        obj = RoleType(name="Member")
-        yield obj
-        cr.update(M=obj)
-
-        # self.PROD_617010 = Product(
-        #     name="Edasimüük remondikulud",
-        #     id=40)
-        # yield self.PROD_617010
-
-        # self.sales_gen2art['617010'] = self.PROD_617010
-
         yield super(TimLoader, self).objects()
 
-        # yield self.load_dbf('PLS')
-        # yield self.load_dbf('MBR')
+        yield self.load_dbf('PLP')
 
-        # if False:  # and GET_THEM_ALL:
-        #     yield self.load_dbf('PIN')
-        yield self.load_dbf('DLS')
-
+        if False:
+            yield self.load_dbf('DLS')
+            
