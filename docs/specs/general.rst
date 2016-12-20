@@ -28,7 +28,7 @@ The database structure
  accounts.Group              accounts.Groups                6         7
  cal.Calendar                cal.Calendars                  6         1
  cal.Event                   cal.OneEvent                   23        148
- cal.EventType               cal.EventTypes                 16        2
+ cal.EventType               cal.EventTypes                 17        2
  cal.Guest                   cal.Guests                     6         0
  cal.GuestRole               cal.GuestRoles                 4         0
  cal.Priority                cal.Priorities                 5         4
@@ -160,7 +160,7 @@ Romain gets the same menu in French:
   - Comptabilité : Groupes de comptes, Comptes, Journals, Accounting periods, Payment Terms
   - Office : Types de fichiers téléchargés, Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Paper types
-  - Calendrier : Calendriers, Locaux, Priorités, Recurrent event rules, Rôles de participants, Types d'entrée calendrier, Remote Calendars
+  - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur

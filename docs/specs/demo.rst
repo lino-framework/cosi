@@ -42,7 +42,7 @@ The test database
 - accounts.Group : id, name, ref, account_type, name_fr, name_de
 - cal.Calendar : id, name, description, color, name_fr, name_de
 - cal.Event : id, modified, created, start_date, start_time, end_date, end_time, build_time, build_method, user, assigned_to, owner_type, owner_id, summary, description, access_class, sequence, auto_type, event_type, transparent, room, priority, state
-- cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting, event_label_fr, event_label_de, name_fr, name_de
+- cal.EventType : id, seqno, name, attach_to_email, email_template, description, is_appointment, all_rooms, locks_user, start_date, event_label, max_conflicting, max_days, event_label_fr, event_label_de, name_fr, name_de
 - cal.Guest : id, event, partner, role, state, remark
 - cal.GuestRole : id, name, name_fr, name_de
 - cal.Priority : id, name, ref, name_fr, name_de
