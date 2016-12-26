@@ -28,7 +28,7 @@ The database structure
  accounts.Group              accounts.Groups                6         7
  cal.Calendar                cal.Calendars                  6         1
  cal.Event                   cal.OneEvent                   23        148
- cal.EventType               cal.EventTypes                 16        2
+ cal.EventType               cal.EventTypes                 17        2
  cal.Guest                   cal.Guests                     6         0
  cal.GuestRole               cal.GuestRoles                 4         0
  cal.Priority                cal.Priorities                 5         4
@@ -131,7 +131,7 @@ Robin is the system administrator, he has a complete menu:
   - Office : Uploads, Upload Areas, Outgoing Mails, Attachments, Excerpts, Text Field Templates
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
-  - Calendar : Tasks, Presences, Subscriptions, Event states, Guest states, Task states
+  - Calendar : Calendar entries, Tasks, Presences, Subscriptions, Event states, Guest states, Task states
   - Activities : Activities, Enrolments, Enrolment states
 - Site : About
 
@@ -146,7 +146,7 @@ Romain gets the same menu in French:
   - Purchases : Factures achat (PRC)
   - Financial : Payment Orders (PMO), Caisse (CSH), Bestbank (BNK), Opérations diverses (MSC)
   - Create invoices
-- Office : Mes Fichiers téléchargés, Mon courrier sortant, Mes Extraits
+- Bureau : Mes Fichiers téléchargés, Mon courrier sortant, Mes Extraits
 - Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences
 - Activities : Cours, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
@@ -158,19 +158,19 @@ Romain gets the same menu in French:
   - Endroits : Pays, Endroits
   - Contacts : Types d'organisation, Fonctions
   - Comptabilité : Groupes de comptes, Comptes, Journals, Accounting periods, Payment Terms
-  - Office : Types de fichiers téléchargés, Types d'extrait, Mes Text Field Templates
+  - Bureau : Types de fichiers téléchargés, Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Paper types
-  - Calendrier : Calendriers, Locaux, Priorités, Recurrent event rules, Rôles de participants, Types d'entrée calendrier, Remote Calendars
+  - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur
   - Contacts : Personnes de contact
   - Comptabilité : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
   - SEPA : Comptes en banque
-  - Office : Fichiers téléchargés, Upload Areas, Mails envoyés, Pièces jointes, Extraits, Text Field Templates
+  - Bureau : Fichiers téléchargés, Upload Areas, Mails envoyés, Pièces jointes, Extraits, Text Field Templates
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
-  - Calendrier : Tâches, Présences, Abonnements, Event states, Guest states, Task states
+  - Calendrier : Entrées calendrier, Tâches, Présences, Abonnements, Event states, Guest states, Task states
   - Activities : Activities, Inscriptions, États d'inscription
 - Site : à propos
 
@@ -209,6 +209,6 @@ Rolf gets the same menu in German:
   - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, Produktrechnungen, Produktrechnungszeilen, Fakturationspläne
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
-  - Kalender : Aufgaben, Anwesenheiten, Abonnements, Termin-Zustände, Gast-Zustände, Aufgaben-Zustände
+  - Kalender : Kalendereinträge, Aufgaben, Anwesenheiten, Abonnements, Termin-Zustände, Gast-Zustände, Aufgaben-Zustände
   - Activities : Activities, Einschreibungen, Einschreibungs-Zustände
 - Site : Info
