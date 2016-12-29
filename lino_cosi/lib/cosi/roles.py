@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2015 Luc Saffre
+# Copyright 2015-2016 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -25,20 +25,21 @@
 from lino.api import _
 from lino.modlib.users.choicelists import UserTypes
 from lino.core.roles import UserRole, SiteAdmin
-from lino.modlib.office.roles import OfficeStaff, OfficeUser
+from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
 from lino_xl.lib.contacts.roles import ContactsUser
+from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_cosi.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_cosi.lib.sepa.roles import SepaUser, SepaStaff
 from lino_cosi.lib.courses.roles import CoursesUser
 
 
 class SiteUser(CoursesUser, ContactsUser, OfficeUser, LedgerUser,
-               SepaUser):
+               SepaUser, ExcerptsUser):
     pass
 
 
 class SiteAdmin(CoursesUser, SiteAdmin, OfficeStaff, LedgerStaff,
-                SepaStaff):
+                SepaStaff, ExcerptsStaff):
     pass
 
 UserTypes.clear()
