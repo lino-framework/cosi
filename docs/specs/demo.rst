@@ -96,7 +96,7 @@ The test database
 - uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
 - uploads.UploadType : id, name, upload_area, max_number, wanted, shortcut, name_fr, name_de
 - users.Authority : id, user, authorized
-- users.User : id, modified, created, username, password, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
+- users.User : id, modified, created, password, last_login, username, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
 - vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit
