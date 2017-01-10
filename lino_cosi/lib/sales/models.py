@@ -342,8 +342,8 @@ class InvoiceDetail(dd.FormLayout):
 
 class Invoices(SalesDocuments):
     model = 'sales.VatProductInvoice'
-    # order_by = ["-id"]
-    order_by = ["journal", "number"]
+    order_by = ["-id"]
+    # order_by = ["journal", "accounting_period__year", "number"]
     column_names = "id voucher_date partner total_incl user *"
     detail_layout = InvoiceDetail()
     insert_layout = dd.FormLayout("""
@@ -371,7 +371,7 @@ class InvoicesByJournal(Invoices, ByJournal):
 
     """
     quick_search_fields = "partner subject"
-    order_by = ["-number"]
+    order_by = ["-accounting_period__year", "-number"]
     params_panel_hidden = True
     params_layout = "partner year state cleared"
     column_names = "number_with_year voucher_date due_date " \
