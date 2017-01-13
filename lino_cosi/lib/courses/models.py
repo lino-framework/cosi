@@ -340,7 +340,10 @@ class Course(Reservation, Duplicable):
             area = self.line.course_area
             if area:
                 table = rt.actors.resolve(area.courses_table)
-                return table.detail_action
+                a = table.detail_action
+                if ar is None or a.get_view_permission(ar.get_user().profile):
+                    return a
+                return None
         return super(Course, self).get_detail_action(ar)
             
     def update_cal_from(self, ar):
