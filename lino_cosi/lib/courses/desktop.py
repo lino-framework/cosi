@@ -105,7 +105,7 @@ class Lines(dd.Table):
     excerpt_title
     courses.CoursesByLine
     """
-    insert_layout = dd.FormLayout("""
+    insert_layout = dd.InsertLayout("""
     name
     ref topic
     every_unit every event_type
@@ -138,7 +138,7 @@ class EventsByTeacher(cal.Events):
         return qs
 
 
-class CourseDetail(dd.FormLayout):
+class CourseDetail(dd.DetailLayout):
     """The detail layout of a :class:`Course`.
     """
     # start = "start_date start_time"

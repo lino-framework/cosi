@@ -80,7 +80,7 @@ class Journals(dd.Table):
     column_names = "ref:5 name trade_type journal_group " \
                    "voucher_type force_sequence * seqno id"
     detail_layout = JournalDetail()
-    insert_layout = dd.FormLayout("""
+    insert_layout = dd.InsertLayout("""
     ref name
     journal_group
     voucher_type

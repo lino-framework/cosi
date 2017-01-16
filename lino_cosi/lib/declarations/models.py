@@ -288,12 +288,12 @@ for fld in DeclarationFields.objects():
 class Declarations(dd.Table):
     model = Declaration
     column_names = 'year period workflow_buttons * state id'
-    insert_layout = dd.FormLayout("""
+    insert_layout = dd.InsertLayout("""
     entry_date
     year
     period
     """, window_size=(40, 'auto'))
-    detail_layout = dd.FormLayout("""
+    detail_layout = dd.DetailLayout("""
     entry_date year period user workflow_buttons
     fields
     VouchersByDeclaration

@@ -39,7 +39,7 @@ class Accounts(dd.Table):
     editable = False
 
 
-class StatementDetail(dd.FormLayout):
+class StatementDetail(dd.DetailLayout):
     main = """
     top_left top_right
     b2c.TransactionsByStatement
@@ -67,7 +67,7 @@ class Statements(dd.Table):
     auto_fit_column_widths = True
     editable = False
 
-    # insert_layout = dd.FormLayout("""
+    # insert_layout = dd.InsertLayout("""
     # account date
     # statement_number
     # balance_start balance_end
@@ -81,7 +81,7 @@ class StatementsByAccount(Statements):
     auto_fit_column_widths = True
     
 
-class TransactionDetail(dd.FormLayout):
+class TransactionDetail(dd.DetailLayout):
     main = """
     statement seqno booking_date value_date amount
     remote_account remote_bic eref txcd_text

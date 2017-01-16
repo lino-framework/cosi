@@ -269,7 +269,7 @@ class OrderItem(sales.ProductDocItem):
     voucher = models.ForeignKey(Order, related_name='items')
 
 
-class OrderDetail(dd.FormLayout):
+class OrderDetail(dd.DetailLayout):
     totals = dd.Panel("""
     discount
     total_base
