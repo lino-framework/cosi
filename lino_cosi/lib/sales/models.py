@@ -308,7 +308,7 @@ class VatProductInvoice(SalesDocument, Payable, Voucher, Matching):
         return Movement.get_balance(not self.journal.dc, qs)
 
 
-class InvoiceDetail(dd.FormLayout):
+class InvoiceDetail(dd.DetailLayout):
     main = "general more ledger"
 
     totals = dd.Panel("""
@@ -346,7 +346,7 @@ class Invoices(SalesDocuments):
     # order_by = ["journal", "accounting_period__year", "number"]
     column_names = "id voucher_date partner total_incl user *"
     detail_layout = InvoiceDetail()
-    insert_layout = dd.FormLayout("""
+    insert_layout = dd.InsertLayout("""
     partner voucher_date
     subject
     """, window_size=(40, 'auto'))

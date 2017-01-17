@@ -248,7 +248,7 @@ class PaymentOrderItem(BankAccount, FinancialVoucherItem):
 # dd.update_field(PaymentOrderItem, 'bic', blank=True)
 
 
-class JournalEntryDetail(dd.FormLayout):
+class JournalEntryDetail(dd.DetailLayout):
     main = "general ledger"
 
     general = dd.Panel("""
@@ -292,7 +292,7 @@ class FinancialVouchers(dd.Table):
         pjournal=ledger.JournalRef(blank=True))
     params_layout = "pjournal pyear"
     detail_layout = JournalEntryDetail()
-    insert_layout = dd.FormLayout("""
+    insert_layout = dd.InsertLayout("""
     voucher_date
     narration
     """, window_size=(40, 'auto'))

@@ -45,7 +45,7 @@ class VatRules(dd.Table):
     auto_fit_column_widths = True
 
 
-class InvoiceDetail(dd.FormLayout):
+class InvoiceDetail(dd.DetailLayout):
     """The detail layout used by :class:`Invoices`.
 
     """

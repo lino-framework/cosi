@@ -59,7 +59,7 @@ class ItemsByProjectInvoice(ItemsByInvoice):
     column_names = "account amount title move_buttons *"
 
 
-class InvoiceDetail(dd.FormLayout):
+class InvoiceDetail(dd.DetailLayout):
     main = "general ledger"
 
     general = dd.Panel("""
