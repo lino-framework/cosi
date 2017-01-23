@@ -30,7 +30,6 @@ The demo database contains 69 persons and 22 companies.
 std few_countries euvatrates furniture minimal_ledger demo demo_bookings payments demo2
 
 
-
 The test database
 -----------------
 
@@ -51,10 +50,10 @@ The test database
 - cal.Room : id, name, name_fr, name_de
 - cal.Subscription : id, user, calendar, is_hidden
 - cal.Task : id, modified, created, start_date, start_time, user, owner_type, owner_id, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
-- contacts.Company : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, url, phone, gsm, fax, name, language, email, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
+- contacts.Company : id, email, language, url, phone, gsm, fax, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
 - contacts.CompanyType : id, name, abbr, abbr_fr, abbr_de, name_fr, name_de
-- contacts.Partner : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, url, phone, gsm, fax, name, language, email, remarks, payment_term, vat_regime, invoice_recipient, paper_type
-- contacts.Person : id, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, url, phone, gsm, fax, name, language, email, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
+- contacts.Partner : id, email, language, url, phone, gsm, fax, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, remarks, payment_term, vat_regime, invoice_recipient, paper_type
+- contacts.Person : id, email, language, url, phone, gsm, fax, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, title, first_name, middle_name, last_name, gender, birth_date
 - contacts.Role : id, type, person, company
 - contacts.RoleType : id, name, name_fr, name_de
 - contenttypes.ContentType : id, app_label, model
@@ -82,9 +81,6 @@ The test database
 - ledger.Movement : id, voucher, partner, seqno, account, amount, dc, match, cleared, value_date
 - ledger.PaymentTerm : id, ref, name, days, months, end_of_month, printed_text, printed_text_fr, printed_text_de, name_fr, name_de
 - ledger.Voucher : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state
-- outbox.Attachment : id, owner_type, owner_id, mail
-- outbox.Mail : id, user, owner_type, owner_id, date, subject, body, sent
-- outbox.Recipient : id, mail, partner, type, address, name
 - products.Product : id, name, description, cat, delivery_unit, vat_class, description_fr, description_de, name_fr, name_de, sales_account, sales_price, purchases_account
 - products.ProductCat : id, name, description, name_fr, name_de
 - sales.InvoiceItem : id, seqno, total_incl, total_base, total_vat, vat_class, unit_price, qty, product, description, discount, voucher, title, invoiceable_type, invoiceable_id
@@ -93,10 +89,8 @@ The test database
 - sepa.Account : id, partner, iban, bic, remark, primary
 - system.SiteConfig : id, default_build_method, simulate_today, site_company, next_partner_id, default_event_type, site_calendar, max_auto_events, hide_events_before, clients_account, sales_vat_account, sales_account, suppliers_account, purchases_vat_account, purchases_account, wages_account, clearings_account
 - tinymce.TextFieldTemplate : id, user, name, description, text
-- uploads.Upload : id, file, mimetype, user, owner_type, owner_id, upload_area, type, description
-- uploads.UploadType : id, name, upload_area, max_number, wanted, shortcut, name_fr, name_de
 - users.Authority : id, user, authorized
-- users.User : id, modified, created, password, last_login, username, profile, initials, first_name, last_name, email, remarks, language, partner, access_class, event_type
+- users.User : id, email, language, modified, created, password, last_login, username, profile, initials, first_name, last_name, remarks, partner, access_class, event_type
 - vat.InvoiceItem : id, seqno, account, total_incl, total_base, total_vat, vat_class, voucher, title
 - vat.VatAccountInvoice : id, user, journal, voucher_date, entry_date, accounting_period, number, narration, state, voucher_ptr, partner, payment_term, match, total_incl, total_base, total_vat, vat_regime, your_ref, due_date
 - vat.VatRule : id, seqno, start_date, end_date, country, vat_class, vat_regime, rate, can_edit

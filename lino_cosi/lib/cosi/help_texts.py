@@ -75,57 +75,6 @@ adds accounting fucntionality."""),
     'lino_cosi.lib.contacts.models.Company' : _("""An version of lino_xl.lib.contacts.models.Company which
 adds accounting fucntionality."""),
     'lino_cosi.lib.contacts.models.Organisation' : _("""alias of Company"""),
-    'lino_cosi.lib.courses.Plugin' : _("""See lino.core.plugin.Plugin."""),
-    'lino_cosi.lib.courses.choicelists.EnrolmentStates' : _("""The list of possible states of an enrolment."""),
-    'lino_cosi.lib.courses.desktop.CourseDetail' : _("""The detail layout of a Course."""),
-    'lino_cosi.lib.courses.desktop.Activities' : _("""Base table for all activities."""),
-    'lino_cosi.lib.courses.desktop.Activities.model' : _("""alias of Course"""),
-    'lino_cosi.lib.courses.desktop.CoursesByLine' : _("""Show the courses per course line."""),
-    'lino_cosi.lib.courses.desktop.CoursesByLine.master' : _("""alias of Line"""),
-    'lino_cosi.lib.courses.desktop.CoursesByLine.model' : _("""alias of Course"""),
-    'lino_cosi.lib.courses.desktop.CoursesByTopic' : _("""Shows the courses of a given topic."""),
-    'lino_cosi.lib.courses.desktop.CoursesByTopic.master' : _("""alias of Topic"""),
-    'lino_cosi.lib.courses.desktop.CoursesByTopic.model' : _("""alias of Course"""),
-    'lino_cosi.lib.courses.desktop.Enrolments' : _("""Base class for all enrolment tables."""),
-    'lino_cosi.lib.courses.desktop.Enrolments.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.desktop.AllEnrolments' : _("""Show global list of all enrolments."""),
-    'lino_cosi.lib.courses.desktop.AllEnrolments.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.desktop.PendingRequestedEnrolments' : _("""Show all requested enrolments."""),
-    'lino_cosi.lib.courses.desktop.PendingRequestedEnrolments.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.desktop.PendingConfirmedEnrolments' : _("""Show all confirmed enrolments."""),
-    'lino_cosi.lib.courses.desktop.PendingConfirmedEnrolments.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil' : _("""Show all enrolments of a given pupil."""),
-    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil.master' : _("""alias of Person"""),
-    'lino_cosi.lib.courses.desktop.EnrolmentsByPupil.model' : _("""alias of Enrolment"""),
-    'lino_cosi.lib.courses.models.Line' : _("""An activity line (or series) groups courses into a
-configurable list of categories."""),
-    'lino_cosi.lib.courses.models.Line.name' : _("""The designation of this activity line as seen by the user
-e.g. when selecting the line."""),
-    'lino_cosi.lib.courses.models.Line.excerpt_title' : _("""The text to print as title in enrolments."""),
-    'lino_cosi.lib.courses.models.Line.body_template' : _("""The body template to use when printing an activity of this
-line.  Leave empty to use the site's default (defined by
-body_template on the
-lino_xl.lib.excerpts.models.ExcerptType for
-Course)"""),
-    'lino_cosi.lib.courses.models.Line.course_area' : _("""Pointer to CourseAreas.  This is used only when an
-application defines several variants of
-EnrolmentsByPupil."""),
-    'lino_cosi.lib.courses.models.Course' : _("""A Course is a group of pupils that regularily meet with a given
-teacher in a given room to speak about a given subject."""),
-    'lino_cosi.lib.courses.models.Course.max_places' : _("""Available places. The maximum number of participants to allow
-in this course."""),
-    'lino_cosi.lib.courses.models.Course.free_places' : _("""Number of free places."""),
-    'lino_cosi.lib.courses.models.Course.requested' : _("""Number of requested places."""),
-    'lino_cosi.lib.courses.models.Course.confirmed' : _("""Number of confirmed places."""),
-    'lino_cosi.lib.courses.models.Enrolment' : _("""An enrolment is when a given pupil plans to participate in a
-given course."""),
-    'lino_cosi.lib.courses.models.Enrolment.state' : _("""One of lino_cosi.lib.courses.choicelists.EnrolmentStates."""),
-    'lino_cosi.lib.courses.models.Enrolment.pupil_info' : _("""Virtual HtmlBox field showing the name and address of the
-participant."""),
-    'lino_cosi.lib.courses.workflows.ConfirmEnrolment' : _("""Confirm this enrolment. Sets the state to confirmed after
-calling get_confirm_veto to
-verify whether it is valid (e.g. whether there are enough free
-places)."""),
     'lino_cosi.lib.delivery.Plugin' : _("""See lino.core.plugin.Plugin."""),
     'lino_cosi.lib.delivery.models.ShippingMode' : _("""Represents a possible method of how the items described in a
 SalesDocument are to be transferred from us to our customer."""),

@@ -19,8 +19,8 @@ The database structure
 >>> from lino.utils.diag import analyzer
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
-35 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, xl, countries, contacts, products, cosi, accounts, weasyprint, ledger, sepa, uploads, outbox, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
-64 models:
+33 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, xl, countries, contacts, products, cosi, accounts, weasyprint, ledger, sepa, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
+59 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -43,7 +43,7 @@ The database structure
  contacts.Person             contacts.Persons               30        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             4         5
- contenttypes.ContentType    gfks.ContentTypes              3         65
+ contenttypes.ContentType    gfks.ContentTypes              3         60
  countries.Country           countries.Countries            6         8
  countries.Place             countries.Places               8         78
  courses.Course              courses.Activities             29        0
@@ -68,9 +68,6 @@ The database structure
  ledger.Movement             ledger.Movements               10        212
  ledger.PaymentTerm          ledger.PaymentTerms            11        8
  ledger.Voucher              ledger.Vouchers                9         57
- outbox.Attachment           outbox.Attachments             4         0
- outbox.Mail                 outbox.Mails                   8         0
- outbox.Recipient            outbox.Recipients              6         0
  products.Product            products.Products              13        9
  products.ProductCat         products.ProductCats           5         2
  sales.InvoiceItem           sales.InvoiceItems             15        48
@@ -79,8 +76,6 @@ The database structure
  sepa.Account                sepa.Accounts                  6         17
  system.SiteConfig           system.SiteConfigs             17        1
  tinymce.TextFieldTemplate   tinymce.TextFieldTemplates     5         2
- uploads.Upload              uploads.Uploads                9         0
- uploads.UploadType          uploads.UploadTypes            8         0
  users.Authority             users.Authorities              3         0
  users.User                  users.Users                    16        3
  vat.InvoiceItem             vat.InvoiceItemTable           9         40
@@ -107,7 +102,7 @@ Robin is the system administrator, he has a complete menu:
   - Purchases : Purchase invoices (PRC)
   - Financial : Payment Orders (PMO), Cash (CSH), Bestbank (BNK), Miscellaneous Journal Entries (MSC)
   - Create invoices
-- Office : My Uploads, My Outbox, My Excerpts
+- Office : My Excerpts
 - Calendar : My appointments, Overdue appointments, Unconfirmed appointments, My tasks, My guests, My presences
 - Activities : Courses, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
 - Reports :
@@ -119,7 +114,7 @@ Robin is the system administrator, he has a complete menu:
   - Places : Countries, Places
   - Contacts : Organization types, Functions
   - Accounting : Account Groups, Accounts, Journals, Accounting periods, Payment Terms
-  - Office : Upload Types, Excerpt Types, My Text Field Templates
+  - Office : Excerpt Types, My Text Field Templates
   - VAT : VAT rules, Paper types
   - Calendar : Calendars, Rooms, Priorities, Recurrent event rules, Guest Roles, Calendar Event Types, Remote Calendars
   - Activities : Topics, Timetable Slots
@@ -128,7 +123,7 @@ Robin is the system administrator, he has a complete menu:
   - Contacts : Contact Persons
   - Accounting : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
   - SEPA : Bank accounts
-  - Office : Uploads, Upload Areas, Outgoing Mails, Attachments, Excerpts, Text Field Templates
+  - Office : Excerpts, Text Field Templates
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
   - Calendar : Calendar entries, Tasks, Presences, Subscriptions, Event states, Guest states, Task states
@@ -146,7 +141,7 @@ Romain gets the same menu in French:
   - Purchases : Factures achat (PRC)
   - Financial : Payment Orders (PMO), Caisse (CSH), Bestbank (BNK), Opérations diverses (MSC)
   - Create invoices
-- Bureau : Mes Fichiers téléchargés, Mon courrier sortant, Mes Extraits
+- Bureau : Mes Extraits
 - Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences
 - Activities : Cours, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
@@ -158,7 +153,7 @@ Romain gets the same menu in French:
   - Endroits : Pays, Endroits
   - Contacts : Types d'organisation, Fonctions
   - Comptabilité : Groupes de comptes, Comptes, Journals, Accounting periods, Payment Terms
-  - Bureau : Types de fichiers téléchargés, Types d'extrait, Mes Text Field Templates
+  - Bureau : Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Paper types
   - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
   - Activities : Topics, Timetable Slots
@@ -167,7 +162,7 @@ Romain gets the same menu in French:
   - Contacts : Personnes de contact
   - Comptabilité : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
   - SEPA : Comptes en banque
-  - Bureau : Fichiers téléchargés, Upload Areas, Mails envoyés, Pièces jointes, Extraits, Text Field Templates
+  - Bureau : Extraits, Text Field Templates
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
   - Calendrier : Entrées calendrier, Tâches, Présences, Abonnements, Event states, Guest states, Task states
@@ -185,9 +180,9 @@ Rolf gets the same menu in German:
   - Einkauf : Einkaufsrechnungen (PRC)
   - Finanzjournale : Zahlungsaufträge (PMO), Kasse (CSH), Bestbank (BNK), Diverse Buchungen (MSC)
   - Rechnungen erstellen
-- Büro : Meine Uploads, Mein E-Mail-Ausgang, Meine Auszüge
+- Büro : Meine Auszüge
 - Kalender : Meine Termine, Überfällige Termine, Unbestätigte Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten
-- Activities : Kurse, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
+- Aktivitäten : Kurse, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
 - Berichte :
   - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
@@ -197,18 +192,18 @@ Rolf gets the same menu in German:
   - Orte : Länder, Orte
   - Kontakte : Organisationsarten, Funktionen
   - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
-  - Büro : Upload-Arten, Auszugsarten, Meine Einfügetexte
+  - Büro : Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln, Papierarten
   - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Externe Kalender
-  - Activities : Themen, Timetable Slots
+  - Aktivitäten : Themen, Timetable Slots
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerarten
   - Kontakte : Kontaktpersonen
   - Buchhaltung : Ausgleichungsregeln, Belege, Belegarten, Bewegungen, Geschäftsjahre, Handelsarten, Journalgruppen, Rechnungen
   - SEPA : Bankkonten
-  - Büro : Uploads, Upload-Bereiche, E-Mail-Ausgänge, Anhänge, Auszüge, Einfügetexte
+  - Büro : Auszüge, Einfügetexte
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, Produktrechnungen, Produktrechnungszeilen, Fakturationspläne
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
   - Kalender : Kalendereinträge, Aufgaben, Anwesenheiten, Abonnements, Termin-Zustände, Gast-Zustände, Aufgaben-Zustände
-  - Activities : Activities, Einschreibungen, Einschreibungs-Zustände
+  - Aktivitäten : Aktivitäten, Einschreibungen, Einschreibungs-Zustände
 - Site : Info

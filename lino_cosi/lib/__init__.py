@@ -33,7 +33,6 @@ Plugins
     vat
     vatless
     finan
-    courses
     tim2lino
     sepa
     b2c
