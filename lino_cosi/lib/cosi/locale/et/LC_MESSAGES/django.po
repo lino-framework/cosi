@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-02 03:51+0300\n"
+"POT-Creation-Date: 2017-01-20 11:07+0200\n"
 "PO-Revision-Date: 2015-04-06 10:26+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: et\n"
@@ -109,13 +109,13 @@ msgstr ""
 msgid "Default amount"
 msgstr ""
 
-#: lino_cosi/lib/accounts/utils.py:34 lino_cosi/lib/finan/models.py:213
-#: lino_cosi/lib/ledger/models.py:880 lino_cosi/lib/ledger/ui.py:476
+#: lino_cosi/lib/accounts/utils.py:34 lino_cosi/lib/finan/models.py:214
+#: lino_cosi/lib/ledger/models.py:929 lino_cosi/lib/ledger/ui.py:478
 msgid "Debit"
 msgstr "Deebet"
 
-#: lino_cosi/lib/accounts/utils.py:35 lino_cosi/lib/finan/models.py:214
-#: lino_cosi/lib/ledger/models.py:886 lino_cosi/lib/ledger/ui.py:480
+#: lino_cosi/lib/accounts/utils.py:35 lino_cosi/lib/finan/models.py:215
+#: lino_cosi/lib/ledger/models.py:935 lino_cosi/lib/ledger/ui.py:482
 msgid "Credit"
 msgstr "Krediit"
 
@@ -1057,8 +1057,8 @@ msgstr "Nimetus"
 msgid "Transactions"
 msgstr "Aktioonid"
 
-#: lino_cosi/lib/b2c/models.py:391 lino_cosi/lib/ledger/models.py:483
-#: lino_cosi/lib/ledger/models.py:495
+#: lino_cosi/lib/b2c/models.py:391 lino_cosi/lib/ledger/models.py:525
+#: lino_cosi/lib/ledger/models.py:544
 msgid "No."
 msgstr ""
 
@@ -1110,12 +1110,12 @@ msgstr "Firmaliik"
 msgid "TxCd issuer"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:412 lino_cosi/lib/finan/models.py:119
+#: lino_cosi/lib/b2c/models.py:412 lino_cosi/lib/finan/models.py:120
 msgid "Execution date"
 msgstr ""
 
 #: lino_cosi/lib/b2c/models.py:413 lino_cosi/lib/b2c/models.py:442
-#: lino_cosi/lib/ledger/models.py:867
+#: lino_cosi/lib/ledger/models.py:916
 #, fuzzy
 msgid "Value date"
 msgstr "Tehing"
@@ -1148,8 +1148,8 @@ msgid "Debit balance"
 msgstr "Algsaldo"
 
 #: lino_cosi/lib/contacts/models.py:83 lino_cosi/lib/courses/desktop.py:154
-#: lino_cosi/lib/finan/models.py:256 lino_cosi/lib/finan/models.py:268
-#: lino_cosi/lib/finan/models.py:275 lino_cosi/lib/sales/models.py:329
+#: lino_cosi/lib/finan/models.py:257 lino_cosi/lib/finan/models.py:269
+#: lino_cosi/lib/finan/models.py:276 lino_cosi/lib/sales/models.py:330
 #: lino_cosi/lib/vat/ui.py:65 lino_cosi/lib/vatless/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:85
 msgid "General"
@@ -1164,1414 +1164,153 @@ msgstr ""
 msgid "Contact"
 msgstr "Kontaktisik"
 
-#: lino_cosi/lib/cosi/help_texts.py:6
-msgid "A SuggestionsByVoucher table for a BankStatement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:7
-msgid ""
-"A sale transaction is when you write an invoice to a customer\n"
-"and then expect the customer to pay it."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:9
-msgid "A convention on how an invoice should be paid."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:10
-msgid "The amount of this balance when it is crediting, otherwise zero."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:11
-msgid "The amount of this balance when it is debiting, otherwise zero."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:12
-msgid "For sales journals."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:13
-msgid "A SuggestionsByVoucher table for a JournalEntry."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:14
-msgid ""
-"Pointer to the voucher which contains this item.  Non\n"
-"nullable.  The voucher must be a subclass of\n"
-"ledger.Voucher.\n"
-"The related_name must be 'items'."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:18
-msgid ""
-"An invoice for which the user enters just the bare accounts and\n"
-"amounts (not products, quantities, discounts)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:20
-msgid "Common base class for orders.Order and VatProductInvoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:21 lino_cosi/lib/cosi/help_texts.py:306
-#: lino_cosi/lib/cosi/help_texts.py:325 lino_cosi/lib/cosi/help_texts.py:370
-#: lino_cosi/lib/cosi/help_texts.py:563
-#, fuzzy
-msgid "alias of Enrolment"
-msgstr "Rahavoogude aruanne"
-
-#: lino_cosi/lib/cosi/help_texts.py:22 lino_cosi/lib/cosi/help_texts.py:591
-#, fuzzy
-msgid "alias of PaymentOrder"
-msgstr "Laekumised"
-
-#: lino_cosi/lib/cosi/help_texts.py:23
-msgid "Check for wrong ledger movements"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:24 lino_cosi/lib/cosi/help_texts.py:121
-msgid "A bank account related to a given Partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:25
-msgid ""
-"The journal into which this voucher has been booked. This is a\n"
-"mandatory pointer to a Journal instance."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:27
-msgid ""
-"A match rule specifies that a movement into given account can\n"
-"be cleared using a given journal."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:29
-#, fuzzy
-msgid "A bank statement."
-msgstr "Konto väljavõte"
-
-#: lino_cosi/lib/cosi/help_texts.py:30
-msgid "A CharFieldElement which accepts only upper-case characters."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:31
-msgid "A PartnerAccountsBalance for the TradeType \"purchases\"."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:32 lino_cosi/lib/cosi/help_texts.py:36
-#: lino_cosi/lib/cosi/help_texts.py:55 lino_cosi/lib/cosi/help_texts.py:81
-#: lino_cosi/lib/cosi/help_texts.py:88 lino_cosi/lib/cosi/help_texts.py:109
-#: lino_cosi/lib/cosi/help_texts.py:195 lino_cosi/lib/cosi/help_texts.py:300
-#: lino_cosi/lib/cosi/help_texts.py:356 lino_cosi/lib/cosi/help_texts.py:408
-#: lino_cosi/lib/cosi/help_texts.py:459 lino_cosi/lib/cosi/help_texts.py:469
+#: lino_cosi/lib/cosi/help_texts.py:6 lino_cosi/lib/cosi/help_texts.py:39
+#: lino_cosi/lib/cosi/help_texts.py:78 lino_cosi/lib/cosi/help_texts.py:129
+#: lino_cosi/lib/cosi/help_texts.py:132 lino_cosi/lib/cosi/help_texts.py:230
+#: lino_cosi/lib/cosi/help_texts.py:461 lino_cosi/lib/cosi/help_texts.py:462
+#: lino_cosi/lib/cosi/help_texts.py:493 lino_cosi/lib/cosi/help_texts.py:518
+#: lino_cosi/lib/cosi/help_texts.py:525 lino_cosi/lib/cosi/help_texts.py:598
 msgid "See lino.core.plugin.Plugin."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:33 lino_cosi/lib/cosi/help_texts.py:100
-#: lino_cosi/lib/cosi/help_texts.py:381 lino_cosi/lib/cosi/help_texts.py:533
-msgid "alias of Journal"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:34
-msgid ""
-"The name of the field which holds the invoiceable date.  Must be\n"
-"set by subclasses."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:37
-msgid "The list of possible journal groups."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:38
-msgid ""
-"Lists those partners who give us some form of credit.\n"
-"DebtorsCreditors."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:40
-msgid "Mixin for voucher items which potentially refer to a product."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:41
-msgid "Pointer to an item of VoucherTypes."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:42
-msgid ""
-"A rule which defines how VAT is to be handled for a given invoice\n"
-"item."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:44
-msgid ""
-"An version of lino_xl.lib.contacts.models.Company which\n"
-"adds accounting fucntionality."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:46
-msgid "Base class for all enrolment tables."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:47
-msgid "alias of Topic"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:48
-msgid ""
-"The name and label of the price field to be defined on the\n"
-"Product\n"
-"database model."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:51
-msgid ""
-"The journal where to create invoices.  When this field is\n"
-"empty, you can fill the plan with suggestions but cannot\n"
-"execute the plan."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:54
-msgid "Pointer to the Account that is being moved by this movement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:56
-msgid "An item of a PaymentOrder."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:57
-msgid ""
-"A lino.core.fields.PriceField which stores the amount\n"
-"of VAT."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:59
-msgid ""
-"An optional unique name which can be used to reference a given\n"
-"account."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:61
-msgid ""
-"Model mixin for database objects that are considered matching\n"
-"transactions.  A matching transaction is a transaction that\n"
-"points to some other movement which it \"clears\" at least partially."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:64
-msgid "Shows the tables VouchersByPartner and MovementsByPartner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:65 lino_cosi/lib/cosi/help_texts.py:451
-#: lino_cosi/lib/cosi/help_texts.py:497 lino_cosi/lib/cosi/help_texts.py:510
-#: lino_cosi/lib/cosi/help_texts.py:608
-#, fuzzy
-msgid "alias of InvoiceItem"
-msgstr "Dokumendi rida"
-
-#: lino_cosi/lib/cosi/help_texts.py:66
-msgid "Alternative column layout to be used when printing an invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:67
-msgid "Whether bookings to this account need a partner specified."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:68
-msgid "Show global list of all enrolments."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:69
-msgid "A path wildcard pointing to xml files which need to get imported."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:70 lino_cosi/lib/cosi/help_texts.py:162
-#: lino_cosi/lib/cosi/help_texts.py:564
-#, fuzzy
-msgid "alias of Course"
-msgstr "Üritused ettevalmistamisel"
-
-#: lino_cosi/lib/cosi/help_texts.py:71
-msgid ""
-"The default amount to book in bank statements or journal\n"
-"entries when this account has been selected manually. The\n"
-"default booking direction is that of the type."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:74
-msgid "Shows all ledger vouchers of a given partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:75
-msgid ""
-"An accounting period is the smallest time slice to be observed\n"
-"(declare) in accounting reports. Usually it corresponds to one\n"
-"month. Except for some small companies which declare per\n"
-"quarter.  For each period it must be possible to specify the exact\n"
-"dates during which it is allowed to register vouchers into this\n"
-"period, and also its \"state\": whether it is \"closed\" or not."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:82
-#, fuzzy
-msgid "Shows all due product invoices."
-msgstr "Loo arve"
-
-#: lino_cosi/lib/cosi/help_texts.py:83 lino_cosi/lib/cosi/help_texts.py:142
-#: lino_cosi/lib/cosi/help_texts.py:509
-#, fuzzy
-msgid "alias of AccountInvoice"
-msgstr "Dokumendi rida"
-
-#: lino_cosi/lib/cosi/help_texts.py:84
-msgid ""
-"The default VAT regime. If this is specified as a string, Lino will\n"
-"resolve it at startup into an item of VatRegimes."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:86
+#: lino_cosi/lib/cosi/help_texts.py:7
 msgid "The max_length of the Reference field of an account."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:87
-msgid "The base table for all tables working on Voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:89
-msgid ""
-"Name by which a party is known and which is usually used to\n"
-"identify that party."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:91
-msgid ""
-"Abstract base class for different tables showing a list of\n"
-"partners with the following columns:"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:93
-msgid "ForeignKey pointing to the account (accounts.Account) that is to be moved."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:94
-msgid "The primary booking direction."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:95
-msgid "The sequence number of this voucher in the journal."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:96
-msgid ""
-"The Bank Transaction Code (<BkTxCd>) or \"transfer type\".\n"
-"Actually it is the \"proprietary\" part of this code."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:98
-msgid "The list of possible states of an accounting period."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:99
-msgid "The direction of the primary booking to create."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:101
-msgid ""
-"Base for StartInvoicingForJournal,\n"
-"StartInvoicingForPartner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:103
-msgid "Shows all sales invoice items."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:104
-msgid ""
-"Whether the\n"
-"number of\n"
-"vouchers should restart at 1 every year."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:107
-msgid ""
-"Mixin for things that are \"invoiceable\", i.e. for which a customer\n"
-"is going to receive an invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:110 lino_cosi/lib/cosi/help_texts.py:576
-msgid "alias of NotImplementedError"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:111
-msgid ""
-"Base class for the default tables of all other financial voucher\n"
-"types (JournalEntries , PaymentOrders and\n"
-"BankStatemens)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:114
-msgid "A Voucher is a document that represents a monetary transaction."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:115
-msgid ""
-"The date of the journal entry, i.e. when this voucher has been\n"
-"journalized or booked."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:117
-msgid ""
-"Base class for things that are related to one and only one trade\n"
-"partner. This is base class for both (1) trade document vouchers\n"
-"(e.g. invoices or offers) and (2) for the individual entries of\n"
-"financial vouchers and ledger movements."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:122
-msgid ""
-"An invoicing plan is a rather temporary database object which\n"
-"represents the plan of a given user to have Lino generate a series\n"
-"of invoices."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:125
-msgid "An arbitrary string used to group several movements."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:126
-#, fuzzy
-msgid "alias of PaymentOrderItem"
-msgstr "Maksetingimus"
-
-#: lino_cosi/lib/cosi/help_texts.py:127
-msgid ""
-"Execute this plan, i.e. create an invoice for each selected\n"
-"suggestion."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:129
-msgid ""
-"External reference. The description of this transation\n"
-"as seen by the external partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:131 lino_cosi/lib/cosi/help_texts.py:527
-msgid "alias of VatAccountInvoice"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:132
-msgid "Start an invoicing plan for this partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:133
-msgid "Base class for tables of partner vouchers."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:134 lino_cosi/lib/cosi/help_texts.py:382
-#: lino_cosi/lib/cosi/help_texts.py:470
-#, fuzzy
-msgid "alias of Account"
-msgstr "Pamgakontod"
-
-#: lino_cosi/lib/cosi/help_texts.py:135
-#, fuzzy
-msgid "alias of VoucherType"
-msgstr "KM dokumendid"
-
-#: lino_cosi/lib/cosi/help_texts.py:136
-msgid ""
-"Whether the plugin should integrate into the application's main\n"
-"menu in an intrusive way.  Intrusive means that the main menu gets\n"
-"one top-level item per journal group."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:139
-msgid ""
-"The default value False means to use\n"
-"lino.utils.dbfreader."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:141
-msgid "A list of the fiscal years available in this database."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:143
-msgid "See lino_cosi.lib.ledger.mixins.PartnerRelated.payment_term"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:144
-msgid ""
-"A virtual table, the base class for different reports that show a\n"
-"list of accounts with the following columns:"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:146
-msgid "Represents an accounting movement in the ledger."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:147
-msgid "The list of possible states of an enrolment."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:148
-msgid "The client related to this transaction."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:149
-msgid "Number of free places."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:150
-#, fuzzy
-msgid "alias of Company"
-msgstr "Pamgakontod"
-
-#: lino_cosi/lib/cosi/help_texts.py:151
-msgid ""
-"Model mixin which defines the fields total_incl, total_base\n"
-"and total_vat.  Used for both the document header\n"
-"(VatDocument) and for each item (VatItemBase)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:154
-msgid ""
-"The designation of this activity line as seen by the user\n"
-"e.g. when selecting the line."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:156
-msgid "An item of a sales invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:157
-msgid "A FinancialVoucher whose items have a date field."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:158
-msgid "Show the courses per course line."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:159
-msgid "alias of SuggestionsByPaymentOrder"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:160
-msgid "alias of DebitOrCreditStoreField"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:161
-msgid "The sequence number of this account within its group."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:163
-msgid ""
-"This attribute define whether, Cosi have to delete the SEPA file\n"
-"after it get imported."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:165
-msgid ""
-"The default VAT class. If this is specified as a string, Lino will\n"
-"resolve it at startup into an item of VatClasses."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:167
-msgid "Database field used to store an IBAN."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:168
-msgid ""
-"A virtual field which displays the date of the last imported\n"
-"statement for this account. Clicking on this date will open\n"
-"the B2C account <lino_cosi.lib.b2c.models.Account> with same\n"
-"IBAN number."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:172
-msgid "The global list of account types. See AccountType."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:173
-#, fuzzy
-msgid "alias of ItemsByInvoicePrint"
-msgstr "Dokumendi rida"
-
-#: lino_cosi/lib/cosi/help_texts.py:174
-#, fuzzy
-msgid "A group of accounts."
-msgstr "Pamgakontod"
-
-#: lino_cosi/lib/cosi/help_texts.py:175
-msgid ""
-"A clearing transaction is when an employee declares that he\n"
-"paid some invoice for you, and later you pay that money back\n"
-"to his account."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:178 lino_cosi/lib/invoicing/actions.py:131
-msgid "Invert selection status for all suggestions."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:179 lino_cosi/lib/cosi/help_texts.py:260
-msgid "alias of JournalEntry"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:180 lino_cosi/lib/cosi/help_texts.py:186
-#: lino_cosi/lib/cosi/help_texts.py:429 lino_cosi/lib/cosi/help_texts.py:447
-#: lino_cosi/lib/cosi/help_texts.py:568
-#, fuzzy
-msgid "alias of Partner"
-msgstr "Dokumendi rida"
-
-#: lino_cosi/lib/cosi/help_texts.py:181
-msgid ""
-"Represents a possible method of how the items described in a\n"
-"SalesDocument are to be transferred from us to our customer."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:183
-msgid ""
-"Virtual HtmlBox field showing the name and address of the\n"
-"participant."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:185
-msgid "https://en.wikipedia.org/wiki/Statement_of_comprehensive_income#Requirements_of_IFRS"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:187
-msgid ""
-"A sales invoice is a legal document which describes that something\n"
-"(the invoice items) has been sold to a given partner. The partner\n"
-"can be either a private person or an organization."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:190
-msgid "The actual historic name of the txcd."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:191
-msgid "A custom CharField that accepts only uppercase caracters."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:192
-msgid "Parser for camt bank statement import files."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:193
-msgid ""
-"A list of the available voucher types. Items are instances of\n"
-":class:VoucherType`."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:196
-msgid ""
-"A purchase transaction is when you get an invoice from a\n"
-"provider who expects you to pay it."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:198
-msgid ""
-"The general account to be used in the primary booking.\n"
-"If this is empty, use item_account of the voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:200
-msgid "Which paper (document template) to use when printing an invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:201
-msgid ""
-"Available places. The maximum number of participants to allow\n"
-"in this course."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:203
-msgid "alias of VatRule"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:204
-msgid "For purchases journals."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:205
-msgid "The partner account to be used in the primary booking."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:206
-#, fuzzy
-msgid "alias of BankStatementItem"
-msgstr "Konto väljavõte"
-
-#: lino_cosi/lib/cosi/help_texts.py:207
-msgid "An AccountsBalance for partner accounts."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:208
-#, fuzzy
-msgid "alias of BankAccount"
-msgstr "Pamgakontod"
-
-#: lino_cosi/lib/cosi/help_texts.py:209
-msgid ""
-"Confirm this enrolment. Sets the state to confirmed after\n"
-"calling get_confirm_veto to\n"
-"verify whether it is valid (e.g. whether there are enough free\n"
-"places)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:213
-msgid ""
-"Import the .xml files found in the directory specified at\n"
-"import_statements_path."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:215
-msgid "An item of an AccountInvoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:216
-msgid "This is the model for \"journal entries\" (\"operations diverses\")."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:217
-msgid "Pointer to the Voucher who caused this movement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:218
-msgid ""
-"Shows all invoices of a given journal (whose\n"
-"voucher_type\n"
-"must be lino_cosi.lib.vat.models.VatAccountInvoice)"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:221
-msgid ""
-"Virtual field with the textual translated description of the\n"
-"txcd.  Currently this works only for Belgian codes\n"
-"where txcd_issuer is \"BBA\" as defined in\n"
-"lino_cosi.lib.b2c.febelfin)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:225
-msgid ""
-"Abstract base class for voucher items which point to an account.\n"
-"This is subclassed by\n"
-"lino_cosi.lib.vat.models.InvoiceItem\n"
-"and\n"
-"lino_cosi.lib.vatless.models.InvoiceItem.\n"
-"It defines the account field and some related methods."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:231
-msgid "Base class for all items of VoucherTypes."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:232
-msgid "For wages journals."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:233 lino_cosi/lib/cosi/help_texts.py:281
-#: lino_cosi/lib/cosi/help_texts.py:503 lino_cosi/lib/cosi/help_texts.py:545
-#: lino_cosi/lib/cosi/help_texts.py:569 lino_cosi/lib/cosi/help_texts.py:598
-#: lino_cosi/lib/cosi/help_texts.py:602
-msgid "alias of Movement"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:234
-msgid "Show all enrolments of a given pupil."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:235
-msgid ""
-"The multilingual designation of this account, as the users see\n"
-"it."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:237 lino_cosi/lib/cosi/help_texts.py:346
-#, fuzzy
-msgid "alias of BankStatement"
-msgstr "Rahavoogude aruanne"
-
-#: lino_cosi/lib/cosi/help_texts.py:238
-msgid ""
-"The balance of previous payments or debts. On a printed\n"
-"invoice, this amount should be mentioned and added to the\n"
-"invoice's amount in order to get the total amount to pay."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:241
-msgid ""
-"A VAT class is a direct or indirect property of a trade object\n"
-"(e.g. a Product) which determines the VAT rate to be used.  It\n"
-"does not contain the actual rate because this still varies\n"
-"depending on your country, the time and type of the operation, and\n"
-"possibly other factors."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:246
-msgid "Checks for the following plausibility problems:"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:247
-msgid ""
-"The total fields of an invoice are currently not automatically\n"
-"updated each time an item is modified.  Users must click the\n"
-"Save or the Register button to see the invoices totals."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:250
-msgid "Base class for a cosi application."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:251 lino_cosi/lib/cosi/help_texts.py:368
-msgid ""
-"Defines a panel ledger, to be added as a tab panel to your\n"
-"layout's main element."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:253
-msgid "The table of all BankStatement vouchers."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:254
-msgid ""
-"Whether to automatically check and update the 'cleared' status\n"
-"of involved transactions when (de)registering a voucher of\n"
-"this journal."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:257
-msgid ""
-"Lists those partners who have some debt against us.\n"
-"DebtorsCreditors."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:259
-msgid "For financial journals (bank statements and cash reports)"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:261
-msgid "Show all movements having a given match."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:262
-msgid "TODO: write more about it."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:263
-msgid ""
-"Set this to True on subclasses who compute their totals\n"
-"automatically, i.e. the fields total_base,\n"
-"total_vat and total_incl are disabled.  This is\n"
-"set to True for lino_cosi.lib.sales.models.SalesDocument."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:267
-msgid "alias of SuggestionsByBankStatement"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:268
-msgid ""
-"Fill the selected suggestions as items to the voucher. The first\n"
-"selected suggestion does not create a new item but replaces the\n"
-"item for which it was called."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:271
-msgid ""
-"Force all movements on vouchers with entry_date until the given\n"
-"date to be cleared.  This is useful e.g. when you want to keep\n"
-"legacy invoices in your database but not their payments."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:274
-msgid ""
-"The base class for the items of all types of financial vouchers\n"
-"(FinancialVoucher)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:276
-msgid ""
-"Base class for all financial vouchers:\n"
-"Grouper,\n"
-"JournalEntry,\n"
-"PaymentOrder and\n"
-"BankStatement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:282
-#, fuzzy
-msgid "alias of Person"
-msgstr "Üritused ettevalmistamisel"
-
-#: lino_cosi/lib/cosi/help_texts.py:283
-msgid "A special variant used to build the docs."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:284 lino_cosi/lib/cosi/help_texts.py:354
-#: lino_cosi/lib/cosi/help_texts.py:417 lino_cosi/lib/cosi/help_texts.py:587
-#, fuzzy
-msgid "alias of VatProductInvoice"
-msgstr "Loo arve"
-
-#: lino_cosi/lib/cosi/help_texts.py:285
-#, fuzzy
-msgid "alias of VoucherState"
-msgstr "KM dokumendid"
-
-#: lino_cosi/lib/cosi/help_texts.py:286
-msgid "Shows the courses of a given topic."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:287
-msgid "The title of this voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:288
-msgid "alias of VatRegime"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:289
-msgid ""
-"Model mixin for items of a VatTotal, adds unit_price and\n"
-"qty."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:291
+#: lino_cosi/lib/cosi/help_texts.py:8
 msgid "Base class for a financial statement."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:292
-msgid ""
-"A SuggestionsByVoucherItem table for a\n"
-"PaymentOrderItem."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:294
-msgid ""
-"Show the ledger movements of a project.\n"
-"See also lino_cosi.lib.ledger.models.Movement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:296
-msgid ""
-"The recipient of this document. A pointer to\n"
-"lino_xl.lib.contacts.models.Partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:298
-msgid "Start an invoicing plan for this journal."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:299
-msgid "The table of all PaymentOrder vouchers."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:301
-msgid ""
-"A lino.core.tables.VirtualTable which shows all VatDocument\n"
-"vouchers by lino_xl.lib.contacts.models.Partner. It has a\n"
-"customized slave summary."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:304
-msgid ""
-"A virtual table of DueMovement rows, showing\n"
-"all \"expected\" \"movements (payments)\"."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:307
-msgid "Base class for items of a voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:308
-msgid ""
-"A lino.core.fields.PriceField which stores the total\n"
-"amount VAT excluded."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:310
-#, fuzzy
-msgid "alias of AccountType"
-msgstr "Pamgakontod"
-
-#: lino_cosi/lib/cosi/help_texts.py:311
-msgid ""
-"The date on the voucher, i.e. when this voucher has been\n"
-"issued by its emitter."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:313
-msgid ""
-"Leave this to None for normal behaviour.  Set this to a string of\n"
-"the form '<app_label>.<ModelName>' if you want to add an\n"
-"additional field project to all models which inherit from\n"
-"lino_cosi.lib.ledger.mixins.ProjectRelated."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:317
-msgid "Whether"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:318
-msgid ""
-"A virtual field which returns the partner of the voucher.\n"
-"For incoming invoices this is the supplier, for outgoing\n"
-"invoices this is the customer, for financial vouchers this is\n"
-"empty."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:322
-msgid ""
-"Pointer to the partner involved in this movement. This may be\n"
-"blank."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:324
-msgid "Sequential number within a voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:326
-msgid ""
-"The base table for all tables working on Movement.\n"
-"Defines filtering parameters and general behaviour."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:328
-msgid "The global table of all account groups."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:329
-msgid ""
-"The VAT class to be applied for this item. A pointer to\n"
-"VatClasses."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:331
-msgid ""
-"A short explanation which ascertains the subject matter of\n"
-"this journal entry."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:333
-msgid ""
-"Pointer to the Movement that is being cleared by this\n"
-"movement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:335
-msgid ""
-"The table of all\n"
-"VatAccountInvoice\n"
-"objects."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:338
-msgid "The default booking direction."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:339
-msgid "Number of confirmed places."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:340
-msgid ""
-"Like ItemsByInvoice, but in a project invoice we don't\n"
-"want to have a project column per item."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:342
-msgid ""
-"A virtual field showing a comma-separated list of the\n"
-"following items:"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:344
-msgid ""
-"Registered vouchers cannot be modified, but are visible as\n"
-"movements in the ledger."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:347
-msgid "An item of an account invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:348
-msgid ""
-"The invoice that has been generated. This field is empty for\n"
-"new items. When an item has been executed, this field points\n"
-"to the generated invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:351
-msgid ""
-"Shows all simple invoices of a given journal (whose\n"
-"Journal.voucher_type must be\n"
-"lino_cosi.lib.sales.models.AccountInvoice)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:355
-msgid "Whether to use a Y2K compatible representation for fiscal years."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:357
-msgid "Adds a field bank_account and its chooser."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:358
-msgid ""
-"The amount to be booked. If this is empty, then the voucher\n"
-"cannot be registered."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:360
-msgid ""
-"Show the ledger movements of a partner.\n"
-"See also lino_cosi.lib.ledger.models.Movement."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:362
-#, fuzzy
-msgid "Alias for the partner"
-msgstr "Dokumendi rida"
-
-#: lino_cosi/lib/cosi/help_texts.py:363
-msgid ""
-"A wage transaction is when you write a payroll (declare the\n"
-"fact that you owe some wage to an employee) and later pay it\n"
-"(e.g. via a payment order)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:366
-msgid ""
-"A lino.core.fields.PriceField which stores the total\n"
-"amount VAT included."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:371
-msgid ""
-"The body template to use when printing an activity of this\n"
-"line.  Leave empty to use the site's default (defined by\n"
-"body_template on the\n"
-"lino_xl.lib.excerpts.models.ExcerptType for\n"
-"Course)"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:376
-msgid ""
-"Displays the payment suggestions for a voucher item, with a button\n"
-"to fill them into the current item (creating additional items if\n"
-"more than one suggestion was selected)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:379
-msgid "Shows the movements done on a given general account."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:380
-msgid "The detail layout of a Course."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:383
-msgid "Show the ledger movements of a voucher."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:384
-msgid "Pointer to TradeTypes."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:385
-msgid "Number of requested places."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:386
-msgid ""
-"A simple GenericRelation\n"
-"to all invoice items pointing to this enrolment."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:388
-msgid ""
-"The model used to store journals.\n"
-"See cosi.specs.ledger.journals."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:390
-msgid "The value date of this item."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:391
-msgid ""
-"The ExpectedMovements accessible by clicking the \"Debts\"\n"
-"action button on an Account."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:393
-msgid ""
-"The name and label of the Partner account field to\n"
-"be defined for this trade type on the SiteConfig database model."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:395
-msgid ""
-"An enrolment is when a given pupil plans to participate in a\n"
-"given course."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:397
-msgid ""
-"The database model into which invoiceable objects should create\n"
-"invoice items.  Default value refers to\n"
-"sales.InvoiceItem."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:400
-msgid ""
-"The name and label of the VAT account field to be\n"
-"defined for this trade type on the SiteConfig database model."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:402
+#: lino_cosi/lib/cosi/help_texts.py:9
 msgid ""
 "In financial accounting, a balance sheet or statement of financial\n"
 "position is a summary of the financial balances of an\n"
 "organisation."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:405
-msgid "Whether to suggest vouchers whose due_date is in the future."
+#: lino_cosi/lib/cosi/help_texts.py:12
+msgid "https://en.wikipedia.org/wiki/Statement_of_comprehensive_income#Requirements_of_IFRS"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:406
-msgid ""
-"The language distribution used in the database to import. Mandatory\n"
-"parameter. No default value."
+#: lino_cosi/lib/cosi/help_texts.py:13
+msgid "The base class for all account types."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:409
-msgid "The common match string of these movments"
+#: lino_cosi/lib/cosi/help_texts.py:14
+msgid "The global list of account types. See AccountType."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:410
-msgid ""
-"A bank statement is a document issued by the bank, which\n"
-"reports all transactions which occured on a given account during a\n"
-"given period."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:413
-msgid "A user with all permissions."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:414
-msgid ""
-"The VAT regime is a classification of the way how VAT is being\n"
-"handled, e.g. whether and how it is to be paid."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:416
-msgid "The items of an invoicing plan are called suggestions."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:418
-msgid "A choicelist with the trade types defined for this application."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:419
-msgid ""
-"Can see imported statements and movements also globally in the\n"
-":menuselection`Explorer` menu."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:421
-msgid ""
-"The VAT regime to be used in this document.  A pointer to\n"
-"VatRegimes."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:423
-msgid ""
-"The Signed state is similar to registered, but cannot usually be\n"
-"deregistered anymore. This state is not visible in the default\n"
-"configuration. In order to make it usable, you must define a custom\n"
-"workflow for lino_cosi.lib.ledger.VoucherStates."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:427
-msgid "A bank statement groups data about several bank transactions."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:428
-msgid "A normal authentified user."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:430
-msgid ""
-"The name and label of the Base account field to\n"
-"be defined for this trade type on the SiteConfig database model."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:432
-msgid "The balance of all movements matching this invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:433
-msgid "Which table (column layout) to use in the printed document."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:434
-msgid "This is the \"content\" part of an invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:435
-msgid ""
-"The legal sequential number of the statement, as assigned by\n"
-"the bank."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:437
-msgid ""
-"Pointer to the \"project\". This field exists only if the\n"
-"project_model setting of the\n"
-"lino_cosi.lib.ledger plugin is nonempty."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:440
-msgid "alias of basestring"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:441
-msgid ""
-"The database model used to store vouchers of this type.\n"
-"A subclass of lino_cosi.lib.ledger.models.Voucher`."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:443
-msgid ""
-"A multi-line rich text to be printed in the resulting printable\n"
-"document."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:445
-msgid ""
-"A textual preview of the invoiceable items to be included in\n"
-"the invoice."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:448
-msgid "See PrintableType.template."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:449
-msgid "The table of all lino_cosi.lib.vat.models.VatRule objects."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:450
-msgid "An item of a JournalEntry."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:452
-msgid ""
-"Pointer to CourseAreas.  This is used only when an\n"
-"application defines several variants of\n"
-"EnrolmentsByPupil."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:455
-msgid "A char field with a description for this transaction."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:456 lino_cosi/lib/cosi/help_texts.py:541
-#: lino_cosi/lib/cosi/help_texts.py:575
+#: lino_cosi/lib/cosi/help_texts.py:15
 #, fuzzy
-msgid "alias of Voucher"
-msgstr "KM dokumendid"
+msgid "alias of AccountType"
+msgstr "Pamgakontod"
 
-#: lino_cosi/lib/cosi/help_texts.py:457
-msgid ""
-"The payment terms to be used in this document.  A pointer to\n"
-"PaymentTerm."
+#: lino_cosi/lib/cosi/help_texts.py:16
+msgid "This is used as lino_atomizer_class for DebitOrCreditField."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:460
+#: lino_cosi/lib/cosi/help_texts.py:17
 msgid ""
-"Whether I mean my debts and payments (towards that partner)\n"
-"or those of the partner (towards me)."
+"A field that stores either DEBIT or CREDIT (see\n"
+"lino_cosi.lib.accounts.utils)."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:462
+#: lino_cosi/lib/cosi/help_texts.py:19
+msgid "alias of DebitOrCreditStoreField"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:20
+#, fuzzy
+msgid "A group of accounts."
+msgstr "Pamgakontod"
+
+#: lino_cosi/lib/cosi/help_texts.py:21
+msgid "The global table of all account groups."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:22
+msgid "alias of Group"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:23
+msgid ""
+"An account is an item of an account chart used to collect\n"
+"ledger transactions or other accountable items."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:25
+msgid ""
+"The multilingual designation of this account, as the users see\n"
+"it."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:27
 msgid ""
 "The account group to which this account belongs.  Points to\n"
 "an instance of Group.  If this field is empty, the\n"
 "account won't appear in certain reports."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:465
-msgid "Whether a voucher in this state is editable."
+#: lino_cosi/lib/cosi/help_texts.py:30
+msgid "The sequence number of this account within its group."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:466
+#: lino_cosi/lib/cosi/help_texts.py:31
 msgid ""
-"The VAT rate to be applied. Note that a VAT rate of 20 percent is\n"
-"stored as 0.20 (not 20)."
+"An optional unique name which can be used to reference a given\n"
+"account."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:468
-msgid "A report consisting of the following tables:"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:471
-msgid "Database field used to store a BIC."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:472
+#: lino_cosi/lib/cosi/help_texts.py:33
 msgid ""
-"The default value to use when\n"
-"FinancialVoucherItem.account of an item is empty."
+"The account type of this account.  This points to an item of\n"
+"AccountTypes."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:474
-msgid "Model mixin for items of a VatTotal."
+#: lino_cosi/lib/cosi/help_texts.py:35
+msgid "Whether bookings to this account need a partner specified."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:475
-msgid "A volatile object representing a group of matching movements."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:476
+#: lino_cosi/lib/cosi/help_texts.py:36
 msgid ""
-"Fill selected suggestions from a SuggestionsByVoucher table into a\n"
-"financial voucher."
+"The default amount to book in bank statements or journal\n"
+"entries when this account has been selected manually. The\n"
+"default booking direction is that of the type."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:478
+#: lino_cosi/lib/cosi/help_texts.py:40
+msgid "A path wildcard pointing to xml files which need to get imported."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:41
 msgid ""
-"The date at which this movement is to be entered into the\n"
-"ledger.  This is usually the voucher's entry_date, except\n"
-"e.g. for bank statements where each item can have its own\n"
-"value date."
+"This attribute define whether, Cosi have to delete the SEPA file\n"
+"after it get imported."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:482
+#: lino_cosi/lib/cosi/help_texts.py:43
+msgid "Single transaction that is part of a bank statement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:44
+msgid "A bank statement groups data about several bank transactions."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:45
+msgid "Parser for camt bank statement import files."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:46
 msgid ""
-"An activity line (or series) groups courses into a\n"
-"configurable list of categories."
+"Import the .xml files found in the directory specified at\n"
+"import_statements_path."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:484
-msgid ""
-"The default value to use when\n"
-"FinancialVoucherItem.remark of an item is empty."
+#: lino_cosi/lib/cosi/help_texts.py:48 lino_cosi/lib/cosi/help_texts.py:506
+msgid "A bank account related to a given Partner."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:486
-msgid "Base table for all activities."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:487
-msgid "alias of Group"
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:488
+#: lino_cosi/lib/cosi/help_texts.py:49
 msgid ""
 "Name of the account, as assigned by the account servicing\n"
 "institution, in agreement with the account owner in order to\n"
@@ -2583,121 +1322,703 @@ msgid ""
 "number."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:496
-msgid "The default table showing all instances of Journal."
+#: lino_cosi/lib/cosi/help_texts.py:57
+msgid ""
+"Name by which a party is known and which is usually used to\n"
+"identify that party."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:498
+#: lino_cosi/lib/cosi/help_texts.py:59
+#, fuzzy
+msgid "A bank statement."
+msgstr "Konto väljavõte"
+
+#: lino_cosi/lib/cosi/help_texts.py:60
+msgid ""
+"The legal sequential number of the statement, as assigned by\n"
+"the bank."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:62
+msgid "A transaction within a bank statement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:63
+msgid "The actual historic name of the txcd."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:64
+msgid ""
+"The Bank Transaction Code (<BkTxCd>) or \"transfer type\".\n"
+"Actually it is the \"proprietary\" part of this code."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:66
+msgid "The issuer or the txcd."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:67
+msgid ""
+"Virtual field with the textual translated description of the\n"
+"txcd.  Currently this works only for Belgian codes\n"
+"where txcd_issuer is \"BBA\" as defined in\n"
+"lino_cosi.lib.b2c.febelfin)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:71
+msgid ""
+"An version of lino_xl.lib.contacts.models.Partner which\n"
+"adds accounting fucntionality."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:73
 msgid ""
 "An version of lino_xl.lib.contacts.models.Person which\n"
 "adds accounting fucntionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:500
-msgid "Whether to use the PCMN notation."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:501
+#: lino_cosi/lib/cosi/help_texts.py:75
 msgid ""
-"The regime for which this rule applies. Pointer to\n"
-"VatRegimes."
+"An version of lino_xl.lib.contacts.models.Company which\n"
+"adds accounting fucntionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:504
-msgid ""
-"A field that stores either DEBIT or CREDIT (see\n"
-"lino_cosi.lib.accounts.utils)."
+#: lino_cosi/lib/cosi/help_texts.py:77
+#, fuzzy
+msgid "alias of Company"
+msgstr "Pamgakontod"
+
+#: lino_cosi/lib/cosi/help_texts.py:79
+msgid "The list of possible states of an enrolment."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:506
-msgid ""
-"An editable virtual PriceField to get and set both database fields\n"
-"amount and dc at once. It may be used only on\n"
-"models which also defines these two fields."
+#: lino_cosi/lib/cosi/help_texts.py:80
+msgid "The detail layout of a Course."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:511
-msgid ""
-"Pointer to the movement which is being cleared by\n"
-"this movement."
+#: lino_cosi/lib/cosi/help_texts.py:81
+msgid "Base table for all activities."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:513
-msgid "A virtual field which shows a link to the voucher."
+#: lino_cosi/lib/cosi/help_texts.py:82 lino_cosi/lib/cosi/help_texts.py:85
+#: lino_cosi/lib/cosi/help_texts.py:88
+#, fuzzy
+msgid "alias of Course"
+msgstr "Üritused ettevalmistamisel"
+
+#: lino_cosi/lib/cosi/help_texts.py:83
+msgid "Show the courses per course line."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:514
+#: lino_cosi/lib/cosi/help_texts.py:84
 msgid "alias of Line"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:515
-msgid "The issuer or the txcd."
+#: lino_cosi/lib/cosi/help_texts.py:86
+msgid "Shows the courses of a given topic."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:516
-msgid "The table used to render items in a printable document."
+#: lino_cosi/lib/cosi/help_texts.py:87
+msgid "alias of Topic"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:517
-msgid "Base class for the choices of TradeTypes."
+#: lino_cosi/lib/cosi/help_texts.py:89
+msgid "Base class for all enrolment tables."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:518
-msgid "An item of a BankStatement."
+#: lino_cosi/lib/cosi/help_texts.py:90 lino_cosi/lib/cosi/help_texts.py:92
+#: lino_cosi/lib/cosi/help_texts.py:94 lino_cosi/lib/cosi/help_texts.py:96
+#: lino_cosi/lib/cosi/help_texts.py:99
+#, fuzzy
+msgid "alias of Enrolment"
+msgstr "Rahavoogude aruanne"
+
+#: lino_cosi/lib/cosi/help_texts.py:91
+msgid "Show global list of all enrolments."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:519
+#: lino_cosi/lib/cosi/help_texts.py:93
+#, fuzzy
+msgid "Show all requested enrolments."
+msgstr "Ootel registreerimesed"
+
+#: lino_cosi/lib/cosi/help_texts.py:95
+#, fuzzy
+msgid "Show all confirmed enrolments."
+msgstr "Kinnitatud registreerimesed"
+
+#: lino_cosi/lib/cosi/help_texts.py:97
+msgid "Show all enrolments of a given pupil."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:98
+#, fuzzy
+msgid "alias of Person"
+msgstr "Üritused ettevalmistamisel"
+
+#: lino_cosi/lib/cosi/help_texts.py:100
 msgid ""
-"The account type of this account.  This points to an item of\n"
-"AccountTypes."
+"An activity line (or series) groups courses into a\n"
+"configurable list of categories."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:521
+#: lino_cosi/lib/cosi/help_texts.py:102
 msgid ""
-"Shows all invoices of a given journal (whose voucher_type must be\n"
-"VatProductInvoice)"
+"The designation of this activity line as seen by the user\n"
+"e.g. when selecting the line."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:523
-msgid "Mandatory field to be defined in another class."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:524
+#: lino_cosi/lib/cosi/help_texts.py:104
 msgid "The text to print as title in enrolments."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:525
+#: lino_cosi/lib/cosi/help_texts.py:105
 msgid ""
-"A SuggestionsByVoucherItem table for a\n"
-"BankStatementItem."
+"The body template to use when printing an activity of this\n"
+"line.  Leave empty to use the site's default (defined by\n"
+"body_template on the\n"
+"lino_xl.lib.excerpts.models.ExcerptType for\n"
+"Course)"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:528
+#: lino_cosi/lib/cosi/help_texts.py:110
 msgid ""
-"The accounting period and fiscal year to which this entry is\n"
-"to be assigned to. The default value is determined from\n"
-"entry_date."
+"Pointer to CourseAreas.  This is used only when an\n"
+"application defines several variants of\n"
+"EnrolmentsByPupil."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:531
-msgid "alias of TradeType"
+#: lino_cosi/lib/cosi/help_texts.py:113
+msgid ""
+"A Course is a group of pupils that regularily meet with a given\n"
+"teacher in a given room to speak about a given subject."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:532
-msgid "Model mixin for objects that are related to a project."
+#: lino_cosi/lib/cosi/help_texts.py:115
+msgid ""
+"Available places. The maximum number of participants to allow\n"
+"in this course."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:534
-msgid "The detail layout used by Invoices."
+#: lino_cosi/lib/cosi/help_texts.py:117
+msgid "Number of free places."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:535
+#: lino_cosi/lib/cosi/help_texts.py:118
+msgid "Number of requested places."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:119
+msgid "Number of confirmed places."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:120
+msgid ""
+"An enrolment is when a given pupil plans to participate in a\n"
+"given course."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:122
+msgid "One of lino_cosi.lib.courses.choicelists.EnrolmentStates."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:123
+msgid ""
+"Virtual HtmlBox field showing the name and address of the\n"
+"participant."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:125
+msgid ""
+"Confirm this enrolment. Sets the state to confirmed after\n"
+"calling get_confirm_veto to\n"
+"verify whether it is valid (e.g. whether there are enough free\n"
+"places)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:130
+msgid ""
+"Represents a possible method of how the items described in a\n"
+"SalesDocument are to be transferred from us to our customer."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:133
+msgid "Whether to suggest vouchers whose due_date is in the future."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:134
+msgid ""
+"Base class for all financial vouchers:\n"
+"Grouper,\n"
+"JournalEntry,\n"
+"PaymentOrder and\n"
+"BankStatement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:139
+msgid ""
+"The default value to use when\n"
+"FinancialVoucherItem.account of an item is empty."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:141
+msgid ""
+"The default value to use when\n"
+"FinancialVoucherItem.remark of an item is empty."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:143
+msgid ""
+"The base class for the items of all types of financial vouchers\n"
+"(FinancialVoucher)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:145
+msgid ""
+"The general account to be used in the primary booking.\n"
+"If this is empty, use item_account of the voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:147
+msgid "The client related to this transaction."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:148
+msgid "The partner account to be used in the primary booking."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:149
+msgid ""
+"The amount to be booked. If this is empty, then the voucher\n"
+"cannot be registered."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:151
+msgid "The direction of the primary booking to create."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:152
+msgid ""
+"External reference. The description of this transation\n"
+"as seen by the external partner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:154
+msgid "An arbitrary string used to group several movements."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:155
+msgid "A FinancialVoucher whose items have a date field."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:156
 msgid ""
 "A FinancialVoucherItem with an additional date\n"
 "field."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:537
+#: lino_cosi/lib/cosi/help_texts.py:158
+msgid "The value date of this item."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:159
+msgid "This is the model for \"journal entries\" (\"operations diverses\")."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:160
+msgid ""
+"A payment order is when a user instructs a bank to execute a\n"
+"series of outgoing transactions from a given bank account."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:162
+msgid ""
+"A bank statement is a document issued by the bank, which\n"
+"reports all transactions which occured on a given account during a\n"
+"given period."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:165
+msgid "The old (or start) balance."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:166
+msgid "The new (or end) balance."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:167
+msgid "An item of a JournalEntry."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:168
+msgid "An item of a BankStatement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:169
+msgid "An item of a PaymentOrder."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:170
+msgid ""
+"Base class for the default tables of all other financial voucher\n"
+"types (JournalEntries , PaymentOrders and\n"
+"BankStatemens)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:173 lino_cosi/lib/cosi/help_texts.py:188
+msgid "alias of JournalEntry"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:174
+msgid "The table of all PaymentOrder vouchers."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:175 lino_cosi/lib/cosi/help_texts.py:190
+#, fuzzy
+msgid "alias of PaymentOrder"
+msgstr "Laekumised"
+
+#: lino_cosi/lib/cosi/help_texts.py:176
+msgid "alias of SuggestionsByPaymentOrder"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:177
+msgid "The table of all BankStatement vouchers."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:178 lino_cosi/lib/cosi/help_texts.py:192
+#, fuzzy
+msgid "alias of BankStatement"
+msgstr "Rahavoogude aruanne"
+
+#: lino_cosi/lib/cosi/help_texts.py:179
+msgid "alias of SuggestionsByBankStatement"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:180
+msgid ""
+"Fill selected suggestions from a SuggestionsByVoucher table into a\n"
+"financial voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:182
+msgid ""
+"Fill the selected suggestions as items to the voucher. The first\n"
+"selected suggestion does not create a new item but replaces the\n"
+"item for which it was called."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:185
+msgid ""
+"Shows the suggested items for a given voucher, with a button to\n"
+"fill them into the current voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:187
+msgid "A SuggestionsByVoucher table for a JournalEntry."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:189
+msgid "A SuggestionsByVoucher table for a PaymentOrder."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:191
+msgid "A SuggestionsByVoucher table for a BankStatement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:193
+msgid ""
+"Displays the payment suggestions for a voucher item, with a button\n"
+"to fill them into the current item (creating additional items if\n"
+"more than one suggestion was selected)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:196
+msgid ""
+"A SuggestionsByVoucherItem table for a\n"
+"BankStatementItem."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:198
+#, fuzzy
+msgid "alias of BankStatementItem"
+msgstr "Konto väljavõte"
+
+#: lino_cosi/lib/cosi/help_texts.py:199
+msgid ""
+"A SuggestionsByVoucherItem table for a\n"
+"PaymentOrderItem."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:201
+#, fuzzy
+msgid "alias of PaymentOrderItem"
+msgstr "Maksetingimus"
+
+#: lino_cosi/lib/cosi/help_texts.py:202
+msgid ""
+"The database model into which invoiceable objects should create\n"
+"invoice items.  Default value refers to\n"
+"sales.InvoiceItem."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:205
+msgid ""
+"Base for StartInvoicingForJournal,\n"
+"StartInvoicingForPartner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:207
+msgid "Start an invoicing plan for this journal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:208
+msgid "Start an invoicing plan for this partner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:209 lino_cosi/lib/invoicing/actions.py:131
+msgid "Invert selection status for all suggestions."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:210
+msgid ""
+"Mixin for things that are \"invoiceable\", i.e. for which a customer\n"
+"is going to receive an invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:212
+msgid ""
+"A simple GenericRelation\n"
+"to all invoice items pointing to this enrolment."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:214
+msgid ""
+"The name of the field which holds the invoiceable date.  Must be\n"
+"set by subclasses."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:216
+msgid ""
+"An invoicing plan is a rather temporary database object which\n"
+"represents the plan of a given user to have Lino generate a series\n"
+"of invoices."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:219
+msgid ""
+"The journal where to create invoices.  When this field is\n"
+"empty, you can fill the plan with suggestions but cannot\n"
+"execute the plan."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:222
+msgid ""
+"Execute this plan, i.e. create an invoice for each selected\n"
+"suggestion."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:224
+msgid "The items of an invoicing plan are called suggestions."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:225
+msgid ""
+"A textual preview of the invoiceable items to be included in\n"
+"the invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:227
+msgid ""
+"The invoice that has been generated. This field is empty for\n"
+"new items. When an item has been executed, this field points\n"
+"to the generated invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:231
+msgid "Whether to use the PCMN notation."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:232
+msgid ""
+"Leave this to None for normal behaviour.  Set this to a string of\n"
+"the form '<app_label>.<ModelName>' if you want to add an\n"
+"additional field project to all models which inherit from\n"
+"lino_cosi.lib.ledger.mixins.ProjectRelated."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:236
+msgid ""
+"Whether the plugin should integrate into the application's main\n"
+"menu in an intrusive way.  Intrusive means that the main menu gets\n"
+"one top-level item per journal group."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:239
+msgid "An integer with the calendar year in which this site starts working."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:240
+msgid "Whether to use a Y2K compatible representation for fiscal years."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:241
+msgid ""
+"Force all movements on vouchers with entry_date until the given\n"
+"date to be cleared.  This is useful e.g. when you want to keep\n"
+"legacy invoices in your database but not their payments."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:244
+msgid "The list of possible journal groups."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:245
+msgid "For sales journals."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:246
+msgid "For purchases journals."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:247
+msgid "For wages journals."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:248
+msgid "For financial journals (bank statements and cash reports)"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:249
+msgid "A list of the fiscal years available in this database."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:250
+msgid "The list of possible states of an accounting period."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:251
+msgid "Base class for all items of VoucherTypes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:252
+msgid ""
+"The database model used to store vouchers of this type.\n"
+"A subclass of lino_cosi.lib.ledger.models.Voucher`."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:254
+msgid ""
+"Must be a table on model and with master_key set to\n"
+"the\n"
+"journal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:257
+msgid ""
+"A list of the available voucher types. Items are instances of\n"
+":class:VoucherType`."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:259
+#, fuzzy
+msgid "alias of VoucherType"
+msgstr "KM dokumendid"
+
+#: lino_cosi/lib/cosi/help_texts.py:260
+msgid "Base class for the choices of TradeTypes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:261
+msgid "The default booking direction."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:262
+msgid ""
+"The name and label of the price field to be defined on the\n"
+"Product\n"
+"database model."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:265
+msgid ""
+"The name and label of the Partner account field to\n"
+"be defined for this trade type on the SiteConfig database model."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:267
+msgid ""
+"The name and label of the Base account field to\n"
+"be defined for this trade type on the SiteConfig database model."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:269
+msgid ""
+"The name and label of the VAT account field to be\n"
+"defined for this trade type on the SiteConfig database model."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:271
+msgid "A choicelist with the trade types defined for this application."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:272
+msgid ""
+"A sale transaction is when you write an invoice to a customer\n"
+"and then expect the customer to pay it."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:274
+msgid ""
+"A purchase transaction is when you get an invoice from a\n"
+"provider who expects you to pay it."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:276
+msgid ""
+"A wage transaction is when you write a payroll (declare the\n"
+"fact that you owe some wage to an employee) and later pay it\n"
+"(e.g. via a payment order)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:279
+msgid ""
+"A clearing transaction is when an employee declares that he\n"
+"paid some invoice for you, and later you pay that money back\n"
+"to his account."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:282
+msgid "alias of TradeType"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:283
+msgid "Base class for items of VoucherStates."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:284
+msgid "Whether a voucher in this state is editable."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:285
+msgid ""
+"lino_cosi.lib.ledger.VoucherStates defines the list of\n"
+"possible states of a voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:287
+msgid ""
+"Draft vouchers can be modified but are not yet visible as movements\n"
+"in the ledger."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:289
+msgid ""
+"Registered vouchers cannot be modified, but are visible as\n"
+"movements in the ledger."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:291
 msgid ""
 "Cancelled is similar to Draft, except that you cannot edit the\n"
 "fields. This is used for invoices which have been sent, but the\n"
@@ -2705,141 +2026,335 @@ msgid ""
 "credit nota, you can decide to just cancel the invoice."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:542
+#: lino_cosi/lib/cosi/help_texts.py:295
 msgid ""
-"Set this to True to support quarterly VAT declarations.\n"
-"Used by lino_cosi.lib.declarations."
+"The Signed state is similar to registered, but cannot usually be\n"
+"deregistered anymore. This state is not visible in the default\n"
+"configuration. In order to make it usable, you must define a custom\n"
+"workflow for lino_cosi.lib.ledger.VoucherStates."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:544
-msgid "Base class for choices of VatRegimes."
-msgstr ""
+#: lino_cosi/lib/cosi/help_texts.py:299
+#, fuzzy
+msgid "alias of VoucherState"
+msgstr "KM dokumendid"
 
-#: lino_cosi/lib/cosi/help_texts.py:546
-msgid "The old (or start) balance."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:547
-msgid "The new (or end) balance."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:548
+#: lino_cosi/lib/cosi/help_texts.py:300
 msgid ""
-"Model mixin for database objects that are considered payable\n"
-"transactions. To be combined with some mixin which defines a\n"
-"field partner."
+"An editable virtual PriceField to get and set both database fields\n"
+"amount and dc at once. It may be used only on\n"
+"models which also defines these two fields."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:551
-msgid "Single transaction that is part of a bank statement."
+#: lino_cosi/lib/cosi/help_texts.py:303
+msgid "Model mixin for objects that are related to a project."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:552
-msgid "A PartnerAccountsBalance for the TradeType \"sales\"."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:553
+#: lino_cosi/lib/cosi/help_texts.py:304
 msgid ""
-"Whether the VAT amount can be modified by the user. This applies\n"
-"only for documents with VatTotal.auto_compute_totals set\n"
-"to False."
+"Pointer to the \"project\". This field exists only if the\n"
+"project_model setting of the\n"
+"lino_cosi.lib.ledger plugin is nonempty."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:556
+#: lino_cosi/lib/cosi/help_texts.py:307
 msgid ""
-"Light-weight object to represent a balance, i.e. an amount together\n"
-"with its booking direction (debit or credit)."
+"Base class for things that are related to one and only one trade\n"
+"partner. This is base class for both (1) trade document vouchers\n"
+"(e.g. invoices or offers) and (2) for the individual entries of\n"
+"financial vouchers and ledger movements."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:558
+#: lino_cosi/lib/cosi/help_texts.py:311
 msgid ""
-"Shows the suggested items for a given voucher, with a button to\n"
-"fill them into the current voucher."
+"The recipient of this document. A pointer to\n"
+"lino_xl.lib.contacts.models.Partner."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:560
-msgid "Can see imported statements and movements per partner."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:561
+#: lino_cosi/lib/cosi/help_texts.py:313
 msgid ""
-"Draft vouchers can be modified but are not yet visible as movements\n"
-"in the ledger."
+"The payment terms to be used in this document.  A pointer to\n"
+"PaymentTerm."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:565
+#: lino_cosi/lib/cosi/help_texts.py:315
+#, fuzzy
+msgid "Alias for the partner"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:316
 msgid ""
-"Must be a table on model and with master_key set to\n"
-"the\n"
-"journal."
+"Model mixin for database objects that are considered matching\n"
+"transactions.  A matching transaction is a transaction that\n"
+"points to some other movement which it \"clears\" at least partially."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:570
+#: lino_cosi/lib/cosi/help_texts.py:319
 msgid ""
-"An account is an item of an account chart used to collect\n"
-"ledger transactions or other accountable items."
+"Pointer to the movement which is being cleared by\n"
+"this movement."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:572
-msgid "A transaction within a bank statement."
+#: lino_cosi/lib/cosi/help_texts.py:321
+msgid "Base class for items of a voucher."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:573
+#: lino_cosi/lib/cosi/help_texts.py:322
 msgid ""
-"Shows the tables vatless.VouchersByPartner and\n"
-"ledger.MovementsByPartner."
+"Pointer to the voucher which contains this item.  Non\n"
+"nullable.  The voucher must be a subclass of\n"
+"ledger.Voucher.\n"
+"The related_name must be 'items'."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:577
+#: lino_cosi/lib/cosi/help_texts.py:326
+msgid "The title of this voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:327
 msgid ""
-"A Course is a group of pupils that regularily meet with a given\n"
-"teacher in a given room to speak about a given subject."
+"Abstract base class for voucher items which point to an account.\n"
+"This is subclassed by\n"
+"lino_cosi.lib.vat.models.InvoiceItem\n"
+"and\n"
+"lino_cosi.lib.vatless.models.InvoiceItem.\n"
+"It defines the account field and some related methods."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:579
+#: lino_cosi/lib/cosi/help_texts.py:333
+msgid "ForeignKey pointing to the account (accounts.Account) that is to be moved."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:334
 msgid ""
-"A payment order is when a user instructs a bank to execute a\n"
-"series of outgoing transactions from a given bank account."
+"The model used to store journals.\n"
+"See cosi.specs.ledger.journals."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:581
+#: lino_cosi/lib/cosi/help_texts.py:336
+msgid "Pointer to TradeTypes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:337
+msgid "Pointer to an item of VoucherTypes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:338
+msgid "Pointer to an item of JournalGroups."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:339
+msgid ""
+"Whether the\n"
+"number of\n"
+"vouchers should restart at 1 every year."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:342
+msgid "The primary booking direction."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:343
+msgid ""
+"Whether to automatically check and update the 'cleared' status\n"
+"of involved transactions when (de)registering a voucher of\n"
+"this journal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:346
+msgid "See PrintableType.template."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:347
+msgid ""
+"An accounting period is the smallest time slice to be observed\n"
+"(declare) in accounting reports. Usually it corresponds to one\n"
+"month. Except for some small companies which declare per\n"
+"quarter.  For each period it must be possible to specify the exact\n"
+"dates during which it is allowed to register vouchers into this\n"
+"period, and also its \"state\": whether it is \"closed\" or not."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:353
+msgid "A convention on how an invoice should be paid."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:354
+msgid "Number of days to add to voucher_date."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:355
+msgid "Number of months to add to voucher_date."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:356
+msgid "Whether to move voucher_date to the end of month."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:357
+msgid ""
+"Used in sales/VatProductInvoice/trailer.html as\n"
+"follows:"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:359
+msgid "A Voucher is a document that represents a monetary transaction."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:360
+msgid ""
+"The journal into which this voucher has been booked. This is a\n"
+"mandatory pointer to a Journal instance."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:362
+msgid "The sequence number of this voucher in the journal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:363
+msgid ""
+"The date of the journal entry, i.e. when this voucher has been\n"
+"journalized or booked."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:365
+msgid ""
+"The date on the voucher, i.e. when this voucher has been\n"
+"issued by its emitter."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:367
+msgid ""
+"The accounting period and fiscal year to which this entry is\n"
+"to be assigned to. The default value is determined from\n"
+"entry_date."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:370
+msgid ""
+"A short explanation which ascertains the subject matter of\n"
+"this journal entry."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:372
+msgid "This is currently used only in some print templates."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:373
+msgid "Represents an accounting movement in the ledger."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:374
+msgid ""
+"The date at which this movement is to be entered into the\n"
+"ledger.  This is usually the voucher's entry_date, except\n"
+"e.g. for bank statements where each item can have its own\n"
+"value date."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:378
+msgid "Pointer to the Voucher who caused this movement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:379
+msgid ""
+"Pointer to the partner involved in this movement. This may be\n"
+"blank."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:381
+msgid "Sequential number within a voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:382
+msgid "Pointer to the Account that is being moved by this movement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:383
+msgid ""
+"Pointer to the Movement that is being cleared by this\n"
+"movement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:385
+msgid "Whether"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:386
+msgid ""
+"A virtual field which returns the partner of the voucher.\n"
+"For incoming invoices this is the supplier, for outgoing\n"
+"invoices this is the customer, for financial vouchers this is\n"
+"empty."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:390
+msgid "A virtual field which shows a link to the voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:391
 msgid ""
 "A virtual field which shows a clickable variant of the match\n"
 "string. Clicking it will open a table with all movements\n"
 "having that match."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:584
-msgid "The base class for all account types."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:585
-msgid "An AccountsBalance for general accounts."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:586
-msgid "Whether unit prices are VAT included or not."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:588
-msgid "An integer with the calendar year in which this site starts working."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:589
+#: lino_cosi/lib/cosi/help_texts.py:394
 msgid ""
-"Set this to True on subclasses who compute their totals\n"
-"automatically, i.e. which have the field amount disabled."
+"A match rule specifies that a movement into given account can\n"
+"be cleared using a given journal."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:592
-msgid "Displayed by Explorer ‣ Accounting ‣ Movements."
+#: lino_cosi/lib/cosi/help_texts.py:396
+msgid "Check for wrong ledger movements"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:593
-msgid "A SuggestionsByVoucher table for a PaymentOrder."
+#: lino_cosi/lib/cosi/help_texts.py:397
+msgid "A normal authentified user."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:594
+#: lino_cosi/lib/cosi/help_texts.py:398
+msgid "A user with all permissions."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:399
+msgid "The default table showing all instances of Journal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:400 lino_cosi/lib/cosi/help_texts.py:476
+#: lino_cosi/lib/cosi/help_texts.py:592 lino_cosi/lib/cosi/help_texts.py:616
+msgid "alias of Journal"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:401
+msgid "The base table for all tables working on Voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:402 lino_cosi/lib/cosi/help_texts.py:414
+#: lino_cosi/lib/cosi/help_texts.py:436
+#, fuzzy
+msgid "alias of Voucher"
+msgstr "KM dokumendid"
+
+#: lino_cosi/lib/cosi/help_texts.py:403
+msgid ""
+"A virtual table of DueMovement rows, showing\n"
+"all \"expected\" \"movements (payments)\"."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:405
+msgid ""
+"The ExpectedMovements accessible by clicking the \"Debts\"\n"
+"action button on an Account."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:407 lino_cosi/lib/cosi/help_texts.py:448
+#: lino_cosi/lib/cosi/help_texts.py:514
+#, fuzzy
+msgid "alias of Account"
+msgstr "Pamgakontod"
+
+#: lino_cosi/lib/cosi/help_texts.py:408
 msgid ""
 "This is the table being printed in a Payment Reminder.  Usually\n"
 "this table has one row per sales invoice which is not fully paid.\n"
@@ -2847,65 +2362,579 @@ msgid ""
 "partner has purchase invoices, these are deduced from the balance."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:599
-msgid "Base class for items of VoucherStates."
+#: lino_cosi/lib/cosi/help_texts.py:412 lino_cosi/lib/cosi/help_texts.py:440
+#: lino_cosi/lib/cosi/help_texts.py:513 lino_cosi/lib/cosi/help_texts.py:597
+#: lino_cosi/lib/cosi/help_texts.py:619
+#, fuzzy
+msgid "alias of Partner"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:413
+msgid "Base class for tables of partner vouchers."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:600
-msgid "Pointer to an item of JournalGroups."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:601
-msgid "Abstract base class for invoices, offers and other vouchers."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:603
+#: lino_cosi/lib/cosi/help_texts.py:415
 msgid ""
-"An version of lino_xl.lib.contacts.models.Partner which\n"
-"adds accounting fucntionality."
+"A virtual table, the base class for different reports that show a\n"
+"list of accounts with the following columns:"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:605
+#: lino_cosi/lib/cosi/help_texts.py:417
+msgid "An AccountsBalance for general accounts."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:418
+msgid "An AccountsBalance for partner accounts."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:419 lino_cosi/lib/cosi/help_texts.py:424
+msgid "alias of NotImplementedError"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:420
+msgid "A PartnerAccountsBalance for the TradeType \"sales\"."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:421
+msgid "A PartnerAccountsBalance for the TradeType \"purchases\"."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:422
+msgid ""
+"Abstract base class for different tables showing a list of\n"
+"partners with the following columns:"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:425
+msgid ""
+"Lists those partners who have some debt against us.\n"
+"DebtorsCreditors."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:427
+msgid ""
+"Lists those partners who give us some form of credit.\n"
+"DebtorsCreditors."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:429
+msgid "A report consisting of the following tables:"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:430
+msgid ""
+"The base table for all tables working on Movement.\n"
+"Defines filtering parameters and general behaviour."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:432 lino_cosi/lib/cosi/help_texts.py:434
+#: lino_cosi/lib/cosi/help_texts.py:437 lino_cosi/lib/cosi/help_texts.py:441
+#: lino_cosi/lib/cosi/help_texts.py:444 lino_cosi/lib/cosi/help_texts.py:449
+#: lino_cosi/lib/cosi/help_texts.py:452
+msgid "alias of Movement"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:433
+msgid "Displayed by Explorer ‣ Accounting ‣ Movements."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:435
+msgid "Show the ledger movements of a voucher."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:438
+msgid ""
+"Show the ledger movements of a partner.\n"
+"See also lino_cosi.lib.ledger.models.Movement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:442
+msgid ""
+"Show the ledger movements of a project.\n"
+"See also lino_cosi.lib.ledger.models.Movement."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:445
+msgid "Shows the movements done on a given general account."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:446
+msgid ""
+"A virtual field showing a comma-separated list of the\n"
+"following items:"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:450
+msgid "Show all movements having a given match."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:451
+#, fuzzy
+msgid "alias of unicode"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:453
+msgid ""
+"Light-weight object to represent a balance, i.e. an amount together\n"
+"with its booking direction (debit or credit)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:455
+msgid "The amount of this balance when it is debiting, otherwise zero."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:456
+msgid "The amount of this balance when it is crediting, otherwise zero."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:457
+msgid "A volatile object representing a group of matching movements."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:458
+msgid "The common match string of these movments"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:459
+msgid ""
+"Whether I mean my debts and payments (towards that partner)\n"
+"or those of the partner (towards me)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:463
+msgid "Which paper (document template) to use when printing an invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:464
+msgid "Common base class for orders.Order and VatProductInvoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:465
+msgid "Which table (column layout) to use in the printed document."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:466
+msgid ""
+"A sales invoice is a legal document which describes that something\n"
+"(the invoice items) has been sold to a given partner. The partner\n"
+"can be either a private person or an organization."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:469
+msgid ""
+"The balance of previous payments or debts. On a printed\n"
+"invoice, this amount should be mentioned and added to the\n"
+"invoice's amount in order to get the total amount to pay."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:472
+msgid "The balance of all movements matching this invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:473
+#, fuzzy
+msgid "alias of ItemsByInvoicePrint"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:474
+msgid ""
+"Shows all invoices of a given journal (whose voucher_type must be\n"
+"VatProductInvoice)"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:477 lino_cosi/lib/cosi/help_texts.py:479
+#: lino_cosi/lib/cosi/help_texts.py:488 lino_cosi/lib/cosi/help_texts.py:491
+#, fuzzy
+msgid "alias of VatProductInvoice"
+msgstr "Loo arve"
+
+#: lino_cosi/lib/cosi/help_texts.py:478
+#, fuzzy
+msgid "Shows all due product invoices."
+msgstr "Loo arve"
+
+#: lino_cosi/lib/cosi/help_texts.py:480
+msgid "Mixin for voucher items which potentially refer to a product."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:481
+msgid ""
+"A multi-line rich text to be printed in the resulting printable\n"
+"document."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:483
+msgid "An item of a sales invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:484
+msgid "Shows all sales invoice items."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:485 lino_cosi/lib/cosi/help_texts.py:489
+#: lino_cosi/lib/cosi/help_texts.py:492 lino_cosi/lib/cosi/help_texts.py:608
+#: lino_cosi/lib/cosi/help_texts.py:612
+#, fuzzy
+msgid "alias of InvoiceItem"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:486
+msgid "The table used to render items in a printable document."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:487
+msgid "TODO: write more about it."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:490
+msgid "Alternative column layout to be used when printing an invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:494
+msgid "A CharFieldElement which accepts only upper-case characters."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:495
+msgid "A custom CharField that accepts only uppercase caracters."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:496
+msgid "Database field used to store a BIC."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:497
+msgid "Database field used to store an IBAN."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:498
+msgid "Adds a field bank_account and its chooser."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:499
+msgid ""
+"Model mixin for database objects that are considered payable\n"
+"transactions. To be combined with some mixin which defines a\n"
+"field partner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:502
+msgid "See lino_cosi.lib.ledger.mixins.PartnerRelated.payment_term"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:503
+msgid "A char field with a description for this transaction."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:504
+msgid "Checks for the following plausibility problems:"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:505
+#, fuzzy
+msgid "alias of BankAccount"
+msgstr "Pamgakontod"
+
+#: lino_cosi/lib/cosi/help_texts.py:507
+msgid ""
+"A virtual field which displays the date of the last imported\n"
+"statement for this account. Clicking on this date will open\n"
+"the B2C account <lino_cosi.lib.b2c.models.Account> with same\n"
+"IBAN number."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:511
 msgid ""
 "Show the bank account(s) defined for a given partner. To be\n"
 "included to a detail window on partner."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:607
-msgid "This is used as lino_atomizer_class for DebitOrCreditField."
+#: lino_cosi/lib/cosi/help_texts.py:515
+msgid "Can see imported statements and movements per partner."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:609
-#, fuzzy
-msgid "Show all requested enrolments."
-msgstr "Ootel registreerimesed"
-
-#: lino_cosi/lib/cosi/help_texts.py:610
-#, fuzzy
-msgid "Show all confirmed enrolments."
-msgstr "Kinnitatud registreerimesed"
-
-#: lino_cosi/lib/cosi/help_texts.py:611
+#: lino_cosi/lib/cosi/help_texts.py:516
 msgid ""
-"lino_cosi.lib.ledger.VoucherStates defines the list of\n"
-"possible states of a voucher."
+"Can see imported statements and movements also globally in the\n"
+":menuselection`Explorer` menu."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:613
+#: lino_cosi/lib/cosi/help_texts.py:519
+msgid ""
+"The language distribution used in the database to import. Mandatory\n"
+"parameter. No default value."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:521
+msgid "Whether to use Ole Martin Bjorndalen's dbfread package to read the file."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:522
+msgid "Whether to use Ethan Furman's dbf package to read the file."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:523
 msgid ""
 "The file extension of TIM tables. Meaningful values are '.DBF' or\n"
 ".FOX."
 msgstr ""
 
-#: lino_cosi/lib/cosi/roles.py:48 lino_cosi/lib/ledger/roles.py:51
+#: lino_cosi/lib/cosi/help_texts.py:526
+msgid ""
+"Set this to True to support quarterly VAT declarations.\n"
+"Used by lino_cosi.lib.declarations."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:528
+msgid ""
+"The default VAT regime. If this is specified as a string, Lino will\n"
+"resolve it at startup into an item of VatRegimes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:530
+msgid ""
+"The default VAT class. If this is specified as a string, Lino will\n"
+"resolve it at startup into an item of VatClasses."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:532
+msgid ""
+"A VAT class is a direct or indirect property of a trade object\n"
+"(e.g. a Product) which determines the VAT rate to be used.  It\n"
+"does not contain the actual rate because this still varies\n"
+"depending on your country, the time and type of the operation, and\n"
+"possibly other factors."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:537
+msgid "Base class for choices of VatRegimes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:538
+msgid "Whether unit prices are VAT included or not."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:539
+msgid ""
+"The VAT regime is a classification of the way how VAT is being\n"
+"handled, e.g. whether and how it is to be paid."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:541
+msgid "alias of VatRegime"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:542 lino_cosi/lib/cosi/help_texts.py:599
+msgid ""
+"Defines a panel ledger, to be added as a tab panel to your\n"
+"layout's main element."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:544
+msgid "Shows the tables VouchersByPartner and MovementsByPartner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:545
+msgid ""
+"Model mixin which defines the fields total_incl, total_base\n"
+"and total_vat.  Used for both the document header\n"
+"(VatDocument) and for each item (VatItemBase)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:548
+msgid ""
+"A lino.core.fields.PriceField which stores the total\n"
+"amount VAT included."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:550
+msgid ""
+"A lino.core.fields.PriceField which stores the total\n"
+"amount VAT excluded."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:552
+msgid ""
+"A lino.core.fields.PriceField which stores the amount\n"
+"of VAT."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:554
+msgid ""
+"Set this to True on subclasses who compute their totals\n"
+"automatically, i.e. the fields total_base,\n"
+"total_vat and total_incl are disabled.  This is\n"
+"set to True for lino_cosi.lib.sales.models.SalesDocument."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:558
+msgid "Abstract base class for invoices, offers and other vouchers."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:559
+msgid "Mandatory field to be defined in another class."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:560
+msgid ""
+"The total fields of an invoice are currently not automatically\n"
+"updated each time an item is modified.  Users must click the\n"
+"Save or the Register button to see the invoices totals."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:563
+msgid ""
+"The VAT regime to be used in this document.  A pointer to\n"
+"VatRegimes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:565
+msgid "Model mixin for items of a VatTotal."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:566
+msgid ""
+"The VAT class to be applied for this item. A pointer to\n"
+"VatClasses."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:568
+msgid ""
+"Model mixin for items of a VatTotal, adds unit_price and\n"
+"qty."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:570
+msgid ""
+"A rule which defines how VAT is to be handled for a given invoice\n"
+"item."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:572
+msgid ""
+"The regime for which this rule applies. Pointer to\n"
+"VatRegimes."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:574
+msgid ""
+"The VAT rate to be applied. Note that a VAT rate of 20 percent is\n"
+"stored as 0.20 (not 20)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:576
+msgid ""
+"Whether the VAT amount can be modified by the user. This applies\n"
+"only for documents with VatTotal.auto_compute_totals set\n"
+"to False."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:579
+msgid ""
+"An invoice for which the user enters just the bare accounts and\n"
+"amounts (not products, quantities, discounts)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:581
+msgid "An item of an account invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:582
+msgid "The table of all lino_cosi.lib.vat.models.VatRule objects."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:583
+msgid "alias of VatRule"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:584
+msgid "The detail layout used by Invoices."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:585
+msgid ""
+"The table of all\n"
+"VatAccountInvoice\n"
+"objects."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:588 lino_cosi/lib/cosi/help_texts.py:593
+msgid "alias of VatAccountInvoice"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:589
+msgid ""
+"Shows all invoices of a given journal (whose\n"
+"voucher_type\n"
+"must be lino_cosi.lib.vat.models.VatAccountInvoice)"
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:594
+msgid ""
+"A lino.core.tables.VirtualTable which shows all VatDocument\n"
+"vouchers by lino_xl.lib.contacts.models.Partner. It has a\n"
+"customized slave summary."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:601
+msgid ""
+"Shows the tables vatless.VouchersByPartner and\n"
+"ledger.MovementsByPartner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:603
+msgid ""
+"Set this to True on subclasses who compute their totals\n"
+"automatically, i.e. which have the field amount disabled."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:605
+msgid "An item of an AccountInvoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:606
+msgid "This is the \"content\" part of an invoice."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:607 lino_cosi/lib/cosi/help_texts.py:611
+#: lino_cosi/lib/cosi/help_texts.py:617
+#, fuzzy
+msgid "alias of AccountInvoice"
+msgstr "Dokumendi rida"
+
+#: lino_cosi/lib/cosi/help_texts.py:609
+msgid ""
+"Like ItemsByInvoice, but in a project invoice we don't\n"
+"want to have a project column per item."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:613
+msgid ""
+"Shows all simple invoices of a given journal (whose\n"
+"Journal.voucher_type must be\n"
+"lino_cosi.lib.sales.models.AccountInvoice)."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:618
+msgid "Shows all ledger vouchers of a given partner."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:620
+msgid "Base class for a cosi application."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:621
+msgid "A special variant used to build the docs."
+msgstr ""
+
+#: lino_cosi/lib/cosi/roles.py:49 lino_cosi/lib/ledger/roles.py:51
 msgid "Anonymous"
 msgstr "Anonüümne"
 
-#: lino_cosi/lib/cosi/roles.py:49 lino_cosi/lib/ledger/roles.py:52
+#: lino_cosi/lib/cosi/roles.py:50 lino_cosi/lib/ledger/roles.py:52
 msgid "User"
 msgstr "Kasutaja"
 
-#: lino_cosi/lib/cosi/roles.py:50 lino_cosi/lib/ledger/roles.py:53
+#: lino_cosi/lib/cosi/roles.py:51 lino_cosi/lib/ledger/roles.py:53
 msgid "Administrator"
 msgstr "Administraator"
 
@@ -2946,11 +2975,11 @@ msgstr ""
 msgid "Uses a place"
 msgstr ""
 
-#: lino_cosi/lib/courses/choicelists.py:68 lino_cosi/lib/courses/models.py:477
+#: lino_cosi/lib/courses/choicelists.py:68 lino_cosi/lib/courses/models.py:480
 msgid "Requested"
 msgstr "Taotletud"
 
-#: lino_cosi/lib/courses/choicelists.py:69 lino_cosi/lib/courses/models.py:485
+#: lino_cosi/lib/courses/choicelists.py:69 lino_cosi/lib/courses/models.py:488
 msgid "Confirmed"
 msgstr "Kinnitatud"
 
@@ -2976,7 +3005,7 @@ msgstr "Üritused"
 msgid "Shows events of activities led by this teacher"
 msgstr ""
 
-#: lino_cosi/lib/courses/desktop.py:159 lino_cosi/lib/courses/models.py:440
+#: lino_cosi/lib/courses/desktop.py:159 lino_cosi/lib/courses/models.py:443
 msgid "Events"
 msgstr "Sündmused"
 
@@ -3084,11 +3113,11 @@ msgid "Activity lines"
 msgstr "Tegevusaruanne"
 
 #: lino_cosi/lib/courses/models.py:167 lino_cosi/lib/courses/models.py:290
-#: lino_cosi/lib/ledger/ui.py:464 lino_cosi/lib/ledger/ui.py:814
-#: lino_cosi/lib/ledger/ui.py:873 lino_cosi/lib/ledger/ui.py:926
-#: lino_cosi/lib/ledger/ui.py:972 lino_cosi/lib/ledger/ui.py:1017
-#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:415
-#: lino_cosi/lib/sales/models.py:518 lino_cosi/lib/vat/models.py:159
+#: lino_cosi/lib/ledger/ui.py:466 lino_cosi/lib/ledger/ui.py:816
+#: lino_cosi/lib/ledger/ui.py:875 lino_cosi/lib/ledger/ui.py:928
+#: lino_cosi/lib/ledger/ui.py:974 lino_cosi/lib/ledger/ui.py:1019
+#: lino_cosi/lib/orders/models.py:249 lino_cosi/lib/sales/models.py:417
+#: lino_cosi/lib/sales/models.py:520 lino_cosi/lib/vat/models.py:159
 #: lino_cosi/lib/vatless/models.py:126
 msgid "Description"
 msgstr "Kirjeldus"
@@ -3142,8 +3171,8 @@ msgstr "Kogus"
 msgid "Instructor"
 msgstr "Õpetaja"
 
-#: lino_cosi/lib/courses/models.py:291 lino_cosi/lib/courses/models.py:611
-#: lino_cosi/lib/ledger/models.py:317 lino_cosi/lib/sepa/models.py:73
+#: lino_cosi/lib/courses/models.py:291 lino_cosi/lib/courses/models.py:617
+#: lino_cosi/lib/ledger/models.py:318 lino_cosi/lib/sepa/models.py:73
 msgid "Remark"
 msgstr "Märkus"
 
@@ -3162,53 +3191,53 @@ msgstr "Kirjeldus"
 msgid "Enrolments until"
 msgstr "Registreerimine kuni"
 
-#: lino_cosi/lib/courses/models.py:430 lino_cosi/lib/ledger/ui.py:255
+#: lino_cosi/lib/courses/models.py:433 lino_cosi/lib/ledger/ui.py:257
 msgid "Info"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:471
+#: lino_cosi/lib/courses/models.py:474
 msgid "Free places"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:474
+#: lino_cosi/lib/courses/models.py:477
 msgid "Unlimited"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:493 lino_cosi/lib/courses/models.py:586
+#: lino_cosi/lib/courses/models.py:496 lino_cosi/lib/courses/models.py:592
 msgid "Enrolments"
 msgstr "Registreerimised"
 
-#: lino_cosi/lib/courses/models.py:502
+#: lino_cosi/lib/courses/models.py:505
 msgid "Presences"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:585
+#: lino_cosi/lib/courses/models.py:591
 msgid "Enrolment"
 msgstr "Registreerimine"
 
-#: lino_cosi/lib/courses/models.py:598
+#: lino_cosi/lib/courses/models.py:604
 msgid "Date of request"
 msgstr "Taotluse kuupäev"
 
-#: lino_cosi/lib/courses/models.py:602
+#: lino_cosi/lib/courses/models.py:608
 msgctxt "in a course"
 msgid "Places used"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:607
+#: lino_cosi/lib/courses/models.py:613
 msgid "Option"
 msgstr "Optioon"
 
-#: lino_cosi/lib/courses/models.py:613
+#: lino_cosi/lib/courses/models.py:619
 msgid "Confirmation details"
 msgstr "Kinnituse täpsustused"
 
-#: lino_cosi/lib/courses/models.py:671
+#: lino_cosi/lib/courses/models.py:677
 #, python-format
 msgid "No places left in %s"
 msgstr ""
 
-#: lino_cosi/lib/courses/models.py:702
+#: lino_cosi/lib/courses/models.py:708
 msgid "Participant"
 msgstr "Osavõtja"
 
@@ -3378,105 +3407,105 @@ msgstr "Read"
 msgid "{} suggestions"
 msgstr "Ettepanekud"
 
-#: lino_cosi/lib/finan/models.py:47
+#: lino_cosi/lib/finan/models.py:48
 msgid "Field '{0}' in journal '{0}' is empty!"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:95
+#: lino_cosi/lib/finan/models.py:96
 msgid "Journal Entry"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:96
+#: lino_cosi/lib/finan/models.py:97
 msgid "Journal Entries"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:114
+#: lino_cosi/lib/finan/models.py:115
 msgid "Payment Order"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:115
+#: lino_cosi/lib/finan/models.py:116
 #: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:218
 msgid "Payment Orders"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:117
+#: lino_cosi/lib/finan/models.py:118
 msgid "Total"
 msgstr "Kokku"
 
-#: lino_cosi/lib/finan/models.py:170
+#: lino_cosi/lib/finan/models.py:171
 msgid "Bank Statement"
 msgstr "Konto väljavõte"
 
-#: lino_cosi/lib/finan/models.py:171
+#: lino_cosi/lib/finan/models.py:172
 msgid "Bank Statements"
 msgstr "Konto väljavõted"
 
-#: lino_cosi/lib/finan/models.py:173
+#: lino_cosi/lib/finan/models.py:174
 msgid "Old balance"
 msgstr "Algsaldo"
 
-#: lino_cosi/lib/finan/models.py:174
+#: lino_cosi/lib/finan/models.py:175
 msgid "New balance"
 msgstr "Lõppsaldo"
 
-#: lino_cosi/lib/finan/models.py:210
+#: lino_cosi/lib/finan/models.py:211
 #, fuzzy
 msgid "Journal Entry item"
 msgstr "Dokumendi rida"
 
-#: lino_cosi/lib/finan/models.py:211
+#: lino_cosi/lib/finan/models.py:212
 #, fuzzy
 msgid "Journal Entry items"
 msgstr "Dokumendi read"
 
-#: lino_cosi/lib/finan/models.py:221
+#: lino_cosi/lib/finan/models.py:222
 #, fuzzy
 msgid "Bank Statement item"
 msgstr "Konto väljavõte"
 
-#: lino_cosi/lib/finan/models.py:222
+#: lino_cosi/lib/finan/models.py:223
 #, fuzzy
 msgid "Bank Statement items"
 msgstr "Konto väljavõted"
 
-#: lino_cosi/lib/finan/models.py:224
+#: lino_cosi/lib/finan/models.py:225
 msgid "Income"
 msgstr "Sisse"
 
-#: lino_cosi/lib/finan/models.py:225
+#: lino_cosi/lib/finan/models.py:226
 msgid "Expense"
 msgstr "Välja"
 
-#: lino_cosi/lib/finan/models.py:232
+#: lino_cosi/lib/finan/models.py:233
 #, fuzzy
 msgid "Payment Order item"
 msgstr "Maksetingimus"
 
-#: lino_cosi/lib/finan/models.py:233
+#: lino_cosi/lib/finan/models.py:234
 #, fuzzy
 msgid "Payment Order items"
 msgstr "Maksetingimused"
 
-#: lino_cosi/lib/finan/models.py:261 lino_cosi/lib/ledger/__init__.py:49
-#: lino_cosi/lib/sales/models.py:339 lino_cosi/lib/vat/ui.py:70
+#: lino_cosi/lib/finan/models.py:262 lino_cosi/lib/ledger/__init__.py:49
+#: lino_cosi/lib/sales/models.py:340 lino_cosi/lib/vat/ui.py:70
 #: lino_cosi/lib/vatless/ui.py:75
 msgid "Ledger"
 msgstr "Raamatupidamine"
 
-#: lino_cosi/lib/finan/models.py:388 lino_cosi/lib/sales/models.py:501
+#: lino_cosi/lib/finan/models.py:389 lino_cosi/lib/sales/models.py:503
 msgid "Content"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:407
+#: lino_cosi/lib/finan/models.py:408
 msgid "Fill"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:427 lino_cosi/lib/finan/models.py:476
+#: lino_cosi/lib/finan/models.py:428 lino_cosi/lib/finan/models.py:477
 #, python-format
 msgid "%d items have been added to %s."
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:499 lino_cosi/lib/invoicing/models.py:316
+#: lino_cosi/lib/finan/models.py:500 lino_cosi/lib/invoicing/models.py:322
 msgid "Suggestions"
 msgstr "Ettepanekud"
 
@@ -3569,20 +3598,20 @@ msgstr "Arve"
 msgid "No journal specified"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:274
+#: lino_cosi/lib/invoicing/models.py:280
 #, python-format
 msgid "No invoiceables found for %s."
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:324
+#: lino_cosi/lib/invoicing/models.py:330
 msgid "Invoicings"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:340
+#: lino_cosi/lib/invoicing/models.py:346
 msgid "(type)"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:346
+#: lino_cosi/lib/invoicing/models.py:352
 msgid "(object)"
 msgstr ""
 
@@ -3672,211 +3701,211 @@ msgstr "Registreeru"
 msgid "Deregister"
 msgstr "Tühista"
 
-#: lino_cosi/lib/ledger/mixins.py:175 lino_cosi/lib/ledger/models.py:860
-#: lino_cosi/lib/ledger/models.py:908 lino_cosi/lib/ledger/ui.py:271
+#: lino_cosi/lib/ledger/mixins.py:159 lino_cosi/lib/ledger/models.py:909
+#: lino_cosi/lib/ledger/models.py:957 lino_cosi/lib/ledger/ui.py:273
 msgid "Match"
 msgstr ""
 
-#: lino_cosi/lib/ledger/mixins.py:176
+#: lino_cosi/lib/ledger/mixins.py:160
 msgid "The movement to be matched."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:137
+#: lino_cosi/lib/ledger/models.py:138
 msgid "Journal"
 msgstr "Žurnaal"
 
-#: lino_cosi/lib/ledger/models.py:138
+#: lino_cosi/lib/ledger/models.py:139
 msgid "Journals"
 msgstr "Žurnaalid"
 
-#: lino_cosi/lib/ledger/models.py:144
+#: lino_cosi/lib/ledger/models.py:145
 #, fuzzy
 msgid "Check clearing"
 msgstr "Hoiatus"
 
-#: lino_cosi/lib/ledger/models.py:145
+#: lino_cosi/lib/ledger/models.py:146
 msgid ""
 "Automatically update the cleared status of involved transactions when "
 "(de)registering a voucher of this journal"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:149
+#: lino_cosi/lib/ledger/models.py:150
 msgid "Force chronological sequence"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:152
+#: lino_cosi/lib/ledger/models.py:153
 msgid "Printed document designation"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:153
+#: lino_cosi/lib/ledger/models.py:154
 msgid "Primary booking direction"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:155
+#: lino_cosi/lib/ledger/models.py:156
 msgid "Yearly numbering"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:264
+#: lino_cosi/lib/ledger/models.py:265
 #, python-format
 msgid "%s is not the last voucher in journal"
 msgstr "%s pole viimane dokument oma žurnaalis"
 
-#: lino_cosi/lib/ledger/models.py:311
+#: lino_cosi/lib/ledger/models.py:312
 #, fuzzy
 msgid "Accounting period"
 msgstr "Raamatupidamine"
 
-#: lino_cosi/lib/ledger/models.py:312
+#: lino_cosi/lib/ledger/models.py:313
 #, fuzzy
 msgid "Accounting periods"
 msgstr "Raamatupidamine"
 
-#: lino_cosi/lib/ledger/models.py:397
+#: lino_cosi/lib/ledger/models.py:439
 msgid "Payment Term"
 msgstr "Maksetingimus"
 
-#: lino_cosi/lib/ledger/models.py:398
+#: lino_cosi/lib/ledger/models.py:440
 msgid "Payment Terms"
 msgstr "Maksetingimused"
 
-#: lino_cosi/lib/ledger/models.py:400
+#: lino_cosi/lib/ledger/models.py:442
 msgid "Days"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:401
+#: lino_cosi/lib/ledger/models.py:443
 #, fuzzy
 msgid "Months"
 msgstr "Summa"
 
-#: lino_cosi/lib/ledger/models.py:402
+#: lino_cosi/lib/ledger/models.py:444
 msgid "End of month"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:405
+#: lino_cosi/lib/ledger/models.py:447
 msgid "Printed text"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:475 lino_cosi/lib/ledger/models.py:892
+#: lino_cosi/lib/ledger/models.py:517 lino_cosi/lib/ledger/models.py:941
 #: lino_cosi/lib/vat/ui.py:146 lino_cosi/lib/vatless/ui.py:183
 msgid "Voucher"
 msgstr "Dokument"
 
-#: lino_cosi/lib/ledger/models.py:476
+#: lino_cosi/lib/ledger/models.py:518
 msgid "Vouchers"
 msgstr "Dokumendid"
 
-#: lino_cosi/lib/ledger/models.py:479
+#: lino_cosi/lib/ledger/models.py:521
 #, fuzzy
 msgid "Voucher date"
 msgstr "Dokumendi rida"
 
-#: lino_cosi/lib/ledger/models.py:480
+#: lino_cosi/lib/ledger/models.py:522
 #, fuzzy
 msgid "Entry date"
 msgstr "Tehing"
 
-#: lino_cosi/lib/ledger/models.py:484
+#: lino_cosi/lib/ledger/models.py:526
 msgid "Narration"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:844
+#: lino_cosi/lib/ledger/models.py:893
 msgid "Movement"
 msgstr "Tehing"
 
-#: lino_cosi/lib/ledger/models.py:845
+#: lino_cosi/lib/ledger/models.py:894
 msgid "Movements"
 msgstr "Tehingud"
 
-#: lino_cosi/lib/ledger/models.py:854
+#: lino_cosi/lib/ledger/models.py:903
 msgid "Seq.No."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:864
+#: lino_cosi/lib/ledger/models.py:913
 msgid "Cleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:898
+#: lino_cosi/lib/ledger/models.py:947
 #, fuzzy
 msgid "Voucher partner"
 msgstr "Dokumendi rida"
 
-#: lino_cosi/lib/ledger/models.py:988
+#: lino_cosi/lib/ledger/models.py:1037
 msgid "Match rule"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:989
+#: lino_cosi/lib/ledger/models.py:1038
 msgid "Match rules"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:1020
+#: lino_cosi/lib/ledger/models.py:1069
 msgid "The default payment term for sales invoices to this customer."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:1026
+#: lino_cosi/lib/ledger/models.py:1075
 msgid "Check integrity of ledger movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:1028
+#: lino_cosi/lib/ledger/models.py:1077
 msgid "Missing movement {0}."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:1029
+#: lino_cosi/lib/ledger/models.py:1078
 msgid "Unexpected movement {0}."
 msgstr ""
 
-#: lino_cosi/lib/ledger/models.py:1030
+#: lino_cosi/lib/ledger/models.py:1079
 msgid "Movement {0} : {1} {2} != {3}."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:192 lino_cosi/lib/ledger/ui.py:283
+#: lino_cosi/lib/ledger/ui.py:194 lino_cosi/lib/ledger/ui.py:285
 msgid "Debts"
 msgstr "Võlad"
 
-#: lino_cosi/lib/ledger/ui.py:199
+#: lino_cosi/lib/ledger/ui.py:201
 #, fuzzy
 msgid "Date until"
 msgstr "Isik"
 
-#: lino_cosi/lib/ledger/ui.py:203
+#: lino_cosi/lib/ledger/ui.py:205
 msgid "Clearable by"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:277 lino_cosi/lib/ledger/ui.py:628
+#: lino_cosi/lib/ledger/ui.py:279 lino_cosi/lib/ledger/ui.py:630
 #: lino_cosi/lib/sepa/mixins.py:115
 msgid "Due date"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:278
+#: lino_cosi/lib/ledger/ui.py:280
 msgid "Due date of the eldest debt in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:283
+#: lino_cosi/lib/ledger/ui.py:285
 msgid "List of invoices in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:289
+#: lino_cosi/lib/ledger/ui.py:291
 msgid "Payments"
 msgstr "Laekumised"
 
-#: lino_cosi/lib/ledger/ui.py:289
+#: lino_cosi/lib/ledger/ui.py:291
 msgid "List of payments in this match group"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:294 lino_cosi/lib/ledger/ui.py:624
+#: lino_cosi/lib/ledger/ui.py:296 lino_cosi/lib/ledger/ui.py:626
 msgid "Balance"
 msgstr "Saldo"
 
-#: lino_cosi/lib/ledger/ui.py:311 lino_cosi/lib/sepa/models.py:63
+#: lino_cosi/lib/ledger/ui.py:313 lino_cosi/lib/sepa/models.py:63
 #, fuzzy
 msgid "Bank account"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/ledger/ui.py:384
+#: lino_cosi/lib/ledger/ui.py:386
 #, fuzzy
 msgid "Show cleared vouchers"
 msgstr "KM dokumendid"
 
-#: lino_cosi/lib/ledger/ui.py:468
+#: lino_cosi/lib/ledger/ui.py:470
 msgid ""
 "Debit\n"
 "before"
@@ -3884,7 +3913,7 @@ msgstr ""
 "Deebet\n"
 "enne"
 
-#: lino_cosi/lib/ledger/ui.py:472
+#: lino_cosi/lib/ledger/ui.py:474
 msgid ""
 "Credit\n"
 "before"
@@ -3892,7 +3921,7 @@ msgstr ""
 "Krediit\n"
 "enne"
 
-#: lino_cosi/lib/ledger/ui.py:484
+#: lino_cosi/lib/ledger/ui.py:486
 msgid ""
 "Debit\n"
 "after"
@@ -3900,7 +3929,7 @@ msgstr ""
 "Deebet\n"
 "pärast"
 
-#: lino_cosi/lib/ledger/ui.py:488
+#: lino_cosi/lib/ledger/ui.py:490
 msgid ""
 "Credit\n"
 "after"
@@ -3908,93 +3937,93 @@ msgstr ""
 "Krediit\n"
 "pärast"
 
-#: lino_cosi/lib/ledger/ui.py:498
+#: lino_cosi/lib/ledger/ui.py:500
 msgid "General Accounts Balances"
 msgstr "Üldkontode saldod"
 
-#: lino_cosi/lib/ledger/ui.py:509 lino_cosi/lib/ledger/ui.py:530
+#: lino_cosi/lib/ledger/ui.py:511 lino_cosi/lib/ledger/ui.py:532
 msgid "Ref"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:540
+#: lino_cosi/lib/ledger/ui.py:542
 #, fuzzy
 msgid "Customer Accounts Balances"
 msgstr "Hankijate saldod"
 
-#: lino_cosi/lib/ledger/ui.py:548
+#: lino_cosi/lib/ledger/ui.py:550
 msgid "Supplier Accounts Balances"
 msgstr "Hankijate saldod"
 
-#: lino_cosi/lib/ledger/ui.py:620
+#: lino_cosi/lib/ledger/ui.py:622
 msgid "ID"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:632
+#: lino_cosi/lib/ledger/ui.py:634
 msgid "Age"
 msgstr "Vanus"
 
-#: lino_cosi/lib/ledger/ui.py:637
+#: lino_cosi/lib/ledger/ui.py:639
 msgid "Actions"
 msgstr "Aktioonid"
 
-#: lino_cosi/lib/ledger/ui.py:649
+#: lino_cosi/lib/ledger/ui.py:651
 msgid "Debtors"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:650
+#: lino_cosi/lib/ledger/ui.py:652
 msgid "List of partners who are in debt towards us (usually customers)."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:660
+#: lino_cosi/lib/ledger/ui.py:662
 msgid "Creditors"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:661
+#: lino_cosi/lib/ledger/ui.py:663
 msgid "List of partners who are giving credit to us (usually suppliers)."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:677
+#: lino_cosi/lib/ledger/ui.py:679
 #, fuzzy
 msgid "Situation"
 msgstr "Nimetus"
 
-#: lino_cosi/lib/ledger/ui.py:678
+#: lino_cosi/lib/ledger/ui.py:680
 msgid "Overview of the financial situation on a given date."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:695
+#: lino_cosi/lib/ledger/ui.py:697
 msgid "Activity Report"
 msgstr "Tegevusaruanne"
 
-#: lino_cosi/lib/ledger/ui.py:696
+#: lino_cosi/lib/ledger/ui.py:698
 msgid "Overview of the financial activity during a given period."
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:755
+#: lino_cosi/lib/ledger/ui.py:757
 msgid "Show cleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:785
+#: lino_cosi/lib/ledger/ui.py:787
 msgid "Balance {1} ({0} movements)"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:810
+#: lino_cosi/lib/ledger/ui.py:812
 msgid "only uncleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:812
+#: lino_cosi/lib/ledger/ui.py:814
 msgid "only cleared"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:871
+#: lino_cosi/lib/ledger/ui.py:873
 msgid "No uncleared movements"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:904
+#: lino_cosi/lib/ledger/ui.py:906
 msgid "{0} open movements ({1} {2})"
 msgstr ""
 
-#: lino_cosi/lib/ledger/ui.py:1004
+#: lino_cosi/lib/ledger/ui.py:1006
 #, python-format
 msgid "%(details)s matching '%(master)s'"
 msgstr ""
@@ -4055,11 +4084,11 @@ msgstr ""
 msgid "Payment end of month"
 msgstr ""
 
-#: lino_cosi/lib/ledger/fixtures/std.py:60
+#: lino_cosi/lib/ledger/fixtures/std.py:61
 msgid "Prepayment 30%"
 msgstr ""
 
-#: lino_cosi/lib/ledger/fixtures/std.py:78
+#: lino_cosi/lib/ledger/fixtures/std.py:79
 #, fuzzy
 msgid "Payment reminder"
 msgstr "Maksetingimus"
@@ -4074,122 +4103,122 @@ msgstr "Veel"
 msgid "Order"
 msgstr "Veel"
 
-#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:416
+#: lino_cosi/lib/orders/models.py:250 lino_cosi/lib/sales/models.py:418
 msgid "Discount"
 msgstr "Allahindlus"
 
-#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:318
+#: lino_cosi/lib/orders/models.py:279 lino_cosi/lib/sales/models.py:319
 msgid "Totals"
 msgstr "Summad"
 
-#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:324
+#: lino_cosi/lib/orders/models.py:286 lino_cosi/lib/sales/models.py:325
 msgid "Header"
 msgstr ""
 
-#: lino_cosi/lib/sales/__init__.py:38 lino_cosi/lib/sales/models.py:245
+#: lino_cosi/lib/sales/__init__.py:38 lino_cosi/lib/sales/models.py:246
 #, fuzzy
 msgid "Product invoices"
 msgstr "Loo arve"
 
-#: lino_cosi/lib/sales/models.py:51
+#: lino_cosi/lib/sales/models.py:52
 msgid "Sales price"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:53
+#: lino_cosi/lib/sales/models.py:54
 msgid "Sales Base account"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:55
+#: lino_cosi/lib/sales/models.py:56
 msgid "Sales VAT account"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:57
+#: lino_cosi/lib/sales/models.py:58
 msgid "Clients account"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:61
+#: lino_cosi/lib/sales/models.py:62
 #, fuzzy
 msgid "Wages account"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/sales/models.py:65
+#: lino_cosi/lib/sales/models.py:66
 #, fuzzy
 msgid "Clearings account"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/sales/models.py:70
+#: lino_cosi/lib/sales/models.py:71
 #, fuzzy
 msgid "Invoice senders"
 msgstr "Dokumendi read"
 
-#: lino_cosi/lib/sales/models.py:81
+#: lino_cosi/lib/sales/models.py:82
 msgid "Invoicing address"
 msgstr "Arve saaja"
 
-#: lino_cosi/lib/sales/models.py:83
+#: lino_cosi/lib/sales/models.py:84
 msgid "Redirect to another partner all invoices which should go to this partner."
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:118
+#: lino_cosi/lib/sales/models.py:119
 #, fuzzy
 msgid "Paper type"
 msgstr "Firmaliik"
 
-#: lino_cosi/lib/sales/models.py:119
+#: lino_cosi/lib/sales/models.py:120
 #, fuzzy
 msgid "Paper types"
 msgstr "Dokumendi read"
 
-#: lino_cosi/lib/sales/models.py:121
+#: lino_cosi/lib/sales/models.py:122
 msgid "Template"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:181
+#: lino_cosi/lib/sales/models.py:182
 msgid "Subject line"
 msgstr "Teema"
 
-#: lino_cosi/lib/sales/models.py:244
+#: lino_cosi/lib/sales/models.py:245
 #, fuzzy
 msgid "Product invoice"
 msgstr "Loo arve"
 
-#: lino_cosi/lib/sales/models.py:289
+#: lino_cosi/lib/sales/models.py:290
 msgid "Balance to pay"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:298
+#: lino_cosi/lib/sales/models.py:299
 msgid "Balance before"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:334
+#: lino_cosi/lib/sales/models.py:335
 msgid "More"
 msgstr "Veel"
 
-#: lino_cosi/lib/sales/models.py:384
+#: lino_cosi/lib/sales/models.py:385
 #, fuzzy
 msgid "Due invoices"
 msgstr "Loo arve"
 
-#: lino_cosi/lib/sales/models.py:468
+#: lino_cosi/lib/sales/models.py:470
 #, fuzzy
 msgid "Product invoice item"
 msgstr "Dokumendi rida"
 
-#: lino_cosi/lib/sales/models.py:469
+#: lino_cosi/lib/sales/models.py:471
 #, fuzzy
 msgid "Product invoice items"
 msgstr "Dokumendi read"
 
-#: lino_cosi/lib/sales/models.py:473
+#: lino_cosi/lib/sales/models.py:475
 #, fuzzy
 msgid "Heading"
 msgstr "Hoiatus"
 
-#: lino_cosi/lib/sales/models.py:526
+#: lino_cosi/lib/sales/models.py:528
 msgid "({qty}*{unit_price}/{unit})"
 msgstr ""
 
-#: lino_cosi/lib/sales/models.py:566
+#: lino_cosi/lib/sales/models.py:568
 #, python-format
 msgid "Going to sign %d documents as user %s. Are you sure?"
 msgstr ""
@@ -8826,5 +8855,13 @@ msgstr "KM dokumendid"
 #~ msgstr ""
 
 #~ msgid "The base for all Estonian Lino Cosi Sites."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The default value False means to use\n"
+#~ "lino.utils.dbfreader."
+#~ msgstr ""
+
+#~ msgid "alias of basestring"
 #~ msgstr ""
 

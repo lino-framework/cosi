@@ -82,7 +82,6 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.ledger.management',
     'lino_cosi.lib.ledger.management.commands',
     'lino_cosi.lib.sales',
-    'lino_cosi.lib.courses',
     'lino_cosi.lib.sales.fixtures',
     'lino_cosi.lib.sepa',
     'lino_cosi.lib.invoicing',

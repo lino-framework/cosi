@@ -21,12 +21,12 @@ When doing a quick search in a list of partners, Lino searches only
 the :attr:`name<lino.modlib.contacts.models.Partner.name>` field.
 
 >>> rt.show(contacts.Partners, quick_search="berg")
-==================== ======== =====
- Name                 E-Mail   ID
--------------------- -------- -----
- Altenberg Hans                114
- Garage Mergelsberg            104
-==================== ======== =====
+==================== ================ =====
+ Name                 e-mail address   ID
+-------------------- ---------------- -----
+ Altenberg Hans                        114
+ Garage Mergelsberg                    104
+==================== ================ =====
 <BLANKLINE>
 
 Without that restriction, a user who enters "berg" in the quick search
@@ -63,11 +63,11 @@ not a sequence of letters.  In that case you get the partner with that
 primary key.
 
 >>> rt.show(contacts.Partners, quick_search="123")
-====================== ======== =====
- Name                   E-Mail   ID
----------------------- -------- -----
- Dobbelstein Dorothée            123
-====================== ======== =====
+====================== ================ =====
+ Name                   e-mail address   ID
+---------------------- ---------------- -----
+ Dobbelstein Dorothée                    123
+====================== ================ =====
 <BLANKLINE>
 
 Without our rule, the above list would also contain *Reinhards
@@ -93,18 +93,18 @@ persons and for organizations.
 
 
 >>> rt.show(contacts.Persons, quick_search="berg")
-=================== ============================= ======== ======= ===== ===== ==========
- Name                Address                       E-Mail   Phone   GSM   ID    Language
-------------------- ----------------------------- -------- ------- ----- ----- ----------
- Mr Hans Altenberg   Aachener Straße, 4700 Eupen                          114
-=================== ============================= ======== ======= ===== ===== ==========
+=================== ============================= ================ ======= ===== ===== ==========
+ Name                Address                       e-mail address   Phone   GSM   ID    Language
+------------------- ----------------------------- ---------------- ------- ----- ----- ----------
+ Mr Hans Altenberg   Aachener Straße, 4700 Eupen                                  114
+=================== ============================= ================ ======= ===== ===== ==========
 <BLANKLINE>
 
 >>> rt.show(contacts.Companies, quick_search="berg")
-==================== ============================== ======== ======= ===== ===== ==========
- Name                 Address                        E-Mail   Phone   GSM   ID    Language
--------------------- ------------------------------ -------- ------- ----- ----- ----------
- Garage Mergelsberg   Kasinostraße 13, 4720 Kelmis                          104
-==================== ============================== ======== ======= ===== ===== ==========
+==================== ============================== ================ ======= ===== ===== ==========
+ Name                 Address                        e-mail address   Phone   GSM   ID    Language
+-------------------- ------------------------------ ---------------- ------- ----- ----- ----------
+ Garage Mergelsberg   Kasinostraße 13, 4720 Kelmis                                  104
+==================== ============================== ================ ======= ===== ===== ==========
 <BLANKLINE>
 
