@@ -152,7 +152,7 @@ Romain gets the same menu in French:
   - Système : Paramètres du Site, Textes d'aide, Utilisateurs
   - Endroits : Pays, Endroits
   - Contacts : Types d'organisation, Fonctions
-  - Comptabilité : Groupes de comptes, Comptes, Journals, Accounting periods, Payment Terms
+  - Comptabilité : Groupes de comptes, Comptes, Journals, Périodes comptables, Délais de paiement
   - Bureau : Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Paper types
   - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
@@ -160,7 +160,7 @@ Romain gets the same menu in French:
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur
   - Contacts : Personnes de contact
-  - Comptabilité : Match rules, Vouchers, Voucher types, Movements, Fiscal Years, Trade types, Journal groups, Invoices
+  - Comptabilité : Match rules, Vouchers, Voucher types, Mouvements, Années comptables, Trade types, Journal groups, Invoices
   - SEPA : Comptes en banque
   - Bureau : Extraits, Text Field Templates
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
