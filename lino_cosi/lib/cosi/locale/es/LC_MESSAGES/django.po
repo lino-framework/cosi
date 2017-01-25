@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino 1.6.14\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-01-25 00:57+0200\n"
+"POT-Creation-Date: 2017-01-25 17:08+0200\n"
 "PO-Revision-Date: 2014-06-06 11:29+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: es\n"
@@ -8295,6 +8295,7 @@ msgstr ""
 #~ msgid "No invoiceables found for %s."
 #~ msgstr ""
 
+#~ msgctxt "in a course"
 #~ msgid "Available places"
 #~ msgstr ""
 
@@ -8491,41 +8492,7 @@ msgstr ""
 #~ msgid "alias of Person"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "An activity line (or series) groups courses into a\n"
-#~ "configurable list of categories."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The designation of this activity line as seen by the user\n"
-#~ "e.g. when selecting the line."
-#~ msgstr ""
-
 #~ msgid "The text to print as title in enrolments."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The body template to use when printing an activity of this\n"
-#~ "line.  Leave empty to use the site's default (defined by\n"
-#~ "body_template on the\n"
-#~ "lino_xl.lib.excerpts.models.ExcerptType for\n"
-#~ "Course)"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Pointer to CourseAreas.  This is used only when an\n"
-#~ "application defines several variants of\n"
-#~ "EnrolmentsByPupil."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A Course is a group of pupils that regularily meet with a given\n"
-#~ "teacher in a given room to speak about a given subject."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Available places. The maximum number of participants to allow\n"
-#~ "in this course."
 #~ msgstr ""
 
 #~ msgid "Number of free places."
@@ -8537,24 +8504,7 @@ msgstr ""
 #~ msgid "Number of confirmed places."
 #~ msgstr ""
 
-#~ msgid ""
-#~ "An enrolment is when a given pupil plans to participate in a\n"
-#~ "given course."
-#~ msgstr ""
-
 #~ msgid "One of lino_cosi.lib.courses.choicelists.EnrolmentStates."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Virtual HtmlBox field showing the name and address of the\n"
-#~ "participant."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Confirm this enrolment. Sets the state to confirmed after\n"
-#~ "calling get_confirm_veto to\n"
-#~ "verify whether it is valid (e.g. whether there are enough free\n"
-#~ "places)."
 #~ msgstr ""
 
 #~ msgid "Activities"
@@ -8603,11 +8553,6 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Participants only"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Hide cancelled enrolments. Ignored if "
-#~ "you specify an explicit enrolment state."
 #~ msgstr ""
 
 #~ msgid "Also "
@@ -8666,23 +8611,10 @@ msgstr ""
 #~ msgid "Repeat every"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "The type of calendar events to be"
-#~ " generated. If this is empty, no "
-#~ "calendar events will be generated."
-#~ msgstr ""
-
 #~ msgid "Participation fee"
 #~ msgstr ""
 
 #~ msgid "Manage presences as"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The default guest role for particpants"
-#~ " of events for courses in this "
-#~ "series. Leave empty if you don't "
-#~ "want any presence management."
 #~ msgstr ""
 
 #~ msgid "Options category"
@@ -8698,10 +8630,6 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Instructor"
-#~ msgstr ""
-
-#~ msgctxt "in a course"
-#~ msgid "Available places"
 #~ msgstr ""
 
 #~ msgid "Enrolments until"
