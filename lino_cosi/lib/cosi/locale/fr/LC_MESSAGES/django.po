@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2017-01-25 00:57+0200\n"
-"PO-Revision-Date: 2016-06-08 15:57+0300\n"
+"PO-Revision-Date: 2017-01-25 06:31+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: fr\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: lino_cosi/lib/accounts/__init__.py:40
 msgid "Accounting"
@@ -34,8 +35,7 @@ msgstr "Bilan"
 msgid "Profit & Loss statement"
 msgstr "Compte de résultats"
 
-#: lino_cosi/lib/accounts/choicelists.py:90
-#: lino_cosi/lib/accounts/choicelists.py:96
+#: lino_cosi/lib/accounts/choicelists.py:90 lino_cosi/lib/accounts/choicelists.py:96
 msgid "Cash flow statement"
 msgstr "Tableau de financement"
 
@@ -272,11 +272,9 @@ msgstr "Provisoirement impayé"
 
 #: lino_cosi/lib/b2c/febelfin.py:104
 msgid ""
-"First credit of cheques, vouchers, luncheon vouchers, postal orders, "
-"credit under usual reserve"
-msgstr ""
-"Premier crédit de chèques, bons, chèques repas, assignations postales, "
-"crédit sbf "
+"First credit of cheques, vouchers, luncheon vouchers, postal orders, credit under usual "
+"reserve"
+msgstr "Premier crédit de chèques, bons, chèques repas, assignations postales, crédit sbf "
 
 #: lino_cosi/lib/b2c/febelfin.py:106
 msgid "Remittance of cheques, vouchers, etc. credit after collection"
@@ -564,20 +562,18 @@ msgstr "Général"
 
 #: lino_cosi/lib/b2c/febelfin.py:205
 msgid ""
-"Payment of coupons from a deposit or settlement of coupons delivered over"
-" the counter - credit under usual reserve"
+"Payment of coupons from a deposit or settlement of coupons delivered over the counter - "
+"credit under usual reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:207
 msgid ""
-"Repayable securities from a deposit or delivered at the counter -- credit"
-" under usual reserve"
+"Repayable securities from a deposit or delivered at the counter -- credit under usual "
+"reserve"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:209
-msgid ""
-"Interim interest on subscription When reimbursed separately to the "
-"subscriber"
+msgid "Interim interest on subscription When reimbursed separately to the subscriber"
 msgstr ""
 
 #: lino_cosi/lib/b2c/febelfin.py:211
@@ -1021,9 +1017,7 @@ msgid "Statement number"
 msgstr "Membre de ménage"
 
 #: lino_cosi/lib/b2c/models.py:321
-msgid ""
-"Combination of the year and the legal sequential number of the paper "
-"statement."
+msgid "Combination of the year and the legal sequential number of the paper statement."
 msgstr ""
 
 #: lino_cosi/lib/b2c/models.py:324
@@ -2958,8 +2952,7 @@ msgstr "Pays"
 msgid "Payment Order"
 msgstr ""
 
-#: lino_cosi/lib/finan/models.py:116
-#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:218
+#: lino_cosi/lib/finan/models.py:116 lino_cosi/lib/ledger/fixtures/minimal_ledger.py:218
 msgid "Payment Orders"
 msgstr ""
 
@@ -3060,9 +3053,7 @@ msgid "Build a new list of suggestions. This will remove all current suggestions
 msgstr ""
 
 #: lino_cosi/lib/invoicing/actions.py:99
-msgid ""
-"Execute this invoicing plan. Create an invoice for each selected "
-"suggestion."
+msgid "Execute this invoicing plan. Create an invoice for each selected suggestion."
 msgstr ""
 
 #: lino_cosi/lib/invoicing/actions.py:113
@@ -3123,8 +3114,7 @@ msgstr ""
 msgid "Selected"
 msgstr ""
 
-#: lino_cosi/lib/invoicing/models.py:248
-#: lino_cosi/lib/ledger/fixtures/minimal_ledger.py:201
+#: lino_cosi/lib/invoicing/models.py:248 lino_cosi/lib/ledger/fixtures/minimal_ledger.py:201
 #: lino_cosi/lib/vat/models.py:146 lino_cosi/lib/vatless/models.py:54
 msgid "Invoice"
 msgstr ""
@@ -3160,28 +3150,25 @@ msgstr "Pays"
 msgid "Journal groups"
 msgstr "Groupes de comptes"
 
-#: lino_cosi/lib/ledger/choicelists.py:67
-#: lino_cosi/lib/ledger/choicelists.py:374
+#: lino_cosi/lib/ledger/choicelists.py:67 lino_cosi/lib/ledger/choicelists.py:374
 msgid "Sales"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:68
-#: lino_cosi/lib/ledger/choicelists.py:375
+#: lino_cosi/lib/ledger/choicelists.py:68 lino_cosi/lib/ledger/choicelists.py:375
 msgid "Purchases"
 msgstr ""
 
-#: lino_cosi/lib/ledger/choicelists.py:69
-#: lino_cosi/lib/ledger/choicelists.py:376
+#: lino_cosi/lib/ledger/choicelists.py:69 lino_cosi/lib/ledger/choicelists.py:376
 msgid "Wages"
 msgstr "Salaires"
 
 #: lino_cosi/lib/ledger/choicelists.py:92
 msgid "Fiscal Year"
-msgstr ""
+msgstr "Année comptable"
 
 #: lino_cosi/lib/ledger/choicelists.py:93
 msgid "Fiscal Years"
-msgstr ""
+msgstr "Années comptables"
 
 #: lino_cosi/lib/ledger/choicelists.py:126
 msgid "Open"
@@ -3216,9 +3203,8 @@ msgid "The type of trade: usually either `sales` or `purchases`."
 msgstr ""
 
 #: lino_cosi/lib/ledger/choicelists.py:377
-#, fuzzy
 msgid "Clearings"
-msgstr "Avertissement"
+msgstr "Lettrages"
 
 #: lino_cosi/lib/ledger/choicelists.py:480 lino_cosi/lib/orders/models.py:51
 msgid "Draft"
@@ -3236,14 +3222,12 @@ msgstr ""
 msgid "Cancelled"
 msgstr "Annulé"
 
-#: lino_cosi/lib/ledger/choicelists.py:490
-#: lino_cosi/lib/ledger/choicelists.py:496
+#: lino_cosi/lib/ledger/choicelists.py:490 lino_cosi/lib/ledger/choicelists.py:496
 #: lino_cosi/lib/ledger/choicelists.py:497 lino_cosi/lib/orders/models.py:58
 msgid "Register"
 msgstr "Enregistrer"
 
-#: lino_cosi/lib/ledger/choicelists.py:492
-#: lino_cosi/lib/ledger/choicelists.py:500
+#: lino_cosi/lib/ledger/choicelists.py:492 lino_cosi/lib/ledger/choicelists.py:500
 #: lino_cosi/lib/ledger/choicelists.py:502 lino_cosi/lib/orders/models.py:59
 msgid "Deregister"
 msgstr "Réouvrir"
@@ -3267,14 +3251,13 @@ msgid "Journals"
 msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:145
-#, fuzzy
 msgid "Check clearing"
-msgstr "Avertissement"
+msgstr "Vérifier lettrages"
 
 #: lino_cosi/lib/ledger/models.py:146
 msgid ""
-"Automatically update the cleared status of involved transactions when "
-"(de)registering a voucher of this journal"
+"Automatically update the cleared status of involved transactions when (de)registering a "
+"voucher of this journal"
 msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:150
@@ -3299,14 +3282,12 @@ msgid "%s is not the last voucher in journal"
 msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:312
-#, fuzzy
 msgid "Accounting period"
-msgstr "Comptabilité"
+msgstr "Période comptable"
 
 #: lino_cosi/lib/ledger/models.py:313
-#, fuzzy
 msgid "Accounting periods"
-msgstr "Comptabilité"
+msgstr "Périodes comptables"
 
 #: lino_cosi/lib/ledger/models.py:318 lino_cosi/lib/sepa/models.py:73
 msgid "Remark"
@@ -3314,11 +3295,11 @@ msgstr "Remarque"
 
 #: lino_cosi/lib/ledger/models.py:439
 msgid "Payment Term"
-msgstr ""
+msgstr "Délai de paiement"
 
 #: lino_cosi/lib/ledger/models.py:440
 msgid "Payment Terms"
-msgstr ""
+msgstr "Délais de paiement"
 
 #: lino_cosi/lib/ledger/models.py:442
 msgid "Days"
@@ -3331,7 +3312,7 @@ msgstr "mois"
 
 #: lino_cosi/lib/ledger/models.py:444
 msgid "End of month"
-msgstr ""
+msgstr "Fin de mois"
 
 #: lino_cosi/lib/ledger/models.py:447
 msgid "Printed text"
@@ -3347,14 +3328,12 @@ msgid "Vouchers"
 msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:521
-#, fuzzy
 msgid "Voucher date"
-msgstr "Type de note"
+msgstr "\t"
 
 #: lino_cosi/lib/ledger/models.py:522
-#, fuzzy
 msgid "Entry date"
-msgstr "Date début"
+msgstr "Date débutDate d'entrée"
 
 #: lino_cosi/lib/ledger/models.py:526
 msgid "Narration"
@@ -3362,20 +3341,19 @@ msgstr ""
 
 #: lino_cosi/lib/ledger/models.py:893
 msgid "Movement"
-msgstr ""
+msgstr "Mouvement"
 
 #: lino_cosi/lib/ledger/models.py:894
 msgid "Movements"
-msgstr ""
+msgstr "Mouvements"
 
 #: lino_cosi/lib/ledger/models.py:903
 msgid "Seq.No."
 msgstr "N° de séq"
 
 #: lino_cosi/lib/ledger/models.py:913
-#, fuzzy
 msgid "Cleared"
-msgstr "Effacer la cache"
+msgstr "Lettré"
 
 #: lino_cosi/lib/ledger/models.py:947
 #, fuzzy
@@ -3442,18 +3420,16 @@ msgid "List of invoices in this match group"
 msgstr ""
 
 #: lino_cosi/lib/ledger/ui.py:291
-#, fuzzy
 msgid "Payments"
-msgstr "Concepts subordonnés"
+msgstr "Paiements"
 
 #: lino_cosi/lib/ledger/ui.py:291
 msgid "List of payments in this match group"
 msgstr ""
 
 #: lino_cosi/lib/ledger/ui.py:296 lino_cosi/lib/ledger/ui.py:626
-#, fuzzy
 msgid "Balance"
-msgstr "a eu lieu"
+msgstr "Solde"
 
 #: lino_cosi/lib/ledger/ui.py:313 lino_cosi/lib/sepa/models.py:63
 msgid "Bank account"
@@ -3461,7 +3437,7 @@ msgstr "Compte en banque"
 
 #: lino_cosi/lib/ledger/ui.py:386
 msgid "Show cleared vouchers"
-msgstr ""
+msgstr "Include documents lettrés"
 
 #: lino_cosi/lib/ledger/ui.py:466 lino_cosi/lib/ledger/ui.py:816
 #: lino_cosi/lib/ledger/ui.py:875 lino_cosi/lib/ledger/ui.py:928
@@ -3651,7 +3627,7 @@ msgstr ""
 
 #: lino_cosi/lib/ledger/fixtures/std.py:79
 msgid "Payment reminder"
-msgstr ""
+msgstr "Rappel de paiement"
 
 #: lino_cosi/lib/orders/__init__.py:10 lino_cosi/lib/orders/models.py:73
 msgid "Orders"
@@ -3684,31 +3660,27 @@ msgstr "Factures vente"
 
 #: lino_cosi/lib/sales/models.py:52
 msgid "Sales price"
-msgstr ""
+msgstr "PRix de vente"
 
 #: lino_cosi/lib/sales/models.py:54
-#, fuzzy
 msgid "Sales Base account"
-msgstr "Compte Ventes"
+msgstr "Compte CA ventes"
 
 #: lino_cosi/lib/sales/models.py:56
-#, fuzzy
 msgid "Sales VAT account"
-msgstr "Compte Ventes"
+msgstr "Compte TVA ventes"
 
 #: lino_cosi/lib/sales/models.py:58
 msgid "Clients account"
 msgstr "Compte client"
 
 #: lino_cosi/lib/sales/models.py:62
-#, fuzzy
 msgid "Wages account"
-msgstr "Compte Ventes"
+msgstr "Compte Salaires"
 
 #: lino_cosi/lib/sales/models.py:66
-#, fuzzy
 msgid "Clearings account"
-msgstr "Compte client"
+msgstr "Compte Lettrages"
 
 #: lino_cosi/lib/sales/models.py:71
 #, fuzzy
@@ -3724,14 +3696,12 @@ msgid "Redirect to another partner all invoices which should go to this partner.
 msgstr ""
 
 #: lino_cosi/lib/sales/models.py:119
-#, fuzzy
 msgid "Paper type"
-msgstr "Type d'organisation"
+msgstr "Type de papier"
 
 #: lino_cosi/lib/sales/models.py:120
-#, fuzzy
 msgid "Paper types"
-msgstr "Types de note"
+msgstr "Types de papier"
 
 #: lino_cosi/lib/sales/models.py:122
 #, fuzzy
@@ -3819,8 +3789,8 @@ msgstr "Primaire"
 
 #: lino_cosi/lib/sepa/models.py:78
 msgid ""
-"Enabling this field will automatically disable any previous primary "
-"account and update the partner's IBAN and BIC"
+"Enabling this field will automatically disable any previous primary account and update "
+"the partner's IBAN and BIC"
 msgstr ""
 
 #: lino_cosi/lib/tim2lino/__init__.py:38
@@ -3863,8 +3833,7 @@ msgstr "Régime de travail"
 
 #: lino_cosi/lib/vat/choicelists.py:73
 msgid ""
-"Determines how the VAT is being handled,         i.e. whether and how it "
-"is to be paid."
+"Determines how the VAT is being handled,         i.e. whether and how it is to be paid."
 msgstr ""
 
 #: lino_cosi/lib/vat/choicelists.py:78
@@ -4000,414 +3969,3 @@ msgstr "Factures vente"
 #: lino_cosi/lib/vatless/ui.py:160
 msgid "Partner vouchers"
 msgstr ""
-
-#~ msgid "Grouper"
-#~ msgstr "Propriété"
-
-#~ msgid "Groupers"
-#~ msgstr "Propriétés"
-
-#~ msgid "Client Accounts Balances"
-#~ msgstr "Compte Ventes"
-
-#~ msgid "Account Chart"
-#~ msgstr "Plan comptable"
-
-#~ msgid "Account Charts"
-#~ msgstr "Plan comptables"
-
-#~ msgid "Default"
-#~ msgstr "valeur par défault"
-
-#~ msgid "Places"
-#~ msgstr "Places"
-
-#~ msgid "Default guest role for particpants of events."
-#~ msgstr "Le calendrier par défaut pour vos rendez-vous et tâches."
-
-#~ msgid "Partners mismatch"
-#~ msgstr "Partenaires"
-
-#~ msgid "Fixed"
-#~ msgstr "Communiqué"
-
-#~ msgid "Satisfied"
-#~ msgstr "Communiqué"
-
-#~ msgid "%d invoices have been created."
-#~ msgstr "%s a été créé"
-
-#~ msgid "Date"
-#~ msgstr "Site"
-
-#~ msgid "Enrolment option"
-#~ msgstr "Titre de noblesse"
-
-#~ msgid "Enrolment options"
-#~ msgstr "Titre de noblesse"
-
-#~ msgid "Reference"
-#~ msgstr ""
-
-#~ msgid "Course area"
-#~ msgstr "heures"
-
-#~ msgctxt "plural form"
-#~ msgid "Course series"
-#~ msgstr "Séries de cours"
-
-#~ msgid "Course"
-#~ msgstr "heures"
-
-#~ msgid "Shows events of courses of this teacher"
-#~ msgstr ""
-
-#~ msgid "Active courses"
-#~ msgstr ""
-
-#~ msgid "Suggested courses"
-#~ msgstr "Proposé"
-
-#~ msgid "%(details)s for %(master)s"
-#~ msgstr "%(details)s de %(master)s"
-
-#~ msgid "Enrol"
-#~ msgstr "Général"
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "Base table for all courses."
-#~ msgstr ""
-
-#~ msgid "Base class for a Lino Così application."
-#~ msgstr ""
-
-#~ msgid "The recipient of invoices (invoicing address)."
-#~ msgstr ""
-
-#~ msgid "The base for all Estonian Lino Cosi Sites."
-#~ msgstr ""
-
-#~ msgid "alias of basestring"
-#~ msgstr ""
-
-#~ msgid "The list of possible states of an enrolment."
-#~ msgstr ""
-
-#~ msgid "The detail layout of a Course."
-#~ msgstr ""
-
-#~ msgid "Base table for all activities."
-#~ msgstr ""
-
-#~ msgid "alias of Course"
-#~ msgstr "Sources de données"
-
-#~ msgid "Show the courses per course line."
-#~ msgstr ""
-
-#~ msgid "alias of Line"
-#~ msgstr ""
-
-#~ msgid "Shows the courses of a given topic."
-#~ msgstr ""
-
-#~ msgid "alias of Topic"
-#~ msgstr ""
-
-#~ msgid "Base class for all enrolment tables."
-#~ msgstr ""
-
-#~ msgid "alias of Enrolment"
-#~ msgstr "Tableau de financement"
-
-#~ msgid "Show global list of all enrolments."
-#~ msgstr ""
-
-#~ msgid "Show all requested enrolments."
-#~ msgstr "Demandes d’inscription en attente"
-
-#~ msgid "Show all confirmed enrolments."
-#~ msgstr "Demandes d’inscription confirmées"
-
-#~ msgid "Show all enrolments of a given pupil."
-#~ msgstr ""
-
-#~ msgid "alias of Person"
-#~ msgstr "Sources de données"
-
-#~ msgid ""
-#~ "An activity line (or series) groups courses into a\n"
-#~ "configurable list of categories."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The designation of this activity line as seen by the user\n"
-#~ "e.g. when selecting the line."
-#~ msgstr ""
-
-#~ msgid "The text to print as title in enrolments."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The body template to use when printing an activity of this\n"
-#~ "line.  Leave empty to use the site's default (defined by\n"
-#~ "body_template on the\n"
-#~ "lino_xl.lib.excerpts.models.ExcerptType for\n"
-#~ "Course)"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Pointer to CourseAreas.  This is used only when an\n"
-#~ "application defines several variants of\n"
-#~ "EnrolmentsByPupil."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A Course is a group of pupils that regularily meet with a given\n"
-#~ "teacher in a given room to speak about a given subject."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Available places. The maximum number of participants to allow\n"
-#~ "in this course."
-#~ msgstr ""
-
-#~ msgid "Number of free places."
-#~ msgstr ""
-
-#~ msgid "Number of requested places."
-#~ msgstr ""
-
-#~ msgid "Number of confirmed places."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "An enrolment is when a given pupil plans to participate in a\n"
-#~ "given course."
-#~ msgstr ""
-
-#~ msgid "One of lino_cosi.lib.courses.choicelists.EnrolmentStates."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Virtual HtmlBox field showing the name and address of the\n"
-#~ "participant."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Confirm this enrolment. Sets the state to confirmed after\n"
-#~ "calling get_confirm_veto to\n"
-#~ "verify whether it is valid (e.g. whether there are enough free\n"
-#~ "places)."
-#~ msgstr ""
-
-#~ msgid "Activities"
-#~ msgstr "Site"
-
-#~ msgid "invoiceable"
-#~ msgstr "Facturable"
-
-#~ msgid "Active"
-#~ msgstr "Site"
-
-#~ msgid "Enrolment states"
-#~ msgstr "États d'inscription"
-
-#~ msgid "Uses a place"
-#~ msgstr ""
-
-#~ msgid "Requested"
-#~ msgstr "Demandé"
-
-#~ msgid "Confirmed"
-#~ msgstr "Confirmé"
-
-#~ msgid "Layout"
-#~ msgstr ""
-
-#~ msgid "Course layouts"
-#~ msgstr "Séries de cours"
-
-#~ msgid "Courses"
-#~ msgstr "Cours"
-
-#~ msgid "Shows events of activities led by this teacher"
-#~ msgstr ""
-
-#~ msgid "Events"
-#~ msgstr "Rendez-vous"
-
-#~ msgid "Draft activities"
-#~ msgstr ""
-
-#~ msgid "Current activities"
-#~ msgstr ""
-
-#~ msgid "Inactive courses"
-#~ msgstr "Sources de données"
-
-#~ msgid "Closed courses"
-#~ msgstr "Proposé"
-
-#~ msgid "Course state"
-#~ msgstr "heures"
-
-#~ msgid "Participants only"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Hide cancelled enrolments. Ignored if "
-#~ "you specify an explicit enrolment state."
-#~ msgstr ""
-
-#~ msgid "Also "
-#~ msgstr "jours"
-
-#~ msgid "Confirm all"
-#~ msgstr "Confirmation"
-
-#~ msgid "This will confirm all %d enrolments in this list."
-#~ msgstr ""
-
-#~ msgid "Are you sure?"
-#~ msgstr "D'accord ?"
-
-#~ msgid "Pending requested enrolments"
-#~ msgstr "Demandes d’inscription en attente"
-
-#~ msgid "Pending confirmed enrolments"
-#~ msgstr "Demandes d’inscription confirmées"
-
-#~ msgid "Enrolments using this option"
-#~ msgstr "Titre de noblesse"
-
-#~ msgid "Start Time"
-#~ msgstr "Heure de début"
-
-#~ msgid "End Time"
-#~ msgstr "Heure de fin"
-
-#~ msgid "Timetable Slot"
-#~ msgstr ""
-
-#~ msgid "Timetable Slots"
-#~ msgstr ""
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "Topic"
-#~ msgstr ""
-
-#~ msgid "Topics"
-#~ msgstr ""
-
-#~ msgctxt "singular form"
-#~ msgid "Activity line"
-#~ msgstr ""
-
-#~ msgctxt "plural form"
-#~ msgid "Activity lines"
-#~ msgstr ""
-
-#~ msgid "Recurrency"
-#~ msgstr "Récurrence"
-
-#~ msgid "Repeat every"
-#~ msgstr "Répéter"
-
-#~ msgid ""
-#~ "The type of calendar events to be"
-#~ " generated. If this is empty, no "
-#~ "calendar events will be generated."
-#~ msgstr ""
-
-#~ msgid "Participation fee"
-#~ msgstr "Confirmation"
-
-#~ msgid "Manage presences as"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The default guest role for particpants"
-#~ " of events for courses in this "
-#~ "series. Leave empty if you don't "
-#~ "want any presence management."
-#~ msgstr ""
-
-#~ msgid "Options category"
-#~ msgstr ""
-
-#~ msgid "Fees category"
-#~ msgstr "Categorie"
-
-#~ msgid "Body template"
-#~ msgstr "Modèle"
-
-#~ msgid "Activity"
-#~ msgstr ""
-
-#~ msgid "Instructor"
-#~ msgstr "Instructeur"
-
-#~ msgctxt "in a course"
-#~ msgid "Available places"
-#~ msgstr "Places disponibles"
-
-#~ msgid "Designation"
-#~ msgstr "Description"
-
-#~ msgid "Enrolments until"
-#~ msgstr "Inscriptions jusqu'au"
-
-#~ msgid "Free places"
-#~ msgstr ""
-
-#~ msgid "Unlimited"
-#~ msgstr "Invité"
-
-#~ msgid "Enrolments"
-#~ msgstr "Inscriptions"
-
-#~ msgid "Presences"
-#~ msgstr ""
-
-#~ msgid "Enrolment"
-#~ msgstr "Inscription"
-
-#~ msgid "Date of request"
-#~ msgstr "Date de la demande"
-
-#~ msgctxt "in a course"
-#~ msgid "Places used"
-#~ msgstr ""
-
-#~ msgid "Option"
-#~ msgstr "Envoi postal"
-
-#~ msgid "Confirmation details"
-#~ msgstr "Confirmation"
-
-#~ msgid "No places left in %s"
-#~ msgstr ""
-
-#~ msgid "Participant"
-#~ msgstr "Confirmation"
-
-#~ msgid "Certify"
-#~ msgstr "Communiqué"
-
-#~ msgid "Print certificate for <b>%(pupil)s</b>."
-#~ msgstr ""
-
-#~ msgid "Confirm"
-#~ msgstr "Confirmer"
-
-#~ msgid "Check for possible problems."
-#~ msgstr ""
-
-#~ msgid "Cannot confirm %(pupil)s : %(message)s"
-#~ msgstr ""
-
