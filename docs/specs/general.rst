@@ -154,7 +154,7 @@ Romain gets the same menu in French:
   - Contacts : Types d'organisation, Fonctions
   - Comptabilité : Groupes de comptes, Comptes, Journals, Périodes comptables, Délais de paiement
   - Bureau : Types d'extrait, Mes Text Field Templates
-  - VAT : VAT rules, Paper types
+  - VAT : VAT rules, Types de papier
   - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorateur :
