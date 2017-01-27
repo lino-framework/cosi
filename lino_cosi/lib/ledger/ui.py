@@ -565,7 +565,7 @@ class DebtorsCreditors(dd.VirtualTable):
     """
     required_roles = dd.required(AccountingReader)
     auto_fit_column_widths = True
-    column_names = "age due_date partner partner_id balance actions"
+    column_names = "age due_date partner partner_id balance vouchers"
     slave_grid_format = 'html'
     abstract = True
 
@@ -593,10 +593,12 @@ class DebtorsCreditors(dd.VirtualTable):
         for row in qs:
             row._balance = ZERO
             row._due_date = None
-            for dm in get_due_movements(
+            row._expected = tuple(
+                get_due_movements(
                     self.d_or_c,
                     partner=row,
-                    value_date__lte=end_date):
+                    value_date__lte=end_date))
+            for dm in row._expected:
                 row._balance += dm.balance
                 if dm.due_date is not None:
                     if row._due_date is None or row._due_date > dm.due_date:
@@ -606,9 +608,9 @@ class DebtorsCreditors(dd.VirtualTable):
             if row._balance > ZERO:
                 rows.append(row)
 
-        def f(a, b):
-            return cmp(a._due_date, b._due_date)
-        rows.sort(f)
+        def k(a):
+            return a._due_date
+        rows.sort(key=k)
         return rows
 
     # @dd.displayfield(_("Partner"))
@@ -636,10 +638,15 @@ class DebtorsCreditors(dd.VirtualTable):
         dd = ar.param_values.today - row._due_date
         return dd.days
 
-    @dd.displayfield(_("Actions"))
-    def actions(self, row, ar):
-        # TODO
-        return E.span("[Show debts] [Issue reminder]")
+    @dd.displayfield(_("Vouchers"))
+    def vouchers(self, row, ar):
+        matches = [dm.match for dm in row._expected]
+        return E.span(', '.join(matches))
+
+    # @dd.displayfield(_("Actions"))
+    # def actions(self, row, ar):
+    #     # TODO
+    #     return E.span("[Show debts] [Issue reminder]")
 
 
 class Debtors(DebtorsCreditors):
