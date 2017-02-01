@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2011-2015 Luc Saffre
+# Copyright 2011-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ class Site(Site):
     # languages = 'en de fr'
     languages = 'en'
 
-    user_types_module = 'lino_cosi.lib.cosi.roles'
+    user_types_module = 'lino_cosi.lib.cosi.user_types'
 
     default_build_method = 'wkhtmltopdf'
 

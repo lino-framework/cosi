@@ -24,7 +24,7 @@ translations for all these plugins.
    :toctree:
 
     models
-    roles
+    user_types
 
 """
 
