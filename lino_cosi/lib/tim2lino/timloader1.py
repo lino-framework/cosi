@@ -28,7 +28,7 @@ Usage:
 - Add ``'tim2lino'`` to your
   :attr:`demo_fixtures <lino.core.site.Site.demo_fixtures>`.
 
-- Run :manage:`initdb_demo`.
+- Run :manage:`prep`.
 
 """
 from __future__ import unicode_literals
