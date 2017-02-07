@@ -47,6 +47,7 @@ class Site(Site):
     languages = 'en'
 
     user_types_module = 'lino_cosi.lib.cosi.user_types'
+    custom_layouts_module = 'lino_cosi.lib.cosi.layouts'
 
     default_build_method = 'wkhtmltopdf'
 
