@@ -111,7 +111,7 @@ class Account(dd.Model):
             for k in PRIMARY_FIELDS:
                 setattr(mi, k, getattr(self, k))
             mi.save()
-            watcher.send_update(ar.request)
+            watcher.send_update(ar)
 
     @dd.displayfield(_("Statements"))
     def statements(self, ar):
