@@ -343,8 +343,6 @@ having that match."""),
     'lino_cosi.lib.ledger.models.MatchRule' : _("""A match rule specifies that a movement into given account can
 be cleared using a given journal."""),
     'lino_cosi.lib.ledger.models.VoucherChecker' : _("""Check for wrong ledger movements"""),
-    'lino_cosi.lib.ledger.roles.SiteUser' : _("""A normal authentified user."""),
-    'lino_cosi.lib.ledger.roles.SiteAdmin' : _("""A user with all permissions."""),
     'lino_cosi.lib.ledger.ui.Journals' : _("""The default table showing all instances of Journal."""),
     'lino_cosi.lib.ledger.ui.Journals.model' : _("""alias of Journal"""),
     'lino_cosi.lib.ledger.ui.Vouchers' : _("""The base table for all tables working on Voucher."""),

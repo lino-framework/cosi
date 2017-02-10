@@ -23,11 +23,13 @@ extensions += ['lino.sphinxcontrib.logo']
 # autodoc_default_flags = ['members']
 autosummary_generate = True
 
+from atelier.sphinxconf import interproject
+interproject.configure(globals())
 
-from importlib import import_module
-for n in 'atelier lino'.split():
-    m = import_module(n)
-    intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
+# from importlib import import_module
+# for n in 'atelier lino'.split():
+#     m = import_module(n)
+#     intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
 
 
 # General configuration
