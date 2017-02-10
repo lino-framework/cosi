@@ -50,7 +50,7 @@ class Group(mixins.BabelNamed):
 class Groups(dd.Table):
     """The global table of all account groups."""
     model = 'accounts.Group'
-    required_roles = dd.required(LedgerStaff)
+    required_roles = dd.login_required(LedgerStaff)
     order_by = ['ref']
     column_names = 'ref name account_type *'
 
@@ -150,7 +150,7 @@ class Account(mixins.BabelNamed, mixins.Sequenced, mixins.Referrable):
 
 class Accounts(dd.Table):
     model = 'accounts.Account'
-    required_roles = dd.required(LedgerStaff)
+    required_roles = dd.login_required(LedgerStaff)
     order_by = ['ref']
     column_names = "ref name group *"
     insert_layout = """

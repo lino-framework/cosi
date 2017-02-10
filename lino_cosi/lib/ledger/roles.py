@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2015 Luc Saffre
+# Copyright 2015-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,9 +19,9 @@
 
 
 from lino.core.roles import UserRole
-from lino.api import _
-from lino.modlib.office.roles import OfficeUser, SiteAdmin
-from lino.modlib.users.choicelists import UserTypes
+# from lino.api import _
+# from lino.modlib.office.roles import OfficeUser, SiteAdmin
+# from lino.modlib.users.choicelists import UserTypes
 
 
 class AccountingReader(UserRole):
@@ -36,18 +36,18 @@ class LedgerStaff(LedgerUser):
     pass
 
 
-class SiteUser(OfficeUser, AccountingReader):
-    """A normal authentified user."""
-    pass
+# class SiteUser(OfficeUser, AccountingReader):
+#     """A normal authentified user."""
+#     pass
 
 
-class SiteAdmin(SiteAdmin, LedgerStaff):
-    """A user with all permissions."""
-    pass
+# class SiteAdmin(SiteAdmin, LedgerStaff):
+#     """A user with all permissions."""
+#     pass
 
 
-UserTypes.clear()
-add = UserTypes.add_item
-add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
-add('100', _("User"), SiteUser, name='user')
-add('900', _("Administrator"), SiteAdmin, name='admin')
+# UserTypes.clear()
+# add = UserTypes.add_item
+# add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
+# add('100', _("User"), SiteUser, name='user')
+# add('900', _("Administrator"), SiteAdmin, name='admin')
