@@ -92,7 +92,7 @@ class ByJournal(dd.Table):
     order_by = ["-accounting_period__year", "-number"]
     master_key = 'journal'  # see django issue 10808
     # start_at_bottom = True
-    required_roles = dd.required(LedgerUser)
+    required_roles = dd.login_required(LedgerUser)
 
     @classmethod
     def get_title_base(self, ar):
@@ -190,7 +190,7 @@ class ExpectedMovements(dd.VirtualTable):
 
     """
     row_height = 4
-    required_roles = dd.required(AccountingReader)
+    required_roles = dd.login_required(AccountingReader)
     label = _("Debts")
     icon_name = 'book_link'
     #~ column_names = 'match due_date debts payments balance'
@@ -563,7 +563,7 @@ class DebtorsCreditors(dd.VirtualTable):
 
 
     """
-    required_roles = dd.required(AccountingReader)
+    required_roles = dd.login_required(AccountingReader)
     auto_fit_column_widths = True
     column_names = "age due_date partner partner_id balance vouchers"
     slave_grid_format = 'html'
@@ -685,7 +685,7 @@ class Situation(Report):
     """
     label = _("Situation")
     help_text = _("Overview of the financial situation on a given date.")
-    required_roles = dd.required(AccountingReader)
+    required_roles = dd.login_required(AccountingReader)
 
     parameters = mixins.Today()
 
@@ -703,7 +703,7 @@ class ActivityReport(Report):
     """
     label = _("Activity Report")
     help_text = _("Overview of the financial activity during a given period.")
-    required_roles = dd.required(AccountingReader)
+    required_roles = dd.login_required(AccountingReader)
 
     parameters = mixins.Yearly(
         # include_vat = models.BooleanField(
