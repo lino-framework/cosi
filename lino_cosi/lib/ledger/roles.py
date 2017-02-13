@@ -28,11 +28,20 @@ class AccountingReader(UserRole):
     pass
 
 
+class VoucherSupervisor(UserRole):
+    """Somebody who can edit vouchers which have been written by other
+    users.
+
+    This role is automatically inherited by LedgerStaff.
+
+    """
+    pass
+
 class LedgerUser(AccountingReader):
     pass
 
 
-class LedgerStaff(LedgerUser):
+class LedgerStaff(LedgerUser, VoucherSupervisor):
     pass
 
 

@@ -56,6 +56,7 @@ from .utils import get_due_movements, check_clearings
 from .choicelists import (FiscalYears, VoucherTypes, VoucherStates,
                           PeriodStates, JournalGroups, TradeTypes)
 from .mixins import ProjectRelated, VoucherNumber, JournalRef
+from .roles import VoucherSupervisor
 # from .mixins import FKMATCH
 from .ui import *
 
@@ -512,6 +513,8 @@ class Voucher(UserAuthored, mixins.Registrable):
 
     """
 
+    manager_roles_required = dd.login_required(VoucherSupervisor)
+    
     class Meta:
         app_label = 'ledger'
         verbose_name = _("Voucher")
