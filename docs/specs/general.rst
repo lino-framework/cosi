@@ -27,7 +27,7 @@ The database structure
  accounts.Account            accounts.Accounts              15        12
  accounts.Group              accounts.Groups                6         7
  cal.Calendar                cal.Calendars                  6         1
- cal.Event                   cal.OneEvent                   23        148
+ cal.Event                   cal.OneEvent                   23        172
  cal.EventType               cal.EventTypes                 17        2
  cal.Guest                   cal.Guests                     6         0
  cal.GuestRole               cal.GuestRoles                 4         0
