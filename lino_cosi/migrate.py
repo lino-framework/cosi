@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
 """
 This is a real-world example of how the application developer
-can provide automatic data migrations for :ref:`dpy`.
+can provide automatic data migrations for Python dumps.
 
 This module is used because a :ref:`cosi`
 Site has :setting:`migration_class` set to ``"lino_cosi.migrate.Migrator"``.
