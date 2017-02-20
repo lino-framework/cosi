@@ -168,7 +168,7 @@ extlinks.update({
         'http://code.djangoproject.com/ticket/%s', 'Django ticket #'),
 })
 extlinks.update(
-    ticket=('http://bugs.lino-framework.org/tickets/Ticket/%s', '#'))
+    ticket=('http://bugs.saffre-rumma.net/tickets/Ticket/%s', '#'))
 
 extensions += ['lino.sphinxcontrib.help_texts_extractor']
 help_texts_builder_targets = {
