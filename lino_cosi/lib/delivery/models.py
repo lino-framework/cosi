@@ -35,15 +35,15 @@ from lino import mixins
 
 from lino_xl.lib.excerpts.mixins import Certifiable
 
-from lino_cosi.lib.vat.utils import add_vat, remove_vat, HUNDRED
-from lino_cosi.lib.vat.mixins import QtyVatItemBase, VatDocument
-from lino_cosi.lib.vat.mixins import get_default_vat_regime
-from lino_cosi.lib.sepa.mixins import Payable
-from lino_cosi.lib.ledger.mixins import Matching, SequencedVoucherItem
-from lino_cosi.lib.ledger.models import Voucher
-from lino_cosi.lib.ledger.choicelists import TradeTypes
-from lino_cosi.lib.ledger.choicelists import VoucherTypes
-from lino_cosi.lib.ledger.ui import PartnerVouchers, ByJournal
+from lino_xl.lib.vat.utils import add_vat, remove_vat, HUNDRED
+from lino_xl.lib.vat.mixins import QtyVatItemBase, VatDocument
+from lino_xl.lib.vat.mixins import get_default_vat_regime
+from lino_xl.lib.sepa.mixins import Payable
+from lino_xl.lib.ledger.mixins import Matching, SequencedVoucherItem
+from lino_xl.lib.ledger.models import Voucher
+from lino_xl.lib.ledger.choicelists import TradeTypes
+from lino_xl.lib.ledger.choicelists import VoucherTypes
+from lino_xl.lib.ledger.ui import PartnerVouchers, ByJournal
 
 # ledger = dd.resolve_app('ledger', strict=True)
 

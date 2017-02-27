@@ -34,7 +34,7 @@ from lino.api import dd, _, rt
 from lino.utils.xmlgen.html import E
 from lino.utils import join_elems
 
-from lino_cosi.lib.sepa.fields import IBANField, BICField
+from lino_xl.lib.sepa.fields import IBANField, BICField
 from .camt import CamtParser
 from .febelfin import code2desc
 

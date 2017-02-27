@@ -1,0 +1,4 @@
+[31m/media/dell1tb/work/cosi/docs/specs/tim2lino.rst: WARNING: document isn't included in any toctree[39;49;00m
+[31m/media/dell1tb/work/cosi/docs/changes.rst:7: WARNING: undefined label: blog (if the link has no caption the label must precede a section header)[39;49;00m
+[31m/media/dell1tb/work/cosi/docs/install/index.rst:10: WARNING: undefined label: lino.dev.install (if the link has no caption the label must precede a section header)[39;49;00m
+[31m/media/dell1tb/work/cosi/docs/install/index.rst:33: WARNING: undefined label: lino.tutorial.hello (if the link has no caption the label must precede a section header)[39;49;00m

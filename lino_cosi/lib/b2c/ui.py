@@ -25,7 +25,7 @@ Tables for `lino_cosi.lib.b2c`.
 from __future__ import unicode_literals
 
 from lino.api import dd, _
-from lino_cosi.lib.sepa.roles import SepaUser
+from lino_xl.lib.sepa.roles import SepaUser
 
 
 class Accounts(dd.Table):

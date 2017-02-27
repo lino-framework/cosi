@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -26,20 +26,10 @@ Plugins
 
     cosi
     contacts
-    accounts
-    sales
-    ledger
-    finan
-    vat
-    vatless
-    finan
-    tim2lino
-    sepa
     b2c
-    invoicing
 
-Not yet used
-============
+Not used
+========
 
 .. autosummary::
    :toctree:
