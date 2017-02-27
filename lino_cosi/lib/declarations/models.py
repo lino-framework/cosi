@@ -16,10 +16,10 @@
 # <http://www.gnu.org/licenses/>.
 
 
-"""Database models for `lino_cosi.lib.vat`.
+"""Database models for `lino_xl.lib.vat`.
 
 This module defines some central ChoiceLists and Model mixins designed
-to work both with and without :mod:`lino_cosi.lib.ledger` installed.
+to work both with and without :mod:`lino_xl.lib.ledger` installed.
 
 """
 

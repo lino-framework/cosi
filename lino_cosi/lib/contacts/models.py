@@ -17,10 +17,10 @@
 
 
 from lino.api import _, rt
-from lino_cosi.lib.accounts.utils import DEBIT
+from lino_xl.lib.accounts.utils import DEBIT
 from lino_xl.lib.contacts.models import *
 
-from lino_cosi.lib.vat.mixins import PartnerDetailMixin
+from lino_xl.lib.vat.mixins import PartnerDetailMixin
 from lino_xl.lib.contacts.choicelists import PartnerEvents
 from lino.modlib.system.choicelists import ObservedEvent
 

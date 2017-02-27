@@ -73,33 +73,15 @@ SETUP_INFO.update(packages=[
     'lino_cosi',
     'lino_cosi.lib',
     'lino_cosi.lib.cosi',
-    'lino_cosi.lib.accounts',
     'lino_cosi.lib.declarations',
-    'lino_cosi.lib.finan',
-    'lino_cosi.lib.finan.fixtures',
-    'lino_cosi.lib.ledger',
-    'lino_cosi.lib.ledger.fixtures',
-    'lino_cosi.lib.ledger.management',
-    'lino_cosi.lib.ledger.management.commands',
-    'lino_cosi.lib.sales',
-    'lino_cosi.lib.sales.fixtures',
-    'lino_cosi.lib.sepa',
-    'lino_cosi.lib.invoicing',
-    'lino_cosi.lib.invoicing.fixtures',
-    'lino_cosi.lib.sepa.fixtures',
     'lino_cosi.lib.b2c',
     'lino_cosi.lib.b2c.fixtures',
-    'lino_cosi.lib.tim2lino',
-    'lino_cosi.lib.tim2lino.fixtures',
     'lino_cosi.lib.contacts',
     'lino_cosi.lib.contacts.fixtures',
     'lino_cosi.lib.contacts.management',
     'lino_cosi.lib.contacts.management.commands',
     'lino_cosi.lib.orders',
     'lino_cosi.lib.delivery',
-    'lino_cosi.lib.vat',
-    'lino_cosi.lib.vat.fixtures',
-    'lino_cosi.lib.vatless',
     'lino_cosi.projects',
     'lino_cosi.projects.std',
     'lino_cosi.projects.std.settings',
@@ -135,8 +117,8 @@ SETUP_INFO.update(
 # for lng in 'de fr'.split():
 #     l.append('lino_cosi/lib/cosi/locale/%s/LC_MESSAGES/*.mo' % lng)
 
-# l = add_package_data('lino_cosi.lib.sepa',
-#                      'lino_cosi/lib/sepa/config/iban/*')
+# l = add_package_data('lino_xl.lib.sepa',
+#                      'lino_xl.lib/sepa/config/iban/*')
                      # 'config/iban/*')
 # print 20160820, SETUP_INFO['package_data']
 # raw_input()

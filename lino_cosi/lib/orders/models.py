@@ -34,7 +34,7 @@ from lino import mixins
 from lino.utils import mti
 #~ from lino.utils.quantities import Duration
 
-from lino_cosi.lib.vat.mixins import myround
+from lino_xl.lib.vat.mixins import myround
 
 
 contacts = dd.resolve_app('contacts')
