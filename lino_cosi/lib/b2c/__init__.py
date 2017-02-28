@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -71,6 +71,8 @@ class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
     verbose_name = _("SEPA import")
 
+    needs_plugins = ['lino_cosi.lib.cosi']
+    
     import_statements_path = None
     """A path wildcard pointing to xml files which need to get imported.
 

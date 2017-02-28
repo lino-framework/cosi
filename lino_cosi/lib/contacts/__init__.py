@@ -33,3 +33,5 @@ from lino_xl.lib.contacts import Plugin
 class Plugin(Plugin):
 
     extends_models = ['Partner', 'Person', 'Company']
+    needs_plugins = ['lino_cosi.lib.cosi']
+    
