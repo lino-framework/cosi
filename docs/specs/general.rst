@@ -20,7 +20,7 @@ The database structure
 >>> print(analyzer.show_db_overview())
 ... #doctest: +ELLIPSIS +NORMALIZE_WHITESPACE +REPORT_UDIFF
 33 apps: lino_startup, staticfiles, about, jinja, bootstrap3, extjs, printing, system, contenttypes, gfks, users, office, xl, countries, cosi, contacts, products, accounts, weasyprint, ledger, sepa, excerpts, appypod, export_excel, tinymce, wkhtmltopdf, vat, finan, sales, invoicing, cal, courses, vatless.
-59 models:
+60 models:
 =========================== ============================== ========= =======
  Name                        Default table                  #fields   #rows
 --------------------------- ------------------------------ --------- -------
@@ -28,6 +28,7 @@ The database structure
  accounts.Group              accounts.Groups                6         7
  cal.Calendar                cal.Calendars                  6         1
  cal.Event                   cal.OneEvent                   23        172
+ cal.EventPolicy             cal.EventPolicies              19        6
  cal.EventType               cal.EventTypes                 17        2
  cal.Guest                   cal.Guests                     6         0
  cal.GuestRole               cal.GuestRoles                 4         0
@@ -43,7 +44,7 @@ The database structure
  contacts.Person             contacts.Persons               30        69
  contacts.Role               contacts.Roles                 4         0
  contacts.RoleType           contacts.RoleTypes             4         5
- contenttypes.ContentType    gfks.ContentTypes              3         60
+ contenttypes.ContentType    gfks.ContentTypes              3         61
  countries.Country           countries.Countries            6         8
  countries.Place             countries.Places               8         78
  courses.Course              courses.Activities             29        0
@@ -116,7 +117,7 @@ Robin is the system administrator, he has a complete menu:
   - Accounting : Account Groups, Accounts, Journals, Accounting periods, Payment Terms
   - Office : Excerpt Types, My Text Field Templates
   - VAT : VAT rules, Paper types
-  - Calendar : Calendars, Rooms, Priorities, Recurrent event rules, Guest Roles, Calendar Event Types, Remote Calendars
+  - Calendar : Calendars, Rooms, Priorities, Recurrent event rules, Guest Roles, Calendar Event Types, Event Policies, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorer :
   - System : content types, Authorities, User types
@@ -155,7 +156,7 @@ Romain gets the same menu in French:
   - Comptabilité : Groupes de comptes, Comptes, Journals, Périodes comptables, Délais de paiement
   - Bureau : Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Types de papier
-  - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Remote Calendars
+  - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Event Policies, Remote Calendars
   - Activities : Topics, Timetable Slots
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur
@@ -194,7 +195,7 @@ Rolf gets the same menu in German:
   - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
   - Büro : Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln, Papierarten
-  - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Externe Kalender
+  - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Event Policies, Externe Kalender
   - Aktivitäten : Themen, Timetable Slots
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerarten
