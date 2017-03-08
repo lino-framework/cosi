@@ -195,7 +195,7 @@ Rolf gets the same menu in German:
   - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
   - Büro : Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln, Papierarten
-  - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Event Policies, Externe Kalender
+  - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Terminregeln, Externe Kalender
   - Aktivitäten : Themen, Timetable Slots
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerarten
