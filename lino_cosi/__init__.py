@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2015 Luc Saffre
+# Copyright 2013-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -33,4 +33,4 @@ exec(compile(open(fn, "rb").read(), fn, 'exec'))
 __version__ = SETUP_INFO['version']
 
 intersphinx_urls = dict(docs="http://cosi.lino-framework.org")
-srcref_url = 'https://github.com/lsaffre/lino-cosi/blob/master/%s'
+srcref_url = 'https://github.com/lino-framework/cosi/blob/master/%s'
