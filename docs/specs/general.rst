@@ -107,7 +107,6 @@ Robin is the system administrator, he has a complete menu:
 - Calendar : My appointments, Overdue appointments, Unconfirmed appointments, My tasks, My guests, My presences, My overdue appointments
 - Activities : Courses, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
 - Reports :
-  - System : Broken GFKs
   - Accounting : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
 - Configure :
@@ -146,7 +145,6 @@ Romain gets the same menu in French:
 - Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences, Mes rendez-vous dépassés
 - Activities : Cours, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
-  - Système : Broken GFKs
   - Comptabilité : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
 - Configuration :
@@ -185,7 +183,6 @@ Rolf gets the same menu in German:
 - Kalender : Meine Termine, Überfällige Termine, Unbestätigte Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten, Meine überfälligen Termine
 - Aktivitäten : Kurse, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
 - Berichte :
-  - System : Broken GFKs
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
   - MwSt. : Offene Rechnungen
 - Konfigurierung :
