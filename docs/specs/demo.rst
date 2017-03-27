@@ -48,7 +48,7 @@ The test database
 - cal.Priority : id, name, ref, name_fr, name_de
 - cal.RecurrentEvent : id, start_date, start_time, end_date, end_time, name, user, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, event_type, description, name_fr, name_de
 - cal.RemoteCalendar : id, seqno, type, url_template, username, password, readonly
-- cal.Room : id, name, name_fr, name_de
+- cal.Room : id, name, company, contact_person, contact_role, name_fr, name_de
 - cal.Subscription : id, user, calendar, is_hidden
 - cal.Task : id, modified, created, start_date, start_time, user, owner_type, owner_id, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
 - contacts.Company : id, email, language, url, phone, gsm, fax, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
@@ -62,7 +62,7 @@ The test database
 - countries.Place : id, parent, name, country, zip_code, type, name_fr, name_de
 - courses.Course : id, start_date, start_time, end_date, end_time, user, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, room, max_date, line, teacher, slot, description, remark, state, max_places, name, enrolments_until, description_fr, description_de
 - courses.Enrolment : id, start_date, end_date, user, printed_by, course_area, course, pupil, request_date, state, places, option, remark, confirmation_details
-- courses.Line : id, ref, name, excerpt_title, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template, description_fr, description_de, name_fr, name_de, excerpt_title_fr, excerpt_title_de
+- courses.Line : id, ref, name, company, contact_person, contact_role, excerpt_title, course_area, topic, description, every_unit, every, event_type, fee, guest_role, options_cat, fees_cat, body_template, description_fr, description_de, name_fr, name_de, excerpt_title_fr, excerpt_title_de
 - courses.Slot : id, seqno, start_time, end_time, name
 - courses.Topic : id, name, name_fr, name_de
 - excerpts.Excerpt : id, build_time, build_method, user, company, contact_person, contact_role, owner_type, owner_id, excerpt_type, language
