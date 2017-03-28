@@ -35,7 +35,7 @@ The database structure
  cal.Priority                cal.Priorities                 5         4
  cal.RecurrentEvent          cal.RecurrentEvents            21        15
  cal.RemoteCalendar          cal.RemoteCalendars            7         0
- cal.Room                    cal.Rooms                      4         0
+ cal.Room                    cal.Rooms                      7         0
  cal.Subscription            cal.Subscriptions              4         0
  cal.Task                    cal.Tasks                      17        0
  contacts.Company            contacts.Companies             27        22
@@ -49,7 +49,7 @@ The database structure
  countries.Place             countries.Places               8         78
  courses.Course              courses.Activities             29        0
  courses.Enrolment           courses.Enrolments             14        0
- courses.Line                courses.Lines                  21        0
+ courses.Line                courses.Lines                  24        0
  courses.Slot                courses.Slots                  5         0
  courses.Topic               courses.Topics                 4         0
  excerpts.Excerpt            excerpts.Excerpts              11        0
