@@ -35,7 +35,7 @@ The database structure
  cal.Priority                cal.Priorities                 5         4
  cal.RecurrentEvent          cal.RecurrentEvents            21        15
  cal.RemoteCalendar          cal.RemoteCalendars            7         0
- cal.Room                    cal.Rooms                      7         0
+ cal.Room                    cal.Rooms                      8         0
  cal.Subscription            cal.Subscriptions              4         0
  cal.Task                    cal.Tasks                      17        0
  contacts.Company            contacts.Companies             27        22
