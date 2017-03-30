@@ -48,7 +48,7 @@ The test database
 - cal.Priority : id, name, ref, name_fr, name_de
 - cal.RecurrentEvent : id, start_date, start_time, end_date, end_time, name, user, every_unit, every, monday, tuesday, wednesday, thursday, friday, saturday, sunday, max_events, event_type, description, name_fr, name_de
 - cal.RemoteCalendar : id, seqno, type, url_template, username, password, readonly
-- cal.Room : id, name, company, contact_person, contact_role, name_fr, name_de
+- cal.Room : id, name, company, contact_person, contact_role, description, name_fr, name_de
 - cal.Subscription : id, user, calendar, is_hidden
 - cal.Task : id, modified, created, start_date, start_time, user, owner_type, owner_id, summary, description, access_class, sequence, auto_type, due_date, due_time, percent, state
 - contacts.Company : id, email, language, url, phone, gsm, fax, country, city, zip_code, region, addr1, street_prefix, street, street_no, street_box, addr2, name, remarks, payment_term, vat_regime, invoice_recipient, paper_type, partner_ptr, prefix, type, vat_id
