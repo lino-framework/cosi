@@ -105,7 +105,7 @@ Robin is the system administrator, he has a complete menu:
   - Create invoices
 - Office : My Excerpts
 - Calendar : My appointments, Overdue appointments, Unconfirmed appointments, My tasks, My guests, My presences, My overdue appointments
-- Activities : Courses, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
+- Activities : My Activities, Activities, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
 - Reports :
   - Accounting : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
@@ -143,7 +143,7 @@ Romain gets the same menu in French:
   - Create invoices
 - Bureau : Mes Extraits
 - Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences, Mes rendez-vous dépassés
-- Activities : Cours, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
+- Activities : Mes Activities, Activities, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
   - Comptabilité : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
@@ -181,7 +181,7 @@ Rolf gets the same menu in German:
   - Rechnungen erstellen
 - Büro : Meine Auszüge
 - Kalender : Meine Termine, Überfällige Termine, Unbestätigte Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten, Meine überfälligen Termine
-- Aktivitäten : Kurse, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
+- Aktivitäten : Meine Aktivitäten, Aktivitäten, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
 - Berichte :
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
   - MwSt. : Offene Rechnungen
