@@ -105,7 +105,7 @@ Robin is the system administrator, he has a complete menu:
   - Create invoices
 - Office : My Excerpts
 - Calendar : My appointments, Overdue appointments, Unconfirmed appointments, My tasks, My guests, My presences, My overdue appointments
-- Activities : My Activities, Activities, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
+- Events : My Events, Events, -, Activity lines, Pending requested enrolments, Pending confirmed enrolments
 - Reports :
   - Accounting : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
@@ -116,8 +116,8 @@ Robin is the system administrator, he has a complete menu:
   - Accounting : Account Groups, Accounts, Journals, Accounting periods, Payment Terms
   - Office : Excerpt Types, My Text Field Templates
   - VAT : VAT rules, Paper types
-  - Calendar : Calendars, Rooms, Priorities, Recurrent event rules, Guest Roles, Calendar Event Types, Event Policies, Remote Calendars
-  - Activities : Topics, Timetable Slots
+  - Calendar : Calendars, Rooms, Priorities, Recurring events, Guest Roles, Calendar entry types, Recurrency policies, Remote Calendars
+  - Events : Topics, Timetable Slots
 - Explorer :
   - System : content types, Authorities, User types
   - Contacts : Contact Persons
@@ -127,7 +127,7 @@ Robin is the system administrator, he has a complete menu:
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
   - Calendar : Calendar entries, Tasks, Presences, Subscriptions, Event states, Guest states, Task states
-  - Activities : Activities, Enrolments, Enrolment states
+  - Events : Events, Enrolments, Enrolment states
 - Site : About
 
 Romain gets the same menu in French:
@@ -143,7 +143,7 @@ Romain gets the same menu in French:
   - Create invoices
 - Bureau : Mes Extraits
 - Calendrier : Mes rendez-vous, Rendez-vous dépassés, Rendez-vous à confirmer, Mes tâches, Mes visiteurs, Mes présences, Mes rendez-vous dépassés
-- Activities : Mes Activities, Activities, -, Activity lines, Demandes d’inscription en attente, Demandes d’inscription confirmées
+- Évènements : Mes Évènements, Évènements, -, Séries d'ateliers, Demandes d’inscription en attente, Demandes d’inscription confirmées
 - Rapports :
   - Comptabilité : Situation, Activity Report, Debtors, Creditors
   - VAT : Due invoices
@@ -154,8 +154,8 @@ Romain gets the same menu in French:
   - Comptabilité : Groupes de comptes, Comptes, Journals, Périodes comptables, Délais de paiement
   - Bureau : Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Types de papier
-  - Calendrier : Calendriers, Locaux, Priorités, Règles d'évènements récurrents, Rôles de participants, Types d'entrée calendrier, Event Policies, Remote Calendars
-  - Activities : Topics, Timetable Slots
+  - Calendrier : Calendriers, Locaux, Priorités, Évènements periodiques, Rôles de participants, Types d'entrée calendrier, Règles de récurrence, Calendriers externes
+  - Évènements : Topics, Timetable Slots
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur
   - Contacts : Personnes de contact
@@ -165,7 +165,7 @@ Romain gets the same menu in French:
   - VAT : VAT regimes, VAT Classes, Product invoices, Product invoice items, Invoicing plans
   - Financial : Bank Statements, Journal Entries, Payment Orders
   - Calendrier : Entrées calendrier, Tâches, Présences, Abonnements, Event states, Guest states, Task states
-  - Activities : Activities, Inscriptions, États d'inscription
+  - Évènements : Évènements, Inscriptions, États d'inscription
 - Site : à propos
 
 Rolf gets the same menu in German:
@@ -181,7 +181,7 @@ Rolf gets the same menu in German:
   - Rechnungen erstellen
 - Büro : Meine Auszüge
 - Kalender : Meine Termine, Überfällige Termine, Unbestätigte Termine, Meine Aufgaben, Meine Gäste, Meine Anwesenheiten, Meine überfälligen Termine
-- Aktivitäten : Meine Aktivitäten, Aktivitäten, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
+- Veranstaltungen : Meine Veranstaltungen, Veranstaltungen, -, Aktivitätenreihen, Offene Einschreibungsanfragen, Auszustellende Teilnahmebescheinigungen
 - Berichte :
   - Buchhaltung : Situation, Tätigkeitsbericht, Schuldner, Gläubiger
   - MwSt. : Offene Rechnungen
@@ -192,8 +192,8 @@ Rolf gets the same menu in German:
   - Buchhaltung : Kontengruppen, Konten, Journale, Buchungsperioden, Zahlungsbedingungen
   - Büro : Auszugsarten, Meine Einfügetexte
   - MwSt. : MwSt-Regeln, Papierarten
-  - Kalender : Kalenderliste, Räume, Prioritäten, Periodische Terminregeln, Gastrollen, Kalendereintragsarten, Terminregeln, Externe Kalender
-  - Aktivitäten : Themen, Timetable Slots
+  - Kalender : Kalenderliste, Räume, Prioritäten, Regelmäßige Ereignisse, Gastrollen, Kalendereintragsarten, Wiederholungsregeln, Externe Kalender
+  - Veranstaltungen : Themen, Timetable Slots
 - Explorer :
   - System : Datenbankmodelle, Vollmachten, Benutzerarten
   - Kontakte : Kontaktpersonen
@@ -203,5 +203,5 @@ Rolf gets the same menu in German:
   - MwSt. : MwSt.-Regimes, MwSt.-Klassen, Produktrechnungen, Produktrechnungszeilen, Fakturationspläne
   - Finanzjournale : Kontoauszüge, Diverse Buchungen, Zahlungsaufträge
   - Kalender : Kalendereinträge, Aufgaben, Anwesenheiten, Abonnements, Termin-Zustände, Gast-Zustände, Aufgaben-Zustände
-  - Aktivitäten : Aktivitäten, Einschreibungen, Einschreibungs-Zustände
+  - Veranstaltungen : Veranstaltungen, Einschreibungen, Einschreibungs-Zustände
 - Site : Info
