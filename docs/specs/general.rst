@@ -154,7 +154,7 @@ Romain gets the same menu in French:
   - Comptabilité : Groupes de comptes, Comptes, Journals, Périodes comptables, Délais de paiement
   - Bureau : Types d'extrait, Mes Text Field Templates
   - VAT : VAT rules, Types de papier
-  - Calendrier : Calendriers, Locaux, Priorités, Évènements periodiques, Rôles de participants, Calendar entry types, Règles de récurrence, Remote Calendars
+  - Calendrier : Calendriers, Locaux, Priorités, Évènements periodiques, Rôles de participants, Types d'entrée calendrier, Règles de récurrence, Calendriers externes
   - Évènements : Topics, Timetable Slots
 - Explorateur :
   - Système : types de contenu, Procurations, Types d'utilisateur
