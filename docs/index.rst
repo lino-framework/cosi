@@ -1,5 +1,3 @@
-.. _cosi:
-
 ===========
 Lino Così
 ===========
@@ -19,8 +17,6 @@ Content
    :maxdepth: 1
 
    tour/index
-   specs/index
    install/index
-   API <api/index>
    changes
    name

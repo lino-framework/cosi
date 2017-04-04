@@ -21,7 +21,6 @@
    :toctree:
 
     lib
-    projects
     migrate
 
 """

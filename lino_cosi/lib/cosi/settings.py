@@ -81,7 +81,7 @@ class Site(Site):
         yield 'lino_xl.lib.vat'
         # yield 'lino_cosi.lib.declarations'
         yield 'lino_xl.lib.finan'
-        yield 'lino_xl.lib.sales'  # automatically added by courses
+        yield 'lino_xl.lib.sales'
         yield 'lino_xl.lib.invoicing'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
@@ -127,13 +127,13 @@ class Site(Site):
         """)
 
 
-class DocsSite(Site):
-    """A special variant used to build the docs.
-    """
-    def get_installed_apps(self):
-        yield super(DocsSite, self).get_installed_apps()
-        yield 'lino_xl.lib.courses'  # needed for Sphinx autosummary
-        yield 'lino_xl.lib.vatless'
+# class DocsSite(Site):
+#     """A special variant used to build the docs.
+#     """
+#     def get_installed_apps(self):
+#         yield super(DocsSite, self).get_installed_apps()
+#         yield 'lino_xl.lib.courses'  # needed for Sphinx autosummary
+#         yield 'lino_xl.lib.vatless'
 
     # def get_apps_modifiers(self, **kw):
     #     kw = super(DocsSite, self).get_apps_modifiers(**kw)
