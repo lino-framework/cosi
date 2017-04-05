@@ -19,50 +19,7 @@
 
 """Febelfin Bank Transaction Code designations.
 
-Defines a utility function :func:`code2desc` which returns the
-designation of a *bank transaction code*, as specified by the `XML
-message for statement Implementation guidelines
-<https://www.febelfin.be/sites/default/files/files/Standard-XML-Statement-v1-en_0.pdf>`_
-of the Belgian Federation of Financial Sector.
-
-This function is being used by the :attr:`txcd_text
-<lino_cosi.lib.b2c.models.Movement.txcd_text>` field of an imported
-movement.
-
-Usage examples:
-
-Translation works only when a :setting:`DJANGO_SETTINGS_MODULE` is
-defined:
-
->>> from django.utils import translation
->>> from lino import startup
->>> startup('lino_cosi.projects.std.settings.demo')
-
->>> with translation.override('en'):
-...     print(code2desc('0103'))
-Standing order
-
->>> with translation.override('fr'):
-...     print(code2desc('0103'))
-Ordre permanent
-
->>> with translation.override('en'):
-...     print(code2desc('0150'))
-Transfer in your favour
-
->>> with translation.override('fr'):
-...     print(code2desc('0150'))
-Virement en votre faveur
-
->>> with translation.override('en'):
-...     print(code2desc('8033'))
-Miscellaneous fees and commissions
-
-
-Did you know that there are 274 different Febelfin bank transaction codes?
-
->>> len(DESCRIPTIONS)
-274
+See :doc:`/specs/cosi/b2c`.
 
 
 """

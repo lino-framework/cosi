@@ -28,19 +28,8 @@ class CodeTests(TestCase):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
 
-class DocsTests(BaseTestCase):
-    # def test_cosi(self):
-    #     return self.run_docs_doctests('tested/cosi.rst')
+# class DemoTests(TestCase):
 
-    def test_demo(self):
-        self.run_simple_doctests('docs/specs/demo.rst')
-
-    def test_general(self):
-        return self.run_simple_doctests('docs/specs/general.rst')
-
-
-class DemoTests(TestCase):
-
-    def test_std(self):
-        self.run_django_manage_test('lino_cosi/projects/std')
+#     def test_std(self):
+#         self.run_django_manage_test('lino_cosi/projects/std')
 
