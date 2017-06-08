@@ -36,7 +36,7 @@ class Plugin(ad.Plugin):
 
     verbose_name = _("Delivery")
 
-    def setup_config_menu(self, site, profile, m):
+    def setup_config_menu(self, site, user_type, m):
         m = m.add_menu("sales", self.verbose_name)
         # m.add_action('sales.InvoicingModes')
         m.add_action('delivery.ShippingModes')

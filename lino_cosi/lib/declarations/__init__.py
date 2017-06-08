@@ -23,7 +23,7 @@ from lino import ad
 class Plugin(ad.Plugin):
     "See :class:`lino.core.plugin.Plugin`."
 
-    def setup_explorer_menu(self, site, profile, m):
+    def setup_explorer_menu(self, site, user_type, m):
         m = m.add_menu("vat", site.plugins.vat.verbose_name)
         m.add_action('declarations.Declarations')
 

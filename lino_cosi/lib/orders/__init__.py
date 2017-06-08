@@ -9,11 +9,11 @@ class Plugin(ad.Plugin):
 
     verbose_name = _("Orders")
 
-    def setup_main_menu(config, site, profile, m):
+    def setup_main_menu(config, site, user_type, m):
         m = m.add_menu(vat.TradeTypes.sales.name, vat.TradeTypes.sales.text)
         m.add_action(Orders)
 
-    def setup_config_menu(config, site, profile, m):
+    def setup_config_menu(config, site, user_type, m):
         m = m.add_menu("sales", MODULE_LABEL)
         m.add_action(InvoicingModes)
         m.add_action(ShippingModes)
