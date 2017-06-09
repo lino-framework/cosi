@@ -59,14 +59,14 @@ class ImportStatements(dd.Action):
     http_method = 'POST'
     select_rows = False
 
-    def get_view_permission(self, profile):
+    def get_view_permission(self, user_type):
         """Make it invisible when :attr:`import_statements_path
         <lino_cosi.lib.b2c.Plugin.import_statements_path>` is empty.
 
         """
         if not dd.plugins.b2c.import_statements_path:
             return False
-        return super(ImportStatements, self).get_view_permission(profile)
+        return super(ImportStatements, self).get_view_permission(user_type)
 
     def run_from_ui(self, ar):
         pth = dd.plugins.b2c.import_statements_path

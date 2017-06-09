@@ -18,12 +18,12 @@
 
 
 """Defines a default set of user types and fills
-:class:`lino.modlib.users.choicelists.UserTypes`.
+:class:`lino.modlib.auth.choicelists.UserTypes`.
 
 """
 
 from lino.api import _
-from lino.modlib.users.choicelists import UserTypes
+from lino.modlib.auth.choicelists import UserTypes
 from lino.core.roles import UserRole, SiteAdmin
 from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
 from lino_xl.lib.contacts.roles import ContactsUser, ContactsStaff

@@ -94,12 +94,12 @@ class Plugin(ad.Plugin):
 
     """
 
-    def setup_main_menu(self, site, profile, m):
+    def setup_main_menu(self, site, user_type, m):
         mg = site.plugins.accounts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('system.SiteConfig', 'import_b2c')
 
-    def setup_explorer_menu(self, site, profile, m):
+    def setup_explorer_menu(self, site, user_type, m):
         mg = site.plugins.sepa
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('b2c.Accounts')
