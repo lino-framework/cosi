@@ -19,7 +19,7 @@ provide an additional means of identification of the account.
 Usage: The account name is different from the
 owner_name. The account name is used in certain user
 communities to provide a means of identifying the account, in
-addition to the account owner’s identity and the account
+addition to the account owner's identity and the account
 number."""),
     'lino_cosi.lib.b2c.models.Account.owner_name' : _("""Name by which a party is known and which is usually used to
 identify that party."""),
@@ -28,12 +28,12 @@ identify that party."""),
 the bank."""),
     'lino_cosi.lib.b2c.models.Transaction' : _("""A transaction within a bank statement."""),
     'lino_cosi.lib.b2c.models.Transaction.transfer_type' : _("""The actual historic name of the txcd."""),
-    'lino_cosi.lib.b2c.models.Transaction.txcd' : _("""The Bank Transaction Code (<BkTxCd>) or “transfer type”.
-Actually it is the “proprietary” part of this code."""),
+    'lino_cosi.lib.b2c.models.Transaction.txcd' : _("""The Bank Transaction Code (<BkTxCd>) or "transfer type".
+Actually it is the "proprietary" part of this code."""),
     'lino_cosi.lib.b2c.models.Transaction.txcd_issuer' : _("""The issuer or the txcd."""),
     'lino_cosi.lib.b2c.models.Transaction.txcd_text' : _("""Virtual field with the textual translated description of the
 txcd.  Currently this works only for Belgian codes
-where txcd_issuer is “BBA” as defined in
+where txcd_issuer is "BBA" as defined in
 lino_cosi.lib.b2c.febelfin)."""),
     'lino_cosi.lib.contacts.models.Partner' : _("""An version of lino_xl.lib.contacts.models.Partner which
 adds accounting fucntionality."""),
