@@ -26,6 +26,11 @@ identify that party."""),
     'lino_cosi.lib.b2c.models.Statement' : _("""A bank statement."""),
     'lino_cosi.lib.b2c.models.Statement.sequence_number' : _("""The legal sequential number of the statement, as assigned by
 the bank."""),
+    'lino_cosi.lib.b2c.models.Statement.end_date' : _("""Note that year can differ between start_date and end_date for
+the first statement of every year."""),
+    'lino_cosi.lib.b2c.models.Statement.unique_id' : _("""A virtual field of the form YYYY/NNNN where YYYY is taken
+from the end_date and NNNN is taken from
+electronic_sequence_number."""),
     'lino_cosi.lib.b2c.models.Transaction' : _("""A transaction within a bank statement."""),
     'lino_cosi.lib.b2c.models.Transaction.transfer_type' : _("""The actual historic name of the txcd."""),
     'lino_cosi.lib.b2c.models.Transaction.txcd' : _("""The Bank Transaction Code (<BkTxCd>) or "transfer type".
