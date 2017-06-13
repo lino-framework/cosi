@@ -111,10 +111,13 @@ class BankStatement(object):
     @property
     def unique_id(self):
         year = self.end_date.year
-        if self.start_date.year != year:
-            raise Exception(
-                "%s starts %s and ends %s (different years)" % (
-                    self, self.start_date, self.end_date))
+        if False:
+            # disabled 20170612 because this is allowed and even
+            # normal for the first statement of every year.
+            if self.start_date.year != year:
+                raise Exception(
+                    "%s starts %s and ends %s (different years)" % (
+                        self, self.start_date, self.end_date))
         num = self.electronic_sequence_number
         if num is None:
             raise Exception(

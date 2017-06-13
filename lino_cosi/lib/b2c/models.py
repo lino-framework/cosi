@@ -304,6 +304,20 @@ class Statement(dd.Model):
         <https://www.iso20022.org/standardsrepository/public/wqt/Content/mx/camt.053.001.02#mx/camt.053.001.02/Statement/LegalSequenceNumber>`_
         (`<LglSeqNb>`) for details.
 
+    .. attribute:: start_date
+    .. attribute:: end_date
+
+        Note that year can differ between start_date and end_date for
+        the first statement of every year.
+
+    .. attribute:: unique_id
+
+        A virtual field of the form `YYYY/NNNN` where YYYY is taken
+        from the :attr:`end_date` and NNNN is taken from
+        :attr:`electronic_sequence_number`.
+
+    .. attribute:: electronic_sequence_number
+
     """
 
     class Meta:
