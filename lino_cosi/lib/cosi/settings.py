@@ -40,8 +40,8 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    demo_fixtures = 'std few_countries euvatrates furniture \
-    minimal_ledger demo demo_bookings payments demo2'.split()
+    demo_fixtures = 'std few_countries minimal_ledger euvatrates \
+    furniture demo demo_bookings payments demo2'.split()
 
     # languages = 'en de fr'
     languages = 'en'
@@ -79,10 +79,10 @@ class Site(Site):
 
         # yield 'lino.modlib.ledger'
         yield 'lino_xl.lib.vat'
-        # yield 'lino_cosi.lib.declarations'
         yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.sales'
         yield 'lino_xl.lib.invoicing'
+        yield 'lino_xl.lib.declarations'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
         #~ yield 'lino_xl.lib.blogs'
@@ -116,8 +116,8 @@ class Site(Site):
         self.modules.system.SiteConfigs.set_detail_layout("""
         site_company next_partner_id:10
         default_build_method
-        clients_account   sales_account     sales_vat_account
-        suppliers_account purchases_account purchases_vat_account
+        clients_account   sales_account
+        suppliers_account purchases_account
         """)
 
         self.modules.accounts.Accounts.set_detail_layout("""
