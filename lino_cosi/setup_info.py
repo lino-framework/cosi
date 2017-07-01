@@ -73,7 +73,6 @@ SETUP_INFO.update(packages=[
     'lino_cosi',
     'lino_cosi.lib',
     'lino_cosi.lib.cosi',
-    'lino_cosi.lib.declarations',
     'lino_cosi.lib.b2c',
     'lino_cosi.lib.b2c.fixtures',
     'lino_cosi.lib.contacts',
