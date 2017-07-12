@@ -82,7 +82,7 @@ class Site(Site):
         yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.sales'
         yield 'lino_xl.lib.invoicing'
-        yield 'lino_xl.lib.declarations'
+        yield 'lino_xl.lib.bevat'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
         #~ yield 'lino_xl.lib.blogs'
