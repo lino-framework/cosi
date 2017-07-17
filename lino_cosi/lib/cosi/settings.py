@@ -113,14 +113,14 @@ class Site(Site):
     def setup_layouts(self):
         super(Site, self).setup_layouts()
 
-        self.modules.system.SiteConfigs.set_detail_layout("""
+        self.models.system.SiteConfigs.set_detail_layout("""
         site_company next_partner_id:10
         default_build_method
         clients_account   sales_account
-        suppliers_account purchases_account
+        suppliers_account purchases_account tax_offices_account
         """)
 
-        self.modules.accounts.Accounts.set_detail_layout("""
+        self.models.accounts.Accounts.set_detail_layout("""
         ref:10 name id:5
         seqno group type clearable
         ledger.MovementsByAccount
