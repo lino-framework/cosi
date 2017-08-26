@@ -21,9 +21,6 @@ class BaseTestCase(TestCase):
 
 class CodeTests(TestCase):
 
-    def test_febelfin(self):
-        self.run_simple_doctests('lino_cosi/lib/b2c/febelfin.py')
-
     def test_packages(self):
         self.run_packages_test(lino_cosi.SETUP_INFO['packages'])
 
