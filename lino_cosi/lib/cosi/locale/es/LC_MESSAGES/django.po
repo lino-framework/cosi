@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino 1.6.14\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-05-09 08:49+0300\n"
+"POT-Creation-Date: 2017-08-25 20:28+0300\n"
 "PO-Revision-Date: 2014-06-06 11:29+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.4.0\n"
 
 #: lino_cosi/lib/b2c/__init__.py:72
 msgid "SEPA import"
@@ -855,11 +855,11 @@ msgstr ""
 msgid "Imported bank accounts"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:267 lino_cosi/lib/b2c/models.py:399
+#: lino_cosi/lib/b2c/models.py:267 lino_cosi/lib/b2c/models.py:413
 msgid "IBAN"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:268 lino_cosi/lib/b2c/models.py:400
+#: lino_cosi/lib/b2c/models.py:268 lino_cosi/lib/b2c/models.py:414
 msgid "BIC"
 msgstr ""
 
@@ -879,121 +879,121 @@ msgstr ""
 msgid "Partners"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:312
+#: lino_cosi/lib/b2c/models.py:326
 msgid "Statement"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:313
+#: lino_cosi/lib/b2c/models.py:327
 msgid "Statements"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:320
+#: lino_cosi/lib/b2c/models.py:334
 msgid "Statement number"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:321
+#: lino_cosi/lib/b2c/models.py:335
 msgid ""
 "Combination of the year and the legal sequential number of the paper "
 "statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:324
+#: lino_cosi/lib/b2c/models.py:338
 msgid "Start date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:325
+#: lino_cosi/lib/b2c/models.py:339
 msgid "End date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:327
+#: lino_cosi/lib/b2c/models.py:341
 msgid "Initial amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:328
+#: lino_cosi/lib/b2c/models.py:342
 msgid "Final amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:330
+#: lino_cosi/lib/b2c/models.py:344
 msgid "Currency"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:387
+#: lino_cosi/lib/b2c/models.py:401
 msgid "Transaction"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:388
+#: lino_cosi/lib/b2c/models.py:402
 msgid "Transactions"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:391
+#: lino_cosi/lib/b2c/models.py:405
 msgid "No."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:392
+#: lino_cosi/lib/b2c/models.py:406
 msgid "The sequence number of this transaction in the statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:396
+#: lino_cosi/lib/b2c/models.py:410
 msgid "Amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:402 lino_cosi/lib/b2c/models.py:429
+#: lino_cosi/lib/b2c/models.py:416 lino_cosi/lib/b2c/models.py:443
 msgid "Message"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:403
+#: lino_cosi/lib/b2c/models.py:417
 msgid "End to end reference"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:404
+#: lino_cosi/lib/b2c/models.py:418
 msgid "Remote owner"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:406
+#: lino_cosi/lib/b2c/models.py:420
 msgid "Remote owner adress"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:407
+#: lino_cosi/lib/b2c/models.py:421
 msgid "Remote owner city"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:408
+#: lino_cosi/lib/b2c/models.py:422
 msgid "Remote owner postal code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:409
+#: lino_cosi/lib/b2c/models.py:423
 msgid "Remote owner country code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:410
+#: lino_cosi/lib/b2c/models.py:424
 msgid "Transfer type"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:411
+#: lino_cosi/lib/b2c/models.py:425
 msgid "TxCd issuer"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:412
+#: lino_cosi/lib/b2c/models.py:426
 msgid "Execution date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:413 lino_cosi/lib/b2c/models.py:442
+#: lino_cosi/lib/b2c/models.py:427 lino_cosi/lib/b2c/models.py:456
 msgid "Value date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:415
+#: lino_cosi/lib/b2c/models.py:429
 msgid "Remote account"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:439
+#: lino_cosi/lib/b2c/models.py:453
 msgid "eref:"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:443
+#: lino_cosi/lib/b2c/models.py:457
 msgid "Booking date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:447
+#: lino_cosi/lib/b2c/models.py:461
 msgid "BkTxCd"
 msgstr ""
 
@@ -1017,44 +1017,44 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:6 lino_cosi/lib/cosi/help_texts.py:44
-#: lino_cosi/lib/cosi/help_texts.py:47
+#: lino_cosi/lib/cosi/help_texts.py:7 lino_cosi/lib/cosi/help_texts.py:50
+#: lino_cosi/lib/cosi/help_texts.py:53
 msgid "See lino.core.plugin.Plugin."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:7
+#: lino_cosi/lib/cosi/help_texts.py:8
 msgid "A path wildcard pointing to xml files which need to get imported."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:8
+#: lino_cosi/lib/cosi/help_texts.py:9
 msgid ""
 "This attribute define whether, Cosi have to delete the SEPA file\n"
 "after it get imported."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:10
+#: lino_cosi/lib/cosi/help_texts.py:11
 msgid "Single transaction that is part of a bank statement."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:11
+#: lino_cosi/lib/cosi/help_texts.py:12
 msgid "A bank statement groups data about several bank transactions."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:12
+#: lino_cosi/lib/cosi/help_texts.py:13
 msgid "Parser for camt bank statement import files."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:13
+#: lino_cosi/lib/cosi/help_texts.py:14
 msgid ""
 "Import the .xml files found in the directory specified at\n"
 "import_statements_path."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:15
+#: lino_cosi/lib/cosi/help_texts.py:16
 msgid "A bank account related to a given Partner."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:16
+#: lino_cosi/lib/cosi/help_texts.py:17
 msgid ""
 "Name of the account, as assigned by the account servicing\n"
 "institution, in agreement with the account owner in order to\n"
@@ -1066,41 +1066,54 @@ msgid ""
 "number."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:24
+#: lino_cosi/lib/cosi/help_texts.py:25
 msgid ""
 "Name by which a party is known and which is usually used to\n"
 "identify that party."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:26
+#: lino_cosi/lib/cosi/help_texts.py:27
 msgid "A bank statement."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:27
+#: lino_cosi/lib/cosi/help_texts.py:28
 msgid ""
 "The legal sequential number of the statement, as assigned by\n"
 "the bank."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:29
+#: lino_cosi/lib/cosi/help_texts.py:30
+msgid ""
+"Note that year can differ between start_date and end_date for\n"
+"the first statement of every year."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:32
+msgid ""
+"A virtual field of the form YYYY/NNNN where YYYY is taken\n"
+"from the end_date and NNNN is taken from\n"
+"electronic_sequence_number."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:35
 msgid "A transaction within a bank statement."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:30
+#: lino_cosi/lib/cosi/help_texts.py:36
 msgid "The actual historic name of the txcd."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:31
+#: lino_cosi/lib/cosi/help_texts.py:37
 msgid ""
 "The Bank Transaction Code (<BkTxCd>) or \"transfer type\".\n"
 "Actually it is the \"proprietary\" part of this code."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:33
+#: lino_cosi/lib/cosi/help_texts.py:39
 msgid "The issuer or the txcd."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:34
+#: lino_cosi/lib/cosi/help_texts.py:40
 msgid ""
 "Virtual field with the textual translated description of the\n"
 "txcd.  Currently this works only for Belgian codes\n"
@@ -1108,25 +1121,25 @@ msgid ""
 "lino_cosi.lib.b2c.febelfin)."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:38
+#: lino_cosi/lib/cosi/help_texts.py:44
 msgid ""
 "An version of lino_xl.lib.contacts.models.Partner which\n"
 "adds accounting fucntionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:40
+#: lino_cosi/lib/cosi/help_texts.py:46
 msgid ""
 "An version of lino_xl.lib.contacts.models.Person which\n"
 "adds accounting fucntionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:42
+#: lino_cosi/lib/cosi/help_texts.py:48
 msgid ""
 "An version of lino_xl.lib.contacts.models.Company which\n"
 "adds accounting fucntionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:45
+#: lino_cosi/lib/cosi/help_texts.py:51
 msgid ""
 "Represents a possible method of how the items described in a\n"
 "SalesDocument are to be transferred from us to our customer."
@@ -1142,114 +1155,6 @@ msgstr ""
 
 #: lino_cosi/lib/cosi/user_types.py:52
 msgid "Administrator"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:86
-msgid "Sales base"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:87
-msgid "Sales VAT"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:88
-msgid "Purchases base"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:89
-msgid "Purchases VAT"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:92
-msgid "Investments"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:93
-msgid "Ware"
-msgstr ""
-
-#: lino_cosi/lib/declarations/be.py:94
-msgid "Services"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:65
-msgid "VAT Period"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:66
-msgid "VAT Periods"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:88
-msgid "First Quarter (January-March)"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:89
-msgid "Second Quarter (April-June)"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:90
-msgid "Third Quarter (July-August)"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:91
-msgid "Fourth Quarter (September-December)"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:95
-msgid "January"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:96
-msgid "February"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:97
-msgid "March"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:98
-msgid "April"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:99
-msgid "May"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:100
-msgid "June"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:101
-msgid "July"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:102
-msgid "August"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:103
-msgid "September"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:104
-msgid "October"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:105
-msgid "November"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:106
-msgid "December"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:147
-msgid "VAT declaration"
-msgstr ""
-
-#: lino_cosi/lib/declarations/models.py:148
-msgid "VAT declarations"
 msgstr ""
 
 #: lino_cosi/lib/delivery/__init__.py:37
@@ -7293,5 +7198,86 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "A special variant used to build the docs."
+#~ msgstr ""
+
+#~ msgid "Sales base"
+#~ msgstr ""
+
+#~ msgid "Sales VAT"
+#~ msgstr ""
+
+#~ msgid "Purchases base"
+#~ msgstr ""
+
+#~ msgid "Purchases VAT"
+#~ msgstr ""
+
+#~ msgid "Investments"
+#~ msgstr ""
+
+#~ msgid "Ware"
+#~ msgstr ""
+
+#~ msgid "Services"
+#~ msgstr ""
+
+#~ msgid "VAT Period"
+#~ msgstr ""
+
+#~ msgid "VAT Periods"
+#~ msgstr ""
+
+#~ msgid "First Quarter (January-March)"
+#~ msgstr ""
+
+#~ msgid "Second Quarter (April-June)"
+#~ msgstr ""
+
+#~ msgid "Third Quarter (July-August)"
+#~ msgstr ""
+
+#~ msgid "Fourth Quarter (September-December)"
+#~ msgstr ""
+
+#~ msgid "January"
+#~ msgstr ""
+
+#~ msgid "February"
+#~ msgstr ""
+
+#~ msgid "March"
+#~ msgstr ""
+
+#~ msgid "April"
+#~ msgstr ""
+
+#~ msgid "May"
+#~ msgstr ""
+
+#~ msgid "June"
+#~ msgstr ""
+
+#~ msgid "July"
+#~ msgstr ""
+
+#~ msgid "August"
+#~ msgstr ""
+
+#~ msgid "September"
+#~ msgstr ""
+
+#~ msgid "October"
+#~ msgstr ""
+
+#~ msgid "November"
+#~ msgstr ""
+
+#~ msgid "December"
+#~ msgstr ""
+
+#~ msgid "VAT declaration"
+#~ msgstr ""
+
+#~ msgid "VAT declarations"
 #~ msgstr ""
 
