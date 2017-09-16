@@ -160,7 +160,7 @@ class ImportStatements(dd.Action):
                 failed_statements += 1
                 continue
 
-            last_transaction = None
+            last_transaction = ''
             for mvmt in stmt.transactions:
                 last_transaction = max(last_transaction, mvmt.value_date)
                 key = dict(statement=s, seqno=mvmt.seqno)
