@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2016 Luc Saffre
+# Copyright 2014-2017 Luc Saffre
 # This file is part of Lino Cosi.
 #
 # Lino Cosi is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 SETUP_INFO = dict(
     name='lino-cosi',
     # version='0.0.4',
-    version='2016.12.0',
+    version='17.10.0',
     install_requires=['lino-xl','django-iban', 'lxml'],
     tests_require=['beautifulsoup4',],
     test_suite='tests',
@@ -59,14 +59,15 @@ sophisticated applications** like `Lino Welfare
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 2
+Programming Language :: Python :: 3
 Development Status :: 1 - Planning
 Environment :: Web Environment
-Framework :: Django
+Framework :: Django :: 1.11
 Intended Audience :: Developers
 Intended Audience :: System Administrators
 License :: OSI Approved :: GNU Affero General Public License v3
 Operating System :: OS Independent
-Topic :: Office/Business :: Scheduling
+Topic :: Office/Business :: Financial :: Accounting
 """.splitlines())
 
 SETUP_INFO.update(packages=[
