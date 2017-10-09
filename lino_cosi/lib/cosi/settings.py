@@ -40,7 +40,9 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    demo_fixtures = 'std few_countries minimal_ledger euvatrates \
+    # demo_fixtures = 'std few_countries minimal_ledger euvatrates \
+    # furniture demo demo_bookings payments demo2'.split()
+    demo_fixtures = 'std few_countries minimal_ledger \
     furniture demo demo_bookings payments demo2'.split()
 
     # languages = 'en de fr'
@@ -60,10 +62,10 @@ class Site(Site):
         yield 'lino.modlib.users'
         yield 'lino_xl.lib.countries'
         yield 'lino_cosi.lib.contacts'
+        yield 'lino_xl.lib.sepa'
         #~ yield 'lino_xl.lib.households'
         yield 'lino_xl.lib.products'
         yield 'lino_xl.lib.accounts'
-        yield 'lino_xl.lib.sepa'
 
         yield 'lino_xl.lib.excerpts'
 

@@ -48,7 +48,5 @@ ledger.MovementsByAccount
 rt.models.system.SiteConfigs.detail_layout = """
 site_company next_partner_id:10
 default_build_method simulate_today
-clients_account   sales_account
-suppliers_account purchases_account tax_offices_account
 """
 
