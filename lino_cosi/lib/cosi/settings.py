@@ -40,7 +40,9 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    demo_fixtures = 'std few_countries minimal_ledger euvatrates \
+    # demo_fixtures = 'std few_countries minimal_ledger euvatrates \
+    # furniture demo demo_bookings payments demo2'.split()
+    demo_fixtures = 'std few_countries minimal_ledger \
     furniture demo demo_bookings payments demo2'.split()
 
     # languages = 'en de fr'
@@ -49,7 +51,7 @@ class Site(Site):
     user_types_module = 'lino_cosi.lib.cosi.user_types'
     custom_layouts_module = 'lino_cosi.lib.cosi.layouts'
 
-    default_build_method = 'wkhtmltopdf'
+    # default_build_method = 'wkhtmltopdf'
 
     # textfield_format = 'html'
 
@@ -60,10 +62,10 @@ class Site(Site):
         yield 'lino.modlib.users'
         yield 'lino_xl.lib.countries'
         yield 'lino_cosi.lib.contacts'
+        yield 'lino_xl.lib.sepa'
         #~ yield 'lino_xl.lib.households'
         yield 'lino_xl.lib.products'
         yield 'lino_xl.lib.accounts'
-        yield 'lino_xl.lib.sepa'
 
         yield 'lino_xl.lib.excerpts'
 
@@ -110,21 +112,21 @@ class Site(Site):
         for m in (partners.Person, partners.Organisation):
             m.define_action(merge_row=MergeAction(m))
 
-    def setup_layouts(self):
-        super(Site, self).setup_layouts()
+    # def setup_layouts(self):
+    #     super(Site, self).setup_layouts()
 
-        self.models.system.SiteConfigs.set_detail_layout("""
-        site_company next_partner_id:10
-        default_build_method
-        clients_account   sales_account
-        suppliers_account purchases_account tax_offices_account
-        """)
+    #     self.models.system.SiteConfigs.set_detail_layout("""
+    #     site_company next_partner_id:10
+    #     default_build_method
+    #     clients_account   sales_account
+    #     suppliers_account purchases_account tax_offices_account
+    #     """)
 
-        self.models.accounts.Accounts.set_detail_layout("""
-        ref:10 name id:5
-        seqno group type clearable
-        ledger.MovementsByAccount
-        """)
+    #     self.models.accounts.Accounts.set_detail_layout("""
+    #     ref:10 name id:5
+    #     seqno group type clearable
+    #     ledger.MovementsByAccount
+    #     """)
 
 
 # class DocsSite(Site):
