@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2015 Luc Saffre
+# Copyright 2015-2017 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """Import a fictive B2C XML file.
@@ -23,13 +23,13 @@ def objects():
     settings.SITE.site_config.import_b2c(ses)
 
     # That file contains a few dozen of accounts which are now
-    # "orphaned".  We are now going to assign theses accounts to a
+    # "orphaned".  We are now going to assign these accounts to a
     # random partner TODO: find a more realistic rule for selecting
     # the candidates. The filter might be a plugin attribute.
 
     IA = rt.modules.b2c.Account
     SA = rt.modules.sepa.Account
-    PARTNERS = Cycler(rt.modules.contacts.Partner.objects.all())
+    PARTNERS = Cycler(rt.models.contacts.Partner.objects.all())
 
     count = 0
     for ia in IA.objects.all():
@@ -40,6 +40,6 @@ def objects():
             count += 1
     if count == 0:
         dd.logger.info(
-            "%d statements", rt.modules.b2c.Statement.objects.count())
+            "%d statements", rt.models.b2c.Statement.objects.count())
         raise Exception(
             "There's something wrong: no accounts have been imported")
