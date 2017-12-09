@@ -91,12 +91,12 @@ class Site(Site):
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
 
-    def setup_actions(self):
-        super(Site, self).setup_actions()
-        partners = self.modules.contacts
-        from lino.core.merge import MergeAction
-        for m in (partners.Person, partners.Organisation):
-            m.define_action(merge_row=MergeAction(m))
+    # def setup_actions(self):
+    #     super(Site, self).setup_actions()
+    #     partners = self.modules.contacts
+    #     from lino.core.merge import MergeAction
+    #     for m in (partners.Person, partners.Organisation):
+    #         m.define_action(merge_row=MergeAction(m))
 
     # def setup_layouts(self):
     #     super(Site, self).setup_layouts()
