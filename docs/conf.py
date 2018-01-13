@@ -35,7 +35,7 @@ interproject.configure(globals())
 
 # General information about the project.
 project = u"Lino Così website"
-copyright = '2012-2017, Luc Saffre'
+copyright = '2012-2018 Luc Saffre'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
