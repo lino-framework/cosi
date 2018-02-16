@@ -17,7 +17,7 @@ from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.utils import translation
 from django.utils.encoding import force_text
 from lino.api import dd, _, rt
-from lino.utils.xmlgen.html import E
+from etgen.html import E
 from lino.utils import join_elems
 
 from lino_xl.lib.sepa.fields import IBANField, BICField
