@@ -22,7 +22,7 @@ extensions += ['lino.sphinxcontrib.logo']
 autosummary_generate = True
 
 from atelier.sphinxconf import interproject
-interproject.configure(globals())
+interproject.configure(globals(), 'atelier etgen lino lino_xl')
 
 # from importlib import import_module
 # for n in 'atelier lino'.split():

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2017 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -19,3 +19,4 @@ __version__ = SETUP_INFO['version']
 
 intersphinx_urls = dict(docs="http://cosi.lino-framework.org")
 srcref_url = 'https://github.com/lino-framework/cosi/blob/master/%s'
+doc_trees = ['docs']
