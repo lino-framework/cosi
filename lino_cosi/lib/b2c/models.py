@@ -394,7 +394,7 @@ class Transaction(dd.Model):
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
     # movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
-    # partner = models.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
+    # partner = dd.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
     # partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
     remote_account = models.CharField(_("IBAN"), blank=True, max_length=64)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
