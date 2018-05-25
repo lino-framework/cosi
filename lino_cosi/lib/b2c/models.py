@@ -78,7 +78,7 @@ class ImportStatements(dd.Action):
     def import_file(self, ar, filename):
         """Import the named file, which must be a CAMT053 XML file."""
         dd.logger.info("Importing file %s ...", filename)
-        Account = rt.modules.b2c.Account
+        Account = rt.models.b2c.Account
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
@@ -266,7 +266,7 @@ class Account(dd.Model):
         if ar is None:
             return ''
         elems = []
-        qs = rt.modules.sepa.Account.objects.filter(iban=self.iban)
+        qs = rt.models.sepa.Account.objects.filter(iban=self.iban)
         for obj in qs:
             elems.append(ar.obj2html(obj.partner))
         return E.p(*join_elems(elems, ', '))

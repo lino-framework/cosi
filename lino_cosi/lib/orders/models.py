@@ -251,7 +251,7 @@ class ProductDocItem(ledger.VoucherItem, vat.QtyVatItemBase):
 
     def get_base_account(self, tt):
         ref = tt.get_product_base_account(self.product)
-        return rt.modules.accounts.Account.get_by_ref(ref)
+        return rt.models.accounts.Account.get_by_ref(ref)
 
     def product_changed(self, ar):
         if self.product:
