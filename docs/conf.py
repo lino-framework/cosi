@@ -22,7 +22,9 @@ extensions += ['lino.sphinxcontrib.logo']
 autosummary_generate = True
 
 from atelier.sphinxconf import interproject
-interproject.configure(globals())
+interproject.configure(globals(), 'atelier etgen')
+intersphinx_mapping['book'] = (
+    'http://www.lino-framework.org', None)
 
 # from importlib import import_module
 # for n in 'atelier lino'.split():

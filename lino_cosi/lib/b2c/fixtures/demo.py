@@ -27,8 +27,8 @@ def objects():
     # random partner TODO: find a more realistic rule for selecting
     # the candidates. The filter might be a plugin attribute.
 
-    IA = rt.modules.b2c.Account
-    SA = rt.modules.sepa.Account
+    IA = rt.models.b2c.Account
+    SA = rt.models.sepa.Account
     PARTNERS = Cycler(rt.models.contacts.Partner.objects.all())
 
     count = 0

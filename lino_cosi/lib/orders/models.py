@@ -244,14 +244,14 @@ class Orders(sales.SalesDocuments):
 
 
 class ProductDocItem(ledger.VoucherItem, vat.QtyVatItemBase):
-    product = models.ForeignKey('products.Product', blank=True, null=True)
+    product = dd.ForeignKey('products.Product', blank=True, null=True)
     #~ title = models.CharField(max_length=200,blank=True)
     description = dd.RichTextField(_("Description"), blank=True, null=True)
     discount = models.IntegerField(_("Discount"), default=0)
 
     def get_base_account(self, tt):
         ref = tt.get_product_base_account(self.product)
-        return rt.modules.accounts.Account.get_by_ref(ref)
+        return rt.models.accounts.Account.get_by_ref(ref)
 
     def product_changed(self, ar):
         if self.product:
@@ -266,7 +266,7 @@ class ProductDocItem(ledger.VoucherItem, vat.QtyVatItemBase):
 
 
 class OrderItem(sales.ProductDocItem):
-    voucher = models.ForeignKey(Order, related_name='items')
+    voucher = dd.ForeignKey(Order, related_name='items')
 
 
 class OrderDetail(dd.DetailLayout):

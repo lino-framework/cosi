@@ -9,8 +9,8 @@
 
 from lino.api import rt
 
-rt.actors.products.Products.column_names = "id name cat sales_price *"
-rt.actors.products.Products.detail_layout = """
+rt.models.products.Products.column_names = "id name cat sales_price *"
+rt.models.products.Products.detail_layout = """
 id cat sales_price vat_class delivery_unit
 name
 description

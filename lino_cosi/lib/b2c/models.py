@@ -78,7 +78,7 @@ class ImportStatements(dd.Action):
     def import_file(self, ar, filename):
         """Import the named file, which must be a CAMT053 XML file."""
         dd.logger.info("Importing file %s ...", filename)
-        Account = rt.modules.b2c.Account
+        Account = rt.models.b2c.Account
         parser = CamtParser()
         data_file = open(filename, 'rb').read()
         # imported_statements = 0
@@ -266,7 +266,7 @@ class Account(dd.Model):
         if ar is None:
             return ''
         elems = []
-        qs = rt.modules.sepa.Account.objects.filter(iban=self.iban)
+        qs = rt.models.sepa.Account.objects.filter(iban=self.iban)
         for obj in qs:
             elems.append(ar.obj2html(obj.partner))
         return E.p(*join_elems(elems, ', '))
@@ -394,7 +394,7 @@ class Transaction(dd.Model):
     # movement_number = models.CharField(_("Ref of Mov"), null=False, max_length=32)
     # movement_date = models.DateField(_('Movement date'), null=True, blank=True)
     amount = dd.PriceField(_('Amount'), null=True, blank=True)
-    # partner = models.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
+    # partner = dd.ForeignKey('contacts.Partner', related_name='b2c_movement', null=True)
     # partner_name = models.CharField(_('Partner name'), max_length=35, blank=True)
     remote_account = models.CharField(_("IBAN"), blank=True, max_length=64)
     remote_bic = BICField(verbose_name=_("BIC"), blank=True)
