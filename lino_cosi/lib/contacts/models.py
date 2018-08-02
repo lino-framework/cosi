@@ -1,4 +1,4 @@
-# Copyright 2013-2016 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
@@ -7,23 +7,6 @@ from lino_xl.lib.accounts.utils import DEBIT
 from lino_xl.lib.contacts.models import *
 
 from lino_xl.lib.vat.mixins import PartnerDetailMixin
-from lino_xl.lib.contacts.choicelists import PartnerEvents
-from lino.modlib.system.choicelists import ObservedEvent
-
-
-class PartnerHasOpenMovements(ObservedEvent):
-    text = _("Has open movements")
-
-    def add_filter(self, qs, pv):
-        qs = qs.filter(movement__cleared=False)
-        if pv.end_date:
-            qs = qs.filter(movement__value_date__lte=pv.end_date)
-        if pv.start_date:
-            qs = qs.filter(movement__value_date__gte=pv.start_date)
-        return qs.distinct()
-
-PartnerEvents.add_item_instance(PartnerHasOpenMovements("has_open_movements"))
-
 
 class Partner(Partner):
     """An version of :class:`lino_xl.lib.contacts.models.Partner` which
