@@ -94,9 +94,9 @@ class CompanyDetail(PartnerDetail, CompanyDetail):
 # Companies.detail_layout = CompanyDetail()
 # Persons.detail_layout = PersonDetail()
 
-Partners.set_detail_layout(PartnerDetail())
-Companies.set_detail_layout(CompanyDetail())
-Persons.set_detail_layout(PersonDetail())
+# Partners.set_detail_layout(PartnerDetail())
+# Companies.set_detail_layout(CompanyDetail())
+# Persons.set_detail_layout(PersonDetail())
 
 
 # @dd.receiver(dd.post_analyze)
