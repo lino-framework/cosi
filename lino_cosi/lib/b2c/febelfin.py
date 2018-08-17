@@ -5,7 +5,7 @@
 
 """Febelfin Bank Transaction Code designations.
 
-See :doc:`/specs/cosi/b2c`.
+See :doc:`/specs/b2c`.
 
 
 """

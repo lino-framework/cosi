@@ -26,10 +26,8 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    # demo_fixtures = 'std few_countries minimal_ledger euvatrates \
-    # furniture demo demo_bookings payments demo2'.split()
     demo_fixtures = 'std few_countries minimal_ledger \
-    furniture demo demo_bookings payments demo2'.split()
+    furniture demo demo2'.split()
 
     # languages = 'en de fr'
     languages = 'en'
