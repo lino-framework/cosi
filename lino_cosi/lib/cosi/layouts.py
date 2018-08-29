@@ -17,7 +17,7 @@ description
 """
 
 rt.models.accounts.Accounts.column_names = "\
-ref name purchases_allowed group *"
+ref name purchases_allowed sheet_item *"
 
 rt.models.countries.Places.detail_layout = """
 name country
@@ -26,7 +26,7 @@ PlacesByPlace contacts.PartnersByCity
 """
 rt.models.accounts.Accounts.detail_layout = """
 ref:10 name
-group type id default_amount:10 vat_column
+sheet_item id default_amount:10 vat_column
 needs_partner clearable purchases_allowed
 ledger.MovementsByAccount
 """
