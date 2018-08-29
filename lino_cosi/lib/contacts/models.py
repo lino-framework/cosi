@@ -3,7 +3,7 @@
 
 
 from lino.api import _, rt
-from lino_xl.lib.accounts.utils import DEBIT
+from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.contacts.models import *
 
 from lino_xl.lib.vat.mixins import PartnerDetailMixin

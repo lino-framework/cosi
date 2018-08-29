@@ -16,7 +16,7 @@ name
 description
 """
 
-rt.models.accounts.Accounts.column_names = "\
+rt.models.ledger.Accounts.column_names = "\
 ref name purchases_allowed sheet_item *"
 
 rt.models.countries.Places.detail_layout = """
@@ -24,7 +24,7 @@ name country
 type parent zip_code id
 PlacesByPlace contacts.PartnersByCity
 """
-rt.models.accounts.Accounts.detail_layout = """
+rt.models.ledger.Accounts.detail_layout = """
 ref:10 name
 sheet_item id default_amount:10 vat_column
 needs_partner clearable purchases_allowed

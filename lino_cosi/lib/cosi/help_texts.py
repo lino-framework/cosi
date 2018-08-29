@@ -47,8 +47,5 @@ adds accounting fucntionality."""),
 adds accounting functionality."""),
     'lino_cosi.lib.contacts.Company' : _("""An version of lino_xl.lib.contacts.models.Company which
 adds accounting functionality."""),
-    'lino_cosi.lib.delivery.Plugin' : _("""See lino.core.plugin.Plugin."""),
-    'lino_cosi.lib.delivery.ShippingMode' : _("""Represents a possible method of how the items described in a
-SalesDocument are to be transferred from us to our customer."""),
     'lino_cosi.lib.orders.Plugin' : _("""See lino.core.plugin.Plugin."""),
 }

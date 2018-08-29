@@ -81,7 +81,7 @@ class Plugin(ad.Plugin):
     """
 
     def setup_main_menu(self, site, user_type, m):
-        mg = site.plugins.accounts
+        mg = site.plugins.ledger
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('system.SiteConfig', 'import_b2c')
 

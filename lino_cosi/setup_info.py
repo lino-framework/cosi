@@ -67,7 +67,6 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.contacts.management',
     'lino_cosi.lib.contacts.management.commands',
     'lino_cosi.lib.orders',
-    'lino_cosi.lib.delivery',
 ])
 
 SETUP_INFO.update(message_extractors={

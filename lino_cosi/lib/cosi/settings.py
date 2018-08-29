@@ -49,7 +49,7 @@ class Site(Site):
         yield 'lino_xl.lib.sepa'
         #~ yield 'lino_xl.lib.households'
         yield 'lino_xl.lib.products'
-        yield 'lino_xl.lib.accounts'
+        yield 'lino_xl.lib.ledger'
 
         yield 'lino_xl.lib.excerpts'
 
@@ -106,7 +106,7 @@ class Site(Site):
     #     suppliers_account purchases_account tax_offices_account
     #     """)
 
-    #     self.models.accounts.Accounts.set_detail_layout("""
+    #     self.models.ledger.Accounts.set_detail_layout("""
     #     ref:10 name id:5
     #     seqno group type clearable
     #     ledger.MovementsByAccount

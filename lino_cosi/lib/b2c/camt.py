@@ -38,7 +38,7 @@ from datetime import datetime
 from decimal import Decimal
 from lxml import etree
 
-from lino_xl.lib.accounts.utils import ZERO
+from lino_xl.lib.ledger.utils import ZERO
 
 
 class BankTransaction(object):

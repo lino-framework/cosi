@@ -21,7 +21,6 @@ Not used
    :toctree:
 
     orders
-    delivery
 
 """
 
