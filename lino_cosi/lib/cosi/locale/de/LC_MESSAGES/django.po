@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  lino\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-29 07:24+0300\n"
+"POT-Creation-Date: 2018-08-30 08:45+0300\n"
 "PO-Revision-Date: 2017-02-27 09:44+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
 #: lino_cosi/lib/b2c/__init__.py:58
 msgid "SEPA import"
@@ -1015,30 +1015,24 @@ msgstr "Buchungsdatum"
 msgid "BkTxCd"
 msgstr "Transaktionscode"
 
-#: lino_cosi/lib/contacts/models.py:15
-#, fuzzy
-msgid "Has open movements"
-msgstr "{0} offene Bewegungen ({1} {2})"
-
-#: lino_cosi/lib/contacts/models.py:36
+#: lino_cosi/lib/contacts/models.py:19
 #, fuzzy
 msgid "Debit balance"
 msgstr "Alter Saldo"
 
-#: lino_cosi/lib/contacts/models.py:69
+#: lino_cosi/lib/contacts/models.py:52
 msgid "General"
 msgstr "Allgemein"
 
-#: lino_cosi/lib/contacts/models.py:77
+#: lino_cosi/lib/contacts/models.py:60
 msgid "Address"
 msgstr "Adresse"
 
-#: lino_cosi/lib/contacts/models.py:85
+#: lino_cosi/lib/contacts/models.py:68
 msgid "Contact"
 msgstr "Kontakt"
 
 #: lino_cosi/lib/cosi/help_texts.py:7 lino_cosi/lib/cosi/help_texts.py:50
-#: lino_cosi/lib/cosi/help_texts.py:53
 msgid "See lino.core.plugin.Plugin."
 msgstr ""
 
@@ -1160,12 +1154,6 @@ msgid ""
 "adds accounting functionality."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:51
-msgid ""
-"Represents a possible method of how the items described in a\n"
-"SalesDocument are to be transferred from us to our customer."
-msgstr ""
-
 #: lino_cosi/lib/cosi/user_types.py:36
 msgid "Anonymous"
 msgstr "Anonym"
@@ -1177,18 +1165,6 @@ msgstr "Benutzer"
 #: lino_cosi/lib/cosi/user_types.py:38
 msgid "Administrator"
 msgstr "Verwalter"
-
-#: lino_cosi/lib/delivery/__init__.py:23
-msgid "Delivery"
-msgstr ""
-
-#: lino_cosi/lib/delivery/models.py:47
-msgid "Shipping Mode"
-msgstr "Lieferart"
-
-#: lino_cosi/lib/delivery/models.py:48
-msgid "Shipping Modes"
-msgstr "Lieferarten"
 
 #: lino_cosi/lib/orders/__init__.py:10 lino_cosi/lib/orders/models.py:73
 #, fuzzy
@@ -1334,4 +1310,21 @@ msgstr "Kopfdaten"
 #~ "An version of lino_xl.lib.contacts.models.Company which\n"
 #~ "adds accounting fucntionality."
 #~ msgstr ""
+
+#~ msgid "Has open movements"
+#~ msgstr "{0} offene Bewegungen ({1} {2})"
+
+#~ msgid ""
+#~ "Represents a possible method of how the items described in a\n"
+#~ "SalesDocument are to be transferred from us to our customer."
+#~ msgstr ""
+
+#~ msgid "Delivery"
+#~ msgstr ""
+
+#~ msgid "Shipping Mode"
+#~ msgstr "Lieferart"
+
+#~ msgid "Shipping Modes"
+#~ msgstr "Lieferarten"
 
