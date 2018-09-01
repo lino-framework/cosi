@@ -41,11 +41,5 @@ Actually it is the "proprietary" part of this code."""),
 txcd.  Currently this works only for Belgian codes
 where txcd_issuer is "BBA" as defined in
 lino_cosi.lib.b2c.febelfin)."""),
-    'lino_cosi.lib.contacts.Partner' : _("""An version of lino_xl.lib.contacts.models.Partner which
-adds accounting fucntionality."""),
-    'lino_cosi.lib.contacts.Person' : _("""An version of lino_xl.lib.contacts.models.Person which
-adds accounting functionality."""),
-    'lino_cosi.lib.contacts.Company' : _("""An version of lino_xl.lib.contacts.models.Company which
-adds accounting functionality."""),
     'lino_cosi.lib.orders.Plugin' : _("""See lino.core.plugin.Plugin."""),
 }

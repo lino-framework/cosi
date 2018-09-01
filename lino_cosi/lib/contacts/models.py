@@ -2,47 +2,11 @@
 # License: BSD (see file COPYING for details)
 
 
-from lino.api import _, rt
-from lino_xl.lib.ledger.utils import DEBIT
+from lino.api import _
 from lino_xl.lib.contacts.models import *
 
-from lino_xl.lib.vat.mixins import PartnerDetailMixin
 
-class Partner(Partner):
-    """An version of :class:`lino_xl.lib.contacts.models.Partner` which
-    adds accounting fucntionality.
-
-    """
-    class Meta(Partner.Meta):
-        abstract = dd.is_abstract_model(__name__, 'Partner')
-
-    @dd.virtualfield(dd.PriceField(_("Debit balance")))
-    def debit_balance(self, ar):
-        Movement = rt.models.ledger.Movement
-        qs = Movement.objects.filter(partner=self, cleared=False)
-        return Movement.get_balance(DEBIT, qs)
-
-
-class Person(Person, Partner):
-    """An version of :class:`lino_xl.lib.contacts.models.Person` which
-    adds accounting functionality.
-
-    """
-    class Meta(Person.Meta):
-        abstract = dd.is_abstract_model(__name__, 'Person')
-
-
-class Company(Company, Partner):
-    """An version of :class:`lino_xl.lib.contacts.models.Company` which
-    adds accounting functionality.
-
-    """
-    class Meta(Company.Meta):
-        abstract = dd.is_abstract_model(__name__, 'Company')
-
-
-# class PartnerDetail(PartnerDetail):
-class PartnerDetail(PartnerDetail, PartnerDetailMixin):
+class PartnerDetail(PartnerDetail):
     
     main = "general ledger sepa.AccountsByPartner"
 
@@ -51,6 +15,12 @@ class PartnerDetail(PartnerDetail, PartnerDetailMixin):
     bottom_box
     """, label=_("General"))
 
+    ledger = dd.Panel("""
+    payment_term purchase_account
+    vat.VouchersByPartner
+    ledger.MovementsByPartner
+    """, label=dd.plugins.ledger.verbose_name)
+    
     address_box = dd.Panel("""
     name_box
     country region city zip_code:10
@@ -89,21 +59,4 @@ class CompanyDetail(PartnerDetail, CompanyDetail):
 
     name_box = "prefix:10 name type:30"
     
-
-# Partners.detail_layout = PartnerDetail()
-# Companies.detail_layout = CompanyDetail()
-# Persons.detail_layout = PersonDetail()
-
-# Partners.set_detail_layout(PartnerDetail())
-# Companies.set_detail_layout(CompanyDetail())
-# Persons.set_detail_layout(PersonDetail())
-
-
-# @dd.receiver(dd.post_analyze)
-# def my_details(sender, **kw):
-#     contacts = sender.modules.contacts
-#     contacts.Partners.set_detail_layout(contacts.PartnerDetail())
-#     contacts.Companies.set_detail_layout(contacts.CompanyDetail())
-#     contacts.Persons.set_detail_layout(contacts.PersonDetail())
-
 
