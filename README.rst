@@ -6,10 +6,10 @@ The ``lino-cosi`` package
 
 
 
-**Lino Così** is a free web application to make accounting simple.  It
+**Lino Così** is a free desktop-like web accounting application.  It
 is targeted to small and expanding enterprises or organisations who
 want more than an off-the-shelf product.  With Lino Così you will
-finally **perceive it as a joy** to
+finally perceive it as a joy to
 
 - manage your contacts, your catalog of products and your account
   chart
@@ -25,9 +25,12 @@ sophisticated applications** like `Lino Welfare
 <http://welfare.lino-framework.org>`__ or `Lino Voga
 <http://voga.lino-framework.org>`__.
 
-- For *introductions* and *commercial information* about Lino Voga
+- For *introductions* and *commercial information* about Lino Così 
   please see `www.saffre-rumma.net
   <http://www.saffre-rumma.net/cosi/>`__.
+
+- You can try it yourself in `our demo sites
+  <http://www.lino-framework.org/demos.html>`__
 
 - The central project homepage is http://cosi.lino-framework.org
 
