@@ -10,9 +10,21 @@ help_texts = {
 after it get imported."""),
     'lino_cosi.lib.b2c.camt.BankTransaction' : _("""Single transaction that is part of a bank statement."""),
     'lino_cosi.lib.b2c.camt.BankStatement' : _("""A bank statement groups data about several bank transactions."""),
+    'lino_cosi.lib.b2c.camt.BankStatement.create_transaction' : _("""Create and append transaction."""),
     'lino_cosi.lib.b2c.camt.CamtParser' : _("""Parser for camt bank statement import files."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_date' : _(""" "Parse a <Bal> element for a <Dt>."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_amount' : _("""Parse element that contains Amount and CreditDebitIndicator."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.add_value_from_node' : _("""Add value to object from first or all nodes found with xpath."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_transaction_details' : _("""Parse transaction details (message, party, account...)."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_transaction' : _("""Parse transaction (entry) node."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_balance_amounts' : _("""Return opening and closing balance."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse_statement' : _("""Parse a single Stmt node."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.check_version' : _("""Validate validity of camt file."""),
+    'lino_cosi.lib.b2c.camt.CamtParser.parse' : _("""Parse a camt.052 or camt.053 file."""),
     'lino_cosi.lib.b2c.ImportStatements' : _("""Import the .xml files found in the directory specified at
 import_statements_path."""),
+    'lino_cosi.lib.b2c.ImportStatements.get_view_permission' : _("""Make it invisible when import_statements_path is empty."""),
+    'lino_cosi.lib.b2c.ImportStatements.import_file' : _("""Import the named file, which must be a CAMT053 XML file."""),
     'lino_cosi.lib.b2c.Account' : _("""A bank account related to a given Partner."""),
     'lino_cosi.lib.b2c.Account.account_name' : _("""Name of the account, as assigned by the account servicing
 institution, in agreement with the account owner in order to
