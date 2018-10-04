@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2015-2017 Luc Saffre
+# Copyright 2015-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """Import a fictive B2C XML file.
@@ -18,9 +18,9 @@ from django.conf import settings
 
 def objects():
 
-    ses = rt.login('wilfried')
+    # ses = rt.login('wilfried')
     dd.plugins.b2c.import_statements_path = HERE
-    settings.SITE.site_config.import_b2c(ses)
+    settings.SITE.site_config.import_b2c()
 
     # That file contains a few dozen of accounts which are now
     # "orphaned".  We are now going to assign these accounts to a
