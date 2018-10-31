@@ -1,12 +1,8 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
-"""
-Tables for `lino_cosi.lib.b2c`.
-
-"""
 
 from __future__ import unicode_literals
 

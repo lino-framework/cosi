@@ -1,50 +1,17 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2017 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
+"""
+Adds functionality for importing BankToCustomer SEPA statements
+from a bank.  See :doc:`/specs/b2c`.
 
 
-"""Adds models and tables for importing BankToCustomer SEPA statements
-from a bank. This module was developed for Belgian banks.
+.. autosummary:: 
+    :toctree:
 
-Excerpts of the Febelfin Implementation guidelines `XML message for
-statement.
-<https://www.febelfin.be/sites/default/files/files/Standard-XML-Statement-v1-en_0.pdf>`_
-(version 1.0):
-
-  This document contains the Belgian guidelines for the application of
-  the Belgian subset of the MX.CAMT.053 B2C Statement.
-
-  This message is sent by the bank to an account holder or a third
-  person mandated by him.  It is used for informing the account holder
-  or the third person mandated of the account balance s and account
-  transactions
-
-  The principle has been adopted for double encoding, i.e. encoding
-  proper to ISO Bank Transaction Code list (§ 5.2 – Double encoding)
-  together with ‘proprietary’ Febelfin encoding.
-
-  Each item of the BankToCustomer Cash Management Standards message is
-  referring to the corresponding index of the item in the (ISO 20022)
-  Message Definition Report for Bank-to-Customer Cash Management. This
-  Report can be found on www.iso20022.org, under “Catalogue of UNIFI
-  messages”, with “camt.053.001.02” as reference for the EoD
-  reporting.
-
-  Any gaps in the index numbering are due to the fact that some
-  message elements of the MX.CAMT.053.001.02 message are not supported
-  in the Belgian subset
-
-
-
-.. autosummary::
-   :toctree:
-
-    models
-    ui
     camt
     febelfin
     fixtures.demo
-
 
 """
 

@@ -1,12 +1,7 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2015 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
-
-"""
-Database models for `lino_cosi.lib.b2c`.
-
-"""
 
 from __future__ import unicode_literals
 import logging
@@ -28,29 +23,14 @@ logger = logging.getLogger(__name__)
 
 
 class ImportStatements(dd.Action):
-    """Import the .xml files found in the directory specified at
-    :attr:`import_statements_path
-    <lino_cosi.lib.b2c.Plugin.import_statements_path>`.
-
-    End-users invoke this via the menu command :menuselection:`SEPA
-    --> Import SEPA`.
-
-    When a file has been successfully imported, Lino deletes it.
-
-    It might happen that an .xml file accidentally gets downloaded a
-    second time. Lino does not create these statements again.
-
-    """
     label = _("Import SEPA")
     http_method = 'POST'
     select_rows = False
 
     def get_view_permission(self, user_type):
-        """Make it invisible when :attr:`import_statements_path
-        <lino_cosi.lib.b2c.Plugin.import_statements_path>` is empty.
-
-        """
         if not dd.plugins.b2c.import_statements_path:
+            # raise Exception("20181030 {}".format(
+            #     dd.plugins.b2c.import_statements_path))
             return False
         return super(ImportStatements, self).get_view_permission(user_type)
 
@@ -76,7 +56,6 @@ class ImportStatements(dd.Action):
         return ar.success(msg, alert=_("Success"))
 
     def import_file(self, ar, filename):
-        """Import the named file, which must be a CAMT053 XML file."""
         dd.logger.info("Importing file %s ...", filename)
         Account = rt.models.b2c.Account
         parser = CamtParser()
@@ -221,28 +200,6 @@ dd.inject_action('system.SiteConfig', import_b2c=ImportStatements())
 
 @dd.python_2_unicode_compatible
 class Account(dd.Model):
-    """A bank account related to a given :class:`Partner
-    <lino.modlib.models.contacts.Partner>`.
-
-    One partner can have more than one bank account.
-
-    .. attribute:: account_name
-
-        Name of the account, as assigned by the account servicing
-        institution, in agreement with the account owner in order to
-        provide an additional means of identification of the account.
-        Usage: The account name is different from the
-        :attr:`owner_name`. The account name is used in certain user
-        communities to provide a means of identifying the account, in
-        addition to the account owner's identity and the account
-        number.
-
-    .. attribute:: owner_name
-
-        Name by which a party is known and which is usually used to
-        identify that party.
-
-    """
 
     class Meta:
         app_label = 'b2c'
@@ -277,34 +234,6 @@ PRIMARY_FIELDS = dd.fields_list(Account, 'iban bic')
 
 @dd.python_2_unicode_compatible
 class Statement(dd.Model):
-    """A bank statement.
-
-    This data is automaticaly imported by :class:`ImportStatements`.
-
-    .. attribute:: sequence_number
-
-        The legal sequential number of the statement, as assigned by
-        the bank.
-
-        See `LegalSequenceNumber
-        <https://www.iso20022.org/standardsrepository/public/wqt/Content/mx/camt.053.001.02#mx/camt.053.001.02/Statement/LegalSequenceNumber>`_
-        (`<LglSeqNb>`) for details.
-
-    .. attribute:: start_date
-    .. attribute:: end_date
-
-        Note that year can differ between start_date and end_date for
-        the first statement of every year.
-
-    .. attribute:: unique_id
-
-        A virtual field of the form `YYYY/NNNN` where YYYY is taken
-        from the :attr:`end_date` and NNNN is taken from
-        :attr:`electronic_sequence_number`.
-
-    .. attribute:: electronic_sequence_number
-
-    """
 
     class Meta:
         app_label = 'b2c'
@@ -337,49 +266,6 @@ class Statement(dd.Model):
 
 
 class Transaction(dd.Model):
-    """A transaction within a bank statement.
-
-    This data is automaticaly imported by :class:`ImportStatements`.
-
-
-    
-    .. attribute:: statement
-
-    .. attribute:: seqno
-
-    .. attribute:: booking_date
-
-    .. attribute:: value_date
-
-    .. attribute:: transfer_type
-
-       The actual historic name of the :attr:`txcd`.
-
-    .. attribute:: txcd
-
-        The Bank Transaction Code (`<BkTxCd>`) or "transfer type".
-        Actually it is the "proprietary" part of this code.
-
-    .. attribute:: txcd_issuer
-
-        The issuer or the :attr:`txcd`.
-
-    .. attribute:: txcd_text
-
-        Virtual field with the textual translated description of the
-        :attr:`txcd`.  Currently this works only for Belgian codes
-        where :attr:`txcd_issuer` is `"BBA"` as defined in
-        :mod:`lino_cosi.lib.b2c.febelfin`).
-
-    .. attribute:: remote_account
-    .. attribute:: remote_bic
-    .. attribute:: remote_owner
-    .. attribute:: remote_owner_address
-    .. attribute:: remote_owner_city
-    .. attribute:: remote_owner_postalcode
-    .. attribute:: remote_owner_country_code
-
-    """
 
     class Meta:
         app_label = 'b2c'

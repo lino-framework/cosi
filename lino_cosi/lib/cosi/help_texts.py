@@ -21,37 +21,5 @@ after it get imported."""),
     'lino_cosi.lib.b2c.camt.CamtParser.parse_statement' : _("""Parse a single Stmt node."""),
     'lino_cosi.lib.b2c.camt.CamtParser.check_version' : _("""Validate validity of camt file."""),
     'lino_cosi.lib.b2c.camt.CamtParser.parse' : _("""Parse a camt.052 or camt.053 file."""),
-    'lino_cosi.lib.b2c.ImportStatements' : _("""Import the .xml files found in the directory specified at
-import_statements_path."""),
-    'lino_cosi.lib.b2c.ImportStatements.get_view_permission' : _("""Make it invisible when import_statements_path is empty."""),
-    'lino_cosi.lib.b2c.ImportStatements.import_file' : _("""Import the named file, which must be a CAMT053 XML file."""),
-    'lino_cosi.lib.b2c.Account' : _("""A bank account related to a given Partner."""),
-    'lino_cosi.lib.b2c.Account.account_name' : _("""Name of the account, as assigned by the account servicing
-institution, in agreement with the account owner in order to
-provide an additional means of identification of the account.
-Usage: The account name is different from the
-owner_name. The account name is used in certain user
-communities to provide a means of identifying the account, in
-addition to the account owner's identity and the account
-number."""),
-    'lino_cosi.lib.b2c.Account.owner_name' : _("""Name by which a party is known and which is usually used to
-identify that party."""),
-    'lino_cosi.lib.b2c.Statement' : _("""A bank statement."""),
-    'lino_cosi.lib.b2c.Statement.sequence_number' : _("""The legal sequential number of the statement, as assigned by
-the bank."""),
-    'lino_cosi.lib.b2c.Statement.end_date' : _("""Note that year can differ between start_date and end_date for
-the first statement of every year."""),
-    'lino_cosi.lib.b2c.Statement.unique_id' : _("""A virtual field of the form YYYY/NNNN where YYYY is taken
-from the end_date and NNNN is taken from
-electronic_sequence_number."""),
-    'lino_cosi.lib.b2c.Transaction' : _("""A transaction within a bank statement."""),
-    'lino_cosi.lib.b2c.Transaction.transfer_type' : _("""The actual historic name of the txcd."""),
-    'lino_cosi.lib.b2c.Transaction.txcd' : _("""The Bank Transaction Code (<BkTxCd>) or "transfer type".
-Actually it is the "proprietary" part of this code."""),
-    'lino_cosi.lib.b2c.Transaction.txcd_issuer' : _("""The issuer or the txcd."""),
-    'lino_cosi.lib.b2c.Transaction.txcd_text' : _("""Virtual field with the textual translated description of the
-txcd.  Currently this works only for Belgian codes
-where txcd_issuer is "BBA" as defined in
-lino_cosi.lib.b2c.febelfin)."""),
     'lino_cosi.lib.orders.Plugin' : _("""See lino.core.plugin.Plugin."""),
 }

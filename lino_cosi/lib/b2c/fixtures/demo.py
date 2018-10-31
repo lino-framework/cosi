@@ -22,17 +22,21 @@ def objects():
     dd.plugins.b2c.import_statements_path = HERE
     settings.SITE.site_config.import_b2c()
 
-    # That file contains a few dozen of accounts which are now
+    # That file contains a few dozen accounts which are now
     # "orphaned".  We are now going to assign these accounts to a
     # random partner TODO: find a more realistic rule for selecting
     # the candidates. The filter might be a plugin attribute.
 
     IA = rt.models.b2c.Account
     SA = rt.models.sepa.Account
-    PARTNERS = Cycler(rt.models.contacts.Partner.objects.all())
+    Partner = rt.models.contacts.Partner
+    PARTNERS = Cycler(Partner.objects.order_by('id'))
+    imported_accounts = IA.objects.all()
+    if imported_accounts.count() > Partner.objects.order_by('id').count():
+        raise Exception("20181030")
 
     count = 0
-    for ia in IA.objects.all():
+    for ia in imported_accounts:
         try:
             SA.objects.get(iban=ia.iban)
         except SA.DoesNotExist:
