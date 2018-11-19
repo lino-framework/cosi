@@ -46,10 +46,7 @@ class Site(Site):
         yield 'lino.modlib.users'
         yield 'lino_xl.lib.countries'
         yield 'lino_cosi.lib.contacts'
-        yield 'lino_xl.lib.sepa'
         #~ yield 'lino_xl.lib.households'
-        yield 'lino_xl.lib.products'
-        yield 'lino_xl.lib.ledger'
 
         yield 'lino_xl.lib.excerpts'
 
@@ -61,13 +58,16 @@ class Site(Site):
         yield 'lino.modlib.wkhtmltopdf'
 
         # ledger must come before sales because its demo fixture
-        # creates journals
+        # creates journals (?)
 
         # yield 'lino.modlib.ledger'
-        yield 'lino_xl.lib.vat'
-        yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.sales'
         yield 'lino_xl.lib.invoicing'
+        yield 'lino_xl.lib.products'
+        yield 'lino_xl.lib.ledger'
+        yield 'lino_xl.lib.sepa'
+        yield 'lino_xl.lib.vat'
+        yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.bevat'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
