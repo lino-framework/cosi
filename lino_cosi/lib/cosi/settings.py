@@ -88,6 +88,7 @@ class Site(Site):
         self.plugins.countries.configure(hide_region=True)
         self.plugins.ledger.configure(use_pcmn=True)
         self.plugins.countries.configure(country_code='BE')
+        self.plugins.products.configure(menu_group='sales')
 
     # def setup_actions(self):
     #     super(Site, self).setup_actions()
