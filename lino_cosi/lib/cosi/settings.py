@@ -10,11 +10,8 @@ inherited by the other applications below :mod:`lino_cosi.projects`.
 
 from __future__ import unicode_literals
 
-from lino.projects.std.settings import *
-
-from django.utils.translation import ugettext_lazy as _
-
 import lino_cosi
+from lino.projects.std.settings import *
 
 
 class Site(Site):
@@ -52,7 +49,7 @@ class Site(Site):
 
         # yield 'lino_xl.lib.outbox'
         # yield 'lino.modlib.uploads'
-        yield 'lino_xl.lib.appypod'
+        yield 'lino.modlib.weasyprint'
         yield 'lino.modlib.export_excel'
         yield 'lino.modlib.tinymce'
         yield 'lino.modlib.wkhtmltopdf'
