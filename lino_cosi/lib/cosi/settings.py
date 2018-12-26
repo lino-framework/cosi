@@ -32,7 +32,7 @@ class Site(Site):
     user_types_module = 'lino_cosi.lib.cosi.user_types'
     custom_layouts_module = 'lino_cosi.lib.cosi.layouts'
 
-    # default_build_method = 'wkhtmltopdf'
+    default_build_method = 'weasy2pdf'
 
     # textfield_format = 'html'
 
@@ -52,7 +52,7 @@ class Site(Site):
         yield 'lino.modlib.weasyprint'
         yield 'lino.modlib.export_excel'
         yield 'lino.modlib.tinymce'
-        yield 'lino.modlib.wkhtmltopdf'
+        # yield 'lino.modlib.wkhtmltopdf'
 
         # ledger must come before sales because its demo fixture
         # creates journals (?)
