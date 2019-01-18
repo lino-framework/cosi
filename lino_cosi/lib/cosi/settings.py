@@ -58,9 +58,9 @@ class Site(Site):
         # creates journals (?)
 
         # yield 'lino.modlib.ledger'
+        yield 'lino_cosi.lib.products'
         yield 'lino_xl.lib.sales'
         yield 'lino_xl.lib.invoicing'
-        yield 'lino_xl.lib.products'
         yield 'lino_xl.lib.ledger'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.vat'

@@ -53,7 +53,7 @@ Environment :: Web Environment
 Framework :: Django :: 1.11
 Intended Audience :: Developers
 Intended Audience :: System Administrators
-License :: OSI Approved :: GNU Affero General Public License v3
+License :: OSI Approved :: BSD License
 Operating System :: OS Independent
 Topic :: Office/Business :: Financial :: Accounting
 """.splitlines())
@@ -68,6 +68,8 @@ SETUP_INFO.update(packages=[
     'lino_cosi.lib.contacts.fixtures',
     'lino_cosi.lib.contacts.management',
     'lino_cosi.lib.contacts.management.commands',
+    'lino_cosi.lib.products',
+    'lino_cosi.lib.products.fixtures',
     'lino_cosi.lib.orders',
 ])
 

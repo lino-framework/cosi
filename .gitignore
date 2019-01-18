@@ -22,3 +22,4 @@ sihtnumbrid.csv
 .idea
 .coverage
 .eggs/
+.cache/

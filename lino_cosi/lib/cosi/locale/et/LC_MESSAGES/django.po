@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 08:45+0300\n"
+"POT-Creation-Date: 2019-01-18 12:21+0200\n"
 "PO-Revision-Date: 2017-02-27 09:44+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: et\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: lino_cosi/lib/b2c/__init__.py:58
+#: lino_cosi/lib/b2c/__init__.py:25
 msgid "SEPA import"
 msgstr ""
 
@@ -852,204 +852,199 @@ msgstr ""
 msgid "Charging fees for transactions"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:44
+#: lino_cosi/lib/b2c/models.py:26
 msgid "Import SEPA"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:61
+#: lino_cosi/lib/b2c/models.py:41
 msgid "Error"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:76
+#: lino_cosi/lib/b2c/models.py:56
 msgid "Success"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:250
+#: lino_cosi/lib/b2c/models.py:207
 #, fuzzy
 msgid "Imported bank account"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/b2c/models.py:251
+#: lino_cosi/lib/b2c/models.py:208
 #, fuzzy
 msgid "Imported bank accounts"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/b2c/models.py:253 lino_cosi/lib/b2c/models.py:399
+#: lino_cosi/lib/b2c/models.py:210 lino_cosi/lib/b2c/models.py:285
 msgid "IBAN"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:254 lino_cosi/lib/b2c/models.py:400
+#: lino_cosi/lib/b2c/models.py:211 lino_cosi/lib/b2c/models.py:286
 msgid "BIC"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:256
+#: lino_cosi/lib/b2c/models.py:213
 #, fuzzy
 msgid "Account name"
 msgstr "Kontoliik"
 
-#: lino_cosi/lib/b2c/models.py:258
+#: lino_cosi/lib/b2c/models.py:215
 #, fuzzy
 msgid "Owner name"
 msgstr "Perenimi"
 
-#: lino_cosi/lib/b2c/models.py:259
+#: lino_cosi/lib/b2c/models.py:216
 msgid "Last transaction"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:264
+#: lino_cosi/lib/b2c/models.py:221
 #, fuzzy
 msgid "Partners"
 msgstr "Perenimi"
 
-#: lino_cosi/lib/b2c/models.py:312
+#: lino_cosi/lib/b2c/models.py:241
 #, fuzzy
 msgid "Statement"
 msgstr "Konto väljavõte"
 
-#: lino_cosi/lib/b2c/models.py:313
+#: lino_cosi/lib/b2c/models.py:242
 #, fuzzy
 msgid "Statements"
 msgstr "Konto väljavõted"
 
-#: lino_cosi/lib/b2c/models.py:320
+#: lino_cosi/lib/b2c/models.py:249
 #, fuzzy
 msgid "Statement number"
 msgstr "Sisestage majanumber"
 
-#: lino_cosi/lib/b2c/models.py:321
+#: lino_cosi/lib/b2c/models.py:250
 msgid ""
 "Combination of the year and the legal sequential number of the paper "
 "statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:324
+#: lino_cosi/lib/b2c/models.py:253
 msgid "Start date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:325
+#: lino_cosi/lib/b2c/models.py:254
 #, fuzzy
 msgid "End date"
 msgstr "Tehing"
 
-#: lino_cosi/lib/b2c/models.py:327
+#: lino_cosi/lib/b2c/models.py:256
 msgid "Initial amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:328
+#: lino_cosi/lib/b2c/models.py:257
 msgid "Final amount"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:330
+#: lino_cosi/lib/b2c/models.py:259
 #, fuzzy
 msgid "Currency"
 msgstr "Korduvus"
 
-#: lino_cosi/lib/b2c/models.py:387
+#: lino_cosi/lib/b2c/models.py:273
 #, fuzzy
 msgid "Transaction"
 msgstr "Nimetus"
 
-#: lino_cosi/lib/b2c/models.py:388
+#: lino_cosi/lib/b2c/models.py:274
 #, fuzzy
 msgid "Transactions"
 msgstr "Aktioonid"
 
-#: lino_cosi/lib/b2c/models.py:391
+#: lino_cosi/lib/b2c/models.py:277
 msgid "No."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:392
+#: lino_cosi/lib/b2c/models.py:278
 msgid "The sequence number of this transaction in the statement."
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:396
+#: lino_cosi/lib/b2c/models.py:282
 msgid "Amount"
 msgstr "Summa"
 
-#: lino_cosi/lib/b2c/models.py:402 lino_cosi/lib/b2c/models.py:429
+#: lino_cosi/lib/b2c/models.py:288 lino_cosi/lib/b2c/models.py:315
 msgid "Message"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:403
+#: lino_cosi/lib/b2c/models.py:289
 #, fuzzy
 msgid "End to end reference"
 msgstr "Teie viide"
 
-#: lino_cosi/lib/b2c/models.py:404
+#: lino_cosi/lib/b2c/models.py:290
 msgid "Remote owner"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:406
+#: lino_cosi/lib/b2c/models.py:292
 msgid "Remote owner adress"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:407
+#: lino_cosi/lib/b2c/models.py:293
 msgid "Remote owner city"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:408
+#: lino_cosi/lib/b2c/models.py:294
 msgid "Remote owner postal code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:409
+#: lino_cosi/lib/b2c/models.py:295
 msgid "Remote owner country code"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:410
+#: lino_cosi/lib/b2c/models.py:296
 #, fuzzy
 msgid "Transfer type"
 msgstr "Firmaliik"
 
-#: lino_cosi/lib/b2c/models.py:411
+#: lino_cosi/lib/b2c/models.py:297
 msgid "TxCd issuer"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:412
+#: lino_cosi/lib/b2c/models.py:298
 msgid "Execution date"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:413 lino_cosi/lib/b2c/models.py:442
+#: lino_cosi/lib/b2c/models.py:299 lino_cosi/lib/b2c/models.py:328
 #, fuzzy
 msgid "Value date"
 msgstr "Tehing"
 
-#: lino_cosi/lib/b2c/models.py:415
+#: lino_cosi/lib/b2c/models.py:301
 #, fuzzy
 msgid "Remote account"
 msgstr "Pamgakontod"
 
-#: lino_cosi/lib/b2c/models.py:439
+#: lino_cosi/lib/b2c/models.py:325
 msgid "eref:"
 msgstr ""
 
-#: lino_cosi/lib/b2c/models.py:443
+#: lino_cosi/lib/b2c/models.py:329
 #, fuzzy
 msgid "Booking date"
 msgstr "Tehing"
 
-#: lino_cosi/lib/b2c/models.py:447
+#: lino_cosi/lib/b2c/models.py:333
 msgid "BkTxCd"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:19
-#, fuzzy
-msgid "Debit balance"
-msgstr "Algsaldo"
-
-#: lino_cosi/lib/contacts/models.py:52
+#: lino_cosi/lib/contacts/models.py:16 lino_cosi/lib/products/models.py:30
 msgid "General"
 msgstr "Üld"
 
-#: lino_cosi/lib/contacts/models.py:60
+#: lino_cosi/lib/contacts/models.py:30
 msgid "Address"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:68
+#: lino_cosi/lib/contacts/models.py:38
 #, fuzzy
 msgid "Contact"
 msgstr "Kontaktisik"
 
-#: lino_cosi/lib/cosi/help_texts.py:7 lino_cosi/lib/cosi/help_texts.py:50
+#: lino_cosi/lib/cosi/help_texts.py:7 lino_cosi/lib/cosi/help_texts.py:24
 msgid "See lino.core.plugin.Plugin."
 msgstr ""
 
@@ -1072,103 +1067,47 @@ msgid "A bank statement groups data about several bank transactions."
 msgstr ""
 
 #: lino_cosi/lib/cosi/help_texts.py:13
-msgid "Parser for camt bank statement import files."
+msgid "Create and append transaction."
 msgstr ""
 
 #: lino_cosi/lib/cosi/help_texts.py:14
-msgid ""
-"Import the .xml files found in the directory specified at\n"
-"import_statements_path."
+msgid "Parser for camt bank statement import files."
+msgstr ""
+
+#: lino_cosi/lib/cosi/help_texts.py:15
+msgid " \"Parse a <Bal> element for a <Dt>."
 msgstr ""
 
 #: lino_cosi/lib/cosi/help_texts.py:16
-msgid "A bank account related to a given Partner."
+msgid "Parse element that contains Amount and CreditDebitIndicator."
 msgstr ""
 
 #: lino_cosi/lib/cosi/help_texts.py:17
-msgid ""
-"Name of the account, as assigned by the account servicing\n"
-"institution, in agreement with the account owner in order to\n"
-"provide an additional means of identification of the account.\n"
-"Usage: The account name is different from the\n"
-"owner_name. The account name is used in certain user\n"
-"communities to provide a means of identifying the account, in\n"
-"addition to the account owner's identity and the account\n"
-"number."
+msgid "Add value to object from first or all nodes found with xpath."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:25
-msgid ""
-"Name by which a party is known and which is usually used to\n"
-"identify that party."
+#: lino_cosi/lib/cosi/help_texts.py:18
+msgid "Parse transaction details (message, party, account...)."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:27
-#, fuzzy
-msgid "A bank statement."
-msgstr "Konto väljavõte"
-
-#: lino_cosi/lib/cosi/help_texts.py:28
-msgid ""
-"The legal sequential number of the statement, as assigned by\n"
-"the bank."
+#: lino_cosi/lib/cosi/help_texts.py:19
+msgid "Parse transaction (entry) node."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:30
-msgid ""
-"Note that year can differ between start_date and end_date for\n"
-"the first statement of every year."
+#: lino_cosi/lib/cosi/help_texts.py:20
+msgid "Return opening and closing balance."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:32
-msgid ""
-"A virtual field of the form YYYY/NNNN where YYYY is taken\n"
-"from the end_date and NNNN is taken from\n"
-"electronic_sequence_number."
+#: lino_cosi/lib/cosi/help_texts.py:21
+msgid "Parse a single Stmt node."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:35
-msgid "A transaction within a bank statement."
+#: lino_cosi/lib/cosi/help_texts.py:22
+msgid "Validate validity of camt file."
 msgstr ""
 
-#: lino_cosi/lib/cosi/help_texts.py:36
-msgid "The actual historic name of the txcd."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:37
-msgid ""
-"The Bank Transaction Code (<BkTxCd>) or \"transfer type\".\n"
-"Actually it is the \"proprietary\" part of this code."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:39
-msgid "The issuer or the txcd."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:40
-msgid ""
-"Virtual field with the textual translated description of the\n"
-"txcd.  Currently this works only for Belgian codes\n"
-"where txcd_issuer is \"BBA\" as defined in\n"
-"lino_cosi.lib.b2c.febelfin)."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:44
-msgid ""
-"An version of lino_xl.lib.contacts.models.Partner which\n"
-"adds accounting fucntionality."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:46
-msgid ""
-"An version of lino_xl.lib.contacts.models.Person which\n"
-"adds accounting functionality."
-msgstr ""
-
-#: lino_cosi/lib/cosi/help_texts.py:48
-msgid ""
-"An version of lino_xl.lib.contacts.models.Company which\n"
-"adds accounting functionality."
+#: lino_cosi/lib/cosi/help_texts.py:23
+msgid "Parse a camt.052 or camt.053 file."
 msgstr ""
 
 #: lino_cosi/lib/cosi/user_types.py:36
@@ -1227,6 +1166,23 @@ msgstr "Summad"
 
 #: lino_cosi/lib/orders/models.py:286
 msgid "Header"
+msgstr ""
+
+#: lino_cosi/lib/products/models.py:14
+msgid "Products"
+msgstr ""
+
+#: lino_cosi/lib/products/models.py:15
+msgid "Services"
+msgstr ""
+
+#: lino_cosi/lib/products/models.py:16
+#, fuzzy
+msgid "Parts"
+msgstr "Perenimi"
+
+#: lino_cosi/lib/products/models.py:39
+msgid "Sales"
 msgstr ""
 
 #~ msgid "alias of Company"
@@ -1345,4 +1301,86 @@ msgstr ""
 
 #~ msgid "Shipping Modes"
 #~ msgstr "Hankimisviisid"
+
+#~ msgid "Debit balance"
+#~ msgstr "Algsaldo"
+
+#~ msgid ""
+#~ "Import the .xml files found in the directory specified at\n"
+#~ "import_statements_path."
+#~ msgstr ""
+
+#~ msgid "A bank account related to a given Partner."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Name of the account, as assigned by the account servicing\n"
+#~ "institution, in agreement with the account owner in order to\n"
+#~ "provide an additional means of identification of the account.\n"
+#~ "Usage: The account name is different from the\n"
+#~ "owner_name. The account name is used in certain user\n"
+#~ "communities to provide a means of identifying the account, in\n"
+#~ "addition to the account owner's identity and the account\n"
+#~ "number."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Name by which a party is known and which is usually used to\n"
+#~ "identify that party."
+#~ msgstr ""
+
+#~ msgid "A bank statement."
+#~ msgstr "Konto väljavõte"
+
+#~ msgid ""
+#~ "The legal sequential number of the statement, as assigned by\n"
+#~ "the bank."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Note that year can differ between start_date and end_date for\n"
+#~ "the first statement of every year."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A virtual field of the form YYYY/NNNN where YYYY is taken\n"
+#~ "from the end_date and NNNN is taken from\n"
+#~ "electronic_sequence_number."
+#~ msgstr ""
+
+#~ msgid "A transaction within a bank statement."
+#~ msgstr ""
+
+#~ msgid "The actual historic name of the txcd."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The Bank Transaction Code (<BkTxCd>) or \"transfer type\".\n"
+#~ "Actually it is the \"proprietary\" part of this code."
+#~ msgstr ""
+
+#~ msgid "The issuer or the txcd."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Virtual field with the textual translated description of the\n"
+#~ "txcd.  Currently this works only for Belgian codes\n"
+#~ "where txcd_issuer is \"BBA\" as defined in\n"
+#~ "lino_cosi.lib.b2c.febelfin)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "An version of lino_xl.lib.contacts.models.Partner which\n"
+#~ "adds accounting fucntionality."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "An version of lino_xl.lib.contacts.models.Person which\n"
+#~ "adds accounting functionality."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "An version of lino_xl.lib.contacts.models.Company which\n"
+#~ "adds accounting functionality."
+#~ msgstr ""
 
