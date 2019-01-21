@@ -6,6 +6,7 @@
 from __future__ import unicode_literals
 
 from lino_xl.lib.products.models import *
+from lino.mixins import Referrable
 from lino.api import _
 
 
@@ -15,6 +16,13 @@ add('100', _("Products"), 'default', table_name="products.Products")
 add('200', _("Services"), 'services', table_name="products.Services")
 # add('300', _("Other"), 'default')
 
+class Product(Product, Referrable):
+
+    class Meta(Product.Meta):
+        app_label = 'products'
+        abstract = dd.is_abstract_model(__name__, 'Product')
+
+    ref_max_length = 6
 
 
 class ProductDetail(dd.DetailLayout):

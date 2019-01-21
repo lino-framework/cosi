@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2011-2017 Rumma & Ko Ltd
+# Copyright 2011-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
-"""Default settings module for a :ref:`cosi` project. This is being
-inherited by the other applications below :mod:`lino_cosi.projects`.
+"""Default settings module for a :ref:`cosi` project.
 
 """
 
@@ -60,12 +59,13 @@ class Site(Site):
         # yield 'lino.modlib.ledger'
         yield 'lino_cosi.lib.products'
         yield 'lino_xl.lib.sales'
-        yield 'lino_xl.lib.invoicing'
+        # yield 'lino_xl.lib.invoicing'
         yield 'lino_xl.lib.ledger'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.bevat'
+        yield 'lino_xl.lib.sheets'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
         #~ yield 'lino_xl.lib.blogs'

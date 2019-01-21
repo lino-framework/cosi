@@ -11,7 +11,7 @@ from lino_xl.lib.products import Plugin, _
 
 class Plugin(Plugin):
 
-    # extends_models = ['Product', 'ProductCat']
+    extends_models = ['Product']
     menu_group = 'sales'
 
     # def setup_main_menu(self, site, user_type, m):
