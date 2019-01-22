@@ -1,0 +1,23 @@
+.. include:: /../../book/docs/shared/include/defs.rst
+.. _cosi.changes.2019:
+
+============
+Changes 2019
+============
+
+.. Note: Changes are grouped by date. Every new day gives a new
+   heading. If a release deserves separate release notes, we create a separate
+   document and this file will have a link to it.
+
+.. contents::
+  :local:
+
+2019-01-21
+==========
+
+Products now inherit from :class:`lino.mixins.refs.Referrable`. Because at
+least previous TIM users want a :attr:`ref` field per product.  And I imagine
+that other users might do so as well.  The field is not yet visible in the
+detail view.
+
+

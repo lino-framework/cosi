@@ -18,5 +18,5 @@ Content
 
    tour/index
    install/index
-   changes
+   changes/index
    name
