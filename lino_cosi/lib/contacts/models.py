@@ -25,7 +25,7 @@ class PartnerDetail(PartnerDetail):
     name_box
     country region city zip_code:10
     addr1
-    street_prefix street:25 street_no street_box
+    #street_prefix street:25 street_no #street_box
     addr2
     """, label=_("Address"))
 
@@ -41,9 +41,9 @@ class PartnerDetail(PartnerDetail):
     remarks
     """
 
-    name_box = "name"
-    info_box = "id language"
-
+    # name_box = "name"
+    # info_box = "id:8 language:5"
+    #
 
 class PersonDetail(PartnerDetail, PersonDetail):
     
@@ -53,10 +53,11 @@ class PersonDetail(PartnerDetail, PersonDetail):
 
 
 class CompanyDetail(PartnerDetail, CompanyDetail):
+
     bottom_box = """
     remarks contacts.RolesByCompany
     """
 
-    name_box = "prefix:10 name type:30"
+    name_box = "#prefix:10 name:40 type:20"
     
 
