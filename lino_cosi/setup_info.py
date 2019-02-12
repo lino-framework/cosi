@@ -4,7 +4,7 @@
 
 SETUP_INFO = dict(
     name='lino-cosi',
-    version='18.12.1',
+    version='19.2.0',
     install_requires=['lino-xl','django-iban', 'lxml'],
     tests_require=['beautifulsoup4',],
     test_suite='tests',

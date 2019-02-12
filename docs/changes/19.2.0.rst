@@ -1,0 +1,60 @@
+.. _cosi.19.2.0:
+
+============================================
+19.2.0 (released 2019-02-12)
+============================================
+
+This release introduces a beta version of the new "Library files" feature which
+is a basic requirement for doing distributed accounting (i.e. accounting in a
+team instead of a single person).  Of course there is more to do.
+
+The basic visible change is that every purchase invoice now has an "Uploads"
+panel where users can assign one or several pdf files or scans of the incoming
+document. Besides this the notion of "uploads" has been extended to include
+"library files", i.e. files that are uploaded and managed by another user.
+
+.. contents::
+  :local:
+
+
+The files library
+=================
+
+- A copy of the external files related to the company and managed by one user
+  is now stored on a server.
+
+- When user 1 receives a new purchase invoice, he adds the pdf to this library
+  on the server. Other users cannot modify this library.
+
+- We can configure other libraries to be maintained by other users
+
+Using a library file
+====================
+
+Another user who is not the library manager can now use the library shared by
+the first user as follows:
+
+- In Lino, when you have created a purchase invoice, in the detail of a
+  purchases invoice you now have an Uploads panel.
+
+- An "upload", for Lino, is any external file attached to a given database object.
+
+- Click on the (+) button in the Uploads panel
+
+- You might upload your own file by clicking the [Browse] button.
+
+- But in our context we won't upload files for invoices, we will use the library files.
+
+- Expand the combo button of the "Library file" field to see all library files. (NB: the label of that field is currently missing because of a bug, see #2830)
+
+- Type a filter text, e.g. "2018/ekr/", to see only purchase invoices of 2018
+
+- After closing the window, you can see the file by clicking on the ⇲ symbol in the uploads panel
+
+TODO
+====
+
+We will also need  a virtual table that shows all files :file:`2018/EKR/*.pdf`
+for which there is no upload (for each of them a link to view it and a button
+to create an invoice from it)
+
