@@ -32,7 +32,7 @@ Wenn man eine Person als Kontaktperson einer Organisation definiert, kann man
 ausserdem angeben, welche **Funktion** diese  Person in dieser Organisation
 ausübt.
 
-Jeder Partner kann potentiell eine Rechnung kriegen oder schicken oder sonstwi
+Jeder Partner kann potentiell eine Rechnung kriegen oder schicken oder sonstwie
 in einer buchhalterischen Bewegung vorkommen.  In diesem Fall spricht man dann
 auch vom **Geschäftspartner**.
 
