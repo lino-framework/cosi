@@ -26,13 +26,19 @@ finally perceive it as a joy to
 
 Lino Così is **almost ready for use**.  Despite the fact that Lino
 Così itself keeps things simple, its codebase is **used by more
-sophisticated applications** like `Lino Welfare
-<http://welfare.lino-framework.org>`__ or `Lino Voga
+sophisticated applications** like `Lino Tera
+<http://tera.lino-framework.org>`__ or `Lino Voga
 <http://voga.lino-framework.org>`__.
 
-- For *introductions* and *commercial information* about Lino Così 
-  please see `www.saffre-rumma.net
-  <http://www.saffre-rumma.net/cosi/>`__.
+- This repository is a part of the Lino framework which is documented as a
+  whole in the `Lino Book <http://www.lino-framework.org>`__. For *introductions*
+  and *commercial information* about Lino see http://www.saffre-rumma.net
+  
+- Please report any issues in the **book** repository:
+  https://github.com/lino-framework/book
+  
+- Changes to this repository are documented at
+  http://cosi.lino-framework.org/changes/
 
 - You can try it yourself in `our demo sites
   <http://www.lino-framework.org/demos.html>`__
