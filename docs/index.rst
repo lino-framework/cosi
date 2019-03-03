@@ -16,7 +16,7 @@ Content
 .. toctree::
    :maxdepth: 1
 
+   about
    tour/index
    install/index
    changes/index
-   name

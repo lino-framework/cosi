@@ -6,33 +6,18 @@ The ``lino-cosi`` package
 
 
 
-**Lino Così** is a free desktop-like web accounting application.  It
-is targeted to small and expanding enterprises or organisations who
-want more than an off-the-shelf product.  With Lino Così you will
-finally perceive it as a joy to
+**Lino Così** is a
+`Lino application <http://www.lino-framework.org/>`__   
+for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
 
-- manage your contacts, your catalog of products and your account
-  chart
-- record and print your sales invoices
-- record your purchase invoices
-- declare your VAT statement
-- record your bank statements
-- get your financial situation
-
-Lino Così is **almost ready for use**.  Despite the fact that Lino
-Così itself keeps things simple, its codebase is **used by more
-sophisticated applications** like `Lino Tera
-<http://tera.lino-framework.org>`__ or `Lino Voga
-<http://voga.lino-framework.org>`__.
-
-- This repository is a part of the Lino framework which is documented as a
-  whole in the `Lino Book <http://www.lino-framework.org>`__. For *introductions*
-  and *commercial information* about Lino see http://www.saffre-rumma.net
+- This repository is considered an integral part of the Lino framework, which is
+  documented as a whole in the `Lino Book
+  <http://www.lino-framework.org/dev/overview.html>`__.
+ 
+- Your feedback is welcome.  Our `community page
+  <http://www.lino-framework.org/community>`__ explains how to contact us.
   
-- Please report any issues in the **book** repository:
-  https://github.com/lino-framework/book
-  
-- Changes to this repository are documented at
+- Changes to this particular repository are listed at
   http://cosi.lino-framework.org/changes/
 
 - You can try it yourself in `our demo sites
