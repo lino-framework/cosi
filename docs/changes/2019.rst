@@ -12,8 +12,14 @@ Changes 2019
 .. contents::
   :local:
 
-2019-02-12
+2019-03-19
 ==========
+
+The :attr:`vat_regime` field was missing in the detail layout of persons and
+organizations.
+
+2019-02-12 (v 19.2.0)
+=====================
 
 We released :doc:`19.2.0`.
 

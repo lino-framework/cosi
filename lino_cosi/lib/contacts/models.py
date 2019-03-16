@@ -16,7 +16,7 @@ class PartnerDetail(PartnerDetail):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    payment_term purchase_account
+    vat_regime purchase_account payment_term 
     vat.VouchersByPartner
     ledger.MovementsByPartner
     """, label=dd.plugins.ledger.verbose_name)
