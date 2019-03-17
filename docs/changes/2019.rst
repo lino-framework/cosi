@@ -12,7 +12,25 @@ Changes 2019
 .. contents::
   :local:
 
-2019-03-19
+
+2019-03-17
+==========
+
+A :ref:`cosi` application no longer has a default VAT declaration plugin.  To
+get VAT declarations, you must add something like the following to your local
+:xfile:`settings.py` file::
+
+    def get_installed_apps(self):
+        yield super(Site, self).get_installed_apps()
+        yield 'lino_xl.lib.eevat'
+
+The :mod:`lino_book.projects.pierre` project now has no VAT declarations at
+all. :mod:`lino_book.projects.apc` has standard Belgian and
+:mod:`lino_book.projects.cosi_ee` standard Estonian declarations. Simplified
+Belgian VAT declarations is in :mod:`lino_book.projects.lydia` demo project.
+
+
+2019-03-16
 ==========
 
 The :attr:`vat_regime` field was missing in the detail layout of persons and
