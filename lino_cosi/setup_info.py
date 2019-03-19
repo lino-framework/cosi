@@ -40,7 +40,7 @@ Programming Language :: Python
 Programming Language :: Python :: 3
 Development Status :: 1 - Planning
 Environment :: Web Environment
-Framework :: Django :: 2
+Framework :: Django
 Intended Audience :: Developers
 Intended Audience :: System Administrators
 License :: OSI Approved :: BSD License
