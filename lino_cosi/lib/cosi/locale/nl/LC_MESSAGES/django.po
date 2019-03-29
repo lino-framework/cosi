@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  lino.modlib.systen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 12:21+0200\n"
+"POT-Creation-Date: 2019-03-29 13:25+0200\n"
 "PO-Revision-Date: 2014-02-05 09:34+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language: nl\n"
@@ -1023,7 +1023,7 @@ msgstr "Thema"
 msgid "BkTxCd"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:16 lino_cosi/lib/products/models.py:30
+#: lino_cosi/lib/contacts/models.py:16 lino_cosi/lib/products/models.py:37
 msgid "General"
 msgstr "Allgemein"
 
@@ -1159,20 +1159,15 @@ msgstr ""
 msgid "Header"
 msgstr "Geschlecht"
 
-#: lino_cosi/lib/products/models.py:14
+#: lino_cosi/lib/products/models.py:15
 msgid "Products"
 msgstr ""
 
-#: lino_cosi/lib/products/models.py:15
+#: lino_cosi/lib/products/models.py:16
 msgid "Services"
 msgstr ""
 
-#: lino_cosi/lib/products/models.py:16
-#, fuzzy
-msgid "Parts"
-msgstr "Nachname"
-
-#: lino_cosi/lib/products/models.py:39
+#: lino_cosi/lib/products/models.py:46
 msgid "Sales"
 msgstr ""
 
@@ -7631,4 +7626,7 @@ msgstr ""
 #~ "An version of lino_xl.lib.contacts.models.Company which\n"
 #~ "adds accounting functionality."
 #~ msgstr ""
+
+#~ msgid "Parts"
+#~ msgstr "Nachname"
 

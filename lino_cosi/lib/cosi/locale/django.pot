@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lino-cosi 18.12.1\n"
+"Project-Id-Version: lino-cosi 19.3.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-01-18 12:21+0200\n"
+"POT-Creation-Date: 2019-03-29 13:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -996,7 +996,7 @@ msgstr ""
 msgid "BkTxCd"
 msgstr ""
 
-#: lino_cosi/lib/contacts/models.py:16 lino_cosi/lib/products/models.py:30
+#: lino_cosi/lib/contacts/models.py:16 lino_cosi/lib/products/models.py:37
 msgid "General"
 msgstr ""
 
@@ -1130,19 +1130,15 @@ msgstr ""
 msgid "Header"
 msgstr ""
 
-#: lino_cosi/lib/products/models.py:14
+#: lino_cosi/lib/products/models.py:15
 msgid "Products"
 msgstr ""
 
-#: lino_cosi/lib/products/models.py:15
+#: lino_cosi/lib/products/models.py:16
 msgid "Services"
 msgstr ""
 
-#: lino_cosi/lib/products/models.py:16
-msgid "Parts"
-msgstr ""
-
-#: lino_cosi/lib/products/models.py:39
+#: lino_cosi/lib/products/models.py:46
 msgid "Sales"
 msgstr ""
 
