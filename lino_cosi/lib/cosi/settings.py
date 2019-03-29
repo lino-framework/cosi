@@ -77,50 +77,14 @@ class Site(Site):
         # yield 'lino_xl.lib.pages'
         # yield 'lino_cosi.lib.cosi'
 
-    def setup_plugins(self):
+    def get_plugin_configs(self):
         """
         Change the default value of certain plugin settings.
 
         """
-        super(Site, self).setup_plugins()
-        self.plugins.countries.configure(hide_region=True)
-        self.plugins.ledger.configure(use_pcmn=True)
-        self.plugins.countries.configure(country_code='BE')
-        self.plugins.products.configure(menu_group='sales')
+        yield super(Site, self).get_plugin_configs()
+        yield ('countries', 'hide_region', True)
+        yield ('countries', 'country_code', 'BE')
+        yield ('ledger', 'use_pcmn', True)
+        yield ('products', 'menu_group', 'sales')
 
-    # def setup_actions(self):
-    #     super(Site, self).setup_actions()
-    #     partners = self.modules.contacts
-    #     from lino.core.merge import MergeAction
-    #     for m in (partners.Person, partners.Organisation):
-    #         m.define_action(merge_row=MergeAction(m))
-
-    # def setup_layouts(self):
-    #     super(Site, self).setup_layouts()
-
-    #     self.models.system.SiteConfigs.set_detail_layout("""
-    #     site_company next_partner_id:10
-    #     default_build_method
-    #     clients_account   sales_account
-    #     suppliers_account purchases_account tax_offices_account
-    #     """)
-
-    #     self.models.ledger.Accounts.set_detail_layout("""
-    #     ref:10 name id:5
-    #     seqno group type clearable
-    #     ledger.MovementsByAccount
-    #     """)
-
-
-# class DocsSite(Site):
-#     """A special variant used to build the docs.
-#     """
-#     def get_installed_apps(self):
-#         yield super(DocsSite, self).get_installed_apps()
-#         yield 'lino_xl.lib.courses'  # needed for Sphinx autosummary
-#         yield 'lino_xl.lib.vatless'
-
-    # def get_apps_modifiers(self, **kw):
-    #     kw = super(DocsSite, self).get_apps_modifiers(**kw)
-    #     kw.update(sales='lino_cosi.lib.auto.sales')
-    #     return kw
