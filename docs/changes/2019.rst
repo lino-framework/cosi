@@ -12,6 +12,14 @@ Changes 2019
 .. contents::
   :local:
 
+2019-04-11
+==========
+Add a new 'partner_ref' field for  :class:`lino.modlib.contacts.Company` to 
+store how this partner refers to us. And add this field to the "Accounting"
+ Panel.
+
+Released Lino Cosi 19.4.0 to PyPI.
+
 2019-03-19
 ==========
 Released Lino Cosi 19.3.0 to PyPI.
