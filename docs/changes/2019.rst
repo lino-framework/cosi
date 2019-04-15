@@ -12,6 +12,10 @@ Changes 2019
 .. contents::
   :local:
 
+2019-04-15
+==========
+Show the field vat_id in the "Accounting" Panel for partner and company.
+
 2019-04-11
 ==========
 Add a new 'partner_ref' field for  :class:`lino.modlib.contacts.Company` to 

@@ -16,11 +16,11 @@ class PartnerDetail(PartnerDetail):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    vat_regime purchase_account payment_term 
+    vat_id vat_regime purchase_account payment_term 
     vat.VouchersByPartner
     ledger.MovementsByPartner
     """, label=dd.plugins.ledger.verbose_name)
-    
+
     address_box = dd.Panel("""
     name_box
     country region city zip_code:10
@@ -67,8 +67,9 @@ class CompanyDetail(PartnerDetail, CompanyDetail):
 
     name_box = "#prefix:10 name:40 type:20"
 
+
 CompanyDetail.ledger = dd.Panel("""
-    vat_regime partner_ref purchase_account payment_term 
+    vat_id vat_regime partner_ref purchase_account payment_term 
     vat.VouchersByPartner
     ledger.MovementsByPartner
     """, label=dd.plugins.ledger.verbose_name)
