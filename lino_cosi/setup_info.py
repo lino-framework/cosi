@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2018 Rumma & Ko Ltd
+# Copyright 2014-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 SETUP_INFO = dict(
@@ -52,8 +52,6 @@ SETUP_INFO.update(packages=[
     'lino_cosi',
     'lino_cosi.lib',
     'lino_cosi.lib.cosi',
-    'lino_cosi.lib.b2c',
-    'lino_cosi.lib.b2c.fixtures',
     'lino_cosi.lib.contacts',
     'lino_cosi.lib.contacts.fixtures',
     'lino_cosi.lib.contacts.management',

@@ -4,22 +4,5 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 
 help_texts = {
-    'lino_cosi.lib.b2c.Plugin' : _("""See lino.core.plugin.Plugin."""),
-    'lino_cosi.lib.b2c.Plugin.import_statements_path' : _("""A path wildcard pointing to xml files which need to get imported."""),
-    'lino_cosi.lib.b2c.Plugin.delete_imported_xml_files' : _("""This attribute define whether, Cosi have to delete the SEPA file
-after it get imported."""),
-    'lino_cosi.lib.b2c.camt.BankTransaction' : _("""Single transaction that is part of a bank statement."""),
-    'lino_cosi.lib.b2c.camt.BankStatement' : _("""A bank statement groups data about several bank transactions."""),
-    'lino_cosi.lib.b2c.camt.BankStatement.create_transaction' : _("""Create and append transaction."""),
-    'lino_cosi.lib.b2c.camt.CamtParser' : _("""Parser for camt bank statement import files."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_date' : _(""" "Parse a <Bal> element for a <Dt>."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_amount' : _("""Parse element that contains Amount and CreditDebitIndicator."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.add_value_from_node' : _("""Add value to object from first or all nodes found with xpath."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_transaction_details' : _("""Parse transaction details (message, party, account...)."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_transaction' : _("""Parse transaction (entry) node."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_balance_amounts' : _("""Return opening and closing balance."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse_statement' : _("""Parse a single Stmt node."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.check_version' : _("""Validate validity of camt file."""),
-    'lino_cosi.lib.b2c.camt.CamtParser.parse' : _("""Parse a camt.052 or camt.053 file."""),
     'lino_cosi.lib.orders.Plugin' : _("""See lino.core.plugin.Plugin."""),
 }
