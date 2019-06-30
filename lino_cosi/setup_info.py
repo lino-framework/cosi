@@ -34,7 +34,7 @@ for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
     author='Luc Saffre',
     author_email='luc.saffre@gmail.com',
     url="http://cosi.lino-framework.org",
-    license='BSD License',
+    license='BSD-2-Clause',
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 3
