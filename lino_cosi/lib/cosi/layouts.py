@@ -16,16 +16,17 @@ name
 description
 """
 
-rt.models.ledger.Accounts.column_names = "\
-ref name purchases_allowed sheet_item *"
-
 rt.models.countries.Places.detail_layout = """
 name country
 type parent zip_code id
 PlacesByPlace contacts.PartnersByCity
 """
+
+rt.models.ledger.Accounts.column_names = "\
+description sheet_item needs_partner clearable purchases_allowed ref *"
+
 rt.models.ledger.Accounts.detail_layout = """
-ref:10 name
+ref:10 name:20
 sheet_item id default_amount:10 vat_column
 needs_partner clearable purchases_allowed
 ledger.MovementsByAccount
