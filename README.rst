@@ -10,6 +10,9 @@ The ``lino-cosi`` package
 `Lino application <http://www.lino-framework.org/>`__   
 for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
 
+- We have some `end-user documentation in German
+  <http://de.cosi.lino-framework.org/>`__
+
 - This repository is considered an integral part of the Lino framework, which is
   documented as a whole in the `Lino Book
   <http://www.lino-framework.org/dev/overview.html>`__.
