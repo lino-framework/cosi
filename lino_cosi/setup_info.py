@@ -6,7 +6,7 @@ SETUP_INFO = dict(
     name='lino-cosi',
     version='19.4.0',
     install_requires=['lino-xl','django-iban', 'lxml'],
-    tests_require=['beautifulsoup4',],
+    tests_require=['beautifulsoup4'],
     test_suite='tests',
     description="A Lino application to make accounting simple",
     long_description=u"""
@@ -14,6 +14,9 @@ SETUP_INFO = dict(
 **Lino Così** is a
 `Lino application <http://www.lino-framework.org/>`__   
 for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
+
+- We have some `end-user documentation in German
+  <http://de.cosi.lino-framework.org/>`__
 
 - This repository is considered an integral part of the Lino framework, which is
   documented as a whole in the `Lino Book

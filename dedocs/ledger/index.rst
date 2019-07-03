@@ -9,6 +9,7 @@ Buchhaltung
    accounts
    purchases
    sales
+   opening
    bank
    ledger
 
