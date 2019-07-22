@@ -12,8 +12,27 @@ Changes 2019
 .. contents::
   :local:
 
+2019-07-22
+==========
+
+Added a detail view to :class:`lino_cosi.lib.contacts.Partners`.  While this
+view is irritating in applications without accounting, for :ref:`cosi` it is
+irritating to *not* have it.
+
+The chooser for :attr:`lino_xl.lib.vat.VatDocument.vat_regime` had a typo bug
+causing a :message:`TypeError: get_vat_regime_choices() takes from 0 to 2
+positional arguments but 3 were given` when user tried to change the vat regime
+of a voucher.
+
+Using :kbd:`Ctrl+x` on a voucher to run
+:meth:`lino_xl.lib.ledger.Voucher.toggle_state` changed the voucher state but
+did not actually register the voucher (i.e. create movements, compute totals,
+...).
+
+
 2019-04-15
 ==========
+
 Show the field vat_id in the "Accounting" Panel for partner and company.
 
 2019-04-11

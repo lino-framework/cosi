@@ -1,4 +1,4 @@
-# Copyright 2013-2018 Rumma & Ko Ltd
+# Copyright 2013-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
@@ -45,6 +45,8 @@ class PartnerDetail(PartnerDetail):
     # info_box = "id:8 language:5"
     #
 
+
+Partners.detail_layout = PartnerDetail()
 
 class PersonDetail(PartnerDetail, PersonDetail):
 
