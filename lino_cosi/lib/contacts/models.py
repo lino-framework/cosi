@@ -46,7 +46,7 @@ class PartnerDetail(PartnerDetail):
     #
 
 
-Partners.detail_layout = PartnerDetail()
+Partners.detail_layout = 'contacts.PartnerDetail'
 
 class PersonDetail(PartnerDetail, PersonDetail):
 

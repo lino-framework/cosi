@@ -12,6 +12,12 @@ Changes 2019
 .. contents::
   :local:
 
+2019-07-24
+==========
+
+The detail view to :class:`lino_cosi.lib.contacts.Partners` was there, 
+but there was no detail link in combo boxes on partner fields.
+
 2019-07-22
 ==========
 
