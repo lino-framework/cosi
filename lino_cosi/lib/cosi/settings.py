@@ -22,6 +22,8 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
+    # migration_module = 'lino_cosi.lib.cosi'
+
     demo_fixtures = 'std few_countries minimal_ledger \
     furniture demo demo2'.split()
 
