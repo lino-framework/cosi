@@ -22,7 +22,7 @@ class Site(Site):
     version = lino_cosi.SETUP_INFO['version']
     url = lino_cosi.SETUP_INFO['url']
 
-    # migration_module = 'lino_cosi.lib.cosi'
+    # migrations_package = 'lino_cosi.lib.cosi'
 
     demo_fixtures = 'std few_countries minimal_ledger \
     furniture demo demo2'.split()
@@ -89,4 +89,3 @@ class Site(Site):
         yield ('countries', 'country_code', 'BE')
         yield ('ledger', 'use_pcmn', True)
         yield ('products', 'menu_group', 'sales')
-
