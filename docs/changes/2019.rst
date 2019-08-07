@@ -12,10 +12,24 @@ Changes 2019
 .. contents::
   :local:
 
+2019-08-07
+==========
+
+.. currentmodule:: lino_xl.lib.ledger
+
+Fixed a bug in :mod:`lino_xl.lib.ledger` : when the
+:attr:`Account.common_account` was updated via the web interface, Lino did not
+"realize" this until the server process was restarted.
+
+Fixed : :class:`lino_xl.lib.vat.InvoicesByJournal` did not display the right
+sorting order. It was using ['-id'] instead of the order defined in
+:class:`lino_xl.lib.ledger.ByJournal`.
+
+
 2019-07-24
 ==========
 
-The detail view to :class:`lino_cosi.lib.contacts.Partners` was there, 
+The detail view to :class:`lino_cosi.lib.contacts.Partners` was there,
 but there was no detail link in combo boxes on partner fields.
 
 2019-07-22
@@ -43,7 +57,7 @@ Show the field vat_id in the "Accounting" Panel for partner and company.
 
 2019-04-11
 ==========
-Add a new 'partner_ref' field for  :class:`lino.modlib.contacts.Company` to 
+Add a new 'partner_ref' field for  :class:`lino.modlib.contacts.Company` to
 store how this partner refers to us. And add this field to the "Accounting"
 Panel.
 
@@ -88,5 +102,3 @@ Products now inherit from :class:`lino.mixins.refs.Referrable`. Because at
 least previous TIM users want a :attr:`ref` field per product.  And I imagine
 that other users might do so as well.  The field is not yet visible in the
 detail view.
-
-
