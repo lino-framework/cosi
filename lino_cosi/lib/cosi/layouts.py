@@ -27,7 +27,7 @@ description sheet_item needs_partner clearable purchases_allowed ref *"
 
 rt.models.ledger.Accounts.detail_layout = """
 ref:10 name:20
-common_account sheet_item id default_amount:10 vat_column
+common_account sheet_item id default_amount:10 vat_class vat_column
 needs_partner clearable purchases_allowed
 ledger.MovementsByAccount
 """
