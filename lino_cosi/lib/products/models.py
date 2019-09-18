@@ -13,7 +13,7 @@ from lino.api import _
 ProductTypes.clear()
 add = ProductTypes.add_item
 add('100', _("Products"), 'default', table_name="products.Products")
-add('200', _("Services"), 'services', table_name="products.Services")
+#add('200', _("Services"), 'services', table_name="products.Services")
 # add('300', _("Other"), 'default')
 
 class Product(Product, Referrable):
@@ -48,7 +48,7 @@ class ProductDetail(dd.DetailLayout):
 
 Products.column_names = "name tariff sales_price sales_account *"
 
-class Services(Products):
-    _product_type = ProductTypes.services
-    column_names = "name sales_account *"
+#class Services(Products):
+#    _product_type = ProductTypes.services
+#    column_names = "name sales_account *"
 

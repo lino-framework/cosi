@@ -12,6 +12,11 @@ Changes 2019
 .. contents::
   :local:
 
+2019-09-18
+==========
+Remove the service product type. 
+
+
 2019-08-07
 ==========
 
