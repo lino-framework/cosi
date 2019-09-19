@@ -22,7 +22,7 @@ def objects():
     yield furniture
     # print "foo", furniture.id, furniture
     hosting = productcat(
-        id=2, product_type=ProductTypes.services, **dd.babel_values(
+        id=2, product_type=ProductTypes.default, **dd.babel_values(
             'name',
             en="Website Hosting",
             et="Veebimajutus",
