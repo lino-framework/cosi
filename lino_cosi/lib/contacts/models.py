@@ -16,7 +16,7 @@ class PartnerDetail(PartnerDetail):
     """, label=_("General"))
 
     ledger = dd.Panel("""
-    vat_id vat_regime purchase_account payment_term 
+    vat_id vat_regime purchase_account payment_term
     vat.VouchersByPartner
     ledger.MovementsByPartner
     """, label=dd.plugins.ledger.verbose_name)
@@ -50,7 +50,7 @@ Partners.detail_layout = 'contacts.PartnerDetail'
 
 class PersonDetail(PartnerDetail, PersonDetail):
 
-    name_box = "last_name first_name:15 gender title:10"
+    name_box = "last_name first_name:15 gender #title:10"
     info_box = "id:5 language:10"
     bottom_box = "remarks contacts.RolesByPerson"
 
@@ -71,7 +71,7 @@ class CompanyDetail(PartnerDetail, CompanyDetail):
 
 
 CompanyDetail.ledger = dd.Panel("""
-    vat_id vat_regime partner_ref purchase_account payment_term 
+    vat_id vat_regime partner_ref purchase_account payment_term
     vat.VouchersByPartner
     ledger.MovementsByPartner
     """, label=dd.plugins.ledger.verbose_name)
