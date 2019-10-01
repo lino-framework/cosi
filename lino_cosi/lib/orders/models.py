@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2008-2015 Rumma & Ko Ltd
+# Copyright 2008-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -8,9 +8,7 @@ Database models for `lino.modlib.orders`.
 .. autosummary::
 
 """
-
-import logging
-logger = logging.getLogger(__name__)
+import logging ; logger = logging.getLogger(__name__)
 import datetime
 
 from decimal import Decimal
@@ -62,7 +60,7 @@ def setup_workflow(sender=None, **kw):
 class Order(sales.SalesDocument, mixins.ProjectRelated, mixins.Registrable):
 
     """
-    An Order is when a :class:`Customer` asks us to "deliver" a 
+    An Order is when a :class:`Customer` asks us to "deliver" a
     given set of "products".
     """
 
@@ -86,7 +84,7 @@ class Order(sales.SalesDocument, mixins.ProjectRelated, mixins.Registrable):
     cycle = models.CharField(max_length=1,
                              choices=CYCLE_CHOICES)
     start_date = models.DateField(blank=True, null=True,
-      help_text="""Beginning of payable period. 
+      help_text="""Beginning of payable period.
       Set to blank if no bill should be generated""")
     covered_until = models.DateField(blank=True, null=True)
 
@@ -191,7 +189,7 @@ class Order(sales.SalesDocument, mixins.ProjectRelated, mixins.Registrable):
             payment_term=self.payment_term,
             shipping_mode=self.shipping_mode,
             subject=cover_text,
-            your_ref=unicode(self),
+            your_ref=str(self),
         )
 
         invoice.full_clean()
@@ -280,9 +278,9 @@ class OrderDetail(dd.DetailLayout):
 
     header = dd.Panel("""
     id date partner language
-    order your_ref sales_remark subject 
+    order your_ref sales_remark subject
     imode due_date:20 shipping_mode payment_term  vat_regime #item_vat
-    user project 
+    user project
     """, label=_("Header"))
 
     main = """
@@ -309,5 +307,3 @@ class OrdersByPartner(Orders):
     master_key = 'partner'
     order_by = ["start_date"]
     column_names = "start_date total_incl total_base total_vat *"
-
-
