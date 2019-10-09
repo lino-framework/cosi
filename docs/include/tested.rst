@@ -1,9 +1,7 @@
-.. note::
 
-  This is a tested document, which means that you can 
-  re-play the instructions on this page in your own database, 
-  either interactively in a Django `manage.py shell`, 
-  or by writing a script and run it using `manage.py run`.
-  It must be of course a Lino-Cosi application, 
-  installed as explained in :ref:`cosi.install`.
-  
+This document is part of the Lino test suite and has been tested using
+doctest.  You can re-play the instructions on this page in the demo
+project, either interactively in a Django :manage:`shell` session or
+by writing a script and run it using :manage:`run`.  Read also the
+general documentation about :ref:`tested_docs`.  The following
+instructions are used for initialization:
