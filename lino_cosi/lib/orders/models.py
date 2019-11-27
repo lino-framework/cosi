@@ -236,7 +236,7 @@ class Orders(sales.SalesDocuments):
     #~ param_form = PendingOrdersParams
 
     #~ @classmethod
-    #~ def get_queryset(self,master_instance,make_until=None):
+    #~ def get_user_queryset(self,master_instance,make_until=None):
         #~ assert master_instance is None
         #~ return Order.objects.pending(make_until=make_until)
 
