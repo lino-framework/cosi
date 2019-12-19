@@ -27,3 +27,5 @@ for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
   <http://www.lino-framework.org/demos.html>`__
 
 - The central project homepage is http://cosi.lino-framework.org
+
+
