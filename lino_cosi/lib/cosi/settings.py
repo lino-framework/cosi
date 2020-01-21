@@ -7,8 +7,6 @@
 
 """
 
-from __future__ import unicode_literals
-
 import lino_cosi
 from lino.projects.std.settings import *
 
@@ -59,13 +57,13 @@ class Site(Site):
         # ledger must come before sales because its demo fixture
         # creates journals (?)
 
+        yield 'lino_xl.lib.sepa'
         # yield 'lino_xl.lib.vat'
         # yield 'lino.modlib.ledger'
         yield 'lino_cosi.lib.products'
         yield 'lino_xl.lib.sales'
         # yield 'lino_xl.lib.invoicing'
         yield 'lino_xl.lib.ledger'
-        yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'
         # yield 'lino_xl.lib.bevat'
         yield 'lino_xl.lib.sheets'
