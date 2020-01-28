@@ -37,7 +37,7 @@ intersphinx_mapping['book'] = (
 
 # General information about the project.
 project = u"Lino Così website"
-copyright = '2012-2018 Rumma & Ko Ltd'
+copyright = '2012-2020 Rumma & Ko Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -153,7 +153,7 @@ if False:
     #~ show_source = True
 
     #~ srcref_base_uri="http://code.google.com/lino"
-    #~ srcref_base_uri="http://code.google.com/p/lino/source/browse/#hg" 
+    #~ srcref_base_uri="http://code.google.com/p/lino/source/browse/#hg"
 
 
     #~ nitpicky = True # use -n in Makefile instead
@@ -175,6 +175,3 @@ extlinks.update(
 # help_texts_builder_targets = {
 #     'lino_cosi.': 'lino_cosi.lib.cosi'
 # }
-
-
-
