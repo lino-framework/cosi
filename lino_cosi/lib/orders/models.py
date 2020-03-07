@@ -15,7 +15,7 @@ from decimal import Decimal
 HUNDRED = Decimal('100')
 
 from dateutil.relativedelta import relativedelta
-ONE_DAY = relativedelta(days=1)
+from lino.utils import ONE_DAY
 
 from django.db import models
 #~ from django import forms
