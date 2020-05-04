@@ -24,16 +24,12 @@ class SiteUser(CoursesUser, ContactsUser, OfficeUser, LedgerUser,
                SepaUser, ExcerptsUser, ProductsUser):
     pass
 
-
 class SiteAdmin(SiteAdmin, ContactsStaff, OfficeStaff, CoursesUser,
                 LedgerStaff, SepaStaff, ExcerptsStaff, ProductsStaff):
     pass
 
 UserTypes.clear()
-
 add = UserTypes.add_item
-
-add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
-add('100', _("User"),           SiteUser)
-add('900', _("Administrator"),  SiteAdmin, name='admin')
-
+add('000', _("Anonymous"),     UserRole, name='anonymous', readonly=True)
+add('100', _("User"),          SiteUser)
+add('900', _("Administrator"), SiteAdmin, name='admin')
