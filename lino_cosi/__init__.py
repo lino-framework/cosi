@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2019 Rumma & Ko Ltd
+# Copyright 2013-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -14,8 +14,6 @@
 import os
 
 from .setup_info import SETUP_INFO
-# fn = os.path.join(os.path.dirname(__file__), 'setup_info.py')
-# exec(compile(open(fn, "rb").read(), fn, 'exec'))
 
 __version__ = SETUP_INFO['version']
 
