@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2019 Rumma & Ko Ltd
+# Copyright 2014-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 SETUP_INFO = dict(
     name='lino-cosi',
-    version='20.5.0',
+    version='20.7.0',
     install_requires=['lino-xl','django-iban', 'lxml'],
-    tests_require=['beautifulsoup4'],
+    # tests_require=['beautifulsoup4'],  # satisfied by lino deps
     test_suite='tests',
     description="A Lino application to make accounting simple",
     long_description=u"""
@@ -15,18 +15,18 @@ SETUP_INFO = dict(
 `Lino application <http://www.lino-framework.org/>`__
 for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
 
-- We have some `end-user documentation in German
-  <http://de.cosi.lino-framework.org/>`__
-
 - This repository is considered an integral part of the Lino framework, which is
   documented as a whole in the `Lino Book
   <http://www.lino-framework.org/about/overview.html>`__.
 
-- Your feedback is welcome.  Our `community page
-  <http://www.lino-framework.org/community>`__ explains how to contact us.
+- We have some `end-user documentation in German
+  <http://de.cosi.lino-framework.org/>`__
 
-- Changes to this particular repository are listed at
-  http://cosi.lino-framework.org/changes/
+- Your feedback is welcome.  Our `community page
+  <http://community.lino-framework.org>`__ explains how to contact us.
+
+- Changes to this repository are listed at
+  https://www.lino-framework.org/changes/index.html
 
 - You can try it yourself in `our demo sites
   <http://www.lino-framework.org/demos.html>`__
