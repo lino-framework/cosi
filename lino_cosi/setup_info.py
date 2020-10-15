@@ -41,7 +41,7 @@ for accounting (`more <http://cosi.lino-framework.org/about.html>`__).
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 3
-Development Status :: 1 - Planning
+Development Status :: 4 - Beta
 Environment :: Web Environment
 Framework :: Django
 Intended Audience :: Developers
