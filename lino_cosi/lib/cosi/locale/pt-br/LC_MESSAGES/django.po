@@ -3610,21 +3610,21 @@ msgid "Contract Durations"
 msgstr "Personnes de contact"
 
 #: lino/modlib/cv/models.py:430
-msgid "Job Sector"
+msgid "Activity sector"
 msgstr ""
 
 #: lino/modlib/cv/models.py:431
-msgid "Job Sectors"
+msgid "Activity sectors"
 msgstr ""
 
 #: lino/modlib/cv/models.py:455
 #, fuzzy
-msgid "Job Function"
+msgid "Job title"
 msgstr "Fonction"
 
 #: lino/modlib/cv/models.py:456
 #, fuzzy
-msgid "Job Functions"
+msgid "Job titles"
 msgstr "Fonctions"
 
 #: lino/modlib/cv/models.py:493
