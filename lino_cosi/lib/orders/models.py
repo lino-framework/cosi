@@ -22,7 +22,7 @@ from django.db import models
 from django.conf import settings
 #~ from django.contrib.auth import models as auth
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from lino.api import dd, rt
 
