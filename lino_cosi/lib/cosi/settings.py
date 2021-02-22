@@ -23,7 +23,7 @@ class Site(Site):
     # migrations_package = 'lino_cosi.lib.cosi'
 
     demo_fixtures = 'std few_countries minimal_ledger \
-    furniture demo demo2'.split()
+    furniture demo demo2 demo3 checkdata'.split()
 
     # languages = 'en de fr'
     languages = 'en'
