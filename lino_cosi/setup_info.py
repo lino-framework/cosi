@@ -1,15 +1,15 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2020 Rumma & Ko Ltd
+# Copyright 2014-2021 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 SETUP_INFO = dict(
     name='lino-cosi',
-    version='20.12.0',
-    install_requires=['lino-xl','django-iban', 'lxml'],
+    version='21.3.0',
+    install_requires=['lino-xl', 'django-iban', 'lxml'],
     # tests_require=['beautifulsoup4'],  # satisfied by lino deps
     test_suite='tests',
     description="A Lino application to make accounting simple",
-    long_description=u"""
+    long_description="""
 
 **Lino Così** is a
 `Lino application <http://www.lino-framework.org/>`__
