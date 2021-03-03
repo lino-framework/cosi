@@ -21,8 +21,6 @@ sophisticated applications** like `Lino Tera
 <http://tera.lino-framework.org>`__ or `Lino Voga
 <http://voga.lino-framework.org>`__.
 
-Lino Così is **almost ready for use**.
-
 The name
 ========
 
@@ -38,6 +36,3 @@ compta!"[#f2]_
          other countries)
 
 .. [#f2] Italian/French for "Like this! That's how we love to do accounting!"
-
-
-

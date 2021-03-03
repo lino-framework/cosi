@@ -36,8 +36,8 @@ intersphinx_mapping['book'] = (
 # ---------------------
 
 # General information about the project.
-project = u"Lino Così website"
-copyright = '2012-2020 Rumma & Ko Ltd'
+project = "Lino Così website"
+copyright = '2012-2021 Rumma & Ko Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
