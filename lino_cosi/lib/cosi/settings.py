@@ -28,6 +28,9 @@ class Site(Site):
     # languages = 'en de fr'
     languages = 'en'
 
+    use_webshop = False
+    """Whether to install the webshop plugin."""
+
     user_types_module = 'lino_cosi.lib.cosi.user_types'
     custom_layouts_module = 'lino_cosi.lib.cosi.layouts'
 
@@ -67,6 +70,8 @@ class Site(Site):
         yield 'lino_xl.lib.finan'
         # yield 'lino_xl.lib.bevat'
         yield 'lino_xl.lib.sheets'
+        if self.use_webshop:
+            yield 'lino_xl.lib.webshop'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
         #~ yield 'lino_xl.lib.blogs'
