@@ -31,7 +31,7 @@ class ProductDetail(dd.DetailLayout):
     
     general = dd.Panel("""
     name id 
-    product_type cat sales_price tariff
+    product_type category sales_price tariff
     vat_class sales_account delivery_unit
     description
     """, _("General"))

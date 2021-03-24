@@ -28,8 +28,8 @@ class Site(Site):
     # languages = 'en de fr'
     languages = 'en'
 
-    use_shopping = False
-    """Whether to install the shopping plugin."""
+    # use_shopping = False
+    # """Whether to install the shopping plugin."""
 
     user_types_module = 'lino_cosi.lib.cosi.user_types'
     custom_layouts_module = 'lino_cosi.lib.cosi.layouts'
@@ -70,8 +70,8 @@ class Site(Site):
         yield 'lino_xl.lib.finan'
         # yield 'lino_xl.lib.bevat'
         yield 'lino_xl.lib.sheets'
-        if self.use_shopping:
-            yield 'lino_xl.lib.shopping'
+        # if self.use_shopping:
+        #     yield 'lino_xl.lib.shopping'
         #~ 'lino.modlib.journals',
         #~ 'lino_xl.lib.projects',
         #~ yield 'lino_xl.lib.blogs'

@@ -17,8 +17,8 @@ from lino.api import dd
 
 def objects():
 
-    productcat = Instantiator('products.ProductCat').build
-    product = Instantiator('products.Product', "cat name").build
+    productcat = Instantiator('products.Category').build
+    product = Instantiator('products.Product', "category name").build
 
     food = productcat(**dd.babel_values(
         'name',
