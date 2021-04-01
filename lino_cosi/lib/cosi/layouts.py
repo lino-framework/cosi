@@ -32,7 +32,7 @@ needs_partner clearable purchases_allowed
 ledger.MovementsByAccount
 """
 
-rt.models.system.SiteConfigs.detail_layout = """
+rt.models.system.SiteConfigs.set_detail_layout("""
 site_company next_partner_id:10
 default_build_method simulate_today
-"""
+""", window_size=(60, 'auto'))
