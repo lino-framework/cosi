@@ -34,18 +34,9 @@ interproject.configure(
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['.templates']
 
-# The suffix of source filenames.
-source_suffix = '.rst'
-
-# The encoding of source files.
-#source_encoding = 'utf-8-sig'
-
-# The master toctree document.
-master_doc = 'index'
-
 # General substitutions.
-project = u'Lino Così Benutzerhandbuch'
-copyright = '2018-2019 Rumma & Ko Ltd'
+project = 'Lino Così Benutzerhandbuch'
+copyright = '2018-2021 Rumma & Ko Ltd'
 
 from lino_cosi import SETUP_INFO
 
@@ -242,4 +233,3 @@ def _warn_node(self, msg, node, **kwargs):
         self._warnfunc(msg, '%s:%s' % get_source_line(node), **kwargs)
 
 sphinx.environment.BuildEnvironment.warn_node = _warn_node
-
