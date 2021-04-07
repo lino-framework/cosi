@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2014-2021 Rumma & Ko Ltd
-# License: BSD (see file COPYING for details)
+# License: GNU Affero General Public License v3 (see file COPYING for details)
 
 SETUP_INFO = dict(
     name='lino-cosi',
@@ -39,8 +39,8 @@ for accounting (`more <https://cosi.lino-framework.org/about.html>`__).
 """,
     author='Luc Saffre',
     author_email='luc.saffre@gmail.com',
-    url="https://cosi.lino-framework.org",
-    license='BSD-2-Clause',
+    url="https://github.com/lino-framework/cosi",
+    license_files=['COPYING'],
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 3
@@ -49,7 +49,7 @@ Environment :: Web Environment
 Framework :: Django
 Intended Audience :: Developers
 Intended Audience :: System Administrators
-License :: OSI Approved :: BSD License
+License :: OSI Approved :: GNU Affero General Public License v3
 Operating System :: OS Independent
 Topic :: Office/Business :: Financial :: Accounting
 """.splitlines())
