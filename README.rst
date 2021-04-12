@@ -2,7 +2,7 @@
 The ``lino-cosi`` package
 =========================
 
-
+Warning: This repository is no longer maintained. Development has moved to https://gitlab.com/lino-framework/cosi
 
 
 
