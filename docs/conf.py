@@ -21,6 +21,3 @@ copyright = '2012-2021 Rumma & Ko Ltd'
 # })
 # extlinks.update(
 #     ticket=('https://jane.mylino.net/#/api/tickets/AllTickets/%s', '#'))
-
-
-print(20210412, exclude_patterns)
